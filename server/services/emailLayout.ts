@@ -75,6 +75,7 @@ export const emailStyles = `
     color: ${EMAIL_BRAND.charcoal};
     line-height: 1.6;
   }
+  a { color: ${EMAIL_BRAND.accentDark}; }
   .email-wrapper {
     max-width: 600px;
     margin: 0 auto;
@@ -254,6 +255,80 @@ export function wrapEmailHtml(options: {
 </html>`;
 }
 
+/** Loose shape of the estimator output as it arrives in the email layer. */
+export interface EstimateForEmail {
+  project: string;
+  /** Scope summary, e.g. "Modern Shaker · Matte finish ($$) · Better construction". */
+  finish: string;
+  priceLow: number;
+  priceHigh: number;
+  roi?: number;
+  sizeLabel?: string;
+  confidenceLabel?: string;
+  /** Per-room breakdown when the visitor planned multiple rooms in one pass. */
+  rooms?: Array<{
+    project: string;
+    finish: string;
+    sizeLabel: string;
+    priceLow: number;
+    priceHigh: number;
+  }>;
+}
+
+function formatRange(low: number, high: number): string {
+  const dollars = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+  return `${dollars(low)} to ${dollars(high)}`;
+}
+
+/**
+ * The complete estimate: the total planning range plus EVERY selection the
+ * visitor made (each room, its size, its door style / finish / construction).
+ * Shared by the lead email and the admin emails so a recipient never has to log
+ * in to understand what was requested.
+ */
+export function buildEstimateDetailHtml(est: EstimateForEmail | null | undefined): string {
+  if (!est) return "";
+  const total = formatRange(est.priceLow, est.priceHigh);
+  const rooms = est.rooms && est.rooms.length > 0 ? est.rooms : null;
+
+  const body = rooms
+    ? `<table style="width:100%;border-collapse:collapse;margin-top:4px;">
+        <tr>
+          <th style="text-align:left;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${EMAIL_BRAND.charcoalLight};padding-bottom:6px;">Room and selections</th>
+          <th style="text-align:right;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:${EMAIL_BRAND.charcoalLight};padding-bottom:6px;">Planning range</th>
+        </tr>
+        ${rooms
+          .map(
+            (r) => `<tr>
+              <td style="padding:12px 0;border-top:1px solid ${EMAIL_BRAND.border};vertical-align:top;">
+                <div style="color:${EMAIL_BRAND.charcoal};font-weight:600;">${escapeHtml(r.project)}</div>
+                <div style="color:${EMAIL_BRAND.charcoalLight};font-size:13px;margin-top:2px;">${escapeHtml(r.sizeLabel)}</div>
+                <div style="color:${EMAIL_BRAND.charcoal};font-size:14px;margin-top:4px;">${escapeHtml(r.finish)}</div>
+              </td>
+              <td style="padding:12px 0;border-top:1px solid ${EMAIL_BRAND.border};text-align:right;white-space:nowrap;color:${EMAIL_BRAND.charcoal};vertical-align:top;">${escapeHtml(formatRange(r.priceLow, r.priceHigh))}</td>
+            </tr>`,
+          )
+          .join("")}
+      </table>
+      ${est.confidenceLabel ? `<p style="font-size:12px;color:${EMAIL_BRAND.charcoalLight};margin:10px 0 0 0;">${escapeHtml(est.confidenceLabel)}</p>` : ""}`
+    : `<table class="info-table" style="margin-top:4px;">
+        <tr><td class="label">Project</td><td class="value">${escapeHtml(est.project)}</td></tr>
+        ${est.sizeLabel ? `<tr><td class="label">Size</td><td class="value">${escapeHtml(est.sizeLabel)}</td></tr>` : ""}
+        <tr><td class="label">Your selections</td><td class="value">${escapeHtml(est.finish)}</td></tr>
+        ${est.roi ? `<tr><td class="label">Est. resale ROI</td><td class="value">${Math.round(est.roi)}%</td></tr>` : ""}
+        ${est.confidenceLabel ? `<tr><td class="label">Confidence</td><td class="value">${escapeHtml(est.confidenceLabel)}</td></tr>` : ""}
+      </table>`;
+
+  return `
+    <div class="highlight-box" style="margin-top:16px;">
+      <p class="section-title" style="margin:0 0 4px 0;">Your planning estimate</p>
+      <p style="font-size:22px;font-weight:700;color:${EMAIL_BRAND.bone};margin:0 0 8px 0;">${escapeHtml(total)}</p>
+      ${body}
+      <p style="font-size:12px;color:${EMAIL_BRAND.charcoalLight};margin:12px 0 0 0;">This is a planning range based on the selections above, not a final quote. We confirm exact pricing at your free in-home design visit.</p>
+    </div>
+  `;
+}
+
 /** Canonical address for all outbound mail and internal notifications */
 export const PLATFORM_EMAIL = SITE_CONFIG.email;
 
@@ -271,6 +346,17 @@ export function formatFromAddress(_fromEmail?: string): string {
 
 export function getReplyToAddress(): string {
   return PLATFORM_EMAIL;
+}
+
+/**
+ * Reply-to for ADMIN lead emails: replying from the mail client goes straight
+ * to the lead, no copy-pasting an address. Falls back to the platform inbox if
+ * the lead somehow has no email.
+ */
+export function buildLeadReplyTo(name: string | null, email: string | null): string {
+  if (!email) return PLATFORM_EMAIL;
+  const display = (name || "").replace(/["<>]/g, "").trim();
+  return display ? `${display} <${email}>` : email;
 }
 
 /**

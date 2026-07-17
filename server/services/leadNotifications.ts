@@ -10,7 +10,9 @@ import {
   wrapEmailHtml,
   getAdminRecipientEmails,
   formatFromAddress,
-  getReplyToAddress,
+  buildLeadReplyTo,
+  buildEstimateDetailHtml,
+  type EstimateForEmail,
 } from "./emailLayout";
 
 const NEW_LEAD_TYPE = "admin_new_lead";
@@ -23,6 +25,8 @@ export interface NewLeadAlert {
   projectType: string | null;
   city: string | null;
   message: string | null;
+  /** Full estimator output so the alert email stands alone (no login needed). */
+  estimate?: EstimateForEmail | null;
 }
 
 function adminLeadDeepLink(leadId: string): string {
@@ -83,6 +87,7 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
       subtitle: escapeHtml(alert.name || "Unknown"),
       tagline: "Admin Notifications",
       content: `
+        <p class="section-title" style="margin-top:0;">Contact</p>
         <table class="info-table">
           <tr><td class="label">Name:</td><td class="value">${escapeHtml(alert.name || "Unknown")}</td></tr>
           ${alert.phone ? `<tr><td class="label">Phone:</td><td class="value"><a href="tel:${escapeHtml(alert.phone)}">${escapeHtml(alert.phone)}</a></td></tr>` : ""}
@@ -90,12 +95,13 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
           ${alert.projectType ? `<tr><td class="label">Project:</td><td class="value">${escapeHtml(alert.projectType)}</td></tr>` : ""}
           ${alert.city ? `<tr><td class="label">City:</td><td class="value">${escapeHtml(alert.city)}</td></tr>` : ""}
         </table>
-        ${
-          alert.message
-            ? `<div class="highlight-box"><p><strong>Message:</strong></p><p style="margin-top:8px;">${escapeHtml(alert.message)}</p></div>`
-            : ""
-        }
-        <p style="margin-top:20px;"><a class="button" href="${link}">Open lead in admin</a></p>
+        ${buildEstimateDetailHtml(alert.estimate)}
+        <div class="highlight-box">
+          <p><strong>Notes from the lead:</strong></p>
+          <p style="margin-top:8px;">${escapeHtml(alert.message || "(none)")}</p>
+        </div>
+        <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(alert.name || "the lead")}${alert.phone ? `, or <a href="tel:${escapeHtml(alert.phone)}">call ${escapeHtml(alert.phone)}</a>` : ""}.</p>
+        <p style="margin-top:16px;"><a class="cta-button" href="${link}">Open lead in admin</a></p>
       `,
     });
 
@@ -103,7 +109,8 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
     for (const adminEmail of adminEmails) {
       await client.emails.send({
         from,
-        replyTo: getReplyToAddress(),
+        // Reply from the admin's inbox goes straight to the lead.
+        replyTo: buildLeadReplyTo(alert.name, alert.email),
         to: adminEmail,
         subject: `New lead: ${alert.name || "Unknown"}`,
         html,

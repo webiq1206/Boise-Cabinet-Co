@@ -13,6 +13,8 @@ import {
   getAdminRecipientEmails,
   formatFromAddress,
   getReplyToAddress,
+  buildLeadReplyTo,
+  buildEstimateDetailHtml,
   buildOwnerSignatureHtml,
   buildHomeownerStoryHtml,
 } from "@/server/services/emailLayout";
@@ -54,6 +56,19 @@ const bodySchema = z.object({
       roi: z.number(),
       sizeLabel: z.string().optional(),
       confidenceLabel: z.string().optional(),
+      // Per-room breakdown when the visitor planned multiple rooms at once.
+      // Without this the multi-room detail is silently dropped by zod.
+      rooms: z
+        .array(
+          z.object({
+            project: z.string(),
+            finish: z.string(),
+            sizeLabel: z.string(),
+            priceLow: z.number(),
+            priceHigh: z.number(),
+          }),
+        )
+        .optional(),
     })
     .optional()
     .nullable(),
@@ -216,6 +231,7 @@ export async function POST(request: NextRequest) {
             projectType: data.projectType,
             city: city || null,
             message: data.message || null,
+            estimate: data.estimate ?? null,
           });
         }
       } catch (leadErr) {
@@ -229,31 +245,10 @@ export async function POST(request: NextRequest) {
       const from = formatFromAddress(fromEmail);
 
       const est = data.estimate;
-      const rangeLabel = est
-        ? `$${Math.round(est.priceLow / 1000)}k to $${Math.round(est.priceHigh / 1000)}k`
-        : "";
-      const estimateBlock = est
-        ? `<div class="highlight-box" style="margin-top:12px;">
-            <p><strong>Calculator estimate</strong></p>
-            <table class="info-table" style="margin-top:8px;">
-              <tr><td class="label">Project:</td><td class="value">${escapeHtml(est.project)}</td></tr>
-              ${est.sizeLabel ? `<tr><td class="label">Size:</td><td class="value">${escapeHtml(est.sizeLabel)}</td></tr>` : ""}
-              <tr><td class="label">Selections:</td><td class="value">${escapeHtml(est.finish)}</td></tr>
-              <tr><td class="label">Planning range:</td><td class="value">${escapeHtml(rangeLabel)}</td></tr>
-              ${est.roi ? `<tr><td class="label">Est. resale ROI:</td><td class="value">${Math.round(est.roi)}%</td></tr>` : ""}
-              ${est.confidenceLabel ? `<tr><td class="label">Confidence:</td><td class="value">${escapeHtml(est.confidenceLabel)}</td></tr>` : ""}
-            </table>
-          </div>`
-        : "";
-      const customerEstimateBlock = est
-        ? `<div class="highlight-box" style="margin-top:16px;">
-            <p><strong>Your planning estimate</strong></p>
-            <p style="margin-top:8px;">${escapeHtml(est.project)}${est.sizeLabel ? ` &middot; ${escapeHtml(est.sizeLabel)}` : ""}</p>
-            <p style="color:#555;">${escapeHtml(est.finish)}</p>
-            <p style="margin-top:8px;font-size:18px;"><strong>${escapeHtml(rangeLabel)}</strong></p>
-            <p style="font-size:12px;color:#888;margin-top:6px;">This is a planning range, not a final quote. We'll confirm exact pricing at your free design visit.</p>
-          </div>`
-        : "";
+      // One complete, self-contained estimate block (total range + every
+      // selection, broken out per room) shared by the lead and admin emails,
+      // so neither recipient ever needs to log in to understand the estimate.
+      const estimateDetailBlock = buildEstimateDetailHtml(est);
 
       const profile = data.propertyProfile as {
         parcelId?: string;
@@ -290,11 +285,12 @@ export async function POST(request: NextRequest) {
             <tr><td class="label">Project:</td><td class="value">${escapeHtml(data.projectType)}</td></tr>
           </table>
           ${propertyBlock}
-          ${estimateBlock}
+          ${estimateDetailBlock}
           <div class="highlight-box">
-            <p><strong>Message:</strong></p>
+            <p><strong>Notes from the lead:</strong></p>
             <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
           </div>
+          <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
           <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
           ${buildOwnerSignatureHtml("Thanks,")}
         `,
@@ -304,7 +300,8 @@ export async function POST(request: NextRequest) {
       for (const adminEmail of adminEmails) {
         await client.emails.send({
           from,
-          replyTo: getReplyToAddress(),
+          // Reply from the admin's inbox goes straight to the lead.
+          replyTo: buildLeadReplyTo(data.name, data.email),
           to: adminEmail,
           subject: `New consultation request: ${data.name}`,
           html: adminHtml,
@@ -319,7 +316,7 @@ export async function POST(request: NextRequest) {
         content: `
           <p class="greeting">Hi ${escapeHtml(data.name)},</p>
           <p>Thanks so much for reaching out. I got your request and I will personally be in touch within one business day to set up your free design visit and learn more about what you have in mind.</p>
-          ${customerEstimateBlock}
+          ${estimateDetailBlock}
           ${buildHomeownerStoryHtml()}
           <p>In the meantime, feel free to call or text me at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>, or just reply to this email with any questions at all.</p>
           ${buildOwnerSignatureHtml()}
