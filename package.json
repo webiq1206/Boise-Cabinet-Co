@@ -132,6 +132,7 @@
     "resend": "^6.5.2",
     "sharp": "^0.34.5",
     "stripe": "^20.2.0",
+    "svix": "^1.84.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.169.0",
