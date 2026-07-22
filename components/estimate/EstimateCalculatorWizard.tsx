@@ -1046,7 +1046,7 @@ export function EstimateCalculatorWizard({
               // record (every choice, the range, and what was disclosed)
               // reaches the CRM, not just the price range.
               estimateRooms={rooms}
-              requireAddress
+              requireDetails
               showEstimateSummary
               formId={CONTACT_FORM_ID}
               hideSubmitButton

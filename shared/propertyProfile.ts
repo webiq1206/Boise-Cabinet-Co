@@ -64,6 +64,52 @@ export function extractZipFromAddress(address: string | null | undefined): strin
   return match ? match[1] : "";
 }
 
+export interface AddressParts {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+/**
+ * Split a formatted US address into its parts.
+ *
+ * The geocoder only returns a structured PropertyProfile when the visitor picks
+ * a suggestion. If they type an address and submit without selecting one, city
+ * and state would otherwise reach the CRM empty, so this recovers them from the
+ * string itself. Returns empty strings for anything it cannot identify rather
+ * than guessing - a wrong city is worse than a blank one.
+ */
+export function parseAddressParts(address: string | null | undefined): AddressParts {
+  const empty: AddressParts = { street: "", city: "", state: "", zip: "" };
+  const raw = (address || "").trim().replace(/,\s*(USA|United States)\s*$/i, "");
+  if (!raw) return empty;
+
+  const segments = raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!segments.length) return empty;
+
+  const zip = extractZipFromAddress(raw);
+
+  // Trailing segment is normally "ST 83646", "ST", or just the ZIP.
+  let state = "";
+  const last = segments[segments.length - 1];
+  const stateZip = last.match(/^([A-Za-z]{2})\b(?:\s+\d{5}(?:-\d{4})?)?$/);
+  if (stateZip) {
+    state = stateZip[1].toUpperCase();
+    segments.pop();
+  } else if (/^\d{5}(-\d{4})?$/.test(last)) {
+    segments.pop();
+  }
+
+  const city = segments.length > 1 ? segments[segments.length - 1] : "";
+  const street = segments.length > 1 ? segments.slice(0, -1).join(", ") : segments[0] || "";
+
+  return { street, city, state, zip };
+}
+
 /** Merge admin overrides onto the base profile for display and downstream use. */
 export function resolvePropertyProfile(
   base: PropertyProfile | null | undefined

@@ -66,21 +66,26 @@ const baseFormSchema = z.object({
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
   budget: z.string().optional(),
+  timeline: z.string().optional(),
   companyWebsite: z.string().optional(),
 });
 
 /**
- * The estimator requires the property address (we cannot scope or schedule a
- * visit without it), while the lighter contact forms keep it optional so a
- * quick enquiry is not blocked. Same component, two contracts.
+ * The estimator asks for address, budget, and timeline outright: a lead that
+ * reaches the CRM missing them cannot be scoped, qualified, or scheduled, and
+ * chasing them afterwards costs more than asking once. The lighter contact
+ * forms keep all three optional so a quick enquiry is never blocked. Same
+ * component, two contracts.
  */
-function buildFormSchema(requireAddress: boolean) {
-  if (!requireAddress) return baseFormSchema;
+function buildFormSchema(requireDetails: boolean) {
+  if (!requireDetails) return baseFormSchema;
   return baseFormSchema.extend({
     address: z
       .string()
       .trim()
       .min(6, "Please enter your property address so we can plan your visit"),
+    budget: z.string().trim().min(1, "Please choose a budget range"),
+    timeline: z.string().trim().min(1, "Please choose a timeline"),
   });
 }
 
@@ -92,6 +97,14 @@ const PROJECT_OPTIONS = [
   { value: "laundry", label: "Laundry / Mudroom" },
   { value: "closet", label: "Closet & Storage" },
   { value: "other", label: "Other / Whole-home" },
+];
+
+const TIMELINE_OPTIONS = [
+  "As soon as possible",
+  "1 - 3 months",
+  "3 - 6 months",
+  "6 - 12 months",
+  "Just planning for now",
 ];
 
 /** Coarse bands, so a homeowner can answer without committing to a number. */
@@ -294,7 +307,7 @@ export interface ConsultationFieldsProps {
    * into a first-class field. Set by the estimator, where we cannot scope the
    * job or book the in-home visit without knowing the property.
    */
-  requireAddress?: boolean;
+  requireDetails?: boolean;
   /**
    * Raw wizard selections, used to build the full estimate record submitted
    * with the lead. Passed instead of a prebuilt record because the address,
@@ -315,7 +328,7 @@ export function ConsultationFields({
   onPendingChange,
   onSuccess,
   compact = false,
-  requireAddress = false,
+  requireDetails = false,
   estimateRooms,
 }: ConsultationFieldsProps) {
   const { close: closeModal } = useModals();
@@ -332,7 +345,7 @@ export function ConsultationFields({
     resolvedProjectType ??
     (estimate?.project ? mapEstimateProjectToConsultType(estimate.project) : "");
 
-  const formSchema = useMemo(() => buildFormSchema(requireAddress), [requireAddress]);
+  const formSchema = useMemo(() => buildFormSchema(requireDetails), [requireDetails]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -351,6 +364,7 @@ export function ConsultationFields({
       projectType: projectTypeFromEstimate || defaultProjectType || "",
       message: defaultMessage || "",
       budget: "",
+      timeline: "",
       companyWebsite: "",
     },
   });
@@ -636,7 +650,7 @@ export function ConsultationFields({
 
           {/* In the estimator the property address is required, so it is a
               first-class field rather than something hidden behind a toggle. */}
-          {requireAddress && (
+          {requireDetails && (
             <FormField
               control={form.control}
               name="address"
@@ -663,6 +677,61 @@ export function ConsultationFields({
             />
           )}
 
+          {/* Budget and timeline are required here too: a lead without them
+              cannot be qualified or scheduled, and both are one tap. */}
+          {requireDetails && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="budget"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={labelClass}>Budget range</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value || ""}>
+                      <FormControl>
+                        <SelectTrigger className={consultInputClass} data-testid="select-budget">
+                          <SelectValue placeholder="Select a range" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {BUDGET_OPTIONS.map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FieldError />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="timeline"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={labelClass}>Timeline</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value || ""}>
+                      <FormControl>
+                        <SelectTrigger className={consultInputClass} data-testid="select-timeline">
+                          <SelectValue placeholder="When to start" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {TIMELINE_OPTIONS.map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FieldError />
+                  </FormItem>
+                )}
+              />
+            </div>
+          )}
+
           {/* Remaining optional detail stays off the critical path. */}
           <div className="rounded-sm border border-border bg-background">
             <button
@@ -676,7 +745,7 @@ export function ConsultationFields({
               data-testid="button-toggle-details"
             >
               <span>
-                {requireAddress
+                {requireDetails
                   ? "Add budget & notes (optional)"
                   : "Add address & notes (optional)"}
               </span>
@@ -684,7 +753,7 @@ export function ConsultationFields({
             </button>
             {detailsOpen && (
               <div className="space-y-4 border-t border-border p-3">
-                {!requireAddress && (
+                {!requireDetails && (
                   <FormField
                     control={form.control}
                     name="address"
@@ -707,30 +776,32 @@ export function ConsultationFields({
                     )}
                   />
                 )}
-                <FormField
-                  control={form.control}
-                  name="budget"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className={labelClass}>Budget in mind</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value || ""}>
-                        <FormControl>
-                          <SelectTrigger className={consultInputClass} data-testid="select-budget">
-                            <SelectValue placeholder="Optional" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {BUDGET_OPTIONS.map((o) => (
-                            <SelectItem key={o} value={o}>
-                              {o}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FieldError />
-                    </FormItem>
-                  )}
-                />
+                {!requireDetails && (
+                  <FormField
+                    control={form.control}
+                    name="budget"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className={labelClass}>Budget in mind</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                          <FormControl>
+                            <SelectTrigger className={consultInputClass} data-testid="select-budget">
+                              <SelectValue placeholder="Optional" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {BUDGET_OPTIONS.map((o) => (
+                              <SelectItem key={o} value={o}>
+                                {o}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FieldError />
+                      </FormItem>
+                    )}
+                  />
+                )}
                 <FormField
                   control={form.control}
                   name="message"

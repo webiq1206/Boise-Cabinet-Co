@@ -14,6 +14,10 @@ export interface LeadDashboardPayload {
   state?: string;
   projectTypes?: string[];
   projectScope?: string;
+  /** When the homeowner wants to start. */
+  timeline?: string;
+  /** The homeowner's own description of what they want. */
+  projectGoals?: string;
   /**
    * Homeowner's stated budget band. Named to match the dashboard's own
    * `budgetRange` field - it validates with zod and strips unknown keys, so a

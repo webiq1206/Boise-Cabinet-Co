@@ -20,7 +20,7 @@ import {
   buildHomeownerStoryHtml,
 } from "@/server/services/emailLayout";
 import type { PropertyProfile } from "@/shared/propertyProfile";
-import { extractZipFromAddress } from "@/shared/propertyProfile";
+import { extractZipFromAddress, parseAddressParts } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
@@ -77,6 +77,8 @@ const bodySchema = z.object({
     .nullable(),
   /** Homeowner's stated budget band, when they chose one. */
   budget: z.string().optional().default(""),
+  /** When they want to start; required by the estimator, optional elsewhere. */
+  timeline: z.string().optional().default(""),
   /**
    * The complete record of what the homeowner selected and was shown in the
    * estimator. Declared explicitly (and permissively) because zod strips
@@ -140,7 +142,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    const zip = data.zip || extractZipFromAddress(data.address) || "";
+    // The geocoder only returns a structured profile when the visitor picks a
+    // suggestion. Parsing the address string as a fallback keeps city/state/zip
+    // populated on the lead when they type one instead.
+    const addressForParse = data.estimateRecord?.propertyAddress || data.address || "";
+    const parts = parseAddressParts(addressForParse);
+    const zip = data.zip || parts.zip || extractZipFromAddress(data.address) || "";
+    const leadCity = (data.propertyProfile?.city as string) || parts.city || "";
+    const leadState = (data.propertyProfile?.state as string) || parts.state || "";
 
     // Mirror the lead to the external Boise Remodeling lead dashboard.
     // Fire-and-forget; never blocks the user's response.
@@ -157,8 +166,13 @@ export async function POST(request: NextRequest) {
       // fall back to the typed field for the lighter forms that have no record.
       propertyAddress: rec?.propertyAddress || data.address || undefined,
       zip: zip || undefined,
-      city: (data.propertyProfile?.city as string) || undefined,
-      state: (data.propertyProfile?.state as string) || undefined,
+      city: leadCity || undefined,
+      state: leadState || undefined,
+      timeline: data.timeline || undefined,
+      // The dashboard shows projectGoals next to projectScope, so the
+      // homeowner's own words land in a field of their own rather than only
+      // inside the generated block.
+      projectGoals: data.message || undefined,
       // A multi-room estimate spans several project types; send them all rather
       // than the single collapsed "other".
       projectTypes: rec?.rooms?.length

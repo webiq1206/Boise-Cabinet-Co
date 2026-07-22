@@ -325,9 +325,19 @@ export const PROJECT_LABELS: Record<
  * complexity factor (see PROJECT_NO_LAYOUT_COMPLEXITY) instead. To re-enable a
  * project's layout step, restore its slug list below.
  */
+/**
+ * Layout options per project. Only kitchen and bathroom carry a layout step,
+ * because those are the only shapes LAYOUT_COMPLEXITY_MULTIPLIER prices. The
+ * catalog also defines wall-run and floor-to-ceiling, but they have no
+ * multiplier, so listing them here would let a visitor pick a layout that
+ * silently falls back to neutral complexity - a selection that appears to
+ * affect the estimate but does not.
+ *
+ * Projects left empty skip the step and price at PROJECT_NO_LAYOUT_COMPLEXITY.
+ */
 export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
-  kitchen: [],
-  bathroom: [],
+  kitchen: ["galley", "l-shape", "u-shape", "island", "peninsula"],
+  bathroom: ["single-vanity", "double-vanity"],
   laundry: [],
   mudroom: [],
   "home-office": [],
