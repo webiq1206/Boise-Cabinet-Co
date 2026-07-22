@@ -23,6 +23,7 @@ import { extractZipFromAddress } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
+import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 
 const PER_IP_LIMIT = 8;
 const PER_IP_WINDOW_MS = 15 * 60 * 1000;
@@ -107,6 +108,18 @@ export async function POST(request: NextRequest) {
     }
 
     const zip = data.zip || extractZipFromAddress(data.address) || "";
+
+    // Mirror the lead to the external Boise Remodeling lead dashboard.
+    // Fire-and-forget; never blocks the user's response.
+    forwardLeadToDashboard({
+      fullName: data.name,
+      email: data.email,
+      phone: data.phone || undefined,
+      propertyAddress: data.address || undefined,
+      zip: zip || undefined,
+      projectTypes: data.projectType ? [data.projectType] : undefined,
+      projectScope: data.message || undefined,
+    });
 
     let dbSaved = false;
     if (db) {
