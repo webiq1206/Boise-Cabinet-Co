@@ -113,7 +113,7 @@ const hex = (h: string): RGB => {
   );
 };
 
-/** Original printable palette — light output stays byte-for-byte identical. */
+/** Original printable palette - light output stays byte-for-byte identical. */
 const LIGHT_THEME: Theme = {
   dark: false,
   pageBg: null,
@@ -148,7 +148,7 @@ const DARK_THEME: Theme = {
   coverSubtitle: hex('9AA098'),
   imageSub: hex('9AA098'),
   footer: hex('9AA098'),
-  hairline: hex('5D6561'), // sage — the palette's reserved 'rules' role
+  hairline: hex('5D6561'), // sage - the palette's reserved 'rules' role
   numeral: hex('9AA098'), // Fraunces-italic section numbers, mist
   accent: hex('93A386'), // sage
   ink: hex('E6E3DE'),
@@ -568,7 +568,7 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
           if (t.dark) {
             // Sage em-dash marker, text in the warm ink.
             if (i === 0) {
-              ctx.page.drawText('—', { x: MARGIN, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.accent });
+              ctx.page.drawText('-', { x: MARGIN, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.accent });
             }
             ctx.page.drawText(line, { x: MARGIN + 16, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.ink });
           } else {
@@ -859,7 +859,7 @@ function drawFooter(ctx: PdfContext, footerText: string): void {
 /** One full render pass. Returns the saved bytes plus the page each numbered
  *  section started on, so a caller can re-render with a resolved TOC.
  *
- *  In `measure` mode, images are not embedded and the doc is not serialized —
+ *  In `measure` mode, images are not embedded and the doc is not serialized -
  *  pagination is independent of image bytes (image-grid rows use fixed aspect
  *  ratios and caption text), so the cheap pass still yields correct page numbers. */
 async function renderOnce(

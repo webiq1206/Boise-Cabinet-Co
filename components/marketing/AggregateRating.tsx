@@ -4,7 +4,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { DisplayNum } from "./DisplayNum";
 
 /**
- * Aggregate review rating — the highest-signal trust element on a service site.
+ * Aggregate review rating - the highest-signal trust element on a service site.
  * Renders the numeric rating, proportional star fill, review count, and (when a
  * Google Business Profile URL is configured) a source link for verifiability.
  *

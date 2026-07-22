@@ -64,7 +64,7 @@ function confirmationPage(success: boolean): string {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    /* Boise Cabinet Co dark brand system — nothing bolder than 400. */
+    /* Boise Cabinet Co dark brand system - nothing bolder than 400. */
     body { font-family: 'Montserrat', 'Helvetica Neue', system-ui, sans-serif; font-weight:400; background:#1C1F1E; color:#E6E3DE; margin:0; padding:24px; }
     .wrap { max-width: 520px; margin: 80px auto; background:#262B29; border:1px solid #39403D; border-radius:8px; padding:44px; text-align:center; }
     .brand { font-size: 15px; letter-spacing:0.14em; text-transform:uppercase; color:#F7F5F3; margin-bottom:28px; }

@@ -12,6 +12,7 @@ import {
   formatFromAddress,
   buildLeadReplyTo,
   buildEstimateDetailHtml,
+  buildLeadDashboardButton,
   type EstimateForEmail,
 } from "./emailLayout";
 
@@ -101,7 +102,8 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
           <p style="margin-top:8px;">${escapeHtml(alert.message || "(none)")}</p>
         </div>
         <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(alert.name || "the lead")}${alert.phone ? `, or <a href="tel:${escapeHtml(alert.phone)}">call ${escapeHtml(alert.phone)}</a>` : ""}.</p>
-        <p style="margin-top:16px;"><a class="cta-button" href="${link}">Open lead in admin</a></p>
+        ${buildLeadDashboardButton(alert.leadId)}
+        <p style="margin-top:4px;text-align:center;font-size:12px;"><a href="${link}">Or open it in the site admin</a></p>
       `,
     });
 

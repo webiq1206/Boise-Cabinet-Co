@@ -22,11 +22,11 @@ export default function NotFound() {
         <div className="mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/boise-cabinet-co-emblem-light.svg"
-            alt="Boise Cabinet Co emblem"
+            src="/brand/boise-cabinet-co-seal-dark.svg"
+            alt="Boise Cabinet Co seal"
             width={88}
             height={88}
-            className="mx-auto mb-6 h-20 w-20 rounded-sm"
+            className="mx-auto mb-6 h-20 w-20 rounded-full"
           />
           <h1 className="text-6xl mb-2">
             <DisplayNum className="text-foreground">404</DisplayNum>

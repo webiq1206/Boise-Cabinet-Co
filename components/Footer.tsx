@@ -18,11 +18,11 @@ export function Footer() {
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
-            <Link href="/" className="mb-6 inline-block" aria-label="Boise Cabinet Co — home">
+            <Link href="/" className="mb-6 inline-block" aria-label="Boise Cabinet Co - home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/brand/boise-cabinet-co-logo-primary-reverse.svg"
-                alt="Boise Cabinet Co — Custom Cabinetry, Treasure Valley, Idaho"
+                alt="Boise Cabinet Co - Custom Cabinetry, Treasure Valley, Idaho"
                 width={236}
                 height={80}
                 className="h-16 w-auto"

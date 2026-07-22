@@ -8,7 +8,7 @@ import Script from 'next/script'
 const CLARITY_ID = 'x5wv0z61ij'
 
 export function MicrosoftClarity() {
-  // Only record real visitors — never local dev / preview traffic, which would
+  // Only record real visitors - never local dev / preview traffic, which would
   // otherwise pollute heatmaps and session recordings.
   if (process.env.NODE_ENV !== 'production') return null
 

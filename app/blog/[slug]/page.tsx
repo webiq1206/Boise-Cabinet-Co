@@ -67,7 +67,7 @@ export async function generateMetadata({
       url: buildCanonical(`/blog/${post.slug}`),
       type: "article",
       publishedTime: post.publishedAt,
-      images: [{ url: shareImageUrl, width: 1200, height: 630, alt: `${title} — ${SITE_CONFIG.name}` }],
+      images: [{ url: shareImageUrl, width: 1200, height: 630, alt: `${title} - ${SITE_CONFIG.name}` }],
       siteName: SITE_CONFIG.name,
       locale: "en_US",
     },

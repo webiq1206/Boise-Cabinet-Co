@@ -135,7 +135,7 @@ function recipientLabel(r: RecentSend): string {
 }
 
 function fmtTime(iso: string | null): string {
-  if (!iso) return "—";
+  if (!iso) return "-";
   return new Date(iso).toLocaleString();
 }
 
@@ -174,7 +174,7 @@ export function TrackingTab() {
         toast({ title: `Sent ${result.sent} email${result.sent === 1 ? "" : "s"}` });
       } else if (result.simulated > 0) {
         toast({
-          title: "Test mode — email simulated",
+          title: "Test mode - email simulated",
           description: "Dry run is on, so no real email was delivered. Turn it off in Settings to send for real.",
         });
       } else {
@@ -246,7 +246,7 @@ export function TrackingTab() {
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>Test mode (dry run)</AlertTitle>
           <AlertDescription>
-            Sending is on but in test mode — emails are simulated and logged, not actually delivered.
+            Sending is on but in test mode - emails are simulated and logged, not actually delivered.
             Turn off dry run in Settings to send for real.
           </AlertDescription>
         </Alert>
@@ -524,7 +524,7 @@ function SendDetailDialog({ sendId, onClose }: { sendId: string | null; onClose:
                       }`
                     : data.context.kind === "run"
                     ? "One-off blast"
-                    : "—"
+                    : "-"
                 }
               />
               <DetailRow
@@ -539,7 +539,7 @@ function SendDetailDialog({ sendId, onClose }: { sendId: string | null; onClose:
                     : "Not yet"
                 }
               />
-              <DetailRow label="Template" value={data.context.templateName ?? "—"} />
+              <DetailRow label="Template" value={data.context.templateName ?? "-"} />
               {data.send.errorDetail && data.send.errorDetail !== "dry_run" ? (
                 <DetailRow label="Error" value={data.send.errorDetail} />
               ) : null}

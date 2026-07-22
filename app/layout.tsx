@@ -13,7 +13,7 @@ import './globals.css'
 
 const montserrat = Montserrat({
   // The dark brand system caps all text at weight 400 (nothing bold), so only
-  // Light (300, headings) and Regular (400, body/labels) are loaded — dropping
+  // Light (300, headings) and Regular (400, body/labels) are loaded - dropping
   // 500/600 cuts two font files from the critical download.
   subsets: ['latin'],
   weight: ['300', '400'],
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: 'Boise Cabinet Co',
     title: HOMEPAGE_TITLE,
     description: HOMEPAGE_DESCRIPTION,
-    images: [{ url: '/images/marketing/og-default.png', width: 1200, height: 630, alt: 'Boise Cabinet Co — custom cabinetry, Treasure Valley, Idaho' }],
+    images: [{ url: '/images/marketing/og-default.png', width: 1200, height: 630, alt: 'Boise Cabinet Co - custom cabinetry, Treasure Valley, Idaho' }],
   },
   twitter: {
     card: 'summary_large_image',

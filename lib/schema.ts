@@ -174,7 +174,7 @@ export function generateOrganizationSchema(): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}/images/brc-logo.png`,
     },
-    description: 'Custom cabinet company serving the Treasure Valley since 2017. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
+    description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,

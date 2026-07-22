@@ -37,7 +37,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
   const Heading = headingAs;
 
   // Standalone `/estimate`: one-screen tool. A compact heading sits above the
-  // wizard, which fills the remaining height and pins its own CTA — no page
+  // wizard, which fills the remaining height and pins its own CTA - no page
   // scroll to reach any step or the primary action.
   if (viewportFit) {
     return (

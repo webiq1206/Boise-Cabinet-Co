@@ -1,12 +1,12 @@
 "use client";
 
 /**
- * CatalogFlipbook — a premium, embedded digital-magazine viewer for the full
+ * CatalogFlipbook - a premium, embedded digital-magazine viewer for the full
  * Boise Cabinet Co catalog PDF. Renders the live PDF with PDF.js (crisp at any
  * zoom, real page text search) and offers two reading modes:
- *   • Flip  — a two-page spread (single page on mobile) with a real page-turn
+ *   • Flip  - a two-page spread (single page on mobile) with a real page-turn
  *             animation and swipe (react-pageflip).
- *   • Scroll — a continuous vertical scroll of every page, with pinch-zoom.
+ *   • Scroll - a continuous vertical scroll of every page, with pinch-zoom.
  * Plus: page thumbnails, zoom controls, jump-to-page, in-catalog text search,
  * fullscreen, keyboard nav, and a PDF download fallback. Fully responsive and
  * touch-optimized.
@@ -110,7 +110,7 @@ function PdfPageCanvas({
   renderWidth: number; // device-pixel width to rasterize at (crispness)
   /**
    * Canvas-memory virtualization control.
-   * - boolean: parent decides when this page holds a live canvas (flip mode —
+   * - boolean: parent decides when this page holds a live canvas (flip mode -
    *   IntersectionObserver is useless there because react-pageflip stacks all
    *   pages in the same spot). When it flips to false the canvas is freed.
    * - undefined: visibility is tracked with an IntersectionObserver (scroll
@@ -288,7 +288,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   }, [containerSize.h]);
 
   // Device-pixel render width: generous on desktop so pages stay crisp at any
-  // stretch size and under zoom, but capped on small screens — a phone page
+  // stretch size and under zoom, but capped on small screens - a phone page
   // displays at <=~420 CSS px, so rasterizing at 1500+ px only burns Safari's
   // limited canvas-memory budget without any visible gain.
   const flipRenderWidth = useMemo(() => {
@@ -473,7 +473,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
     // Graceful degradation: if pdf.js can't initialize in this browser, fall
     // back to the browser's native PDF rendering in an iframe (works in all
     // desktop browsers and shows at least the document on mobile), with the
-    // download link alongside — never a dead-end error box.
+    // download link alongside - never a dead-end error box.
     return (
       <div className="overflow-hidden rounded-sm border border-border bg-card">
         <iframe

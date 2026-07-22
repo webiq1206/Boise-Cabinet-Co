@@ -15,6 +15,7 @@ import {
   getReplyToAddress,
   buildLeadReplyTo,
   buildEstimateDetailHtml,
+  buildLeadDashboardButton,
   buildOwnerSignatureHtml,
   buildHomeownerStoryHtml,
 } from "@/server/services/emailLayout";
@@ -122,6 +123,10 @@ export async function POST(request: NextRequest) {
     });
 
     let dbSaved = false;
+    // Set once the lead row exists; the admin email's dashboard button uses it
+    // to deep link. Stays null when the DB is unavailable, and the button then
+    // falls back to the dashboard root.
+    let capturedLeadId: string | null = null;
     if (db) {
       const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
       const city = (profile?.city as string) || "";
@@ -205,6 +210,9 @@ export async function POST(request: NextRequest) {
           .returning({ id: leads.id });
 
         const leadId = insertedLead?.id;
+        // Hoisted out of this block so the admin email below can deep link the
+        // dashboard button at the lead that was just created.
+        capturedLeadId = leadId ?? null;
 
         if (leadId) {
           // Immutable raw record of exactly what was submitted.
@@ -304,6 +312,7 @@ export async function POST(request: NextRequest) {
             <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
           </div>
           <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
+          ${buildLeadDashboardButton(capturedLeadId)}
           <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
           ${buildOwnerSignatureHtml("Thanks,")}
         `,

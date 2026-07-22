@@ -113,7 +113,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "Founder & Owner",
     role: "Founder & Owner",
-    bio: "Founded Boise Cabinet Co in 2017 to bring frameless, built-to-order cabinetry and clear, accountable project management to Treasure Valley homeowners.",
+    bio: "Founded Boise Cabinet Co in 2020 to bring frameless, built-to-order cabinetry and clear, accountable project management to Treasure Valley homeowners.",
     isPlaceholder: true,
   },
   {

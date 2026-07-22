@@ -35,7 +35,7 @@ export const GBP_PROFILE = {
   addressOnFile: "Meridian, ID (verification only; do not display publicly)",
   phone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
-  openingDate: "2017",
+  openingDate: "2020",
   serviceRadiusMiles: 35,
   websiteUrl: gbpUrl("/", "profile"),
   appointmentUrl: gbpUrl("/contact", "appointment"),
@@ -70,7 +70,7 @@ export const GBP_PROFILE = {
 } as const;
 
 export const GBP_BUSINESS_DESCRIPTION =
-  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2017, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
 
 export interface GbpServiceArea {
   name: string;
@@ -379,7 +379,7 @@ export const GBP_COMPLETENESS_CHECKLIST = [
   "Primary category: Cabinet maker",
   "4 secondary categories added",
   "Phone, website (UTM), appointment link set",
-  "Opening date: 2017",
+  "Opening date: 2020",
   "9 service areas added",
   "Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)",
   "744-char business description pasted",

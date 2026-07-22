@@ -79,7 +79,7 @@ async function forwardReplyToInbox(
       to: SITE_CONFIG.email,
       replyTo: from,
       subject: `[Outreach reply] ${subject || "(no subject)"}`,
-      text: `${banner}\n\n--- Original reply ---\n${text || "(no plain-text body — see Resend dashboard)"}`,
+      text: `${banner}\n\n--- Original reply ---\n${text || "(no plain-text body - see Resend dashboard)"}`,
       html: html
         ? `<p>${escapeHtml(banner)}</p><hr/>${html}`
         : `<p>${escapeHtml(banner)}</p>`,

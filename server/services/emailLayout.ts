@@ -329,6 +329,27 @@ export function buildEstimateDetailHtml(est: EstimateForEmail | null | undefined
   `;
 }
 
+/**
+ * The lead dashboard the team actually works leads in. It lives on a separate
+ * host from this site, so it is not derivable from SITE_BASE_URL; the env var
+ * lets it move without a code change.
+ */
+export const LEAD_DASHBOARD_URL = (
+  process.env.LEAD_DASHBOARD_URL || "https://leads.boiseremodeling.co"
+).replace(/\/+$/, "");
+
+/**
+ * "View lead in dashboard" CTA for admin lead emails. The lead id is passed as
+ * a query param rather than a path segment: a dashboard that reads it can deep
+ * link, and one that ignores it still lands the admin on the dashboard.
+ */
+export function buildLeadDashboardButton(leadId?: string | null): string {
+  const href = leadId
+    ? `${LEAD_DASHBOARD_URL}/?leadId=${encodeURIComponent(leadId)}`
+    : LEAD_DASHBOARD_URL;
+  return `<p style="margin-top:20px;text-align:center;"><a class="cta-button" href="${href}">View lead in dashboard &rarr;</a></p>`;
+}
+
 /** Canonical address for all outbound mail and internal notifications */
 export const PLATFORM_EMAIL = SITE_CONFIG.email;
 

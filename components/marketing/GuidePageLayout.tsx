@@ -91,7 +91,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                   {guide.author}
                   {guide.author === 'Boise Cabinet Co' && (
                     <span className="text-muted-foreground/80">
-                      · Treasure Valley cabinet designers since 2017
+                      · Treasure Valley cabinet designers since 2020
                     </span>
                   )}
                 </span>

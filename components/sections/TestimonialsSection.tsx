@@ -52,7 +52,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
           className="mb-8 max-w-3xl"
         />
 
-        {/* Aggregate rating anchor — quantified proof leads the section. Renders
+        {/* Aggregate rating anchor - quantified proof leads the section. Renders
             only when real review data is configured (SITE_CONFIG.trust). */}
         <AggregateRating className="mb-10" />
 

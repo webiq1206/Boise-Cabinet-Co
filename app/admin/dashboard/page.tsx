@@ -230,13 +230,13 @@ export default function AdminDashboardPage() {
                       icon={<MailOpen className="h-3.5 w-3.5" />}
                       label="Opened"
                       value={data.outreach.opened}
-                      sub={data.outreach.sent > 0 ? `${Math.round((data.outreach.opened / data.outreach.sent) * 100)}% rate` : "—"}
+                      sub={data.outreach.sent > 0 ? `${Math.round((data.outreach.opened / data.outreach.sent) * 100)}% rate` : "-"}
                     />
                     <MiniStat
                       icon={<MousePointerClick className="h-3.5 w-3.5" />}
                       label="Clicked"
                       value={data.outreach.clicked}
-                      sub={data.outreach.sent > 0 ? `${Math.round((data.outreach.clicked / data.outreach.sent) * 100)}% rate` : "—"}
+                      sub={data.outreach.sent > 0 ? `${Math.round((data.outreach.clicked / data.outreach.sent) * 100)}% rate` : "-"}
                     />
                     <MiniStat
                       icon={<Mail className="h-3.5 w-3.5 text-red-500" />}
@@ -298,7 +298,7 @@ export default function AdminDashboardPage() {
                             {displayName || "Unknown"}
                           </p>
                           <p className="text-xs text-muted-foreground truncate">
-                            {lead.serviceArea || lead.city || "—"}
+                            {lead.serviceArea || lead.city || "-"}
                             {lead.source ? ` · ${lead.source}` : ""}
                           </p>
                         </div>

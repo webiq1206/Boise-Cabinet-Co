@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 // Authorize either via the CRON_SECRET (for the scheduled deployment / external
 // cron) or via an admin session (for the "Send next now" button in the
 // dashboard). The secret is a shared env var so it is present in dev + prod.
-// Secret is only accepted from request headers — never the query string — to
+// Secret is only accepted from request headers - never the query string - to
 // avoid leaking it through logs, referrers, or browser history.
 async function isAuthorized(req: NextRequest): Promise<boolean> {
   const secret = process.env.CRON_SECRET;
@@ -28,7 +28,7 @@ async function isAuthorized(req: NextRequest): Promise<boolean> {
       if (user && user.role === "admin") return true;
     }
   } catch {
-    // ignore — fall through to unauthorized
+    // ignore - fall through to unauthorized
   }
   return false;
 }

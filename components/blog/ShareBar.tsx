@@ -17,7 +17,7 @@ interface ShareBarProps {
 const btn =
   "inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-200 hover:border-accent/60 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
-/** X (Twitter) glyph — lucide's brand icons are deprecated, so we inline it. */
+/** X (Twitter) glyph - lucide's brand icons are deprecated, so we inline it. */
 function XIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -60,7 +60,7 @@ export function ShareBar({ url, title, className, withHeading = false }: ShareBa
     try {
       await navigator.share({ title, url });
     } catch {
-      /* user cancelled — non-fatal */
+      /* user cancelled - non-fatal */
     }
   }
 
@@ -70,7 +70,7 @@ export function ShareBar({ url, title, className, withHeading = false }: ShareBa
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* clipboard blocked — non-fatal */
+      /* clipboard blocked - non-fatal */
     }
   }
 

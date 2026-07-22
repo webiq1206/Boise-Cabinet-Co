@@ -104,7 +104,7 @@ export default function AboutPage() {
   const ABOUT_FAQS = [
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2017. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -232,11 +232,11 @@ export default function AboutPage() {
               <Reveal>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/boise-cabinet-co-emblem-light.svg"
-                  alt="Boise Cabinet Co emblem"
+                  src="/brand/boise-cabinet-co-seal-dark.svg"
+                  alt="Boise Cabinet Co seal"
                   width={64}
                   height={64}
-                  className="mb-7 h-16 w-16 rounded-sm"
+                  className="mb-7 h-16 w-16 rounded-full"
                 />
                 <SectionHeader
                   eyebrow="Our model"

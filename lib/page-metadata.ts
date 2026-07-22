@@ -39,7 +39,7 @@ export interface PageMetaInput {
   /** When true, emit noindex,follow for tool / utility / B2B pages. */
   noindex?: boolean;
   /**
-   * Page-specific Open Graph image (path under /public). Use JPEG/PNG —
+   * Page-specific Open Graph image (path under /public). Use JPEG/PNG -
    * iMessage and some crawlers do not render WebP link previews.
    */
   ogImage?: { url: string; width: number; height: number; alt: string };
