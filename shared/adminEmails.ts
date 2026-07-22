@@ -8,8 +8,19 @@
 // bootstrap (gated by ADMIN_BOOTSTRAP_PASSWORD, which proves Repl ownership)
 // or the verified OIDC login flow. Password self-registration never grants
 // admin even for these addresses.
-export const ADMIN_EMAILS: string[] = [
+//
+// Entries are normalized (trimmed + lowercased) on export because the role
+// check in lib/auth.ts does `ADMIN_EMAILS.includes(email.toLowerCase())`; an
+// entry with stray capitalization or whitespace would otherwise silently fail
+// to match and quietly deny admin access.
+const RAW_ADMIN_EMAILS: string[] = [
   "hello@boisecabinet.co",
+  "hello@boiseremodeling.co",
+  "hello@p5homeco.com",
   "webiq.co@gmail.com",
   "info@webiq.co",
 ];
+
+export const ADMIN_EMAILS: string[] = Array.from(
+  new Set(RAW_ADMIN_EMAILS.map((e) => e.trim().toLowerCase()).filter(Boolean)),
+);
