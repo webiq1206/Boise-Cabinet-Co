@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -33,7 +33,12 @@ import {
   ShieldCheck,
   Clock,
 } from "lucide-react";
-import type { StoredEstimate, CombinedStoredEstimate } from "@/shared/estimateEngine";
+import type {
+  StoredEstimate,
+  CombinedStoredEstimate,
+  EstimateSelections,
+} from "@/shared/estimateEngine";
+import { buildEstimateRecord } from "@/shared/estimateRecord";
 import {
   buildConsultationEstimatePayload,
   buildCombinedConsultationPayload,
@@ -52,7 +57,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useModals } from "@/components/modals/ModalProvider";
 import { cn } from "@/lib/utils";
 
-const formSchema = z.object({
+const baseFormSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
   phone: z.string().refine(phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE),
   email: z.string().email("Please enter a valid email"),
@@ -60,10 +65,26 @@ const formSchema = z.object({
   zip: z.string().optional(),
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
+  budget: z.string().optional(),
   companyWebsite: z.string().optional(),
 });
 
-type FormData = z.infer<typeof formSchema>;
+/**
+ * The estimator requires the property address (we cannot scope or schedule a
+ * visit without it), while the lighter contact forms keep it optional so a
+ * quick enquiry is not blocked. Same component, two contracts.
+ */
+function buildFormSchema(requireAddress: boolean) {
+  if (!requireAddress) return baseFormSchema;
+  return baseFormSchema.extend({
+    address: z
+      .string()
+      .trim()
+      .min(6, "Please enter your property address so we can plan your visit"),
+  });
+}
+
+type FormData = z.infer<typeof baseFormSchema>;
 
 const PROJECT_OPTIONS = [
   { value: "kitchen", label: "Kitchen Cabinets" },
@@ -71,6 +92,17 @@ const PROJECT_OPTIONS = [
   { value: "laundry", label: "Laundry / Mudroom" },
   { value: "closet", label: "Closet & Storage" },
   { value: "other", label: "Other / Whole-home" },
+];
+
+/** Coarse bands, so a homeowner can answer without committing to a number. */
+const BUDGET_OPTIONS = [
+  "Under $15k",
+  "$15k - $30k",
+  "$30k - $50k",
+  "$50k - $75k",
+  "$75k - $100k",
+  "Over $100k",
+  "Not sure yet",
 ];
 
 const labelClass = "text-xs tracking-wide font-medium uppercase text-muted-foreground";
@@ -257,6 +289,18 @@ export interface ConsultationFieldsProps {
   onSuccess?: () => void;
   /** One-screen density (tighter spacing, single-line summary) for the wizard. */
   compact?: boolean;
+  /**
+   * Require the property address and promote it out of the optional disclosure
+   * into a first-class field. Set by the estimator, where we cannot scope the
+   * job or book the in-home visit without knowing the property.
+   */
+  requireAddress?: boolean;
+  /**
+   * Raw wizard selections, used to build the full estimate record submitted
+   * with the lead. Passed instead of a prebuilt record because the address,
+   * budget, and notes are only known at submit time.
+   */
+  estimateRooms?: EstimateSelections[];
 }
 
 export function ConsultationFields({
@@ -271,6 +315,8 @@ export function ConsultationFields({
   onPendingChange,
   onSuccess,
   compact = false,
+  requireAddress = false,
+  estimateRooms,
 }: ConsultationFieldsProps) {
   const { close: closeModal } = useModals();
   const [success, setSuccess] = useState(false);
@@ -285,6 +331,8 @@ export function ConsultationFields({
   const projectTypeFromEstimate =
     resolvedProjectType ??
     (estimate?.project ? mapEstimateProjectToConsultType(estimate.project) : "");
+
+  const formSchema = useMemo(() => buildFormSchema(requireAddress), [requireAddress]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -302,6 +350,7 @@ export function ConsultationFields({
       zip: "",
       projectType: projectTypeFromEstimate || defaultProjectType || "",
       message: defaultMessage || "",
+      budget: "",
       companyWebsite: "",
     },
   });
@@ -345,6 +394,19 @@ export function ConsultationFields({
           ? crypto.randomUUID()
           : `lead-${Date.now()}-${Math.random().toString(36).slice(2)}`;
       metaEventIdRef.current = metaEventId;
+      // The full record of everything the homeowner selected and was shown.
+      // Built here rather than in the wizard because the address, budget, and
+      // notes below only exist once they submit.
+      const estimateRecord = estimateRooms?.length
+        ? buildEstimateRecord({
+            rooms: estimateRooms,
+            capturedAt: new Date().toISOString(),
+            budget: data.budget,
+            notes: data.message,
+            propertyAddress: data.address,
+          })
+        : null;
+
       const payload = {
         ...data,
         propertyProfile,
@@ -352,6 +414,7 @@ export function ConsultationFields({
         estimate: combinedEstimate
           ? buildCombinedConsultationPayload(combinedEstimate)
           : buildConsultationEstimatePayload(estimate),
+        estimateRecord,
       };
       const res = await fetch("/api/consultation", {
         method: "POST",
@@ -571,7 +634,36 @@ export function ConsultationFields({
             />
           )}
 
-          {/* Address + notes are off the critical path - one tap reveals them. */}
+          {/* In the estimator the property address is required, so it is a
+              first-class field rather than something hidden behind a toggle. */}
+          {requireAddress && (
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelClass}>Property address</FormLabel>
+                  <FormControl>
+                    <AddressAutocomplete
+                      value={addressInput || field.value || ""}
+                      onChange={(v) => {
+                        setAddressInput(v);
+                        field.onChange(v);
+                      }}
+                      onProfileResolved={handleProfileResolved}
+                      data-testid="input-address"
+                    />
+                  </FormControl>
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    Start typing and pick your address. We use it to plan your in-home visit.
+                  </p>
+                  <FieldError />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {/* Remaining optional detail stays off the critical path. */}
           <div className="rounded-sm border border-border bg-background">
             <button
               type="button"
@@ -583,28 +675,58 @@ export function ConsultationFields({
               aria-expanded={detailsOpen}
               data-testid="button-toggle-details"
             >
-              <span>Add address &amp; notes (optional)</span>
+              <span>
+                {requireAddress
+                  ? "Add budget & notes (optional)"
+                  : "Add address & notes (optional)"}
+              </span>
               {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
             </button>
             {detailsOpen && (
               <div className="space-y-4 border-t border-border p-3">
+                {!requireAddress && (
+                  <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className={labelClass}>Property address</FormLabel>
+                        <FormControl>
+                          <AddressAutocomplete
+                            value={addressInput || field.value || ""}
+                            onChange={(v) => {
+                              setAddressInput(v);
+                              field.onChange(v);
+                            }}
+                            onProfileResolved={handleProfileResolved}
+                            data-testid="input-address"
+                          />
+                        </FormControl>
+                        <FieldError />
+                      </FormItem>
+                    )}
+                  />
+                )}
                 <FormField
                   control={form.control}
-                  name="address"
+                  name="budget"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className={labelClass}>Property address</FormLabel>
-                      <FormControl>
-                        <AddressAutocomplete
-                          value={addressInput || field.value || ""}
-                          onChange={(v) => {
-                            setAddressInput(v);
-                            field.onChange(v);
-                          }}
-                          onProfileResolved={handleProfileResolved}
-                          data-testid="input-address"
-                        />
-                      </FormControl>
+                      <FormLabel className={labelClass}>Budget in mind</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <FormControl>
+                          <SelectTrigger className={consultInputClass} data-testid="select-budget">
+                            <SelectValue placeholder="Optional" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {BUDGET_OPTIONS.map((o) => (
+                            <SelectItem key={o} value={o}>
+                              {o}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FieldError />
                     </FormItem>
                   )}

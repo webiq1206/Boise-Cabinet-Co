@@ -25,6 +25,7 @@ import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
+import type { EstimateRecord } from "@/shared/estimateRecord";
 
 const PER_IP_LIMIT = 8;
 const PER_IP_WINDOW_MS = 15 * 60 * 1000;
@@ -74,6 +75,37 @@ const bodySchema = z.object({
     })
     .optional()
     .nullable(),
+  /** Homeowner's stated budget band, when they chose one. */
+  budget: z.string().optional().default(""),
+  /**
+   * The complete record of what the homeowner selected and was shown in the
+   * estimator. Declared explicitly (and permissively) because zod strips
+   * unknown keys - anything not named here would be silently dropped before it
+   * ever reached the CRM, which is exactly the failure this record exists to
+   * prevent. Kept loose so adding a field to the record never 400s a real lead.
+   */
+  estimateRecord: z
+    .object({
+      version: z.number(),
+      capturedAt: z.string(),
+      rangeLow: z.number(),
+      rangeHigh: z.number(),
+      rangeFormatted: z.string(),
+      confidenceLabel: z.string(),
+      confidencePercent: z.number(),
+      roomCount: z.number(),
+      rooms: z.array(z.record(z.any())),
+      included: z.array(z.string()),
+      excluded: z.array(z.string()),
+      assumptions: z.array(z.string()),
+      disclaimers: z.array(z.string()),
+      budget: z.string().nullable(),
+      notes: z.string().nullable(),
+      propertyAddress: z.string().nullable(),
+    })
+    .passthrough()
+    .optional()
+    .nullable(),
   /** Shared event id for Meta pixel + Conversions API deduplication. */
   metaEventId: z.string().optional(),
   /** Honeypot - must be empty; bots often fill hidden fields. */
@@ -112,14 +144,34 @@ export async function POST(request: NextRequest) {
 
     // Mirror the lead to the external Boise Remodeling lead dashboard.
     // Fire-and-forget; never blocks the user's response.
+    // The zod schema for the record is deliberately permissive (rooms are
+    // validated as loose objects so a new field never 400s a real lead), so the
+    // parsed type is wider than EstimateRecord. The client builds this with
+    // buildEstimateRecord, so the shape is known at runtime.
+    const rec = (data.estimateRecord ?? null) as EstimateRecord | null;
     forwardLeadToDashboard({
       fullName: data.name,
       email: data.email,
       phone: data.phone || undefined,
-      propertyAddress: data.address || undefined,
+      // The record carries the address the homeowner picked from autocomplete;
+      // fall back to the typed field for the lighter forms that have no record.
+      propertyAddress: rec?.propertyAddress || data.address || undefined,
       zip: zip || undefined,
-      projectTypes: data.projectType ? [data.projectType] : undefined,
-      projectScope: data.message || undefined,
+      city: (data.propertyProfile?.city as string) || undefined,
+      state: (data.propertyProfile?.state as string) || undefined,
+      // A multi-room estimate spans several project types; send them all rather
+      // than the single collapsed "other".
+      projectTypes: rec?.rooms?.length
+        ? Array.from(new Set(rec.rooms.map((r) => String(r.projectLabel)).filter(Boolean)))
+        : data.projectType
+          ? [data.projectType]
+          : undefined,
+      budgetRange: data.budget || rec?.budget || undefined,
+      estimateLow: rec?.rangeLow ?? data.estimate?.priceLow,
+      estimateHigh: rec?.rangeHigh ?? data.estimate?.priceHigh,
+      estimateRange: rec?.rangeFormatted,
+      estimate: rec,
+      notes: data.message || undefined,
     });
 
     let dbSaved = false;

@@ -1042,6 +1042,11 @@ export function EstimateCalculatorWizard({
             <ConsultationFields
               combinedEstimate={combinedStored}
               resolvedProjectType={resolvedProjectType}
+              // Raw selections travel with the lead so the full estimate
+              // record (every choice, the range, and what was disclosed)
+              // reaches the CRM, not just the price range.
+              estimateRooms={rooms}
+              requireAddress
               showEstimateSummary
               formId={CONTACT_FORM_ID}
               hideSubmitButton
