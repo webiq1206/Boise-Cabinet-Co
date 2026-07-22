@@ -9,6 +9,8 @@ export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
+Full content export for LLMs (every guide answer, article answer, and the complete FAQ corpus in one file): [llms-full.txt](https://boisecabinet.co/llms-full.txt)
+
 ## Business facts
 
 - Company: Boise Cabinet Co (Boise Cabinet Co LLC)

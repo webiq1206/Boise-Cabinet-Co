@@ -112,6 +112,14 @@ export default function RootLayout({
             __html: `document.documentElement.classList.add('js')`,
           }}
         />
+        {/* Feed autodiscovery: lets crawlers, readers, and AI agents poll for
+            new content instead of re-crawling the whole site. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Boise Cabinet Co | Cabinet guides and insights"
+          href="https://boisecabinet.co/feed.xml"
+        />
         <GoogleAnalytics />
         <MicrosoftClarity />
       </head>
