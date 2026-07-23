@@ -92,7 +92,7 @@ export function Navigation() {
 
   const linkClass = (href: string) =>
     cn(
-      "px-3 py-2 text-[13px] font-medium transition-colors rounded-sm hover-elevate",
+      "px-3 py-2 text-[13px] font-medium transition-colors rounded-sm brc-lift",
       pathname === href || pathname?.startsWith(href + "/")
         ? "text-foreground"
         : "text-muted-foreground hover:text-foreground",

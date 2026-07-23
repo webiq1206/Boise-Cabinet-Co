@@ -256,7 +256,7 @@ export default function ComparePage() {
                 <Link
                   key={c.id}
                   href="/catalog"
-                  className="marketing-card p-5 hover-elevate text-center block"
+                  className="marketing-card p-5 brc-lift text-center block"
                 >
                   <p className="font-sans font-light text-lg">{c.name}</p>
                   <p className="text-xs text-muted-foreground mt-1">{c.leadTime}</p>

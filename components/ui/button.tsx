@@ -9,7 +9,7 @@ const buttonVariants = cva(
   // default (36px) and sm (32px) sizes stay compact under a mouse while every
   // one of the ~279 call sites meets the touch minimum on a phone.
   "tap-target inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0" +
-  " hover-elevate active-elevate-2",
+  " brc-lift brc-press-2",
   {
     variants: {
       variant: {

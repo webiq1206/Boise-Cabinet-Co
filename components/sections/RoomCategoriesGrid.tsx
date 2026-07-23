@@ -32,7 +32,7 @@ export function RoomCategoriesGrid() {
             <Reveal key={room.slug} delay={i * 40}>
               <Link
                 href={`/cabinets/${room.slug}`}
-                className="group block rounded-sm border border-border bg-card overflow-hidden hover-elevate transition-[box-shadow,border-color] duration-200 hover:border-accent/60"
+                className="group block rounded-sm border border-border bg-card overflow-hidden brc-lift transition-[box-shadow,border-color] duration-200 hover:border-accent/60"
               >
                 <div className="relative aspect-[3/2] bg-surface-greige overflow-hidden">
                   <Image

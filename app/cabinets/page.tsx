@@ -84,7 +84,7 @@ export default function CabinetsHubPage() {
 
                 return (
                   <Reveal key={room.id} delay={i * 30}>
-                    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden hover-elevate group relative">
+                    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift group relative">
                       <Link
                         href={`/cabinets/${room.slug}`}
                         className="absolute inset-0 z-0"

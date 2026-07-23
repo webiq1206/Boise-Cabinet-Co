@@ -92,7 +92,7 @@ export default function CollectionsHubPage() {
             <div className="grid sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
               {COLLECTIONS.map((collection, i) => (
                 <Reveal key={collection.id} delay={i * 50}>
-                  <MarketingCard className="h-full flex flex-col p-0 overflow-hidden hover-elevate group relative">
+                  <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift group relative">
                     <Link
                       href={`/collections/${collection.slug}`}
                       className="absolute inset-0 z-0"

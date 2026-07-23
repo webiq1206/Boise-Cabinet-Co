@@ -58,8 +58,8 @@ html, body {
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .03);
-  --elevate-2: rgba(255,255,255, .07);
+  --brc-lift-1: rgba(255,255,255, .03);
+  --brc-lift-2: rgba(255,255,255, .07);
 
   /* Canvas - charcoal page base (#1C1F1E) */
   --background: 160 5% 12%;
@@ -187,8 +187,8 @@ html, body {
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .03);
-  --elevate-2: rgba(255,255,255, .07);
+  --brc-lift-1: rgba(255,255,255, .03);
+  --brc-lift-2: rgba(255,255,255, .07);
 
   --background: 160 5% 12%;
   --foreground: 37 14% 89%;
@@ -354,11 +354,11 @@ html, body {
     pointer-events: none;
   }
 
-  .no-default-hover-elevate {}
-  .no-default-active-elevate {}
+  .brc-no-lift {}
+  .brc-no-press {}
 
-  .toggle-elevate::before,
-  .toggle-elevate-2::before {
+  .brc-toggle::before,
+  .brc-toggle-2::before {
     content: "";
     pointer-events: none;
     position: absolute;
@@ -367,26 +367,26 @@ html, body {
     z-index: -1;
   }
 
-  .toggle-elevate.toggle-elevated::before {
-    background-color: var(--elevate-2);
+  .brc-toggle.brc-toggled::before {
+    background-color: var(--brc-lift-2);
   }
 
-  .border.toggle-elevate::before {
+  .border.brc-toggle::before {
     inset: -1px;
   }
 
-  .hover-elevate:not(.no-default-hover-elevate),
-  .active-elevate:not(.no-default-active-elevate),
-  .hover-elevate-2:not(.no-default-hover-elevate),
-  .active-elevate-2:not(.no-default-active-elevate) {
+  .brc-lift:not(.brc-no-lift),
+  .brc-press:not(.brc-no-press),
+  .brc-lift-2:not(.brc-no-lift),
+  .brc-press-2:not(.brc-no-press) {
     position: relative;
     z-index: 0;
   }
 
-  .hover-elevate:not(.no-default-hover-elevate)::after,
-  .active-elevate:not(.no-default-active-elevate)::after,
-  .hover-elevate-2:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:not(.no-default-active-elevate)::after {
+  .brc-lift:not(.brc-no-lift)::after,
+  .brc-press:not(.brc-no-press)::after,
+  .brc-lift-2:not(.brc-no-lift)::after,
+  .brc-press-2:not(.brc-no-press)::after {
     content: "";
     pointer-events: none;
     position: absolute;
@@ -395,21 +395,21 @@ html, body {
     z-index: 999;
   }
 
-  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
+  .brc-lift:hover:not(.brc-no-lift)::after,
+  .brc-press:active:not(.brc-no-press)::after {
+    background-color: var(--brc-lift-1);
   }
 
-  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
+  .brc-lift-2:hover:not(.brc-no-lift)::after,
+  .brc-press-2:active:not(.brc-no-press)::after {
+    background-color: var(--brc-lift-2);
   }
 
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+  .border.brc-lift:not(.no-hover-interaction-elevate)::after,
+  .border.brc-press:not(.no-active-interaction-elevate)::after,
+  .border.brc-lift-2:not(.no-hover-interaction-elevate)::after,
+  .border.brc-press-2:not(.no-active-interaction-elevate)::after,
+  .border.brc-lift:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
 

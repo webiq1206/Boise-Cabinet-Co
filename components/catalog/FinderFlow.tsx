@@ -109,7 +109,7 @@ function TileButton({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "text-left rounded-lg border bg-card overflow-hidden transition-all hover-elevate",
+        "text-left rounded-lg border bg-card overflow-hidden transition-all brc-lift",
         active ? "ring-2 ring-accent border-accent" : "border-border",
         className,
       )}

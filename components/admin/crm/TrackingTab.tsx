@@ -359,7 +359,7 @@ export function TrackingTab() {
               {replies.map((r) => (
                 <div
                   key={r.id}
-                  className="cursor-pointer p-4 hover-elevate"
+                  className="cursor-pointer p-4 brc-lift"
                   onClick={() => setOpenReply(r)}
                   data-testid={`row-reply-${r.id}`}
                 >

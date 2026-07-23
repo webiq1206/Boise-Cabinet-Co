@@ -68,7 +68,7 @@ export function RelatedPostCards({
           const image = imageForUrl(link.url);
           return (
             <Link key={link.url} href={link.url} className="block group">
-              <MarketingCard className="overflow-hidden hover-elevate h-full">
+              <MarketingCard className="overflow-hidden brc-lift h-full">
                 {image && (
                   <div className="relative aspect-[16/9] -mx-6 -mt-6 md:-mx-8 md:-mt-8 mb-4">
                     <Image

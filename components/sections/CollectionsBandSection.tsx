@@ -27,7 +27,7 @@ export function CollectionsBandSection() {
             <Reveal key={collection.slug} delay={i * 50}>
               <Link
                 href="/catalog"
-                className="block h-full rounded-sm border border-border bg-card overflow-hidden hover-elevate transition-shadow"
+                className="block h-full rounded-sm border border-border bg-card overflow-hidden brc-lift transition-shadow"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image

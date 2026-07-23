@@ -20,7 +20,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
 
   if (featured) {
     return (
-      <article className="marketing-card overflow-hidden hover-elevate group relative">
+      <article className="marketing-card overflow-hidden brc-lift group relative">
         <Link href={href} className="absolute inset-0 z-0" aria-label={post.title} />
         <div className="relative aspect-[21/9] md:aspect-[2.4/1] overflow-hidden">
           <Image
@@ -55,7 +55,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
   }
 
   return (
-    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden hover-elevate group relative">
+    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift group relative">
       <Link href={href} className="absolute inset-0 z-0" aria-label={post.title} />
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image

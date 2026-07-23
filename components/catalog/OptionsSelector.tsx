@@ -324,7 +324,7 @@ function DoorCard({ style }: { style: DoorStyle }) {
       className="block h-full group"
       data-testid={`link-door-${style.slug}`}
     >
-      <MarketingCard className="h-full flex flex-col p-0 overflow-hidden hover-elevate transition-colors">
+      <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift transition-colors">
         <DoorStyleHero slug={style.slug} name={style.name} className="rounded-none" />
         <div className="p-6 flex flex-col flex-1">
           <div className="flex flex-wrap gap-1.5 mb-3">

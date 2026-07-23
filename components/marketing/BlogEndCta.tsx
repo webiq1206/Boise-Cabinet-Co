@@ -22,7 +22,7 @@ export function BlogEndCta() {
         <a
           href={SITE_CONFIG.phoneHref}
           data-testid="link-bottom-cta-call"
-          className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-inverse-foreground transition-colors hover-elevate"
+          className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-inverse-foreground transition-colors brc-lift"
         >
           <Phone className="h-4 w-4" />
           {SITE_CONFIG.phone}
