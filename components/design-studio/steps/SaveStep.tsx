@@ -277,7 +277,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
-      <Card id="request-pricing" className="border-primary/30">
+      <Card id="request-pricing" className="rounded-sm border-primary/30">
         <CardHeader>
           <CardTitle className="text-base">Get your estimate &amp; book a free consultation</CardTitle>
           <CardDescription>
@@ -324,7 +324,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-6 pt-6">
-      <Card>
+      <Card className="rounded-sm">
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             {saved ? (
@@ -387,7 +387,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-sm">
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <Tag className="h-4 w-4 text-muted-foreground" />
@@ -518,7 +518,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
       </Card>
 
       {design.modules.length > 0 && (
-        <Card data-testid="card-layout-summary">
+        <Card data-testid="card-layout-summary" className="rounded-sm">
           <CardHeader>
             <CardTitle className="text-base">Layout summary (planning)</CardTitle>
             <CardDescription>
@@ -565,7 +565,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
       </Collapsible>
 
       {!design.pricingSubmitted && (
-        <Card className="border-dashed">
+        <Card className="rounded-sm border-dashed">
           <CardContent className="py-8 text-center space-y-4">
             <p className="text-sm text-muted-foreground">
               Track your project in the client portal after we create your project file.

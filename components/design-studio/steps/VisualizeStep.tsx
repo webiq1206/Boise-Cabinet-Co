@@ -116,7 +116,7 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
         </Alert>
       )}
 
-      <Card>
+      <Card className="rounded-sm">
         <CardContent className="pt-6 flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium">See it in your space (AR)</p>
@@ -178,7 +178,7 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
         />
       </div>
 
-      <Card>
+      <Card className="rounded-sm">
         <CardContent className="pt-6 grid gap-3 sm:grid-cols-2 text-sm">
           <SummaryRow label="Room" value={displayLabel(design.roomType, ROOM_BY_SLUG)} />
           <SummaryRow label="Collection" value={displayLabel(design.collection, COLLECTION_BY_SLUG)} />

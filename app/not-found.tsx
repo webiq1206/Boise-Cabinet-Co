@@ -40,7 +40,7 @@ export default function NotFound() {
           This page doesn&apos;t exist or may have moved. Let us help you find what you&apos;re looking for.
         </p>
 
-        <Card className="marketing-card mb-8 text-left">
+        <Card className="rounded-sm marketing-card mb-8 text-left">
           <CardContent className="pt-6">
             <h3 className="font-medium mb-4 text-foreground">Popular Pages</h3>
             <div className="grid grid-cols-2 gap-2">

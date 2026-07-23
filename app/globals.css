@@ -510,6 +510,32 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
+/*
+ * ─── Touch target floor ───
+ *
+ * WCAG 2.5.5 and the Apple HIG both put the minimum touch target at 44px. This
+ * is scoped to coarse pointers on purpose: a mouse is precise, so forcing 44px
+ * everywhere would inflate dense desktop UI (admin tables, toolbars, filter
+ * rows) to fix a problem that only exists under a fingertip.
+ *
+ * min-width is included for icon-only controls, where the square is the target.
+ * It never binds on text buttons, which are always wider.
+ *
+ * Inline links inside prose are deliberately NOT given this class - WCAG
+ * exempts them, and padding a link inside a sentence breaks the line box.
+ */
+@media (pointer: coarse) {
+  .tap-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+  /* Block-level links would top-align their text inside the taller box. */
+  a.tap-target {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 /* ─── BRC label pattern ─── */
 .brc-label {
   display: flex;

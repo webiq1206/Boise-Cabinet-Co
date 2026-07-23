@@ -94,7 +94,7 @@ function LoginInner() {
 
   return (
     <div className="min-h-[80vh] bg-background flex items-start md:items-center justify-center pt-12 md:pt-0 p-4">
-      <Card className="w-full max-w-md">
+      <Card className="rounded-sm w-full max-w-md">
         <CardHeader className="text-center pb-2">
           <CardTitle className="text-2xl">Welcome to Boise Cabinet Co</CardTitle>
           <CardDescription>

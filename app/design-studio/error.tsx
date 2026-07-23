@@ -20,7 +20,7 @@ export default function DesignStudioError({
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="max-w-md w-full">
+      <Card className="rounded-sm max-w-md w-full">
         <CardHeader className="text-center">
           <AlertTriangle className="h-10 w-10 text-destructive mx-auto mb-2" />
           <CardTitle>The Design Studio hit a snag</CardTitle>

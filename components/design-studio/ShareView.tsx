@@ -159,7 +159,7 @@ export function ShareView({ shareToken }: ShareViewProps) {
             <Loader2 className="h-8 w-8 animate-spin" />
           </div>
         ) : error || !snapshot ? (
-          <Card>
+          <Card className="rounded-sm">
             <CardContent className="py-16 text-center space-y-3">
               <AlertCircle className="h-8 w-8 mx-auto text-muted-foreground" />
               <p className="text-lg font-medium">Design not found</p>
@@ -184,11 +184,11 @@ export function ShareView({ shareToken }: ShareViewProps) {
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card className="overflow-hidden">
+              <Card className="rounded-sm overflow-hidden">
                 <SnapshotPreview3D snapshot={snapshot} className="aspect-[4/3]" />
               </Card>
 
-              <Card>
+              <Card className="rounded-sm">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center justify-between gap-2">
                     Design details
@@ -215,7 +215,7 @@ export function ShareView({ shareToken }: ShareViewProps) {
             </div>
 
             {snapshot?.roomMeta?.userConfirmed && (
-              <Card>
+              <Card className="rounded-sm">
                 <CardHeader className="flex flex-row items-center justify-between gap-2">
                   <div>
                     <CardTitle className="text-base">Room & layout check</CardTitle>
@@ -262,7 +262,7 @@ export function ShareView({ shareToken }: ShareViewProps) {
               </Card>
             )}
 
-            <Card>
+            <Card className="rounded-sm">
               <CardHeader>
                 <CardTitle className="text-base">Request pricing for this design</CardTitle>
                 <CardDescription>

@@ -68,13 +68,13 @@ export function CatalogExploreStrip() {
         })}
       </div>
       <div className="flex flex-wrap gap-3 text-sm">
-        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="tap-target text-accent hover:underline underline-offset-2">
           All door styles
         </Link>
-        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="tap-target text-accent hover:underline underline-offset-2">
           All finishes
         </Link>
-        <Link href="/estimate" className="text-accent hover:underline underline-offset-2">
+        <Link href="/estimate" className="tap-target text-accent hover:underline underline-offset-2">
           Get an estimate
         </Link>
       </div>

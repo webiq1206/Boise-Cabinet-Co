@@ -66,7 +66,7 @@ export function CaseStudiesSection() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-accent hover:underline underline-offset-2"
+                        className="tap-target text-accent hover:underline underline-offset-2"
                       >
                         {link.label}
                       </Link>
