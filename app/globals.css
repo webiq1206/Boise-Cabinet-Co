@@ -82,6 +82,20 @@ html, body {
   /* Greige - alternating section rhythm */
   --surface-greige: 156 6% 16%;  /* surface #262B29 */
 
+  /*
+   * Catalog viewer surfaces. Deliberately darker than --inverse so the flipbook
+   * reads as a reader rather than a page section; no existing token goes this
+   * dark, which is why these were hard-coded hexes in the component.
+   *
+   * --catalog-rail is hue 30 (warm) while the other two are 150-160 (green),
+   * matching the rest of the palette. That warm drift is preserved here rather
+   * than silently corrected, because unifying it is a visible design change and
+   * not part of a token-extraction pass.
+   */
+  --catalog-canvas: 160 9% 6.5%;  /* #0f1211 */
+  --catalog-chrome: 150 8% 9.4%;  /* #161a18 */
+  --catalog-rail: 30 12% 6.3%;    /* #12100e */
+
   /* Section tints - subtle hued dark panels for rhythm */
   --tint-warm: 36 9% 15%;
   --tint-cool: 186 10% 15%;
@@ -191,6 +205,9 @@ html, body {
 
   --surface-muted: 150 6% 14%;
   --surface-greige: 156 6% 16%;
+  --catalog-canvas: 160 9% 6.5%;
+  --catalog-chrome: 150 8% 9.4%;
+  --catalog-rail: 30 12% 6.3%;
 
   /* Section tints - subtle hued dark panels */
   --tint-warm: 36 9% 15%;

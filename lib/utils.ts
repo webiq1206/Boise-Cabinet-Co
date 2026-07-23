@@ -1,5 +1,29 @@
 import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { extendTailwindMerge } from "tailwind-merge"
+
+/**
+ * tailwind-merge only knows Tailwind's stock scales. The theme adds three
+ * custom fontSize keys (see tailwind.config.ts), and without registering them
+ * here tailwind-merge reads `text-display` as a text-COLOR utility, decides a
+ * following `text-foreground` conflicts with it, and silently drops the size:
+ *
+ *   cn("text-display text-foreground")  ->  "text-foreground"
+ *
+ * The class is present in the source and absent from the DOM. That stripped the
+ * base size off every PageHeader h1, leaving only its `md:` size, so page
+ * titles rendered at inherited body size (16px) below 768px on 21 route
+ * templates while desktop looked correct and hid the bug.
+ *
+ * Register all three keys together: leaving any of them out re-arms the same
+ * trap for the next `cn()` call that uses it.
+ */
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      "font-size": [{ text: ["display", "section-title", "section-title-lg"] }],
+    },
+  },
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

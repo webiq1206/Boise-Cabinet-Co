@@ -517,9 +517,9 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   const pageNumbers = Array.from({ length: numPages }, (_, i) => i + 1);
 
   return (
-    <div className="catalog-viewer overflow-hidden rounded-sm border border-border bg-[#0f1211]">
+    <div className="catalog-viewer overflow-hidden rounded-sm border border-border bg-catalog-canvas">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-1.5 border-b border-white/10 bg-[#161a18] px-2 py-2 text-inverse-foreground sm:gap-2 sm:px-3">
+      <div className="flex flex-wrap items-center gap-1.5 border-b border-white/10 bg-catalog-chrome px-2 py-2 text-inverse-foreground sm:gap-2 sm:px-3">
         {/* View mode toggle */}
         <div className="flex overflow-hidden rounded-sm border border-white/15">
           {!flipBookFailed && (
@@ -619,7 +619,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
 
       {/* Search bar */}
       {searchOpen && (
-        <div className="flex items-center gap-2 border-b border-white/10 bg-[#12100e] px-3 py-2">
+        <div className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2">
           <Search className="h-4 w-4 shrink-0 text-inverse-muted" />
           <input
             autoFocus
@@ -645,7 +645,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
         </div>
       )}
       {searchOpen && searchMsg && (
-        <div className="border-b border-white/10 bg-[#12100e] px-3 py-1 text-xs text-inverse-muted sm:hidden">
+        <div className="border-b border-white/10 bg-catalog-rail px-3 py-1 text-xs text-inverse-muted sm:hidden">
           {searchMsg}
         </div>
       )}
@@ -653,7 +653,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
       <div className="relative flex" style={{ height: isFullscreen ? "calc(100vh - 52px)" : "min(78vh, 900px)" }}>
         {/* Thumbnail rail */}
         {thumbsOpen && (
-          <div className="w-24 shrink-0 overflow-y-auto border-r border-white/10 bg-[#12100e] p-2 sm:w-28">
+          <div className="w-24 shrink-0 overflow-y-auto border-r border-white/10 bg-catalog-rail p-2 sm:w-28">
             <div className="flex flex-col gap-2">
               {pageNumbers.map((n) => (
                 <button
@@ -732,7 +732,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
 
           {/* SCROLL MODE */}
           {mode === "scroll" && (
-            <div ref={scrollRef} className="h-full w-full overflow-auto bg-[#0f1211] px-2 py-4">
+            <div ref={scrollRef} className="h-full w-full overflow-auto bg-catalog-canvas px-2 py-4">
               <div className="mx-auto flex flex-col items-center gap-4">
                 {pageNumbers.map((n) => (
                   <div
