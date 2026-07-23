@@ -58,7 +58,13 @@ export default function HomePage() {
             <div className="md:col-span-2">
               <Reveal>
                 <div className="brc-label mb-3 md:mb-5">Begin a conversation</div>
-                <h2 className="font-sans font-light text-[1.6rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.1] md:leading-[1.08] tracking-tight mb-3 md:mb-4 text-foreground">
+                {/* Base size matches the canonical display scale used by
+                    SectionHeader size="display" and every other display h2.
+                    It was 1.6rem, which made this the only section title that
+                    shrank on mobile - 25.6px against 32px everywhere else. The
+                    md and lg steps were already correct, so this is a
+                    mobile-only correction. */}
+                <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.1] md:leading-[1.08] tracking-tight mb-3 md:mb-4 text-foreground">
                   Tell us about your{" "}
                   <em className="brc-accent text-accent">project</em>.
                 </h2>
