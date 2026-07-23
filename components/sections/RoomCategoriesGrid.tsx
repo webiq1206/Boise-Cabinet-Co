@@ -15,6 +15,7 @@ export function RoomCategoriesGrid() {
     <Section id="cabinets" divider>
       <div className="container px-4">
         <SectionHeader
+          align="center"
           eyebrow="Cabinet solutions"
           size="display"
           title={

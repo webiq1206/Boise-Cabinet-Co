@@ -49,6 +49,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
           eyebrow="Our work"
           title="Cabinet projects across the Treasure Valley"
           description="Recent custom cabinet work - kitchen cabinets, bathroom vanities, and built-ins. Drag any slider to see the before and after."
+          align="center"
           className="mb-10 max-w-3xl"
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

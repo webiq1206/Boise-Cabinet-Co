@@ -33,6 +33,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
             </>
           }
           description={DIFFERENTIATORS_INTRO}
+          align="center"
           className="max-w-3xl"
         />
 

@@ -16,7 +16,9 @@ export function FeaturedProjectSection() {
   return (
     <section id="gallery" className="relative overflow-hidden bg-background section-divider border-t border-border/60">
       <div className="container px-4 pt-16 md:pt-24 pb-10 md:pb-12">
-        <Reveal className="max-w-3xl">
+        {/* Centred to match SectionHeader's align="center" convention. The
+            eyebrow is a flex row, so it needs its own centring. */}
+        <Reveal className="max-w-3xl mx-auto text-center [&_.brc-label]:justify-center">
           <div className="brc-label mb-4">Featured project</div>
           <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] tracking-tight mb-4 text-foreground">
             See what quality cabinetry can{" "}
