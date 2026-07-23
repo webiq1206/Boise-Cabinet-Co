@@ -295,6 +295,20 @@ export default function AboutPage() {
         <WhyChooseUsSection />
 
         {/* ─── Team ─── */}
+        {/*
+          The team section renders only once there are real people to name.
+          TEAM still holds placeholder entries (isPlaceholder: true) as a
+          scaffold, and rendering those published cards for "Founder & Owner"
+          and "Lead Designer" as if they were staff - unfinished-looking to a
+          visitor, and worse, fabricated people on the one page whose job is
+          establishing trust.
+
+          Gating on confirmedTeam, the same list the Person schema is built
+          from, means the page and its structured data can never disagree: add
+          a member with isPlaceholder: false and the section and its schema
+          both appear on their own.
+        */}
+        {confirmedTeam.length > 0 && (
         <Section divider>
           <div className="container px-4 max-w-5xl">
             <SectionHeader
@@ -310,7 +324,7 @@ export default function AboutPage() {
               className="mb-10"
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {TEAM.map((member, i) => (
+              {confirmedTeam.map((member, i) => (
                 <Reveal key={member.role} delay={Math.min(i, 3) * 60}>
                   <MarketingCard className="h-full p-6">
                     <h3 className="font-sans font-medium text-base mb-1">{member.name}</h3>
@@ -324,6 +338,7 @@ export default function AboutPage() {
             </div>
           </div>
         </Section>
+        )}
 
         <StatementBandSection />
 
