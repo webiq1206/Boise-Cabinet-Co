@@ -6,6 +6,7 @@ import { Section } from "@/components/marketing/Section";
 import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { FinishOptionsSelector } from "@/components/catalog/OptionsSelector";
+import { FinishDisclaimer } from "@/components/catalog/FinishDisclaimer";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
@@ -101,6 +102,7 @@ export default function FinishesPage({
             <FinishOptionsSelector
               initialFilters={hasInitialFilter ? initialFilters : undefined}
             />
+            <FinishDisclaimer className="mt-8 max-w-3xl" />
           </div>
         </Section>
 

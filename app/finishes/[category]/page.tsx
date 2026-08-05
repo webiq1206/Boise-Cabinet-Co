@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { FinishOptionsSelector } from "@/components/catalog/OptionsSelector";
+import { FinishDisclaimer } from "@/components/catalog/FinishDisclaimer";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -102,6 +103,7 @@ export default function FinishCategoryPage({ params }: { params: { category: str
               lockCategory
               showLinks
             />
+            <FinishDisclaimer className="mt-8 max-w-3xl" />
           </div>
         </Section>
 
