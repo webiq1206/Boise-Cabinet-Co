@@ -21,11 +21,11 @@ export function Footer() {
             <Link href="/" className="mb-6 inline-block" aria-label="Boise Cabinet Co - home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/boise-cabinet-co-logo-primary-reverse.svg"
+                src="/brand/svg/wordmark-full/dark/boise-cabinet-co-wordmark-full-bone-accent.svg"
                 alt="Boise Cabinet Co - Custom Cabinetry, Treasure Valley, Idaho"
                 width={236}
-                height={80}
-                className="h-16 w-auto"
+                height={110}
+                className="h-24 w-auto"
               />
             </Link>
             <div className="space-y-2">
@@ -262,7 +262,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/boise-cabinet-co-seal-dark.svg"
+              src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
               alt="Boise Cabinet Co seal"
               width={36}
               height={36}

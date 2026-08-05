@@ -232,7 +232,7 @@ export default function AboutPage() {
               <Reveal>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/boise-cabinet-co-seal-dark.svg"
+                  src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
                   alt="Boise Cabinet Co seal"
                   width={64}
                   height={64}

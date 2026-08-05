@@ -23,9 +23,9 @@ import { useAuth } from "@/hooks/useAuth";
 function Logo() {
   return (
     <Link href="/" className="flex items-center leading-none" aria-label="Boise Cabinet Co - home">
-      {/* Reverse (white) wordmark for the dark ground. eslint-disable-next-line @next/next/no-img-element */}
+      {/* Bone (reverse) wordmark for the dark ground. eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/brand/boise-cabinet-co-wordmark-reverse.svg"
+        src="/brand/svg/wordmark/dark/boise-cabinet-co-wordmark-bone.svg"
         alt="Boise Cabinet Co"
         width={190}
         height={28}
