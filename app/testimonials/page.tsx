@@ -9,7 +9,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { generateImageGallerySchema, generateLocalBusinessSchema } from '@/lib/schema';
 import { CTA_CONSULT } from '@/shared/ctaCopy';
-import { GALLERY_PROJECTS } from '@/shared/galleryData';
+import { PROJECTS } from '@/shared/galleryData';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 
 export const metadata = buildPageMetadata({
@@ -21,15 +21,22 @@ export const metadata = buildPageMetadata({
 });
 
 export default function TestimonialsPage() {
+  const galleryHasConcept = PROJECTS.some((p) => p.kind === 'concept');
   const gallerySchema = generateImageGallerySchema({
-    name: 'Boise Cabinet Co Design Concepts',
-    description:
-      'Custom cabinet design concepts for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages. Illustrative renderings, not photographs of specific completed homes.',
+    name: galleryHasConcept
+      ? 'Boise Cabinet Co Design Concepts'
+      : 'Boise Cabinet Co Project Gallery',
+    description: galleryHasConcept
+      ? 'Custom cabinet design concepts for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages. Illustrative renderings, not photographs of specific completed homes.'
+      : 'Custom cabinet projects completed for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages.',
     url: '/testimonials',
-    images: GALLERY_PROJECTS.map((concept) => ({
-      url: concept.imageUrl,
-      caption: `Design concept: ${concept.description}`,
-      name: concept.title,
+    images: PROJECTS.map((project) => ({
+      url: project.hero.src,
+      caption:
+        project.kind === 'concept'
+          ? `Design concept: ${project.description}`
+          : project.description,
+      name: project.title,
     })),
   });
 

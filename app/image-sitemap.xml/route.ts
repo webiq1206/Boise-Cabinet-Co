@@ -1,6 +1,6 @@
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { MARKETING_IMAGES } from '@/shared/siteImages';
-import { GALLERY_PROJECTS } from '@/shared/galleryData';
+import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
 
@@ -53,12 +53,16 @@ export function GET() {
     });
   }
 
-  // Cabinet design concept renderings (illustrative, not documented projects).
+  // Project imagery (design concepts are labeled as such; verified projects are
+  // described as completed work).
   entries.push({
     page: `${BASE}/testimonials`,
-    images: GALLERY_PROJECTS.map((concept) => ({
-      loc: abs(concept.imageUrl),
-      title: `Cabinet design concept: ${concept.title} for Treasure Valley homes`,
+    images: PROJECTS.map((project) => ({
+      loc: abs(project.hero.src),
+      title:
+        project.kind === 'concept'
+          ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
+          : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
     })),
   });
 

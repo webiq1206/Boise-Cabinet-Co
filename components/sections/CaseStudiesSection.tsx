@@ -5,11 +5,17 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CASE_STUDIES } from "@/shared/caseStudies";
 
 export function CaseStudiesSection() {
+  const hasConcept = CASE_STUDIES.some((s) => s.kind === "concept");
+  const allVerified = CASE_STUDIES.length > 0 && !hasConcept;
+  const description = allVerified
+    ? "Detailed kitchen, bath, and whole-home projects completed for Treasure Valley homeowners, with scope, timeline, and finish details."
+    : "Representative kitchen, bath, and whole-home scenarios drawn from typical Treasure Valley projects and our published planning ranges. Images are illustrative design renderings, not photographs of specific completed homes.";
+
   return (
     <Section divider>
       <div className="container px-4 max-w-5xl">
         <SectionHeader
-          eyebrow="Representative scenarios"
+          eyebrow={allVerified ? "Project case studies" : "Representative scenarios"}
           title={
             <>
               Detailed looks at{" "}
@@ -17,7 +23,7 @@ export function CaseStudiesSection() {
               work
             </>
           }
-          description="Representative kitchen, bath, and whole-home scenarios drawn from typical Treasure Valley projects and our published planning ranges. Images are illustrative design renderings, not photographs of specific completed homes."
+          description={description}
           align="left"
           className="mb-10"
         />
@@ -35,13 +41,15 @@ export function CaseStudiesSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover img-brand-grade"
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium">
-                  Illustrative rendering
-                </span>
+                {study.kind === "concept" && (
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium">
+                    Illustrative rendering
+                  </span>
+                )}
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">
-                  {study.city}, Idaho · {study.serviceType}
+                  {study.area}, Idaho · {study.service}
                 </p>
                 <h3 className="text-xl font-sans font-medium text-foreground mb-2">
                   {study.title}

@@ -65,12 +65,12 @@ before/after sliders must show the same real space.
 The `BeforeAfterSlider` component is retained in the codebase for future use with
 **verified** same-space photography; it is simply no longer fed fabricated pairs.
 
-### Follow-up for the owner
+### Follow-up for the owner (now automated)
 
-When real, verified project photos exist, repopulate `GALLERY_PROJECTS` and
-`CASE_STUDIES` with one property per entry, restore the before/after slider only
-where both frames are the same real space, and re-add specific location, scope,
-timeline, and budget only where they are true for that documented project.
+Projects are authored once in a single source of truth and compiled into every
+surface (gallery cards, homepage feature, case studies, testimonials JSON-LD,
+image sitemap) with the credibility rules applied automatically. See Section 11.
+You no longer hand-edit `GALLERY_PROJECTS` or `CASE_STUDIES`.
 
 ---
 
@@ -135,9 +135,9 @@ set, they run from existing tooling:
 
 ```bash
 export OPENAI_API_KEY=sk-...
-npm run images:generate:all      # site marketing/room/section imagery from scripts/site-image-manifest.json
-npm run catalog:images:generate  # catalog product, finish-in-room, and accessory imagery
-npm run catalog:build            # rebuild swatches, variants, blur, verify, and the PDF
+npm run repopulate   # images:generate:all + catalog:images:generate + catalog:build
+                     # (catalog:build also runs projects:build, so gallery/case
+                     #  studies/schema/sitemap all recompile from the project SSOT)
 ```
 
 Prioritized targets (page + purpose + why):
@@ -216,3 +216,59 @@ dark text bands.
 - `public/downloads/boise-cabinet-catalog.pdf` - regenerated.
 - `replit.md` - corrected stale "Boise Remodeling Co" brand overview (name, palette, fonts, services, service areas).
 - `audits/imagery-catalog-visual-audit.md` - this record.
+
+---
+
+## 11. Automated project repopulation (gallery, feature, case studies)
+
+Projects are now authored once and compiled into every surface, so repopulating
+after new photography is a single command with the credibility rules enforced by
+the build rather than by trust.
+
+### Author a project in one place
+
+- Central file: `data/projects.json` (a `projects` array), or
+- Per-project folder: `public/images/projects/<slug>/project.json` plus images.
+  Images can be named by convention (`after.*`, `before.*`, `detail-*.*`) and are
+  auto-resolved, so a real project is "drop the folder, run one command."
+
+Each project declares `kind`:
+
+- `concept` - illustrative rendering. Renders as a single completed-look image
+  with a "Design concept" label and the design-concept disclosure. A before/after
+  slider is never shown, even if a `before` image is supplied.
+- `verified` - a real, documented install. A before/after slider is emitted
+  **only** when a real `before` image exists, `images.sameSpaceBeforeAfter` is
+  `true`, and the before/after aspect ratios match within 6 percent. Otherwise
+  the completed image shows alone. Set `verified` only for actual photos of that
+  one property.
+
+### Compile
+
+```bash
+npm run projects:build   # also runs inside catalog:build and prebuild
+```
+
+`scripts/projects/build-projects.mjs` validates every referenced image, applies
+the rules above, and writes `shared/generated/projects.generated.ts` (committed).
+Hard errors (missing image, duplicate slug, bad kind) fail the build; soft issues
+(missing alt, aspect mismatch) warn and safely fall back. `shared/galleryData.ts`
+and `shared/caseStudies.ts` derive from the generated data; the homepage feature,
+gallery grid, case studies, testimonials JSON-LD, and image sitemap all update
+automatically, and a before/after slider appears the moment a valid verified
+project is added, with no component edits.
+
+Verified end to end: adding a verified same-space project produced a
+before/after slider automatically; removing it returned the site to the honest
+six-concept, zero-slider state.
+
+### New/changed files
+
+- `data/projects.json` - project source of truth (seeded from the current concepts).
+- `shared/projects/types.ts` - `SiteProject` model + credibility rules.
+- `scripts/projects/build-projects.mjs` - validating compiler.
+- `shared/generated/projects.generated.ts` - generated, committed output.
+- `shared/galleryData.ts`, `shared/caseStudies.ts` - now derive from the generated data.
+- `components/sections/FeaturedProjectSection.tsx`, `ProjectGallerySection.tsx`, `CaseStudiesSection.tsx` - render concept vs verified automatically.
+- `app/testimonials/page.tsx`, `app/image-sitemap.xml/route.ts` - per-kind captions/titles.
+- `package.json` - `projects:build`, `repopulate`, wired into `catalog:build` and `prebuild`.
