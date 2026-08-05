@@ -16,7 +16,7 @@ interface EstimateCalculatorProps {
    */
   headingAs?: "h1" | "h2";
   /**
-   * Homepage treatment: frames the wizard as an elevated, sage-accented tool so
+   * Homepage treatment: frames the wizard as an elevated, teal-accented tool so
    * it reads as a featured instrument instead of blending into the page rhythm.
    * The standalone `/estimate` page (which IS the tool) leaves this off.
    */
@@ -88,7 +88,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
 
         {featured ? (
           /* Elevated module: neutral hairline border + shadow lift the tool off
-             the flat page, and a solid sage accent line across the top marks it
+             the flat page, and a solid teal accent line across the top marks it
              as a distinct interactive module. */
           <div className="max-w-5xl mx-auto overflow-hidden rounded-xl border border-border bg-card/40 shadow-xl">
             <div className="h-1 bg-accent" aria-hidden="true" />

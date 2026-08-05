@@ -1,6 +1,6 @@
 /**
  * Premium, long-form blog posts (1,600+ words) authored to the full
- * SEO/AEO/GEO bar: Answer-First, rich HTML (tables, checklists, sage callouts),
+ * SEO/AEO/GEO bar: Answer-First, rich HTML (tables, checklists, teal callouts),
  * FAQ blocks, deep internal linking, and unique AI-photorealistic hero images.
  *
  * These are full BlogPostData objects (not factory-generated cluster posts).
@@ -11,7 +11,7 @@ import type { BlogPostData } from '../blogContent';
 
 const AUTHOR = 'Boise Cabinet Co';
 
-/** Sage key-takeaway callout (styled by `.blog-content .summary-block`). */
+/** Teal key-takeaway callout (styled by `.blog-content .summary-block`). */
 const framedVsFramelessContent = `
 <p class="text-lg"><strong>Framed cabinets</strong> have a face frame (a border of solid wood) across the front of the box; <strong>frameless cabinets</strong>, also called European or full-access cabinets, skip the frame so doors mount directly to the box. The practical result: frameless gives you wider drawers, easier reach, and a cleaner modern look, while framed offers a classic profile and slightly more racking rigidity. For most Treasure Valley kitchens that want maximum storage and a contemporary feel, frameless wins.</p>
 
