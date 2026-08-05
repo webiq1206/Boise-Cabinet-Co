@@ -42,22 +42,15 @@ async function generate(entry) {
   const prompt = `${entry.promptScene}. ${manifest.styleSuffix}`;
   console.log(`Generating ${entry.id}: ${entry.outputPath}`);
 
-  const response = await fetch("https://api.openai.com/v1/images/generations", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      // gpt-image-1 replaced dall-e-3's images API: it returns b64_json by
-      // default (no `response_format`), supports `output_format`, and uses a
-      // different size set (1536x1024 landscape / 1024x1024 square).
-      model: "gpt-image-1",
-      prompt,
-      n: 1,
-      size: entry.width >= 1200 ? "1536x1024" : "1024x1024",
-      output_format: "webp",
-    }),
+  const response = await requestWithRetry({
+    // gpt-image-1 replaced dall-e-3's images API: it returns b64_json by
+    // default (no `response_format`), supports `output_format`, and uses a
+    // different size set (1536x1024 landscape / 1024x1024 square).
+    model: "gpt-image-1",
+    prompt,
+    n: 1,
+    size: entry.width >= 1200 ? "1536x1024" : "1024x1024",
+    output_format: "webp",
   });
 
   if (!response.ok) {
@@ -75,16 +68,54 @@ async function generate(entry) {
   console.log(`  Wrote ${dest}`);
 }
 
+// Retries transient rate-limit (429) and server (5xx) responses with exponential
+// backoff, so higher concurrency does not lose images to brief throttling.
+async function requestWithRetry(body, attempt = 1) {
+  const response = await fetch("https://api.openai.com/v1/images/generations", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if ((response.status === 429 || response.status >= 500) && attempt <= 5) {
+    const waitMs = Math.min(30000, 2000 * 2 ** (attempt - 1));
+    await new Promise((r) => setTimeout(r, waitMs));
+    return requestWithRetry(body, attempt + 1);
+  }
+  return response;
+}
+
+// Bounded-concurrency worker pool. Default 6; override with IMAGE_GEN_CONCURRENCY.
+// Completed images are saved and marked "generated" as they finish, so the run
+// is safe to stop and resume (a re-run only processes the remaining pending).
+const CONCURRENCY = Math.max(1, Number(process.env.IMAGE_GEN_CONCURRENCY) || 6);
+
 async function main() {
-  console.log(`Processing ${entries.length} entries...`);
-  for (const entry of entries) {
-    try {
-      await generate(entry);
+  const total = entries.length;
+  console.log(`Processing ${total} entries (concurrency ${CONCURRENCY})...`);
+  let next = 0;
+  let completed = 0;
+  async function worker() {
+    while (next < total) {
+      const entry = entries[next++];
+      try {
+        await generate(entry);
+      } catch (err) {
+        console.error(err.message);
+      }
+      // Synchronous write is atomic relative to other workers (single thread).
       fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-    } catch (err) {
-      console.error(err.message);
+      completed++;
+      if (completed % 10 === 0 || completed === total) {
+        console.log(`  Progress: ${completed}/${total}`);
+      }
     }
   }
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, total) }, () => worker()),
+  );
   console.log("Done.");
 }
 
