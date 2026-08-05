@@ -44,7 +44,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: GALLERY_IMAGES.kitchen.after,
     imageAlt:
-      "Custom shaker kitchen cabinets with quartz island installed in a Boise ranch home",
+      "Design rendering of custom shaker kitchen cabinets with a quartz island for a Boise ranch home",
     links: [
       { label: "Kitchen cabinets", href: "/cabinets/kitchen" },
       { label: "Boise kitchen cabinet guide", href: "/guides/boise-kitchen-cabinet-guide" },
@@ -72,7 +72,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: GALLERY_IMAGES.bathroom.after,
     imageAlt:
-      "Double bathroom vanity with linen tower and organized drawers in a Meridian primary bath",
+      "Design rendering of a double bathroom vanity with a linen tower and organized drawer storage",
     links: [
       { label: "Bathroom vanities", href: "/cabinets/bathroom" },
       { label: "Boise bathroom vanity guide", href: "/guides/boise-bathroom-vanity-guide" },
@@ -100,7 +100,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: GALLERY_IMAGES.wholeHome.after,
     imageAlt:
-      "Coordinated whole-home custom cabinetry program in an Eagle, Idaho residence",
+      "Design rendering of coordinated whole-home custom cabinetry sharing one finish schedule",
     links: [
       { label: "Whole-home cabinetry guide", href: "/guides/whole-home-cabinetry-guide" },
       { label: "Whole-home cabinet cost", href: "/blog/whole-home-cabinet-cost-boise" },

@@ -22,22 +22,15 @@ export const metadata = buildPageMetadata({
 
 export default function TestimonialsPage() {
   const gallerySchema = generateImageGallerySchema({
-    name: 'Boise Cabinet Co Project Gallery',
+    name: 'Boise Cabinet Co Design Concepts',
     description:
-      'Before and after custom cabinet projects across the Treasure Valley, kitchens, baths, built-ins, and whole-home packages.',
+      'Custom cabinet design concepts for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages. Illustrative renderings, not photographs of specific completed homes.',
     url: '/testimonials',
-    images: GALLERY_PROJECTS.flatMap((project) => [
-      {
-        url: project.beforeImageUrl,
-        caption: `Before: ${project.title} in ${project.city}, Idaho`,
-        name: `${project.title}, before`,
-      },
-      {
-        url: project.afterImageUrl,
-        caption: `After: ${project.description}`,
-        name: `${project.title}, after`,
-      },
-    ]),
+    images: GALLERY_PROJECTS.map((concept) => ({
+      url: concept.imageUrl,
+      caption: `Design concept: ${concept.description}`,
+      name: concept.title,
+    })),
   });
 
   // LocalBusiness schema carries aggregateRating, but only once real review
@@ -67,7 +60,7 @@ export default function TestimonialsPage() {
                 <em className="brc-accent text-accent">reviews</em>
               </>
             }
-            description="Explore recent cabinet work across the Treasure Valley and hear from homeowners who prioritized clarity, craftsmanship, and communication."
+            description="Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
           />
           <div className="mb-8" />
           <div className="flex flex-wrap gap-3">

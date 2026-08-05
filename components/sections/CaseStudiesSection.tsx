@@ -9,7 +9,7 @@ export function CaseStudiesSection() {
     <Section divider>
       <div className="container px-4 max-w-5xl">
         <SectionHeader
-          eyebrow="Project case studies"
+          eyebrow="Representative scenarios"
           title={
             <>
               Detailed looks at{" "}
@@ -17,7 +17,7 @@ export function CaseStudiesSection() {
               work
             </>
           }
-          description="City, scope, timeline, and finish details from representative kitchen, bath, and whole-home programs."
+          description="Representative kitchen, bath, and whole-home scenarios drawn from typical Treasure Valley projects and our published planning ranges. Images are illustrative design renderings, not photographs of specific completed homes."
           align="left"
           className="mb-10"
         />
@@ -35,6 +35,9 @@ export function CaseStudiesSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover img-brand-grade"
                 />
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium">
+                  Illustrative rendering
+                </span>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">

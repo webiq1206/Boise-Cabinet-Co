@@ -1,5 +1,6 @@
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
-import { MARKETING_IMAGES, GALLERY_IMAGES } from '@/shared/siteImages';
+import { MARKETING_IMAGES } from '@/shared/siteImages';
+import { GALLERY_PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
 
@@ -52,16 +53,13 @@ export function GET() {
     });
   }
 
-  // Before/after project photography.
+  // Cabinet design concept renderings (illustrative, not documented projects).
   entries.push({
     page: `${BASE}/testimonials`,
-    images: Object.entries(GALLERY_IMAGES).flatMap(([key, pair]) => {
-      const label = key.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
-      return [
-        { loc: abs(pair.before), title: `Before: ${label} cabinet project in the Treasure Valley` },
-        { loc: abs(pair.after), title: `After: custom ${label} cabinets installed by Boise Cabinet Co` },
-      ];
-    }),
+    images: GALLERY_PROJECTS.map((concept) => ({
+      loc: abs(concept.imageUrl),
+      title: `Cabinet design concept: ${concept.title} for Treasure Valley homes`,
+    })),
   });
 
   // Article imagery, mapped to the article it illustrates.
