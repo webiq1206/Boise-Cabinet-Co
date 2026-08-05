@@ -293,5 +293,23 @@ export async function buildCatalogPdfBlocks(
   );
   blocks.push({ type: "image-grid", columns: 4, cells: accessoryCells });
 
+  // ── Before you finalize: finish, material, and availability disclaimers ──────
+  blocks.push({ type: "heading", text: "Before you finalize" });
+  blocks.push({
+    type: "paragraph",
+    text: "Finish swatches and product images in this catalog are a guide only. Screen and print settings, lighting, and photography can shift how a color reads, and wood and other natural materials carry expected grain and tone variation. Review physical samples in your home before finalizing a finish.",
+  });
+  blocks.push({
+    type: "paragraph",
+    text: "Product availability, lead times, and pricing change over time and are confirmed in writing during your design consultation. Cabinet configurations and accessories are built to order. This catalog is a planning reference, not a contract or quote.",
+  });
+
+  // ── Plan your project (contact + CTA back matter) ────────────────────────────
+  blocks.push({ type: "heading", text: "Plan your project with us" });
+  blocks.push({
+    type: "paragraph",
+    text: `Ready to choose door styles, finishes, and storage for your home? Book a free design consultation with ${SITE_CONFIG.name}. Call ${SITE_CONFIG.phone}, email ${SITE_CONFIG.email}, or visit ${SITE_CONFIG.siteUrl}. We serve Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell across Idaho's Treasure Valley.`,
+  });
+
   return blocks;
 }
