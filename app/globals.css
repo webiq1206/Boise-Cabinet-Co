@@ -46,11 +46,11 @@ html, body {
 }
 
 /* ─── DARK BRAND THEME (Boise Cabinet Co — the identity, not a toggle) ───
-   Charcoal ground + bone ink + restrained sage accent. Both :root and .dark
+   Charcoal ground + bone ink + restrained teal accent. Both :root and .dark
    carry the same values so there is no light flash and no unreachable state;
    the `.dark` class on <html> additionally activates Tailwind `dark:` variants.
    Palette: bg #1C1F1E · bg-2 #222624 · surface #262B29 · hairline #39403D ·
-   bone #F7F5F3 · text #E6E3DE · mist #9AA098 · faint #6E756F · sage #5D6561. */
+   bone #F7F5F3 · text #E6E3DE · mist #9AA098 · faint #6E756F · teal #7AAAAA. */
 :root {
   /* Sticky marketing header height (nav h-[60px] + 1px border). Used by
      viewport-fit tools (e.g. the estimator) to fill exactly one screen. */
@@ -105,11 +105,11 @@ html, body {
   --sidebar: 160 5% 12%;
   --sidebar-foreground: 37 14% 89%;
   --sidebar-border: 154 6% 24%;
-  --sidebar-primary: 150 4% 38%;
-  --sidebar-primary-foreground: 30 20% 96%;
+  --sidebar-primary: 180 22% 57%;
+  --sidebar-primary-foreground: 165 4% 18%;
   --sidebar-accent: 156 6% 16%;
   --sidebar-accent-foreground: 37 14% 89%;
-  --sidebar-ring: 150 4% 38%;
+  --sidebar-ring: 180 22% 57%;
 
   --popover: 150 6% 14%;         /* bg-2 */
   --popover-foreground: 37 14% 89%;
@@ -126,23 +126,24 @@ html, body {
   --muted: 156 6% 16%;
   --muted-foreground: 105 4% 61%;  /* mist #9AA098 */
 
-  /* Sage accent (brand palette #5D6561) - links hover, focus rings, pills; sparingly.
-     Bone foreground so any accent-as-background element (pills/badges) stays legible. */
-  --accent: 150 4% 38%;
-  --accent-text: 150 10% 60%;
-  --accent-foreground: 30 20% 96%;
+  /* Teal accent (brand palette #7AAAAA) - links hover, focus rings, pills; sparingly.
+     Charcoal foreground so any accent-as-background element (pills/badges) stays legible
+     (teal on charcoal / charcoal on teal is ~5.19:1, passing WCAG AA). */
+  --accent: 180 22% 57%;
+  --accent-text: 180 24% 64%;
+  --accent-foreground: 165 4% 18%;
 
-  --brass: 150 4% 38%;
-  --brass-foreground: 30 20% 96%;
+  --brass: 180 22% 57%;
+  --brass-foreground: 165 4% 18%;
 
   /* Danger (status only, separate from accent) - muted terracotta #C77B6B */
   --destructive: 10 45% 60%;
   --destructive-foreground: 30 20% 96%;
 
   --input: 150 6% 13%;           /* #1F2321 */
-  --ring: 150 4% 38%;            /* sage focus ring */
+  --ring: 180 22% 57%;            /* teal focus ring */
 
-  --chart-1: 150 4% 38%;    /* sage */
+  --chart-1: 180 22% 57%;    /* teal */
   --chart-2: 156 6% 16%;    /* surface */
   --chart-3: 30 20% 96%;    /* bone */
   --chart-4: 105 4% 61%;    /* mist */
@@ -217,11 +218,11 @@ html, body {
   --sidebar: 160 5% 12%;
   --sidebar-foreground: 37 14% 89%;
   --sidebar-border: 154 6% 24%;
-  --sidebar-primary: 150 4% 38%;
-  --sidebar-primary-foreground: 30 20% 96%;
+  --sidebar-primary: 180 22% 57%;
+  --sidebar-primary-foreground: 165 4% 18%;
   --sidebar-accent: 156 6% 16%;
   --sidebar-accent-foreground: 37 14% 89%;
-  --sidebar-ring: 150 4% 38%;
+  --sidebar-ring: 180 22% 57%;
 
   --popover: 150 6% 14%;
   --popover-foreground: 37 14% 89%;
@@ -236,20 +237,20 @@ html, body {
   --muted: 156 6% 16%;
   --muted-foreground: 105 4% 61%;
 
-  --accent: 150 4% 38%;
-  --accent-text: 150 10% 60%;
-  --accent-foreground: 30 20% 96%;
+  --accent: 180 22% 57%;
+  --accent-text: 180 24% 64%;
+  --accent-foreground: 165 4% 18%;
 
-  --brass: 150 4% 38%;
-  --brass-foreground: 30 20% 96%;
+  --brass: 180 22% 57%;
+  --brass-foreground: 165 4% 18%;
 
   --destructive: 10 45% 60%;
   --destructive-foreground: 30 20% 96%;
 
   --input: 150 6% 13%;
-  --ring: 150 4% 38%;
+  --ring: 180 22% 57%;
 
-  --chart-1: 150 4% 38%;
+  --chart-1: 180 22% 57%;
   --chart-2: 156 6% 16%;
   --chart-3: 30 20% 96%;
   --chart-4: 105 4% 61%;
@@ -308,7 +309,7 @@ html, body {
 
   /* HARD BRAND RULE: nothing bolder than 400 anywhere. Cap the weight utilities
      and default bold elements so emphasis is carried by the sans/serif contrast,
-     the sage accent, and letter-spacing instead of weight. `!important` is used
+     the teal accent, and letter-spacing instead of weight. `!important` is used
      deliberately: Tailwind's weight utilities sit in @layer utilities (which
      outranks @layer base), so only an important declaration makes the cap
      authoritative at the computed level, not just visually via the 300/400-only
@@ -482,17 +483,17 @@ html, body {
   filter: saturate(0.92) contrast(1.02) brightness(0.98);
 }
 
-/* ─── Decorative accent (Fraunces italic emphasis only) ─── */
+/* ─── Decorative accent (Libre Baskerville italic emphasis only) ─── */
 .brc-accent {
-  font-family: var(--font-fraunces, Georgia, serif);
+  font-family: var(--font-libre-baskerville, Georgia, serif);
   font-style: italic;
   font-optical-sizing: auto;
 }
 
-/* Accent TEXT uses --accent-text, a lighter sage tuned to meet WCAG AA contrast
-   on the charcoal grounds (~5.5:1), while the deeper --accent (#5D6561) stays
+/* Accent TEXT uses --accent-text, a lighter teal tuned to meet WCAG AA contrast
+   on the charcoal grounds, while the brand --accent (#7AAAAA) stays
    for decorative borders/fills. Both the heading accent word and any `.text-accent`
-   text (eyebrows, chips, links) resolve to the accessible sage. These unlayered
+   text (eyebrows, chips, links) resolve to the accessible teal. These unlayered
    rules outrank the layered Tailwind `.text-accent` utility. */
 .text-accent {
   color: hsl(var(--accent-text));
@@ -501,10 +502,10 @@ html, body {
   color: hsl(var(--accent-text));
 }
 
-/* ─── Decorative display numerals (Fraunces: stats, prices, step markers) ─── */
+/* ─── Decorative display numerals (Libre Baskerville: stats, prices, step markers) ─── */
 .brc-display-num {
-  font-family: var(--font-fraunces, Georgia, serif);
-  font-weight: 300;
+  font-family: var(--font-libre-baskerville, Georgia, serif);
+  font-weight: 400;
   font-style: normal;
   font-optical-sizing: auto;
   font-variant-numeric: tabular-nums;
@@ -550,8 +551,8 @@ html, body {
   content: "";
   width: 24px;
   height: 1px;
-  /* Sage brand accent on every eyebrow rule (the label text stays mist for
-     legibility). This is the 'rules' role the palette reserves for sage. */
+  /* Teal brand accent on every eyebrow rule (the label text stays mist for
+     legibility). This is the 'rules' role the palette reserves for teal. */
   background: hsl(var(--accent));
   flex-shrink: 0;
 }
@@ -740,7 +741,7 @@ html, body {
 .blog-content > *:first-child { margin-top: 0; }
 
 .blog-content .pull-quote {
-  font-family: var(--font-fraunces, Georgia, serif);
+  font-family: var(--font-libre-baskerville, Georgia, serif);
   font-style: italic;
   font-size: 1.25rem;
   line-height: 1.5;

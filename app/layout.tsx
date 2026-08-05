@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Montserrat, Fraunces } from 'next/font/google'
+import { Montserrat, Libre_Baskerville } from 'next/font/google'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
 import { MetaPixel } from '@/components/seo/MetaPixel'
@@ -21,14 +21,15 @@ const montserrat = Montserrat({
   display: 'swap',
 })
 
-const fraunces = Fraunces({
-  // Only 300 (display numerals, .brc-display-num) and 400 italic (.brc-accent /
-  // pull-quotes) are used in the design system, so weight 500 is intentionally
-  // dropped to cut two font files from the critical download.
+const libreBaskerville = Libre_Baskerville({
+  // The brand's accent typeface. Regular (400, display numerals via
+  // .brc-display-num) and 400 italic (.brc-accent / pull-quotes) are the only
+  // cuts used in the design system; Libre Baskerville ships only 400/700, so
+  // this loads just the two files the identity actually needs.
   subsets: ['latin'],
-  weight: ['300', '400'],
+  weight: ['400'],
   style: ['normal', 'italic'],
-  variable: '--font-fraunces',
+  variable: '--font-libre-baskerville',
   display: 'swap',
 })
 
@@ -98,7 +99,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`dark ${montserrat.variable} ${fraunces.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
+    <html lang="en" className={`dark ${montserrat.variable} ${libreBaskerville.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
         {/*
           The hero LCP image is preloaded by next/image's `priority` prop in
