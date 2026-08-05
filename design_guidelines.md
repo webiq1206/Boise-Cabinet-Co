@@ -1,12 +1,12 @@
-# Boise Remodeling Co Design Guidelines
+# Boise Cabinet Co Design Guidelines
 
 ## Design Approach
 
-**Premium, Clear, Trustworthy** — Design-build remodeling with a calm, editorial feel: warm neutrals, confident typography, and generous whitespace.
+**Premium, Clear, Trustworthy.** Custom cabinetry with a calm, editorial feel: charcoal and bone neutrals, confident typography, and generous whitespace.
 
 **Core principles:**
 - Clarity over clutter: one primary action per section
-- Charcoal primary CTAs; sage accent for heading emphasis only
+- Charcoal primary CTAs; teal accent for heading emphasis only
 - Mobile-first conversion (estimator, consult CTA)
 - Shared tokens in `app/globals.css` — no one-off page styles
 
@@ -22,15 +22,15 @@
 | Ink | `--foreground` | Body text (AA) |
 | Meta | `--muted-foreground` | Eyebrows, captions only |
 | Anchor | `--inverse` | Dark bands, footer |
-| Accent | `--accent` (sage) | `.brc-accent` in headings, slider thumb — not filled buttons |
+| Accent | `--accent` (teal `#7AAAAA`) | `.brc-accent` in headings, slider thumb, rules; not filled buttons |
 
 ---
 
 ## Typography
 
 - **UI & body:** Montserrat (`font-sans`)
-- **Accent word:** Fraunces italic via `.brc-accent` (max one word per heading)
-- **Numerals:** Fraunces via `.brc-display-num` / `<DisplayNum>`
+- **Accent word:** Libre Baskerville italic via `.brc-accent` (max one word per heading)
+- **Numerals:** Libre Baskerville via `.brc-display-num` / `<DisplayNum>`
 - **Eyebrows:** `.brc-label` — 11px, uppercase, 0.14em tracking
 
 Living reference: `/style-guide` (noindex).
