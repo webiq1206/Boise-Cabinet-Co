@@ -2,7 +2,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 
 /**
  * Email brand tokens, matching the site's DARK theme in app/globals.css
- * (charcoal ground, bone ink, restrained sage accent). Key names are kept
+ * (charcoal ground, bone ink, restrained teal accent). Key names are kept
  * stable for the other templates that import them, but the VALUES are now the
  * real dark palette:
  *   charcoal      -> primary bone text (used as `color:` in ~27 places)
@@ -11,19 +11,19 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
  *   canvas        -> outer body ground (darkest)
  *   highlightBg   -> raised surface for boxes/badges
  *   border        -> hairline
- *   sage          -> decorative accent (box left-borders)
- *   accentDark    -> readable accent for links (lighter sage, WCAG-safe)
+ *   sage          -> decorative teal accent (box left-borders); key kept for compat
+ *   accentDark    -> readable teal accent for links (WCAG-safe on the dark ground)
  * plus bone/onAccent for the light CTA button.
  */
 export const EMAIL_BRAND = {
   charcoal: "#EDEAE4", // primary text (light-on-dark)
   charcoalLight: "#9AA098", // mist / muted text
-  sage: "#5D6561", // decorative accent (deep sage)
+  sage: "#7AAAAA", // decorative accent (brand teal); key name kept for compat
   canvas: "#1C1F1E", // body ground (darkest)
   white: "#222624", // card / content surface
   border: "#39403D", // hairline
   highlightBg: "#262B29", // raised surface (boxes, badges)
-  accentDark: "#8FA399", // readable accent (lighter sage) for links
+  accentDark: "#8FBEBE", // readable accent (lighter teal) for links
   bone: "#F7F5F3", // headings + CTA button background
   onAccent: "#1C1F1E", // text on the bone button
 } as const;

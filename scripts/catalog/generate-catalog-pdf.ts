@@ -23,8 +23,9 @@ const OUT_DIR = path.join(PUBLIC_DIR, "downloads");
 const OUT_FILE = path.join(OUT_DIR, "boise-cabinet-catalog.pdf");
 const FONT_DIR = path.join(process.cwd(), "lib", "pdf", "fonts");
 
-/** Load the embedded Montserrat + Fraunces-italic brand fonts for the dark theme.
- *  A missing file just falls back to standard fonts, so the build never breaks. */
+/** Load the embedded Montserrat + Libre Baskerville italic brand fonts for the
+ *  dark theme. A missing file just falls back to standard fonts, so the build
+ *  never breaks. */
 async function loadBrandFonts(): Promise<ResourcePdfFonts> {
   const load = async (file: string): Promise<Uint8Array | undefined> => {
     const abs = path.join(FONT_DIR, file);
@@ -34,7 +35,7 @@ async function loadBrandFonts(): Promise<ResourcePdfFonts> {
   return {
     sansLight: await load("Montserrat-Light.ttf"),
     sansRegular: await load("Montserrat-Regular.ttf"),
-    serifItalic: await load("Fraunces-LightItalic.ttf"),
+    serifItalic: await load("LibreBaskerville-Italic.ttf"),
   };
 }
 

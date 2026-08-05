@@ -75,7 +75,7 @@ export interface ResourcePdfFonts {
 
 export interface ResourcePdfOptions {
   /** 'light' (default) keeps the original printable look; 'dark' applies the
-   *  Boise Cabinet Co dark brand system (charcoal ground, bone + Fraunces italic). */
+   *  Boise Cabinet Co dark brand system (charcoal ground, bone + Libre Baskerville italic). */
   theme?: 'light' | 'dark';
   fonts?: ResourcePdfFonts;
 }
@@ -148,9 +148,9 @@ const DARK_THEME: Theme = {
   coverSubtitle: hex('9AA098'),
   imageSub: hex('9AA098'),
   footer: hex('9AA098'),
-  hairline: hex('5D6561'), // sage - the palette's reserved 'rules' role
-  numeral: hex('9AA098'), // Fraunces-italic section numbers, mist
-  accent: hex('93A386'), // sage
+  hairline: hex('7AAAAA'), // teal - the palette's reserved 'rules' role
+  numeral: hex('9AA098'), // Libre Baskerville italic section numbers, mist
+  accent: hex('7AAAAA'), // teal
   ink: hex('E6E3DE'),
   // Product line-drawings are black-on-white, so cards stay a light bone tile.
   cardBg: hex('F5F3EF'),
@@ -167,7 +167,7 @@ interface RoleFonts {
   body: PDFFont;
   label: PDFFont;
   caption: PDFFont;
-  accent: PDFFont; // Fraunces italic (dark) / Times italic (light, unused)
+  accent: PDFFont; // Libre Baskerville italic (dark) / Times italic (light, unused)
 }
 
 interface PdfContext {
@@ -382,7 +382,7 @@ function drawImageCard(
   }
 }
 
-/** Numbered section heading in the brand style: Fraunces-italic numeral + light
+/** Numbered section heading in the brand style: Libre-Baskerville-italic numeral + light
  *  bone title over a hairline rule. Every numbered section opens a fresh page and
  *  records its page number so the table of contents can reference it. */
 function drawBrandHeading(ctx: PdfContext, text: string): void {
@@ -424,7 +424,7 @@ function drawBrandHeading(ctx: PdfContext, text: string): void {
 }
 
 /** Contents page: an editorial index of the numbered sections. Each row echoes
- *  the section's Fraunces-italic numeral, with a sage hairline leader and the
+ *  the section's Libre-Baskerville-italic numeral, with a teal hairline leader and the
  *  page the section starts on (resolved from the prior pass via ctx.pageLookup). */
 function drawToc(ctx: PdfContext, block: Extract<PdfBlock, { type: 'toc' }>): void {
   const t = ctx.theme;
@@ -764,7 +764,7 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
 }
 
 /** Brand cover page: a typographic wordmark lockup + title on the charcoal ground,
- *  framed by sage hairlines (top letterhead rule, lockup rule, meta rule). */
+ *  framed by teal hairlines (top letterhead rule, lockup rule, meta rule). */
 function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover' }>): void {
   const t = ctx.theme;
   const left = MARGIN;
@@ -780,7 +780,7 @@ function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover
   });
   drawTracked(ctx, 'BOISE CABINET CO', left, topY - 20, 9, ctx.f.label, t.subtitle, 3);
 
-  // Wordmark: "BOISE CABINET " (light, tracked) + "Co." (Fraunces italic).
+  // Wordmark: "BOISE CABINET " (light, tracked) + "Co." (Libre Baskerville italic).
   const wmY = PAGE_HEIGHT * 0.62;
   const wmSize = 27;
   const endX = drawTracked(ctx, 'BOISE CABINET ', left, wmY, wmSize, ctx.f.heading, t.title, 2);

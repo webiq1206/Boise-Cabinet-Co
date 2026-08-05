@@ -54,8 +54,8 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
     bg ? h('img', { src: bg, width: 1200, height: 630, style: { position: 'absolute', top: 0, left: 0 } }) : null,
     // Uniform dark overlay so centered white text stays legible over any photo.
     h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(18,20,19,0.62)' } }),
-    // Sage top accent line
-    h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#5D6561' } }),
+    // Teal top accent line
+    h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#7AAAAA' } }),
     // CENTERED content kept inside the middle ~600px (300px side padding). A
     // square (1:1) crop keeps the center 630px, so nothing here is ever cut off;
     // it also reads well at the full 1.91:1 size for Facebook / LinkedIn / X.
@@ -71,13 +71,13 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
       h(
         'div',
         { style: { display: 'flex', alignItems: 'center', marginBottom: 22 } },
-        h('div', { style: { width: 34, height: 2, backgroundColor: '#5D6561', marginRight: 14 } }),
+        h('div', { style: { width: 34, height: 2, backgroundColor: '#7AAAAA', marginRight: 14 } }),
         h(
           'div',
           { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 17, letterSpacing: 2, color: '#E6E3DE' } },
           'BOISE CABINET CO · BOISECABINET.CO',
         ),
-        h('div', { style: { width: 34, height: 2, backgroundColor: '#5D6561', marginLeft: 14 } }),
+        h('div', { style: { width: 34, height: 2, backgroundColor: '#7AAAAA', marginLeft: 14 } }),
       ),
       h(
         'div',
