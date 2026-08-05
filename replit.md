@@ -1,7 +1,7 @@
-# Boise Remodeling Co Website
+# Boise Cabinet Co Website
 
 ## Overview
-The Boise Remodeling Co website is a marketing and lead-generation platform for a Boise, Idaho design-build remodeling company. The site serves homeowners in the Treasure Valley (Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton) considering kitchen remodels, bathroom remodels, whole-home renovations, and room additions. Key features include an instant estimate calculator (project type + finish level + size → animated price range), a consultation request form, a founding-clients offer section, a blog, and a B2B lead distribution marketplace for subcontractors.
+The Boise Cabinet Co website is a marketing and lead-generation platform for a Boise, Idaho custom cabinetry company. The site serves homeowners, builders, and contractors in the Treasure Valley (Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell) planning custom kitchen cabinets, bathroom vanities, and built-in storage (laundry, mudroom, office, closets, garage, entertainment centers). Key features include an instant estimate calculator (project type + finish level + size → animated price range), a browsable product catalog with a downloadable branded catalog PDF, a consultation request form, a blog and guide library, and a B2B lead distribution marketplace for trade partners.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
@@ -9,8 +9,8 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### UI/UX Decisions
-- **Design System**: Mobile-first responsive design. Montserrat (`font-sans`) for all headings and body text; the serif (Libre Baskerville, `font-serif`) is reserved exclusively for decorative accents: italic emphasis words via `.brc-accent` and display numerals via `.brc-display-num`. Do not apply `font-serif` to heading elements.
-- **Color Palette**: Warm cream background (`36 30% 97%`), warm dark charcoal foreground (`24 18% 12%`), terracotta/sienna primary (`18 56% 40%`), warm sand secondary, soft teal accent (`#7AAAAA`).
+- **Design System**: Mobile-first responsive design, permanently dark. Montserrat (`font-sans`) for all headings and body text; the serif (Libre Baskerville, `font-serif`) is reserved exclusively for decorative accents: italic emphasis words via `.brc-accent` and display numerals via `.brc-display-num`. Do not apply `font-serif` to heading elements. Text is capped at weight 400.
+- **Color Palette**: Charcoal ground (`#1C1F1E`), bone headings (`#F7F5F3`) and text (`#E6E3DE`), teal accent (`#7AAAAA`) used for heading emphasis and rules only (never filled buttons). Primary CTAs are bone-on-charcoal. See `design_guidelines.md` and `app/globals.css` for the authoritative tokens.
 - **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS.
 - **Homepage**: 12-section single-page marketing layout: Hero → Trust Strip → Founder Note → Inspiration Gallery → Estimate Calculator → Below-Calculator Cards → How We Build → Principles → Financing/Guarantee → Founding Clients → FAQ Accordion → Consultation Form.
 - **Founding Spots**: `FOUNDING_SPOTS_REMAINING` constant in `shared/contentData.ts` — update manually as spots fill.
@@ -25,8 +25,8 @@ Preferred communication style: Simple, everyday language.
 - **Blog System**: Infrastructure kept but no posts yet — `shared/blogContent.ts` has empty `BLOG_POSTS` array.
 - **Email**: Resend integration, `hello@boisecabinet.co` as from/reply-to address and the sole admin recipient/account for the site and all portals.
 - **Outreach deliverability webhook**: `app/api/outreach/webhook/route.ts` receives Resend events, verifies the Svix signature with the `RESEND_WEBHOOK_SECRET` secret (global; covers dev + deploy), and on `email.bounced`/`email.complained` adds the address to `outreachSuppressions` (reason `bounce`/`complaint`) and marks the matching prospect `bounced`/`unsubscribed` so it leaves the send queue. Configure the Resend webhook to point at the APP domain (`https://boisecabinet.co/api/outreach/webhook`), NOT the `outreach.boisecabinet.co` email subdomain — that subdomain only has Resend email (MX/sending) DNS, has no web record, so HTTPS webhook calls to it fail and Resend auto-disables the endpoint. Subscribe it to those two events; the signing secret (`whsec_...`) is the `RESEND_WEBHOOK_SECRET` value.
-- **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton (Ada + Canyon County).
-- **Services**: Kitchen Remodel, Bathroom Remodel, Whole-Home Remodel, Room Addition.
+- **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada + Canyon County).
+- **Services**: Custom cabinetry for kitchens, bathrooms/vanities, laundry, mudroom/entry, home office, closets/storage, garage/utility, entertainment centers/built-ins, and whole-home cabinet programs, plus builder and contractor cabinet supply.
 
 ### System Design Choices
 - **Backend Framework**: Next.js API routes.
@@ -50,4 +50,4 @@ Preferred communication style: Simple, everyday language.
 - **nanoid**: Unique ID generation.
 - **Resend**: Transactional email.
 - **Stripe**: Payments for the lead marketplace.
-- **Playfair Display** + **Montserrat**: Google Fonts (loaded via `next/font/google`).
+- **Montserrat** + **Libre Baskerville** (italic accent only): Google Fonts (loaded via `next/font/google`).
