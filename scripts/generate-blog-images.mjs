@@ -51,11 +51,14 @@ async function generateImage(slug, scenePrompt) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "dall-e-3",
+      // gpt-image-1 replaced dall-e-3's images API: it returns b64_json by
+      // default (no `response_format`), supports `output_format`, and uses a
+      // different size set (1536x1024 landscape / 1024x1024 square).
+      model: "gpt-image-1",
       prompt,
       n: 1,
-      size: "1792x1024",
-      response_format: "b64_json",
+      size: "1536x1024",
+      output_format: "webp",
     }),
   });
 
