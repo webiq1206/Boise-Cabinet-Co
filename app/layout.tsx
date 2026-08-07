@@ -6,6 +6,7 @@ import { MetaPixel } from '@/components/seo/MetaPixel'
 import { AnalyticsBridge } from '@/components/seo/AnalyticsBridge'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
+import { AssistantWidget } from '@/components/assistant/AssistantWidget'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
 import { ScrollToTop } from '@/components/ScrollToTop'
@@ -149,6 +150,7 @@ export default function RootLayout({
             </main>
             <ConditionalFooter />
           </div>
+          <AssistantWidget />
           <Toaster />
         </Providers>
       </body>

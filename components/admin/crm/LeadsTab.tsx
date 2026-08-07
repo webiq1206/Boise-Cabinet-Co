@@ -73,6 +73,7 @@ const EMAIL_STATUS_LABELS: Record<string, string> = {
 
 const SOURCE_OPTIONS = [
   "consultation",
+  "assistant",
   "estimate_form",
   "contact_form",
   "estimator",

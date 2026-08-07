@@ -108,6 +108,21 @@ const bodySchema = z.object({
     .passthrough()
     .optional()
     .nullable(),
+  /**
+   * Lead origin. Whitelisted: the estimating assistant submits through this
+   * same route so its leads flow into the identical pipeline, distinguished
+   * only by source for CRM filtering.
+   */
+  source: z.enum(["consultation", "assistant"]).optional().default("consultation"),
+  sourceDetail: z
+    .enum(["consultation_form", "assistant_chat", "assistant_handoff"])
+    .optional(),
+  /**
+   * Plain-text transcript of the assistant conversation that produced this
+   * lead. Stored in the submission's raw payload (top-level string, so the
+   * admin lead detail renders it directly) - never parsed or acted on.
+   */
+  conversationTranscript: z.string().max(60_000).optional(),
   /** Shared event id for Meta pixel + Conversions API deduplication. */
   metaEventId: z.string().optional(),
   /** Honeypot - must be empty; bots often fill hidden fields. */
@@ -268,8 +283,10 @@ export async function POST(request: NextRequest) {
               : null,
             message: data.message || null,
             status: "pending_admin",
-            source: "consultation",
-            sourceDetail: "consultation_form",
+            source: data.source,
+            sourceDetail:
+              data.sourceDetail ??
+              (data.source === "assistant" ? "assistant_chat" : "consultation_form"),
             emailStatus: "new",
             pipelineStage: "new",
           })
@@ -286,7 +303,7 @@ export async function POST(request: NextRequest) {
             leadId,
             formType: "consultation",
             rawPayload: data as unknown as Record<string, unknown>,
-            sourcePage: "/consultation",
+            sourcePage: data.source === "assistant" ? "/assistant" : "/consultation",
           });
 
           // Persist the estimator output as a planning range.
