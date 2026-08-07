@@ -13,11 +13,12 @@ import { HOMEPAGE_DESCRIPTION, HOMEPAGE_TITLE } from '@/lib/seo'
 import './globals.css'
 
 const montserrat = Montserrat({
-  // The dark brand system caps all text at weight 400 (nothing bold), so only
-  // Light (300, headings) and Regular (400, body/labels) are loaded - dropping
-  // 500/600 cuts two font files from the critical download.
+  // Light (300, large display headings), Regular (400, body), and Medium (500,
+  // buttons/nav/labels/card titles/subheadings) so emphasis has real visual
+  // weight instead of collapsing to body weight. Still nothing heavier than
+  // Medium - hierarchy stays elegant, not bold.
   subsets: ['latin'],
-  weight: ['300', '400'],
+  weight: ['300', '400', '500'],
   variable: '--font-montserrat',
   display: 'swap',
 })

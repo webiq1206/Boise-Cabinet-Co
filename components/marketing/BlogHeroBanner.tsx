@@ -17,7 +17,7 @@ export function BlogHeroBanner({ src, alt, priority = true }: BlogHeroBannerProp
         fill
         priority={priority}
         sizes="100vw"
-        className="object-cover opacity-[0.82] img-brand-grade"
+        className="object-cover opacity-[0.9] img-brand-grade"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse via-inverse/50 to-inverse/10" />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/60 via-inverse/15 to-transparent" />
@@ -44,7 +44,7 @@ export function HubHeroBanner({ src, alt }: HubHeroBannerProps) {
         fill
         priority
         sizes="(max-width: 768px) 100vw, 896px"
-        className="object-cover opacity-[0.82] img-brand-grade"
+        className="object-cover opacity-[0.9] img-brand-grade"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse via-inverse/40 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none bg-gradient-to-t from-background via-background/50 to-transparent" />

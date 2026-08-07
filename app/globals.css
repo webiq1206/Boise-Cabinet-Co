@@ -290,6 +290,10 @@ html, body {
 
   html {
     scroll-behavior: smooth;
+    /* Every hash/anchor jump and scrollIntoView() call sitewide (estimator
+       steps, #calculator, #consult, #faq, etc.) reserves this much space at
+       the top so the target never lands underneath the sticky header. */
+    scroll-padding-top: calc(var(--app-header-h, 61px) + 16px);
   }
 
   body {
@@ -307,14 +311,19 @@ html, body {
     color: hsl(var(--heading));
   }
 
-  /* HARD BRAND RULE: nothing bolder than 400 anywhere. Cap the weight utilities
-     and default bold elements so emphasis is carried by the sans/serif contrast,
-     the teal accent, and letter-spacing instead of weight. `!important` is used
+  /* HARD BRAND RULE: nothing bolder than Medium (500) anywhere. Cap the weight
+     utilities so emphasis is carried by weight *and* the sans/serif contrast,
+     the teal accent, and letter-spacing - never true bold. `!important` is used
      deliberately: Tailwind's weight utilities sit in @layer utilities (which
      outranks @layer base), so only an important declaration makes the cap
-     authoritative at the computed level, not just visually via the 300/400-only
-     font load. */
-  .font-medium,
+     authoritative at the computed level, not just visually via the loaded font
+     weights (300/400/500 only - font-synthesis-weight below blocks the browser
+     from faking anything heavier). font-medium (buttons, nav, labels, card
+     titles) gets its own real weight instead of collapsing to body weight;
+     semibold/bold/extrabold/black still clamp down to Medium, not further. */
+  .font-medium {
+    font-weight: 500 !important;
+  }
   .font-semibold,
   .font-bold,
   .font-extrabold,
@@ -322,7 +331,7 @@ html, body {
   b,
   strong,
   th {
-    font-weight: 400 !important;
+    font-weight: 500 !important;
   }
 
   p { @apply leading-relaxed; }
@@ -648,23 +657,23 @@ html, body {
 }
 .blog-content h2 {
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid hsl(var(--border));
-  color: hsl(var(--foreground));
+  color: hsl(var(--heading));
 }
 .blog-content h3 {
   font-size: 1.35rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  color: hsl(var(--foreground));
+  color: hsl(var(--heading));
 }
 .blog-content h4 {
   font-size: 1.05rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   color: hsl(var(--heading));
@@ -805,9 +814,15 @@ html, body {
   gap: 0.25rem 1rem;
 }
 
-/* Marketing text link (tertiary action) */
+/* Marketing text link (tertiary action). tap-target-equivalent floor on coarse
+   pointers so card "Read article" links meet WCAG 2.5.8 target size. */
 .brc-text-link {
   @apply inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-2 hover:underline transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm;
+}
+@media (pointer: coarse) {
+  .brc-text-link {
+    min-height: 2.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

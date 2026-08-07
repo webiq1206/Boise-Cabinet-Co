@@ -75,6 +75,7 @@ export function CatalogSearch({
           placeholder={placeholder}
           className="pl-9"
           aria-label="Search product catalog"
+          role="combobox"
           aria-expanded={open}
           aria-controls="catalog-search-results"
           autoComplete="off"
@@ -88,7 +89,7 @@ export function CatalogSearch({
           className="absolute z-50 mt-2 w-full rounded-md border border-border bg-card shadow-lg overflow-hidden"
         >
           {results.map((result) => (
-            <li key={`${result.type}-${result.slug}`} role="option">
+            <li key={`${result.type}-${result.slug}`} role="option" aria-selected={false}>
               <Link
                 href={catalogResultHref(result)}
                 className="block px-4 py-3 hover:bg-muted/60 transition-colors"

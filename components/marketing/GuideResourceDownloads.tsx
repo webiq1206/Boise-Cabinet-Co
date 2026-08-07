@@ -30,7 +30,7 @@ export function GuideResourceDownloads({ resources }: GuideResourceDownloadsProp
       </ul>
       <p className="text-xs text-muted-foreground mt-4">
         All resources are planning aids, not quotes or contracts.{' '}
-        <Link href="/resources" className="text-accent hover:underline">
+        <Link href="/resources" className="text-accent underline underline-offset-2">
           View all resources
         </Link>
       </p>
@@ -51,7 +51,7 @@ function ResourceRow({ resource }: { resource: GuideResource }) {
         <p className="text-sm font-medium text-foreground">{resource.title}</p>
         <p className="text-xs text-muted-foreground mt-0.5">{resource.description}</p>
         {resource.fileLabel && (
-          <p className="text-xs text-muted-foreground/80 mt-1">{resource.fileLabel}</p>
+          <p className="text-xs text-muted-foreground mt-1">{resource.fileLabel}</p>
         )}
       </div>
       {isExternalPdf ? (

@@ -150,13 +150,13 @@ export default function AboutPage() {
             src={SITE_IMAGES.leadership}
             alt={`Custom white shaker kitchen cabinets by ${SITE_CONFIG.name} in a Treasure Valley home`}
             fill
-            className="object-cover opacity-[0.82] img-brand-grade"
+            className="object-cover opacity-[0.9] img-brand-grade"
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse via-inverse/60 to-inverse/10" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/70 via-inverse/20 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/70 via-inverse/30 to-transparent" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/52 via-inverse/15 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div
             className="absolute inset-0 pointer-events-none"
@@ -213,7 +213,7 @@ export default function AboutPage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/70" />
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/8 to-primary/50" />
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}

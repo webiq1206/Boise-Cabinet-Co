@@ -136,9 +136,9 @@ export function Footer() {
                 </div>
               </details>
               <div className="hidden lg:block">
-                <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+                <h2 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
                   {group.title}
-                </h3>
+                </h2>
                 <GroupLinks links={group.links} />
               </div>
             </div>
@@ -147,9 +147,9 @@ export function Footer() {
 
         {/* Service areas - compact wrapped row rather than a tall vertical list. */}
         <div className="pb-8 mb-8 border-t border-b border-inverse-foreground/10 py-6">
-          <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
+          <h2 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
             Serving the Treasure Valley
-          </h3>
+          </h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {sortedCities.map((city) => (
               <Link
@@ -166,14 +166,6 @@ export function Footer() {
         {/* Utility row: legal, credentials, copyright - smaller weight than the primary groups above. */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap items-center gap-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
-              alt="Boise Cabinet Co seal"
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-full"
-            />
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>
               {SITE_CONFIG.trust.licenseNumber

@@ -63,7 +63,7 @@ export default function ResourcesIndexPage() {
         </h1>
         <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
           Printable PDFs and visual guides to use alongside our{' '}
-          <Link href="/guides" className="text-accent hover:underline">
+          <Link href="/guides" className="text-accent underline underline-offset-2">
             cabinet planning guides
           </Link>
           . These are planning tools, not quotes or contracts.
@@ -111,11 +111,11 @@ export default function ResourcesIndexPage() {
         </div>
 
         <p className="text-sm text-muted-foreground mt-12 text-center">
-          <Link href="/guides/boise-cabinet-cost-guide" className="text-accent hover:underline">
+          <Link href="/guides/boise-cabinet-cost-guide" className="text-accent underline underline-offset-2">
             Start with the cost guide
           </Link>
           {' · '}
-          <Link href="/contact" className="text-accent hover:underline">
+          <Link href="/contact" className="text-accent underline underline-offset-2">
             Schedule a consultation
           </Link>
         </p>

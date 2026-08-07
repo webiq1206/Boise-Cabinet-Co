@@ -528,7 +528,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
                 mode === "flip" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
               }`}
             >
-              <BookOpen className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Flip</span>
+              <BookOpen className="h-3.5 w-3.5" /> <span className="sr-only sm:not-sr-only">Flip</span>
             </button>
           )}
           <button
@@ -539,7 +539,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
               mode === "scroll" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
             }`}
           >
-            <ScrollText className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Scroll</span>
+            <ScrollText className="h-3.5 w-3.5" /> <span className="sr-only sm:not-sr-only">Scroll</span>
           </button>
         </div>
 
@@ -579,7 +579,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
             type="button"
             onClick={resetZoom}
             className="min-w-[3rem] rounded-sm px-1.5 py-1 text-xs text-inverse-muted hover:bg-white/5"
-            aria-label="Reset zoom"
+            aria-label={`${Math.round(zoom * 100)}% zoom - reset to 100%`}
           >
             {Math.round(zoom * 100)}%
           </button>

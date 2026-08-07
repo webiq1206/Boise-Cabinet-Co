@@ -221,7 +221,7 @@ export function BeforeAfterSlider({
 
       {/* Caption */}
       {caption && (
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/70 via-inverse/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/52 via-inverse/15 to-transparent pointer-events-none" />
       )}
       {caption && (
         <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 pointer-events-none">

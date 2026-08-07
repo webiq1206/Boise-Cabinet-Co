@@ -34,10 +34,10 @@ export function HeroSection() {
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover opacity-[0.72] img-brand-grade"
+          className="object-cover opacity-[0.82] img-brand-grade"
         />
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/55 to-inverse/15" />
-        <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-inverse/80 via-inverse/45 to-transparent" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/72 via-inverse/38 to-inverse/10" />
+        <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-inverse/58 via-inverse/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div
           className="absolute inset-0 pointer-events-none"
@@ -94,15 +94,16 @@ export function HeroSection() {
         <div id="hero-sentinel" className="absolute bottom-0 left-0 h-px w-full" aria-hidden="true" />
       </section>
 
-      <div className="bg-background border-t border-border/60 py-8 md:py-10">
+      <div className="bg-tint-warm border-t-2 border-t-accent py-8 md:py-10">
         <div className="container px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto border-l border-t border-border/70">
+          <div className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto border-l border-t border-accent/20">
             {TRUST_ITEMS.map((item) => (
               <div
                 key={item}
-                className="flex items-center justify-center px-4 py-5 md:py-3 text-center border-r border-b border-border/70"
+                className="flex items-center justify-center gap-2 px-4 py-5 md:py-3 text-center border-r border-b border-accent/20"
               >
-                <span className="text-[11px] leading-snug tracking-[0.2em] uppercase text-muted-foreground">
+                <span className="h-1 w-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
+                <span className="text-[11px] leading-snug tracking-[0.2em] uppercase text-foreground/80 font-medium">
                   {item}
                 </span>
               </div>
