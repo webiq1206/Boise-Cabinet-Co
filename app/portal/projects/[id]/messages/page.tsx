@@ -116,7 +116,11 @@ export default function ProjectMessagesPage() {
             </p>
           )}
           <div className="border-t p-4 flex gap-2">
+            <label htmlFor="message-composer" className="sr-only">
+              Type a message
+            </label>
             <Input
+              id="message-composer"
               placeholder="Type a message…"
               className="flex-1"
               value={draft}

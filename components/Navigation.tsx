@@ -14,11 +14,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, X, ChevronDown, Search, Phone, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CTA_CONSULT_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { track } from "@/lib/analytics/track";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
 import { useModals } from "@/components/modals/ModalProvider";
 import { useAuth } from "@/hooks/useAuth";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 function Logo() {
   return (
@@ -55,6 +57,41 @@ export function Navigation() {
     return () => window.removeEventListener("wizardmobilebar", sync);
   }, []);
 
+  // Hide the sticky bar until the hero scrolls out of view. Pages with no
+  // hero (most interior pages) never find the sentinel, so they keep the
+  // bar visible from first paint, same as today.
+  const [pastHero, setPastHero] = useState(true);
+  useEffect(() => {
+    const sentinel = document.getElementById("hero-sentinel");
+    if (!sentinel || typeof IntersectionObserver === "undefined") {
+      setPastHero(true);
+      return;
+    }
+    setPastHero(false);
+    const ob = new IntersectionObserver(([entry]) => setPastHero(!entry.isIntersecting), {
+      threshold: 0,
+    });
+    ob.observe(sentinel);
+    return () => ob.disconnect();
+  }, [pathname]);
+
+  // Hide the sticky bar while an on-page final CTA (marked
+  // data-suppress-sticky-cta) is in view, so the two never compete.
+  const [ctaSuppressed, setCtaSuppressed] = useState(false);
+  useEffect(() => {
+    const targets = document.querySelectorAll("[data-suppress-sticky-cta]");
+    if (!targets.length || typeof IntersectionObserver === "undefined") {
+      setCtaSuppressed(false);
+      return;
+    }
+    const ob = new IntersectionObserver(
+      (entries) => setCtaSuppressed(entries.some((entry) => entry.isIntersecting)),
+      { threshold: 0.3 },
+    );
+    targets.forEach((t) => ob.observe(t));
+    return () => ob.disconnect();
+  }, [pathname]);
+
   const isPortalRoute =
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/portal");
@@ -66,17 +103,6 @@ export function Navigation() {
     pathname?.startsWith("/admin/projects") ||
     pathname?.startsWith("/admin/leads") ||
     pathname?.startsWith("/admin/outreach");
-
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
 
   if (isPortalAppShell) return null;
 
@@ -206,8 +232,15 @@ export function Navigation() {
               </span>
               {SITE_CONFIG.phone}
             </a>
-            <Button variant="brand" size="sm" onClick={openEstimate}>
-              {CTA_CONSULT_SHORT}
+            <Button
+              variant="brand"
+              size="sm"
+              onClick={() => {
+                track("primary_cta_clicked", { intent: "estimate", placement: "header" });
+                openEstimate();
+              }}
+            >
+              {CTA_ESTIMATE}
             </Button>
           </div>
 
@@ -224,140 +257,142 @@ export function Navigation() {
         </nav>
       </header>
 
-      <div
-        className={cn(
-          "fixed inset-0 z-[200] bg-background flex flex-col xl:hidden",
-          "transition-opacity duration-200",
-          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-        )}
-        aria-hidden={!mobileOpen}
-        // When closed, `inert` removes the menu's links/buttons from the tab
-        // order and the a11y tree, fixing aria-hidden-focus without unmounting.
-        {...({ inert: mobileOpen ? undefined : "" } as Record<string, unknown>)}
-      >
-        <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
-          <Logo />
-          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto">
-          <div className="border-b border-border/40">
-            <Link
-              href="/search"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-muted-foreground"
-            >
-              <Search className="h-5 w-5" />
-              Search
-            </Link>
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent
+          side="right"
+          showClose={false}
+          className="w-full sm:max-w-full h-full max-h-none border-0 p-0 gap-0 flex flex-col xl:hidden z-[200] rounded-none"
+        >
+          <SheetHeader className="sr-only">
+            <SheetTitle>Navigation menu</SheetTitle>
+          </SheetHeader>
+          <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
+            <Logo />
+            <SheetClose asChild>
+              <Button variant="ghost" size="icon" aria-label="Close menu">
+                <X className="h-5 w-5" />
+              </Button>
+            </SheetClose>
           </div>
-          {PRIMARY_NAV.map((item) => (
-            <div key={item.label} className="border-b border-border/40">
-              {"children" in item && item.children ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setExpandedMobile(expandedMobile === item.label ? null : item.label)
-                    }
+
+          <nav className="flex-1 overflow-y-auto">
+            <div className="border-b border-border/40">
+              <Link
+                href="/search"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-muted-foreground"
+              >
+                <Search className="h-5 w-5" />
+                Search
+              </Link>
+            </div>
+            {PRIMARY_NAV.map((item) => (
+              <div key={item.label} className="border-b border-border/40">
+                {"children" in item && item.children ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedMobile(expandedMobile === item.label ? null : item.label)
+                      }
+                      className={cn(
+                        "flex w-full items-center justify-between px-6 py-5 text-xl font-medium",
+                        navItemActive(item.href, item.children)
+                          ? "text-foreground"
+                          : "text-muted-foreground",
+                      )}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        className={cn(
+                          "h-5 w-5 transition-transform",
+                          expandedMobile === item.label && "rotate-180",
+                        )}
+                      />
+                    </button>
+                    {expandedMobile === item.label && (
+                      <div className="pb-3 px-6 space-y-1">
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="block py-2 text-sm font-medium text-foreground"
+                        >
+                          All {item.label}
+                        </Link>
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setMobileOpen(false)}
+                            className={cn(
+                              "block py-2 text-sm",
+                              pathname === child.href
+                                ? "text-foreground font-medium"
+                                : "text-muted-foreground",
+                            )}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                        {"footerLink" in item && item.footerLink && (
+                          <Link
+                            href={item.footerLink.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block py-2 text-sm text-muted-foreground"
+                          >
+                            {item.footerLink.label}
+                          </Link>
+                        )}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex w-full items-center justify-between px-6 py-5 text-xl font-medium",
-                      navItemActive(item.href, item.children)
+                      "block px-6 py-5 text-xl font-medium",
+                      navItemActive(item.href)
                         ? "text-foreground"
                         : "text-muted-foreground",
                     )}
                   >
                     {item.label}
-                    <ChevronDown
-                      className={cn(
-                        "h-5 w-5 transition-transform",
-                        expandedMobile === item.label && "rotate-180",
-                      )}
-                    />
-                  </button>
-                  {expandedMobile === item.label && (
-                    <div className="pb-3 px-6 space-y-1">
-                      <Link
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="block py-2 text-sm font-medium text-foreground"
-                      >
-                        All {item.label}
-                      </Link>
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setMobileOpen(false)}
-                          className={cn(
-                            "block py-2 text-sm",
-                            pathname === child.href
-                              ? "text-foreground font-medium"
-                              : "text-muted-foreground",
-                          )}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                      {"footerLink" in item && item.footerLink && (
-                        <Link
-                          href={item.footerLink.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-sm text-muted-foreground"
-                        >
-                          {item.footerLink.label}
-                        </Link>
-                      )}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <Link
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "block px-6 py-5 text-xl font-medium",
-                    navItemActive(item.href)
-                      ? "text-foreground"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </div>
-          ))}
-        </nav>
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
 
-        <div className="shrink-0 border-t border-border/40 px-6 py-6 space-y-3">
-          <a href={SITE_CONFIG.phoneHref} className="flex items-center gap-3 text-base font-medium">
-            <Phone className="h-5 w-5" strokeWidth={1.5} />
-            Call {SITE_CONFIG.phone}
-          </a>
-          <a href={SITE_CONFIG.phoneSmsHref} className="flex items-center gap-3 text-base font-medium">
-            <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
-            Text {SITE_CONFIG.phone}
-          </a>
-          <Button
-            variant="brand"
-            className="w-full"
-            onClick={() => {
-              setMobileOpen(false);
-              openEstimate();
-            }}
-          >
-            {CTA_CONSULT_SHORT}
-          </Button>
-        </div>
-      </div>
+          <div className="shrink-0 border-t border-border/40 px-6 py-6 space-y-3">
+            <a href={SITE_CONFIG.phoneHref} className="flex items-center gap-3 text-base font-medium">
+              <Phone className="h-5 w-5" strokeWidth={1.5} />
+              Call {SITE_CONFIG.phone}
+            </a>
+            <a href={SITE_CONFIG.phoneSmsHref} className="flex items-center gap-3 text-base font-medium">
+              <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
+              Text {SITE_CONFIG.phone}
+            </a>
+            <Button
+              variant="brand"
+              className="w-full"
+              onClick={() => {
+                track("primary_cta_clicked", { intent: "estimate", placement: "mobile_menu" });
+                setMobileOpen(false);
+                openEstimate();
+              }}
+            >
+              {CTA_ESTIMATE}
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       <div
         className={cn(
           "fixed left-0 right-0 bottom-0 z-[100] xl:hidden pb-safe border-t",
           "bg-background border-border transition-opacity duration-200",
-          wizardBarActive && "pointer-events-none opacity-0",
+          (wizardBarActive || ctaSuppressed || !pastHero) && "pointer-events-none opacity-0",
         )}
       >
         <div className="grid grid-cols-3 divide-x divide-border">
@@ -379,11 +414,14 @@ export function Navigation() {
           </a>
           <button
             type="button"
-            onClick={openEstimate}
-            aria-label={CTA_CONSULT_SHORT}
+            onClick={() => {
+              track("mobile_sticky_cta_clicked", { intent: "estimate" });
+              openEstimate();
+            }}
+            aria-label={CTA_ESTIMATE}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
           >
-            {CTA_CONSULT_SHORT}
+            {CTA_ESTIMATE}
           </button>
         </div>
       </div>

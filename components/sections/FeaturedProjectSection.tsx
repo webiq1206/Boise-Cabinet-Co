@@ -18,7 +18,7 @@ export function FeaturedProjectSection() {
             eyebrow is a flex row, so it needs its own centring. */}
         <Reveal className="max-w-3xl mx-auto text-center [&_.brc-label]:justify-center">
           <div className="brc-label mb-4">{isConcept ? "Design concept" : "Featured project"}</div>
-          <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] tracking-tight mb-4 text-foreground">
+          <h2 className="font-sans font-light text-h2-fluid tracking-tight mb-4 text-foreground">
             See what quality cabinetry can{" "}
             <em className="brc-accent text-accent">become</em>
           </h2>

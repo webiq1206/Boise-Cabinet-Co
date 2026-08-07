@@ -19,9 +19,9 @@ import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { SiteEmailLink } from '@/components/SiteEmailLink';
-import { CTA_CONSULT } from '@/shared/ctaCopy';
+import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { CtaButton } from '@/components/modals/CtaButton';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -202,9 +202,9 @@ export default function ContactPage() {
               {BUSINESS_INFO.phone}
             </a>
             <div className="flex flex-wrap gap-3 mb-8">
-              <ConsultCTA variant="brand">
-                {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
-              </ConsultCTA>
+              <CtaButton variant="brand">
+                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+              </CtaButton>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-xl">
               {HERO_STATS.map((stat) => (
@@ -332,7 +332,7 @@ export default function ContactPage() {
                   ))}
                 </ul>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-                  <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
+                  <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
                 </div>
               </Reveal>
             </div>
@@ -342,7 +342,7 @@ export default function ContactPage() {
         <StatementBandSection />
 
         {/* ─── Consultation form ─── */}
-        <Section id="consult" divider>
+        <Section id="consult" divider data-suppress-sticky-cta="">
           <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
             <div className="md:col-span-2">
               <SectionHeader
@@ -382,7 +382,7 @@ export default function ContactPage() {
                   {BUSINESS_INFO.phone}
                 </a>
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-                  <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
+                  <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
                 </div>
               </MarketingCard>
             </Reveal>

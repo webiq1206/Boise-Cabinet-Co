@@ -90,3 +90,7 @@ export function getCityBySlug(slug: string): CityData | undefined {
 export function getCountyLabel(county: CityData['county']): string {
   return county === 'ada' ? 'Ada County' : 'Canyon County';
 }
+
+export function locationPath(citySlug: string): string {
+  return `/locations/${citySlug}`;
+}

@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
+import { CITIES, locationPath } from '@/shared/contentData';
 import {
   CONTENT_HUBS,
   categoryHubPath,
@@ -62,11 +63,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const guidePages: MetadataRoute.Sitemap = GUIDE_PAGES.map((guide) => ({
+  // The 8 city cabinet guides now live at /locations/[city] (see next.config.js
+  // redirects) and are sitemapped there instead of their old /guides/[slug] URL.
+  const guidePages: MetadataRoute.Sitemap = GUIDE_PAGES.filter(
+    (guide) => guide.guideType !== 'location',
+  ).map((guide) => ({
     url: `${baseUrl}${guidePath(guide.slug)}`,
     lastModified: new Date(guide.updatedAt ?? guide.publishedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.9,
+  }));
+
+  const locationPages: MetadataRoute.Sitemap = CITIES.map((city) => ({
+    url: `${baseUrl}${locationPath(city.slug)}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
   }));
 
   const categoryHubPages: MetadataRoute.Sitemap = CONTENT_HUBS.flatMap((hub) => {
@@ -84,6 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages,
     ...cabinetRoomPages,
+    ...locationPages,
     ...guidePages,
     ...blogPages,
     ...categoryHubPages,

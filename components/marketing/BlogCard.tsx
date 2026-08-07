@@ -6,6 +6,7 @@ import { TextLink } from "./TextLink";
 import { Chip } from "./Chip";
 import type { BlogPostData } from "@/shared/blogContent";
 import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
+import { getHubBySlug } from "@/shared/contentHubs";
 
 export interface BlogCardProps {
   post: BlogPostData;
@@ -17,6 +18,10 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
   const thumbnail = getBlogThumbnail(post.slug, post.thumbnail);
   const alt = getBlogImageAlt(post.slug);
   const href = `/blog/${post.slug}`;
+  // Prefer the canonical hub label over the raw per-post category string, so
+  // near-duplicate authored labels (e.g. "Built-Ins" vs "Built-In Storage")
+  // collapse to one consistent chip, matching BlogPostLayout's article header.
+  const categoryLabel = getHubBySlug(post.hubSlug)?.categoryLabel ?? post.category;
 
   if (featured) {
     return (
@@ -34,7 +39,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
         </div>
         <div className="p-6 md:p-8">
           <div className="flex items-center gap-3 mb-3 flex-wrap">
-            <Chip>{post.category}</Chip>
+            <Chip>{categoryLabel}</Chip>
             <span className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="h-4 w-4" />
               {formatDate(post.publishedAt)}
@@ -68,7 +73,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
       </div>
       <div className="p-6 md:p-8 flex flex-col flex-1">
         <div className="flex items-center gap-3 mb-3 flex-wrap">
-          <Chip>{post.category}</Chip>
+          <Chip>{categoryLabel}</Chip>
           <span className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
             {formatDate(post.publishedAt)}

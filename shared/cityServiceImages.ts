@@ -208,8 +208,8 @@ export function getCityServiceImage(url: string): string | undefined {
     if (SERVICE_FALLBACK_IMAGES[service]) return SERVICE_FALLBACK_IMAGES[service];
   }
 
-  // /areas/:city
-  if (segments[0] === "areas" && segments[1]) {
+  // /areas/:city and /locations/:city
+  if ((segments[0] === "areas" || segments[0] === "locations") && segments[1]) {
     const city = segments[1];
     if (CITY_HERO_IMAGES[city]) return CITY_HERO_IMAGES[city];
   }
@@ -229,7 +229,7 @@ export function getCityServiceImageAlt(url: string): string | undefined {
     return `${label} by Boise Cabinet Co in the Treasure Valley`;
   }
 
-  if (segments[0] === "areas" && segments[1]) {
+  if ((segments[0] === "areas" || segments[0] === "locations") && segments[1]) {
     return areaHeroAlt(segments[1]);
   }
 

@@ -3,6 +3,7 @@ import { Montserrat, Libre_Baskerville } from 'next/font/google'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
 import { MetaPixel } from '@/components/seo/MetaPixel'
+import { AnalyticsBridge } from '@/components/seo/AnalyticsBridge'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
@@ -131,6 +132,7 @@ export default function RootLayout({
         {/* In <body>: the pixel's <noscript> fallback img is invalid inside <head>.
             next/script (afterInteractive) injects the tag regardless of placement. */}
         <MetaPixel />
+        <AnalyticsBridge />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:text-foreground focus:shadow-lg"

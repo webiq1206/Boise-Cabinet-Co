@@ -5,12 +5,11 @@ import {
   hubTopicSections,
   pillarEssentialsSection,
 } from './guideSectionBlocks';
-import { getHubPillarFaqs, getLocationFaqs } from './hubFaqs';
-import { buildLocationGuideSections } from './locationCityContent';
+import { getHubPillarFaqs } from './hubFaqs';
 import { getHubBySlug, guidePath } from '../contentHubs';
 import { SITE_CONFIG } from '../siteConfig';
 import type { BlogPostData } from '../blogContent';
-import type { GuidePageData, GuideType } from '../guideContent';
+import type { GuidePageData } from '../guideContent';
 
 const PILLAR_FOOTER =
   `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-cabinet-guide">local guides</a>, <a href="/guides/boise-cabinet-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/estimate">get an estimate</a>.</p>`;
@@ -256,50 +255,3 @@ export function buildPillarGuide(config: PillarConfig): GuidePageData {
   };
 }
 
-export interface LocationGuideConfig {
-  slug: string;
-  title: string;
-  cityName: string;
-  citySlug: string;
-  county: 'ada' | 'canyon';
-  housingNote: string;
-  guideType: GuideType;
-  seoTitle: string;
-  metaDescription: string;
-  excerpt: string;
-  quickAnswer: string;
-  takeaways: string[];
-}
-
-export function buildLocationGuide(config: LocationGuideConfig): GuidePageData {
-  const sections = buildLocationGuideSections(
-    config.slug,
-    config.cityName,
-    config.citySlug,
-    config.county,
-    config.housingNote,
-    config.guideType,
-  );
-
-  return {
-    slug: config.slug,
-    title: config.title,
-    seoTitle: config.seoTitle,
-    metaDescription: config.metaDescription,
-    excerpt: config.excerpt,
-    content: expandLocation(buildSectionsHtml(sections), config.slug),
-    author: SITE_CONFIG.name,
-    hubSlug: 'treasure-valley-locations',
-    guideType: config.guideType,
-    tags: [config.citySlug, config.cityName.toLowerCase(), 'idaho'],
-    publishedAt: '2026-05-12',
-    quickAnswer: config.quickAnswer,
-    keyTakeaways: config.takeaways,
-    faqs: getLocationFaqs(config.cityName, config.citySlug, config.county),
-    linkedCities: [config.citySlug],
-    relatedLinks: [
-      { url: '/guides/treasure-valley-cabinet-guide' },
-      { url: '/cabinets' },
-    ],
-  };
-}

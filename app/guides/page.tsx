@@ -8,6 +8,7 @@ import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { getBlogThumbnail, getBlogImageAlt } from '@/shared/blogImages';
 import { CONTENT_HUBS, guidePath } from '@/shared/contentHubs';
 import { GUIDE_PAGES, type GuidePageData } from '@/shared/guideContent';
+import { locationPath } from '@/shared/contentData';
 import {
   generateBreadcrumbSchema,
   generateCollectionPageSchema,
@@ -18,6 +19,14 @@ import {
   countSubstantiveWords,
   estimateReadingTime,
 } from '@/lib/content-utils';
+
+/** City guides moved to /locations/[city]; every other guide keeps /guides/[slug]. */
+function guideHref(guide: GuidePageData): string {
+  if (guide.guideType === 'location' && guide.linkedCities?.[0]) {
+    return locationPath(guide.linkedCities[0]);
+  }
+  return guidePath(guide.slug);
+}
 
 function guideCardMeta(guide: GuidePageData) {
   const words = countSubstantiveWords(guide.content);
@@ -82,7 +91,7 @@ export default function GuidesIndexPage() {
     url: '/guides',
     items: locationGuides.map((g) => ({
       name: g.title,
-      url: guidePath(g.slug),
+      url: guideHref(g),
     })),
   });
 
@@ -175,7 +184,7 @@ export default function GuidesIndexPage() {
                 </p>
                 <GuideCardStats guide={guide} />
                 <Link
-                  href={guidePath(guide.slug)}
+                  href={guideHref(guide)}
                   className="text-sm text-accent hover:underline inline-flex items-center"
                 >
                   Read

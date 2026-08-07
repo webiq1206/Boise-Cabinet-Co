@@ -25,6 +25,10 @@ export default function HomePage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0 bg-background">
       <HomePageSchema />
+      <HeroSection />
+      {/* This sr-only summary must stay after HeroSection so its <h2> follows
+          the page's one <h1> in DOM order, keeping the heading hierarchy
+          valid for assistive tech and voice-answer "speakable" crawlers. */}
       <h2 data-speakable="summary" className="sr-only">
         Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle,
         Nampa, Kuna, Star, Middleton, and Caldwell across Idaho&apos;s Treasure Valley.
@@ -32,7 +36,6 @@ export default function HomePage() {
         vanities, and built-in storage, with 299 finishes, six door styles, a free
         design consultation, and a lifetime workmanship warranty.
       </h2>
-      <HeroSection />
       <RoomCategoriesGrid />
       <ProcessSection />
       <FeaturedProjectSection />
@@ -42,7 +45,12 @@ export default function HomePage() {
       <ValueOverheadSection />
       <FAQSection />
       <LazyEstimateCalculator />
-      <Section id="consult" divider className="relative overflow-hidden pb-28 md:pb-28">
+      <Section
+        id="consult"
+        divider
+        data-suppress-sticky-cta=""
+        className="relative overflow-hidden pb-28 md:pb-28"
+      >
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
           <Image
             src={MARKETING_IMAGES.heroHome}
@@ -64,7 +72,7 @@ export default function HomePage() {
                     shrank on mobile - 25.6px against 32px everywhere else. The
                     md and lg steps were already correct, so this is a
                     mobile-only correction. */}
-                <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.1] md:leading-[1.08] tracking-tight mb-3 md:mb-4 text-foreground">
+                <h2 className="font-sans font-light text-h2-fluid tracking-tight mb-3 md:mb-4 text-foreground">
                   Tell us about your{" "}
                   <em className="brc-accent text-accent">project</em>.
                 </h2>

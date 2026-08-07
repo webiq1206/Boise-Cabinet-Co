@@ -1,7 +1,6 @@
 export { CatalogSearch } from "./CatalogSearch";
 export { CatalogBrowser } from "./CatalogBrowser";
 export { CatalogExploreStrip } from "./CatalogExploreStrip";
-export { CollectionLandingTemplate } from "./CollectionLandingTemplate";
 export { FinishSwatchGrid, FinishSwatch } from "./FinishSwatchGrid";
 export {
   OptionsSelector,

@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail } from "lucide-react";
+import { track } from "@/lib/analytics/track";
 
 interface ObfuscatedEmailProps {
   user: string;
@@ -20,6 +21,7 @@ export function ObfuscatedEmail({
   label = "Email us",
 }: ObfuscatedEmailProps) {
   const handleClick = () => {
+    track("email_clicked");
     window.location.href = `mailto:${user}@${domain}`;
   };
 

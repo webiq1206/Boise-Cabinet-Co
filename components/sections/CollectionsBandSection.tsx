@@ -5,7 +5,7 @@ import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { COLLECTIONS } from "@/shared/catalog/collections";
-import { CTA_SECONDARY } from "@/shared/ctaCopy";
+import { CTA_EXPLORE_COLLECTIONS } from "@/shared/ctaCopy";
 
 export function CollectionsBandSection() {
   return (
@@ -58,7 +58,7 @@ export function CollectionsBandSection() {
 
         <div className="mt-10 text-center">
           <Button variant="brandOutline" asChild>
-            <Link href="/compare">{CTA_SECONDARY}</Link>
+            <Link href="/compare">{CTA_EXPLORE_COLLECTIONS}</Link>
           </Button>
         </div>
       </div>

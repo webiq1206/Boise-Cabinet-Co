@@ -88,6 +88,10 @@ export function HeroSection() {
             </div>
           </div>
         </div>
+
+        {/* Marks where the hero ends so Navigation's sticky mobile CTA bar
+            can stay hidden until a visitor scrolls past it. */}
+        <div id="hero-sentinel" className="absolute bottom-0 left-0 h-px w-full" aria-hidden="true" />
       </section>
 
       <div className="bg-background border-t border-border/60 py-8 md:py-10">

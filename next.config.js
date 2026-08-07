@@ -217,6 +217,17 @@ const nextConfig = {
       redirects.push(...r(`/services/adu/${city}`, '/cabinets/closet'));
     }
 
+    // Location pages (2026-08): the 8 city cabinet guides moved from
+    // /guides/[city]-cabinet-guide to a dedicated /locations/[city] template
+    // (local hero, project proof, services, reuse of the same local-knowledge
+    // content, reviews, FAQs, final CTA). 301 the old guide URLs so SEO equity
+    // consolidates at the new route instead of splitting across two pages.
+    redirects.push(...r('/guides/boise-cabinet-guide', '/locations/boise'));
+    for (const city of cities) {
+      if (city === 'boise') continue;
+      redirects.push(...r(`/guides/${city}-cabinet-guide`, `/locations/${city}`));
+    }
+
     // Email links to pages that do not currently exist (contractor lead/project
     // portal, customer quote-status). Route them to the contact page so no email
     // button 404s. Temporary (not permanent) so dedicated pages can be built

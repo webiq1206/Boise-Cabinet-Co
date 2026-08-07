@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { PenLine } from "lucide-react";
+import { PenLine, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { BlogCard } from "@/components/marketing/BlogCard";
@@ -46,21 +47,40 @@ export function BlogIndexClient() {
   const PAGE_SIZE = 9;
   const [activeHub, setActiveHub] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [query, setQuery] = useState("");
 
   function selectHub(hub: string | null) {
     setActiveHub(hub);
     setVisibleCount(PAGE_SIZE);
   }
 
-  const filtered = activeHub
-    ? sortedPosts.filter((p) => p.hubSlug === activeHub)
-    : sortedPosts;
+  function resetFilters() {
+    setActiveHub(null);
+    setQuery("");
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  const byHub = activeHub ? sortedPosts.filter((p) => p.hubSlug === activeHub) : sortedPosts;
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filtered = normalizedQuery
+    ? byHub.filter(
+        (p) =>
+          p.title.toLowerCase().includes(normalizedQuery) ||
+          p.excerpt.toLowerCase().includes(normalizedQuery),
+      )
+    : byHub;
 
   const activeHubMeta = activeHub
     ? CONTENT_HUBS.find((h) => h.hubSlug === activeHub)
     : undefined;
 
-  const [featured, ...rest] = filtered;
+  const hasActiveFilters = !!activeHub || !!normalizedQuery;
+
+  // A search match skips the spotlighted "featured" card - search results
+  // read better as an even grid than a single pick standing out from the rest.
+  const featured = normalizedQuery ? undefined : filtered[0];
+  const rest = normalizedQuery ? filtered : filtered.slice(1);
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -92,6 +112,35 @@ export function BlogIndexClient() {
               </div>
             ) : (
               <>
+                <div className="relative max-w-md mx-auto mb-6">
+                  <Search
+                    className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                  <Input
+                    type="search"
+                    role="searchbox"
+                    value={query}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setVisibleCount(PAGE_SIZE);
+                    }}
+                    placeholder="Search articles"
+                    aria-label="Search articles"
+                    className="pl-10 pr-10"
+                  />
+                  {query && (
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      aria-label="Clear search"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-sm text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+
                 {indexableHubs.length >= 2 && (
                   <div className="flex flex-wrap gap-2 justify-center mb-6">
                     <Chip active={!activeHub} onClick={() => selectHub(null)}>
@@ -122,6 +171,25 @@ export function BlogIndexClient() {
                   </p>
                 )}
 
+                {filtered.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center text-center py-20 space-y-4">
+                    <div className="rounded-full bg-muted p-5">
+                      <Search className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                    <h2 className="text-xl font-sans font-light text-foreground">
+                      No articles match{query ? ` "${query}"` : " this filter"}
+                    </h2>
+                    <p className="text-muted-foreground max-w-sm">
+                      Try a different search term or browse all topics instead.
+                    </p>
+                    {hasActiveFilters && (
+                      <Button variant="brandOutline" onClick={resetFilters}>
+                        Reset filters
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <>
                 {featured && (
                   <div className="mb-10">
                     <BlogCard post={featured} featured formatDate={formatDate} />
@@ -152,6 +220,8 @@ export function BlogIndexClient() {
                         </Button>
                       </div>
                     )}
+                  </>
+                )}
                   </>
                 )}
               </>

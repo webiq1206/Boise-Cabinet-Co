@@ -103,7 +103,6 @@ function PdfPageCanvas({
   renderWidth,
   active,
   className,
-  onClick,
 }: {
   pdf: PdfDoc;
   pageNumber: number;
@@ -120,7 +119,6 @@ function PdfPageCanvas({
    */
   active?: boolean;
   className?: string;
-  onClick?: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -199,7 +197,6 @@ function PdfPageCanvas({
       ref={wrapRef}
       className={className}
       style={{ aspectRatio: `${PAGE_RATIO}`, background: "#fff" }}
-      onClick={onClick}
     >
       <canvas
         ref={canvasRef}

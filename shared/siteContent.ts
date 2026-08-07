@@ -33,7 +33,7 @@ export interface Differentiator {
 }
 
 /** Top differentiators for homepage; full list on About. */
-export const HOMEPAGE_DIFFERENTIATOR_INDICES = [9, 0, 1, 2, 3] as const;
+export const HOMEPAGE_DIFFERENTIATOR_INDICES = [8, 0, 1, 2, 3] as const;
 
 export const DIFFERENTIATORS: Differentiator[] = [
   {
@@ -69,12 +69,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "No high-pressure sales, no going dark",
     contrast: "Rather than a commission-driven pitch to sign on the spot or a project manager who stops returning calls,",
-    body: "your free in-home visit is focused on planning guidance and an honest range. You work with the same dedicated project manager throughout, with weekly written updates so you are never left wondering who to contact or what is happening.",
-  },
-  {
-    title: "Schedule changes communicated early",
-    contrast: "Instead of finding out a milestone slipped after the fact,",
-    body: "we build realistic timelines into your plan from day one and update you in writing when anything affects your schedule. Permit timelines for Ada and Canyon County are accounted for upfront, not treated as an afterthought.",
+    body: "your free in-home visit is focused on planning guidance and an honest range, with the same dedicated project manager throughout so you are never left wondering who to contact.",
   },
   {
     title: "Craftsmanship you review before we close out",

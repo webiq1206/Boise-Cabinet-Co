@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { Section } from '@/components/marketing/Section';
 import { PermitFlowGraphic } from './PermitFlowGraphic';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
-import { CTA_PRIMARY } from '@/shared/ctaCopy';
+import { CtaButton } from '@/components/modals/CtaButton';
+import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { generateWebPageSchema, generateBreadcrumbSchema, generateArticleSchema } from '@/lib/schema';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -108,10 +108,10 @@ export default function AdaCanyonPermitFlowPage() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <ConsultCTA variant="brand">
-              {CTA_PRIMARY}
+            <CtaButton variant="brand">
+              {CTA_ESTIMATE}
               <ArrowRight className="ml-2 h-4 w-4" />
-            </ConsultCTA>
+            </CtaButton>
             <Link
               href="/guides/cabinet-project-process-guide"
               className="inline-flex items-center text-sm text-accent hover:underline"

@@ -1,9 +1,9 @@
 "use client";
 
-import { ConsultCTA } from "@/components/modals/ConsultCTA";
+import { CtaButton } from "@/components/modals/CtaButton";
 import { Section } from "@/components/marketing/Section";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { CTA_CONSULT } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 
 interface CatalogClosingCTAProps {
   title?: string;
@@ -23,7 +23,7 @@ export function CatalogClosingCTA({
           </h2>
           <p className="text-sm text-inverse-muted mb-6 max-w-md mx-auto">{description}</p>
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-            <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
+            <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
           </div>
         </MarketingCard>
       </div>

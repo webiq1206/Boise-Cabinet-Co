@@ -48,6 +48,7 @@ import {
 import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
+import { track } from "@/lib/analytics/track";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -400,6 +401,8 @@ export function ConsultationFields({
   // Shared ID so the browser Lead (pixel) and the server Lead (Conversions API)
   // deduplicate into one conversion.
   const metaEventIdRef = useRef<string | null>(null);
+  // Fires "form_started" once, on the visitor's first focus into any field.
+  const formStartedRef = useRef(false);
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
@@ -466,12 +469,16 @@ export function ConsultationFields({
       sessionStorage.removeItem("brc_estimate");
       clearWizardState();
       trackEstimatorEvent("estimator_lead_submitted");
+      track("form_completed", { form: "consultation" });
       // Meta conversion: the consultation request is the site's primary Lead.
       // Pass the shared event ID so this browser event dedupes with the
       // server-side Conversions API event fired by /api/consultation.
       trackMetaLead(metaEventIdRef.current ?? undefined);
       onSuccess?.();
       window.setTimeout(() => closeModal(), 4000);
+    },
+    onError: () => {
+      track("form_error", { form: "consultation" });
     },
   });
 
@@ -482,6 +489,16 @@ export function ConsultationFields({
   useEffect(() => {
     onPendingChangeRef.current?.(mutation.isPending);
   }, [mutation.isPending]);
+
+  // Move focus to the error alert on each new failed submission so
+  // screen-reader users aren't left on the submit button with no
+  // indication anything happened.
+  const errorAlertRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (mutation.isError) {
+      errorAlertRef.current?.focus({ preventScroll: true });
+    }
+  }, [mutation.isError]);
 
   if (success) {
     return (
@@ -524,7 +541,16 @@ export function ConsultationFields({
 
   return (
     <Form {...form}>
-      <form id={formId} onSubmit={onSubmit} className={compact ? "space-y-2.5" : "space-y-5"}>
+      <form
+        id={formId}
+        onSubmit={onSubmit}
+        onFocusCapture={() => {
+          if (formStartedRef.current) return;
+          formStartedRef.current = true;
+          track("form_started", { form: "consultation" });
+        }}
+        className={compact ? "space-y-2.5" : "space-y-5"}
+      >
         {showEstimateSummary &&
           (combinedEstimate ? (
             <CombinedEstimateSummaryCard estimate={combinedEstimate} compact={compact} />
@@ -533,7 +559,13 @@ export function ConsultationFields({
           ))}
 
         {mutation.isError && (
-          <div className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive">
+          <div
+            ref={errorAlertRef}
+            role="alert"
+            aria-live="assertive"
+            tabIndex={-1}
+            className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive focus:outline-none"
+          >
             {(mutation.error as Error).message || "Something went wrong. Please try again."}
           </div>
         )}

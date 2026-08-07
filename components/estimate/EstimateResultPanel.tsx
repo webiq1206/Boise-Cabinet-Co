@@ -13,6 +13,7 @@ import {
   formatPlanningCurrency,
 } from "@/shared/estimateEngine";
 import { CATALOG_CONTENT } from "@/shared/catalog";
+import { CTA_BOOK_VISIT } from "@/shared/ctaCopy";
 
 const ANIM_DURATION = 320;
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -176,6 +177,12 @@ export interface EstimateResultPanelProps {
    * range in place of the single scope line.
    */
   breakdown?: RoomEstimate[];
+  /**
+   * "Not what you expected? Edit the scope and recalculate." Jumps back to a
+   * specific room's steps with every prior answer preserved. Omit to hide the
+   * edit affordance (e.g. read-only summaries outside the wizard).
+   */
+  onEditRoom?: (roomIndex: number) => void;
 }
 
 export function EstimateResultPanel({
@@ -189,6 +196,7 @@ export function EstimateResultPanel({
   hideCta = false,
   compact = false,
   breakdown,
+  onEditRoom,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
@@ -283,6 +291,16 @@ export function EstimateResultPanel({
                   <div className="text-[11px] leading-snug text-inverse-muted mt-0.5">
                     {r.scopeSummary}
                   </div>
+                  {onEditRoom && (
+                    <button
+                      type="button"
+                      onClick={() => onEditRoom(i)}
+                      className="mt-1 text-[11px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
+                      data-testid={`button-edit-room-${i}`}
+                    >
+                      Edit
+                    </button>
+                  )}
                 </div>
                 <div className="text-xs tabular-nums whitespace-nowrap pt-0.5 text-inverse-foreground/85">
                   {formatPlanningCurrency(r.priceLow)}
@@ -301,13 +319,38 @@ export function EstimateResultPanel({
             data-testid="text-scope-summary"
           >
             {scopeSummary}
+            {onEditRoom && (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  onClick={() => onEditRoom(0)}
+                  className="font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
+                  data-testid="button-edit-room-0"
+                >
+                  Edit
+                </button>
+              </>
+            )}
           </p>
         ) : (
           <div
             className="mb-4 p-3 rounded-sm bg-inverse-foreground/6 border border-inverse-foreground/10"
             data-testid="text-scope-summary"
           >
-            <div className="brc-label text-inverse-muted mb-1">Your selections</div>
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="brc-label text-inverse-muted">Your selections</div>
+              {onEditRoom && (
+                <button
+                  type="button"
+                  onClick={() => onEditRoom(0)}
+                  className="text-[11px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
+                  data-testid="button-edit-room-0"
+                >
+                  Edit
+                </button>
+              )}
+            </div>
             <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
           </div>
         ))
@@ -368,7 +411,7 @@ export function EstimateResultPanel({
           className="w-full mb-3"
           data-testid="button-book-visit"
         >
-          Get my exact price - book a free visit
+          {CTA_BOOK_VISIT}
           <ArrowRight className="h-4 w-4" />
         </Button>
       )}

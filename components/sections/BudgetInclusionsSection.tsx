@@ -9,7 +9,7 @@ import {
   OPTIONAL_ENHANCEMENTS,
 } from "@/shared/siteContent";
 import { Button } from "@/components/ui/button";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 
 export function BudgetInclusionsSection() {
   return (
@@ -90,7 +90,7 @@ export function BudgetInclusionsSection() {
 
           <Reveal className="mt-12">
             <Button variant="brand" asChild>
-              <a href="#calculator">{CTA_PRIMARY}</a>
+              <a href="#calculator">{CTA_ESTIMATE}</a>
             </Button>
           </Reveal>
         </div>

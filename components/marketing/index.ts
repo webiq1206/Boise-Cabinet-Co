@@ -13,3 +13,4 @@ export { BlogPostLayout } from "./BlogPostLayout";
 export { BlogHeroBanner, HubHeroBanner } from "./BlogHeroBanner";
 export { BlogIndexClient } from "./BlogIndexClient";
 export { RelatedPostCards } from "./RelatedPostCards";
+export { FaqAccordion, type FaqItem } from "./FaqAccordion";

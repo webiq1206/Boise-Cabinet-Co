@@ -69,6 +69,7 @@ import {
   buildCombinedStoredEstimate,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
+import { CTA_BOOK_VISIT } from "@/shared/ctaCopy";
 
 const OPTION_ICONS: Record<string, LucideIcon> = {
   ChefHat,
@@ -143,6 +144,33 @@ function buildWizardSteps(
 }
 
 const CONTACT_FORM_ID = "quote-consultation-form";
+
+/**
+ * Customer-facing stages, coarser than the internal per-room step list (which
+ * can run to 7+ steps for a single kitchen). "quality" and "layout" fold into
+ * the "Size & Scope" stage so the visitor sees "Stage 2 of 5", never a raw
+ * step count that grows with every room they add.
+ */
+const STAGE_LABELS = ["Project Details", "Size & Scope", "Options & Finishes", "Your Range", "Book Your Visit"];
+
+function customerStageIndex(kind: StepKind): number {
+  switch (kind) {
+    case "project":
+      return 0;
+    case "size":
+    case "quality":
+    case "layout":
+      return 1;
+    case "style":
+      return 2;
+    case "result":
+      return 3;
+    case "contact":
+      return 4;
+    default:
+      return 0;
+  }
+}
 
 const DEFAULT_OPTION_VISUAL_ALT = "Cabinet project option illustration";
 
@@ -708,6 +736,17 @@ export function EstimateCalculatorWizard({
     trackEstimatorEvent("estimator_step_view", { step: "contact" });
   }
 
+  // "Edit the scope and recalculate": jump back to a room's first step (size)
+  // with every prior answer preserved - navigation only changes currentIndex,
+  // it never mutates `rooms`, so the live recalculation is automatic.
+  const handleEditRoom = useCallback(
+    (roomIndex: number) => {
+      const idx = wizardSteps.findIndex((s) => s.room === roomIndex && s.kind === "size");
+      if (idx >= 0) setCurrentIndex(idx);
+    },
+    [wizardSteps],
+  );
+
   // If the visitor navigates back off the contact step after a success, clear
   // the success flag so the submit CTA returns.
   useEffect(() => {
@@ -1030,6 +1069,7 @@ export function EstimateCalculatorWizard({
               scopeSummary={resultScopeSummary}
               breakdown={combined?.rooms}
               onBookVisit={handleBookVisit}
+              onEditRoom={handleEditRoom}
               variant="full"
               compact={fitViewport}
               hideCta
@@ -1077,7 +1117,7 @@ export function EstimateCalculatorWizard({
     ) : undefined;
 
   const continueLabel = (() => {
-    if (currentStep.kind === "result") return "Get my exact price - book a free visit";
+    if (currentStep.kind === "result") return CTA_BOOK_VISIT;
     if (currentStep.kind === "contact") return "Send my request";
     if (currentStep.kind === "project") return "Start estimating";
     const next = wizardSteps[safeIndex + 1];
@@ -1085,13 +1125,22 @@ export function EstimateCalculatorWizard({
     return "Continue";
   })();
 
+  // Customer-facing "Stage X of N · Y% complete" framing, independent of the
+  // more granular internal per-room step list (which the step rail still uses
+  // for its own navigation).
+  const totalStages = includeContactStep ? STAGE_LABELS.length : STAGE_LABELS.length - 1;
+  const stageIndex = Math.min(customerStageIndex(currentStep.kind), totalStages - 1);
+  const stagePercent =
+    totalStages > 1 ? Math.round((stageIndex / (totalStages - 1)) * 100) : 100;
+
   const metaLabel = (() => {
-    if (currentStep.room == null || rooms.length <= 1) return undefined;
+    const base = `Stage ${stageIndex + 1} of ${totalStages} · ${STAGE_LABELS[stageIndex]} · ${stagePercent}% complete`;
+    if (currentStep.room == null || rooms.length <= 1) return base;
     const room = rooms[currentStep.room];
     const label = room?.project
-      ? PROJECT_LABELS[room.project as ProjectType].label.toUpperCase()
-      : "ROOM";
-    return `${label} · ROOM ${currentStep.room + 1} OF ${rooms.length}`;
+      ? PROJECT_LABELS[room.project as ProjectType].label
+      : "Room";
+    return `${base} — ${label} (Room ${currentStep.room + 1} of ${rooms.length})`;
   })();
 
   const mobileSummaryNode =
@@ -1173,6 +1222,7 @@ export function EstimateCalculatorWizard({
       }
       stepDescription={stepDescription[currentStep.kind]}
       metaLabel={metaLabel}
+      progressPercent={stagePercent}
       sidePanel={estimateSidePanel}
       mobileSummary={mobileSummaryNode}
       fitViewport={fitViewport}

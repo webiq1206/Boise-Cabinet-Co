@@ -1,8 +1,8 @@
 import { ArrowRight, Phone } from "lucide-react";
 import { MarketingCard } from "./MarketingCard";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { ConsultCTA } from "@/components/modals/ConsultCTA";
+import { CtaButton } from "@/components/modals/CtaButton";
 
 export function BlogEndCta() {
   return (
@@ -15,10 +15,10 @@ export function BlogEndCta() {
         planning range on the spot with no obligation.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <ConsultCTA variant="brand" size="lg" data-testid="link-bottom-cta-consult">
-          {CTA_PRIMARY}
+        <CtaButton variant="brand" size="lg" data-testid="link-bottom-cta-consult">
+          {CTA_ESTIMATE}
           <ArrowRight className="ml-2 h-5 w-5" />
-        </ConsultCTA>
+        </CtaButton>
         <a
           href={SITE_CONFIG.phoneHref}
           data-testid="link-bottom-cta-call"

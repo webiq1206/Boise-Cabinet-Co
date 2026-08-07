@@ -8,9 +8,9 @@ import { ProjectGallerySection } from '@/components/sections/ProjectGallerySecti
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { generateImageGallerySchema, generateLocalBusinessSchema } from '@/lib/schema';
-import { CTA_CONSULT } from '@/shared/ctaCopy';
+import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { PROJECTS } from '@/shared/galleryData';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { CtaButton } from '@/components/modals/CtaButton';
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -71,9 +71,9 @@ export default function TestimonialsPage() {
           />
           <div className="mb-8" />
           <div className="flex flex-wrap gap-3">
-            <ConsultCTA variant="brand">
-              {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
-            </ConsultCTA>
+            <CtaButton variant="brand">
+              {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+            </CtaButton>
           </div>
         </div>
       </Section>
@@ -92,7 +92,7 @@ export default function TestimonialsPage() {
               Schedule a free in-home visit for planning guidance, design direction, and an honest
               project range.
             </p>
-            <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
+            <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
           </div>
         </div>
       </Section>

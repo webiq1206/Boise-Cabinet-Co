@@ -24,8 +24,8 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { HERO_STATS, PRINCIPLES, TRUST_ITEMS, TEAM } from '@/shared/siteContent';
-import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { CTA_ESTIMATE, CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
+import { CtaButton } from '@/components/modals/CtaButton';
 import { Button } from '@/components/ui/button';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
@@ -183,15 +183,15 @@ export default function AboutPage() {
               every milestone. Every detail, every decision, handled with intention.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
-              <ConsultCTA variant="brand">
-                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-              </ConsultCTA>
+              <CtaButton variant="brand">
+                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+              </CtaButton>
               <Button
                 asChild
                 variant="outline"
                 className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
               >
-                <Link href="/catalog">{CTA_SECONDARY}</Link>
+                <Link href="/catalog">{CTA_EXPLORE_COLLECTIONS}</Link>
               </Button>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-xl">
@@ -408,7 +408,7 @@ export default function AboutPage() {
                 Schedule a free in-home visit for planning guidance, design direction, and an honest
                 project range.
               </p>
-              <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+              <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
             </MarketingCard>
           </div>
         </Section>

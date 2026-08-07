@@ -129,6 +129,20 @@ export default {
         display: ["clamp(2.5rem,6vw,5rem)", { lineHeight: "1.04", letterSpacing: "-0.025em" }],
         "section-title": ["1.875rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         "section-title-lg": ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
+        // Fluid H2 tier (32px mobile -> 52px desktop), replacing the repeated
+        // text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] triple that was
+        // copy-pasted across several hand-rolled section headings.
+        "h2-fluid": ["clamp(2rem,4.5vw,3.25rem)", { lineHeight: "1.08", letterSpacing: "-0.025em" }],
+      },
+      boxShadow: {
+        "2xs": "var(--shadow-2xs)",
+        xs: "var(--shadow-xs)",
+        sm: "var(--shadow-sm)",
+        DEFAULT: "var(--shadow)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+        xl: "var(--shadow-xl)",
+        "2xl": "var(--shadow-2xl)",
       },
       keyframes: {
         "accordion-down": {

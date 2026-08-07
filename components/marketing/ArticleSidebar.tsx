@@ -2,8 +2,8 @@ import { ArrowRight, Phone, Wrench } from 'lucide-react';
 import { MarketingCard } from './MarketingCard';
 import { GuideSidebarToc } from './GuideContentBlocks';
 import type { TocHeading } from '@/lib/content-utils';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
-import { CTA_PRIMARY } from '@/shared/ctaCopy';
+import { CtaButton } from '@/components/modals/CtaButton';
+import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 interface ArticleSidebarProps {
@@ -34,10 +34,10 @@ export function ArticleSidebarCta({ description }: { description: string }) {
           <h3 className="font-medium text-sm text-inverse-foreground">Free Consultation</h3>
         </div>
         <p className="text-sm text-inverse-muted">{description}</p>
-        <ConsultCTA variant="brand" size="sm" className="w-full">
-          {CTA_PRIMARY}
+        <CtaButton variant="brand" size="sm" className="w-full">
+          {CTA_ESTIMATE}
           <ArrowRight className="ml-2 h-4 w-4" />
-        </ConsultCTA>
+        </CtaButton>
         <p className="text-xs text-inverse-muted text-center flex items-center justify-center gap-1">
           <Phone className="h-3 w-3" />
           {SITE_CONFIG.phone}

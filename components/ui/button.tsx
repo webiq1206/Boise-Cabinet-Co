@@ -28,15 +28,6 @@ const buttonVariants = cva(
           "rounded-sm bg-primary text-primary-foreground border border-primary-border min-h-11 px-6 py-3.5",
         brandOutline:
           "rounded-sm border border-border bg-transparent text-foreground shadow-xs min-h-11 px-6 py-3.5",
-        /** @deprecated Marketing uses brand only. Kept for backward compatibility. */
-        brandGhost:
-          "rounded-sm border border-transparent text-foreground min-h-11 px-6 py-3.5",
-        /** @deprecated Marketing uses brand (charcoal) for primary CTAs. */
-        brandAccent:
-          "rounded-sm bg-primary text-primary-foreground border border-primary-border min-h-11 px-6 py-3.5",
-        /** @deprecated Use brandOutline on light backgrounds. */
-        brandInverseOutline:
-          "rounded-sm border border-border bg-transparent text-foreground shadow-xs min-h-11 px-6 py-3.5",
       },
       // Heights are set as "min" heights, because sometimes Ai will place large amount of content
       // inside buttons. With a min-height they will look appropriate with small amounts of content,
