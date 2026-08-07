@@ -69,6 +69,7 @@ import {
   buildCombinedStoredEstimate,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
+import { safeCombinedEstimate } from "@/shared/estimateValidation";
 import { CTA_BOOK_VISIT } from "@/shared/ctaCopy";
 
 const OPTION_ICONS: Record<string, LucideIcon> = {
@@ -588,9 +589,18 @@ export function EstimateCalculatorWizard({
   const isFirst = safeIndex === 0;
   const isLast = safeIndex === wizardSteps.length - 1;
 
-  // Live combined estimate across every priceable room.
-  const combined = useMemo(() => calculateCombinedEstimate(rooms), [rooms]);
-  const combinedStored = useMemo(() => buildCombinedStoredEstimate(rooms), [rooms]);
+  // Live combined estimate across every priceable room. Validated before
+  // display: if the result ever fails the sanity checks (corrupt persisted
+  // state, drifted inputs) the wizard falls back to its "make your selections"
+  // state instead of showing a suspicious number.
+  const combined = useMemo(
+    () => safeCombinedEstimate(calculateCombinedEstimate(rooms), rooms, "estimate-wizard"),
+    [rooms],
+  );
+  const combinedStored = useMemo(
+    () => (combined ? buildCombinedStoredEstimate(rooms) : null),
+    [combined, rooms],
+  );
 
   // Adapt the combined estimate to the EstimateResult shape the panel renders;
   // the per-room breakdown carries the detail, so scope/roi are not needed here.

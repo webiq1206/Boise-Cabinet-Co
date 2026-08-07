@@ -38,6 +38,7 @@
     "images:blog-alts": "node scripts/migrate-blog-alts.mjs",
     "resources:generate": "tsx scripts/generate-resource-pdfs.ts",
     "verify:estimate": "tsx scripts/verify-estimate-engine.ts",
+    "test:pricing": "tsx tests/pricing/estimate-engine.test.ts",
     "catalog:extract": "node scripts/catalog/extract-osc-pdf.mjs",
     "catalog:codegen": "node scripts/catalog/codegen-catalog.mjs",
     "catalog:svgs": "node scripts/catalog/generate-catalog-svgs.mjs",
@@ -67,6 +68,7 @@
     "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.116.0",
     "@hookform/resolvers": "^3.10.0",
     "@neondatabase/serverless": "^0.10.4",
     "@pdf-lib/fontkit": "^1.1.1",

@@ -4,7 +4,7 @@ import path from "path";
 
 const LOCAL_UPLOAD_DIR = path.join(process.cwd(), ".uploads");
 
-function useLocalStorage(): boolean {
+function isLocalBlobMode(): boolean {
   return !process.env.BLOB_READ_WRITE_TOKEN;
 }
 
@@ -13,7 +13,7 @@ export async function uploadFile(
   buffer: Buffer,
   mimeType: string
 ): Promise<string> {
-  if (useLocalStorage()) {
+  if (isLocalBlobMode()) {
     const filePath = path.join(LOCAL_UPLOAD_DIR, key);
     await mkdir(path.dirname(filePath), { recursive: true });
     await writeFile(filePath, buffer);
@@ -29,7 +29,7 @@ export async function uploadFile(
 }
 
 export async function deleteFile(urlOrKey: string): Promise<void> {
-  if (useLocalStorage()) {
+  if (isLocalBlobMode()) {
     const key = urlOrKey.replace(/^\/api\/documents\/local\//, "");
     const filePath = path.join(LOCAL_UPLOAD_DIR, decodeURIComponent(key));
     try {
