@@ -39,6 +39,7 @@
     "resources:generate": "tsx scripts/generate-resource-pdfs.ts",
     "verify:estimate": "tsx scripts/verify-estimate-engine.ts",
     "test:pricing": "tsx tests/pricing/estimate-engine.test.ts",
+    "test:parity": "tsx tests/pricing/estimate-parity.test.ts",
     "catalog:extract": "node scripts/catalog/extract-osc-pdf.mjs",
     "catalog:codegen": "node scripts/catalog/codegen-catalog.mjs",
     "catalog:svgs": "node scripts/catalog/generate-catalog-svgs.mjs",
