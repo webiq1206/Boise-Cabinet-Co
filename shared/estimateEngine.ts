@@ -925,6 +925,10 @@ export function roomSelectionsMade(room: EstimateSelections): number {
   if (!room.project) return 0;
   const vis = getStepVisibility(room.project);
   let n = 0;
+  // Layout counts toward confidence for the projects that show the step;
+  // without this, kitchens and bathrooms could never reach the "detailed"
+  // confidence level their own step list implies (4 selections of 5 steps).
+  if (vis.layout && room.layout) n += 1;
   if (room.size != null) n += 1;
   if (vis.doorStyle && room.doorStyle) n += 1;
   if (room.finishCategory || room.finishSlug) n += 1;

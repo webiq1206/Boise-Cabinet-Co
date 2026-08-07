@@ -285,7 +285,7 @@ export function AssistantWidget() {
         <div
           role="dialog"
           aria-label="Boise Cabinet Co virtual estimating assistant"
-          className="fixed inset-x-0 bottom-0 z-[95] flex h-[85dvh] flex-col rounded-t-xl border border-border bg-background shadow-2xl md:inset-x-auto md:bottom-6 md:right-6 md:h-[600px] md:max-h-[80dvh] md:w-[400px] md:rounded-xl"
+          className="fixed inset-x-0 bottom-0 z-[110] flex h-[85dvh] flex-col rounded-t-xl border border-border bg-background shadow-2xl md:inset-x-auto md:bottom-6 md:right-6 md:h-[600px] md:max-h-[80dvh] md:w-[400px] md:rounded-xl"
           onKeyDown={(e) => {
             if (e.key === "Escape") setOpen(false);
           }}
@@ -326,7 +326,8 @@ export function AssistantWidget() {
                     {m.images.length === 1 ? "1 photo attached" : `${m.images.length} photos attached`}
                   </span>
                 ) : null}
-                {m.content}
+                {/* Rendered as plain text; strip stray markdown bold markers. */}
+                {m.content.replace(/\*\*/g, "")}
               </div>
             ))}
             {pending && (

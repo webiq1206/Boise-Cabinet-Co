@@ -2,10 +2,12 @@ import { expect, test } from "@playwright/test";
 
 async function openCalculator(page: import("@playwright/test").Page) {
   await page.goto("/#calculator");
-  await page.locator("#calculator").scrollIntoViewIfNeeded();
   // The estimator is a lazily-mounted client island; in dev the first hit also
   // pays a route compile, so allow generous time for the first step to appear.
+  // Wait for the island BEFORE grabbing #calculator: hydration replaces the
+  // node, so a locator resolved earlier detaches mid-scroll.
   await expect(page.getByText(/Step 1 of/i).first()).toBeVisible({ timeout: 30_000 });
+  await page.locator("#calculator").scrollIntoViewIfNeeded();
 }
 
 test.describe("Project Estimator", () => {
@@ -24,7 +26,7 @@ test.describe("Project Estimator", () => {
     await openCalculator(page);
     await page.getByTestId("button-project-laundry").click();
     await expect(page.getByTestId("button-project-laundry")).toHaveAttribute("aria-pressed", "true");
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Start estimating" }).click();
     const slider = page.getByTestId("slider-size");
     const laundryFeet = Number(await slider.inputValue());
     expect(laundryFeet).toBeGreaterThanOrEqual(4);
@@ -33,14 +35,19 @@ test.describe("Project Estimator", () => {
 
   test("guided selections reach detailed planning range", async ({ page }) => {
     await openCalculator(page);
-    // project -> size (+ construction quality) -> style -> result
+    // project -> size -> quality -> layout -> style -> result
     await page.getByTestId("button-project-kitchen").click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Start estimating" }).click();
     // Size starts unset; both the base and wall (upper) sliders must be moved
     // before continuing (kitchen has uppers).
     await page.getByTestId("slider-size").fill("24");
     await page.getByTestId("slider-size-upper").fill("18");
+    await page.getByRole("button", { name: "Continue" }).click();
+    // Construction quality is its own step.
     await page.getByTestId("button-construction-best").click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    // Kitchens carry a layout step, and it must be chosen to advance.
+    await page.getByTestId("button-layout-island").click();
     await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId("button-door-modern-shaker").click();
     // Finishes are optional and tucked behind a toggle; revealing and choosing
@@ -55,9 +62,10 @@ test.describe("Project Estimator", () => {
   test("sticky mobile bar appears with live range", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/#calculator");
+    await expect(page.getByText(/Step 1 of/i).first()).toBeVisible({ timeout: 30_000 });
     await page.locator("#calculator").scrollIntoViewIfNeeded();
     await page.getByTestId("button-project-bathroom").click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "Start estimating" }).click();
     // The shell's sticky mobile bar shows the live planning range + Continue
     // while the wizard is on screen.
     await expect(page.getByTestId("wizard-mobile-bar")).toBeVisible({ timeout: 15_000 });

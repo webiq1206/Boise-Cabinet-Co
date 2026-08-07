@@ -2,6 +2,9 @@ import { expect, test } from "@playwright/test";
 
 async function openCalculator(page: import("@playwright/test").Page) {
   await page.goto("/#calculator");
+  // Wait for the lazily-mounted estimator island before touching #calculator -
+  // hydration replaces the node, detaching any earlier-resolved locator.
+  await expect(page.getByText(/Step 1 of/i).first()).toBeVisible({ timeout: 30_000 });
   await page.locator("#calculator").scrollIntoViewIfNeeded();
 }
 
@@ -14,15 +17,21 @@ test.describe("Unified quote flow", () => {
 
     // 1. Project
     await page.getByTestId("button-project-kitchen").click();
-    await page.getByRole("button", { name: "Continue" }).first().click();
+    await page.getByRole("button", { name: "Start estimating" }).first().click();
 
-    // 2. Size & quality - move both runs (kitchen has uppers); construction
-    // defaults to "Better", so no extra tap is needed.
+    // 2. Size - move both runs (kitchen has uppers).
     await page.getByTestId("slider-size").fill("24");
     await page.getByTestId("slider-size-upper").fill("18");
     await page.getByRole("button", { name: "Continue" }).first().click();
 
-    // 3. Door & finish - pick a door and skip the optional finishes.
+    // 3. Quality - construction defaults to "Better", so continue straight on.
+    await page.getByRole("button", { name: "Continue" }).first().click();
+
+    // 4. Layout - required for kitchens.
+    await page.getByTestId("button-layout-island").click();
+    await page.getByRole("button", { name: "Continue" }).first().click();
+
+    // 5. Door & finish - pick a door and skip the optional finishes.
     await page.getByTestId("button-door-modern-shaker").click();
     await page.getByRole("button", { name: "See your range" }).first().click();
 
@@ -32,7 +41,9 @@ test.describe("Unified quote flow", () => {
     });
     const stored = await page.evaluate(() => sessionStorage.getItem("brc_estimate"));
     expect(stored).toBeTruthy();
-    await page.getByTestId("wizard-next").click();
+    // Both the inline footer and the sticky mobile bar render a next button;
+    // either advances the flow.
+    await page.getByTestId("wizard-next").first().click();
 
     // 5. Contact capture - the project is known, so only the 3 core fields show.
     await expect(page.getByTestId("input-name")).toBeVisible();
