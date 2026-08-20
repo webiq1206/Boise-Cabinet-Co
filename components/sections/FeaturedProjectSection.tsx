@@ -61,7 +61,7 @@ export function FeaturedProjectSection() {
                 Design concept
               </span>
             )}
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/52 via-inverse/15 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/50 via-inverse/15 to-transparent pointer-events-none" />
             <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8">
               <p className="font-sans font-medium text-sm text-inverse-foreground mb-1">
                 {project.title}

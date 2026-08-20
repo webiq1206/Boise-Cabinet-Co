@@ -173,7 +173,7 @@ export default function ContactPage() {
             priority
           />
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/52 via-inverse/15 to-transparent" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/50 via-inverse/15 to-transparent" />
           <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div

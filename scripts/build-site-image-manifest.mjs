@@ -150,7 +150,7 @@ for (const d of DOOR_STYLES) {
 
 // Site heroes (deduplicated)
 const siteHeroes = [
-  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom kitchen cabinets with One Source Shaker doors in a Treasure Valley home" },
+  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home" },
   { id: "hero-about", path: "/images/marketing/hero-about.webp", pages: ["/about"], alt: "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners" },
   { id: "hero-contact", path: "/images/marketing/hero-contact.webp", pages: ["/contact"], alt: "Custom bathroom vanity cabinets installed in a Meridian Idaho home" },
   { id: "hero-design-studio", path: "/images/marketing/hero-design-studio.webp", pages: ["/design-studio"], alt: "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen" },

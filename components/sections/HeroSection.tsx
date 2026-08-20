@@ -29,15 +29,18 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-          alt="Custom maple and white shaker kitchen cabinets with a quartz waterfall island and sage tile backsplash in a Treasure Valley, Idaho home by Boise Cabinet Co"
+          alt="Custom cream shaker kitchen cabinets with a white oak island, aged brass hardware, and lit glass-front uppers in a Treasure Valley, Idaho home by Boise Cabinet Co"
           fill
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover opacity-[0.82] img-brand-grade"
+          className="object-cover opacity-[0.92] img-brand-grade"
         />
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/72 via-inverse/38 to-inverse/10" />
-        <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-inverse/58 via-inverse/25 to-transparent" />
+        <div className="hidden md:block absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/55 to-inverse/25" />
+        {/* Mobile stacks the copy over the middle of the photo, so it needs a
+            bottom-up scrim the desktop left-to-right one cannot provide. */}
+        <div className="md:hidden absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/70 to-inverse/45" />
+        <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-inverse/70 via-inverse/35 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div
           className="absolute inset-0 pointer-events-none"
@@ -52,7 +55,7 @@ export function HeroSection() {
                 Idaho&apos;s premier{" "}
                 <em className="brc-accent text-accent">cabinet</em> company.
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground/90">
+              <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground">
                 {HERO_SUBHEAD}
               </p>
               <div className="flex flex-wrap gap-3 mb-6 md:mb-0">
