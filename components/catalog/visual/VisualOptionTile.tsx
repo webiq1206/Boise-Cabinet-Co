@@ -78,7 +78,7 @@ export function VisualOptionTile({
           </span>
         )}
         {badge && !selected && (
-          <span className="absolute left-2 top-2 z-10 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-accent-foreground shadow-sm">
+          <span className="absolute left-2 top-2 z-10 rounded-full bg-accent px-2 py-0.5 text-[12px] font-medium text-accent-foreground shadow-sm">
             {badge}
           </span>
         )}
@@ -118,7 +118,7 @@ export function VisualOptionTile({
             {label}
           </p>
           {meta && (
-            <p className="mt-0.5 text-[11px] capitalize text-muted-foreground">{meta}</p>
+            <p className="mt-0.5 text-[12px] capitalize text-muted-foreground">{meta}</p>
           )}
           {description && variant === "media" && (
             <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{description}</p>

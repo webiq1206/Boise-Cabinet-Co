@@ -41,7 +41,7 @@ export function PortalShell({
               {breadcrumb ? (
                 <div className="hidden md:block">{breadcrumb}</div>
               ) : (
-                <span className="md:hidden text-[10px] font-medium uppercase tracking-wider text-muted-foreground truncate">
+                <span className="md:hidden text-[12px] font-medium uppercase tracking-wider text-muted-foreground truncate">
                   {portalLabel}
                 </span>
               )}

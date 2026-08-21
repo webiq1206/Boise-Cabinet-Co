@@ -39,7 +39,7 @@ export function HelpHint({
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="w-64 text-sm leading-relaxed"
+        className="w-64 text-base leading-relaxed"
         data-testid="help-hint-content"
       >
         {children}

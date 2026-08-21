@@ -16,7 +16,7 @@ function StatCard({ num, label }: { num: string; label: string }) {
       <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
         {num}
       </DisplayNum>
-      <div className="mt-1 md:mt-1.5 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
+      <div className="mt-1 md:mt-1.5 text-[12px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
         {label}
       </div>
     </div>
@@ -106,7 +106,7 @@ export function HeroSection() {
                 className="flex items-center justify-center gap-2 px-4 py-5 md:py-3 text-center border-r border-b border-accent/20"
               >
                 <span className="h-1 w-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
-                <span className="text-[11px] leading-snug tracking-[0.2em] uppercase text-foreground/80 font-medium">
+                <span className="text-[12px] leading-snug tracking-[0.2em] uppercase text-foreground/80 font-medium">
                   {item}
                 </span>
               </div>

@@ -666,7 +666,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
                   aria-current={n === page}
                 >
                   <PdfPageCanvas pdf={pdf} pageNumber={n} renderWidth={150} />
-                  <div className="bg-black/40 py-0.5 text-center text-[10px] text-inverse-muted">{n}</div>
+                  <div className="bg-black/40 py-0.5 text-center text-[12px] text-inverse-muted">{n}</div>
                 </button>
               ))}
             </div>

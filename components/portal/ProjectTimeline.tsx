@@ -72,7 +72,7 @@ function TimelineNode({ event, isLast }: { event: TimelineEvent; isLast: boolean
       </div>
       <p
         className={cn(
-          "mt-2 text-center text-[10px] sm:text-xs leading-tight max-w-[5rem] sm:max-w-[6rem]",
+          "mt-2 text-center text-[12px] sm:text-xs leading-tight max-w-[5rem] sm:max-w-[6rem]",
           event.status === "in_progress" || event.status === "action_required"
             ? "font-semibold text-foreground"
             : event.status === "completed"

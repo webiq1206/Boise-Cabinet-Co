@@ -44,7 +44,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <h3 className="font-sans font-light text-foreground text-xl md:text-2xl leading-snug mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+                <p className="text-base leading-relaxed text-muted-foreground">
                   <span className="text-foreground/90">{item.contrast}</span> {item.body}
                 </p>
               </div>

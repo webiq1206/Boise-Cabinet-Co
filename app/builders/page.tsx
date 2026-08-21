@@ -183,7 +183,7 @@ export default function BuildersPage() {
               {REASONS.map((r) => (
                 <MarketingCard key={r.title} className="h-full">
                   <h3 className="font-sans font-light text-xl text-foreground mb-2">{r.title}</h3>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">{r.body}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{r.body}</p>
                 </MarketingCard>
               ))}
             </div>
@@ -205,7 +205,7 @@ export default function BuildersPage() {
               {TERMS.map((t) => (
                 <div key={t.label} className="grid sm:grid-cols-[160px_1fr] gap-1 sm:gap-6 py-5">
                   <dt className="text-sm uppercase tracking-[0.08em] text-foreground">{t.label}</dt>
-                  <dd className="text-sm md:text-base leading-relaxed text-muted-foreground">{t.value}</dd>
+                  <dd className="text-base leading-relaxed text-muted-foreground">{t.value}</dd>
                 </div>
               ))}
             </dl>
@@ -241,7 +241,7 @@ export default function BuildersPage() {
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
                   <h3 className="font-sans font-light text-lg text-foreground mb-2">{f.question}</h3>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">{f.answer}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
                 </div>
               ))}
             </div>

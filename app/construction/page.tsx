@@ -126,7 +126,7 @@ export default function ConstructionPage() {
                   <h3 className="text-lg font-sans font-light tracking-tight mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                  <p className="text-base text-muted-foreground leading-relaxed">{item.body}</p>
                 </MarketingCard>
               ))}
             </div>

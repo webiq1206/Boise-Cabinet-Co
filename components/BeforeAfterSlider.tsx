@@ -157,10 +157,10 @@ export function BeforeAfterSlider({
       </div>
 
       {/* Corner labels */}
-      <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium pointer-events-none">
+      <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium pointer-events-none">
         Before
       </div>
-      <div className="absolute top-3 right-3 md:top-4 md:right-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium pointer-events-none">
+      <div className="absolute top-3 right-3 md:top-4 md:right-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium pointer-events-none">
         After
       </div>
 
@@ -176,7 +176,7 @@ export function BeforeAfterSlider({
         {/* Fading hint above the knob until first interaction */}
         <div
           aria-hidden="true"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+2.9rem)] whitespace-nowrap rounded-full bg-inverse/85 backdrop-blur-sm px-3 py-1 text-[11px] tracking-wide text-inverse-foreground shadow-md transition-opacity duration-500"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+2.9rem)] whitespace-nowrap rounded-full bg-inverse/85 backdrop-blur-sm px-3 py-1 text-[12px] tracking-wide text-inverse-foreground shadow-md transition-opacity duration-500"
           style={{ opacity: interacted ? 0 : 1 }}
         >
           Drag to compare

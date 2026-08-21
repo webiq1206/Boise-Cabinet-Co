@@ -337,7 +337,7 @@ function DoorCard({ style }: { style: DoorStyle }) {
           <h2 className="text-lg font-sans font-light tracking-tight mb-2 group-hover:text-primary transition-colors">
             {style.name}
           </h2>
-          <p className="text-sm text-muted-foreground flex-1 line-clamp-4 leading-relaxed">
+          <p className="text-base text-muted-foreground flex-1 line-clamp-4 leading-relaxed">
             {style.description}
           </p>
           <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">

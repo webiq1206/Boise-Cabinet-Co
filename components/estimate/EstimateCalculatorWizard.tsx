@@ -294,7 +294,7 @@ function SelectButton<T extends string>({
             />
             <span className="w-full truncate font-medium text-xs text-foreground leading-tight">{opt.label}</span>
             {opt.sub && (
-              <span className="hidden text-[10px] leading-snug text-muted-foreground line-clamp-1 sm:block">
+              <span className="hidden text-[12px] leading-snug text-muted-foreground line-clamp-1 sm:block">
                 {opt.sub}
               </span>
             )}
@@ -378,7 +378,7 @@ function ConstructionTierSelect({
                 <span className="font-medium text-sm text-foreground">{opt.label}</span>
                 <TierStrength rank={rank} />
                 {popular && (
-                  <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                  <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[12px] font-medium uppercase tracking-wide text-accent">
                     Most popular
                   </span>
                 )}
@@ -435,7 +435,7 @@ function SizeSlider({
   const background = `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${pct}%, hsl(var(--border)) ${pct}%, hsl(var(--border)) 100%)`;
   return (
     <div className="rounded-lg border border-border bg-card p-3">
-      <label className="mb-1.5 block text-[11px] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
+      <label className="mb-1.5 block text-[12px] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
         {label}
       </label>
       <div className="mb-1.5 flex items-baseline gap-1.5" data-testid={value == null ? `${testId}-unset-hint` : undefined}>
@@ -467,7 +467,7 @@ function SizeSlider({
           data-testid={testId}
         />
       </div>
-      <div className="flex justify-between text-[10px] text-muted-foreground">
+      <div className="flex justify-between text-[12px] text-muted-foreground">
         <span>
           <DisplayNum>{min.toLocaleString()}</DisplayNum> {unitShort}
         </span>
@@ -868,7 +868,7 @@ export function EstimateCalculatorWizard({
                     </span>
                     {/* Sub description adds height; on phones the label + image are
                         enough, so we reveal it only where there's vertical room. */}
-                    <span className="mt-0.5 hidden text-[11px] leading-snug text-muted-foreground line-clamp-1 sm:block">
+                    <span className="mt-0.5 hidden text-[12px] leading-snug text-muted-foreground line-clamp-1 sm:block">
                       {info.sub}
                     </span>
                   </span>
@@ -1043,7 +1043,7 @@ export function EstimateCalculatorWizard({
                         Show fewer
                       </button>
                     )}
-                    <p className="mt-2 text-[11px] text-muted-foreground">
+                    <p className="mt-2 text-[12px] text-muted-foreground">
                       Pick a color now or explore the full palette later - finish style can refine your planning range.
                     </p>
                   </div>

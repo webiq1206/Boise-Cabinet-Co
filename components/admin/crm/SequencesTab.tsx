@@ -170,7 +170,7 @@ export function SequencesTab() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium leading-snug break-words">{s.name}</span>
-                  {s.seedKey && <Badge variant="outline" className="text-[10px] shrink-0">seed</Badge>}
+                  {s.seedKey && <Badge variant="outline" className="text-[12px] shrink-0">seed</Badge>}
                 </div>
                 <span className="text-xs opacity-70">{s.steps.length} steps · {s.audience}</span>
               </button>

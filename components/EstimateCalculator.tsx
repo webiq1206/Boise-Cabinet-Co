@@ -81,7 +81,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
             A short guided flow - pick your project, size, and style. Your planning range stays
             in view and updates at each step.
           </p>
-          <p className="hidden sm:block text-sm max-w-2xl leading-relaxed text-foreground/80">
+          <p className="hidden sm:block text-base max-w-2xl leading-relaxed text-foreground/80">
             {ESTIMATE_VALUE_PROP}
           </p>
         </div>

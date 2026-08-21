@@ -74,7 +74,7 @@ export function PipelineBoard({ opportunities }: { opportunities: Opportunity[] 
             <div className="flex items-start gap-4 p-4">
               <div className={`shrink-0 w-12 text-center rounded-sm border px-2 py-1 ${TIER_COLORS[o.score.tier] ?? ""}`}>
                 <div className="text-lg leading-none font-medium">{o.score.score}</div>
-                <div className="text-[10px] tracking-wide uppercase opacity-70">{o.score.tier}</div>
+                <div className="text-[12px] tracking-wide uppercase opacity-70">{o.score.tier}</div>
               </div>
 
               <div className="flex-1 min-w-0">
@@ -87,11 +87,11 @@ export function PipelineBoard({ opportunities }: { opportunities: Opportunity[] 
                   >
                     {o.domain}
                   </a>
-                  <span className="text-[11px] px-2 py-0.5 rounded-sm bg-muted text-muted-foreground">{o.category}</span>
-                  <span className="text-[11px] px-2 py-0.5 rounded-sm border border-border text-muted-foreground">{o.automation}</span>
+                  <span className="text-[12px] px-2 py-0.5 rounded-sm bg-muted text-muted-foreground">{o.category}</span>
+                  <span className="text-[12px] px-2 py-0.5 rounded-sm border border-border text-muted-foreground">{o.automation}</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">{o.recommendedPlay}</p>
-                <p className="text-[11px] text-muted-foreground/70 mt-1">
+                <p className="text-[12px] text-muted-foreground/70 mt-1">
                   DR {o.metrics.domainRating} · ~{o.metrics.trafficDomain.toLocaleString()} visits/mo · from {o.sources.join(", ")}
                   {o.contact?.email && <span className="text-accent"> · ✉ {o.contact.email}</span>}
                 </p>

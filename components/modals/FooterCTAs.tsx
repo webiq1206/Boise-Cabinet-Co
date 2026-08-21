@@ -6,7 +6,7 @@ import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { track } from "@/lib/analytics/track";
 
 const cls =
-  "block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left";
+  "tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left";
 
 /** Renders a single CTA link/button - not a list item, so callers should not place it inside a <ul>. */
 export function FooterCTAs() {

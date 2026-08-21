@@ -64,7 +64,7 @@ function GroupLinks({ links }: { links: FooterLink[] }) {
         <li key={link.href}>
           <Link
             href={link.href}
-            className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+            className="tap-target text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
           >
             {link.label}
           </Link>
@@ -98,17 +98,17 @@ export function Footer() {
             <div className="space-y-2 mb-6">
               <a
                 href={SITE_CONFIG.phoneHref}
-                className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
                 Call {SITE_CONFIG.phone}
               </a>
               <a
                 href={SITE_CONFIG.phoneSmsHref}
-                className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
                 Text {SITE_CONFIG.phone}
               </a>
-              <SiteEmailLink className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
+              <SiteEmailLink className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
               <address className="not-italic text-sm text-inverse-muted">
                 {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
               </address>
@@ -125,7 +125,7 @@ export function Footer() {
           {groups.map((group) => (
             <div key={group.title} className="border-t border-inverse-foreground/10 lg:border-t-0 lg:border-0">
               <details className="lg:hidden group/accordion py-1">
-                <summary className="flex items-center justify-between cursor-pointer list-none py-4 font-sans font-medium text-[11px] tracking-[0.12em] uppercase text-inverse-muted min-h-11">
+                <summary className="flex items-center justify-between cursor-pointer list-none py-4 font-sans font-medium text-[12px] tracking-[0.12em] uppercase text-inverse-muted min-h-11">
                   {group.title}
                   <span aria-hidden="true" className="transition-transform group-open/accordion:rotate-45 text-lg leading-none">
                     +
@@ -136,7 +136,7 @@ export function Footer() {
                 </div>
               </details>
               <div className="hidden lg:block">
-                <h2 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+                <h2 className="font-sans font-medium text-[12px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
                   {group.title}
                 </h2>
                 <GroupLinks links={group.links} />
@@ -147,7 +147,7 @@ export function Footer() {
 
         {/* Service areas - compact wrapped row rather than a tall vertical list. */}
         <div className="pb-8 mb-8 border-t border-b border-inverse-foreground/10 py-6">
-          <h2 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
+          <h2 className="font-sans font-medium text-[12px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
             Serving the Treasure Valley
           </h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -155,7 +155,7 @@ export function Footer() {
               <Link
                 key={city.slug}
                 href={locationPath(city.slug)}
-                className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                className="tap-target text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
                 {city.name}
               </Link>
@@ -174,10 +174,10 @@ export function Footer() {
             </span>
           </div>
           <div className="flex gap-4">
-            <Link href="/privacy-policy" className="transition-colors hover:text-inverse-foreground">
+            <Link href="/privacy-policy" className="tap-target inline-flex items-center transition-colors hover:text-inverse-foreground">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="transition-colors hover:text-inverse-foreground">
+            <Link href="/terms-of-service" className="tap-target inline-flex items-center transition-colors hover:text-inverse-foreground">
               Terms of Service
             </Link>
           </div>

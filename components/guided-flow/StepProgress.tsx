@@ -115,7 +115,7 @@ export function StepProgress({
                     {currentIndex + 1}
                   </span>
                   <span className="flex flex-col leading-tight">
-                    <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                    <span className="text-[12px] uppercase tracking-wide text-muted-foreground">
                       Step {currentIndex + 1} of {steps.length}
                     </span>
                     <span className="font-medium">{current?.label}</span>

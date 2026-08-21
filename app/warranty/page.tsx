@@ -114,7 +114,7 @@ export default function WarrantyPage() {
                 <h3 className="text-lg font-sans font-light tracking-tight mb-3">Conditions</h3>
                 <ul className="space-y-2">
                   {CONDITIONS.map((item) => (
-                    <li key={item} className="text-sm text-muted-foreground leading-relaxed">
+                    <li key={item} className="text-base text-muted-foreground leading-relaxed">
                       {item}
                     </li>
                   ))}
@@ -124,7 +124,7 @@ export default function WarrantyPage() {
                 <h3 className="text-lg font-sans font-light tracking-tight mb-3">Not covered</h3>
                 <ul className="space-y-2">
                   {EXCLUDED.map((item) => (
-                    <li key={item} className="text-sm text-muted-foreground leading-relaxed">
+                    <li key={item} className="text-base text-muted-foreground leading-relaxed">
                       {item}
                     </li>
                   ))}
@@ -142,13 +142,13 @@ export default function WarrantyPage() {
               align="left"
               className="mb-6"
             />
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
               If something isn&apos;t right, reach out to {SITE_CONFIG.name} directly. Every claim is
               reviewed and administered by our team - not a distant manufacturer. Keep your contract
               and approved shop drawings handy; they document the finishes, hardware, and scope your
               warranty is tied to.
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-base text-muted-foreground leading-relaxed">
               Most cabinet orders are produced within {CATALOG_CONTENT.leadTime} of an approved
               design, and your warranty begins at installation. Replacement parts are matched to your
               original selections whenever possible.

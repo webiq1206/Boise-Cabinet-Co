@@ -514,7 +514,7 @@ export function ConsultationFields({
         <h3 className="font-sans font-light text-2xl text-foreground">
           We&apos;ll be in touch shortly.
         </h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="text-base leading-relaxed text-muted-foreground">
           Thank you for reaching out. We sent a confirmation to your email and typically
           respond within one business day.
         </p>

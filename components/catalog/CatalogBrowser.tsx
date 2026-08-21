@@ -474,10 +474,10 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
       <div className="min-w-0 px-0.5 pb-0.5">
         <p className="truncate text-sm font-medium text-foreground">{item.name}</p>
         {item.meta && (
-          <p className="truncate text-[11px] capitalize text-muted-foreground">{item.meta}</p>
+          <p className="truncate text-[12px] capitalize text-muted-foreground">{item.meta}</p>
         )}
       </div>
-      <span className="mt-auto flex items-center gap-1 px-0.5 text-[11px] font-medium text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+      <span className="mt-auto flex items-center gap-1 px-0.5 text-[12px] font-medium text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
         View details <ArrowRight className="h-3 w-3" />
       </span>
     </Link>

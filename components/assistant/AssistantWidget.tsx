@@ -93,7 +93,7 @@ function EstimateCard({ estimate }: { estimate: CombinedEstimateResult }) {
   return (
     <div className="mx-4 mb-2 rounded-md border border-border bg-secondary/40 px-3 py-2.5 text-sm">
       <div className="flex items-baseline justify-between gap-2">
-        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+        <span className="text-[12px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           Planning range
         </span>
         <span className="font-sans font-medium text-foreground">

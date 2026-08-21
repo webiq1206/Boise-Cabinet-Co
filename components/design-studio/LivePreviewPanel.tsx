@@ -307,7 +307,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
               </Button>
             </div>
 
-            <p className="text-[11px] text-muted-foreground mb-1">Door style</p>
+            <p className="text-[12px] text-muted-foreground mb-1">Door style</p>
             <div className="flex flex-wrap gap-1 mb-2">
               {DOOR_STYLES.map((d) => (
                 <button
@@ -317,7 +317,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
                     updateModuleOverride(selectedId, { doorStyle: d.slug })
                   }
                   className={cn(
-                    "rounded-md border px-2 py-1 text-[11px] transition-colors",
+                    "rounded-md border px-2 py-1 text-[12px] transition-colors",
                     activeDoorStyle === d.slug
                       ? "border-primary bg-primary/10 font-medium"
                       : "border-border hover:border-primary/40",
@@ -329,7 +329,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
               ))}
             </div>
 
-            <p className="text-[11px] text-muted-foreground mb-1">Finish</p>
+            <p className="text-[12px] text-muted-foreground mb-1">Finish</p>
             <div className="flex flex-wrap gap-1.5 mb-2">
               {featuredFinishes.map((f) => (
                 <button
@@ -367,7 +367,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
         )}
       </div>
 
-      <p className="px-3 py-2 text-[11px] text-muted-foreground border-t">
+      <p className="px-3 py-2 text-[12px] text-muted-foreground border-t">
         {selectedId
           ? "Adjust this cabinet, or tap empty space to deselect."
           : isMobile

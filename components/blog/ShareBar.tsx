@@ -76,7 +76,7 @@ export function ShareBar({ url, title, className, withHeading = false }: ShareBa
 
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
         {withHeading ? "Share this article" : "Share"}
       </span>
       <div className="flex items-center gap-2">

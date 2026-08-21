@@ -70,7 +70,7 @@ function StatCard({ num, label }: { num: string; label: string }) {
       <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
         {num}
       </DisplayNum>
-      <div className="mt-1 md:mt-1.5 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
+      <div className="mt-1 md:mt-1.5 text-[12px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
         {label}
       </div>
     </div>
@@ -116,7 +116,7 @@ function ContactChannel({
           >
             {children}
           </div>
-          <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{subtext}</p>
+          <p className="text-base text-muted-foreground mt-1.5 leading-relaxed">{subtext}</p>
         </div>
       </div>
     </MarketingCard>

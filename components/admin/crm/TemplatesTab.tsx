@@ -207,7 +207,7 @@ export function TemplatesTab() {
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium leading-snug break-words">{t.name}</span>
-                  {t.seedManaged && <Badge variant="outline" className="text-[10px]">seed</Badge>}
+                  {t.seedManaged && <Badge variant="outline" className="text-[12px]">seed</Badge>}
                 </div>
                 <span className="text-xs opacity-70">{t.audience}</span>
               </button>

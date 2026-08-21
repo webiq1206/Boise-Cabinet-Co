@@ -211,7 +211,7 @@ export function GuidedFlowShell({
         {/* Compact, non-scrolling header */}
         <div ref={topRef} className="shrink-0">
           <div className="mb-2">
-            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+            <p className="text-[12px] uppercase tracking-wide text-muted-foreground">
               {metaLabel ?? `Step ${currentIndex + 1} of ${steps.length}`}
               {minutesLeftLabel ? ` · ${minutesLeftLabel}` : ""}
             </p>

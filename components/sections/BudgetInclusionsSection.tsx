@@ -40,7 +40,7 @@ export function BudgetInclusionsSection() {
                     <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
                       {point.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-inverse-muted">{point.body}</p>
+                    <p className="text-base leading-relaxed text-inverse-muted">{point.body}</p>
                   </div>
                 ))}
               </div>
@@ -64,13 +64,13 @@ export function BudgetInclusionsSection() {
                 </ul>
 
                 <div className="pt-8 border-t border-inverse-foreground/15">
-                  <p className="text-[11px] tracking-[0.12em] uppercase font-medium text-inverse-muted mb-3">
+                  <p className="text-[12px] tracking-[0.12em] uppercase font-medium text-inverse-muted mb-3">
                     Optional enhancement
                   </p>
                   <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
                     {OPTIONAL_ENHANCEMENTS.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-3 text-inverse-muted">
+                  <p className="text-base leading-relaxed mb-3 text-inverse-muted">
                     {OPTIONAL_ENHANCEMENTS.body}
                   </p>
                   <p className="text-xs mb-4 text-inverse-muted/80">

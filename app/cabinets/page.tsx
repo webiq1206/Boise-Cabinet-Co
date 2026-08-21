@@ -103,7 +103,7 @@ export default function CabinetsHubPage() {
                         <h2 className="text-lg font-sans font-light tracking-tight mb-2">
                           {room.name}
                         </h2>
-                        <p className="text-sm text-muted-foreground line-clamp-3 flex-1 leading-relaxed">
+                        <p className="text-base text-muted-foreground line-clamp-3 flex-1 leading-relaxed">
                           {room.description}
                         </p>
                         <p className="text-xs text-muted-foreground mt-3">

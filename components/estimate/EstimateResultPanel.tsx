@@ -109,7 +109,7 @@ function IncludedSection({
           <span className="text-inverse-muted">{open ? "Hide" : `Show ${included.length}`}</span>
         </button>
       ) : (
-        <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
+        <p className="text-[12px] font-medium mb-2 text-inverse-foreground/90">
           What&apos;s typically included
         </p>
       )}
@@ -131,16 +131,16 @@ function IncludedSection({
             <button
               type="button"
               onClick={() => setShowAll((prev) => !prev)}
-              className="text-[11px] text-inverse-foreground/70 underline underline-offset-2 mb-3 hover:text-inverse-foreground transition-colors"
+              className="text-[12px] text-inverse-foreground/70 underline underline-offset-2 mb-3 hover:text-inverse-foreground transition-colors"
               data-testid="button-toggle-scope"
             >
               {showAll ? "Show less" : `Show all (${included.length})`}
             </button>
           )}
           {!hasMore && <div className="mb-3" />}
-          <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+          <p className="text-[12px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
           {project === "kitchen" && (
-            <p className="text-[10px] leading-relaxed text-inverse-muted mt-2" data-testid="appliance-disclaimer">
+            <p className="text-[12px] leading-relaxed text-inverse-muted mt-2" data-testid="appliance-disclaimer">
               {APPLIANCE_DISCLAIMER}
             </p>
           )}
@@ -223,7 +223,7 @@ export function EstimateResultPanel({
           {ESTIMATE_EMPTY_MESSAGE}
         </p>
         {(isFull || isSidebar) && (
-          <p className="text-[11px] leading-relaxed mt-4 text-inverse-foreground/85">
+          <p className="text-[12px] leading-relaxed mt-4 text-inverse-foreground/85">
             {ESTIMATE_VALUE_PROP}
           </p>
         )}
@@ -246,7 +246,7 @@ export function EstimateResultPanel({
         <div className="brc-label text-inverse-muted">
           {multiRoom ? "Total planning range" : "Planning range"}
         </div>
-        <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90 shrink-0">
+        <div className="text-[12px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90 shrink-0">
           {result.confidenceLabel}
         </div>
       </div>
@@ -288,14 +288,14 @@ export function EstimateResultPanel({
                   <div className="text-[13px] font-medium leading-tight text-inverse-foreground">
                     {r.projectLabel}
                   </div>
-                  <div className="text-[11px] leading-snug text-inverse-muted mt-0.5">
+                  <div className="text-[12px] leading-snug text-inverse-muted mt-0.5">
                     {r.scopeSummary}
                   </div>
                   {onEditRoom && (
                     <button
                       type="button"
                       onClick={() => onEditRoom(i)}
-                      className="mt-1 text-[11px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
+                      className="mt-1 text-[12px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
                       data-testid={`button-edit-room-${i}`}
                     >
                       Edit
@@ -344,7 +344,7 @@ export function EstimateResultPanel({
                 <button
                   type="button"
                   onClick={() => onEditRoom(0)}
-                  className="text-[11px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
+                  className="text-[12px] font-medium text-inverse-foreground/70 underline underline-offset-2 hover:text-inverse-foreground"
                   data-testid="button-edit-room-0"
                 >
                   Edit
@@ -371,7 +371,7 @@ export function EstimateResultPanel({
           the confidence label, so we drop the bar to keep the step on one screen. */}
       {(isFull || isSidebar) && !compact && (
         <div className={cn(isSidebar ? "mb-4" : "mb-6")}>
-          <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
+          <div className="flex justify-between text-[12px] mb-1.5 text-inverse-muted">
             <span>Details provided</span>
             <span>{result.confidencePercent}%</span>
           </div>
@@ -388,7 +388,7 @@ export function EstimateResultPanel({
               style={{ width: `${result.confidencePercent}%` }}
             />
           </div>
-          <p className="text-[10px] mt-2 text-inverse-muted">
+          <p className="text-[12px] mt-2 text-inverse-muted">
             More project details help tailor your planning range.
           </p>
         </div>
@@ -397,7 +397,7 @@ export function EstimateResultPanel({
       {/* Subtle, credible value proposition reinforced throughout the estimator. */}
       {(isFull || isSidebar) && !compact && (
         <p
-          className="hidden sm:block text-[11px] leading-relaxed mb-4 text-inverse-foreground/85"
+          className="hidden sm:block text-[12px] leading-relaxed mb-4 text-inverse-foreground/85"
           data-testid="estimate-value-prop"
         >
           {ESTIMATE_VALUE_PROP}
@@ -417,7 +417,7 @@ export function EstimateResultPanel({
       )}
 
       {isFull && !compact && (
-        <p className="hidden sm:block text-[11px] text-center mb-5 mt-3 text-inverse-muted">
+        <p className="hidden sm:block text-[12px] text-center mb-5 mt-3 text-inverse-muted">
           Your in-home visit includes a detailed project evaluation and personalized planning guidance.
         </p>
       )}
@@ -429,7 +429,7 @@ export function EstimateResultPanel({
           <div className="rounded-sm flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10 p-4">
             <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
             <p
-              className="text-[11px] leading-relaxed text-inverse-muted"
+              className="text-[12px] leading-relaxed text-inverse-muted"
               data-testid="estimate-disclaimer"
             >
               {ESTIMATE_RANGE_DISCLAIMER}
@@ -453,7 +453,7 @@ function CompactDisclaimer() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex w-full items-center gap-2 px-2.5 py-2 text-left text-[11px] text-inverse-muted min-h-9"
+        className="flex w-full items-center gap-2 px-2.5 py-2 text-left text-[12px] text-inverse-muted min-h-9"
         data-testid="button-toggle-disclaimer"
       >
         <Info className="h-3.5 w-3.5 flex-shrink-0" />
@@ -462,7 +462,7 @@ function CompactDisclaimer() {
       </button>
       {open && (
         <p
-          className="px-2.5 pb-2.5 text-[10px] leading-relaxed text-inverse-muted"
+          className="px-2.5 pb-2.5 text-[12px] leading-relaxed text-inverse-muted"
           data-testid="estimate-disclaimer"
         >
           {ESTIMATE_RANGE_DISCLAIMER}

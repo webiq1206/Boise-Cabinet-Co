@@ -74,7 +74,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
               <Reveal key={item.customerName} delay={i * 60}>
                 <MarketingCard className="h-full">
                   <StarRow count={Number(item.rating) || 5} />
-                  <blockquote className="text-sm leading-relaxed text-muted-foreground mt-3 mb-4">
+                  <blockquote className="text-base leading-relaxed text-muted-foreground mt-3 mb-4">
                     &ldquo;{item.testimonial}&rdquo;
                   </blockquote>
                   <div className="pt-3 border-t border-border">

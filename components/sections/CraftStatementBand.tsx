@@ -36,7 +36,7 @@ export function CraftStatementBand() {
                 The quality shows in what you{" "}
                 <em className="brc-accent text-accent">touch every day</em>
               </p>
-              <p className="mt-5 text-sm md:text-base leading-relaxed text-muted-foreground max-w-md">
+              <p className="mt-5 text-base leading-relaxed text-muted-foreground max-w-md">
                 Soft-close hardware, hand-checked finishes, and frameless
                 construction, built to order in our Meridian shop and installed to
                 last.

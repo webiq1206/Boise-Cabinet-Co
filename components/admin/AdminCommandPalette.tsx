@@ -107,7 +107,7 @@ export function AdminCommandPalette() {
       >
         <Search className="h-4 w-4" />
         <span className="text-xs">Search</span>
-        <kbd className="pointer-events-none ml-1 hidden items-center gap-0.5 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium lg:inline-flex">
+        <kbd className="pointer-events-none ml-1 hidden items-center gap-0.5 rounded border bg-muted px-1.5 font-mono text-[12px] font-medium lg:inline-flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>

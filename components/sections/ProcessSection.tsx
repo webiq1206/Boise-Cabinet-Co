@@ -51,7 +51,7 @@ export function ProcessSection() {
                   </DisplayNum>
                   <div>
                     <p className="font-medium text-sm mb-1 text-foreground">{step.title}</p>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+                    <p className="text-base leading-relaxed text-muted-foreground">{step.desc}</p>
                   </div>
                 </div>
               ))}

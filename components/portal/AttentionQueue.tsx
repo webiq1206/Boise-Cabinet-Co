@@ -52,7 +52,7 @@ export function AttentionQueue({ items, className }: AttentionQueueProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
                   <p className="font-medium text-sm">{item.title}</p>
-                  <Badge variant={priorityVariant[item.priority]} className="text-[10px]">
+                  <Badge variant={priorityVariant[item.priority]} className="text-[12px]">
                     {item.priority}
                   </Badge>
                 </div>

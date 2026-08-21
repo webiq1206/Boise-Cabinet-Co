@@ -126,6 +126,31 @@ export default {
         mono: ["Menlo", "Monaco", "monospace"],
       },
       fontSize: {
+        // ─── Readability scale ───────────────────────────────────────────────
+        // Tailwind's stock ramp bottoms out at 12px/14px, and this site leans on
+        // 300/400 weights for its elegance - light type at 12-14px is genuinely
+        // hard to read. Measured on /cabinets/kitchen before this change: 48
+        // elements at 14px and 20 at 12px (including body <p> and <li>), only 6
+        // at 16px. Redefining the ramp lifts every one of the ~900 existing
+        // call sites at once instead of touching them individually, and pairs
+        // each step with a line-height tuned for reading rather than Tailwind's
+        // tight defaults (12px was rendering at 1.33).
+        //
+        // Keep every value a real px number, not a ratio, so the rhythm stays
+        // predictable when these nest inside components that set their own
+        // leading.
+        xs: ["0.8125rem", { lineHeight: "1.5" }],      // 13px - micro labels, badges
+        sm: ["0.9375rem", { lineHeight: "1.6" }],      // 15px - secondary/UI copy
+        base: ["1.0625rem", { lineHeight: "1.65" }],   // 17px - body copy
+        lg: ["1.1875rem", { lineHeight: "1.6" }],      // 19px - lead paragraphs
+        xl: ["1.3125rem", { lineHeight: "1.5" }],      // 21px - subheads
+        "2xl": ["1.5625rem", { lineHeight: "1.35" }],  // 25px - card/section titles
+        "3xl": ["1.9375rem", { lineHeight: "1.25" }],  // 31px
+        // Semantic tiers so new work names its intent instead of guessing a step.
+        label: ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.08em" }],
+        caption: ["0.875rem", { lineHeight: "1.5" }],  // 14px - captions, helper text
+        body: ["1.0625rem", { lineHeight: "1.65" }],   // 17px - alias of base
+        "body-lg": ["1.1875rem", { lineHeight: "1.65" }],
         display: ["clamp(2.5rem,6vw,5rem)", { lineHeight: "1.04", letterSpacing: "-0.025em" }],
         "section-title": ["1.875rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         "section-title-lg": ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],

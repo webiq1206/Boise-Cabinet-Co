@@ -14,8 +14,8 @@ function Stat({ label, value, hint }: { label: string; value: string | number; h
   return (
     <div className="rounded-sm border border-border bg-card px-4 py-3">
       <div className="text-2xl font-medium text-foreground leading-none">{value}</div>
-      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mt-1.5">{label}</div>
-      {hint && <div className="text-[11px] text-muted-foreground/60 mt-0.5">{hint}</div>}
+      <div className="text-[12px] uppercase tracking-wide text-muted-foreground mt-1.5">{label}</div>
+      {hint && <div className="text-[12px] text-muted-foreground/60 mt-0.5">{hint}</div>}
     </div>
   );
 }
@@ -29,7 +29,7 @@ export default function BacklinksAdminPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container px-4 py-10 max-w-5xl mx-auto">
-        <div className="mb-2 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Internal · not indexed</div>
+        <div className="mb-2 text-[12px] uppercase tracking-[0.2em] text-muted-foreground">Internal · not indexed</div>
         <h1 className="font-sans font-light text-3xl md:text-4xl tracking-tight text-foreground mb-1">
           Backlink pipeline
         </h1>

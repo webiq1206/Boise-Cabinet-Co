@@ -147,7 +147,7 @@ export default function ShakerCabinetsPage() {
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
                   <h2 className="font-sans font-light text-xl text-foreground mb-2">{p.name}</h2>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">{p.body}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{p.body}</p>
                 </MarketingCard>
               ))}
             </div>
@@ -227,7 +227,7 @@ export default function ShakerCabinetsPage() {
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
                   <h3 className="font-sans font-light text-lg text-foreground mb-2">{f.question}</h3>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">{f.answer}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
                 </div>
               ))}
             </div>

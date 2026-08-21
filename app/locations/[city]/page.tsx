@@ -156,7 +156,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                         className="object-cover img-brand-grade"
                       />
                       {project.kind === "concept" && (
-                        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium">
+                        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
                           Design concept
                         </span>
                       )}
@@ -255,7 +255,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
               <div className="grid sm:grid-cols-2 gap-4">
                 {cityReviews.map((review) => (
                   <MarketingCard key={review.customerName} className="p-5">
-                    <p className="text-sm text-foreground/90 leading-relaxed mb-3">
+                    <p className="text-base text-foreground/90 leading-relaxed mb-3">
                       &ldquo;{review.testimonial}&rdquo;
                     </p>
                     <p className="text-xs text-muted-foreground">

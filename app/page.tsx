@@ -76,7 +76,7 @@ export default function HomePage() {
                   Tell us about your{" "}
                   <em className="brc-accent text-accent">project</em>.
                 </h2>
-                <p className="text-sm md:text-base leading-relaxed mb-0 md:mb-8 text-muted-foreground">
+                <p className="text-base leading-relaxed mb-0 md:mb-8 text-muted-foreground">
                   We will reach out within one business day to schedule your free
                   design consultation. You will leave with planning guidance and no obligation.
                 </p>

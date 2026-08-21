@@ -57,7 +57,7 @@ export function FeaturedProjectSection() {
               className="object-cover img-brand-grade"
             />
             {isConcept && (
-              <span className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[10px] tracking-[0.14em] uppercase font-medium">
+              <span className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
                 Design concept
               </span>
             )}

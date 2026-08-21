@@ -69,7 +69,7 @@ function TabIcon({
       <Icon className="h-5 w-5" />
       {badge != null && badge > 0 && (
         <span
-          className="absolute -top-1.5 -right-2 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-[9px] font-semibold text-primary-foreground tabular-nums"
+          className="absolute -top-1.5 -right-2 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-[11px] font-semibold text-primary-foreground tabular-nums"
           aria-hidden="true"
         >
           {badge > 9 ? "9+" : badge}
@@ -97,7 +97,7 @@ function BottomTab({
   badge?: number | null;
 }) {
   const className = cn(
-    "flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 text-[10px] leading-tight transition-colors touch-manipulation",
+    "flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 text-[12px] leading-tight transition-colors touch-manipulation",
     active && "text-primary font-semibold",
     !active && !disabled && "text-muted-foreground active:text-foreground",
     disabled && "text-muted-foreground/40 pointer-events-none",
@@ -141,7 +141,7 @@ function MoreSheet({
         <button
           type="button"
           className={cn(
-            "flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 text-[10px] leading-tight transition-colors touch-manipulation w-full",
+            "flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 text-[12px] leading-tight transition-colors touch-manipulation w-full",
             (moreActive || open) && "text-primary font-semibold",
             !(moreActive || open) && "text-muted-foreground active:text-foreground",
           )}

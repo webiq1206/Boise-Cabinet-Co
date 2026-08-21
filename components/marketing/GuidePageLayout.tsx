@@ -167,7 +167,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                         <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
                           {faq.question}
                         </AccordionTrigger>
-                        <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
+                        <AccordionContent className="text-base leading-relaxed pb-6 text-muted-foreground">
                           {faq.answer}
                         </AccordionContent>
                       </AccordionItem>

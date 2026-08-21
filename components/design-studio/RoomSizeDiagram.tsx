@@ -52,7 +52,7 @@ export function RoomSizeDiagram({
           doorway
         </text>
       </svg>
-      <p className="text-[11px] text-muted-foreground text-center leading-snug">
+      <p className="text-[12px] text-muted-foreground text-center leading-snug">
         Width is the wall you face from the doorway. Depth runs into the room.
       </p>
     </div>

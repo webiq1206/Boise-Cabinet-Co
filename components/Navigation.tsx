@@ -24,7 +24,7 @@ import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/comp
 
 function Logo() {
   return (
-    <Link href="/" className="flex items-center leading-none" aria-label="Boise Cabinet Co - home">
+    <Link href="/" className="tap-target flex items-center leading-none" aria-label="Boise Cabinet Co - home">
       {/* Bone (reverse) wordmark for the dark ground. eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/svg/wordmark/dark/boise-cabinet-co-wordmark-bone.svg"

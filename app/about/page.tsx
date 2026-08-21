@@ -76,7 +76,7 @@ function StatCard({ num, label }: { num: string; label: string }) {
       <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
         {num}
       </DisplayNum>
-      <div className="mt-1 md:mt-1.5 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
+      <div className="mt-1 md:mt-1.5 text-[12px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
         {label}
       </div>
     </div>
@@ -249,7 +249,7 @@ export default function AboutPage() {
                   description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
                   className="mb-8 max-w-none"
                 />
-                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                <p className="text-base text-muted-foreground leading-relaxed mb-8">
                   {SITE_CONFIG.trust.licenseNumber
                     ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
                     : 'Idaho contractor license information is available upon request. '}
@@ -331,7 +331,7 @@ export default function AboutPage() {
                     <p className="text-xs tracking-[0.1em] uppercase text-accent mb-3">
                       {member.role}
                     </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
+                    <p className="text-base text-muted-foreground leading-relaxed">{member.bio}</p>
                   </MarketingCard>
                 </Reveal>
               ))}
@@ -368,7 +368,7 @@ export default function AboutPage() {
                     <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
                       {title}
                     </h3>
-                    <p className="text-sm text-inverse-muted leading-relaxed">{desc}</p>
+                    <p className="text-base text-inverse-muted leading-relaxed">{desc}</p>
                   </div>
                 </Reveal>
               ))}

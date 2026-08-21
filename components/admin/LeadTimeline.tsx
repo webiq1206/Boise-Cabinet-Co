@@ -267,7 +267,7 @@ export function LeadTimeline({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs" data-testid={`text-timeline-message-${entry.id}`}>{entry.message}</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-[12px] text-muted-foreground">
                     {formatTimestamp(entry.createdAt)}
                     {entry.actorName ? ` by ${entry.actorName}` : ""}
                   </p>
