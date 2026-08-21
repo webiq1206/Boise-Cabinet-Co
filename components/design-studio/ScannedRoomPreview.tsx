@@ -86,7 +86,7 @@ export function ScannedRoomPreview({ className }: { className?: string }) {
           </text>
         </g>
       </svg>
-      <p className="px-3 py-2 text-xs text-muted-foreground border-t">
+      <p className="px-3 py-2 text-sm text-muted-foreground border-t">
         Planner area ≈ {metersToInches(bounds.maxX - bounds.minX)}&quot; ×{" "}
         {metersToInches(bounds.maxZ - bounds.minZ)}&quot;, pick a layout next.
       </p>

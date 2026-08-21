@@ -297,7 +297,7 @@ export default function AdminDashboardPage() {
                           <p className="text-sm font-medium truncate">
                             {displayName || "Unknown"}
                           </p>
-                          <p className="text-xs text-muted-foreground truncate">
+                          <p className="text-sm text-muted-foreground truncate">
                             {lead.serviceArea || lead.city || "-"}
                             {lead.source ? ` · ${lead.source}` : ""}
                           </p>
@@ -328,7 +328,7 @@ export default function AdminDashboardPage() {
                   <p className="text-2xl font-semibold tabular-nums">
                     {loading ? <Skeleton className="h-7 w-12 inline-block" /> : data.leads.homeowner}
                   </p>
-                  <p className="text-xs text-muted-foreground">Homeowner leads</p>
+                  <p className="text-sm text-muted-foreground">Homeowner leads</p>
                 </div>
               </CardContent>
             </Card>
@@ -339,7 +339,7 @@ export default function AdminDashboardPage() {
                   <p className="text-2xl font-semibold tabular-nums">
                     {loading ? <Skeleton className="h-7 w-12 inline-block" /> : data.leads.business}
                   </p>
-                  <p className="text-xs text-muted-foreground">Business leads</p>
+                  <p className="text-sm text-muted-foreground">Business leads</p>
                 </div>
               </CardContent>
             </Card>
@@ -381,7 +381,7 @@ function MetricCard({
             <p className={`text-2xl font-semibold tabular-nums ${accent === "green" && value ? "text-green-400" : ""}`}>
               {value ?? 0}
             </p>
-            {sub && <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>}
+            {sub && <p className="text-sm text-muted-foreground mt-0.5">{sub}</p>}
           </>
         )}
       </CardContent>
@@ -409,7 +409,7 @@ function MiniStat({
         <span className="text-xs">{label}</span>
       </div>
       <p className="text-xl font-semibold tabular-nums">{value}</p>
-      <p className="text-xs text-muted-foreground">{sub}</p>
+      <p className="text-sm text-muted-foreground">{sub}</p>
     </div>
   );
 }

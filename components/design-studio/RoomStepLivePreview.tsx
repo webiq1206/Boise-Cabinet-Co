@@ -68,7 +68,7 @@ export function RoomStepLivePreview({
   if (inRoom) {
     body = (
       <div className="space-y-2" data-testid="room-step-photo-overlay-preview">
-        <p className="px-1 text-xs text-muted-foreground">
+        <p className="px-1 text-sm text-muted-foreground">
           Drag cabinets on your photo to match your space.
         </p>
         <RoomPhotoOverlay
@@ -84,7 +84,7 @@ export function RoomStepLivePreview({
     // Photo available but no 3D yet: the overlay is the only "see it" view.
     body = (
       <div className="space-y-2" data-testid="room-step-photo-overlay-preview">
-        <p className="px-1 text-xs text-muted-foreground">
+        <p className="px-1 text-sm text-muted-foreground">
           Drag cabinets on your photo to match your space.
         </p>
         <RoomPhotoOverlay
@@ -103,7 +103,7 @@ export function RoomStepLivePreview({
           alt="Your room"
           className="w-full rounded-md border object-cover aspect-[4/3]"
         />
-        <p className="px-1 text-xs text-muted-foreground">
+        <p className="px-1 text-sm text-muted-foreground">
           Pick a layout next to place cabinets on your photo.
         </p>
         <ScannedRoomPreview />

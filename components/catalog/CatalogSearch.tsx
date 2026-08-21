@@ -102,7 +102,7 @@ export function CatalogSearch({
                   {TYPE_LABELS[result.type]}
                 </span>
                 <p className="text-sm font-medium text-foreground">{result.name}</p>
-                <p className="text-xs text-muted-foreground line-clamp-1">
+                <p className="text-sm text-muted-foreground line-clamp-1">
                   {result.description}
                 </p>
               </Link>

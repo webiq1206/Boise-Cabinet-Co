@@ -162,7 +162,7 @@ export function LayoutStep() {
                 {item.description}
               </p>
               {fit.fits && (
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   {wizardCopy.layoutSlack(fit.widthSlackIn, fit.depthSlackIn)}
                 </p>
               )}

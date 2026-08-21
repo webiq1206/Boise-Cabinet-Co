@@ -121,7 +121,7 @@ export function AdminProjectPortalPanel({
               <Badge variant="outline">Not linked</Badge>
             )}
           </div>
-          <p className="text-muted-foreground text-xs">
+          <p className="text-muted-foreground text-sm">
             Links the project when the customer signs in with the same email address.
           </p>
           <Button

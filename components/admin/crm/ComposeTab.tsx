@@ -127,7 +127,7 @@ export function ComposeTab() {
             <span><span className="block text-sm font-medium">Enroll in a sequence</span><span className="block text-xs text-muted-foreground">Multi-step emails sent automatically on a schedule.</span></span>
           </button>
         </div>
-          <p className="text-xs text-muted-foreground">Choose who to reach using the audience filters below. Leave them on "All" to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
+          <p className="text-sm text-muted-foreground">Choose who to reach using the audience filters below. Leave them on "All" to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
 
           <div className="space-y-2">
             <Label className="text-xs">Who gets included (audience filters)</Label>
@@ -201,7 +201,7 @@ export function ComposeTab() {
               <p><strong>{count.total}</strong> leads match this audience.</p>
               <p className="text-green-400"><strong>{count.emailable}</strong> emailable will send.</p>
               <p className="text-muted-foreground"><strong>{count.phoneOnly}</strong> phone-only / no email will be skipped.</p>
-              <p className="text-xs text-muted-foreground pt-2">Suppressed and unsubscribed leads are also excluded automatically at send time.</p>
+              <p className="text-sm text-muted-foreground pt-2">Suppressed and unsubscribed leads are also excluded automatically at send time.</p>
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">Adjust filters to preview the audience.</p>

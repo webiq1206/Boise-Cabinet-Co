@@ -308,7 +308,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
             {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
             {design.pricingSubmitted ? "Request submitted" : "Get my estimate"}
           </Button>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             No obligation. We&apos;ll save your design so you can revisit it anytime.
           </p>
         </CardContent>
@@ -460,7 +460,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
                       <p className="text-sm font-medium truncate" data-testid={`text-version-name-${version.id}`}>
                         {version.name}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         {snapshotSpecRows(version.snapshot)
                           .filter((r) => r.label === "Collection" || r.label === "Finish")
                           .map((r) => r.value)

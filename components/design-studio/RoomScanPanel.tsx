@@ -423,7 +423,7 @@ export function RoomScanPanel() {
             <div className="rounded-md border bg-card p-4 space-y-4" data-testid="room-photo-review">
               <div>
                 <p className="text-sm font-medium">{scanCopy.photoReviewTitle}</p>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {scanCopy.photoReviewHint}
                 </p>
               </div>
@@ -467,7 +467,7 @@ export function RoomScanPanel() {
               {photoLoading ? scanCopy.takePhotoLoading : scanCopy.photoPrimaryButton}
             </Button>
             {!roomSelected && (
-              <p className="text-xs text-muted-foreground mt-2 text-center">
+              <p className="text-sm text-muted-foreground mt-2 text-center">
                 Pick a room type above first.
               </p>
             )}
@@ -479,7 +479,7 @@ export function RoomScanPanel() {
           {buckets.length > 0 && (
             <div className="rounded-md border bg-card p-4 space-y-3">
               <p className="text-sm font-medium">Pick a rough size</p>
-              <p className="text-xs text-muted-foreground">{scanCopy.bucketHint}</p>
+              <p className="text-sm text-muted-foreground">{scanCopy.bucketHint}</p>
               <div className="grid gap-2 sm:grid-cols-3">
                 {buckets.map((b) => (
                   <button
@@ -515,7 +515,7 @@ export function RoomScanPanel() {
               </Button>
             </CollapsibleTrigger>
             <CollapsibleContent className="rounded-md border bg-card p-4 mt-2 space-y-4">
-              <p className="text-xs text-muted-foreground">{scanCopy.typeSizeHint}</p>
+              <p className="text-sm text-muted-foreground">{scanCopy.typeSizeHint}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4 items-start">
                 <div className="grid grid-cols-2 gap-3">
@@ -645,7 +645,7 @@ export function RoomScanPanel() {
             >
               Skip for now - just browse door &amp; color styles
             </Button>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-sm text-muted-foreground">
               We&apos;ll use a typical size so you can preview styles - refine it anytime.
             </p>
           </div>

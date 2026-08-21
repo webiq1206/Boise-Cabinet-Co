@@ -203,7 +203,7 @@ export function TemplatesEditor() {
                           data-testid={`input-${tpl}-${f.key}`}
                         />
                       )}
-                      <p className="text-xs text-muted-foreground">{f.help}</p>
+                      <p className="text-sm text-muted-foreground">{f.help}</p>
                     </div>
                   );
                 })}
@@ -257,11 +257,11 @@ export function TemplatesEditor() {
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="space-y-1">
-              <p className="text-xs font-medium text-muted-foreground">Subject</p>
+              <p className="text-sm font-medium text-muted-foreground">Subject</p>
               <p className="text-sm font-medium">{preview.subject}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs font-medium text-muted-foreground">How it looks</p>
+              <p className="text-sm font-medium text-muted-foreground">How it looks</p>
               <div
                 className="rounded-md border bg-white p-4 text-sm"
                 dangerouslySetInnerHTML={{ __html: preview.html }}

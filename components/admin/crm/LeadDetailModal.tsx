@@ -236,7 +236,7 @@ export function LeadDetailModal({
                         <span className="font-semibold">${Number(q.planningRangeLow).toLocaleString()} to ${Number(q.planningRangeHigh).toLocaleString()}</span>
                       )}
                     </div>
-                    <p className="text-muted-foreground text-xs mt-1">{[q.sizeOrScope, q.finish].filter(Boolean).join(" | ")}</p>
+                    <p className="text-muted-foreground text-sm mt-1">{[q.sizeOrScope, q.finish].filter(Boolean).join(" | ")}</p>
                   </div>
                 ))}
               </section>
@@ -248,7 +248,7 @@ export function LeadDetailModal({
                 <h3 className="text-sm font-medium">Submission</h3>
                 {data.submissions.slice(0, 1).map((s) => (
                   <div key={s.id} className="rounded-md border p-3 text-sm space-y-2">
-                    <p className="text-xs text-muted-foreground">{s.formType} | {fmt(s.submittedAt)}{s.sourcePage ? ` | ${s.sourcePage}` : ""}</p>
+                    <p className="text-sm text-muted-foreground">{s.formType} | {fmt(s.submittedAt)}{s.sourcePage ? ` | ${s.sourcePage}` : ""}</p>
                     <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
                       {Object.entries(s.rawPayload)
                         .filter(([, v]) => v !== null && v !== "" && typeof v !== "object")
@@ -274,7 +274,7 @@ export function LeadDetailModal({
             <section className="space-y-2">
               <h3 className="text-sm font-medium">Tasks</h3>
               <div className="space-y-1">
-                {data.tasks.length === 0 && <p className="text-xs text-muted-foreground">No tasks yet.</p>}
+                {data.tasks.length === 0 && <p className="text-sm text-muted-foreground">No tasks yet.</p>}
                 {data.tasks.map((t) => (
                   <div key={t.id} className="flex items-center gap-2 text-sm">
                     <Checkbox
@@ -329,7 +329,7 @@ export function LeadDetailModal({
                       <span>{e.label}</span>
                       <span className="text-xs text-muted-foreground whitespace-nowrap">{fmt(e.at)}</span>
                     </div>
-                    {e.detail && <p className="text-xs text-muted-foreground">{e.detail}</p>}
+                    {e.detail && <p className="text-sm text-muted-foreground">{e.detail}</p>}
                   </li>
                 ))}
               </ol>

@@ -283,7 +283,7 @@ export function TemplatesTab() {
             </div>
           </div>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Tokens: {"{firstName} {business} {city} {projectType} {serviceArea} {planningRange} {phone}"}. Missing values drop gracefully.
           </p>
 

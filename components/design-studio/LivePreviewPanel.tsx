@@ -293,7 +293,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
             data-testid="panel-module-editor"
           >
             <div className="flex items-center justify-between gap-2 mb-2">
-              <p className="text-xs font-medium">
+              <p className="text-sm font-medium">
                 {selectedIsWall ? "Wall cabinet" : "Base cabinet"} selected
               </p>
               <Button

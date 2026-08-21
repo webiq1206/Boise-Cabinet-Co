@@ -98,11 +98,11 @@ export default function ProjectMessagesPage() {
                       msg.isOwn ? "bg-primary text-primary-foreground" : "bg-muted"
                     }`}
                   >
-                    <p className="font-medium text-xs mb-1 opacity-80">
+                    <p className="font-medium text-sm mb-1 opacity-80">
                       {msg.isOwn ? "You" : "Boise Cabinet Co"}
                     </p>
                     <p>{msg.body}</p>
-                    <p className="text-xs mt-2 opacity-60">
+                    <p className="text-sm mt-2 opacity-60">
                       {format(new Date(msg.createdAt), "MMM d, yyyy 'at' h:mm a")}
                     </p>
                   </div>

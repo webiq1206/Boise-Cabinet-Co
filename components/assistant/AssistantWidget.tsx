@@ -295,7 +295,7 @@ export function AssistantWidget() {
               <p className="font-sans text-sm font-medium text-foreground">
                 Estimating assistant
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Virtual assistant - our human team takes over at your free visit
               </p>
             </div>

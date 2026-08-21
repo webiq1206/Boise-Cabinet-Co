@@ -206,11 +206,11 @@ export function ARLauncher({ className }: { className?: string }) {
         )}
         View in your room
       </Button>
-      <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1.5">
+      <p className="text-sm text-muted-foreground mt-2 flex items-center gap-1.5">
         <Smartphone className="h-3.5 w-3.5" />
         {supportLabel}
       </p>
-      <p className="text-xs text-muted-foreground mt-1 max-w-xs">
+      <p className="text-sm text-muted-foreground mt-1 max-w-xs">
         Visual only, does not measure your room. Compare the grey 12&quot;
         square to a real foot ruler when placing.
       </p>

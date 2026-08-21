@@ -413,7 +413,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
       </div>
 
       {/* canvas */}
-      <p className="text-xs text-muted-foreground mb-2 md:hidden" data-testid="planner-touch-hint">
+      <p className="text-sm text-muted-foreground mb-2 md:hidden" data-testid="planner-touch-hint">
         Drag cabinets on the plan. Use two fingers on the gray area outside the plan to scroll
         the page.
       </p>

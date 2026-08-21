@@ -32,7 +32,7 @@ function FlowStep({
         {n}
       </span>
       <p className="font-medium text-sm text-foreground mt-1">{title}</p>
-      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{body}</p>
+      <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{body}</p>
     </div>
   );
 }

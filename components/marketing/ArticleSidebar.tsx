@@ -38,7 +38,7 @@ export function ArticleSidebarCta({ description }: { description: string }) {
           {CTA_ESTIMATE}
           <ArrowRight className="ml-2 h-4 w-4" />
         </CtaButton>
-        <p className="text-xs text-inverse-muted text-center flex items-center justify-center gap-1">
+        <p className="text-sm text-inverse-muted text-center flex items-center justify-center gap-1">
           <Phone className="h-3 w-3" />
           {SITE_CONFIG.phone}
         </p>

@@ -137,7 +137,7 @@ function ComparisonMatrixTable({
                   <span className="font-medium text-foreground">{feature.label}</span>
                 )}
                 {feature.description && (
-                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                  <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">
                     {feature.description}
                   </p>
                 )}
@@ -259,7 +259,7 @@ export default function ComparePage() {
                   className="marketing-card p-5 brc-lift text-center block"
                 >
                   <p className="font-sans font-light text-lg">{c.name}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{c.leadTime}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{c.leadTime}</p>
                 </Link>
               ))}
             </div>

@@ -101,11 +101,11 @@ export function FinishSwatchGrid({
               <FinishSwatch finish={finish} />
               <div>
                 <p className="text-sm font-medium text-foreground">{finish.name}</p>
-                <p className="text-xs text-muted-foreground capitalize">
+                <p className="text-sm text-muted-foreground capitalize">
                   {finish.category} · {finish.sheen}
                 </p>
                 <p
-                  className="text-xs text-accent mt-1"
+                  className="text-sm text-accent mt-1"
                   data-testid={`text-pricetier-${finish.slug}`}
                 >
                   {formatPriceTier(finish)}

@@ -112,7 +112,7 @@ export function AggregateRating({
       </DisplayNum>
       <div className={cn("flex flex-col gap-1.5", align === "center" ? "items-center" : "items-start")}>
         <Stars value={ratingValue} size={18} />
-        <p className="text-xs text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Based on {reviewCount} homeowner {reviewsWord}
           {gbpUrl ? (
             <>

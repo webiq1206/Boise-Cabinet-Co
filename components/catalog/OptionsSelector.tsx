@@ -199,8 +199,8 @@ function FinishCard({ finish, showLink }: { finish: Finish; showLink: boolean })
         <p className="text-sm font-medium text-foreground" data-testid={`text-finish-${finish.slug}`}>
           {finish.name}
         </p>
-        <p className="text-xs text-muted-foreground">{deriveColorFamily(finish)}</p>
-        <p className="text-xs text-accent mt-1" data-testid={`text-pricetier-${finish.slug}`}>
+        <p className="text-sm text-muted-foreground">{deriveColorFamily(finish)}</p>
+        <p className="text-sm text-accent mt-1" data-testid={`text-pricetier-${finish.slug}`}>
           {formatPriceTier(finish)}
         </p>
       </div>
@@ -407,7 +407,7 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
           <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
             {product.name}
           </p>
-          <p className="text-xs text-muted-foreground">{dims}</p>
+          <p className="text-sm text-muted-foreground">{dims}</p>
         </div>
       </MarketingCard>
     </Link>
@@ -505,7 +505,7 @@ function AccessoryCard({ accessory }: { accessory: Accessory }) {
       <div className="p-4 flex flex-col gap-1">
         <Chip className="self-start mb-1 capitalize">{accessory.category}</Chip>
         <p className="text-sm font-medium text-foreground">{accessory.name}</p>
-        <p className="text-xs text-muted-foreground line-clamp-3">{accessory.description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-3">{accessory.description}</p>
       </div>
     </MarketingCard>
   );

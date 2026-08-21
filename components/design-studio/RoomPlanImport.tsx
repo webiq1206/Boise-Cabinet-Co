@@ -73,7 +73,7 @@ export function RoomPlanImport({ onImport }: RoomPlanImportProps) {
 
   return (
     <div className="rounded-md border p-3" data-testid="roomplan-import">
-      <p className="text-xs text-muted-foreground mb-2">
+      <p className="text-sm text-muted-foreground mb-2">
         iOS RoomPlan export (JSON), best accuracy for L-shaped rooms.
       </p>
       <Button

@@ -203,10 +203,10 @@ function EstimateSummaryCard({ estimate, compact = false }: { estimate: StoredEs
           {estimate.sizeLabel ? ` · ${estimate.sizeLabel}` : ""}
         </p>
         {estimate.scopeSummary && (
-          <p className="text-xs text-muted-foreground mt-1">{estimate.scopeSummary}</p>
+          <p className="text-sm text-muted-foreground mt-1">{estimate.scopeSummary}</p>
         )}
         {estimate.confidenceLabel && (
-          <p className="text-xs mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
+          <p className="text-sm mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
         )}
       </div>
     </div>
@@ -269,7 +269,7 @@ function CombinedEstimateSummaryCard({
           ))}
         </ul>
         {estimate.confidenceLabel && (
-          <p className="text-xs mt-2 text-muted-foreground">{estimate.confidenceLabel}</p>
+          <p className="text-sm mt-2 text-muted-foreground">{estimate.confidenceLabel}</p>
         )}
       </div>
     </div>
@@ -700,7 +700,7 @@ export function ConsultationFields({
                       data-testid="input-address"
                     />
                   </FormControl>
-                  <p className="mt-1.5 text-xs text-muted-foreground">
+                  <p className="mt-1.5 text-sm text-muted-foreground">
                     Start typing and pick your address. We use it to plan your in-home visit.
                   </p>
                   <FieldError />

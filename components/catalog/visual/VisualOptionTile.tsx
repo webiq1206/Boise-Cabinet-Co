@@ -121,7 +121,7 @@ export function VisualOptionTile({
             <p className="mt-0.5 text-[12px] capitalize text-muted-foreground">{meta}</p>
           )}
           {description && variant === "media" && (
-            <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{description}</p>
+            <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{description}</p>
           )}
         </div>
       </button>

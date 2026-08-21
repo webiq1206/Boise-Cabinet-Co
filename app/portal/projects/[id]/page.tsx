@@ -144,7 +144,7 @@ export default function ProjectHubPage() {
                       </div>
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     Final pricing is confirmed at your design visit and may change with scope.
                   </p>
                 </CardContent>
@@ -175,7 +175,7 @@ export default function ProjectHubPage() {
                     </div>
                     <div>
                       <p className="font-medium text-sm">{link.label}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         Open {link.label.toLowerCase()}
                       </p>
                     </div>

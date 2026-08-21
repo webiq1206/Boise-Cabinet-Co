@@ -113,7 +113,7 @@ export default function PortalHomePage() {
                 </div>
                 <div>
                   <p className="text-muted-foreground">Project ID</p>
-                  <p className="font-medium font-mono text-xs">{project.id}</p>
+                  <p className="font-medium font-mono text-sm">{project.id}</p>
                 </div>
               </div>
               <Button variant="brand" asChild className="w-full sm:w-auto">
@@ -167,7 +167,7 @@ export default function PortalHomePage() {
                   </div>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Final pricing is confirmed at your design visit and may change with scope.
               </p>
             </CardContent>
@@ -205,7 +205,7 @@ export default function PortalHomePage() {
                   </div>
                   <div>
                     <p className="font-medium text-sm group-hover:text-primary transition-colors">{action.label}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{action.description}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{action.description}</p>
                   </div>
                 </Link>
               );

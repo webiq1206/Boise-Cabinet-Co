@@ -38,7 +38,7 @@ function guideCardMeta(guide: GuidePageData) {
 function GuideCardStats({ guide }: { guide: GuidePageData }) {
   const { minutes, topics } = guideCardMeta(guide);
   return (
-    <p className="text-xs text-muted-foreground mb-4">
+    <p className="text-sm text-muted-foreground mb-4">
       {topics} topics · {minutes} min read
     </p>
   );

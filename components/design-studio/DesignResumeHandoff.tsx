@@ -80,7 +80,7 @@ export function DesignResumeHandoff({
         <div className="space-y-3">
           <div>
             <p className="text-sm font-medium">Continue on another device</p>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-sm text-muted-foreground mt-0.5">
               Scan this code with your phone, or copy the link. Your selections
               are saved automatically.
             </p>

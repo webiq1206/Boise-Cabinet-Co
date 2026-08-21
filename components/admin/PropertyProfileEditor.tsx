@@ -89,7 +89,7 @@ export function PropertyProfileEditor({
     <Card data-testid="property-profile-editor">
       <CardHeader>
         <CardTitle className="text-base">Property data</CardTitle>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Auto-populated from address lookup. Edit any field to override for this record.
         </p>
       </CardHeader>

@@ -248,7 +248,7 @@ function SuppressionsPanel() {
                     <p className="font-medium text-sm break-all" data-testid={`text-suppression-email-${s.email}`}>
                       {s.email}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       Added {new Date(s.createdAt).toLocaleDateString()}
                     </p>
                   </div>
@@ -490,7 +490,7 @@ function OutreachPanel() {
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
                 <div>
                   <Label className="text-sm font-medium">Automatic sending</Label>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     Master switch for all outbound email. When on, your sequences send on their own, spaced over the day by the cap and gap below. When off, nothing sends automatically. Build and choose what goes out in the Sequences and Send tabs.
                   </p>
                 </div>
@@ -504,7 +504,7 @@ function OutreachPanel() {
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
                 <div>
                   <Label className="text-sm font-medium">Preview (dry run) mode</Label>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     When on, no real email is sent. Turn off only after you have verified your sending subdomain in Resend.
                   </p>
                 </div>

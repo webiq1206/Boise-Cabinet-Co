@@ -264,7 +264,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                       <h3 className="font-sans font-medium text-sm mb-1 text-foreground">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {project.description}
                       </p>
                     </div>
@@ -361,7 +361,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                     <p className="text-base text-foreground/90 leading-relaxed mb-3">
                       &ldquo;{review.testimonial}&rdquo;
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {review.customerName} ·{" "}
                       {review.city.charAt(0).toUpperCase() + review.city.slice(1)}
                     </p>

@@ -174,7 +174,7 @@ export function DesignSummaryPanel({
             >
               {estimate.rangeLabel}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Planning estimate · about {estimate.timelineLabel} · {estimate.confidencePercent}% confidence
             </p>
           </>
@@ -289,7 +289,7 @@ export function DesignSummaryPanel({
                 </span>
               ) : null}
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">{row.label}</p>
+                <p className="text-sm text-muted-foreground">{row.label}</p>
                 <p
                   className={cn(
                     "truncate text-sm",
@@ -317,7 +317,7 @@ export function DesignSummaryPanel({
       </ul>
 
       {variant !== "review" && (
-        <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground">
+        <p className="mt-3 flex items-start gap-1.5 text-sm text-muted-foreground">
           <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           Everything saves automatically as you go.
         </p>

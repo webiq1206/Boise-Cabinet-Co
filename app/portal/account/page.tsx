@@ -90,7 +90,7 @@ export default function PortalAccountPage() {
                 </div>
               </div>
             ))}
-            <p className="text-xs text-muted-foreground">Notification preferences will be saved in a future update.</p>
+            <p className="text-sm text-muted-foreground">Notification preferences will be saved in a future update.</p>
           </CardContent>
         </Card>
 

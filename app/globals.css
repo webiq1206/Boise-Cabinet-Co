@@ -653,7 +653,10 @@ html, body {
 .blog-content {
   color: hsl(var(--foreground));
   line-height: 1.8;
-  font-size: 1rem;
+  /* Matches the `base` body tier in tailwind.config.ts (17px). Long-form guides
+     and articles are the most reading-heavy surfaces on the site, so they track
+     the body tier rather than sitting a step below it at 16px. */
+  font-size: 1.0625rem;
 }
 .blog-content h2 {
   font-size: 1.75rem;

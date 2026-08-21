@@ -393,7 +393,7 @@ export default function AdminProjectDetailPage() {
               (n: { text: string; addedAt: string; addedBy: string }, i: number) => (
                 <div key={i} className="text-sm border-b pb-2">
                   <p>{n.text}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{new Date(n.addedAt).toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{new Date(n.addedAt).toLocaleString()}</p>
                 </div>
               )
             )}

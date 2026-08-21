@@ -85,7 +85,7 @@ export default function CatalogPage() {
         <Section spacing="sm" className="pt-0">
           <div className="container px-4">
             <CatalogFlipbook pdfUrl={CATALOG_PDF_PATH} downloadUrl={CATALOG_PDF_PATH} />
-            <p className="mt-3 text-center text-xs text-muted-foreground">
+            <p className="mt-3 text-center text-sm text-muted-foreground">
               Use the toolbar to flip pages, scroll continuously, zoom, search, view thumbnails,
               or go fullscreen. On touch devices, swipe to turn pages and pinch to zoom.
             </p>

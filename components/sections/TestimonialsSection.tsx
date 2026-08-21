@@ -62,7 +62,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
               &ldquo;{featured.testimonial}&rdquo;
             </blockquote>
             <p className="font-medium text-sm text-foreground">{featured.customerName}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-sm text-muted-foreground mt-0.5">
               {serviceLabel(featured.serviceType)} · {cityLabel(featured.city)}, Idaho
             </p>
           </Reveal>
@@ -79,7 +79,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
                   </blockquote>
                   <div className="pt-3 border-t border-border">
                     <p className="font-medium text-sm text-foreground">{item.customerName}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="text-sm text-muted-foreground mt-0.5">
                       {serviceLabel(item.serviceType)} · {cityLabel(item.city)}, Idaho
                     </p>
                   </div>

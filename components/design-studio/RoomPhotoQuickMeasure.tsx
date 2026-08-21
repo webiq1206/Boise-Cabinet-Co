@@ -65,7 +65,7 @@ export function RoomPhotoQuickMeasure() {
         <Camera className="h-4 w-4 text-accent" />
         Refine size from photo
       </p>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         We automatically estimated room size from your photo. Optional: tap both
         ends of your back wall on the image below to refine width.
       </p>

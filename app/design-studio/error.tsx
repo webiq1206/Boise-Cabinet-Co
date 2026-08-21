@@ -43,7 +43,7 @@ export default function DesignStudioError({
               </Link>
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground pt-2">
+          <p className="text-sm text-muted-foreground pt-2">
             Still stuck? Call us at{" "}
             <a href={SITE_CONFIG.phoneHref} className="underline">
               {SITE_CONFIG.phone}

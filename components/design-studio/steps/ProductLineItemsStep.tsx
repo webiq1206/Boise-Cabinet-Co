@@ -48,7 +48,7 @@ export function ProductLineItemsStep() {
           Select cabinet configurations for your layout. Tap a card to add or remove it from your project.
         </p>
         {selected.length > 0 && (
-          <p className="text-xs text-muted-foreground mt-2">
+          <p className="text-sm text-muted-foreground mt-2">
             {selected.length} configuration{selected.length === 1 ? "" : "s"} selected
           </p>
         )}

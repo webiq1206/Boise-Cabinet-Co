@@ -59,7 +59,7 @@ export default function ProjectDocumentsPage() {
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-sm truncate">{doc.name}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {doc.date} · {doc.size}
                     </p>
                   </div>

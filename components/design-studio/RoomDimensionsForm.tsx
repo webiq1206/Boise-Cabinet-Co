@@ -168,7 +168,7 @@ export function RoomDimensionsForm({ className }: { className?: string }) {
               />
             </div>
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Planner outline: ~{metersToInches(bounds.maxX - bounds.minX)}&quot; ×{" "}
             {metersToInches(bounds.maxZ - bounds.minZ)}&quot;
           </p>

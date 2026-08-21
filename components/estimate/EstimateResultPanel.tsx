@@ -315,7 +315,7 @@ export function EstimateResultPanel({
         scopeSummary &&
         (compact ? (
           <p
-            className="mb-3 text-xs leading-relaxed text-inverse-foreground/80"
+            className="mb-3 text-sm leading-relaxed text-inverse-foreground/80"
             data-testid="text-scope-summary"
           >
             {scopeSummary}
@@ -351,13 +351,13 @@ export function EstimateResultPanel({
                 </button>
               )}
             </div>
-            <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
+            <p className="text-sm leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
           </div>
         ))
       )}
 
       {isFull && !compact && (
-        <p className="hidden sm:block text-xs text-inverse-muted mb-4">
+        <p className="hidden sm:block text-sm text-inverse-muted mb-4">
           Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
           lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
         </p>

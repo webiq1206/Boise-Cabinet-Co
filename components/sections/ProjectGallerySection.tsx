@@ -41,7 +41,7 @@ function ProjectCard({ project }: { project: SiteProject }) {
       </div>
       <div className="p-5">
         <h3 className="font-sans font-medium text-sm mb-1 text-foreground">{project.title}</h3>
-        <p className="text-xs text-muted-foreground leading-relaxed">{project.description}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
       </div>
     </MarketingCard>
   );
@@ -83,7 +83,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
           ))}
         </div>
         {hasConcept && (
-          <p className="mt-6 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-6 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
             {DESIGN_CONCEPT_DISCLOSURE}
           </p>
         )}

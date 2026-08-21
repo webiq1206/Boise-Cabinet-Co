@@ -39,7 +39,7 @@ export function RoomSizeTuner({
   return (
     <div className="space-y-2" data-testid="room-size-tuner">
       <p className="text-sm font-medium">{scanCopy.tunerTitle}</p>
-      <p className="text-xs text-muted-foreground">{scanCopy.tunerHint}</p>
+      <p className="text-sm text-muted-foreground">{scanCopy.tunerHint}</p>
       <div className="flex flex-wrap gap-2">
         <Button
           type="button"
@@ -62,7 +62,7 @@ export function RoomSizeTuner({
           {scanCopy.tunerLarger}
         </Button>
       </div>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         {scanCopy.tunerCurrent(roomMeta.widthIn, roomMeta.depthIn)}
       </p>
     </div>

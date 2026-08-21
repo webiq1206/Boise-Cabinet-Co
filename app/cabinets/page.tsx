@@ -106,7 +106,7 @@ export default function CabinetsHubPage() {
                         <p className="text-base text-muted-foreground line-clamp-3 flex-1 leading-relaxed">
                           {room.description}
                         </p>
-                        <p className="text-xs text-muted-foreground mt-3">
+                        <p className="text-sm text-muted-foreground mt-3">
                           Suggested line: {collectionName}
                         </p>
                         <TextLink

@@ -165,7 +165,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                       <h3 className="font-sans font-medium text-sm mb-1 text-foreground">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {project.description}
                       </p>
                     </div>
@@ -206,7 +206,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                   <h3 className="font-sans font-medium text-sm mb-1.5 text-foreground group-hover:text-accent transition-colors">
                     {service.name}
                   </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {service.shortDescription}
                   </p>
                 </Link>
@@ -258,7 +258,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                     <p className="text-base text-foreground/90 leading-relaxed mb-3">
                       &ldquo;{review.testimonial}&rdquo;
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {review.customerName} · {city.name}
                     </p>
                   </MarketingCard>

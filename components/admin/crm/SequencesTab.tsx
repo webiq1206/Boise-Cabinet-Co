@@ -205,7 +205,7 @@ export function SequencesTab() {
 
           <div className="space-y-2">
             <Label className="text-xs">Steps (first step with 0 hour delay sends immediately on enroll)</Label>
-            {draft.steps.length === 0 && <p className="text-xs text-muted-foreground">No steps yet.</p>}
+            {draft.steps.length === 0 && <p className="text-sm text-muted-foreground">No steps yet.</p>}
             {draft.steps.map((step, i) => (
               <div key={i} className="flex flex-wrap items-end gap-2 rounded-md border p-2">
                 <span className="text-xs text-muted-foreground w-10">#{i + 1}</span>
@@ -227,7 +227,7 @@ export function SequencesTab() {
                   <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => moveStep(i, 1)} disabled={i === draft.steps.length - 1}><ArrowDown className="h-4 w-4" /></Button>
                   <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" onClick={() => removeStep(i)}><Trash2 className="h-4 w-4" /></Button>
                 </div>
-                  {(() => { const tpl = templates.find((t) => t.id === step.templateId); return tpl ? (<div className="w-full mt-1"><StepPreview tpl={tpl} /></div>) : <p className="w-full mt-1 text-xs text-muted-foreground">Pick a template to preview the email here.</p>; })()}
+                  {(() => { const tpl = templates.find((t) => t.id === step.templateId); return tpl ? (<div className="w-full mt-1"><StepPreview tpl={tpl} /></div>) : <p className="w-full mt-1 text-sm text-muted-foreground">Pick a template to preview the email here.</p>; })()}
               </div>
             ))}
             <Button size="sm" variant="outline" onClick={addStep} disabled={templates.length === 0}>

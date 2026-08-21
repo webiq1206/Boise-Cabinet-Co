@@ -210,7 +210,7 @@ export function AddressAutocomplete({
       </button>
 
       {error && (
-        <p className="text-xs text-destructive flex items-center gap-1" data-testid="address-error">
+        <p className="text-sm text-destructive flex items-center gap-1" data-testid="address-error">
           <AlertCircle className="h-3.5 w-3.5" />
           {error}
         </p>
@@ -225,7 +225,7 @@ export function AddressAutocomplete({
             <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
             <div>
               <p className="font-medium text-foreground">Property located</p>
-              <p className="text-muted-foreground text-xs mt-0.5">
+              <p className="text-muted-foreground text-sm mt-0.5">
                 {profile.formattedAddress}
               </p>
               {confidence && (
@@ -250,7 +250,7 @@ export function AddressAutocomplete({
             </ul>
           )}
           {profile.assessorNote && (
-            <p className="text-xs text-muted-foreground italic">{profile.assessorNote}</p>
+            <p className="text-sm text-muted-foreground italic">{profile.assessorNote}</p>
           )}
         </div>
       )}

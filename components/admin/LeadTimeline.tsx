@@ -131,7 +131,7 @@ export function LeadTimeline({
     <div className="border-t pt-2">
       <div className="flex items-center gap-1.5 mb-2">
         <History className="h-3.5 w-3.5 text-muted-foreground" />
-        <p className="text-xs font-medium">Activity timeline</p>
+        <p className="text-sm font-medium">Activity timeline</p>
       </div>
 
       {/* Contact actions */}
@@ -251,11 +251,11 @@ export function LeadTimeline({
 
       {/* Timeline list */}
       {isLoading ? (
-        <p className="text-xs text-muted-foreground italic" data-testid={`text-timeline-loading-${leadId}`}>
+        <p className="text-sm text-muted-foreground italic" data-testid={`text-timeline-loading-${leadId}`}>
           Loading timeline...
         </p>
       ) : timeline.length === 0 ? (
-        <p className="text-xs text-muted-foreground italic">No activity yet.</p>
+        <p className="text-sm text-muted-foreground italic">No activity yet.</p>
       ) : (
         <div className="space-y-2 max-h-72 overflow-y-auto pr-1" data-testid={`list-timeline-${leadId}`}>
           {timeline.map((entry) => {
@@ -266,7 +266,7 @@ export function LeadTimeline({
                   <Icon className="h-3.5 w-3.5 text-muted-foreground" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs" data-testid={`text-timeline-message-${entry.id}`}>{entry.message}</p>
+                  <p className="text-sm" data-testid={`text-timeline-message-${entry.id}`}>{entry.message}</p>
                   <p className="text-[12px] text-muted-foreground">
                     {formatTimestamp(entry.createdAt)}
                     {entry.actorName ? ` by ${entry.actorName}` : ""}
