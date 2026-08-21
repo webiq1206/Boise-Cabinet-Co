@@ -197,7 +197,7 @@ export default function ContactPage() {
             </p>
             <a
               href={SITE_CONFIG.phoneHref}
-              className="inline-block brc-display-num tabular-nums text-2xl md:text-3xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
+              className="tap-target inline-block brc-display-num tabular-nums text-2xl md:text-3xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
             >
               {BUSINESS_INFO.phone}
             </a>
@@ -257,7 +257,7 @@ export default function ContactPage() {
                   label="Email us"
                   subtext="Response within one business day"
                 >
-                  <SiteEmailLink className="text-inherit hover:text-foreground/70 transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit text-xl md:text-2xl" />
+                  <SiteEmailLink className="tap-target text-inherit hover:text-foreground/70 transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit text-xl md:text-2xl" />
                 </ContactChannel>
               </Reveal>
               <Reveal delay={180}>
@@ -377,7 +377,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href={SITE_CONFIG.phoneHref}
-                  className="inline-block brc-display-num tabular-nums text-2xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
+                  className="tap-target inline-block brc-display-num tabular-nums text-2xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
                 >
                   {BUSINESS_INFO.phone}
                 </a>

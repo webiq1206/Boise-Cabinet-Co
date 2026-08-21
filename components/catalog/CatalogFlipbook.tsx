@@ -524,7 +524,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
               type="button"
               onClick={() => setMode("flip")}
               aria-pressed={mode === "flip"}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
+              className={`tap-target flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
                 mode === "flip" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
               }`}
             >
@@ -535,7 +535,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
             type="button"
             onClick={() => setMode("scroll")}
             aria-pressed={mode === "scroll"}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
+            className={`tap-target flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
               mode === "scroll" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
             }`}
           >
