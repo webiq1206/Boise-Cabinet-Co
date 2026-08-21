@@ -44,7 +44,7 @@ function HeroBreadcrumbs() {
               {item.href && !isLast ? (
                 <Link
                   href={item.href}
-                  className="hover:text-inverse-foreground transition-colors"
+                  className="tap-target hover:text-inverse-foreground transition-colors"
                 >
                   {item.name}
                 </Link>

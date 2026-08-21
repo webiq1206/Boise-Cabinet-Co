@@ -113,7 +113,7 @@ function ComparisonMatrixTable({
             </th>
             {COLLECTIONS.map((c) => (
               <th key={c.id} className="py-4 px-3 text-sm font-medium text-foreground min-w-[120px]">
-                <Link href="/catalog" className="hover:underline underline-offset-2">
+                <Link href="/catalog" className="tap-target inline-flex items-center hover:underline underline-offset-2">
                   {c.name}
                 </Link>
               </th>

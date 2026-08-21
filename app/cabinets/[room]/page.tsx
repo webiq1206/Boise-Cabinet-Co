@@ -419,7 +419,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                 <Link
                   key={city.slug}
                   href={locationPath(city.slug)}
-                  className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-card px-3 py-2 text-sm text-foreground hover:border-accent/60 hover:text-accent transition-colors"
+                  className="tap-target inline-flex items-center gap-1.5 rounded-sm border border-border bg-card px-3 py-2 text-sm text-foreground hover:border-accent/60 hover:text-accent transition-colors"
                 >
                   <MapPin className="h-3.5 w-3.5" />
                   {city.name}
