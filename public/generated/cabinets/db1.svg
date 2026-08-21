@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="DB1 cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="73.3" y="50.0" width="213.3" height="302.0" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="81.3" y="58.0" width="197.3" height="284.0" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="150.4" y1="200.0" x2="209.6" y2="200.0" stroke="#6E6555" stroke-width="2"/>
+  <rect x="87.3" y="352.0" width="185.3" height="18.0" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
+</svg>

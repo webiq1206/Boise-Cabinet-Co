@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-label="Alpha Shaker door style">
+  <rect width="400" height="300" fill="#F7F3EC"/>
+  <rect x="125" y="25" width="150" height="250" rx="4" fill="#ECE6DB" stroke="#5E564A" stroke-width="2"/>
+  <rect x="145" y="47" width="110" height="206" rx="0" fill="#FBFAF6" stroke="#8C8170" stroke-width="1.4"/>
+  <line x1="125" y1="25" x2="145" y2="47" stroke="#8C8170" stroke-width="1"/>
+  <line x1="275" y1="25" x2="255" y2="47" stroke="#8C8170" stroke-width="1"/>
+  <line x1="125" y1="275" x2="145" y2="253" stroke="#8C8170" stroke-width="1"/>
+  <line x1="275" y1="275" x2="255" y2="253" stroke="#8C8170" stroke-width="1"/>
+  <circle cx="259" cy="150" r="3" fill="#5E564A"/>
+</svg>

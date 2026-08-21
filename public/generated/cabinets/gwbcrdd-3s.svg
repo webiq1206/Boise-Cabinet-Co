@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="GWBCRDD-3S cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="76.4" width="280.0" height="267.3" rx="2" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="40.0" y="84.4" width="89.6" height="251.3" rx="1" fill="#F0EBE0" stroke="#8C8170" stroke-width="1"/>
+  <line x1="54.9" y1="86.4" x2="54.9" y2="333.6" stroke="#B7AD9B" stroke-width="0.8"/>
+  <line x1="69.9" y1="86.4" x2="69.9" y2="333.6" stroke="#B7AD9B" stroke-width="0.8"/>
+  <line x1="84.8" y1="86.4" x2="84.8" y2="333.6" stroke="#B7AD9B" stroke-width="0.8"/>
+  <line x1="99.7" y1="86.4" x2="99.7" y2="333.6" stroke="#B7AD9B" stroke-width="0.8"/>
+  <line x1="114.7" y1="86.4" x2="114.7" y2="333.6" stroke="#B7AD9B" stroke-width="0.8"/>
+  <rect x="135.6" y="84.4" width="178.4" height="251.3" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="141.6" y="90.4" width="166.4" height="239.3" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="304.0" y1="172.3" x2="304.0" y2="247.7" stroke="#6E6555" stroke-width="2.2"/>
+</svg>

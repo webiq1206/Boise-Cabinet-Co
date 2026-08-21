@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="B-1D-1BD-2ROT cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="150.9" width="280.0" height="108.8" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="48.0" y="236.8" width="264.0" height="12.8" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="243.2" x2="219.6" y2="243.2" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="158.9" width="264.0" height="75.9" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="164.9" width="252.0" height="63.9" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="302.0" y1="185.5" x2="302.0" y2="208.2" stroke="#6E6555" stroke-width="2.2"/><line x1="58.0" y1="184.2" x2="302.0" y2="184.2" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/><line x1="58.0" y1="209.5" x2="302.0" y2="209.5" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="54.0" y="259.7" width="252.0" height="9.5" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
+</svg>
