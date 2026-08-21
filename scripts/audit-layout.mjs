@@ -15,10 +15,20 @@ const ROUTES = [
   "/login", "/privacy-policy", "/resources", "/search", "/shaker-cabinets",
   "/terms-of-service", "/testimonials", "/warranty",
 ];
-const VIEWPORTS = [
-  { name: "mobile", width: 375, height: 812, isMobile: true },
-  { name: "desktop", width: 1440, height: 900, isMobile: false },
-];
+// Default to one representative phone + desktop so the routine run stays quick.
+// Override for a wider sweep, e.g.
+//   AUDIT_WIDTHS=360,375,390,414,768,1440 npm run audit:layout
+// Anything under 768 is treated as a touch device so (pointer: coarse) rules
+// (the .tap-target sizing) are exercised the way a real phone would.
+const DEFAULT_WIDTHS = [375, 1440];
+const WIDTHS = (process.env.AUDIT_WIDTHS || "")
+  .split(",").map(w => parseInt(w.trim(), 10)).filter(Boolean);
+const VIEWPORTS = (WIDTHS.length ? WIDTHS : DEFAULT_WIDTHS).map(width => ({
+  name: width < 768 ? `phone-${width}` : width < 1200 ? `tablet-${width}` : `desktop-${width}`,
+  width,
+  height: width < 768 ? 812 : width < 1200 ? 1024 : 900,
+  isMobile: width < 768,
+}));
 
 const AUDIT = () => {
   const de = document.documentElement, vw = de.clientWidth;
@@ -119,7 +129,7 @@ for (const p of problems) {
   if (p.failed?.length) console.log(`   REQ-FAILED(${p.failed.length}) ${[...new Set(p.failed)].slice(0,3).join(" | ")}`);
 }
 // touch targets reported separately (advisory, mobile only)
-const tt = findings.filter(f => f.vp === "mobile" && f.smallTargetCount > 0);
+const tt = findings.filter(f => f.vp.startsWith("phone-") && f.smallTargetCount > 0);
 if (tt.length) {
   console.log(`\n--- mobile touch targets <44px (advisory) ---`);
   for (const t of tt) console.log(`  ${t.route}: ${t.smallTargetCount}  ${t.smallTargets.slice(0,3).join(" | ")}`);

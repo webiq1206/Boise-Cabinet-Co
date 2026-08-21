@@ -277,7 +277,14 @@ export function GuidedFlowShell({
                 is tall, which keeps normal scrolling instead of the clipped-top
                 behaviour a bare `justify-center` causes on overflow. Desktop
                 keeps its own top-aligned two-column rhythm. */}
-            <div className="flex min-h-full flex-col justify-center lg:block lg:min-h-0">
+            {/* `key` restarts the enter animation on every step change. It also
+                forces a fresh subtree when consecutive steps render the same
+                component for a different room (e.g. size for room 1 -> room 2),
+                which React would otherwise reuse in place. */}
+            <div
+              key={currentIndex}
+              className="brc-step-enter flex min-h-full flex-col justify-center lg:block lg:min-h-0"
+            >
               {children}
             </div>
           </div>

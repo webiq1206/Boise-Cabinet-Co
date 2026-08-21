@@ -45,6 +45,23 @@ html, body {
   }
 }
 
+/* ─── Guided-flow step transition ───
+   A short fade + rise as each estimator step arrives, so moving between steps
+   reads as one screen replacing another rather than the page snapping. Kept
+   brief (170ms) and translate-only so it never delays the visitor or shifts
+   layout, and disabled outright under prefers-reduced-motion like every other
+   motion on the site. */
+@keyframes brc-step-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.brc-step-enter {
+  animation: brc-step-enter 170ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brc-step-enter { animation: none; }
+}
+
 /* ─── DARK BRAND THEME (Boise Cabinet Co — the identity, not a toggle) ───
    Charcoal ground + bone ink + restrained teal accent. Both :root and .dark
    carry the same values so there is no light flash and no unreachable state;
