@@ -20,7 +20,7 @@ export const metadata = buildPageMetadata({
   kind: "service",
   path: "/builders",
   titleOverride:
-    "For Builders & Contractors | Volume Cabinet Pricing & Fast Lead Times",
+    "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
     "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order in Meridian, Idaho.",
 });

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BlogCard } from "@/components/marketing/BlogCard";
 import { Chip } from "@/components/marketing/Chip";
 import { BLOG_POSTS } from "@/shared/blogContent";
@@ -86,6 +87,7 @@ export function BlogIndexClient() {
     <div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" divider>
         <div className="container px-4">
+          <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog" }]} />
           <PageHeader
             eyebrow="Blog"
             title="Cabinet Planning Insights"

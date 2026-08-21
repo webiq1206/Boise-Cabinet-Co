@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -50,6 +51,9 @@ export default function PrivacyPolicyPage() {
       />
       <section className="py-16 md:py-24">
         <div className="container px-4">
+          <div className="max-w-3xl mx-auto mb-6">
+            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Privacy Policy" }]} />
+          </div>
           <div className="max-w-3xl mx-auto blog-content prose-measure">
             <h1>Privacy Policy for Boise Cabinet Co Services</h1>
             <p className="lead text-muted-foreground">

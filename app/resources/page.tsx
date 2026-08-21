@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Download, FileText, Workflow } from 'lucide-react';
 import { buildPageMetadata } from '@/lib/page-metadata';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
@@ -55,6 +56,7 @@ export default function ResourcesIndexPage() {
       />
       <Section spacing="lg" className="pt-28 md:pt-32">
       <div className="container px-4 max-w-4xl mx-auto">
+        <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Resources' }]} />
         <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
           Free downloads
         </p>

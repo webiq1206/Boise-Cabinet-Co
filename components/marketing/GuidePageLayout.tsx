@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import {
-  ArrowLeft,
   ArrowRight,
   Calendar,
   Phone,
@@ -15,6 +14,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Chip } from './Chip';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BlogEndCta } from './BlogEndCta';
 import { RelatedPostCards } from './RelatedPostCards';
 import { Section } from './Section';
@@ -63,14 +63,19 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">
-          <Link
-            href="/guides"
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 mb-6"
-            data-testid="link-back-to-guides"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Cabinet Design Guides
-          </Link>
+          {/* Replaces a bare "back to guides" arrow. Breadcrumbs keep that
+              parent link, add Home, and give the page a semantic
+              nav[aria-label="Breadcrumb"] like every other detail page here
+              (/blog/[slug], /cabinets/[room], /locations/[city]). */}
+          <div className="mb-6">
+            <Breadcrumbs
+              items={[
+                { name: 'Home', href: '/' },
+                { name: 'Guides', href: '/guides' },
+                { name: guide.title },
+              ]}
+            />
+          </div>
 
           <header className="max-w-3xl mb-8 md:mb-10">
             {hub && <Chip className="mb-4">{hub.categoryLabel}</Chip>}

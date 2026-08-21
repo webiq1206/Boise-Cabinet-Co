@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
@@ -20,6 +21,7 @@ export default function InstallerPortalPage() {
     <div className="flex flex-col pb-20">
       <Section spacing="sm" className="pt-8">
         <div className="container px-4 max-w-5xl">
+          <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Installer Portal" }]} />
           <PageHeader
             align="left"
             eyebrow="Installer portal"

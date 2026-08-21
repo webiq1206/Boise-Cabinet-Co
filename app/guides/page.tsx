@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, BookOpen, MapPin } from 'lucide-react';
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/page-metadata';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { getBlogThumbnail, getBlogImageAlt } from '@/shared/blogImages';
@@ -114,6 +115,9 @@ export default function GuidesIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(locationCollectionSchema) }}
       />
       <Section spacing="lg" className="pt-28 md:pt-32">
+        <div className="container px-4 max-w-4xl mx-auto">
+          <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Guides' }]} />
+        </div>
         <div className="container px-4 max-w-4xl mx-auto text-center mb-12">
           <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
             Treasure Valley authority

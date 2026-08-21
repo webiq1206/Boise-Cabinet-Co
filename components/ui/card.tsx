@@ -31,10 +31,17 @@ CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
+  React.HTMLAttributes<HTMLDivElement> & {
+    /**
+     * Element to render. Defaults to a div so existing cards are unchanged, but
+     * a card that IS the page's main heading (e.g. /login) can pass "h1" so the
+     * page has a real heading instead of a styled div.
+     */
+    as?: "div" | "h1" | "h2" | "h3";
+  }
+>(({ className, as: Comp = "div", ...props }, ref) => (
+  <Comp
+    ref={ref as React.Ref<HTMLHeadingElement & HTMLDivElement>}
     className={cn(
       "text-2xl font-semibold leading-none tracking-tight",
       className

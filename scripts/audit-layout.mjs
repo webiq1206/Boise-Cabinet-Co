@@ -48,6 +48,10 @@ const AUDIT = () => {
     if (el.children.length) return;
     const t = (el.textContent || "").trim();
     if (t.length < 3) return;
+    // sr-only content (skip links, live regions) is clipped to a 1px box on
+    // purpose - counting it made every page look like it had clipped text.
+    if (el.clientWidth <= 1 || el.clientHeight <= 1) return;
+    if (/\bsr-only\b/.test((el.className || "").toString())) return;
     if (!(el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 1)) return;
     const cs = getComputedStyle(el);
     if (cs.textOverflow === "ellipsis" || cs.webkitLineClamp.match(/\d/)) return;
@@ -80,7 +84,31 @@ const AUDIT = () => {
       smallTargets.push(`${el.tagName}"${(el.textContent||"").trim().slice(0,16)}" ${Math.round(r.width)}x${Math.round(r.height)}`);
   });
 
-  return { overflow: [...new Set(overflow)].slice(0,5), overflowCount: overflow.length,
+  // ─── Structure / wayfinding ───
+  // Does the page answer "where am I", "what is this", and "what do I do next"?
+  const headings = [...document.querySelectorAll("h1,h2,h3,h4,h5,h6")]
+    .filter(h => h.getBoundingClientRect().height > 0 || h.closest("main"))
+    .map(h => ({ level: +h.tagName[1], text: (h.textContent||"").trim().slice(0,40) }));
+  const h1s = headings.filter(h => h.level === 1);
+  // A skipped level (h2 -> h4) makes the outline unreadable to screen readers.
+  const skips = [];
+  for (let i = 1; i < headings.length; i++) {
+    const jump = headings[i].level - headings[i-1].level;
+    if (jump > 1) skips.push(`h${headings[i-1].level}->h${headings[i].level} @"${headings[i].text}"`);
+  }
+  const breadcrumb = !!document.querySelector('nav[aria-label="Breadcrumb" i]');
+  // Primary next action: the site's canonical conversion CTAs.
+  const ctaRe = /get an estimate|book|consult|start estimating|send my request|contact/i;
+  const ctas = [...document.querySelectorAll("a,button")]
+    .filter(el => el.getBoundingClientRect().height > 0 && ctaRe.test((el.textContent||"")));
+  const title = document.title || "";
+  const desc = document.querySelector('meta[name="description"]')?.getAttribute("content") || "";
+
+  return { h1Count: h1s.length, h1Text: h1s[0]?.text ?? null,
+    headingSkips: skips.slice(0,3), headingSkipCount: skips.length,
+    hasBreadcrumb: breadcrumb, ctaCount: ctas.length,
+    titleLen: title.length, descLen: desc.length,
+    overflow: [...new Set(overflow)].slice(0,5), overflowCount: overflow.length,
     clipped: [...new Set(clipped)].slice(0,5), clippedCount: clipped.length,
     smallestPx: min, smallestText: minText,
     smallTargets: [...new Set(smallTargets)].slice(0,5), smallTargetCount: smallTargets.length,
@@ -97,7 +125,14 @@ for (const vp of VIEWPORTS) {
     const page = await ctx.newPage();
     const errors = [], failed = [];
     page.on("console", m => { if (m.type() === "error") errors.push(m.text().slice(0,110)); });
-    page.on("requestfailed", r => failed.push(`${r.url().split("/").slice(3).join("/").slice(0,60)}`));
+    page.on("requestfailed", r => {
+      // Large assets the page merely prefetches (e.g. an 11MB catalog PDF) get
+      // cancelled when we close the page. That is our teardown, not a broken
+      // link, so record the reason and skip aborts.
+      const reason = r.failure()?.errorText || "";
+      if (/ERR_ABORTED|NS_BINDING_ABORTED/i.test(reason)) return;
+      failed.push(`${r.url().split("/").slice(3).join("/").slice(0,60)} (${reason})`);
+    });
     let res;
     try {
       res = await page.goto(BASE + route, { waitUntil: "networkidle", timeout: 90000 });
@@ -115,7 +150,11 @@ await browser.close();
 
 const problems = findings.filter(f => f.error || f.hOverflow || f.clippedCount > 0 ||
   (f.smallestPx !== undefined && f.smallestPx < 12) || (f.errors && f.errors.length) ||
-  (f.failed && f.failed.length) || (f.status && f.status >= 400));
+  (f.failed && f.failed.length) || (f.status && f.status >= 400) ||
+  (f.h1Count !== undefined && f.h1Count !== 1) || f.headingSkipCount > 0 ||
+  (f.hasBreadcrumb === false && f.route !== "/") || f.ctaCount === 0 ||
+  (f.titleLen !== undefined && (f.titleLen < 10 || f.titleLen > 70)) ||
+  (f.descLen !== undefined && (f.descLen < 50 || f.descLen > 165)));
 
 console.log(`\n=== audited ${findings.length} page/viewport combos ===`);
 console.log(`clean: ${findings.length - problems.length}   with findings: ${problems.length}\n`);
@@ -126,6 +165,12 @@ for (const p of problems) {
   if (p.clippedCount) console.log(`   CLIPPED(${p.clippedCount}) ${p.clipped.join(" | ")}`);
   if (p.smallestPx < 12) console.log(`   TINY TEXT ${p.smallestPx}px "${p.smallestText}"`);
   if (p.errors?.length) console.log(`   CONSOLE(${p.errors.length}) ${p.errors.slice(0,2).join(" | ")}`);
+  if (p.h1Count !== undefined && p.h1Count !== 1) console.log(`   H1 COUNT ${p.h1Count} (expected 1)`);
+  if (p.headingSkipCount) console.log(`   HEADING SKIPS(${p.headingSkipCount}) ${p.headingSkips.join(" | ")}`);
+  if (p.hasBreadcrumb === false && p.route !== "/") console.log(`   NO BREADCRUMB`);
+  if (p.ctaCount === 0) console.log(`   NO PRIMARY CTA`);
+  if (p.titleLen !== undefined && (p.titleLen < 10 || p.titleLen > 70)) console.log(`   TITLE LEN ${p.titleLen}`);
+  if (p.descLen !== undefined && (p.descLen < 50 || p.descLen > 165)) console.log(`   DESC LEN ${p.descLen}`);
   if (p.failed?.length) console.log(`   REQ-FAILED(${p.failed.length}) ${[...new Set(p.failed)].slice(0,3).join(" | ")}`);
 }
 // touch targets reported separately (advisory, mobile only)
