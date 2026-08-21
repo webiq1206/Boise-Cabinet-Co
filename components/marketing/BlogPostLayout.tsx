@@ -115,7 +115,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
                     </p>
                     <Link
                       href={guidePath(pillarSlug)}
-                      className="text-sm text-accent hover:underline inline-flex items-center font-medium"
+                      className="tap-target text-sm text-accent hover:underline inline-flex items-center font-medium"
                     >
                       {hub.title}
                       <ArrowRight className="ml-1 h-4 w-4" />

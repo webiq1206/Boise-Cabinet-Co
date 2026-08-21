@@ -63,11 +63,20 @@ export function StepProgress({
                   aria-label={`Step ${index + 1}: ${step.label}${done ? " (done)" : ""}`}
                   className={cn(
                     // The visible bar stays 6px, but a 6px-tall tap target is
-                    // unusable on a phone. The ::after overlay extends the hit
-                    // area to ~30px without adding height to a step header that
-                    // has to share a fixed viewport with the step itself.
+                    // unusable on a phone. The ::after overlay lifts the real
+                    // hit area to 38px without adding height to a step header
+                    // that has to share a fixed viewport with the step body.
+                    //
+                    // 38 rather than the 44 Apple/Google suggest, deliberately:
+                    // measured on a phone viewport, the step description sits
+                    // 24px above the bar's centre and the step body (a later
+                    // sibling, so it wins the hit test) starts 21px below.
+                    // Reaching 44 would mean either making explanatory prose
+                    // tappable or covering the step's first control. 38 clears
+                    // WCAG 2.5.8's 24px requirement with room to spare and
+                    // overlaps nothing.
                     "relative block h-1.5 w-full rounded-full transition-colors",
-                    "after:absolute after:inset-x-0 after:-top-3 after:-bottom-3 after:content-['']",
+                    "after:absolute after:inset-x-0 after:-top-[16px] after:-bottom-[16px] after:content-['']",
                     active
                       ? "bg-accent"
                       : done

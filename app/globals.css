@@ -45,6 +45,24 @@ html, body {
   }
 }
 
+/* ─── Touch targets inside rendered article content ───
+   Guide/blog bodies mix inline prose links with standalone chips and card CTAs.
+   The standalone ones rendered 24-39px tall on phones; inline ones must keep
+   flowing with the sentence, so they are reset below. Coarse pointers only. */
+@media (pointer: coarse) {
+  .blog-content a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .blog-content p a,
+  .blog-content li a,
+  .blog-content td a {
+    min-height: 0;
+    display: inline;
+  }
+}
+
 /* ─── Guided-flow step transition ───
    A short fade + rise as each estimator step arrives, so moving between steps
    reads as one screen replacing another rather than the page snapping. Kept

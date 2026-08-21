@@ -53,7 +53,7 @@ export function DoorStyleExplorer({
           <FinishSwatchGrid finishes={finishes} />
           <Link
             href="/catalog"
-            className="text-sm text-accent mt-4 inline-block hover:underline"
+            className="tap-target text-sm text-accent mt-4 inline-flex items-center hover:underline"
           >
             View all compatible finishes
           </Link>

@@ -77,11 +77,29 @@ const AUDIT = () => {
   const smallTargets = [];
   document.querySelectorAll("a,button,input,select,textarea,[role=button]").forEach(el => {
     const r = el.getBoundingClientRect();
-    if (r.width < 3 || r.height < 3) return;           // sr-only / honeypot
+    if (r.width < 3 || r.height < 3) return;           // sr-only
+    // Anti-spam honeypots are parked off-screen (left: -9999px). They are not
+    // targets a person can reach, so they are not touch-target findings.
+    if (r.right < 0 || r.bottom < 0 || r.left > window.innerWidth + 2000) return;
     const inProse = el.closest("p,li") && getComputedStyle(el).display.includes("inline");
     if (inProse) return;                                // WCAG 2.5.8 exemption
-    if (r.height < 44 || r.width < 44)
-      smallTargets.push(`${el.tagName}"${(el.textContent||"").trim().slice(0,16)}" ${Math.round(r.width)}x${Math.round(r.height)}`);
+    if (r.height >= 44 && r.width >= 44) return;
+    // A control can present a larger target than its CSS box - e.g. a 6px
+    // progress bar with an ::after overlay. getBoundingClientRect cannot see
+    // that, so probe what actually receives the pointer before reporting.
+    const cx = Math.round(r.left + r.width / 2);
+    const cy = Math.round(r.top + r.height / 2);
+    const owns = p => p === el || el.contains(p) || (p && p.closest && p.closest("a,button,[role=button]") === el);
+    const span = (dx, dy) => {
+      const hit = [];
+      for (let d = -30; d <= 30; d++) hit.push(owns(document.elementFromPoint(cx + dx * d, cy + dy * d)));
+      const f = hit.indexOf(true), l = hit.lastIndexOf(true);
+      return f < 0 ? 0 : l - f + 1;
+    };
+    const effH = Math.max(Math.round(r.height), span(0, 1));
+    const effW = Math.max(Math.round(r.width), span(1, 0));
+    if (effH < 44 || effW < 44)
+      smallTargets.push(`${el.tagName}"${(el.textContent||"").trim().slice(0,16)}" ${effW}x${effH}`);
   });
 
   // ─── Structure / wayfinding ───

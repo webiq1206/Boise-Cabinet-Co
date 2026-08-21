@@ -558,7 +558,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
                 const v = Number(e.target.value);
                 if (v) goToPage(v);
               }}
-              className="w-11 rounded-sm border border-white/15 bg-transparent px-1.5 py-1 text-center text-inverse-foreground [appearance:textfield] focus:border-accent focus:outline-none"
+              className="tap-target w-11 rounded-sm border border-white/15 bg-transparent px-1.5 py-1 text-center text-inverse-foreground [appearance:textfield] focus:border-accent focus:outline-none"
               aria-label="Go to page"
             />
             <span className="whitespace-nowrap">/ {numPages}</span>
@@ -578,7 +578,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
           <button
             type="button"
             onClick={resetZoom}
-            className="min-w-[3rem] rounded-sm px-1.5 py-1 text-xs text-inverse-muted hover:bg-white/5"
+            className="tap-target inline-flex items-center justify-center min-w-[3rem] rounded-sm px-1.5 py-1 text-xs text-inverse-muted hover:bg-white/5"
             aria-label={`${Math.round(zoom * 100)}% zoom - reset to 100%`}
           >
             {Math.round(zoom * 100)}%
@@ -606,7 +606,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
           <a
             href={downloadUrl}
             download
-            className="flex h-8 items-center gap-1.5 rounded-sm px-2 text-xs text-inverse-muted hover:bg-white/5"
+            className="tap-target flex h-8 items-center gap-1.5 rounded-sm px-2 text-xs text-inverse-muted hover:bg-white/5"
             aria-label="Download catalog PDF"
           >
             <Download className="h-4 w-4" /> <span className="hidden md:inline">PDF</span>
@@ -626,7 +626,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
               if (e.key === "Enter") runSearch(searchTerm);
             }}
             placeholder="Search the catalog (e.g. shaker, walnut, hardware)…"
-            className="flex-1 rounded-sm border border-white/15 bg-transparent px-2 py-1.5 text-sm text-inverse-foreground placeholder:text-inverse-muted/60 focus:border-accent focus:outline-none"
+            className="tap-target flex-1 rounded-sm border border-white/15 bg-transparent px-2 py-1.5 text-sm text-inverse-foreground placeholder:text-inverse-muted/60 focus:border-accent focus:outline-none"
           />
           <button
             type="button"
@@ -776,7 +776,7 @@ function IconBtn({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`flex h-8 w-8 items-center justify-center rounded-sm transition-colors disabled:opacity-30 ${
+      className={`tap-target flex h-8 w-8 items-center justify-center rounded-sm transition-colors disabled:opacity-30 ${
         active ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5 hover:text-inverse-foreground"
       }`}
     >

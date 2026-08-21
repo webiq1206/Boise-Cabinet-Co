@@ -132,7 +132,7 @@ export default function GuidesIndexPage() {
           <p className="mt-4">
             <Link
               href="/resources"
-              className="text-sm text-accent hover:underline inline-flex items-center justify-center"
+              className="tap-target text-sm text-accent hover:underline inline-flex items-center justify-center"
             >
               Free PDF worksheets & permit infographic
               <ArrowRight className="ml-1 h-4 w-4" />
@@ -189,7 +189,7 @@ export default function GuidesIndexPage() {
                 <GuideCardStats guide={guide} />
                 <Link
                   href={guideHref(guide)}
-                  className="text-sm text-accent hover:underline inline-flex items-center"
+                  className="tap-target text-sm text-accent hover:underline inline-flex items-center"
                 >
                   Read
                   <ArrowRight className="ml-1 h-3 w-3" />
@@ -214,7 +214,7 @@ export default function GuidesIndexPage() {
                     {hasPillar && (
                       <Link
                         href={guidePath(hub.pillarSlug)}
-                        className="text-accent hover:underline inline-flex items-center"
+                        className="tap-target text-accent hover:underline inline-flex items-center"
                       >
                         Pillar guide
                         <ArrowRight className="ml-1 h-3 w-3" />
@@ -223,7 +223,7 @@ export default function GuidesIndexPage() {
                     {hasPillar && (
                       <Link
                         href={`/blog/category/${hub.hubSlug}`}
-                        className="text-muted-foreground hover:text-accent hover:underline"
+                        className="tap-target inline-flex items-center text-muted-foreground hover:text-accent hover:underline"
                       >
                         Related articles
                       </Link>

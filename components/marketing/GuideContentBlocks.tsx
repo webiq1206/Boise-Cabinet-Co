@@ -61,7 +61,7 @@ export function GuideJumpChips({ headings }: GuideJumpChipsProps) {
           <Link
             key={h.id}
             href={`#${h.id}`}
-            className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted transition-colors"
+            className="tap-target inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted transition-colors"
           >
             {h.text.length > 42 ? `${h.text.slice(0, 40)}…` : h.text}
           </Link>
@@ -95,7 +95,7 @@ export function GuideSidebarToc({ headings }: GuideSidebarTocProps) {
           >
             <a
               href={`#${h.id}`}
-              className="text-muted-foreground hover:text-foreground transition-colors leading-snug"
+              className="tap-target inline-flex items-center text-muted-foreground hover:text-foreground transition-colors leading-snug"
             >
               {h.text}
             </a>

@@ -47,7 +47,7 @@ export default function SearchPage() {
                 key={c}
                 type="button"
                 onClick={() => setFinishCategory(finishCategory === c ? "" : c)}
-                className={`text-xs rounded-full border px-3 py-1 capitalize ${finishCategory === c ? "border-primary bg-primary/5" : ""}`}
+                className={`tap-target inline-flex items-center justify-center text-xs rounded-full border px-3 py-1 capitalize ${finishCategory === c ? "border-primary bg-primary/5" : ""}`}
               >
                 {c}
               </button>
