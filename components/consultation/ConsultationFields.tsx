@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
@@ -137,8 +137,14 @@ const TRUST_POINTS = [
  */
 function FieldError() {
   const { error, isTouched, formMessageId } = useFormField();
+  const { formState } = useFormContext();
   const message = error ? String(error.message ?? "") : "";
-  if (!message || !isTouched) return null;
+  // Stay quiet until the visitor has engaged the field, so nothing turns red
+  // before they have had a chance to type. But once they have ATTEMPTED to
+  // submit, every problem has to explain itself - previously an untouched
+  // required field went red with no message, leaving the visitor to guess which
+  // field was wrong and why.
+  if (!message || (!isTouched && !formState.isSubmitted)) return null;
   return (
     <p
       id={formMessageId}
