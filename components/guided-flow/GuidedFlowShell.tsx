@@ -16,6 +16,12 @@ interface GuidedFlowShellProps {
   isFirst: boolean;
   isLast: boolean;
   canAdvance: boolean;
+  /**
+   * Short, specific reason the primary action is unavailable, e.g. "Set both
+   * cabinet runs to continue". Shown next to the blocked button so the visitor
+   * never has to guess what a greyed-out Continue wants from them.
+   */
+  blockedHint?: string;
   children: ReactNode;
   /** Primary CTA label on non-last steps */
   continueLabel?: string;
@@ -67,6 +73,7 @@ export function GuidedFlowShell({
   isFirst,
   isLast,
   canAdvance,
+  blockedHint,
   children,
   continueLabel = "Continue",
   lastStepAction,
@@ -262,7 +269,17 @@ export function GuidedFlowShell({
               stepClassName,
             )}
           >
-            {children}
+            {/* Short steps (a couple of sliders) previously sat at the top of a
+                tall canvas with a large void beneath, which reads as a web page
+                rather than an app screen. `min-h-full` makes this wrapper at
+                least the height of the scroll container - so `justify-center`
+                centres short content - while still growing past it when a step
+                is tall, which keeps normal scrolling instead of the clipped-top
+                behaviour a bare `justify-center` causes on overflow. Desktop
+                keeps its own top-aligned two-column rhythm. */}
+            <div className="flex min-h-full flex-col justify-center lg:block lg:min-h-0">
+              {children}
+            </div>
           </div>
           {sidePanel && (
             <aside
@@ -283,6 +300,14 @@ export function GuidedFlowShell({
             <div className="mb-1.5 lg:hidden" data-testid="wizard-mobile-summary">
               {mobileSummary}
             </div>
+          )}
+          {!canAdvance && blockedHint && (
+            <p
+              className="mb-1.5 text-[13px] leading-snug text-muted-foreground"
+              data-testid="wizard-blocked-hint"
+            >
+              {blockedHint}
+            </p>
           )}
           <div className="flex items-center gap-2">
             <Button

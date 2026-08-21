@@ -159,7 +159,7 @@ export default function GuidesIndexPage() {
                 <GuideCardStats guide={guide} />
                 <Link
                   href={guidePath(guide.slug)}
-                  className="inline-flex items-center text-sm text-accent hover:underline"
+                  className="tap-target inline-flex items-center text-sm text-accent hover:underline"
                 >
                   Read guide
                   <ArrowRight className="ml-1 h-4 w-4" />

@@ -242,11 +242,11 @@ export function EstimateResultPanel({
       )}
       data-testid={isSidebar ? "estimate-side-panel" : "estimate-result-panel"}
     >
-      <div className={cn("flex items-center justify-between gap-2", compact ? "mb-2" : "mb-5")}>
+      <div className={cn("flex flex-wrap items-center justify-between gap-x-2 gap-y-1", compact ? "mb-2" : "mb-5")}>
         <div className="brc-label text-inverse-muted">
           {multiRoom ? "Total planning range" : "Planning range"}
         </div>
-        <div className="text-[12px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90 shrink-0">
+        <div className="min-w-0 text-[12px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90">
           {result.confidenceLabel}
         </div>
       </div>

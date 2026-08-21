@@ -62,7 +62,12 @@ export function StepProgress({
                   aria-current={active ? "step" : undefined}
                   aria-label={`Step ${index + 1}: ${step.label}${done ? " (done)" : ""}`}
                   className={cn(
-                    "block h-1.5 w-full rounded-full transition-colors",
+                    // The visible bar stays 6px, but a 6px-tall tap target is
+                    // unusable on a phone. The ::after overlay extends the hit
+                    // area to ~30px without adding height to a step header that
+                    // has to share a fixed viewport with the step itself.
+                    "relative block h-1.5 w-full rounded-full transition-colors",
+                    "after:absolute after:inset-x-0 after:-top-3 after:-bottom-3 after:content-['']",
                     active
                       ? "bg-accent"
                       : done

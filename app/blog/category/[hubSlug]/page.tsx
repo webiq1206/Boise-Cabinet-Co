@@ -143,7 +143,7 @@ export default function BlogCategoryHubPage({
           {hub.pillarSlug && (
             <Link
               href={guidePath(hub.pillarSlug)}
-              className="inline-flex items-center text-accent hover:underline text-sm mb-10"
+              className="tap-target inline-flex items-center text-accent hover:underline text-sm mb-10"
             >
               Read the complete guide
               <ArrowRight className="ml-1 h-4 w-4" />

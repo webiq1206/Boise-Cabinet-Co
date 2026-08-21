@@ -58,7 +58,7 @@ function ResourceRow({ resource }: { resource: GuideResource }) {
         <a
           href={resource.href}
           download
-          className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline shrink-0 font-medium"
+          className="tap-target inline-flex items-center gap-1.5 text-sm text-accent hover:underline shrink-0 font-medium"
           data-testid={`download-${resource.id}`}
         >
           <Download className="h-4 w-4" />
@@ -67,7 +67,7 @@ function ResourceRow({ resource }: { resource: GuideResource }) {
       ) : (
         <Link
           href={resource.href}
-          className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline shrink-0 font-medium"
+          className="tap-target inline-flex items-center gap-1.5 text-sm text-accent hover:underline shrink-0 font-medium"
         >
           View
           <Download className="h-4 w-4" />

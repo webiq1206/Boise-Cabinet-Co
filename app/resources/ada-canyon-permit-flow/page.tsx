@@ -114,7 +114,7 @@ export default function AdaCanyonPermitFlowPage() {
             </CtaButton>
             <Link
               href="/guides/cabinet-project-process-guide"
-              className="inline-flex items-center text-sm text-accent hover:underline"
+              className="tap-target inline-flex items-center text-sm text-accent hover:underline"
             >
               cabinet project process guide
             </Link>

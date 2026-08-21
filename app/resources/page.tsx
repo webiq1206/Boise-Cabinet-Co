@@ -81,7 +81,7 @@ export default function ResourcesIndexPage() {
               <a
                 href={r.href}
                 download
-                className="inline-flex items-center text-sm text-accent hover:underline font-medium"
+                className="tap-target inline-flex items-center text-sm text-accent hover:underline font-medium"
               >
                 <Download className="h-4 w-4 mr-1" />
                 Download PDF
@@ -101,7 +101,7 @@ export default function ResourcesIndexPage() {
               <p className="text-sm text-muted-foreground flex-1 mb-4">{r.description}</p>
               <Link
                 href={r.href}
-                className="inline-flex items-center text-sm text-accent hover:underline font-medium"
+                className="tap-target inline-flex items-center text-sm text-accent hover:underline font-medium"
               >
                 View infographic
                 <ArrowRight className="h-4 w-4 ml-1" />

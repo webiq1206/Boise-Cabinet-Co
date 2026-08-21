@@ -40,7 +40,7 @@ const FINISH_ROW_IMAGES: Record<string, string> = {
 function ComparisonCell({ value }: { value: ComparisonValue | undefined }) {
   if (value === true) {
     return (
-      <span className="inline-flex items-center justify-center text-accent" aria-label="Yes">
+      <span className="tap-target inline-flex items-center justify-center text-accent" aria-label="Yes">
         <Check className="h-4 w-4" />
       </span>
     );

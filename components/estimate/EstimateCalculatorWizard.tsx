@@ -1230,6 +1230,32 @@ export function EstimateCalculatorWizard({
     </Button>
   );
 
+  // Mirrors isStepComplete: when Continue is disabled, say exactly what is
+  // missing rather than leaving the visitor to guess at a greyed-out button.
+  const blockedHint = (() => {
+    const s = wizardSteps[safeIndex];
+    if (!s || isStepComplete(safeIndex)) return undefined;
+    switch (s.kind) {
+      case "project":
+        return "Choose at least one room to continue.";
+      case "size": {
+        const room = rooms[s.room!];
+        if (!room?.project) return "Choose a room first.";
+        const cfg = getProjectSizeConfig(room.project as ProjectType);
+        if (room.size == null && cfg?.uppers && room.sizeUpper == null)
+          return "Set both cabinet runs to continue.";
+        if (room.size == null) return `Set your ${cfg?.sizeStepLabel?.toLowerCase() ?? "size"} to continue.`;
+        return "Set your wall cabinet run to continue (use 0 if there are none).";
+      }
+      case "layout":
+        return "Pick a layout to continue.";
+      case "style":
+        return "Pick a door style to continue.";
+      default:
+        return undefined;
+    }
+  })();
+
   const shell = (
     <GuidedFlowShell
       steps={guidedSteps}
@@ -1241,6 +1267,7 @@ export function EstimateCalculatorWizard({
       isFirst={isFirst}
       isLast={isLast}
       canAdvance={isStepComplete(safeIndex)}
+      blockedHint={blockedHint}
       continueLabel={continueLabel}
       hidePrimaryOnLast={contactSucceeded}
       lastStepAction={
