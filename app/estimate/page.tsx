@@ -32,7 +32,7 @@ export default function EstimatePage() {
       {/* One-screen tool: fill the viewport below the sticky site header so the
           estimator never requires page scrolling on any device. */}
       <div className="flex h-[calc(100dvh-var(--app-header-h,3.75rem))] flex-col overflow-hidden">
-        <div className="container shrink-0 px-4 pt-1.5">
+        <div className="container shrink-0 px-4 pt-1.5 pb-0.5">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Get an Estimate" }]} />
         </div>
         <EstimateCalculator headingAs="h1" viewportFit />

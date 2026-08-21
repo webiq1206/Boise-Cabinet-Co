@@ -44,10 +44,10 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
       <div className="container flex min-h-0 flex-1 flex-col px-4 pb-3">
         <div className="mb-2 shrink-0">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-            <Heading className="font-sans font-light text-2xl leading-tight text-foreground">
+            <Heading className="font-sans font-light text-xl sm:text-2xl leading-tight text-foreground">
               Plan your cabinet <em className="brc-accent text-accent">investment</em>
             </Heading>
-            <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="hidden sm:inline-flex items-center gap-2 text-xs text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
               Free · No obligation · Instant range
             </span>

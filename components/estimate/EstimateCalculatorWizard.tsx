@@ -535,6 +535,8 @@ export function EstimateCalculatorWizard({
   // Guards the persistence effect so the initial empty render does not clobber
   // stored progress before the hydration effect has run.
   const hydratedRef = useRef(false);
+  /** True once this instance has actually held at least one room. */
+  const sawRoomsRef = useRef(false);
 
   // When the host page supplies an `onBookVisit` handler it owns contact
   // capture, so the wizard drops its own terminal contact step.
@@ -669,11 +671,24 @@ export function EstimateCalculatorWizard({
   }, [rooms]);
 
   // Persist full progress (rooms + current step) so it can be restored across
-  // navigations and return visits. Declared before the hydration effect so on
-  // mount it runs first and the `hydratedRef` guard skips the initial empty
-  // render, never clobbering stored progress before hydration applies it.
+  // navigations and return visits.
+  //
+  // The `hydratedRef` guard alone is not enough. React StrictMode re-invokes
+  // effects on mount, and the replay closes over the FIRST render's state
+  // (rooms: []) while the ref the hydration effect just set is already true -
+  // so the replay persisted an empty wizard over real stored progress, and the
+  // hydration replay then read that empty state back. The visible symptom was a
+  // refresh dropping the visitor's rooms and returning them to step 1.
+  //
+  // `sawRoomsRef` distinguishes the two cases that both present as an empty
+  // rooms array: a pre-hydration echo (never had rooms - skip) and a visitor who
+  // genuinely removed their last room (had rooms - persist, so the removal
+  // sticks).
+  if (rooms.length > 0) sawRoomsRef.current = true;
+
   useEffect(() => {
     if (!hydratedRef.current) return;
+    if (rooms.length === 0 && !sawRoomsRef.current) return;
     saveWizardState({ rooms, currentIndex });
   }, [rooms, currentIndex]);
 
@@ -841,13 +856,18 @@ export function EstimateCalculatorWizard({
                   data-testid={`button-project-${type}`}
                   aria-pressed={active}
                   className={cn(
-                    "relative flex items-center gap-2.5 p-2 min-h-[52px] rounded-md text-left transition-all border bg-card",
+                    "relative flex items-center gap-2 sm:gap-2.5 p-1.5 sm:p-2 min-h-[52px] rounded-md text-left transition-all border bg-card",
                     active
                       ? "border-accent border-[1.5px] bg-accent/5 shadow-sm"
                       : "border-border hover:border-foreground/30 hover:bg-muted/20",
                   )}
                 >
-                  <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                  <span className="relative h-9 w-9 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                    {active && (
+                      <span className="absolute inset-0 z-10 flex items-center justify-center bg-accent/90 text-accent-foreground">
+                        <Check className="h-4 w-4" strokeWidth={3} />
+                      </span>
+                    )}
                     {info.image ? (
                       <Image
                         src={info.image}
@@ -863,7 +883,7 @@ export function EstimateCalculatorWizard({
                     ) : null}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-medium text-sm leading-tight text-foreground">
+                    <span className="block font-medium text-[14px] sm:text-sm leading-tight text-foreground hyphens-auto">
                       {info.label}
                     </span>
                     {/* Sub description adds height; on phones the label + image are
@@ -872,11 +892,7 @@ export function EstimateCalculatorWizard({
                       {info.sub}
                     </span>
                   </span>
-                  {active && (
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                      <Check className="h-3 w-3" strokeWidth={3} />
-                    </span>
-                  )}
+
                 </button>
               );
             })}
