@@ -1166,7 +1166,7 @@ export function EstimateCalculatorWizard({
     const label = room?.project
       ? PROJECT_LABELS[room.project as ProjectType].label
       : "Room";
-    return `${base} — ${label} (Room ${currentStep.room + 1} of ${rooms.length})`;
+    return `${base} - ${label} (Room ${currentStep.room + 1} of ${rooms.length})`;
   })();
 
   const mobileSummaryNode =
