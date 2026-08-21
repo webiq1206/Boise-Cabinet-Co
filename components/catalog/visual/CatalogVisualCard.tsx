@@ -59,7 +59,7 @@ export function CatalogVisualCard({
         />
       ) : null}
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-sans font-light tracking-tight">{name}</h3>
+        <h3 className="text-lg font-sans font-light tracking-tight hyphens-auto break-words">{name}</h3>
         {description && (
           <p className="text-sm text-muted-foreground mt-2 line-clamp-4">{description}</p>
         )}
