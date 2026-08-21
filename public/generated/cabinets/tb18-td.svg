@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="TB18-TD cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="40.0" y="141.9" width="280.0" height="125.3" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="149.9" width="264.0" height="109.3" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="155.9" width="252.0" height="97.3" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="302.0" y1="188.2" x2="302.0" y2="220.9" stroke="#6E6555" stroke-width="2.2"/><path d="M 137.8 199.1 L 222.2 199.1 L 218.2 242.8 L 141.8 242.8 Z" fill="none" stroke="#B7AD9B" stroke-width="1.2"/><line x1="135.8" y1="199.1" x2="224.2" y2="199.1" stroke="#B7AD9B" stroke-width="1.2"/>
-  <rect x="54.0" y="267.2" width="252.0" height="10.9" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
-</svg>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="DB4 cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="40.0" y="116.7" width="280.0" height="171.7" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="124.7" width="264.0" height="36.9" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="143.1" x2="219.6" y2="143.1" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="163.6" width="264.0" height="36.9" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="182.1" x2="219.6" y2="182.1" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="202.5" width="264.0" height="36.9" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="221.0" x2="219.6" y2="221.0" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="241.5" width="264.0" height="36.9" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="259.9" x2="219.6" y2="259.9" stroke="#6E6555" stroke-width="2"/>
-  <rect x="54.0" y="288.4" width="252.0" height="14.9" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
-</svg>

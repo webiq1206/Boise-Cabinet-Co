@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="TBFH-2D-2ROT-2S cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="40.0" y="122.5" width="280.0" height="161.0" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="130.5" width="130.0" height="145.0" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="136.5" width="118.0" height="133.0" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="170.0" y1="181.3" x2="170.0" y2="224.8" stroke="#6E6555" stroke-width="2.2"/><rect x="182.0" y="130.5" width="130.0" height="145.0" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="188.0" y="136.5" width="118.0" height="133.0" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="190.0" y1="181.3" x2="190.0" y2="224.8" stroke="#6E6555" stroke-width="2.2"/><line x1="58.0" y1="178.8" x2="302.0" y2="178.8" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/><line x1="58.0" y1="227.2" x2="302.0" y2="227.2" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/><path d="M 137.8 195.8 L 222.2 195.8 L 218.2 253.8 L 141.8 253.8 Z" fill="none" stroke="#B7AD9B" stroke-width="1.2"/><line x1="135.8" y1="195.8" x2="224.2" y2="195.8" stroke="#B7AD9B" stroke-width="1.2"/>
-  <rect x="54.0" y="283.5" width="252.0" height="14.0" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
-</svg>

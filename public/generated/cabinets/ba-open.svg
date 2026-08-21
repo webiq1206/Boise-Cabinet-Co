@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="BA-OPEN cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="40.0" y="135.6" width="280.0" height="136.8" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="143.6" width="264.0" height="120.8" rx="2" fill="#FBFAF6" stroke="#8C8170" stroke-width="1.2"/><line x1="51.0" y1="183.9" x2="309.0" y2="183.9" stroke="#8C8170" stroke-width="1.1"/><line x1="51.0" y1="224.2" x2="309.0" y2="224.2" stroke="#8C8170" stroke-width="1.1"/>
-  <rect x="54.0" y="272.5" width="252.0" height="11.9" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
-</svg>

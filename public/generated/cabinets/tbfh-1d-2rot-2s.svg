@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="TBFH-1D-2ROT-2S cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="40.0" y="141.5" width="280.0" height="126.1" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="149.5" width="264.0" height="110.1" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="155.5" width="252.0" height="98.1" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="302.0" y1="188.0" x2="302.0" y2="221.0" stroke="#6E6555" stroke-width="2.2"/><line x1="58.0" y1="186.2" x2="302.0" y2="186.2" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/><line x1="58.0" y1="222.9" x2="302.0" y2="222.9" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="3 3"/><path d="M 137.8 199.0 L 222.2 199.0 L 218.2 243.1 L 141.8 243.1 Z" fill="none" stroke="#B7AD9B" stroke-width="1.2"/><line x1="135.8" y1="199.0" x2="224.2" y2="199.0" stroke="#B7AD9B" stroke-width="1.2"/>
-  <rect x="54.0" y="267.6" width="252.0" height="11.0" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
-</svg>

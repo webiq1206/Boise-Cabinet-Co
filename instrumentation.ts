@@ -6,6 +6,33 @@ export async function register() {
       process.env.REPLIT_DB_URL;
     if (!dbUrl) return;
 
+    // Everything below is best-effort background maintenance. None of it is
+    // required for the server to serve a request, so none of it may be allowed
+    // to take the process down - but some of it can, and did.
+    //
+    // Observed in deploy b9efe211: a Neon WebSocket connection error during
+    // startup surfaced as `TypeError: Cannot set property message of
+    // #<ErrorEvent> which has only a getter`, thrown inside ws's own
+    // callListener. ws exposes ErrorEvent.message as a getter with no setter
+    // (verified on both 8.18.3 and 8.19.0, so this is not a version
+    // regression), and @neondatabase/serverless assigns to it from an .mjs
+    // module, i.e. strict mode, so the assignment throws. Because that throw
+    // happens inside a WebSocket event listener on a later tick, no try/catch
+    // around our own await can see it: it lands as an uncaught exception and
+    // Node exits. The container then fails its health check and the deploy
+    // never promotes, which is exactly the "built successfully but failed to
+    // start" signature.
+    //
+    // These handlers are deliberately narrow in intent: log loudly, keep
+    // serving. They are not a licence to ignore request-handling bugs - route
+    // handlers have their own error boundaries and still return 500s.
+    process.on("uncaughtException", (err) => {
+      console.error("[startup] uncaught exception (server kept alive):", err);
+    });
+    process.on("unhandledRejection", (reason) => {
+      console.error("[startup] unhandled rejection (server kept alive):", reason);
+    });
+
     // Run startup maintenance in the background. This MUST NOT block `register()`
     // from returning: Next.js awaits `register()` during boot, and the deployment
     // startup probe expects the server to become ready quickly. Blocking here on
@@ -233,10 +260,21 @@ export async function register() {
     // verification should pass immediately after server boots.
     void (async () => {
       try {
+        // `scripts/` is not traced into the standalone bundle, so in a deployed
+        // build this spawned `node scripts/submit-indexnow.mjs` and died with
+        // MODULE_NOT_FOUND on every cold start (confirmed by running the
+        // standalone artifact locally). Skip cleanly when the file is absent
+        // instead of spawning a process that is guaranteed to fail.
+        const { existsSync } = await import("fs");
+        const script = "scripts/submit-indexnow.mjs";
+        if (!existsSync(script)) {
+          console.log("[startup] IndexNow skipped - " + script + " not present in this build");
+          return;
+        }
         const { exec } = await import("child_process");
         const { promisify } = await import("util");
         const execAsync = promisify(exec);
-        const { stdout, stderr } = await execAsync("node scripts/submit-indexnow.mjs");
+        const { stdout, stderr } = await execAsync(`node ${script}`);
         if (stdout) console.log("[startup] IndexNow output:", stdout.trim());
         if (stderr) console.error("[startup] IndexNow stderr:", stderr.trim());
       } catch (e) {

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="GWDC-1S cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <path d="M 40.0 108.2 L 241.6 108.2 L 320.0 186.6 L 320.0 311.8 L 40.0 311.8 Z" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="54.0" y="194.6" width="252.0" height="109.2" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="60.0" y="200.6" width="240.0" height="97.2" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="296.0" y1="232.8" x2="296.0" y2="265.6" stroke="#6E6555" stroke-width="2.2"/>
-</svg>

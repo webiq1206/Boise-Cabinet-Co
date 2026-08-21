@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="WC90LDD-1S cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <path d="M 40.0 101.8 L 320.0 101.8 L 320.0 227.8 L 166.0 227.8 L 166.0 318.2 L 40.0 318.2 Z" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
-  <rect x="48.0" y="109.8" width="110.0" height="200.4" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="115.8" width="98.0" height="188.4" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="148.0" y1="179.9" x2="148.0" y2="240.1" stroke="#6E6555" stroke-width="2.2"/>
-  <rect x="174.0" y="109.8" width="138.0" height="110.0" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="180.0" y="115.8" width="126.0" height="98.0" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="302.0" y1="148.3" x2="302.0" y2="181.3" stroke="#6E6555" stroke-width="2.2"/>
-</svg>

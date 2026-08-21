@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="WDF-R cabinet front elevation">
-  <rect width="360" height="420" fill="#F7F3EC"/>
-  <rect x="165.6" y="50.0" width="28.8" height="320.0" rx="2" fill="#ECE6DB" stroke="#5E564A" stroke-width="1.6"/>
-  <line x1="180.0" y1="56.0" x2="180.0" y2="364.0" stroke="#B7AD9B" stroke-width="1" stroke-dasharray="5 4"/>
-</svg>

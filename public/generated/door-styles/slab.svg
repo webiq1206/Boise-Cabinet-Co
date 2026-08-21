@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-label="Slab door style">
-  <rect width="400" height="300" fill="#F7F3EC"/>
-  <rect x="125" y="25" width="150" height="250" rx="4" fill="#ECE6DB" stroke="#5E564A" stroke-width="2"/>
-  <line x1="200" y1="35" x2="200" y2="265" stroke="#B7AD9B" stroke-width="0.8"/>
-  <circle cx="259" cy="150" r="3" fill="#5E564A"/>
-</svg>
