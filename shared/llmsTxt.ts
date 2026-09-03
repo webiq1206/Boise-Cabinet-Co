@@ -13,7 +13,7 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 
 ## Business facts
 
-- Company: Boise Cabinet Co (Boise Cabinet Co LLC)
+- Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
 - Founded: 2020
 - Address: 4031 W Wapoot St, Meridian, ID 83646
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
