@@ -282,6 +282,28 @@ function CombinedEstimateSummaryCard({
   );
 }
 
+function MaskedEstimateSummaryCard({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-2.5 rounded-lg text-sm bg-accent/5 border border-accent/20",
+        compact ? "px-3 py-2" : "p-4",
+      )}
+      data-testid="text-estimate-summary-masked"
+    >
+      <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
+      <div className="min-w-0 flex-1">
+        <span className="font-medium text-foreground select-none blur-sm" aria-hidden="true">
+          $●●,●●● to $●●,●●●
+        </span>
+        <span className="ml-2 text-xs text-muted-foreground">
+          Submit to see your planning range
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export interface ConsultationFieldsProps {
   /** Estimate attached to the submission (and optionally displayed). */
   estimate?: StoredEstimate | null;
@@ -520,6 +542,14 @@ export function ConsultationFields({
         <h3 className="font-sans font-light text-2xl text-foreground">
           We&apos;ll be in touch shortly.
         </h3>
+        {/* The reveal: the real planning range, shown only now that contact
+            details are in. Every surface before this point carried a mask. */}
+        {showEstimateSummary &&
+          (combinedEstimate ? (
+            <CombinedEstimateSummaryCard estimate={combinedEstimate} />
+          ) : (
+            estimate && <EstimateSummaryCard estimate={estimate} />
+          ))}
         <p className="text-base leading-relaxed text-muted-foreground">
           Thank you for reaching out. We sent a confirmation to your email and typically
           respond within one business day.
@@ -557,12 +587,9 @@ export function ConsultationFields({
         }}
         className={compact ? "space-y-2.5" : "space-y-5"}
       >
-        {showEstimateSummary &&
-          (combinedEstimate ? (
-            <CombinedEstimateSummaryCard estimate={combinedEstimate} compact={compact} />
-          ) : (
-            estimate && <EstimateSummaryCard estimate={estimate} compact={compact} />
-          ))}
+        {showEstimateSummary && (combinedEstimate || estimate) && (
+          <MaskedEstimateSummaryCard compact={compact} />
+        )}
 
         {mutation.isError && (
           <div

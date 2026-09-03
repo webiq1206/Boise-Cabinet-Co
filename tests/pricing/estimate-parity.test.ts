@@ -33,11 +33,16 @@ function check(condition: boolean, message: string) {
   }
 }
 
+// The route now requires contact details (it never returns a price to an
+// anonymous caller). The parity test supplies a fixture contact so it can still
+// exercise the pricing path; the number must not depend on who is asking.
+const FIXTURE_CONTACT = { name: "Parity Test", email: "parity@example.com" };
+
 async function callRoute(rooms: EstimateSelections[]) {
   const request = new NextRequest("http://localhost/api/estimate/calculate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rooms }),
+    body: JSON.stringify({ rooms, contact: FIXTURE_CONTACT }),
   });
   const response = await calculateRoute(request);
   return { status: response.status, body: await response.json() };
@@ -146,6 +151,24 @@ async function main() {
     });
     const response = await calculateRoute(request);
     check(response.status === 400, `empty rooms rejected with 400 (got ${response.status})`);
+
+    // The contact gate: a fully valid rooms payload with NO contact must be
+    // rejected and must not leak a price.
+    const noContact = new NextRequest("http://localhost/api/estimate/calculate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rooms: [getDefaultSelectionsForProject("kitchen")] }),
+    });
+    const noContactRes = await calculateRoute(noContact);
+    const noContactBody = await noContactRes.json();
+    check(
+      noContactRes.status === 400,
+      `valid rooms without contact rejected with 400 (got ${noContactRes.status})`,
+    );
+    check(
+      noContactBody?.combined == null && noContactBody?.priceable !== true,
+      "no price returned when contact is missing",
+    );
   }
 
   console.log(`\n${passed} checks passed, ${failed} failed.`);

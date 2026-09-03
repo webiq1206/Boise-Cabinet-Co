@@ -1091,6 +1091,7 @@ export function EstimateCalculatorWizard({
           <div className="mx-auto max-w-xl">
             <EstimateResultPanel
               result={combinedResult}
+              revealRange={contactSucceeded}
               selectionSummary={resultSelectionSummary}
               scopeSummary={resultScopeSummary}
               breakdown={combined?.rooms}
@@ -1134,6 +1135,7 @@ export function EstimateCalculatorWizard({
     currentStep.kind !== "result" && currentStep.kind !== "contact" ? (
       <EstimateResultPanel
         result={combinedResult}
+        revealRange={contactSucceeded}
         selectionSummary={resultSelectionSummary}
         scopeSummary={resultScopeSummary}
         breakdown={combined?.rooms}
@@ -1180,11 +1182,21 @@ export function EstimateCalculatorWizard({
           >
             <span className="text-sm min-w-0 tabular-nums">
               {combinedResult ? (
-                <>
-                  <AnimatedPrice value={combinedResult.priceLow} />
-                  <span className="text-muted-foreground"> to </span>
-                  <AnimatedPrice value={combinedResult.priceHigh} />
-                </>
+                contactSucceeded ? (
+                  <>
+                    <AnimatedPrice value={combinedResult.priceLow} />
+                    <span className="text-muted-foreground"> to </span>
+                    <AnimatedPrice value={combinedResult.priceHigh} />
+                  </>
+                ) : (
+                  <span
+                    className="select-none blur-sm"
+                    aria-hidden="true"
+                    data-testid="mobile-estimate-masked"
+                  >
+                    $●●,●●● to $●●,●●●
+                  </span>
+                )
               ) : (
                 <span
                   className="text-muted-foreground"
@@ -1205,6 +1217,7 @@ export function EstimateCalculatorWizard({
           <div className="max-h-[82vh] overflow-y-auto p-4 pt-2">
             <EstimateResultPanel
               result={combinedResult}
+              revealRange={contactSucceeded}
               selectionSummary={resultSelectionSummary}
               scopeSummary={resultScopeSummary}
               breakdown={combined?.rooms}

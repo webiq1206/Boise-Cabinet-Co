@@ -24,8 +24,29 @@ export const runtime = "nodejs";
 const PER_IP_LIMIT = 120;
 const PER_IP_WINDOW_MS = 10 * 60 * 1000;
 
+/**
+ * Contact gate. The estimator never hands out a price without contact details,
+ * and this endpoint is held to the same rule as the UI: a caller must identify
+ * itself (a name plus at least one way to reach them) before any range is
+ * returned. No UI path calls this route, and the conversational assistant does
+ * not use it (confirmed by owner 2026-09-03), so requiring contact breaks
+ * nothing while closing the anonymous-price hole. The parity test sends a
+ * fixture contact so it can still exercise the pricing path.
+ */
+const contactSchema = z
+  .object({
+    name: z.string().trim().min(2).max(120),
+    email: z.string().trim().email().max(200).optional().or(z.literal("")),
+    phone: z.string().trim().min(10).max(40).optional().or(z.literal("")),
+  })
+  .refine((c) => Boolean(c.email) || Boolean(c.phone), {
+    message: "Provide an email address or a phone number.",
+    path: ["email"],
+  });
+
 const bodySchema = z.object({
   rooms: roomsArraySchema,
+  contact: contactSchema,
 });
 
 export async function POST(request: NextRequest) {
