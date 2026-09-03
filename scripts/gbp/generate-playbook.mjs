@@ -118,7 +118,7 @@ Type exactly:
 
 Rules:
 - Do not add keywords (wrong example: "Boise Cabinet Co | Custom Kitchen Cabinets Boise")
-- Must match your LLC: ${GBP_PROFILE.legalName}
+- Use the DBA, not the LLC. The registered entity is ${GBP_PROFILE.legalName}, but the business name field takes the name customers search for.
 - Must match your website branding
 
 ### Step 5: Choose your business type

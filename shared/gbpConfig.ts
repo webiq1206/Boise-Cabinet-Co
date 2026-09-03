@@ -30,7 +30,14 @@ export function gbpUrl(
 
 export const GBP_PROFILE = {
   businessName: "Boise Cabinet Co",
-  legalName: "Boise Cabinet Co LLC",
+  /**
+   * The registered legal entity behind this DBA. Google verifies a business
+   * name against the entity on record, and this block is used verbatim on GBP
+   * and every citation - so `name` carries the DBA customers search for and
+   * `legalName` carries P5 Home Co LLC, which is the company that actually
+   * holds the registration.
+   */
+  legalName: "P5 Home Co LLC",
   businessType: "Service-Area Business (hide address)",
   addressOnFile: "Meridian, ID (verification only; do not display publicly)",
   phone: SITE_CONFIG.phone,

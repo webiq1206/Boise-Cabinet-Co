@@ -20,7 +20,15 @@ const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;
 
 export const SITE_CONFIG = {
   name: "Boise Cabinet Co",
-  legalName: "Boise Cabinet Co LLC",
+  /**
+   * The registered legal entity. This brand is an Idaho assumed business name
+   * (DBA) of P5 Home Co LLC - there is no separate "Boise Cabinet Co LLC" company.
+   * `name` above stays the DBA, which is what customers know and what belongs
+   * in a GBP business-name field; `legalName` is the entity that actually
+   * signs contracts, holds the registration and gets verified against state
+   * records, so the two are deliberately different values.
+   */
+  legalName: "P5 Home Co LLC",
   tagline: "Idaho's premier custom cabinet company",
   phone: process.env.NEXT_PUBLIC_PHONE ?? DEFAULT_PHONE,
   phoneTel: PHONE_TEL,
