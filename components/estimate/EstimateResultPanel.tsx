@@ -183,6 +183,13 @@ export interface EstimateResultPanelProps {
    * edit affordance (e.g. read-only summaries outside the wizard).
    */
   onEditRoom?: (roomIndex: number) => void;
+  /**
+   * When false, every dollar figure is replaced by a mask (not the real number
+   * under a blur - a blur is one devtools click from readable). The estimator
+   * shows the actual range only after the visitor submits contact details.
+   * Defaults to true so non-gated callers are unaffected.
+   */
+  revealRange?: boolean;
 }
 
 export function EstimateResultPanel({
@@ -197,11 +204,14 @@ export function EstimateResultPanel({
   compact = false,
   breakdown,
   onEditRoom,
+  revealRange = true,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
   const pad = compact ? "p-5" : isSidebar ? "p-6" : "p-8";
   const multiRoom = !!breakdown && breakdown.length > 1;
+  // Same-shape mask for every project, so its width leaks no information.
+  const MASKED_RANGE = "$●●,●●● to $●●,●●●";
 
   // Nothing priceable yet: show a neutral prompt instead of a fabricated range
   // so we never imply pricing the visitor didn't intentionally create.
@@ -268,11 +278,31 @@ export function EstimateResultPanel({
         aria-live="polite"
         aria-atomic="true"
       >
-        <span className="sr-only">{rangeAnnouncement}</span>
-        <AnimatedPrice value={result.priceLow} />
-        <span aria-hidden="true"> to </span>
-        <AnimatedPrice value={result.priceHigh} />
+        {revealRange ? (
+          <>
+            <span className="sr-only">{rangeAnnouncement}</span>
+            <AnimatedPrice value={result.priceLow} />
+            <span aria-hidden="true"> to </span>
+            <AnimatedPrice value={result.priceHigh} />
+          </>
+        ) : (
+          <span
+            className="brc-display-num tabular-nums select-none blur-sm"
+            aria-hidden="true"
+            data-testid="estimate-range-masked"
+          >
+            {MASKED_RANGE}
+          </span>
+        )}
       </div>
+      {!revealRange && (
+        <p
+          className="text-xs text-inverse-muted/90 -mt-2 mb-4"
+          data-testid="estimate-range-gate-note"
+        >
+          Add your details on the next step to see your planning range.
+        </p>
+      )}
 
       {multiRoom ? (
         <div className={compact ? "mb-3" : "mb-4"} data-testid="estimate-breakdown">
@@ -302,10 +332,22 @@ export function EstimateResultPanel({
                     </button>
                   )}
                 </div>
-                <div className="text-xs tabular-nums whitespace-nowrap pt-0.5 text-inverse-foreground/85">
-                  {formatPlanningCurrency(r.priceLow)}
-                  <span className="text-inverse-muted"> to </span>
-                  {formatPlanningCurrency(r.priceHigh)}
+                <div
+                  className={cn(
+                    "text-xs tabular-nums whitespace-nowrap pt-0.5 text-inverse-foreground/85",
+                    !revealRange && "select-none blur-sm",
+                  )}
+                  aria-hidden={!revealRange || undefined}
+                >
+                  {revealRange ? (
+                    <>
+                      {formatPlanningCurrency(r.priceLow)}
+                      <span className="text-inverse-muted"> to </span>
+                      {formatPlanningCurrency(r.priceHigh)}
+                    </>
+                  ) : (
+                    MASKED_RANGE
+                  )}
                 </div>
               </div>
             ))}
