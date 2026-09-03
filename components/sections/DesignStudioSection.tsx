@@ -24,7 +24,7 @@ export function DesignStudioSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           <Reveal>
             <div className="brc-label mb-4 text-inverse-muted">Design Studio</div>
-            <h2 className="font-sans font-light text-display tracking-tight text-inverse-foreground mb-4">
+            <h2 className="font-serif text-display tracking-tight text-inverse-foreground mb-4">
               Design your cabinets{" "}
               <em className="brc-accent text-accent">online</em>
             </h2>

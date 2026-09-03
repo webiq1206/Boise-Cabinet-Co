@@ -175,7 +175,7 @@ export function ShareView({ shareToken }: ShareViewProps) {
           <div className="space-y-6">
             <div>
               <p className="brc-label mb-2">Shared design</p>
-              <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight">
+              <h1 className="text-3xl md:text-4xl font-serif tracking-tight">
                 {designName || "Cabinet design"}
               </h1>
               <p className="text-muted-foreground mt-2">

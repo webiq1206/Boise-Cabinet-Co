@@ -28,7 +28,7 @@ export function CatalogExploreStrip() {
     <div className="my-10 space-y-8 rounded-xl border bg-card p-6">
       <div>
         <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Product catalog</p>
-        <h3 className="text-lg font-sans font-light tracking-tight">
+        <h3 className="text-lg font-serif tracking-tight">
           Explore door styles &amp; finishes
         </h3>
         <p className="text-sm text-muted-foreground mt-2">

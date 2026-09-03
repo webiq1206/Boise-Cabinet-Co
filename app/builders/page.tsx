@@ -182,7 +182,7 @@ export default function BuildersPage() {
             <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
               {REASONS.map((r) => (
                 <MarketingCard key={r.title} className="h-full">
-                  <h3 className="font-sans font-light text-xl text-foreground mb-2">{r.title}</h3>
+                  <h3 className="font-serif text-xl text-foreground mb-2">{r.title}</h3>
                   <p className="text-base leading-relaxed text-muted-foreground">{r.body}</p>
                 </MarketingCard>
               ))}
@@ -240,7 +240,7 @@ export default function BuildersPage() {
             <div className="divide-y divide-border border-t border-border">
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
-                  <h3 className="font-sans font-light text-lg text-foreground mb-2">{f.question}</h3>
+                  <h3 className="font-serif text-lg text-foreground mb-2">{f.question}</h3>
                   <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
                 </div>
               ))}
@@ -251,7 +251,7 @@ export default function BuildersPage() {
         <Section variant="inverse" divider>
           <div className="container px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-tight text-inverse-foreground mb-4">
+              <h2 className="font-serif text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-tight text-inverse-foreground mb-4">
                 Send us the project. We will send back a{" "}
                 <em className="brc-accent text-accent">number</em>.
               </h2>

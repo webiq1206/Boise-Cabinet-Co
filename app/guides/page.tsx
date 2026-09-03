@@ -122,7 +122,7 @@ export default function GuidesIndexPage() {
           <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
             Treasure Valley authority
           </p>
-          <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight text-foreground mb-4">
+          <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
             Cabinet Design Guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

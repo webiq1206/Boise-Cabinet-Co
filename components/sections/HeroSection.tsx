@@ -8,7 +8,7 @@ import { CTA_BROWSE_CABINETS, CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { DisplayNum } from "@/components/marketing";
 import { AggregateRating } from "@/components/marketing/AggregateRating";
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 function StatCard({ num, label }: { num: string; label: string }) {
   return (
@@ -34,7 +34,7 @@ export function HeroSection() {
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover opacity-[0.92] img-brand-grade"
+          className="object-cover opacity-[0.92] img-brand-grade animate-hero-reveal"
         />
         <div className="hidden md:block absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/55 to-inverse/25" />
         {/* Mobile stacks the copy over the middle of the photo, so it needs a
@@ -44,14 +44,14 @@ export function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.03 }}
+          style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.13 }}
         />
 
         <div className="relative z-10 container px-4 md:px-8 py-20 md:py-32 pb-16 md:pb-28">
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-center">
             <Reveal>
               <div className="brc-label mb-6 text-inverse-muted">{HERO_EYEBROW}</div>
-              <h1 className="font-sans font-light text-inverse-foreground text-display tracking-tight mb-6">
+              <h1 className="font-serif text-inverse-foreground text-display tracking-tight mb-6">
                 Idaho&apos;s premier{" "}
                 <em className="brc-accent text-accent">cabinet</em> company.
               </h1>

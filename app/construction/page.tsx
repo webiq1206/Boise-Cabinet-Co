@@ -123,7 +123,7 @@ export default function ConstructionPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {STANDARDS.map((item) => (
                 <MarketingCard key={item.title}>
-                  <h3 className="text-lg font-sans font-light tracking-tight mb-2">
+                  <h3 className="text-lg font-serif tracking-tight mb-2">
                     {item.title}
                   </h3>
                   <p className="text-base text-muted-foreground leading-relaxed">{item.body}</p>

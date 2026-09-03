@@ -44,7 +44,7 @@ export function RoomCategoriesGrid() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-sans font-medium text-base mb-1 text-foreground group-hover:text-accent transition-colors">
+                  <h3 className="font-serif font-medium text-base mb-1 text-foreground group-hover:text-accent transition-colors">
                     {room.name}
                   </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">

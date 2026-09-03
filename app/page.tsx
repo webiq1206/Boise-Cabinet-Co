@@ -72,7 +72,7 @@ export default function HomePage() {
                     shrank on mobile - 25.6px against 32px everywhere else. The
                     md and lg steps were already correct, so this is a
                     mobile-only correction. */}
-                <h2 className="font-sans font-light text-h2-fluid tracking-tight mb-3 md:mb-4 text-foreground">
+                <h2 className="font-serif text-h2-fluid tracking-tight mb-3 md:mb-4 text-foreground">
                   Tell us about your{" "}
                   <em className="brc-accent text-accent">project</em>.
                 </h2>

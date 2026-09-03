@@ -30,7 +30,7 @@ export default function BacklinksAdminPage() {
     <div className="min-h-screen bg-background">
       <div className="container px-4 py-10 max-w-5xl mx-auto">
         <div className="mb-2 text-[12px] uppercase tracking-[0.2em] text-muted-foreground">Internal · not indexed</div>
-        <h1 className="font-sans font-light text-3xl md:text-4xl tracking-tight text-foreground mb-1">
+        <h1 className="font-serif text-3xl md:text-4xl tracking-tight text-foreground mb-1">
           Backlink pipeline
         </h1>
         <p className="text-muted-foreground text-sm mb-8">

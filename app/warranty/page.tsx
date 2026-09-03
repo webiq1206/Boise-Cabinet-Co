@@ -100,7 +100,7 @@ export default function WarrantyPage() {
             />
             <div className="grid md:grid-cols-3 gap-6">
               <MarketingCard>
-                <h3 className="text-lg font-sans font-light tracking-tight mb-3">Covered</h3>
+                <h3 className="text-lg font-serif tracking-tight mb-3">Covered</h3>
                 <ul className="space-y-2">
                   {COVERED.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -111,7 +111,7 @@ export default function WarrantyPage() {
                 </ul>
               </MarketingCard>
               <MarketingCard>
-                <h3 className="text-lg font-sans font-light tracking-tight mb-3">Conditions</h3>
+                <h3 className="text-lg font-serif tracking-tight mb-3">Conditions</h3>
                 <ul className="space-y-2">
                   {CONDITIONS.map((item) => (
                     <li key={item} className="text-base text-muted-foreground leading-relaxed">
@@ -121,7 +121,7 @@ export default function WarrantyPage() {
                 </ul>
               </MarketingCard>
               <MarketingCard>
-                <h3 className="text-lg font-sans font-light tracking-tight mb-3">Not covered</h3>
+                <h3 className="text-lg font-serif tracking-tight mb-3">Not covered</h3>
                 <ul className="space-y-2">
                   {EXCLUDED.map((item) => (
                     <li key={item} className="text-base text-muted-foreground leading-relaxed">

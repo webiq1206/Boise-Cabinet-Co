@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Montserrat, Libre_Baskerville } from 'next/font/google'
+import localFont from 'next/font/local'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
 import { MetaPixel } from '@/components/seo/MetaPixel'
@@ -13,26 +13,21 @@ import { ScrollToTop } from '@/components/ScrollToTop'
 import { HOMEPAGE_DESCRIPTION, HOMEPAGE_TITLE } from '@/lib/seo'
 import './globals.css'
 
-const montserrat = Montserrat({
-  // Light (300, large display headings), Regular (400, body), and Medium (500,
-  // buttons/nav/labels/card titles/subheadings) so emphasis has real visual
-  // weight instead of collapsing to body weight. Still nothing heavier than
-  // Medium - hierarchy stays elegant, not bold.
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-montserrat',
+// P5 family typefaces, self-hosted from the same two OFL variable files P5 Home Co serves.
+const manrope = localFont({
+  src: '../public/fonts/manrope-variable.woff2',
+  weight: '200 800',
+  variable: '--font-manrope',
   display: 'swap',
 })
 
-const libreBaskerville = Libre_Baskerville({
-  // The brand's accent typeface. Regular (400, display numerals via
-  // .brc-display-num) and 400 italic (.brc-accent / pull-quotes) are the only
-  // cuts used in the design system; Libre Baskerville ships only 400/700, so
-  // this loads just the two files the identity actually needs.
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-libre-baskerville',
+// Cormorant Garamond carries every serif moment - headings, the italic accent
+// word, display numerals, pull quotes - as it does on P5. Wordmark and seal
+// artwork keep their original face; marks and live type share a register.
+const cormorant = localFont({
+  src: '../public/fonts/cormorant-garamond-variable.woff2',
+  weight: '300 700',
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
@@ -102,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`dark ${montserrat.variable} ${libreBaskerville.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
+    <html lang="en" className={`dark ${manrope.variable} ${cormorant.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
         {/*
           The hero LCP image is preloaded by next/image's `priority` prop in

@@ -334,7 +334,7 @@ function DoorCard({ style }: { style: DoorStyle }) {
               </Chip>
             ))}
           </div>
-          <h2 className="text-lg font-sans font-light tracking-tight mb-2 group-hover:text-primary transition-colors">
+          <h2 className="text-lg font-serif tracking-tight mb-2 group-hover:text-primary transition-colors">
             {style.name}
           </h2>
           <p className="text-base text-muted-foreground flex-1 line-clamp-4 leading-relaxed">

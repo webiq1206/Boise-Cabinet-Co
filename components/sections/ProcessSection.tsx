@@ -4,7 +4,7 @@ import { DisplayNum, Section } from "@/components/marketing";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 export function ProcessSection() {
   return (
@@ -36,7 +36,7 @@ export function ProcessSection() {
         <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
           <Reveal>
             <div className="brc-label mb-5">Our process</div>
-            <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] leading-[1.08] tracking-tight mb-10 text-foreground">
+            <h2 className="font-serif text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] leading-[1.08] tracking-tight mb-10 text-foreground">
               From design to{" "}
               <em className="brc-accent text-accent">installed cabinets</em>
             </h2>

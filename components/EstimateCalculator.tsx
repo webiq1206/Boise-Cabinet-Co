@@ -71,7 +71,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
               Free &middot; No obligation &middot; Instant range
             </span>
           )}
-          <Heading className="font-sans font-light text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
+          <Heading className="font-serif text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
             Plan your cabinet{" "}
             <em className="brc-accent text-accent">investment</em>
           </Heading>

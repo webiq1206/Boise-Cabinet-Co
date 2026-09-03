@@ -66,7 +66,7 @@ export default function ProjectMessagesPage() {
         <ProjectSubNav />
 
         <div>
-          <h2 className="text-xl font-sans font-light tracking-tight">
+          <h2 className="text-xl font-serif tracking-tight">
             Project <em className="brc-accent text-accent">messages</em>
           </h2>
         </div>

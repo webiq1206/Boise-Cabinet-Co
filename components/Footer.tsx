@@ -136,7 +136,7 @@ export function Footer() {
                 </div>
               </details>
               <div className="hidden lg:block">
-                <h2 className="font-sans font-medium text-[12px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+                <h2 className="font-serif font-medium text-[12px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
                   {group.title}
                 </h2>
                 <GroupLinks links={group.links} />
@@ -147,7 +147,7 @@ export function Footer() {
 
         {/* Service areas - compact wrapped row rather than a tall vertical list. */}
         <div className="pb-8 mb-8 border-t border-b border-inverse-foreground/10 py-6">
-          <h2 className="font-sans font-medium text-[12px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
+          <h2 className="font-serif font-medium text-[12px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
             Serving the Treasure Valley
           </h2>
           <div className="flex flex-wrap gap-x-4 gap-y-2">

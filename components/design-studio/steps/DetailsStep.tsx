@@ -42,7 +42,7 @@ export function DetailsStep({
     <div className="space-y-8">
       {!embedded && (
         <div>
-          <h2 className="text-2xl font-sans font-light tracking-tight">
+          <h2 className="text-2xl font-serif tracking-tight">
             Hardware & <em className="brc-accent text-accent">details</em>
           </h2>
           <p className="text-muted-foreground mt-2">
