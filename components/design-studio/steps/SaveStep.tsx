@@ -221,7 +221,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
     <div className="space-y-6">
       {!embedded && (
         <div>
-          <h2 className="text-2xl font-sans font-light tracking-tight">
+          <h2 className="text-2xl font-serif tracking-tight">
             Save & request <em className="brc-accent text-accent">pricing</em>
           </h2>
           <p className="text-muted-foreground mt-2">

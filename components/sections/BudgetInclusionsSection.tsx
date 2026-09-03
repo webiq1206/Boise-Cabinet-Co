@@ -37,7 +37,7 @@ export function BudgetInclusionsSection() {
               <div className="space-y-8 md:pr-16">
                 {BUDGET_GUIDANCE_POINTS.map((point) => (
                   <div key={point.title}>
-                    <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
+                    <h3 className="font-serif font-medium text-sm mb-2 text-inverse-foreground">
                       {point.title}
                     </h3>
                     <p className="text-base leading-relaxed text-inverse-muted">{point.body}</p>
@@ -48,7 +48,7 @@ export function BudgetInclusionsSection() {
 
             <Reveal delay={60}>
               <div className="md:border-l md:border-inverse-foreground/15 md:pl-16">
-                <h3 className="font-sans font-medium text-sm mb-5 text-inverse-foreground">
+                <h3 className="font-serif font-medium text-sm mb-5 text-inverse-foreground">
                   Included on every project
                 </h3>
                 <ul className="space-y-3 mb-10">
@@ -67,7 +67,7 @@ export function BudgetInclusionsSection() {
                   <p className="text-[12px] tracking-[0.12em] uppercase font-medium text-inverse-muted mb-3">
                     Optional enhancement
                   </p>
-                  <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
+                  <h3 className="font-serif font-medium text-sm mb-2 text-inverse-foreground">
                     {OPTIONAL_ENHANCEMENTS.title}
                   </h3>
                   <p className="text-base leading-relaxed mb-3 text-inverse-muted">

@@ -29,7 +29,7 @@ export function DoorStyleExplorer({
     <div className="space-y-8">
       <DoorStyleHero slug={style.slug} name={style.name} />
       <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">{style.name} Door Style</h2>
+        <h2 className="text-2xl font-serif tracking-tight">{style.name} Door Style</h2>
         <p className="text-muted-foreground mt-2 max-w-2xl">{style.description}</p>
       </div>
       <CatalogAvailabilityStrip

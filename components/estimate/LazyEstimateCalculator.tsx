@@ -64,7 +64,7 @@ export function LazyEstimateCalculator() {
             <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
             Free &middot; No obligation &middot; Instant range
           </span>
-          <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
+          <h2 className="font-serif text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
             Plan your cabinet{" "}
             <em className="brc-accent text-accent">investment</em>
           </h2>

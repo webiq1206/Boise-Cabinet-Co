@@ -23,7 +23,7 @@ import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
 import { CtaButton } from '@/components/modals/CtaButton';
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
   'Contact Boise Cabinet Co for a free design consultation. Call our team, schedule a visit, or use the Design Studio to explore cabinet options for your Treasure Valley home.';
@@ -187,7 +187,7 @@ export default function ContactPage() {
               {SPEAKABLE_SUMMARY}
             </p>
             <div className="brc-label text-inverse-muted mt-6 mb-5">Get in touch</div>
-            <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
+            <h1 className="font-serif text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
               Contact {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
@@ -369,7 +369,7 @@ export default function ContactPage() {
           <div className="container px-4 max-w-2xl mx-auto">
             <Reveal>
               <MarketingCard className="cta-card-dark p-10 md:p-12 text-center">
-                <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
+                <h2 className="font-serif text-section-title mb-4 text-inverse-foreground">
                   Prefer to talk first?
                 </h2>
                 <p className="text-base text-inverse-muted mb-2">

@@ -100,7 +100,7 @@ export default function CabinetsHubPage() {
                         />
                       </div>
                       <div className="p-6 md:p-8 flex flex-col flex-1">
-                        <h2 className="text-lg font-sans font-light tracking-tight mb-2">
+                        <h2 className="text-lg font-serif tracking-tight mb-2">
                           {room.name}
                         </h2>
                         <p className="text-base text-muted-foreground line-clamp-3 flex-1 leading-relaxed">

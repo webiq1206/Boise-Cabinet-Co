@@ -121,8 +121,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-montserrat)", "Helvetica Neue", "system-ui", "sans-serif"],
-        serif: ["var(--font-libre-baskerville)", "Georgia", "serif"],
+        sans: ["var(--font-manrope)", "Helvetica Neue", "system-ui", "sans-serif"],
+        serif: ["var(--font-cormorant)", "Georgia", "serif"],
         mono: ["Menlo", "Monaco", "monospace"],
       },
       fontSize: {
@@ -151,7 +151,7 @@ export default {
         caption: ["0.875rem", { lineHeight: "1.5" }],  // 14px - captions, helper text
         body: ["1.0625rem", { lineHeight: "1.65" }],   // 17px - alias of base
         "body-lg": ["1.1875rem", { lineHeight: "1.65" }],
-        display: ["clamp(2.5rem,6vw,5rem)", { lineHeight: "1.04", letterSpacing: "-0.025em" }],
+        display: ["clamp(3.25rem,6.4vw,6.25rem)", { lineHeight: "0.96", letterSpacing: "-0.04em" }],
         "section-title": ["1.875rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         "section-title-lg": ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         // Fluid H2 tier (32px mobile -> 52px desktop), replacing the repeated

@@ -67,7 +67,7 @@ export default function ProjectDesignPage() {
         <ProjectSubNav />
 
         <div>
-          <h2 className="text-xl font-sans font-light tracking-tight">
+          <h2 className="text-xl font-serif tracking-tight">
             Design <em className="brc-accent text-accent">selections</em>
           </h2>
           <p className="text-muted-foreground text-sm mt-1">

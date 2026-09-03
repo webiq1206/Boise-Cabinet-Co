@@ -29,7 +29,7 @@ import { CtaButton } from '@/components/modals/CtaButton';
 import { Button } from '@/components/ui/button';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
   'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 299 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.';
@@ -169,7 +169,7 @@ export default function AboutPage() {
               {SPEAKABLE_SUMMARY}
             </p>
             <div className="brc-label text-inverse-muted mt-6 mb-5">About us</div>
-            <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
+            <h1 className="font-serif text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
               About {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
@@ -327,7 +327,7 @@ export default function AboutPage() {
               {confirmedTeam.map((member, i) => (
                 <Reveal key={member.role} delay={Math.min(i, 3) * 60}>
                   <MarketingCard className="h-full p-6">
-                    <h3 className="font-sans font-medium text-base mb-1">{member.name}</h3>
+                    <h3 className="font-serif font-medium text-base mb-1">{member.name}</h3>
                     <p className="text-xs tracking-[0.1em] uppercase text-accent mb-3">
                       {member.role}
                     </p>
@@ -365,7 +365,7 @@ export default function AboutPage() {
                     <DisplayNum className="text-2xl text-accent leading-none mb-4 block">
                       {formatStepNumber(i)}
                     </DisplayNum>
-                    <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
+                    <h3 className="font-serif font-medium text-sm mb-2 text-inverse-foreground">
                       {title}
                     </h3>
                     <p className="text-base text-inverse-muted leading-relaxed">{desc}</p>
@@ -401,7 +401,7 @@ export default function AboutPage() {
         <Section divider spacing="sm">
           <div className="container px-4 max-w-2xl mx-auto">
             <MarketingCard className="cta-card-dark p-10 md:p-12 text-center">
-              <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
+              <h2 className="font-serif text-section-title mb-4 text-inverse-foreground">
                 Ready to start your project?
               </h2>
               <p className="text-base text-inverse-muted mb-8">

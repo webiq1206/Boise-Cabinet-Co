@@ -43,7 +43,7 @@ export function CollectionsBandSection() {
                   <div className="brc-label mb-3 text-muted-foreground">
                     {collection.priceTier}
                   </div>
-                  <h3 className="font-sans font-medium text-lg mb-2">{collection.name}</h3>
+                  <h3 className="font-serif font-medium text-lg mb-2">{collection.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
                     {collection.tagline}
                   </p>

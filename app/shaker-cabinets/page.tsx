@@ -146,7 +146,7 @@ export default function ShakerCabinetsPage() {
             <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
-                  <h2 className="font-sans font-light text-xl text-foreground mb-2">{p.name}</h2>
+                  <h2 className="font-serif text-xl text-foreground mb-2">{p.name}</h2>
                   <p className="text-base leading-relaxed text-muted-foreground">{p.body}</p>
                 </MarketingCard>
               ))}
@@ -226,7 +226,7 @@ export default function ShakerCabinetsPage() {
             <div className="divide-y divide-border border-t border-border">
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
-                  <h3 className="font-sans font-light text-lg text-foreground mb-2">{f.question}</h3>
+                  <h3 className="font-serif text-lg text-foreground mb-2">{f.question}</h3>
                   <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
                 </div>
               ))}
@@ -237,7 +237,7 @@ export default function ShakerCabinetsPage() {
         <Section variant="inverse" divider>
           <div className="container px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-tight text-inverse-foreground mb-4">
+              <h2 className="font-serif text-[2rem] md:text-[2.75rem] leading-[1.1] tracking-tight text-inverse-foreground mb-4">
                 Ready to plan your <em className="brc-accent text-accent">shaker kitchen</em>?
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-inverse-foreground/85 mb-8">

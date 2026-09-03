@@ -51,7 +51,7 @@ export function CaseStudiesSection() {
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">
                   {study.area}, Idaho · {study.service}
                 </p>
-                <h3 className="text-xl font-sans font-medium text-foreground mb-2">
+                <h3 className="text-xl font-serif font-medium text-foreground mb-2">
                   {study.title}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">{study.scope}</p>

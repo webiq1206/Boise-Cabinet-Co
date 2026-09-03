@@ -18,7 +18,7 @@ export function CatalogClosingCTA({
     <Section divider spacing="sm">
       <div className="container px-4 max-w-2xl mx-auto">
         <MarketingCard className="cta-card-dark p-8 md:p-10 text-center">
-          <h2 className="font-sans font-light text-section-title mb-3 text-inverse-foreground">
+          <h2 className="font-serif text-section-title mb-3 text-inverse-foreground">
             {title}
           </h2>
           <p className="text-sm text-inverse-muted mb-6 max-w-md mx-auto">{description}</p>

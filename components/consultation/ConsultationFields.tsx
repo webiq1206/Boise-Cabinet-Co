@@ -539,7 +539,7 @@ export function ConsultationFields({
         <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
           <CheckCircle2 className="h-5 w-5 text-accent" />
         </div>
-        <h3 className="font-sans font-light text-2xl text-foreground">
+        <h3 className="font-serif text-2xl text-foreground">
           We&apos;ll be in touch shortly.
         </h3>
         {/* The reveal: the real planning range, shown only now that contact

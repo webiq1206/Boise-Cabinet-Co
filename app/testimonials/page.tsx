@@ -85,7 +85,7 @@ export default function TestimonialsPage() {
       <Section divider spacing="sm">
         <div className="container px-4 max-w-2xl mx-auto">
           <div className="marketing-card cta-card-dark p-10 md:p-12 text-center">
-            <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
+            <h2 className="font-serif text-section-title mb-4 text-inverse-foreground">
               Ready to start your project?
             </h2>
             <p className="text-base text-inverse-muted mb-8">

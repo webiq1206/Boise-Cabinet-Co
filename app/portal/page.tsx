@@ -74,7 +74,7 @@ export default function PortalHomePage() {
       <div className="max-w-5xl mx-auto space-y-8">
         <div>
           <p className="text-muted-foreground mb-1">Welcome to your {SITE_CONFIG.name} portal</p>
-          <h2 className="text-xl sm:text-2xl font-sans font-light tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-serif tracking-tight">
             Your project at a <em className="brc-accent text-accent">glance</em>
           </h2>
         </div>

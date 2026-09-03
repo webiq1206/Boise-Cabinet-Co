@@ -129,7 +129,7 @@ export default function ProjectPaymentsPage() {
         <ProjectSubNav />
 
         <div>
-          <h2 className="text-xl font-sans font-light tracking-tight">
+          <h2 className="text-xl font-serif tracking-tight">
             Invoices & <em className="brc-accent text-accent">payments</em>
           </h2>
         </div>

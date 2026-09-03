@@ -47,7 +47,7 @@ function DesignStudioContent() {
         {/* Slim, app-style intro so the wizard sits near the top of the screen. */}
         <div className="mb-5">
           <p className="brc-label mb-1">Design Studio</p>
-          <h1 className="text-2xl md:text-3xl font-sans font-light tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-serif tracking-tight">
             Build your dream <em className="brc-accent text-accent">cabinets</em>
           </h1>
           <p className="text-muted-foreground mt-1 text-sm max-w-xl">
@@ -67,7 +67,7 @@ function DesignStudioLoading() {
     <main className="flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
       <div className="mb-5">
         <p className="brc-label mb-1">Design Studio</p>
-        <h1 className="text-2xl md:text-3xl font-sans font-light tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-serif tracking-tight">
           Build your dream <em className="brc-accent text-accent">cabinets</em>
         </h1>
         <p className="text-muted-foreground mt-1 text-sm max-w-xl">

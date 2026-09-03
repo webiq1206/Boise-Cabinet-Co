@@ -27,7 +27,7 @@ export default function ProjectDocumentsPage() {
 
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h2 className="text-xl font-sans font-light tracking-tight">
+            <h2 className="text-xl font-serif tracking-tight">
               Project <em className="brc-accent text-accent">documents</em>
             </h2>
             <p className="text-muted-foreground text-sm mt-1">

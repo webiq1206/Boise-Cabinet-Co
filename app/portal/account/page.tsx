@@ -18,7 +18,7 @@ export default function PortalAccountPage() {
     <PortalShell variant="customer" title="Account">
       <div className="max-w-2xl mx-auto space-y-6">
         <div>
-          <h2 className="text-xl font-sans font-light tracking-tight">
+          <h2 className="text-xl font-serif tracking-tight">
             Account <em className="brc-accent text-accent">settings</em>
           </h2>
           <p className="text-muted-foreground text-sm mt-1">
