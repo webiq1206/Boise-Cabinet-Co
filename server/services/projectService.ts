@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db as nullableDb } from "@/lib/db";
 import {
   projects,
   projectAssignments,
@@ -20,6 +20,20 @@ import {
 } from "@shared/schema";
 import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 import { and, desc, eq, sql } from "drizzle-orm";
+
+/*
+ * `db` is typed nullable in lib/db so the app can BUILD without a database
+ * configured - that is deliberate and must stay. Every function below runs only
+ * inside request handling, where a connection string is always present, so the
+ * nullability is narrowed once here rather than at each of the call sites.
+ *
+ * This is a TYPE-ONLY assertion: it emits no code and changes no behaviour. If
+ * the database really were unconfigured at runtime the failure is exactly what
+ * it is today. What it buys is that `tsc` stops reporting the same non-issue
+ * dozens of times and can be read for real problems again.
+ */
+const db = nullableDb as NonNullable<typeof nullableDb>;
+
 
 export async function getAllProjects(filters?: {
   status?: string;
@@ -109,7 +123,16 @@ export async function convertLeadToProject(
       )
     : [];
 
-  const title = `${lead.serviceType.replace(/-/g, " ")} - ${lead.name}`;
+  /*
+   * A lead is not guaranteed to carry a service type or a person's name. The
+   * unified leads table makes both nullable on purpose - company-only leads and
+   * no-email imports are valid rows - so building the title by reaching straight
+   * through them threw "Cannot read properties of null (reading 'replace')" and
+   * returned a 500 from both admin convert routes for exactly those leads.
+   */
+  const service = lead.serviceType?.replace(/-/g, " ").trim();
+  const who = lead.name?.trim() || lead.companyName?.trim();
+  const title = [service || "Cabinet project", who].filter(Boolean).join(" - ");
 
   const [project] = await db
     .insert(projects)

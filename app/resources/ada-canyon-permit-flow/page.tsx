@@ -54,7 +54,7 @@ export default function AdaCanyonPermitFlowPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <div className="flex flex-col pb-20">
-      <Section spacing="lg" className="pt-28 md:pt-32">
+      <Section spacing="none" className="pt-28 md:pt-32">
         <div className="container px-4 max-w-4xl mx-auto">
           <Link
             href="/resources"
