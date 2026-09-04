@@ -733,7 +733,7 @@ export function ConsultationFields({
                       data-testid="input-address"
                     />
                   </FormControl>
-                  <p className="mt-1.5 text-sm text-muted-foreground">
+                  <p className={cn("mt-1.5 text-sm text-muted-foreground", compact && "hidden")}>
                     Start typing and pick your address. We use it to plan your in-home visit.
                   </p>
                   <FieldError />
@@ -745,7 +745,7 @@ export function ConsultationFields({
           {/* Budget and timeline are required here too: a lead without them
               cannot be qualified or scheduled, and both are one tap. */}
           {requireDetails && (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className={cn("grid", compact ? "grid-cols-2 gap-2.5" : "gap-4 sm:grid-cols-2")}>
               <FormField
                 control={form.control}
                 name="budget"
@@ -891,7 +891,7 @@ export function ConsultationFields({
         </div>
 
         {hideSubmitButton ? (
-          <TrustRow />
+          !compact && <TrustRow />
         ) : (
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button

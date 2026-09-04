@@ -225,12 +225,12 @@ export function GuidedFlowShell({
             <h2
               ref={headingRef}
               tabIndex={-1}
-              className="text-lg font-medium leading-tight text-foreground outline-none sm:text-xl"
+              className="text-lg font-medium leading-tight text-foreground outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 sm:text-xl"
             >
               {step.label}
             </h2>
             {stepDescription && (
-              <p className="mt-0.5 line-clamp-2 text-[13px] leading-snug text-muted-foreground">
+              <p className="mt-0.5 line-clamp-1 text-[13px] leading-snug text-muted-foreground sm:line-clamp-2">
                 {stepDescription}
               </p>
             )}

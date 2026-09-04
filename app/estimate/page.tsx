@@ -31,7 +31,13 @@ export default function EstimatePage() {
       <JsonLd data={schemas} />
       {/* One-screen tool: fill the viewport below the sticky site header so the
           estimator never requires page scrolling on any device. */}
-      <div className="flex h-[calc(100dvh-var(--app-header-h,3.75rem))] flex-col overflow-hidden">
+      <div
+        /* The site header is FIXED, so the page's first pixel sits under it.
+           Measured: the breadcrumb and H1 rendered behind the logo, and the
+           bottom 84px of the viewport sat empty. Offsetting by the header's
+           own height puts the tool exactly in the space beneath it. */
+        className="mt-[var(--app-header-h,61px)] flex h-[calc(100dvh-var(--app-header-h,61px))] flex-col overflow-hidden"
+      >
         <div className="container shrink-0 px-4 pt-1.5 pb-0.5">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Get an Estimate" }]} />
         </div>

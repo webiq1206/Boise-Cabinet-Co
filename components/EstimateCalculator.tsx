@@ -42,16 +42,13 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
   if (viewportFit) {
     return (
       <div className="container flex min-h-0 flex-1 flex-col px-4 pb-3">
+        {/* The same head the other three estimators wear: the family eyebrow
+            and a serif title, so the four tools read as one product. */}
         <div className="mb-2 shrink-0">
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-            <Heading className="font-sans font-light text-xl sm:text-2xl leading-tight text-foreground">
-              Plan your cabinet <em className="brc-accent text-accent">investment</em>
-            </Heading>
-            <span className="hidden sm:inline-flex items-center gap-2 text-xs text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              Free · No obligation · Instant range
-            </span>
-          </div>
+          <p className="ed-eyebrow !mb-1" style={{ color: "var(--ed-accent)" }}>Free · Instant range · No obligation</p>
+          <Heading className="ed-h3 !leading-[1.05]">
+            Cabinet <em className="not-italic" style={{ color: "var(--ed-accent)" }}>estimator</em>
+          </Heading>
         </div>
         <div className="min-h-0 flex-1">
           <EstimateCalculatorWizard fitViewport onBookVisit={onBookVisit} startStep={startStep} />
