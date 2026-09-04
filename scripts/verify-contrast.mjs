@@ -30,6 +30,8 @@ const ROUTES = [
   "/contact",
   "/gallery",
   "/estimate",
+  "/cabinets/kitchen",
+  "/testimonials",
 ];
 
 /** Viewports: a light band can pass on desktop and fail once type reflows. */

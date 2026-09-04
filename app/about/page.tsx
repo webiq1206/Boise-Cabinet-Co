@@ -169,7 +169,7 @@ export default function AboutPage() {
               {SPEAKABLE_SUMMARY}
             </p>
             <div className="brc-label text-inverse-muted mt-6 mb-5">About us</div>
-            <h1 className="font-serif text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
+            <h1 className="ed-display ed-statement-display text-inverse-foreground mb-8">
               About {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>

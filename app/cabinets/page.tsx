@@ -5,10 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
-import { TextLink } from "@/components/marketing/TextLink";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
@@ -39,89 +36,111 @@ export default function CabinetsHubPage() {
     ]),
   ];
 
+  const [lead, ...rest] = ROOM_CATEGORIES;
+  const leadCollection = lead ? getCollectionBySlug(lead.defaultCollectionId) : undefined;
+
   return (
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
+        <Section surface="dark" spacing="lg" className="pt-8 md:pt-10">
+          <div className="ed-shell">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Cabinets" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Product catalog"
-              title={
-                <>
-                  Cabinets by <em className="brc-accent text-accent">room</em>
-                </>
-              }
-              description={catalogDescription(
-                "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
-              )}
-            />
-            <CatalogSearch className="mb-8" />
-            <Button variant="brand" asChild>
-              <Link href="/estimate">
-                Get an estimate <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            <div className="ed-split ed-split-end mt-8">
+              <PageHeader
+                align="left"
+                eyebrow="Product catalog"
+                title={
+                  <>
+                    Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em>
+                  </>
+                }
+                description={catalogDescription(
+                  "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
+                )}
+              />
+              <div>
+                <CatalogSearch className="mb-6" />
+                <Button variant="brand" asChild>
+                  <Link href="/estimate">
+                    Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </Section>
 
-        <Section variant="greige" divider>
-          <div className="container px-4">
-            <SectionHeader
-              eyebrow="Rooms"
-              title={<>Twelve room categories</>}
-              description="Each room page outlines typical cabinet types and our recommended collection line."
-              align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
-            />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-              {ROOM_CATEGORIES.map((room, i) => {
-                const collection = getCollectionBySlug(room.defaultCollectionId);
-                const collectionName = collection?.name ?? "Custom Cabinets";
+        {/* WAS twelve identical cards in a three-column grid. NOW the lead room as
+            a photo panel and the other eleven as a hairline matrix, the same
+            pattern the homepage uses, so the catalog reads as one composed
+            object rather than a wall of boxes. */}
+        <Section surface="deep" spacing="xl" edge>
+          <div className="ed-shell">
+            <Reveal>
+              <p className="ed-eyebrow">Rooms</p>
+              <h2 className="ed-h2 ed-statement-wide">Twelve room categories</h2>
+              <p className="ed-body mt-6">
+                Each room page outlines typical cabinet types and our recommended collection line.
+              </p>
+            </Reveal>
 
-                return (
-                  <Reveal key={room.id} delay={i * 30}>
-                    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift group relative">
-                      <Link
-                        href={`/cabinets/${room.slug}`}
-                        className="absolute inset-0 z-0"
-                        aria-label={`${room.name} cabinets`}
-                      />
-                      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                        <Image
-                          src={room.heroImage}
-                          alt={`${room.name} custom cabinets`}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                          className="object-cover img-brand-grade transition-transform duration-300 group-hover:scale-[1.02]"
-                        />
-                      </div>
-                      <div className="p-6 md:p-8 flex flex-col flex-1">
-                        <h2 className="text-lg font-serif tracking-tight mb-2">
-                          {room.name}
-                        </h2>
-                        <p className="text-base text-muted-foreground line-clamp-3 flex-1 leading-relaxed">
+            {lead && (
+              <Reveal delay={60}>
+                <Link
+                  href={`/cabinets/${lead.slug}`}
+                  className="ed-zoom group mt-[clamp(40px,5vw,72px)] grid overflow-hidden lg:grid-cols-[1.2fr_0.8fr]"
+                  style={{ border: "1px solid var(--ed-line)" }}
+                >
+                  <div className="relative min-h-[clamp(280px,38vw,460px)] overflow-hidden">
+                    <Image
+                      src={lead.heroImage}
+                      alt={`${lead.name} custom cabinets`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      className="object-cover img-brand-grade"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center p-[clamp(28px,3.4vw,56px)]">
+                    <p className="ed-eyebrow ed-eyebrow-accent">Most requested</p>
+                    <h2 className="ed-h2-sm">{lead.name}</h2>
+                    <p className="ed-body mt-5">{lead.description}</p>
+                    <p className="ed-small mt-5">Suggested line: {leadCollection?.name ?? "Custom Cabinets"}</p>
+                    <span className="ed-link ed-link-accent mt-8 self-start">
+                      Explore {lead.name.toLowerCase()} cabinets
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            )}
+
+            <Reveal delay={100}>
+              <div
+                className="ed-matrix ed-matrix-hover mt-[clamp(32px,4vw,56px)]"
+                style={{ ["--ed-cols" as string]: 4, ["--ed-cell-h" as string]: "220px" }}
+              >
+                {rest.map((room) => {
+                  const collection = getCollectionBySlug(room.defaultCollectionId);
+                  return (
+                    <Link key={room.id} href={`/cabinets/${room.slug}`} className="group flex flex-col justify-between">
+                      <span className="self-end transition-transform group-hover:translate-x-1">
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </span>
+                      <span>
+                        <h2 className="ed-h4">{room.name}</h2>
+                        <p className="mt-2 line-clamp-2 text-[0.8125rem] leading-[1.6]" style={{ color: "inherit", opacity: 0.72 }}>
                           {room.description}
                         </p>
-                        <p className="text-sm text-muted-foreground mt-3">
-                          Suggested line: {collectionName}
+                        <p className="mt-3 text-[0.6875rem] uppercase tracking-[0.16em]" style={{ color: "inherit", opacity: 0.6 }}>
+                          {collection?.name ?? "Custom Cabinets"}
                         </p>
-                        <TextLink
-                          href={`/cabinets/${room.slug}`}
-                          className="mt-4 relative z-10"
-                          showArrow
-                        >
-                          Explore {room.name}
-                        </TextLink>
-                      </div>
-                    </MarketingCard>
-                  </Reveal>
-                );
-              })}
-            </div>
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </Reveal>
           </div>
         </Section>
         <CatalogClosingCTA />
