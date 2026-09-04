@@ -29,6 +29,8 @@ import {
   FINISH_MARKER_MULTIPLIER,
   DETAIL_TIGHTENING,
   getTotalSteps,
+  getStepVisibility,
+  PROJECT_SIZE_CONFIG as SIZE_CFG,
   finishMarkerToTier,
   CONSTRUCTION_MULTIPLIER,
   LAYOUT_COMPLEXITY_MULTIPLIER,
@@ -576,6 +578,93 @@ for (const project of ALL_PROJECTS) {
     FINISH_MARKER_MULTIPLIER[2] === FINISH_TIER_MULTIPLIER.standard,
     "the middle of the collapsed bucket keeps today's price",
   );
+}
+
+// ── Shown must mean wired ───────────────────────────────────────────────────
+// Every monotonic check above permits EQUAL, so a step the wizard shows can be
+// asked, validated, stored and displayed while changing nothing about the
+// price, and the suite still passes. Asking someone a question that cannot
+// affect their answer is the defect, so each step a project actually SHOWS must
+// produce distinct prices across its own options.
+{
+  for (const project of ALL_PROJECTS) {
+    const cfg = SIZE_CFG[project];
+    const vis = getStepVisibility(project);
+    const baseSel = (o: Partial<EstimateSelections>) =>
+      sel({
+        project,
+        layout: PROJECT_LAYOUT_SLUGS[project][0] ?? "",
+        size: cfg.default,
+        sizeUpper: cfg.uppers ? cfg.uppers.default : null,
+        doorStyle: "slab",
+        finishCategory: "matte",
+        finishTier: "standard",
+        construction: "good",
+        ...o,
+      });
+    const price = (o: Partial<EstimateSelections>) => {
+      const r = calculateEstimate(baseSel(o), 0);
+      return r ? `${r.priceLow}..${r.priceHigh}` : "null";
+    };
+
+    const dims: Array<{ name: string; shown: boolean; values: Array<Partial<EstimateSelections>> }> = [
+      {
+        name: "layout",
+        shown: vis.layout && PROJECT_LAYOUT_SLUGS[project].length > 1,
+        values: PROJECT_LAYOUT_SLUGS[project].map((layout) => ({ layout })),
+      },
+      {
+        name: "doorStyle",
+        shown: vis.doorStyle,
+        values: Object.keys(DOOR_STYLE_MULTIPLIER).map((doorStyle) => ({ doorStyle })),
+      },
+      {
+        name: "finishCategory",
+        shown: true,
+        values: (Object.keys(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[]).map((finishCategory) => ({ finishCategory })),
+      },
+      {
+        name: "construction",
+        shown: true,
+        values: (Object.keys(CONSTRUCTION_MULTIPLIER) as ConstructionTier[]).map((construction) => ({ construction })),
+      },
+      {
+        name: "finish price tier",
+        shown: true,
+        values: Object.keys(FINISH_MARKER_MULTIPLIER).map((m) => ({
+          finishTier: finishMarkerToTier(Number(m)),
+        })),
+      },
+      {
+        name: "size",
+        shown: true,
+        values: [{ size: cfg.min }, { size: cfg.default }, { size: cfg.max }],
+      },
+    ];
+
+    for (const dim of dims) {
+      if (!dim.shown || dim.values.length < 2) continue;
+      const distinct = new Set(dim.values.map(price));
+      check(
+        distinct.size > 1,
+        `${project}: "${dim.name}" is shown to the visitor but all ${dim.values.length} of its options price identically (${[...distinct][0]}) - collected and ignored`,
+      );
+    }
+
+    // The upper (wall) run is only asked about where a project has one, and
+    // where it is asked it has to matter.
+    if (cfg.uppers) {
+      const distinct = new Set([
+        price({ sizeUpper: 0 }),
+        price({ sizeUpper: cfg.uppers.default }),
+        price({ sizeUpper: cfg.uppers.max }),
+      ]);
+      check(
+        distinct.size > 1,
+        `${project}: the wall-cabinet run is asked for but every length prices identically (${[...distinct][0]})`,
+      );
+    }
+  }
 }
 
 // ── Summary ─────────────────────────────────────────────────────────────────
