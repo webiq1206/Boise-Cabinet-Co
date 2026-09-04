@@ -165,6 +165,49 @@ export const FINISH_TIER_MULTIPLIER: Record<FinishTier, number> = {
   reserve: 1.26,
 };
 
+/**
+ * Finish premium keyed to the CATALOG's own price marker (1-5, the $ to $$$$$
+ * scale shown on every swatch), used whenever the visitor has picked a named
+ * finish.
+ *
+ * FINISH_TIER_MULTIPLIER above buckets that 5-level scale into 3 estimator
+ * tiers, and `finishMarkerToTier` sends markers 1, 2 AND 3 to "standard" at
+ * 1.0. That is 204 of the 299 catalog finishes priced identically: a visitor
+ * choosing a $ finish and one choosing a $$$ finish were quoted the same
+ * number, while the swatch beside the price said they were different tiers.
+ *
+ * The ladder is centred on marker 2, the modal and median finish in the
+ * catalog, so the middle of the collapsed bucket keeps the price it has today
+ * and the levels either side separate around it. Markers 4 and 5 are unchanged
+ * from the tier multipliers they replace, so no finish that was already priced
+ * distinctly moves at all.
+ */
+export const FINISH_MARKER_MULTIPLIER: Record<number, number> = {
+  1: 0.94,
+  2: 1.0,
+  3: 1.06,
+  4: 1.12,
+  5: 1.26,
+};
+
+/**
+ * How much of the natural price spread is removed once the visitor has answered
+ * every question for a room.
+ *
+ * The rate band (perUnitLow to perUnitHigh) is the spread of a job whose
+ * specification is not yet known. Layout, door style, finish and construction
+ * are exactly the things that spread covers, so once they are answered the
+ * range should narrow - the estimator already computes how completely a room
+ * has been specified, and used to spend that signal on a "95% detailed" label
+ * while quoting the identical +/-25% band it quoted at 51%.
+ *
+ * At 0.5 a fully specified kitchen narrows from a 1.68x spread to 1.30x. The
+ * GEOMETRIC CENTRE OF THE RANGE IS UNTOUCHED at every level of detail, so this
+ * sharpens the estimate without repricing it: an unanswered room still returns
+ * exactly the number it returns today.
+ */
+export const DETAIL_TIGHTENING = 0.5;
+
 /** Box construction quality premium (Good / Better / Best). */
 export const CONSTRUCTION_MULTIPLIER: Record<ConstructionTier, number> = {
   good: 1.0,
@@ -718,7 +761,18 @@ export function getSelectionMultiplier(sel: EstimateSelections): number {
   }
   if (vis.doorStyle) m *= DOOR_STYLE_MULTIPLIER[sel.doorStyle] ?? 1;
   m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory as FinishCategory] ?? 1;
-  m *= FINISH_TIER_MULTIPLIER[sel.finishTier as FinishTier] ?? 1;
+  /*
+   * Price the finish the visitor actually chose. The catalog's price marker is
+   * a 5-level scale; the estimator's own tier is a 3-level bucket of it, so the
+   * marker is used whenever a named finish is selected and the coarser tier
+   * only when it is not (the visitor picked a finish STYLE but no colour).
+   */
+  const marker = sel.finishSlug
+    ? FINISH_BY_SLUG[sel.finishSlug]?.priceTierMarker
+    : undefined;
+  m *= marker
+    ? (FINISH_MARKER_MULTIPLIER[marker] ?? 1)
+    : (FINISH_TIER_MULTIPLIER[sel.finishTier as FinishTier] ?? 1);
   m *= CONSTRUCTION_MULTIPLIER[sel.construction as ConstructionTier] ?? 1;
   return m;
 }
@@ -861,11 +915,39 @@ export function calculateEstimate(
   const upperLF = cfg.uppers ? (sel.sizeUpper ?? 0) : 0;
   const baseLow = pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF;
   const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
-  const priceLow = roundPrice(baseLow * mult);
-  const priceHigh = roundPrice(baseHigh * mult);
+  const rawLow = baseLow * mult;
+  const rawHigh = baseHigh * mult;
 
   const total = getTotalSteps(project);
   const { level, percent } = getConfidence(selectionsMade, total);
+
+  /*
+   * Narrow the range around its own geometric centre as the room is specified.
+   *
+   * Held multiplicatively rather than as a +/- percentage because the whole
+   * model is multiplicative: at zero detail `spread ** (1/2)` reproduces
+   * rawLow and rawHigh EXACTLY, so a visitor who has answered nothing sees the
+   * number this engine has always returned. The centre never moves, so no
+   * estimate is repriced - it only sharpens.
+   */
+  const detailRatio = total > 0 ? Math.min(selectionsMade, total) / total : 0;
+  const spread = rawLow > 0 ? rawHigh / rawLow : 1;
+  let priceLow: number;
+  let priceHigh: number;
+  if (detailRatio <= 0 || spread <= 1) {
+    /* Nothing specified yet: return the rate band itself. Taken directly rather
+       than through the identity below, because `sqrt(lo*hi) / sqrt(hi/lo)` is
+       `lo` only in exact arithmetic - in floating point it lands a fraction
+       either side, which is enough to flip a price sitting exactly on a $50
+       rounding boundary. */
+    priceLow = roundPrice(rawLow);
+    priceHigh = roundPrice(rawHigh);
+  } else {
+    const centre = Math.sqrt(rawLow * rawHigh);
+    const halfWidth = Math.pow(spread, (1 - DETAIL_TIGHTENING * detailRatio) / 2);
+    priceLow = roundPrice(centre / halfWidth);
+    priceHigh = roundPrice(centre * halfWidth);
+  }
 
   return {
     priceLow,

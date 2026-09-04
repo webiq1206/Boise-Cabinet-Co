@@ -26,6 +26,10 @@ import {
   DOOR_STYLE_MULTIPLIER,
   FINISH_CATEGORY_MULTIPLIER,
   FINISH_TIER_MULTIPLIER,
+  FINISH_MARKER_MULTIPLIER,
+  DETAIL_TIGHTENING,
+  getTotalSteps,
+  finishMarkerToTier,
   CONSTRUCTION_MULTIPLIER,
   LAYOUT_COMPLEXITY_MULTIPLIER,
   PROJECT_NO_LAYOUT_COMPLEXITY,
@@ -478,6 +482,99 @@ for (const project of ALL_PROJECTS) {
   check(
     safeCombinedEstimate({ ...combined!, priceHigh: NaN }, rooms, "test") === null,
     "safeCombinedEstimate suppresses a corrupt result",
+  );
+}
+
+// ── The range must tighten as a room is specified ───────────────────────────
+// The engine computes how completely a room has been specified and used to
+// spend that signal purely on a "95% detailed" label while quoting the same
+// band it quoted at 51%. Detail must narrow the range, and must do so WITHOUT
+// moving its centre - this sharpens an estimate, it does not reprice one.
+{
+  const room: EstimateSelections = {
+    ...EMPTY_SELECTIONS,
+    project: "kitchen",
+    size: 20,
+    sizeUpper: 15,
+    layout: "galley",
+    doorStyle: "slab",
+    finishCategory: "matte",
+    finishTier: "standard",
+    construction: "good",
+  };
+  const total = getTotalSteps("kitchen");
+  const at = (n: number) => calculateEstimate(room, n)!;
+
+  const none = at(0);
+  const full = at(total);
+
+  check(
+    full.priceHigh / full.priceLow < none.priceHigh / none.priceLow,
+    `a fully specified room is quoted tighter than an unspecified one (${(none.priceHigh / none.priceLow).toFixed(3)}x -> ${(full.priceHigh / full.priceLow).toFixed(3)}x)`,
+  );
+
+  // Monotonic: every extra answer narrows the band, never widens it.
+  let monotonic = true;
+  let prev = Infinity;
+  for (let n = 0; n <= total; n++) {
+    const r = at(n);
+    const spread = r.priceHigh / r.priceLow;
+    if (spread > prev + 1e-9) monotonic = false;
+    prev = spread;
+  }
+  check(monotonic, "each additional selection narrows the range, never widens it");
+
+  // The centre must not drift by more than the $100 rounding increment.
+  const centre = (r: { priceLow: number; priceHigh: number }) =>
+    Math.sqrt(r.priceLow * r.priceHigh);
+  check(
+    Math.abs(centre(full) - centre(none)) <= 100,
+    `tightening leaves the centre of the range alone (${Math.round(centre(none))} vs ${Math.round(centre(full))})`,
+  );
+
+  // An unspecified room must return exactly what the rate band says, so the
+  // tightening cannot quietly reprice the entry point.
+  const mult =
+    (LAYOUT_COMPLEXITY_MULTIPLIER["galley"] ?? 1) *
+    (DOOR_STYLE_MULTIPLIER["slab"] ?? 1) *
+    FINISH_CATEGORY_MULTIPLIER.matte *
+    FINISH_TIER_MULTIPLIER.standard *
+    CONSTRUCTION_MULTIPLIER.good;
+  const p = PROJECT_PRICING.kitchen;
+  check(
+    none.priceLow === Math.round((p.perUnitLow * 20 + p.upperPerUnitLow * 15) * mult / 100) * 100 &&
+      none.priceHigh === Math.round((p.perUnitHigh * 20 + p.upperPerUnitHigh * 15) * mult / 100) * 100,
+    "an unspecified room still returns the rate band exactly",
+  );
+
+  check(DETAIL_TIGHTENING > 0 && DETAIL_TIGHTENING < 1, "DETAIL_TIGHTENING stays a proper fraction");
+}
+
+// ── Named finishes must price by the catalog's own price marker ─────────────
+// The catalog carries a 5-level price marker per finish; finishMarkerToTier
+// buckets it into 3, sending markers 1, 2 AND 3 to "standard" at 1.0. That put
+// 204 of 299 finishes at an identical price while the swatch beside the number
+// advertised different tiers. Pricing reads the marker directly now.
+{
+  check(
+    new Set(Object.values(FINISH_MARKER_MULTIPLIER)).size === 5,
+    "all five catalog price markers price distinctly",
+  );
+  let ascending = true;
+  for (let m = 2; m <= 5; m++) {
+    if (FINISH_MARKER_MULTIPLIER[m] <= FINISH_MARKER_MULTIPLIER[m - 1]) ascending = false;
+  }
+  check(ascending, "the finish ladder rises monotonically with the catalog marker");
+
+  // Markers already priced distinctly by the old 3-way bucket must not move.
+  check(
+    FINISH_MARKER_MULTIPLIER[4] === FINISH_TIER_MULTIPLIER[finishMarkerToTier(4)] &&
+      FINISH_MARKER_MULTIPLIER[5] === FINISH_TIER_MULTIPLIER[finishMarkerToTier(5)],
+    "markers 4 and 5 keep the exact multiplier they had before",
+  );
+  check(
+    FINISH_MARKER_MULTIPLIER[2] === FINISH_TIER_MULTIPLIER.standard,
+    "the middle of the collapsed bucket keeps today's price",
   );
 }
 
