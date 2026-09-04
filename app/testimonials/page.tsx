@@ -82,18 +82,21 @@ export default function TestimonialsPage() {
       <CaseStudiesSection />
       <TestimonialsSection limit={4} showViewAll={false} />
 
-      <Section divider spacing="sm">
-        <div className="container px-4 max-w-2xl mx-auto">
-          <div className="marketing-card cta-card-dark p-10 md:p-12 text-center">
-            <h2 className="font-serif text-section-title mb-4 text-inverse-foreground">
+      <Section surface="gradient" spacing="xl" edge>
+        <div className="ed-shell">
+          <div className="ed-split ed-split-center">
+            <h2 className="ed-h2-sm ed-statement-wide">
               Ready to start your project?
             </h2>
-            <p className="text-base text-inverse-muted mb-8">
+              <div>
+            <p className="ed-body">
               Schedule a free in-home visit for planning guidance, design direction, and an honest
               project range.
             </p>
-            <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
-          </div>
+            <div className="mt-8"><CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+</div>
+
+              </div>          </div>
         </div>
       </Section>
     </div>

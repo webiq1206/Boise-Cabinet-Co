@@ -168,7 +168,7 @@ export default function AboutPage() {
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
             </p>
-            <div className="brc-label text-inverse-muted mt-6 mb-5">About us</div>
+            <div className="ed-eyebrow">About us</div>
             <h1 className="ed-display ed-statement-display text-inverse-foreground mb-8">
               About {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
@@ -219,7 +219,7 @@ export default function AboutPage() {
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
               />
               <div className="absolute bottom-0 left-0 p-8 md:p-12">
-                <div className="brc-label mb-3 text-inverse-muted">How we work</div>
+                <div className="ed-eyebrow">How we work</div>
                 <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
                   One team from
                   <br />
@@ -398,18 +398,21 @@ export default function AboutPage() {
         </Section>
 
         {/* ─── Closing CTA ─── */}
-        <Section divider spacing="sm">
-          <div className="container px-4 max-w-2xl mx-auto">
-            <MarketingCard className="cta-card-dark p-10 md:p-12 text-center">
-              <h2 className="font-serif text-section-title mb-4 text-inverse-foreground">
+        <Section surface="gradient" spacing="xl" edge>
+          <div className="ed-shell">
+            <div className="ed-split ed-split-center">
+              <h2 className="ed-h2-sm ed-statement-wide">
                 Ready to start your project?
               </h2>
-              <p className="text-base text-inverse-muted mb-8">
+              <div>
+              <p className="ed-body">
                 Schedule a free in-home visit for planning guidance, design direction, and an honest
                 project range.
               </p>
-              <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
-            </MarketingCard>
+              <div className="mt-8"><CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+            </div>
+
+              </div></div>
           </div>
         </Section>
       </div>

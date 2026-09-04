@@ -78,7 +78,7 @@ export default function AccessoriesPage() {
               eyebrow="Accessory families"
               title={<>Accessory families</>}
               align="center"
-              className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-10 max-w-xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {ACCESSORY_FAMILIES.map((family, i) => (

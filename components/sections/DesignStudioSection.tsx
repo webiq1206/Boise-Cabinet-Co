@@ -19,16 +19,16 @@ export function DesignStudioSection() {
   if (!DESIGN_STUDIO_ENABLED) return null;
 
   return (
-    <Section variant="inverse" divider>
-      <div className="container px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+    <Section surface="deep" spacing="xl" edge>
+      <div className="ed-shell">
+        <div className="ed-split ed-split-center">
           <Reveal>
-            <div className="brc-label mb-4 text-inverse-muted">Design Studio</div>
-            <h2 className="font-serif text-display tracking-tight text-inverse-foreground mb-4">
+            <p className="ed-eyebrow">Design Studio</p>
+            <h2 className="ed-h2 ed-statement">
               Design your cabinets{" "}
-              <em className="brc-accent text-accent">online</em>
+              <em className="not-italic" style={{ color: "var(--ed-accent)" }}>online</em>
             </h2>
-            <p className="text-inverse-muted text-lg leading-relaxed mb-8">
+            <p className="ed-lede mt-8 mb-10 max-w-[44ch]">
               Add a room photo or size, pick a layout, preview and edit in your space, then save and request pricing. We confirm exact dimensions at your consultation.
             </p>
             <Button variant="brand" className="bg-inverse-foreground text-inverse hover:bg-inverse-foreground/90" asChild>
@@ -50,13 +50,13 @@ export function DesignStudioSection() {
           </Reveal>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-10">
+        <div className="ed-matrix mt-[clamp(40px,5vw,72px)]" style={{ ["--ed-cols" as string]: 4, ["--ed-cell-h" as string]: "190px" }}>
           {FEATURES.map((feature, i) => (
             <Reveal key={feature.title} delay={i * 60}>
-              <div className="rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/5 p-5">
-                <feature.icon className="h-5 w-5 text-accent mb-3" />
-                <h3 className="font-medium text-inverse-foreground text-sm mb-1">{feature.title}</h3>
-                <p className="text-sm text-inverse-muted">{feature.body}</p>
+              <div className="flex h-full flex-col">
+                <feature.icon className="h-5 w-5" style={{ color: "var(--ed-accent)" }} aria-hidden="true" />
+                <h3 className="ed-h4 mt-auto pt-8">{feature.title}</h3>
+                <p className="ed-body mt-2 text-[0.875rem]">{feature.body}</p>
               </div>
             </Reveal>
           ))}

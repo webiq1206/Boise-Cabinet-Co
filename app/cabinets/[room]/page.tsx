@@ -261,7 +261,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                       )}
                     </div>
                     <div className="p-5">
-                      <h3 className="font-serif font-medium text-sm mb-1 text-foreground">
+                      <h3 className="ed-h4">
                         {project.title}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">

@@ -118,7 +118,7 @@ export default function ConstructionPage() {
               eyebrow="Built to last"
               title={<>What goes into every order</>}
               align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <div className="grid md:grid-cols-2 gap-6">
               {STANDARDS.map((item) => (

@@ -96,7 +96,7 @@ export default function WarrantyPage() {
               eyebrow="Coverage"
               title={<>What the warranty covers</>}
               align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <div className="grid md:grid-cols-3 gap-6">
               <MarketingCard>

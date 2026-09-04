@@ -162,7 +162,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                       )}
                     </div>
                     <div className="p-5">
-                      <h3 className="font-serif font-medium text-sm mb-1 text-foreground">
+                      <h3 className="ed-h4">
                         {project.title}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -203,7 +203,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                   href={service.url}
                   className="group block rounded-sm border border-border bg-card p-5 brc-lift transition-colors hover:border-accent/60"
                 >
-                  <h3 className="font-serif font-medium text-sm mb-1.5 text-foreground group-hover:text-accent transition-colors">
+                  <h3 className="ed-h4">
                     {service.name}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -297,7 +297,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
             <MapPin className="h-5 w-5 text-accent mx-auto mb-3" />
-            <h2 className="font-serif text-section-title mb-3 text-inverse-foreground">
+            <h2 className="ed-h2-sm ed-statement-wide">
               Ready to plan your {city.name} project?
             </h2>
             <p className="text-inverse-muted mb-6">

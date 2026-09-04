@@ -212,7 +212,7 @@ export default function ComparePage() {
               eyebrow={COLLECTION_COMPARISON.title}
               title={<>Feature comparison</>}
               align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <ComparisonMatrixTable matrix={COLLECTION_COMPARISON} />
             <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto">
@@ -230,7 +230,7 @@ export default function ComparePage() {
               title={<>Six door styles</>}
               description={DOOR_STYLE_COMPARISON.description}
               align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <ComparisonMatrixTable matrix={DOOR_STYLE_COMPARISON} visualRows />
           </div>
@@ -243,7 +243,7 @@ export default function ComparePage() {
               title={<>299 finishes</>}
               description={FINISH_TIER_COMPARISON.description}
               align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
             />
             <ComparisonMatrixTable matrix={FINISH_TIER_COMPARISON} visualRows />
           </div>
