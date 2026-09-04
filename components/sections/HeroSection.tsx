@@ -64,11 +64,13 @@ export function HeroSection() {
               <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground">
                 {HERO_SUBHEAD}
               </p>
-              <div className="flex flex-wrap gap-3 mb-6 md:mb-0">
-                <Button variant="brand" asChild>
+              {/* Phones: both CTAs full width and stacked, same height and
+                  format, so the pair reads as a pair. */}
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap mb-6 md:mb-0">
+                <Button variant="brand" className="w-full sm:w-auto" asChild>
                   <Link href="/estimate">{CTA_ESTIMATE}</Link>
                 </Button>
-                <Button variant="brandOutline" className="border-inverse-foreground/25 bg-inverse-foreground/10 text-inverse-foreground hover:bg-inverse-foreground/15" asChild>
+                <Button variant="heroOutline" className="w-full sm:w-auto" asChild>
                   <Link href="/cabinets">{CTA_BROWSE_CABINETS}</Link>
                 </Button>
               </div>
@@ -81,9 +83,16 @@ export function HeroSection() {
                 className="mb-8 md:mb-0 [&_.text-muted-foreground]:text-inverse-muted"
               />
 
-              <div className="grid grid-cols-3 gap-3 md:hidden">
+              {/* Phones: one translucent strip with three hairline-divided
+                  cells, not three boxes clipping their labels. */}
+              <div className="grid grid-cols-3 divide-x divide-inverse-foreground/15 rounded-sm bg-inverse-foreground/10 border border-inverse-foreground/15 backdrop-blur-sm md:hidden">
                 {HERO_STATS.map((stat) => (
-                  <StatCard key={stat.num} num={stat.num} label={stat.label} />
+                  <div key={stat.num} className="px-2 py-3 text-center">
+                    <DisplayNum className="text-inverse-foreground text-lg leading-none">{stat.num}</DisplayNum>
+                    <div className="mt-1.5 text-[0.625rem] leading-tight tracking-[0.08em] uppercase text-inverse-muted">
+                      {stat.label}
+                    </div>
+                  </div>
                 ))}
               </div>
             </Reveal>
@@ -109,10 +118,10 @@ export function HeroSection() {
             {TRUST_ITEMS.map((item) => (
               <div
                 key={item}
-                className="flex items-center justify-center gap-2 px-4 py-5 md:py-3 text-center border-r border-b border-accent/20"
+                className="flex items-center justify-start gap-2.5 px-3.5 py-3.5 text-left md:justify-center md:px-4 md:py-3 md:text-center border-r border-b border-accent/20"
               >
                 <span className="h-1 w-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
-                <span className="text-[12px] leading-snug tracking-[0.2em] uppercase text-foreground/80 font-medium">
+                <span className="text-[12px] leading-snug tracking-[0.12em] md:tracking-[0.2em] uppercase text-foreground/80 font-medium">
                   {item}
                 </span>
               </div>

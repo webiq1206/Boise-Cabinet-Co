@@ -77,7 +77,7 @@ export default function WarrantyPage() {
               }
               description={CATALOG_CONTENT.warrantySummary}
             />
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
               <Button variant="brand" asChild>
                 <Link href="/estimate">
                   Get an Estimate <ArrowRight className="h-4 w-4" />

@@ -118,7 +118,7 @@ export default function ShakerCabinetsPage() {
               }
               description="Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop."
             />
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
               <Button variant="brand" asChild>
                 <Link href="/estimate">
                   Get an estimate <ArrowRight className="h-4 w-4" />
@@ -244,7 +244,7 @@ export default function ShakerCabinetsPage() {
                 Tell us your layout and finish direction and we will put together a plan and an
                 honest range, with no obligation.
               </p>
-              <div className="flex flex-wrap gap-3 justify-center">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>
                   <Link href="/estimate">
                     Get an estimate <ArrowRight className="h-4 w-4" />

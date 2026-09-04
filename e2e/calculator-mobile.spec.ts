@@ -41,9 +41,10 @@ test.describe("Unified quote flow", () => {
     });
     const stored = await page.evaluate(() => sessionStorage.getItem("brc_estimate"));
     expect(stored).toBeTruthy();
-    // Both the inline footer and the sticky mobile bar render a next button;
-    // either advances the flow.
-    await page.getByTestId("wizard-next").first().click();
+    // Both the inline footer and the sticky mobile bar render a next button.
+    // The inline one is display:none below lg, and getByTestId (unlike
+    // getByRole) still resolves it, so ask for the VISIBLE one explicitly.
+    await page.locator('[data-testid="wizard-next"]:visible').first().click();
 
     // 5. Contact capture - the project is known, so only the 3 core fields show.
     await expect(page.getByTestId("input-name")).toBeVisible();

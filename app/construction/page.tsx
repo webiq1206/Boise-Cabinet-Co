@@ -93,7 +93,7 @@ export default function ConstructionPage() {
               alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Meridian shop"
               title="Cabinet Construction Standards | Boise Cabinet Co"
             />
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
               <Button variant="brand" asChild>
                 <Link href="/compare">
                   Compare collections <ArrowRight className="h-4 w-4" />

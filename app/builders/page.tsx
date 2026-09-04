@@ -154,7 +154,7 @@ export default function BuildersPage() {
               }
               description="Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."
             />
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
               <Button variant="brand" asChild>
                 <Link href="/contact">
                   Request builder pricing <ArrowRight className="h-4 w-4" />
@@ -259,7 +259,7 @@ export default function BuildersPage() {
                 Plans, a unit count, or just a rough scope is enough to start. We will talk timeline,
                 pricing, and specs, and give you a lead time you can build around.
               </p>
-              <div className="flex flex-wrap gap-3 justify-center">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>
                   <Link href="/contact">
                     Request builder pricing <ArrowRight className="h-4 w-4" />

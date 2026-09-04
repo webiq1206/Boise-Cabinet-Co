@@ -65,12 +65,14 @@ function HeroBreadcrumbs() {
 }
 
 function StatCard({ num, label }: { num: string; label: string }) {
+  /* Phones: a plain cell inside the strip the container draws. Boxed and
+     three-up, the labels wrapped onto three or four lines each. */
   return (
-    <div className="px-3 py-3 md:px-6 md:py-5 rounded-sm bg-inverse-foreground/10 border border-inverse-foreground/15 backdrop-blur-sm">
+    <div className="px-2 py-3 text-center md:px-6 md:py-5 md:text-left md:rounded-sm md:bg-inverse-foreground/10 md:border md:border-inverse-foreground/15 md:backdrop-blur-sm">
       <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
         {num}
       </DisplayNum>
-      <div className="mt-1 md:mt-1.5 text-[12px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
+      <div className="mt-1.5 text-[0.625rem] leading-tight tracking-[0.08em] md:text-label md:tracking-[0.1em] uppercase text-inverse-muted md:leading-snug">
         {label}
       </div>
     </div>
@@ -206,7 +208,7 @@ export default function ContactPage() {
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
             </div>
-            <div className="grid grid-cols-3 gap-3 max-w-xl">
+            <div className="grid grid-cols-3 max-w-xl divide-x divide-inverse-foreground/15 rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/10 backdrop-blur-sm md:gap-3 md:divide-x-0 md:rounded-none md:border-0 md:bg-transparent md:backdrop-blur-none">
               {HERO_STATS.map((stat) => (
                 <StatCard key={stat.num} num={stat.num} label={stat.label} />
               ))}

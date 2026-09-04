@@ -51,22 +51,26 @@ export function FeaturedProjectSection() {
             }
           />
         ) : (
-          <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden">
-            <Image
-              src={project.hero.src}
-              alt={project.hero.alt}
-              fill
-              sizes="100vw"
-              priority
-              className="object-cover img-brand-grade"
-            />
-            {isConcept && (
-              <span className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
-                Design concept
-              </span>
-            )}
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/50 via-inverse/15 to-transparent pointer-events-none" />
-            <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8">
+          /* Phones: the caption sits BELOW the photograph. Overlaid, its
+             three lines of disclosure covered a third of the picture. */
+          <div className="relative w-full">
+            <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden">
+              <Image
+                src={project.hero.src}
+                alt={project.hero.alt}
+                fill
+                sizes="100vw"
+                priority
+                className="object-cover img-brand-grade"
+              />
+              {isConcept && (
+                <span className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
+                  Design concept
+                </span>
+              )}
+              <div className="hidden md:block absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/50 via-inverse/15 to-transparent pointer-events-none" />
+            </div>
+            <div className="ed-shell pt-4 md:w-auto md:pt-0 md:absolute md:bottom-8 md:left-8 md:right-8">
               <p className="font-sans font-medium text-sm text-inverse-foreground mb-1">
                 {project.title}
               </p>

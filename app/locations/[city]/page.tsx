@@ -121,7 +121,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                 `${SITE_CONFIG.name} designs, builds, and installs custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homeowners.`
               }
             />
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
@@ -228,7 +228,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                 className="mb-6"
               />
               <SectionedArticle html={guide.content} defaultOpenCount={99} />
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
                 <Button variant="brand" asChild>
                   <Link href="/estimate">
                     {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
