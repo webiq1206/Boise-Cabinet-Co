@@ -1,62 +1,65 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { DisplayNum, Section } from "@/components/marketing";
+import { Section } from "@/components/marketing";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
+/**
+ * Our process.
+ *
+ * WAS a 50/50 split with a 44px heading and 14px step titles - the process
+ * rendered smaller than the marketing copy around it.
+ *
+ * NOW the family's image-and-content panel at 43/57, reversed so the design
+ * studio photograph sits on the right and the timeline leads. Each step is a
+ * numbered entry with a serif title, so a homeowner can count to five and know
+ * what "yes" sets in motion.
+ */
 export function ProcessSection() {
   return (
-    <Section id="how-we-build" variant="greige" spacing="none" divider className="p-0">
-      <div className="grid md:grid-cols-2 overflow-hidden">
-        <div className="hidden md:block relative min-h-[380px] md:min-h-[560px] overflow-hidden">
+    <Section id="how-we-build" surface="deep" spacing="none" edge className="p-0">
+      <div className="ed-panel ed-panel-reverse">
+        <div className="ed-panel-media">
           <Image
             src={MARKETING_IMAGES.designStudio}
             alt="Custom cabinet door samples, finish swatches, and a kitchen layout rendering laid out during a Boise Cabinet Co design consultation"
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 820px) 100vw, 43vw"
             className="object-cover img-brand-grade"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/8 to-primary/50" />
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="pointer-events-none absolute inset-0"
             style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.028 }}
           />
-          <div className="absolute bottom-0 left-0 p-8 md:p-12">
-            <div className="brc-label mb-3 text-inverse-muted">Our Process</div>
-            <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
-              Design consultation
-              <br />
-              to installed cabinets
-            </p>
-          </div>
+          <p className="ed-panel-caption">Design consultation · Meridian studio</p>
         </div>
 
-        <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
+        <div className="ed-panel-body">
           <Reveal>
-            <div className="brc-label mb-5">Our process</div>
-            <h2 className="font-serif text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] leading-[1.08] tracking-tight mb-10 text-foreground">
+            <p className="ed-eyebrow">Our process</p>
+            <h2 className="ed-h2-sm ed-statement">
               From design to{" "}
-              <em className="brc-accent text-accent">installed cabinets</em>
+              <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
+                installed cabinets
+              </em>
             </h2>
-            <div className="space-y-0">
-              {HOW_WE_BUILD_STEPS.map((step, i) => (
-                <div
-                  key={step.number}
-                  className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b border-border" : ""}`}
-                >
-                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-accent">
-                    {step.number}
-                  </DisplayNum>
+          </Reveal>
+
+          <div className="ed-steps mt-[clamp(32px,4vw,56px)]">
+            {HOW_WE_BUILD_STEPS.map((step, i) => (
+              <Reveal key={step.number} delay={i * 40}>
+                <div className="ed-step">
+                  <span className="ed-step-n">{step.number}</span>
                   <div>
-                    <p className="font-medium text-sm mb-1 text-foreground">{step.title}</p>
-                    <p className="text-base leading-relaxed text-muted-foreground">{step.desc}</p>
+                    <h3 className="ed-h4">{step.title}</h3>
+                    <p className="ed-body mt-2 text-[0.875rem]">{step.desc}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </Reveal>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </Section>

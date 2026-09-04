@@ -51,9 +51,15 @@ export function HeroSection() {
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-center">
             <Reveal>
               <div className="brc-label mb-6 text-inverse-muted">{HERO_EYEBROW}</div>
-              <h1 className="font-serif text-inverse-foreground text-display tracking-tight mb-6">
+              {/* Display scale from the family layer: up to 92px, tight leading,
+                  negative tracking. The hero heading is the one line the whole
+                  site is judged on in the first second. */}
+              <h1 className="ed-display text-inverse-foreground mb-8 max-w-[12ch]">
                 Idaho&apos;s premier{" "}
-                <em className="brc-accent text-accent">cabinet</em> company.
+                <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
+                  cabinet
+                </em>{" "}
+                company.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground">
                 {HERO_SUBHEAD}

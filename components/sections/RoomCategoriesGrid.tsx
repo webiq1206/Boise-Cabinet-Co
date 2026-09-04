@@ -2,66 +2,110 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { TextLink } from "@/components/marketing/TextLink";
 import { Button } from "@/components/ui/button";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 
+/**
+ * Cabinet solutions by room.
+ *
+ * WAS eight identical cards in a four-column grid with 16px room names: the
+ * arrangement the redesign brief singles out. Nothing told you which room
+ * mattered and the type was too small to skim.
+ *
+ * NOW the lead room gets a full-height photograph and a display-size name, and
+ * the remaining rooms become a hairline matrix - one bordered object rather
+ * than seven floating ones - whose cells carry a serif name over a one-line
+ * description and invert to bone on hover. A homeowner scanning for "do they
+ * do closets" reads one grid instead of eight cards.
+ */
 export function RoomCategoriesGrid() {
-  const featured = ROOM_CATEGORIES.slice(0, 8);
+  const [lead, ...rest] = ROOM_CATEGORIES.slice(0, 8);
+  if (!lead) return null;
 
   return (
-    <Section id="cabinets" divider>
-      <div className="container px-4">
-        <SectionHeader
-          align="center"
-          eyebrow="Cabinet solutions"
-          size="display"
-          title={
-            <>
+    <Section id="cabinets" surface="dark" spacing="xl">
+      <div className="ed-shell">
+        <div className="ed-split ed-split-end">
+          <Reveal>
+            <p className="ed-eyebrow">Cabinet solutions</p>
+            <h2 className="ed-h2 ed-statement-wide">
               Custom cabinetry for every{" "}
-              <em className="brc-accent text-accent">room</em>
-            </>
-          }
-          description="From kitchen and bath to mudroom, closet, and garage, every cabinet is made to order with your choice of door style, finish, and hardware."
-        />
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {featured.map((room, i) => (
-            <Reveal key={room.slug} delay={i * 40}>
-              <Link
-                href={`/cabinets/${room.slug}`}
-                className="group block rounded-sm border border-border bg-card overflow-hidden brc-lift transition-[box-shadow,border-color] duration-200 hover:border-accent/60"
-              >
-                <div className="relative aspect-[3/2] bg-surface-greige overflow-hidden">
-                  <Image
-                    src={room.heroImage}
-                    alt={`${room.name} custom cabinets`}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-serif font-medium text-base mb-1 text-foreground group-hover:text-accent transition-colors">
-                    {room.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {room.description}
-                  </p>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
+              <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
+                room
+              </em>
+            </h2>
+          </Reveal>
+          <Reveal delay={60}>
+            <p className="ed-body">
+              From kitchen and bath to mudroom, closet and garage, every cabinet is
+              made to order with your choice of door style, finish and hardware.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Button variant="brandOutline" asChild>
-            <Link href="/cabinets">View all rooms</Link>
-          </Button>
+        <Reveal delay={80}>
+          <Link
+            href={`/cabinets/${lead.slug}`}
+            className="ed-zoom group mt-[clamp(48px,6vw,88px)] grid overflow-hidden lg:grid-cols-[1.2fr_0.8fr]"
+            style={{ border: "1px solid var(--ed-line)" }}
+          >
+            <div className="relative min-h-[clamp(280px,38vw,460px)] overflow-hidden">
+              <Image
+                src={lead.heroImage}
+                alt={`${lead.name} custom cabinets`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex flex-col justify-center p-[clamp(28px,3.4vw,56px)]">
+              <p className="ed-eyebrow ed-eyebrow-accent">Most requested</p>
+              <h3 className="ed-h2-sm">{lead.name}</h3>
+              <p className="ed-body mt-5">{lead.description}</p>
+              <span className="ed-link ed-link-accent mt-8 self-start">
+                Explore {lead.name.toLowerCase()} cabinets
+                <svg className="ed-arrow" viewBox="0 0 22 15" fill="none" aria-hidden="true">
+                  <path d="M0 7.5h20M14 1.5l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </Link>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <div
+            className="ed-matrix ed-matrix-hover mt-[clamp(32px,4vw,56px)]"
+            style={{ ["--ed-cols" as string]: 4, ["--ed-cell-h" as string]: "210px" }}
+          >
+            {rest.map((room) => (
+              <Link
+                key={room.slug}
+                href={`/cabinets/${room.slug}`}
+                className="group flex flex-col justify-between"
+              >
+                <span className="ed-arrow self-end transition-transform group-hover:translate-x-1">
+                  <svg viewBox="0 0 22 15" fill="none" className="h-[14px] w-[20px]" aria-hidden="true">
+                    <path d="M0 7.5h20M14 1.5l6 6-6 6" />
+                  </svg>
+                </span>
+                <span>
+                  <h3 className="ed-h4">{room.name}</h3>
+                  <p className="ed-small mt-2 line-clamp-2" style={{ color: "inherit", opacity: 0.72 }}>
+                    {room.description}
+                  </p>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Reveal>
+
+        <div className="mt-12 flex flex-wrap gap-4">
           <Button variant="brand" asChild>
             <Link href="/estimate">{CTA_ESTIMATE}</Link>
+          </Button>
+          <Button variant="brandOutline" asChild>
+            <Link href="/cabinets">View all rooms</Link>
           </Button>
         </div>
       </div>
