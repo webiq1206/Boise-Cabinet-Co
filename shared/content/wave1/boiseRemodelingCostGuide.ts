@@ -30,8 +30,14 @@ const sections: ContentSection[] = [
   },
   {
     h2: 'Boise Cabinet Cost Index (June 2026 planning bands)',
+    /* ONE `paragraphs` key only. This section carried two, so the object
+       literal silently kept the last and dropped the first - taking the
+       index's own source line and its "Last updated June 2026" attribution
+       off the published page. buildSectionsHtml renders paragraphs before
+       the table and has no after-table slot, so all three sit here. */
     paragraphs: [
       'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
+      'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
       'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Last updated June 2026.',
     ],
     table: {
@@ -46,9 +52,6 @@ const sections: ContentSection[] = [
         ['Outdoor kitchen cabinets', '~$16,000', 'Weather-rated construction'],
       ],
     },
-    paragraphs: [
-      'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
-    ],
   },
   {
     h2: 'How much do kitchen cabinets cost in Boise?',

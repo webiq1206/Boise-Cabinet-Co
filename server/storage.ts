@@ -1,10 +1,24 @@
 import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type UpsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification, quotes, galleryPhotos, testimonials, blogPosts, users, leads, leadPurchases, notifications } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { BLOG_POSTS } from "@shared/blogContent";
-import { db } from "./db";
+import { db as nullableDb } from "./db";
 import { eq, and, or, desc, lte } from "drizzle-orm";
 import { SITE_CONFIG } from "@shared/siteConfig";
 import { ADMIN_EMAILS } from "@shared/adminEmails";
+
+/*
+ * `db` is typed nullable in lib/db so the app can BUILD without a database
+ * configured - that is deliberate and must stay. Every function below runs only
+ * inside request handling, where a connection string is always present, so the
+ * nullability is narrowed once here rather than at each of the call sites.
+ *
+ * This is a TYPE-ONLY assertion: it emits no code and changes no behaviour. If
+ * the database really were unconfigured at runtime the failure is exactly what
+ * it is today. What it buys is that `tsc` stops reporting the same non-issue
+ * dozens of times and can be read for real problems again.
+ */
+const db = nullableDb as NonNullable<typeof nullableDb>;
+
 
 export interface IStorage {
   createQuote(quote: InsertQuote): Promise<Quote>;
@@ -36,7 +50,6 @@ export interface IStorage {
   getAllLeads(): Promise<Lead[]>;
   getLeadById(id: string): Promise<Lead | undefined>;
   getLeadsByStatus(status: string): Promise<Lead[]>;
-  getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]>;
   updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined>;
   deleteLead(id: string): Promise<boolean>;
   updateLeadPrices(): Promise<void>;
@@ -511,30 +524,6 @@ export class MemStorage implements IStorage {
     return Array.from(this.leads.values())
       .filter(lead => lead.status === status)
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  }
-
-  async getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]> {
-    let leads = Array.from(this.leads.values()).filter(lead => lead.status === "available");
-
-    if (filters?.city) {
-      leads = leads.filter(lead => lead.city.toLowerCase() === filters.city!.toLowerCase());
-    }
-
-    if (filters?.serviceType) {
-      leads = leads.filter(lead => 
-        lead.serviceType.toLowerCase().includes(filters.serviceType!.toLowerCase()) ||
-        lead.selectedServices?.some(s => s.toLowerCase().includes(filters.serviceType!.toLowerCase()))
-      );
-    }
-
-    if (filters?.maxPrice) {
-      leads = leads.filter(lead => {
-        const price = parseFloat(lead.currentLeadPrice as string);
-        return !isNaN(price) && price <= filters.maxPrice!;
-      });
-    }
-
-    return leads.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   async updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined> {
@@ -1182,31 +1171,6 @@ export class DBStorage implements IStorage {
 
   async getLeadsByStatus(status: string): Promise<Lead[]> {
     return await db.select().from(leads).where(eq(leads.status, status)).orderBy(desc(leads.createdAt));
-  }
-
-  async getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]> {
-    let result = await db.select().from(leads).where(eq(leads.status, "available")).orderBy(desc(leads.createdAt));
-
-    // Apply filters in JS (more complex SQL filters could be done with drizzle-orm builders)
-    if (filters?.city) {
-      result = result.filter(lead => lead.city.toLowerCase() === filters.city!.toLowerCase());
-    }
-
-    if (filters?.serviceType) {
-      result = result.filter(lead => 
-        lead.serviceType.toLowerCase().includes(filters.serviceType!.toLowerCase()) ||
-        lead.selectedServices?.some(s => s.toLowerCase().includes(filters.serviceType!.toLowerCase()))
-      );
-    }
-
-    if (filters?.maxPrice) {
-      result = result.filter(lead => {
-        const price = parseFloat(lead.currentLeadPrice as string);
-        return !isNaN(price) && price <= filters.maxPrice!;
-      });
-    }
-
-    return result;
   }
 
   async updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined> {

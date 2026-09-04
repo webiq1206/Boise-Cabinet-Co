@@ -114,7 +114,7 @@ export default function GuidesIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(locationCollectionSchema) }}
       />
-      <Section spacing="lg" className="pt-28 md:pt-32">
+      <Section spacing="none" className="pt-28 md:pt-32">
         <div className="container px-4 max-w-4xl mx-auto">
           <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Guides' }]} />
         </div>
