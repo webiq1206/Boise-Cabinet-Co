@@ -159,13 +159,19 @@ html, body {
   --secondary-foreground: 37 14% 89%;
 
   --muted: 156 6% 16%;
-  --muted-foreground: 147 9% 52%;  /* P5 sage #7A9184 */
+  --muted-foreground: 147 9% 60%; /* was 52%: measured 4.21:1 on this ground, under AA. Same sage, lifted to clear 4.5:1. See scripts/verify-contrast.mjs */
 
   /* Teal accent (brand palette #7AAAAA) - links hover, focus rings, pills; sparingly.
      Charcoal foreground so any accent-as-background element (pills/badges) stays legible
      (teal on charcoal / charcoal on teal is ~5.19:1, passing WCAG AA). */
   --accent: 180 22% 57%;
   --accent-text: 180 24% 64%;
+  /* The same teal, darkened for use as TEXT on a light (bone) band. The site
+     was built dark, so --accent-text is tuned for a charcoal ground and falls
+     under AA on bone. This is the brand hue at a lightness that clears 7:1
+     there - not a new colour, the relationship --accent / --accent-text
+     already have. Read by app/family.css on light surfaces. */
+  --accent-on-light: 180 30% 26%;
   --accent-foreground: 165 4% 18%;
 
   --brass: 180 22% 57%;
@@ -274,6 +280,12 @@ html, body {
 
   --accent: 180 22% 57%;
   --accent-text: 180 24% 64%;
+  /* The same teal, darkened for use as TEXT on a light (bone) band. The site
+     was built dark, so --accent-text is tuned for a charcoal ground and falls
+     under AA on bone. This is the brand hue at a lightness that clears 7:1
+     there - not a new colour, the relationship --accent / --accent-text
+     already have. Read by app/family.css on light surfaces. */
+  --accent-on-light: 180 30% 26%;
   --accent-foreground: 165 4% 18%;
 
   --brass: 180 22% 57%;

@@ -70,7 +70,8 @@
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
     "og:generate": "tsx scripts/generate-og-images.ts",
     "og:generate:force": "tsx scripts/generate-og-images.ts --force",
-    "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash"
+    "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash",
+    "verify:contrast": "node scripts/verify-contrast.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",

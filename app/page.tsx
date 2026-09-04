@@ -61,42 +61,49 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
         </div>
-        <div className="container px-4 relative z-10">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-6 md:gap-12 items-start">
-            <div className="md:col-span-2">
+        {/* The ask. Full measure, heading at h2 scale, the form kept in its
+            card because a form needs a defined field to sit in - this is one of
+            the places a card is actually the right answer. */}
+        <div className="ed-shell relative z-10">
+          <div className="grid gap-[var(--ed-gutter)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div className="lg:sticky lg:top-28">
               <Reveal>
-                <div className="brc-label mb-3 md:mb-5">Begin a conversation</div>
-                {/* Base size matches the canonical display scale used by
-                    SectionHeader size="display" and every other display h2.
-                    It was 1.6rem, which made this the only section title that
-                    shrank on mobile - 25.6px against 32px everywhere else. The
-                    md and lg steps were already correct, so this is a
-                    mobile-only correction. */}
-                <h2 className="font-serif text-h2-fluid tracking-tight mb-3 md:mb-4 text-foreground">
+                <p className="ed-eyebrow">Begin a conversation</p>
+                <h2 className="ed-h2 ed-statement">
                   Tell us about your{" "}
-                  <em className="brc-accent text-accent">project</em>.
+                  <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
+                    project
+                  </em>
+                  .
                 </h2>
-                <p className="text-base leading-relaxed mb-0 md:mb-8 text-muted-foreground">
+                <p className="ed-lede mt-8 max-w-[40ch]">
                   We will reach out within one business day to schedule your free
-                  design consultation. You will leave with planning guidance and no obligation.
+                  design consultation.
+                </p>
+                <p className="ed-body mt-4">
+                  You will leave with planning guidance and no obligation.
                 </p>
                 {/* Reassurance bullets are desktop-only; the form repeats the key
                     reassurance under its submit button, so on mobile we drop them
                     to keep the fields above the fold. */}
-                <div className="hidden md:block space-y-3 mt-8">
+                <ul
+                  className="mt-8 hidden list-none gap-3 border-t p-0 pt-6 md:grid"
+                  style={{ borderColor: "var(--ed-line)" }}
+                >
                   {CONSULT_BULLETS.map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-center gap-3 text-sm text-muted-foreground"
-                    >
-                      <Check className="h-4 w-4 flex-shrink-0 text-accent" />
+                    <li key={item} className="ed-body flex items-center gap-3 text-[0.875rem]">
+                      <Check
+                        className="h-4 w-4 flex-shrink-0"
+                        style={{ color: "var(--ed-accent)" }}
+                        aria-hidden="true"
+                      />
                       {item}
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </Reveal>
             </div>
-            <MarketingCard className="md:col-span-3" padding="lg">
+            <MarketingCard padding="lg">
               <ConsultationForm />
             </MarketingCard>
           </div>
