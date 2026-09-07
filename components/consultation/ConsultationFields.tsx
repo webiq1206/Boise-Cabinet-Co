@@ -48,7 +48,7 @@ import {
 import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
-import { track } from "@/lib/analytics/track";
+import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -490,18 +490,27 @@ export function ConsultationFields({
         }
         throw new Error(err.message || "Something went wrong. Please try again.");
       }
-      return res.json();
+      return res.json() as Promise<{
+        success: boolean;
+        accepted: boolean;
+        submissionId?: string;
+      }>;
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       setSuccess(true);
       sessionStorage.removeItem("brc_estimate");
       clearWizardState();
-      trackEstimatorEvent("estimator_lead_submitted");
-      track("form_completed", { form: "consultation" });
-      // Meta conversion: the consultation request is the site's primary Lead.
-      // Pass the shared event ID so this browser event dedupes with the
-      // server-side Conversions API event fired by /api/consultation.
-      trackMetaLead(metaEventIdRef.current ?? undefined);
+      if (result.accepted) {
+        trackEstimatorEvent("estimator_lead_submitted");
+        track("form_completed", { form: "consultation" });
+        trackGoogleAdsLeadOnce(
+          result.submissionId || metaEventIdRef.current || "",
+        );
+        // Meta conversion: the consultation request is the site's primary Lead.
+        // Pass the shared event ID so this browser event dedupes with the
+        // server-side Conversions API event fired by /api/consultation.
+        trackMetaLead(metaEventIdRef.current ?? undefined);
+      }
       onSuccess?.();
       window.setTimeout(() => closeModal(), 4000);
     },

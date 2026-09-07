@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
 
     if (data.companyWebsite.trim().length > 0) {
       // Silently accept honeypot hits so bots don't adapt.
-      return NextResponse.json({ success: true });
+      return NextResponse.json({ success: true, accepted: false });
     }
 
     // The geocoder only returns a structured profile when the visitor picks a
@@ -467,7 +467,11 @@ export async function POST(request: NextRequest) {
       fbc: request.cookies.get("_fbc")?.value,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      accepted: true,
+      submissionId: data.metaEventId,
+    });
   } catch (err) {
     console.error("[consultation] Error:", err);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
