@@ -36,6 +36,7 @@ export function FAQSection() {
             </div>
           </div>
 
+          <div>
           <FaqAccordion
             faqs={faqs}
             initialCount={6}
@@ -44,6 +45,7 @@ export function FAQSection() {
             triggerClassName="ed-h4 py-6 text-left hover:no-underline [&[data-state=open]]:[color:var(--ed-accent)]"
             contentClassName="ed-body pb-7 text-[0.9375rem]"
           />
+          </div>
         </div>
       </div>
     </Section>

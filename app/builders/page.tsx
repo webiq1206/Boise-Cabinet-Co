@@ -1,10 +1,11 @@
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { SplitSection } from "@/components/marketing/SplitSection";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { buildPageMetadata } from "@/lib/page-metadata";
@@ -140,21 +141,16 @@ export default function BuildersPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "For Builders" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="For builders & contractors"
-              title={
-                <>
+        <CinematicHero
+          image={MARKETING_IMAGES.construction}
+          alt="Cabinet boxes in production for a builder order at the Boise Cabinet Co shop in Meridian"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
+          eyebrow="For builders & contractors"
+          title={<>
                   Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
-                </>
-              }
-              description="Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."
-            />
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
+                </>}
+          description={"Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."}
+        >
               <Button variant="brand" asChild>
                 <Link href="/contact">
                   Request builder pricing <ArrowRight className="h-4 w-4" />
@@ -163,23 +159,20 @@ export default function BuildersPage() {
               <Button variant="brandOutline" asChild>
                 <a href={SITE_CONFIG.phoneHref}>Call {SITE_CONFIG.phone}</a>
               </Button>
-            </div>
-          </div>
-        </Section>
+        </CinematicHero>
 
         <Section variant="greige" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
-              align="center"
               eyebrow="Why builders work with us"
               title={
                 <>
                   A supplier that makes your job <em className="brc-accent text-accent">easier</em>
                 </>
               }
-              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              className="mb-10"
             />
-            <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-4">
               {REASONS.map((r) => (
                 <MarketingCard key={r.title} className="h-full">
                   <h3 className="ed-h3 mb-3">{r.title}</h3>
@@ -191,16 +184,15 @@ export default function BuildersPage() {
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="The terms, up front"
               title={
                 <>
                   No mystery pricing, no <em className="brc-accent text-accent">runaround</em>
                 </>
               }
-              className="mb-8"
-            />
+              className="mb-0"
+            />}>
             <dl className="divide-y divide-border border-t border-border">
               {TERMS.map((t) => (
                 <div key={t.label} className="grid sm:grid-cols-[160px_1fr] gap-1 sm:gap-6 py-5">
@@ -209,16 +201,15 @@ export default function BuildersPage() {
                 </div>
               ))}
             </dl>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="What we build"
               title={<>Project types</>}
-              className="mb-8"
-            />
+              className="mb-0"
+            />}>
             <ul className="grid sm:grid-cols-2 gap-3">
               {PROJECT_TYPES.map((p) => (
                 <li key={p} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
@@ -227,16 +218,15 @@ export default function BuildersPage() {
                 </li>
               ))}
             </ul>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="Builder FAQ"
               title={<>Questions we hear from contractors</>}
-              className="mb-8"
-            />
+              className="mb-0"
+            />}>
             <div className="divide-y divide-border border-t border-border">
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
@@ -245,11 +235,11 @@ export default function BuildersPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section variant="inverse" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="ed-h2 ed-statement-wide">
                 Send us the project. We will send back a{" "}

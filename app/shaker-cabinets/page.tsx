@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { SplitSection } from "@/components/marketing/SplitSection";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -104,21 +104,16 @@ export default function ShakerCabinetsPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Door styles"
-              title={
-                <>
+        <CinematicHero
+          image={"/images/catalog/collections/custom.webp"}
+          alt="Custom shaker cabinets built to order by Boise Cabinet Co"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]}
+          eyebrow="Door styles"
+          title={<>
                   Custom shaker <em className="brc-accent text-accent">cabinets</em>
-                </>
-              }
-              description="Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop."
-            />
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
+                </>}
+          description={"Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop."}
+        >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
                   Get an estimate <ArrowRight className="h-4 w-4" />
@@ -127,23 +122,20 @@ export default function ShakerCabinetsPage() {
               <Button variant="brandOutline" asChild>
                 <Link href="/catalog">Browse finishes</Link>
               </Button>
-            </div>
-          </div>
-        </Section>
+        </CinematicHero>
 
         <Section variant="greige" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
-              align="center"
               eyebrow="Shaker profiles"
               title={
                 <>
                   Four ways to do <em className="brc-accent text-accent">shaker</em>
                 </>
               }
-              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              className="mb-10"
             />
-            <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4">
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
                   <h2 className="ed-h3 mb-3">{p.name}</h2>
@@ -154,7 +146,7 @@ export default function ShakerCabinetsPage() {
             <div className="mt-8 text-center">
               <Button variant="brandOutline" asChild>
                 <Link href="/catalog">
-                  Compare every profile in the catalog <ArrowRight className="h-4 w-4" />
+                  Compare all profiles <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -162,16 +154,15 @@ export default function ShakerCabinetsPage() {
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="Finishes"
               title={
                 <>
                   White, sage, greige, or <em className="brc-accent text-accent">two-tone</em>
                 </>
               }
-              className="mb-6"
-            />
+              className="mb-0"
+            />}>
             <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
               White shaker cabinets are the timeless default, but shaker takes color beautifully.{" "}
               <Link href="/blog/sage-green-kitchen-cabinets" className="text-accent hover:underline">
@@ -189,12 +180,11 @@ export default function ShakerCabinetsPage() {
                 Explore cabinet finishes <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader eyebrow="Built to last" title={<>Why our shaker holds up</>} className="mb-8" />
+          <SplitSection header={<SectionHeader eyebrow="Built to last" title={<>Why our shaker holds up</>} className="mb-0" />}>
             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
               {[
                 "Frameless construction for more interior space and a clean, full-overlay look",
@@ -217,12 +207,11 @@ export default function ShakerCabinetsPage() {
               </Link>
               .
             </p>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader eyebrow="Shaker FAQ" title={<>Common shaker questions</>} className="mb-8" />
+          <SplitSection header={<SectionHeader eyebrow="Shaker FAQ" title={<>Common shaker questions</>} className="mb-0" />}>
             <div className="divide-y divide-border border-t border-border">
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
@@ -231,11 +220,11 @@ export default function ShakerCabinetsPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section variant="inverse" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="ed-h2 ed-statement-wide">
                 Ready to plan your <em className="brc-accent text-accent">shaker kitchen</em>?

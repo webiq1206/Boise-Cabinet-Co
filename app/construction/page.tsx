@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { SplitSection } from "@/components/marketing/SplitSection";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
-import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
@@ -71,29 +70,19 @@ export default function ConstructionPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Construction" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Quality"
-              title={
-                <>
+        <CinematicHero
+          image={MARKETING_IMAGES.construction}
+          alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Meridian shop"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
+          eyebrow="Quality"
+          title={<>
                   Frameless cabinet{" "}
                   <em className="brc-accent text-accent">construction</em>
-                </>
-              }
-              description={catalogDescription(
+                </>}
+          description={catalogDescription(
                 "{company} cabinets are engineered and built in Meridian, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
-            />
-            <CatalogPageHero
-              src={MARKETING_IMAGES.construction}
-              alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Meridian shop"
-              title="Cabinet Construction Standards | Boise Cabinet Co"
-            />
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
+        >
               <Button variant="brand" asChild>
                 <Link href="/compare">
                   Compare collections <ArrowRight className="h-4 w-4" />
@@ -102,25 +91,21 @@ export default function ConstructionPage() {
               <Button variant="brandOutline" asChild>
                 <Link href="/catalog">View collections</Link>
               </Button>
-            </div>
-          </div>
-        </Section>
+        </CinematicHero>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-4xl">
+          <div className="ed-shell">
             <ConstructionExplorer />
           </div>
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-4xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="Built to last"
               title={<>What goes into every order</>}
-              align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
-            />
-            <div className="grid md:grid-cols-2 gap-6">
+              className="mb-0"
+            />}>
+            <div className="ed-grid-balance grid md:grid-cols-2 gap-6">
               {STANDARDS.map((item) => (
                 <MarketingCard key={item.title}>
                   <h3 className="text-lg font-serif tracking-tight mb-2">
@@ -130,18 +115,7 @@ export default function ConstructionPage() {
                 </MarketingCard>
               ))}
             </div>
-          </div>
-        </Section>
-
-        <Section variant="inverse">
-          <div className="container px-4 text-center max-w-lg mx-auto">
-            <p className="text-inverse-muted mb-4">
-              See the construction details behind every cabinet we build.
-            </p>
-            <Button variant="brand" asChild>
-              <Link href="/compare">See our cabinets</Link>
-            </Button>
-          </div>
+          </SplitSection>
         </Section>
         <CatalogClosingCTA />
       </div>

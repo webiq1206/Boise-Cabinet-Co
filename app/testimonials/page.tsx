@@ -1,8 +1,8 @@
+import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
-import { PageHeader } from '@/components/marketing/PageHeader';
+import { CinematicHero } from '@/components/marketing/CinematicHero';
 import { CaseStudiesSection } from '@/components/sections/CaseStudiesSection';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
@@ -50,33 +50,18 @@ export default function TestimonialsPage() {
     <>
       <JsonLd data={schemas} />
     <div className="flex flex-col pb-20 md:pb-0">
-      <Section spacing="sm" className="pt-4 md:pt-6">
-        <div className="container px-4 max-w-3xl">
-          <Breadcrumbs
-            items={[
-              { name: 'Home', href: '/' },
-              { name: 'Projects & Reviews' },
-            ]}
-          />
-          <PageHeader
-            align="left"
-            className="mt-6"
-            title={
-              <>
-                Projects &amp; homeowner{" "}
-                <em className="brc-accent text-accent">reviews</em>
-              </>
-            }
-            description="Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
-          />
-          <div className="mb-8" />
-          <div className="flex flex-wrap gap-3">
-            <CtaButton variant="brand">
-              {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
-            </CtaButton>
-          </div>
-        </div>
-      </Section>
+      <CinematicHero
+        image={MARKETING_IMAGES.processHome}
+        alt="Boise Cabinet Co installer fitting custom cabinets in a Treasure Valley kitchen"
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Projects & Reviews' }]}
+        eyebrow="Proof of work"
+        title={<>Projects &amp; homeowner <em className="brc-accent text-accent">reviews</em></>}
+        description="Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
+      >
+        <CtaButton variant="brand">
+          {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+        </CtaButton>
+      </CinematicHero>
 
       <ProjectGallerySection limit={6} showViewAll={false} />
       <CaseStudiesSection />

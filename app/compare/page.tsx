@@ -2,12 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Check, X } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -96,6 +94,59 @@ function ComparisonRowVisual({
   return <span className="font-medium text-foreground">{label}</span>;
 }
 
+/**
+ * With a single collection a comparison table has nothing to compare: one
+ * column of ticks beside a feature list. The same data reads far better as
+ * a hairline matrix of what every cabinet includes.
+ */
+function SingleCollectionGrid({
+  matrix,
+  visualRows = false,
+}: {
+  matrix: CollectionComparisonMatrix;
+  visualRows?: boolean;
+}) {
+  const only = COLLECTIONS[0];
+  const cols = visualRows ? 3 : 2;
+  return (
+    <div
+      className="ed-matrix mx-auto max-w-5xl"
+      style={{ ["--ed-cols" as string]: cols, ["--ed-cell-h" as string]: "0" }}
+    >
+      {matrix.features.map((feature) => {
+        const value = feature.values[only.id];
+        return (
+          <div key={feature.id} className="flex flex-col gap-3">
+            {visualRows ? (
+              <ComparisonRowVisual matrixId={matrix.id} featureId={feature.id} label={feature.label} />
+            ) : (
+              <span className="ed-h4">{feature.label}</span>
+            )}
+            {feature.description && (
+              <p className="text-sm text-muted-foreground">{feature.description}</p>
+            )}
+            <div className="mt-auto flex items-center gap-2 text-sm">
+              {typeof value === "string" ? (
+                <span className="text-foreground">{value}</span>
+              ) : value === false ? (
+                <>
+                  <X className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  <span className="text-muted-foreground">Not included</span>
+                </>
+              ) : (
+                <>
+                  <Check className="h-4 w-4 text-accent" aria-hidden="true" />
+                  <span className="text-foreground">Included</span>
+                </>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function ComparisonMatrixTable({
   matrix,
   visualRows = false,
@@ -103,6 +154,7 @@ function ComparisonMatrixTable({
   matrix: CollectionComparisonMatrix;
   visualRows?: boolean;
 }) {
+  if (COLLECTIONS.length === 1) return <SingleCollectionGrid matrix={matrix} visualRows={visualRows} />;
   return (
     <div className="overflow-x-auto -mx-4 px-4">
       <table className="w-full min-w-[640px] border-collapse text-left">
@@ -173,46 +225,29 @@ export default function ComparePage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { name: "Home", href: "/" },
-                { name: "Catalog", href: "/catalog" },
-                { name: "Compare" },
-              ]}
-            />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Product catalog"
-              title={
-                <>
+        <CinematicHero
+          image={"/images/catalog/collections/custom.webp"}
+          alt="Custom Cabinets built to your exact sizes and finishes by Boise Cabinet Co"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Catalog", href: "/catalog" }, { name: "Compare" }]}
+          eyebrow="Product catalog"
+          title={<>
                   Compare <em className="brc-accent text-accent">collections</em>
-                </>
-              }
-              description={COLLECTION_COMPARISON.description}
-            />
-            <CatalogPageHero
-              src="/images/catalog/collections/custom.webp"
-              alt="Custom Cabinets built to your exact sizes and finishes by Boise Cabinet Co"
-              title="Compare Cabinet Collections | Boise Cabinet Co"
-            />
-            <Button variant="brand" asChild className="mt-4">
+                </>}
+          description={COLLECTION_COMPARISON.description}
+        >
+<Button variant="brand" asChild className="mt-4">
               <Link href="/estimate">
                 Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-          </div>
-        </Section>
+        </CinematicHero>
 
         <Section variant="greige" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow={COLLECTION_COMPARISON.title}
-              title={<>Feature comparison</>}
-              align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              title={COLLECTIONS.length === 1 ? <>What every cabinet includes</> : <>Feature comparison</>}
+              className="mb-8"
             />
             <ComparisonMatrixTable matrix={COLLECTION_COMPARISON} />
             <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto">
@@ -224,34 +259,33 @@ export default function ComparePage() {
         </Section>
 
         <Section divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow={DOOR_STYLE_COMPARISON.title}
               title={<>Six door styles</>}
               description={DOOR_STYLE_COMPARISON.description}
-              align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              className="mb-8"
             />
             <ComparisonMatrixTable matrix={DOOR_STYLE_COMPARISON} visualRows />
           </div>
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow={FINISH_TIER_COMPARISON.title}
               title={<>299 finishes</>}
               description={FINISH_TIER_COMPARISON.description}
-              align="center"
-              className="mb-8 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              className="mb-8"
             />
             <ComparisonMatrixTable matrix={FINISH_TIER_COMPARISON} visualRows />
           </div>
         </Section>
 
+        {COLLECTIONS.length > 1 && (
         <Section>
-          <div className="container px-4">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          <div className="ed-shell">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {COLLECTIONS.map((c) => (
                 <Link
                   key={c.id}
@@ -265,6 +299,7 @@ export default function ComparePage() {
             </div>
           </div>
         </Section>
+        )}
         <CatalogClosingCTA />
       </div>
     </>

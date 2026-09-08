@@ -1,10 +1,10 @@
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
@@ -43,31 +43,25 @@ export default function CabinetsHubPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section surface="dark" spacing="lg" className="pt-8 md:pt-10">
+        <CinematicHero
+          image={MARKETING_IMAGES.designStudio}
+          alt="Finish samples and door styles laid out in the Boise Cabinet Co design studio"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
+          eyebrow="Product catalog"
+          title={<>Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em></>}
+          description={catalogDescription(
+            "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
+          )}
+        >
+          <Button variant="brand" asChild>
+            <Link href="/estimate">
+              Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </Button>
+        </CinematicHero>
+        <Section surface="dark" spacing="sm">
           <div className="ed-shell">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Cabinets" }]} />
-            <div className="ed-split ed-split-end mt-8">
-              <PageHeader
-                align="left"
-                eyebrow="Product catalog"
-                title={
-                  <>
-                    Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em>
-                  </>
-                }
-                description={catalogDescription(
-                  "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
-                )}
-              />
-              <div>
-                <CatalogSearch className="mb-6" />
-                <Button variant="brand" asChild>
-                  <Link href="/estimate">
-                    Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+            <CatalogSearch className="max-w-xl" />
           </div>
         </Section>
 

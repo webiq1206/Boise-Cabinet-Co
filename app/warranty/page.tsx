@@ -1,10 +1,11 @@
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { SplitSection } from "@/components/marketing/SplitSection";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
@@ -62,22 +63,17 @@ export default function WarrantyPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Warranty" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Our promise"
-              title={
-                <>
+        <CinematicHero
+          image={MARKETING_IMAGES.hardware}
+          alt="Cabinet hardware and door fronts built by Boise Cabinet Co, covered by a limited lifetime warranty"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
+          eyebrow="Our promise"
+          title={<>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </>
-              }
-              description={CATALOG_CONTENT.warrantySummary}
-            />
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
+                </>}
+          description={CATALOG_CONTENT.warrantySummary}
+        >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
                   Get an Estimate <ArrowRight className="h-4 w-4" />
@@ -86,18 +82,14 @@ export default function WarrantyPage() {
               <Button variant="brandOutline" asChild>
                 <Link href="/construction">How we build</Link>
               </Button>
-            </div>
-          </div>
-        </Section>
+        </CinematicHero>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-4xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="Coverage"
               title={<>What the warranty covers</>}
-              align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
-            />
+              className="mb-0"
+            />}>
             <div className="grid md:grid-cols-3 gap-6">
               <MarketingCard>
                 <h3 className="text-lg font-serif tracking-tight mb-3">Covered</h3>
@@ -131,17 +123,16 @@ export default function WarrantyPage() {
                 </ul>
               </MarketingCard>
             </div>
-          </div>
+          </SplitSection>
         </Section>
 
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
+          <SplitSection header={<SectionHeader
               eyebrow="Claims"
               title={<>How to file a claim</>}
               align="left"
-              className="mb-6"
-            />
+              className="mb-0"
+            />}>
             <p className="text-base text-muted-foreground leading-relaxed mb-4">
               If something isn&apos;t right, reach out to {SITE_CONFIG.name} directly. Every claim is
               reviewed and administered by our team - not a distant manufacturer. Keep your contract
@@ -153,18 +144,7 @@ export default function WarrantyPage() {
               design, and your warranty begins at installation. Replacement parts are matched to your
               original selections whenever possible.
             </p>
-          </div>
-        </Section>
-
-        <Section variant="inverse">
-          <div className="container px-4 text-center max-w-lg mx-auto">
-            <p className="text-inverse-muted mb-4">
-              Questions about coverage for your project? We&apos;re happy to walk you through it.
-            </p>
-            <Button variant="brand" asChild>
-              <Link href="/#consult">Talk to our team</Link>
-            </Button>
-          </div>
+          </SplitSection>
         </Section>
         <CatalogClosingCTA />
       </div>

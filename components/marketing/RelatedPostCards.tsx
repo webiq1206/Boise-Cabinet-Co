@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { getRoomBySlug } from "@/shared/catalog";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Link from "next/link";
 import { getManifestLinks } from "@/lib/internal-links";
 import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
@@ -48,7 +50,14 @@ function imageForUrl(url: string): { src: string; alt: string } | null {
     };
   }
 
-  return null;
+  // Room pages carry their own hero; anything else gets the catalog default so
+  // no card in the row is a bare title beside cards with photographs.
+  const roomMatch = url.match(/\/cabinets\/([a-z0-9-]+)\/?$/);
+  const room = roomMatch ? getRoomBySlug(roomMatch[1]) : undefined;
+  if (room?.heroImage) {
+    return { src: room.heroImage, alt: `${room.name} custom cabinets by Boise Cabinet Co` };
+  }
+  return { src: MARKETING_IMAGES.catalogDefault, alt: "Boise Cabinet Co custom cabinetry" };
 }
 
 export function RelatedPostCards({
@@ -62,7 +71,7 @@ export function RelatedPostCards({
   return (
     <div>
       <h2 className="ed-h2-sm ed-statement-wide mb-8">{title}</h2>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="ed-cards-3 gap-5">
         {links.map((link) => {
           const image = imageForUrl(link.url);
           return (

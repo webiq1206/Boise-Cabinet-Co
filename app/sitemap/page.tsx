@@ -34,15 +34,17 @@ export default function SitemapPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
       <section className="py-16 md:py-24">
         <div className="container px-4">
-          <div className="max-w-3xl mx-auto blog-content prose-measure">
+          <div className="blog-content">
             <h1>Site Map</h1>
             <p className="lead text-muted-foreground">{DESCRIPTION}</p>
+            <div className="mt-10 columns-1 gap-x-10 sm:columns-2 lg:columns-3 [&_section]:mb-8 [&_section]:break-inside-avoid [&_ul]:mt-3 [&_h2]:mt-0 [&_li]:my-1">
             {groups.map((g) => g.entries.length === 0 ? null : (
               <section key={g.heading} aria-labelledby={id(g.heading)}>
                 <h2 id={id(g.heading)}>{g.heading} <span className="text-muted-foreground text-base font-normal">({g.entries.length})</span></h2>
                 <ul>{g.entries.map((e) => <li key={e.path}><Link href={e.path}>{e.label}</Link></li>)}</ul>
               </section>
             ))}
+            </div>
           </div>
         </div>
       </section>

@@ -136,7 +136,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
 
         {/* Local project proof */}
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-5xl">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow="Project proof"
               title={<>Cabinet work in {city.name}</>}
@@ -144,7 +144,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
               className="mb-6"
             />
             {cityProjects.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="ed-cards-3 gap-6">
                 {cityProjects.map((project) => (
                   <MarketingCard key={project.slug} className="overflow-hidden p-0">
                     <div className="relative aspect-[4/3] overflow-hidden">
@@ -189,14 +189,14 @@ export default function LocationPage({ params }: { params: { city: string } }) {
 
         {/* Services */}
         <Section divider>
-          <div className="container px-4 max-w-5xl">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow="What we build"
               title={<>Cabinet services for {city.name} homes</>}
               align="left"
               className="mb-6"
             />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="ed-cards-3 gap-4">
               {SERVICES.map((service) => (
                 <Link
                   key={service.slug}
@@ -220,23 +220,29 @@ export default function LocationPage({ params }: { params: { city: string } }) {
             county-specific permitting, and planning ranges). */}
         {guide && (
           <Section variant="greige" divider>
-            <div className="container px-4 max-w-3xl">
-              <SectionHeader
-                eyebrow="Local planning guide"
-                title={<>Planning a project in {city.name}</>}
-                align="left"
-                className="mb-6"
-              />
-              <SectionedArticle html={guide.content} defaultOpenCount={99} />
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
-                <Button variant="brand" asChild>
-                  <Link href="/estimate">
-                    {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button variant="brandOutline" asChild>
-                  <Link href="/guides/boise-cabinet-cost-guide">Full cost guide</Link>
-                </Button>
+            <div className="ed-shell">
+              <div className="ed-split ed-split-narrow">
+                <div className="lg:sticky lg:top-28 lg:self-start">
+                  <SectionHeader
+                    eyebrow="Local planning guide"
+                    title={<>Planning a project in {city.name}</>}
+                    align="left"
+                    className="mb-0"
+                  />
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
+                    <Button variant="brand" asChild>
+                      <Link href="/estimate">
+                        {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button variant="brandOutline" asChild>
+                      <Link href="/guides/boise-cabinet-cost-guide">Full cost guide</Link>
+                    </Button>
+                  </div>
+                </div>
+                <div>
+                  <SectionedArticle html={guide.content} defaultOpenCount={99} />
+                </div>
               </div>
             </div>
           </Section>
@@ -244,15 +250,18 @@ export default function LocationPage({ params }: { params: { city: string } }) {
 
         {/* Reviews */}
         <Section divider>
-          <div className="container px-4 max-w-3xl">
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+            <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeader
               eyebrow="Homeowner reviews"
               title={<>What {city.name} homeowners say</>}
               align="left"
-              className="mb-6"
+              className="mb-0"
             />
+            </div>
             {cityReviews.length > 0 ? (
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
                 {cityReviews.map((review) => (
                   <MarketingCard key={review.customerName} className="p-5">
                     <p className="text-base text-foreground/90 leading-relaxed mb-3">
@@ -275,20 +284,27 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                 </p>
               </MarketingCard>
             )}
+            </div>
           </div>
         </Section>
 
         {/* FAQs */}
         {faqs.length > 0 && (
           <Section variant="greige" divider>
-            <div className="container px-4 max-w-3xl">
-              <SectionHeader
-                eyebrow="Common questions"
-                title={<>{city.name} cabinet questions</>}
-                align="left"
-                className="mb-6"
-              />
-              <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+            <div className="ed-shell">
+              <div className="ed-split ed-split-narrow">
+                <div className="lg:sticky lg:top-28 lg:self-start">
+                  <SectionHeader
+                    eyebrow="Common questions"
+                    title={<>{city.name} cabinet questions</>}
+                    align="left"
+                    className="mb-0"
+                  />
+                </div>
+                <div>
+                  <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+                </div>
+              </div>
             </div>
           </Section>
         )}

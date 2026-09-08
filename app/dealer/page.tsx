@@ -63,7 +63,7 @@ export default function DealerPortalPage() {
 
           <div>
             <SectionHeader title="Door styles" />
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6">
+            <div className="ed-cards-3 gap-6 mt-6">
               {DOOR_STYLES.map((d) => {
                 const { primary } = getDoorStyleImages(d.slug, d.imagePath);
                 return (

@@ -321,7 +321,7 @@ export default function AboutPage() {
               align="left"
               className="mb-10"
             />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="ed-cards-3 gap-6">
               {confirmedTeam.map((member, i) => (
                 <Reveal key={member.role} delay={Math.min(i, 3) * 60}>
                   <MarketingCard className="h-full p-6">
@@ -356,7 +356,7 @@ export default function AboutPage() {
               className="mb-0 max-w-3xl"
             />
             <Hairline inverse className="mt-8 mb-12" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="ed-cards-3 gap-6">
               {PRINCIPLES.map(({ title, desc }, i) => (
                 <Reveal key={title} delay={Math.min(i, 5) * 60}>
                   <div className="h-full">

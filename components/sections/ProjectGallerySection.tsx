@@ -75,7 +75,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
           align="center"
           className="mb-10 max-w-3xl"
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="ed-cards-3 gap-6">
           {projects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 60}>
               <ProjectCard project={project} />

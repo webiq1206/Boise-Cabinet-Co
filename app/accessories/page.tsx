@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
-import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogVisualCard } from "@/components/catalog/visual";
 import { getAccessoryImagePath } from "@/shared/catalog";
 import { ACCESSORY_FAMILIES } from "@/shared/catalog";
@@ -43,44 +41,34 @@ export default function AccessoriesPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Accessories" }]} />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Product catalog"
-              title={
-                <>
+        <CinematicHero
+          image={MARKETING_IMAGES.statementBand}
+          alt="Cabinet interior accessories and pull-out organizers, Boise Cabinet Co"
+          breadcrumbs={[{ name: "Home", href: "/" }, { name: "Accessories" }]}
+          eyebrow="Product catalog"
+          title={<>
                   Cabinet <em className="brc-accent text-accent">accessories</em>
-                </>
-              }
-              description={catalogDescription(
+                </>}
+          description={catalogDescription(
                 "Accessory families: roll-outs, trash pull-outs, lazy susans, blind corners, and more, specified during your {company} design consultation.",
               )}
-            />
-            <CatalogPageHero
-              src={MARKETING_IMAGES.statementBand}
-              alt="Cabinet interior accessories and pull-out organizers, Boise Cabinet Co"
-            />
-            <CatalogSearch className="mb-8" />
-            <Button variant="brand" asChild>
+        >
+<Button variant="brand" asChild>
               <Link href="/estimate">
                 Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-          </div>
-        </Section>
+        </CinematicHero>
+        <CatalogSearch className="mt-6 max-w-xl" />
 
         <Section variant="greige" divider>
-          <div className="container px-4">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow="Accessory families"
               title={<>Accessory families</>}
-              align="center"
-              className="mb-10 max-w-xl mx-auto text-center [&_.ed-eyebrow]:justify-center"
+              className="mb-10"
             />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="ed-cards-3 gap-6">
               {ACCESSORY_FAMILIES.map((family, i) => (
                 <Reveal key={family.id} delay={i * 30}>
                   <CatalogVisualCard

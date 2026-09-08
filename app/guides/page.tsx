@@ -144,7 +144,7 @@ export default function GuidesIndexPage() {
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
             Hub pillar guides
           </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="ed-cards-3 gap-6">
             {pillarGuides.map((guide) => (
               <MarketingCard key={guide.slug} className="p-0 overflow-hidden flex flex-col h-full">
                 <Link href={guidePath(guide.slug)} className="block relative aspect-[16/9] overflow-hidden">
@@ -178,7 +178,7 @@ export default function GuidesIndexPage() {
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
             City &amp; neighborhood guides
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="ed-cards-3 gap-4">
             {locationGuides.map((guide) => (
               <MarketingCard key={guide.slug} className="p-5 flex flex-col h-full">
                 <MapPin className="h-4 w-4 text-accent mb-2" />
@@ -203,7 +203,7 @@ export default function GuidesIndexPage() {
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
             Browse by topic
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="ed-cards-3 gap-4">
             {sortedHubs.map((hub) => {
               const hasPillar = !!hub.pillarSlug;
               return (

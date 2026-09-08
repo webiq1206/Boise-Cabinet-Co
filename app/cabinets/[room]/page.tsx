@@ -195,13 +195,16 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
 
         {/* Cost and timeline expectation */}
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+            <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeader
               eyebrow="Cost & timeline"
               title={<>What to expect for {room.name.toLowerCase()} cabinets</>}
               align="left"
-              className="mb-6"
+              className="mb-0"
             />
+            </div>
             <MarketingCard className="p-6">
               {typicalRange ? (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
@@ -225,17 +228,18 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               </p>
               <Button variant="brandOutline" asChild>
                 <Link href="/estimate">
-                  Build your {room.name.toLowerCase()} planning range{" "}
+                  Get a {room.name.toLowerCase()} planning range{" "}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </MarketingCard>
+            </div>
           </div>
         </Section>
 
         {/* Project proof */}
         <Section divider>
-          <div className="container px-4 max-w-5xl">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow="Project proof"
               title={<>{room.name} cabinet work</>}
@@ -243,7 +247,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               className="mb-6"
             />
             {roomProjects.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="ed-cards-3 gap-6">
                 {roomProjects.map((project) => (
                   <MarketingCard key={project.slug} className="overflow-hidden p-0">
                     <div className="relative aspect-[4/3] overflow-hidden">
@@ -288,27 +292,31 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
 
         {/* What is included */}
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="What's included"
-              title={<>Included on every {room.name.toLowerCase()} project</>}
-              align="left"
-              className="mb-6"
-            />
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {STANDARD_INCLUSIONS.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-foreground/90">
-                  <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+              <div className="lg:sticky lg:top-28 lg:self-start">
+                <SectionHeader
+                  eyebrow="What's included"
+                  title={<>Included on every {room.name.toLowerCase()} project</>}
+                  align="left"
+                  className="mb-0"
+                />
+              </div>
+              <ul className="ed-inset ed-grid-balance m-0 grid list-none gap-x-8 gap-y-4 p-[clamp(24px,2.6vw,40px)] sm:grid-cols-2">
+                {STANDARD_INCLUSIONS.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[0.9375rem] text-foreground/90">
+                    <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Section>
 
         {/* Options / scope levels */}
         <Section divider>
-          <div className="container px-4 max-w-5xl">
+          <div className="ed-shell">
             <RoomCatalogShowcase
               roomSlug={room.slug}
               roomName={room.name}
@@ -318,7 +326,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-5xl">
+          <div className="ed-shell">
             <SectionHeader
               eyebrow="Cabinets for this room"
               title={<>What we build for {room.name.toLowerCase()}</>}
@@ -347,15 +355,18 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
 
         {/* Reviews */}
         <Section divider>
-          <div className="container px-4 max-w-3xl">
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+            <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeader
               eyebrow="Homeowner reviews"
               title={<>What homeowners say</>}
               align="left"
-              className="mb-6"
+              className="mb-0"
             />
+            </div>
             {roomReviews.length > 0 ? (
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
                 {roomReviews.map((review) => (
                   <MarketingCard key={review.customerName} className="p-5">
                     <p className="text-base text-foreground/90 leading-relaxed mb-3">
@@ -380,24 +391,31 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                 </p>
               </MarketingCard>
             )}
+            </div>
           </div>
         </Section>
 
         {/* Relevant FAQs */}
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="Common questions"
-              title={<>{room.name} cabinet questions</>}
-              align="left"
-              className="mb-6"
-            />
-            <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${room.slug}`} />
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+              <div className="lg:sticky lg:top-28 lg:self-start">
+                <SectionHeader
+                  eyebrow="Common questions"
+                  title={<>{room.name} cabinet questions</>}
+                  align="left"
+                  className="mb-0"
+                />
+              </div>
+              <div>
+                <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${room.slug}`} />
+              </div>
+            </div>
           </div>
         </Section>
 
         <Section>
-          <div className="container px-4">
+          <div className="ed-shell">
             <RelatedPostCards
               path={`/cabinets/${room.slug}`}
               title={`Guides for ${room.name.toLowerCase()} cabinets`}
@@ -407,14 +425,15 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
 
         {/* Location links */}
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-4xl">
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
             <SectionHeader
               eyebrow="Where we work"
               title={<>{room.name} cabinets across the Treasure Valley</>}
               align="left"
-              className="mb-6"
+              className="mb-0"
             />
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap content-start gap-3">
               {CITIES.map((city) => (
                 <Link
                   key={city.slug}
@@ -425,6 +444,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                   {city.name}
                 </Link>
               ))}
+            </div>
             </div>
           </div>
         </Section>

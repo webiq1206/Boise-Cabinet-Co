@@ -64,7 +64,7 @@ export function CaseStudiesSection() {
                 <p className="text-sm text-foreground/90 mb-4">
                   <strong>Outcome:</strong> {study.outcome}
                 </p>
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mb-4">
+                <dl className="ed-grid-balance grid grid-cols-2 gap-x-4 gap-y-2 text-sm mb-4">
                   {study.details.map((d) => (
                     <div key={d.label}>
                       <dt className="text-muted-foreground">{d.label}</dt>

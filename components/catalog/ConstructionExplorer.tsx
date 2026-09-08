@@ -21,7 +21,7 @@ export function ConstructionExplorer() {
           className="object-contain"
         />
       </div>
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
         {c.features.map((f) => (
           <div key={f.id} className="rounded-lg border p-4 bg-card">
             <h3 className="font-medium">{f.label}</h3>
