@@ -42,6 +42,7 @@ export const PRIMARY_NAV = [
     children: [
       { label: "About us", href: "/about" },
       { label: "How we build", href: "/construction" },
+      { label: "Cabinet installation", href: "/services/cabinet-installation" },
       { label: "Why choose us", href: "/#why-choose-us" },
       { label: "Projects & reviews", href: "/testimonials" },
     ],

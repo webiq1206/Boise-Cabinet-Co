@@ -1,8 +1,8 @@
 import { BLOG_POSTS, type BlogPostData } from "../../shared/blogContent";
+import { CITIES } from "../../shared/contentData";
 import { GUIDE_PAGES } from "../../shared/guideContent";
 import { getHubBySlug, getHubPillarSlug, guidePath } from "../../shared/contentHubs";
 import { ROOM_CATEGORIES } from "../../shared/catalog/roomCategories";
-import { COLLECTIONS } from "../../shared/catalog/collections";
 
 export type PageType = "blog" | "guide" | "catalog";
 
@@ -74,20 +74,25 @@ function tokenSet(...parts: string[]): Set<string> {
 }
 
 const CATALOG_HUB_PAGES: Array<{ url: string; title: string; anchor: string; tags: string[] }> = [
-  { url: "/cabinets", title: "Cabinet Catalog", anchor: "Cabinet catalog", tags: ["catalog", "cabinets"] },
-  { url: "/collections", title: "Cabinet Collections", anchor: "Collections", tags: ["collections"] },
-  { url: "/door-styles", title: "Door Styles", anchor: "Door styles", tags: ["door", "styles"] },
-  { url: "/finishes", title: "Finishes", anchor: "Finishes", tags: ["finishes"] },
-  { url: "/hardware", title: "Cabinet Hardware", anchor: "Hardware", tags: ["hardware"] },
+  // One catalog surface since 2026-07: /collections, /door-styles, /finishes and
+  // /hardware all 301 here (next.config.js), so this is the only hub that may
+  // receive links.
+  {
+    url: "/catalog",
+    title: "Cabinet Catalog",
+    anchor: "Full catalog",
+    tags: ["catalog", "collections", "door styles", "finishes", "hardware", "custom", "semi-custom"],
+  },
 ];
 
 export function buildCanonicalRoutes(): string[] {
   const routes: string[] = [];
   for (const post of BLOG_POSTS) routes.push(`/blog/${post.slug}`);
-  for (const guide of GUIDE_PAGES) routes.push(guidePath(guide.slug));
+  // Location guides 301 to /locations/{city}; the location pages are the targets.
+  for (const guide of GUIDE_PAGES) if (guide.guideType !== "location") routes.push(guidePath(guide.slug));
+  for (const city of CITIES) routes.push(`/locations/${city.slug}`);
   for (const hub of CATALOG_HUB_PAGES) routes.push(hub.url);
   for (const room of ROOM_CATEGORIES) routes.push(`/cabinets/${room.slug}`);
-  for (const col of COLLECTIONS) routes.push(`/collections/${col.slug}`);
   return routes;
 }
 
@@ -124,6 +129,7 @@ export function buildPages(): PageNode[] {
   }
 
   for (const guide of GUIDE_PAGES) {
+    if (guide.guideType === "location") continue;
     pages.push({
       id: `guide:${guide.slug}`,
       type: "guide",
@@ -166,16 +172,16 @@ export function buildPages(): PageNode[] {
     });
   }
 
-  for (const col of COLLECTIONS) {
+  for (const city of CITIES) {
     pages.push({
-      id: `catalog:collection:${col.slug}`,
-      type: "catalog",
-      url: `/collections/${col.slug}`,
-      title: col.name,
-      anchor: col.name,
-      category: "catalog",
-      tags: [col.slug, "collection"],
-      tokens: tokenSet(col.name, col.tagline, col.description, col.slug),
+      id: `location:${city.slug}`,
+      type: "guide",
+      url: `/locations/${city.slug}`,
+      title: `Custom Cabinets in ${city.name}, Idaho`,
+      anchor: `${city.name} cabinets`,
+      category: "location",
+      tags: [city.slug, "location", "cabinets", city.name.toLowerCase()],
+      tokens: tokenSet(city.name, "custom cabinets", "kitchen cabinets", "location"),
       overrides: [],
     });
   }
@@ -409,7 +415,7 @@ export function buildManifest(pages: PageNode[]): Manifest {
   }
 
   const catalogCount =
-    CATALOG_HUB_PAGES.length + ROOM_CATEGORIES.length + COLLECTIONS.length;
+    CATALOG_HUB_PAGES.length + ROOM_CATEGORIES.length + CITIES.length;
 
   return {
     generatedAt: null,

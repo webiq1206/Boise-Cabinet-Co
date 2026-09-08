@@ -15,7 +15,7 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 
 - Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
 - Founded: 2020
-- Address: 4031 W Wapoot St, Meridian, ID 83646
+- Based in Meridian, Idaho (service-area business; consultations happen in your home)
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware
 - Warranty: written workmanship guarantee
@@ -36,17 +36,17 @@ Planning ranges only; firm quotes require approved drawings.
 - Outdoor kitchen cabinets: about $16,000 midpoint
 - [Full cabinet cost guide](https://boisecabinet.co/guides/boise-cabinet-cost-guide)
 
-## City cabinet guides
+## Cabinets by city
 
 - [Treasure Valley overview](https://boisecabinet.co/guides/treasure-valley-cabinet-guide)
-- [Boise cabinet guide](https://boisecabinet.co/guides/boise-cabinet-guide)
-- [Meridian cabinet guide](https://boisecabinet.co/guides/meridian-cabinet-guide)
-- [Eagle cabinet guide](https://boisecabinet.co/guides/eagle-cabinet-guide)
-- [Nampa cabinet guide](https://boisecabinet.co/guides/nampa-cabinet-guide)
-- [Kuna cabinet guide](https://boisecabinet.co/guides/kuna-cabinet-guide)
-- [Star cabinet guide](https://boisecabinet.co/guides/star-cabinet-guide)
-- [Caldwell cabinet guide](https://boisecabinet.co/guides/caldwell-cabinet-guide)
-- [Middleton cabinet guide](https://boisecabinet.co/guides/middleton-cabinet-guide)
+- [Boise cabinet guide](https://boisecabinet.co/locations/boise)
+- [Meridian cabinet guide](https://boisecabinet.co/locations/meridian)
+- [Eagle cabinet guide](https://boisecabinet.co/locations/eagle)
+- [Nampa cabinet guide](https://boisecabinet.co/locations/nampa)
+- [Kuna cabinet guide](https://boisecabinet.co/locations/kuna)
+- [Star cabinet guide](https://boisecabinet.co/locations/star)
+- [Caldwell cabinet guide](https://boisecabinet.co/locations/caldwell)
+- [Middleton cabinet guide](https://boisecabinet.co/locations/middleton)
 
 ## Catalog
 

@@ -53,7 +53,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'How do you scribe-fit cabinets to out-of-plumb walls common in older Boise homes?',
       ],
       paragraphs: [
-        'Local experience shows up in field measures, permit fluency, and realistic timelines. Review our city guides at <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley</a>, <a href="/guides/boise-cabinet-guide">Boise</a>, and <a href="/guides/meridian-cabinet-guide">Meridian</a> for the housing context your bidder should recognize.',
+        'Local experience shows up in field measures, permit fluency, and realistic timelines. Review our city guides at <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley</a>, <a href="/locations/boise">Boise</a>, and <a href="/locations/meridian">Meridian</a> for the housing context your bidder should recognize.',
       ],
     },
     {

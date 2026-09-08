@@ -48,7 +48,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Kitchen timeline by Treasure Valley city',
       paragraphs: [
         'Meridian and Kuna builder-grade upgrades often move fastest because layouts are rectangular and walls are square. North End and Bench Boise kitchens add a week or two for custom filler planning and soffit decisions. Eagle whole-kitchen programs with butler pantries and mudroom lockers run toward the long end of the 8 to 14 week band because selections span multiple rooms.',
-        'Read the <a href="/guides/boise-cabinet-guide">Boise cabinet guide</a> or your city guide for housing-specific notes before you set a target install month.',
+        'Read the <a href="/locations/boise">Boise cabinet guide</a> or your city guide for housing-specific notes before you set a target install month.',
       ],
     },
     {

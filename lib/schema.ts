@@ -245,11 +245,16 @@ export function generateReviewSchema(reviews: Array<{
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: BUSINESS_INFO.name,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: BUSINESS_INFO.rating,
-      reviewCount: BUSINESS_INFO.reviewCount,
-    },
+    // Only with real reviews behind it: a 0-star aggregate is worse than none.
+    ...(BUSINESS_INFO.reviewCount > 0 && BUSINESS_INFO.rating > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: BUSINESS_INFO.rating,
+            reviewCount: BUSINESS_INFO.reviewCount,
+          },
+        }
+      : {}),
     review: reviews.map(review => ({
       '@type': 'Review',
       author: {

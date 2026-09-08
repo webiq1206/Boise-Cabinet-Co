@@ -1,24 +1,44 @@
 import { MetadataRoute } from 'next';
 
-// AI / answer-engine crawlers we explicitly welcome (GEO/AEO). The wildcard
-// rule below already permits them, but a cautious crawler can back off when
-// its access is only implied, so each one is named and allowed outright.
-// Matches the list used on the other P5 brand sites.
+const SEARCH_CRAWLERS = [
+  'Googlebot',
+  'Googlebot-Image',
+  'Googlebot-News',
+  'Bingbot',
+  'MicrosoftPreview',
+  'Slurp',
+  'DuckDuckBot',
+  'YandexBot',
+  'Baiduspider',
+  'Applebot',
+];
+
+// AI answer engines and training crawlers, named individually because a
+// cautious crawler backs off when its access is ambiguous under a wildcard.
+// Same list as p5homeco.com so the family reads consistently. To opt one out
+// later, move it to its own Disallow rule; deleting it falls back to '*'.
 const AI_BOTS = [
   'GPTBot',
   'OAI-SearchBot',
   'ChatGPT-User',
   'ClaudeBot',
-  'Claude-Web',
+  'Claude-User',
+  'Claude-SearchBot',
   'anthropic-ai',
+  'Claude-Web',
   'PerplexityBot',
   'Perplexity-User',
   'Google-Extended',
   'Applebot-Extended',
-  'CCBot',
   'Amazonbot',
+  'meta-externalagent',
+  'FacebookBot',
   'Bytespider',
+  'DuckAssistBot',
+  'MistralAI-User',
   'cohere-ai',
+  'YouBot',
+  'CCBot',
 ];
 
 export default function robots(): MetadataRoute.Robots {
@@ -43,7 +63,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow,
       },
-      ...AI_BOTS.map((userAgent) => ({
+      ...[...SEARCH_CRAWLERS, ...AI_BOTS].map((userAgent) => ({
         userAgent,
         allow: '/',
         disallow,

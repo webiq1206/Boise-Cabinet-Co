@@ -64,6 +64,7 @@ function GroupLinks({ links }: { links: FooterLink[] }) {
         <li key={link.href}>
           <Link
             href={link.href}
+            rel={link.href.startsWith("/portal") ? "nofollow" : undefined}
             className="tap-target text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
           >
             {link.label}

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { EstimatorRecovery } from "@/components/estimate/recovery/EstimatorRecovery";
+import { markEstimatorCompleted } from "@/lib/estimatorSession";
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -498,6 +500,7 @@ export function ConsultationFields({
     },
     onSuccess: (result) => {
       setSuccess(true);
+      markEstimatorCompleted("consultation");
       sessionStorage.removeItem("brc_estimate");
       clearWizardState();
       if (result.accepted) {
@@ -586,6 +589,17 @@ export function ConsultationFields({
 
   return (
     <Form {...form}>
+      <EstimatorRecovery
+        flow="consultation"
+        currentStep={form.formState.isDirty ? "filling" : "form"}
+        currentStepIndex={form.formState.isDirty ? 1 : 0}
+        totalSteps={2}
+        lastCompletedStep={form.formState.isDirty ? "form" : undefined}
+        selections={{ project_type: String(form.watch("projectType") ?? "") || null }}
+        validationErrors={Object.keys(form.formState.errors)}
+        engaged={form.formState.isDirty}
+        submitted={success}
+      />
       <form
         id={formId}
         onSubmit={onSubmit}

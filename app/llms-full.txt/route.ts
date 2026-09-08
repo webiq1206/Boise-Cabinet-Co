@@ -1,4 +1,5 @@
 import { LLMS_TXT } from '@/shared/llmsTxt';
+import { getBaseUrl } from '@/lib/seo';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
@@ -18,7 +19,7 @@ import { guidePath } from '@/shared/contentHubs';
  */
 export const dynamic = 'force-static';
 
-const BASE = 'https://boisecabinet.co';
+const BASE = getBaseUrl().replace(/\/$/, '');
 
 /** Strip HTML and collapse whitespace so the export is clean plain text. */
 function plain(html: string | undefined | null): string {

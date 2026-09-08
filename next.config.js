@@ -163,11 +163,14 @@ const nextConfig = {
     }
 
     // Legacy catalog slugs → OSC catalog
+    // These once pointed at /door-styles/modern-shaker and /collections/custom,
+    // which the consolidation below itself redirects, so every visitor paid two
+    // hops. Point straight at the final destination.
     const catalogRedirects = {
-      '/door-styles/shaker': '/door-styles/modern-shaker',
-      '/collections/full-custom': '/collections/custom',
-      '/collections/semi-custom': '/collections/custom',
-      '/collections/spec-grade': '/collections/custom',
+      '/door-styles/shaker': '/catalog',
+      '/collections/full-custom': '/catalog',
+      '/collections/semi-custom': '/catalog',
+      '/collections/spec-grade': '/catalog',
     };
 
     for (const [source, destination] of Object.entries(catalogRedirects)) {

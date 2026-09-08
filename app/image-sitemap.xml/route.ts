@@ -1,4 +1,5 @@
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
+import { getBaseUrl } from '@/lib/seo';
 import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
@@ -14,7 +15,7 @@ import { getBlogThumbnail } from '@/shared/blogImages';
  */
 export const dynamic = 'force-static';
 
-const BASE = 'https://boisecabinet.co';
+const BASE = getBaseUrl().replace(/\/$/, '');
 
 function esc(s: string): string {
   return String(s || '')

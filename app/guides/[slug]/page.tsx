@@ -10,7 +10,7 @@ import {
   generateServiceSchema,
   generateSpeakableSchema,
 } from '@/lib/schema';
-import { buildCanonical } from '@/lib/page-metadata';
+import { buildCanonical, fitTitle } from '@/lib/page-metadata';
 import { GuidePageLayout } from '@/components/marketing/GuidePageLayout';
 import { getHubBySlug, guidePath } from '@/shared/contentHubs';
 import {
@@ -34,9 +34,9 @@ export async function generateMetadata({
 
   const rawTitle = guide.seoTitle || guide.title;
   const brandSuffix = ' | Boise Cabinet Co';
-  const title = rawTitle.endsWith(brandSuffix)
+  const title = fitTitle(rawTitle.endsWith(brandSuffix)
     ? rawTitle.slice(0, -brandSuffix.length)
-    : rawTitle;
+    : rawTitle);
   const description = clampMetaDescription(guide.metaDescription || guide.excerpt);
   const heroPath = getBlogHeroImage(guide.slug, guide.heroImage);
   const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());

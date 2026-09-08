@@ -1,5 +1,7 @@
 "use client";
 
+import { EstimatorRecovery } from "@/components/estimate/recovery/EstimatorRecovery";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -1269,6 +1271,21 @@ export function EstimateCalculatorWizard({
     }
   })();
 
+  /* Partial-completion tracking and the leave-prompt (docs/estimator-recovery.md).
+     The contact step's own success handler marks the session completed. */
+  const recovery = (
+    <EstimatorRecovery
+      flow="estimate"
+      currentStep={`${currentStep.kind}${"room" in currentStep && typeof currentStep.room === "number" ? `_${currentStep.room + 1}` : ""}`}
+      currentStepIndex={safeIndex}
+      totalSteps={wizardSteps.length}
+      lastCompletedStep={safeIndex > 0 ? wizardSteps[safeIndex - 1]?.kind : undefined}
+      selections={{ rooms: rooms.length, step_kind: currentStep.kind }}
+      engaged={safeIndex > 0}
+      submitted={false}
+    />
+  );
+
   const shell = (
     <GuidedFlowShell
       steps={guidedSteps}
@@ -1300,8 +1317,8 @@ export function EstimateCalculatorWizard({
   if (inModal) {
     // The dialog is height-bounded (h-[100dvh] on mobile, capped on desktop), so
     // let the fit shell own the internal layout and pin its own CTA.
-    return <div className="flex h-full min-h-0 flex-col">{shell}</div>;
+    return <div className="flex h-full min-h-0 flex-col" data-estimator-root>{recovery}{shell}</div>;
   }
 
-  return shell;
+  return <div className="contents" data-estimator-root>{recovery}{shell}</div>;
 }

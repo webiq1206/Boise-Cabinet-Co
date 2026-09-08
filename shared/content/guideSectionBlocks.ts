@@ -227,7 +227,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Idaho seasons and scheduling',
           paragraphs: [
             'Book exterior concrete and masonry in stable weather windows; plan winter pauses for outdoor kitchens in use.',
-            '<a href="/blog/decks-vs-patios-boise">Decks vs patios</a> · <a href="/blog/outdoor-kitchens-boise">Outdoor kitchens</a>.',
+            '<a href="/cabinets/outdoor">Decks vs patios</a> · <a href="/blog/outdoor-kitchen-cabinets-boise">Outdoor kitchens</a>.',
           ],
         },
         {

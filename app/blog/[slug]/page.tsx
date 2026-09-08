@@ -9,7 +9,7 @@ import {
   generateFAQSchema,
   generateSpeakableSchema,
 } from "@/lib/schema";
-import { buildCanonical } from "@/lib/page-metadata";
+import { buildCanonical, fitTitle } from '@/lib/page-metadata';
 import { BlogPostLayout } from "@/components/marketing/BlogPostLayout";
 import {
   getAbsoluteImageUrl,
@@ -39,9 +39,9 @@ export async function generateMetadata({
 
   const rawTitle = post.seoTitle || post.title;
   const brandSuffix = ` | ${SITE_CONFIG.name}`;
-  const title = rawTitle.endsWith(brandSuffix)
+  const title = fitTitle(rawTitle.endsWith(brandSuffix)
     ? rawTitle.slice(0, -brandSuffix.length)
-    : rawTitle;
+    : rawTitle);
   const description = clampMetaDescription(post.metaDescription || post.excerpt);
   const heroPath = getBlogHeroImage(post.slug, post.heroImage);
   const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());
