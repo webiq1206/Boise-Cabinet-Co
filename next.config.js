@@ -82,6 +82,16 @@ const nextConfig = {
 
     const redirects = [];
 
+    // www.boisecabinet.co answers 200 with the same content as the apex host. The
+    // canonical tag already points at the apex, but a single host is cleaner
+    // for crawlers and analytics, so the www variant redirects permanently.
+    redirects.push({
+      source: '/:path*',
+      has: [{ type: 'host', value: 'www.boisecabinet.co' }],
+      destination: 'https://boisecabinet.co/:path*',
+      permanent: true,
+    });
+
     // Legacy page aliases → canonical BRC routes
     const pageAliases = {
       '/about-us': '/about',

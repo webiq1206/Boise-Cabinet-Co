@@ -18,7 +18,7 @@ export const metadata = buildPageMetadata({
   serviceName: "Cabinet Installation",
   serviceSlug: "cabinet-installation",
   path: "/services/cabinet-installation",
-  titleOverride: "Cabinet Installation in the Treasure Valley",
+  titleOverride: "Cabinet Installation in Boise, ID",
   descriptionOverride:
     "Professional cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley communities. Bring your own cabinets or work with Boise Cabinet Co for custom cabinetry and installation.",
 });
