@@ -23,35 +23,39 @@ function buildFooterGroups(): { title: string; links: FooterLink[] }[] {
 
   return [
     {
+      // Six rooms, not twelve: the full room list lives in the Shop by Room
+      // menu on every page and on /cabinets, so the footer names the rooms
+      // people ask for most and the catalogue entry points.
       title: "Services",
       links: [
         { label: "All Rooms", href: "/cabinets" },
-        ...FOOTER_CABINET_LINKS,
+        ...FOOTER_CABINET_LINKS.slice(0, 6),
+        { label: "Cabinet Installation", href: "/services/cabinet-installation" },
         { label: "Full Catalog", href: "/catalog" },
         { label: "Shaker Cabinets", href: "/shaker-cabinets" },
         { label: "For Builders", href: "/builders" },
       ],
     },
     {
-      title: "Projects, Process & Company",
+      title: "Company",
       links: [
+        { label: "About", href: "/about" },
         { label: "Projects & Reviews", href: "/testimonials" },
         { label: "Why Choose Us", href: "/#why-choose-us" },
         { label: "How We Build", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
-        { label: "About", href: "/about" },
+        { label: "Contact", href: "/contact" },
         { label: "My Project", href: "/portal" },
       ],
     },
     {
-      title: "Costs & Resources",
+      title: "Resources",
       links: [
         { label: "Cabinet Guides", href: "/guides" },
         { label: "Planning Downloads", href: "/resources" },
         { label: "Blog", href: "/blog" },
         ...topHubLinks,
         { label: "Treasure Valley Overview", href: guidePath("treasure-valley-cabinet-guide") },
-        { label: "Contact Us", href: "/contact" },
       ],
     },
   ];
