@@ -39,6 +39,7 @@ jobs:
           node scripts/p5-verify-visual.mjs
           node scripts/p5-launcher-forms.mjs
           node scripts/p5-catalog-search.mjs
+          node scripts/p5-product-search.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

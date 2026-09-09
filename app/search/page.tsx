@@ -34,7 +34,9 @@ export default function SearchPage() {
             title="Search catalog"
             description="Find finishes, door styles, collections, and cabinet configurations."
           />
+          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()}>
           <input
+            aria-label="Search by name or code"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -46,6 +48,7 @@ export default function SearchPage() {
               <button
                 key={c}
                 type="button"
+                aria-pressed={finishCategory === c}
                 onClick={() => setFinishCategory(finishCategory === c ? "" : c)}
                 className={`tap-target inline-flex items-center justify-center text-xs rounded-full border px-3 py-1 capitalize ${finishCategory === c ? "border-primary bg-primary/5" : ""}`}
               >
@@ -53,7 +56,13 @@ export default function SearchPage() {
               </button>
             ))}
           </div>
-          <ul className="mt-8 space-y-3">
+          </form>
+          <p role="status" className="mt-6 text-sm text-muted-foreground">
+            {results.length === 0
+              ? "No matches. Try another name or code, or clear the finish filter."
+              : `Showing ${Math.min(results.length, 40)} of ${results.length} results.`}
+          </p>
+          <ul className="mt-4 space-y-3">
             {results.slice(0, 40).map((r) => (
               <li key={`${r.type}-${r.slug}`}>
                 <VisualSearchResult
