@@ -216,6 +216,29 @@ export default function ContactPage() {
           </div>
         </section>
 
+        {/* ─── Consultation form ─── */}
+        <Section id="consult" divider data-suppress-sticky-cta="">
+          <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+            <div className="md:col-span-2">
+              <SectionHeader
+                eyebrow="Begin a conversation"
+                size="display"
+                title={
+                  <>
+                    Tell us about your{' '}
+                    <em className="brc-accent text-accent">project</em>
+                  </>
+                }
+                description="We respond within one business day. Share your goals and we will schedule a free in-home design consultation."
+                className="max-w-none"
+              />
+            </div>
+            <MarketingCard className="md:col-span-3" padding="lg">
+              <ConsultationForm />
+            </MarketingCard>
+          </div>
+        </Section>
+
         {/* ─── Contact channels ─── */}
         <Section variant="greige" divider>
           <div className="container px-4 max-w-5xl">
@@ -342,29 +365,6 @@ export default function ContactPage() {
         </Section>
 
         <StatementBandSection />
-
-        {/* ─── Consultation form ─── */}
-        <Section id="consult" divider data-suppress-sticky-cta="">
-          <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
-            <div className="md:col-span-2">
-              <SectionHeader
-                eyebrow="Begin a conversation"
-                size="display"
-                title={
-                  <>
-                    Tell us about your{' '}
-                    <em className="brc-accent text-accent">project</em>
-                  </>
-                }
-                description="We respond within one business day. Share your goals and we will schedule a free in-home design consultation."
-                className="max-w-none"
-              />
-            </div>
-            <MarketingCard className="md:col-span-3" padding="lg">
-              <ConsultationForm />
-            </MarketingCard>
-          </div>
-        </Section>
 
         {/* ─── Closing CTA ─── */}
         <Section surface="gradient" spacing="xl" edge>
