@@ -38,6 +38,7 @@ jobs:
           node -e 'const u="http://127.0.0.1:5000";let n=0;const t=setInterval(async()=>{try{await fetch(u);clearInterval(t)}catch{if(++n>60){clearInterval(t);process.exit(1)}}},1000)'
           node scripts/p5-verify-visual.mjs
           node scripts/p5-launcher-forms.mjs
+          node scripts/p5-catalog-search.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
