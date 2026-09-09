@@ -68,10 +68,10 @@ export const PROJECTS: SiteProject[] = [
     "serviceType": "bathroom-vanities",
     "area": "Meridian",
     "title": "Double vanity suite concept",
-    "description": "Double vanity with a linen tower, drawer stack between sinks, and coordinated mirrors and hardware.",
+    "description": "White Shaker double vanity with central drawer storage, paired mirrors, and matte black faucets.",
     "hero": {
       "src": "/images/gallery/gallery-bathroom-after.webp",
-      "alt": "Design concept: double bathroom vanity with a linen tower and organized drawer storage"
+      "alt": "Design concept: white double bathroom vanity with central drawers, paired mirrors and black faucets"
     },
     "detail": [],
     "showBeforeAfter": false,
@@ -126,8 +126,8 @@ export const PROJECTS: SiteProject[] = [
     "title": "Whole-home finish schedule concept",
     "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
     "hero": {
-      "src": "/images/gallery/gallery-whole-home-after.webp",
-      "alt": "Design concept: coordinated whole-home cabinetry sharing one door style and finish schedule"
+      "src": "/images/catalog/rooms/built-ins.webp",
+      "alt": "Design concept: wood-finish living-room built-ins illustrating a coordinated cabinetry palette"
     },
     "detail": [],
     "showBeforeAfter": false,
