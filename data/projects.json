@@ -111,11 +111,11 @@
       "kind": "concept",
       "serviceType": "built-in-storage",
       "area": "Nampa",
-      "title": "Pantry and mudroom storage concept",
-      "description": "Floor-to-ceiling pantry paired with a mudroom locker system, bench seating, and concealed cubby storage.",
+      "title": "Mudroom storage concept",
+      "description": "Tall storage cabinets, a built-in bench, coat hooks, and overhead cabinets keep an entry organized.",
       "images": {
-        "after": "/images/gallery/gallery-addition-after.webp",
-        "alt": "Design concept: floor-to-ceiling pantry and mudroom locker system with bench storage"
+        "after": "/images/catalog/rooms/mudroom.webp",
+        "alt": "Design concept: mudroom bench with tall cabinets, upper storage and coat hooks"
       }
     },
     {
@@ -124,10 +124,10 @@
       "serviceType": "bar-cabinets",
       "area": "Boise",
       "title": "Wet bar cabinetry concept",
-      "description": "Custom wet bar and entertainment storage with glass-front uppers, drawer banks, and durable countertops.",
+      "description": "Dark Shaker cabinets frame a compact sink, drawer storage, and an under-counter beverage refrigerator.",
       "images": {
-        "after": "/images/gallery/gallery-basement-after.webp",
-        "alt": "Design concept: custom wet bar cabinets with glass-front uppers and lower drawer storage"
+        "after": "/images/catalog/rooms/wet-bar.webp",
+        "alt": "Design concept: dark Shaker wet bar cabinets with a sink and beverage refrigerator"
       }
     },
     {
@@ -136,10 +136,10 @@
       "serviceType": "outdoor-cabinets",
       "area": "Meridian",
       "title": "Covered outdoor kitchen concept",
-      "description": "Weather-rated outdoor kitchen cabinetry with a durable finish, planned for a covered patio.",
+      "description": "A covered cooking area with wood-tone cabinetry, a built-in grill, sink, and under-counter refrigeration.",
       "images": {
-        "after": "/images/gallery/gallery-outdoor-after.webp",
-        "alt": "Design concept: weather-rated outdoor kitchen cabinetry under a covered patio"
+        "after": "/images/catalog/rooms/outdoor.webp",
+        "alt": "Design concept: covered outdoor kitchen with wood-tone cabinets, a grill, sink and refrigerator"
       }
     }
   ]

@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-09-08";
+export const PROJECTS_GENERATED_ON = "2026-09-09";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -179,11 +179,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "built-in-storage",
     "area": "Nampa",
-    "title": "Pantry and mudroom storage concept",
-    "description": "Floor-to-ceiling pantry paired with a mudroom locker system, bench seating, and concealed cubby storage.",
+    "title": "Mudroom storage concept",
+    "description": "Tall storage cabinets, a built-in bench, coat hooks, and overhead cabinets keep an entry organized.",
     "hero": {
-      "src": "/images/gallery/gallery-addition-after.webp",
-      "alt": "Design concept: floor-to-ceiling pantry and mudroom locker system with bench storage"
+      "src": "/images/catalog/rooms/mudroom.webp",
+      "alt": "Design concept: mudroom bench with tall cabinets, upper storage and coat hooks"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -194,10 +194,10 @@ export const PROJECTS: SiteProject[] = [
     "serviceType": "bar-cabinets",
     "area": "Boise",
     "title": "Wet bar cabinetry concept",
-    "description": "Custom wet bar and entertainment storage with glass-front uppers, drawer banks, and durable countertops.",
+    "description": "Dark Shaker cabinets frame a compact sink, drawer storage, and an under-counter beverage refrigerator.",
     "hero": {
-      "src": "/images/gallery/gallery-basement-after.webp",
-      "alt": "Design concept: custom wet bar cabinets with glass-front uppers and lower drawer storage"
+      "src": "/images/catalog/rooms/wet-bar.webp",
+      "alt": "Design concept: dark Shaker wet bar cabinets with a sink and beverage refrigerator"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -208,10 +208,10 @@ export const PROJECTS: SiteProject[] = [
     "serviceType": "outdoor-cabinets",
     "area": "Meridian",
     "title": "Covered outdoor kitchen concept",
-    "description": "Weather-rated outdoor kitchen cabinetry with a durable finish, planned for a covered patio.",
+    "description": "A covered cooking area with wood-tone cabinetry, a built-in grill, sink, and under-counter refrigeration.",
     "hero": {
-      "src": "/images/gallery/gallery-outdoor-after.webp",
-      "alt": "Design concept: weather-rated outdoor kitchen cabinetry under a covered patio"
+      "src": "/images/catalog/rooms/outdoor.webp",
+      "alt": "Design concept: covered outdoor kitchen with wood-tone cabinets, a grill, sink and refrigerator"
     },
     "detail": [],
     "showBeforeAfter": false

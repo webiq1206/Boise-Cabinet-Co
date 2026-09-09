@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { getDoorStyleImages } from "@/shared/catalog";
 import { ArrowRight, Check } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
@@ -105,8 +107,8 @@ export default function ShakerCabinetsPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
-          image={"/images/catalog/collections/custom.webp"}
-          alt="Custom shaker cabinets built to order by Boise Cabinet Co"
+          image={"/images/marketing/hero-home.webp"}
+          alt="Shaker-style kitchen design inspiration with white cabinets and a wood island"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]}
           eyebrow="Door styles"
           title={<>
@@ -138,6 +140,9 @@ export default function ShakerCabinetsPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
+                  <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-[#F7F3EC]">
+                    <Image src={getDoorStyleImages(p.slug).primary} alt={`${p.name} door profile illustration`} fill sizes="(max-width: 640px) 90vw, 40vw" className="object-contain" />
+                  </div>
                   <h2 className="ed-h3 mb-3">{p.name}</h2>
                   <p className="text-base leading-relaxed text-muted-foreground">{p.body}</p>
                 </MarketingCard>

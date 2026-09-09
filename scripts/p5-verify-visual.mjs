@@ -5,7 +5,7 @@ await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true});
 const widths=[320,390,430,768,1024,1440,1920];
 const parent=process.env.P5_PARENT==='1';
-const routes=parent?['/','/quote','/sitemap','/legal/terms','/legal/privacy','/legal/quickbooks-disconnect']:['/','/cabinets','/catalog','/accessories','/construction','/compare','/estimate','/about','/contact','/testimonials'];
+const routes=parent?['/','/quote','/sitemap','/legal/terms','/legal/privacy','/legal/quickbooks-disconnect']:['/','/cabinets','/catalog','/accessories','/construction','/compare','/shaker-cabinets','/estimate','/about','/contact','/testimonials'];
 const results=[];
 let failed=false;
 function check(ok,message){if(!ok)throw new Error(message);}
