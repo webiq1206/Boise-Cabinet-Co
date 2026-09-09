@@ -135,15 +135,15 @@ export default function LocationPage({ params }: { params: { city: string } }) {
         </Section>
 
         {/* Local project proof */}
+        {cityProjects.length > 0 && (
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow="Project proof"
-              title={<>Cabinet work in {city.name}</>}
+              eyebrow={cityProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              title={<>Cabinet ideas for {city.name} homes</>}
               align="left"
               className="mb-6"
             />
-            {cityProjects.length > 0 ? (
               <div className="ed-cards-3 gap-6">
                 {cityProjects.map((project) => (
                   <MarketingCard key={project.slug} className="overflow-hidden p-0">
@@ -172,20 +172,10 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                   </MarketingCard>
                 ))}
               </div>
-            ) : (
-              <MarketingCard className="p-6">
-                <p className="text-sm text-muted-foreground">
-                  We&apos;re still building out {city.name}-specific project photos. Browse{" "}
-                  <Link href="/testimonials" className="text-accent hover:underline">
-                    projects across the Treasure Valley
-                  </Link>{" "}
-                  for examples of our work, or see design concepts for what&apos;s possible in
-                  the room types below.
-                </p>
-              </MarketingCard>
-            )}
+
           </div>
         </Section>
+        )}
 
         {/* Services */}
         <Section divider>
@@ -249,6 +239,7 @@ export default function LocationPage({ params }: { params: { city: string } }) {
         )}
 
         {/* Reviews */}
+        {cityReviews.length > 0 && (
         <Section divider>
           <div className="ed-shell">
             <div className="ed-split ed-split-narrow">
@@ -260,7 +251,6 @@ export default function LocationPage({ params }: { params: { city: string } }) {
               className="mb-0"
             />
             </div>
-            {cityReviews.length > 0 ? (
               <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
                 {cityReviews.map((review) => (
                   <MarketingCard key={review.customerName} className="p-5">
@@ -273,20 +263,11 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                   </MarketingCard>
                 ))}
               </div>
-            ) : (
-              <MarketingCard className="p-6">
-                <p className="text-sm text-muted-foreground">
-                  We don&apos;t have a published review from a {city.name} homeowner yet. See{" "}
-                  <Link href="/testimonials" className="text-accent hover:underline">
-                    reviews from across the Treasure Valley
-                  </Link>
-                  .
-                </p>
-              </MarketingCard>
-            )}
+
             </div>
           </div>
         </Section>
+        )}
 
         {/* FAQs */}
         {faqs.length > 0 && (
