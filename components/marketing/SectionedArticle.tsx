@@ -16,6 +16,9 @@ export function SectionedArticle({
   defaultOpenCount = 3,
   testId = 'article-content',
 }: SectionedArticleProps) {
+  // A focusable region makes wide comparisons usable with keyboard and touch.
+  html = html.replace(/<table\b/gi, '<div role="region" aria-label="Scrollable comparison table" tabindex="0" class="article-table-scroll"><table')
+    .replace(/<\/table>/gi, '</table></div>');
   const sections = splitHtmlByH2(html);
 
   if (!shouldUseCollapsibleSections(sections.length)) {
