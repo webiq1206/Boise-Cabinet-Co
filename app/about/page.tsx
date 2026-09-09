@@ -206,7 +206,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop"
+                alt="Representative image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

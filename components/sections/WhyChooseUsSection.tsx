@@ -65,7 +65,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
                     src={SITE_IMAGES.processAbout}
-                    alt="Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop"
+                    alt="Representative image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

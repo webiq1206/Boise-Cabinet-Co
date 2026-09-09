@@ -4,11 +4,11 @@
 
 export const MARKETING_IMAGES = {
   heroHome: "/images/marketing/hero-home.webp",
-  heroAbout: "/images/marketing/hero-about.webp",
+  heroAbout: "/images/marketing/hero-about-branded.webp",
   heroContact: "/images/marketing/hero-contact.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
-  processHome: "/images/marketing/process-home.webp",
-  processAbout: "/images/marketing/process-about.webp",
+  processHome: "/images/marketing/process-home-branded.webp",
+  processAbout: "/images/marketing/process-about-branded.webp",
   processContact: "/images/marketing/process-contact.webp",
   hardware: "/images/marketing/hero-hardware.webp",
   construction: "/images/marketing/hero-construction.webp",
