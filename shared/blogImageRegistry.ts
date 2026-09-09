@@ -521,7 +521,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'choose-cabinet-company-boise': {
     hero: '/images/blog/choose-remodeling-contractor-boise-branded.webp',
-    alt: 'Choosing a custom cabinet company in Boise and the Treasure Valley',
+    alt: 'Representative consultation with a Boise Cabinet Co designer reviewing door samples with homeowners',
     topicTags: ["contractor","guide","pillar"],
     source: 'blog',
   },

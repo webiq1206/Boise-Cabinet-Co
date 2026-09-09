@@ -52,7 +52,7 @@ export default function TestimonialsPage() {
     <div className="flex flex-col pb-20 md:pb-0">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="Boise Cabinet Co installer fitting custom cabinets in a Treasure Valley kitchen"
+        alt="Representative consultation with a Boise Cabinet Co designer and homeowners reviewing cabinet finishes"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Projects & Reviews' }]}
         eyebrow="Proof of work"
         title={<>Projects &amp; homeowner <em className="brc-accent text-accent">reviews</em></>}

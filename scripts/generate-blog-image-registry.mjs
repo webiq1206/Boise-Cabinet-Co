@@ -560,7 +560,7 @@ const ENTRIES = {
   },
   "choose-cabinet-company-boise": {
     hero: blog("choose-remodeling-contractor-boise-branded"),
-    alt: "Choosing a custom cabinet company in Boise and the Treasure Valley",
+    alt: "Representative consultation with a Boise Cabinet Co designer reviewing door samples with homeowners",
     topicTags: ["contractor", "guide", "pillar"],
     source: "blog",
   },

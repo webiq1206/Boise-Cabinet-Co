@@ -176,7 +176,7 @@ export default function CabinetInstallationPage() {
         <Section variant="canvas" spacing="none" className="p-0">
           <div className="grid md:grid-cols-2">
             <div className="relative min-h-[320px] overflow-hidden md:min-h-[540px]">
-              <Image src={SITE_IMAGES.processHome} alt="Cabinet planning and installation details in a Treasure Valley home" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover img-brand-grade" />
+              <Image src={SITE_IMAGES.processHome} alt="Representative cabinet planning consultation with a Boise Cabinet Co designer and homeowners" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover img-brand-grade" />
               <div className="absolute inset-0 bg-gradient-to-t from-inverse/70 to-transparent" />
               <div className="absolute bottom-0 p-7 md:p-12">
                 <p className="ed-eyebrow text-inverse-muted">Good installation is visible in the details</p>
