@@ -261,6 +261,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
+              className="h-11 w-11"
               aria-label="Open navigation menu"
               onClick={() => setMobileOpen(true)}
             >
@@ -404,7 +405,7 @@ export function Navigation() {
       <div
         className={cn(
           "fixed left-0 right-0 bottom-0 z-[100] xl:hidden pb-safe border-t",
-          "bg-background border-border transition-opacity duration-200",
+          "bg-background border-border shadow-[0_-4px_20px_rgba(0,0,0,0.18)] transition-opacity duration-200",
           (wizardBarActive || ctaSuppressed || !pastHero) && "pointer-events-none opacity-0",
         )}
       >
@@ -412,7 +413,7 @@ export function Navigation() {
           <a
             href={SITE_CONFIG.phoneHref}
             aria-label={`Call us at ${SITE_CONFIG.phone}`}
-            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+            className="flex items-center justify-center gap-2 min-h-14 px-2 py-4 text-center text-sm font-medium text-foreground"
           >
             <Phone className="h-4 w-4" strokeWidth={1.5} />
             Call
@@ -420,7 +421,7 @@ export function Navigation() {
           <a
             href={SITE_CONFIG.phoneSmsHref}
             aria-label={`Text us at ${SITE_CONFIG.phone}`}
-            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+            className="flex items-center justify-center gap-2 min-h-14 px-2 py-4 text-center text-sm font-medium text-foreground"
           >
             <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
             Text
@@ -432,7 +433,7 @@ export function Navigation() {
               openEstimate();
             }}
             aria-label={CTA_ESTIMATE}
-            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+            className="flex items-center justify-center gap-2 min-h-14 px-2 py-4 text-center text-sm font-medium text-foreground"
           >
             {CTA_ESTIMATE}
           </button>

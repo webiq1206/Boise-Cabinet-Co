@@ -300,7 +300,7 @@ export function GuidedFlowShell({
 
         {/* Pinned footer: Back + live-range chip (mobile) + primary CTA. */}
         <div
-          className="shrink-0 border-t bg-background/95 px-0.5 pt-2 pb-safe"
+          className="shrink-0 border-t bg-background px-0.5 pt-2 pb-safe"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (
@@ -418,7 +418,7 @@ export function GuidedFlowShell({
       {/* Sticky CTA through tablet - keeps Continue reachable without scrolling */}
       {barVisible && (
         <div
-          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden pb-safe pt-3 px-4"
+          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background shadow-[0_-4px_20px_rgba(0,0,0,0.18)] lg:hidden pb-safe pt-3 px-4"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (

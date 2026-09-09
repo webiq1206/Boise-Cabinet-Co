@@ -4,12 +4,12 @@
 
 export const MARKETING_IMAGES = {
   heroHome: "/images/marketing/hero-home.webp",
-  heroAbout: "/images/marketing/hero-about.webp",
+  heroAbout: "/images/marketing/hero-about-branded-v2.webp",
   heroContact: "/images/marketing/hero-contact.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
-  processHome: "/images/marketing/process-home.webp",
+  processHome: "/images/marketing/process-home-branded-v2.webp",
   processAbout: "/images/marketing/process-about.webp",
-  processContact: "/images/marketing/process-contact.webp",
+  processContact: "/images/marketing/process-contact-branded-v2.webp",
   hardware: "/images/marketing/hero-hardware.webp",
   construction: "/images/marketing/hero-construction.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",
@@ -60,4 +60,3 @@ export const GALLERY_IMAGES = {
 export function imageWithFallback(webpPath: string, pngPath: string): string {
   return webpPath;
 }
-
