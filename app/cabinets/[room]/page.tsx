@@ -238,15 +238,15 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
         </Section>
 
         {/* Project proof */}
+        {roomProjects.length > 0 && (
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow="Project proof"
-              title={<>{room.name} cabinet work</>}
+              eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              title={<>{room.name} cabinet ideas</>}
               align="left"
               className="mb-6"
             />
-            {roomProjects.length > 0 ? (
               <div className="ed-cards-3 gap-6">
                 {roomProjects.map((project) => (
                   <MarketingCard key={project.slug} className="overflow-hidden p-0">
@@ -275,20 +275,10 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                   </MarketingCard>
                 ))}
               </div>
-            ) : (
-              <MarketingCard className="p-6">
-                <p className="text-sm text-muted-foreground">
-                  We&apos;re still building out {room.name.toLowerCase()}-specific project
-                  photos. See{" "}
-                  <Link href="/testimonials" className="text-accent hover:underline">
-                    projects across the Treasure Valley
-                  </Link>{" "}
-                  for examples of our work.
-                </p>
-              </MarketingCard>
-            )}
+
           </div>
         </Section>
+        )}
 
         {/* What is included */}
         <Section variant="greige" divider>
@@ -354,6 +344,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
         <ProcessSection />
 
         {/* Reviews */}
+        {roomReviews.length > 0 && (
         <Section divider>
           <div className="ed-shell">
             <div className="ed-split ed-split-narrow">
@@ -365,7 +356,6 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               className="mb-0"
             />
             </div>
-            {roomReviews.length > 0 ? (
               <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
                 {roomReviews.map((review) => (
                   <MarketingCard key={review.customerName} className="p-5">
@@ -379,21 +369,11 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                   </MarketingCard>
                 ))}
               </div>
-            ) : (
-              <MarketingCard className="p-6">
-                <p className="text-sm text-muted-foreground">
-                  We don&apos;t have a published review specific to {room.name.toLowerCase()}{" "}
-                  cabinets yet. See{" "}
-                  <Link href="/testimonials" className="text-accent hover:underline">
-                    reviews from across the Treasure Valley
-                  </Link>
-                  .
-                </p>
-              </MarketingCard>
-            )}
+
             </div>
           </div>
         </Section>
+        )}
 
         {/* Relevant FAQs */}
         <Section variant="greige" divider>
