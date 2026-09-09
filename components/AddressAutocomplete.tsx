@@ -43,6 +43,8 @@ export function AddressAutocomplete({
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputFocusedRef = useRef(false);
+  const suggestionsDismissedRef = useRef(false);
 
   const enrich = useCallback(
     async (opts: { placeId?: string; formattedAddress?: string }) => {
@@ -77,7 +79,11 @@ export function AddressAutocomplete({
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     const trimmed = value.trim();
+    const controller = new AbortController();
+    let active = true;
     if (trimmed.length < 3) {
+      setOpen(false);
+      setLoadingSuggestions(false);
       setSuggestions([]);
       return;
     }
@@ -86,19 +92,24 @@ export function AddressAutocomplete({
       setLoadingSuggestions(true);
       try {
         const res = await fetch(
-          `/api/address/autocomplete?input=${encodeURIComponent(trimmed)}`
+          `/api/address/autocomplete?input=${encodeURIComponent(trimmed)}`,
+          { signal: controller.signal }
         );
         const json = await res.json();
+        if (!active) return;
         setSuggestions(json.suggestions ?? []);
-        setOpen((json.suggestions?.length ?? 0) > 0);
+        setOpen(inputFocusedRef.current && !suggestionsDismissedRef.current && (json.suggestions?.length ?? 0) > 0);
       } catch {
+        if (!active) return;
         setSuggestions([]);
       } finally {
-        setLoadingSuggestions(false);
+        if (active) setLoadingSuggestions(false);
       }
     }, 300);
 
     return () => {
+      active = false;
+      controller.abort();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, [value]);
@@ -141,12 +152,15 @@ export function AddressAutocomplete({
         <Input
           value={value}
           onChange={(e) => {
+            suggestionsDismissedRef.current = false;
             onChange(e.target.value);
             setProfile(null);
             onProfileResolved(null);
             setError(null);
           }}
-          onFocus={() => suggestions.length > 0 && setOpen(true)}
+          onFocus={() => { inputFocusedRef.current = true; suggestionsDismissedRef.current = false; if (suggestions.length) setOpen(true); }}
+          onBlur={() => { inputFocusedRef.current = false; setOpen(false); }}
+          onKeyDown={(e) => { if (e.key === "Escape" || e.key === "Tab") { suggestionsDismissedRef.current = true; setOpen(false); } }}
           placeholder="Start typing your street address…"
           disabled={disabled || enriching}
           autoComplete="street-address"
