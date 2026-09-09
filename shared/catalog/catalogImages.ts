@@ -25,12 +25,13 @@ export function getHardwareImagePath(slug: string): string {
 }
 
 export function getAccessoryImagePath(slug: string): string {
-  return `/images/catalog/accessories/${slug}.webp`;
+  const file = slug === "partition" ? "vertical-divider" : slug;
+  return `/images/catalog/accessories/${file}.webp`;
 }
 
 /** OSC accessory family slug → application image (same path convention as accessories) */
 export function getAccessoryFamilyImagePath(slug: string): string {
-  return `/images/catalog/accessories/${slug}.webp`;
+  return getAccessoryImagePath(slug);
 }
 
 export function getCatalogProductAlt(name: string, category: "hardware" | "accessory"): string {

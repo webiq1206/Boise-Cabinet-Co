@@ -9,7 +9,6 @@ import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogVisualCard } from "@/components/catalog/visual";
 import { getAccessoryImagePath } from "@/shared/catalog";
 import { ACCESSORY_FAMILIES } from "@/shared/catalog";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -42,8 +41,8 @@ export default function AccessoriesPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
-          image={MARKETING_IMAGES.statementBand}
-          alt="Cabinet interior accessories and pull-out organizers, Boise Cabinet Co"
+          image={getAccessoryImagePath("partition")}
+          alt="Vertical cabinet dividers organize cutting boards and baking sheets"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Accessories" }]}
           eyebrow="Product catalog"
           title={<>
