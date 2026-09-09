@@ -418,7 +418,7 @@ export function GuidedFlowShell({
       {/* Sticky CTA through tablet - keeps Continue reachable without scrolling */}
       {barVisible && (
         <div
-          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden pb-safe pt-3 px-4"
+          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background lg:hidden pb-safe pt-3 px-4"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (
