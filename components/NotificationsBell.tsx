@@ -28,11 +28,12 @@ interface Notification {
 export function NotificationsBell() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isAuthenticated } = useAuth();
   const [open, setOpen] = useState(false);
 
   const { data: notifications = [], isLoading } = useQuery<Notification[]>({
     queryKey: ["/api/notifications"],
+    enabled: isAuthenticated,
     queryFn: async () => {
       const res = await fetch("/api/notifications");
       if (!res.ok) return [];
@@ -65,6 +66,8 @@ export function NotificationsBell() {
       queryClient.invalidateQueries({ queryKey: ["/api/notifications"] });
     },
   });
+
+  if (!isAuthenticated) return null;
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
