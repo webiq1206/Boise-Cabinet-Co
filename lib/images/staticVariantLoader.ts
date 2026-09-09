@@ -21,7 +21,10 @@ export default function staticVariantLoader({ src, width }: LoaderArgs): string 
 
   // Smallest variant at or above the requested width; otherwise the original
   // (covers requests larger than the biggest variant, e.g. hi-DPI / heroes).
-  const pick = widths.find((w) => w >= width);
+  const requested = widths.find((w) => w >= width);
+  // Room originals are legacy scenes; their optimized variants form the
+  // consistent, reviewed room set. Keep that same scene on high-DPI displays.
+  const pick = requested ?? (src.startsWith("/images/catalog/rooms/") ? widths[widths.length - 1] : undefined);
   if (!pick) return src;
 
   const dot = src.lastIndexOf(".");
