@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useFormInView } from "@/hooks/use-form-in-view";
 import Link from "next/link";
 import { ImagePlus, Loader2, MessageCircle, Send, X } from "lucide-react";
 import type { CombinedEstimateResult, EstimateSelections } from "@/shared/estimateEngine";
@@ -125,6 +126,7 @@ function EstimateCard({ estimate }: { estimate: CombinedEstimateResult }) {
 
 export function AssistantWidget() {
   const pathname = usePathname();
+  const formInView = useFormInView(pathname);
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -268,7 +270,7 @@ export function AssistantWidget() {
 
   return (
     <>
-      {!open && !wizardBarActive && (
+      {!open && !formInView && !wizardBarActive && (
         <button
           type="button"
           onClick={handleOpen}
@@ -302,7 +304,7 @@ export function AssistantWidget() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground"
               aria-label="Close the assistant"
               data-testid="button-assistant-close"
             >
