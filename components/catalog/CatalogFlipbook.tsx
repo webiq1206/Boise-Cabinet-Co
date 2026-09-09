@@ -616,30 +616,27 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
 
       {/* Search bar */}
       {searchOpen && (
-        <div className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2">
+        <form aria-label="Search catalog" onSubmit={(event) => { event.preventDefault(); void runSearch(searchTerm); }} className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2">
           <Search className="h-4 w-4 shrink-0 text-inverse-muted" />
           <input
             autoFocus
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") runSearch(searchTerm);
-            }}
+            aria-label="Search catalog text"
             placeholder="Search the catalog (e.g. shaker, walnut, hardware)…"
-            className="tap-target flex-1 rounded-sm border border-white/15 bg-transparent px-2 py-1.5 text-sm text-inverse-foreground placeholder:text-inverse-muted/60 focus:border-accent focus:outline-none"
+            className="tap-target min-w-0 flex-1 rounded-sm border border-white/15 bg-transparent px-2 py-1.5 text-sm text-inverse-foreground placeholder:text-inverse-muted/60 focus:border-accent focus:outline-none"
           />
           <button
-            type="button"
-            onClick={() => runSearch(searchTerm)}
-            className="rounded-sm bg-accent px-3 py-1.5 text-xs text-white"
+            type="submit"
+            className="min-h-11 shrink-0 rounded-sm bg-accent px-3 py-1.5 text-xs text-accent-foreground"
           >
             Find
           </button>
           {searchMsg && <span className="hidden text-xs text-inverse-muted sm:inline">{searchMsg}</span>}
-          <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search">
+          <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search" className="flex h-11 w-11 shrink-0 items-center justify-center">
             <X className="h-4 w-4 text-inverse-muted" />
           </button>
-        </div>
+        </form>
       )}
       {searchOpen && searchMsg && (
         <div className="border-b border-white/10 bg-catalog-rail px-3 py-1 text-xs text-inverse-muted sm:hidden">

@@ -274,7 +274,7 @@ export function AssistantWidget() {
         <button
           type="button"
           onClick={handleOpen}
-          className="fixed bottom-[84px] right-4 z-[90] flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] md:bottom-6 md:right-6"
+          className="fixed bottom-[calc(96px+env(safe-area-inset-bottom))] right-4 z-[90] flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] xl:bottom-6 xl:right-6"
           data-testid="button-assistant-open"
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
