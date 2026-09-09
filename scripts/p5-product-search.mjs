@@ -10,7 +10,7 @@ for(const width of [320,390,430,768,1024,1440,1920]){
  await expect(page.locator('[data-testid^="search-result-"]')).toHaveCount(0);
  await input.fill('');const matte=page.getByRole('button',{name:'matte',exact:true});await matte.click();await expect(matte).toHaveAttribute('aria-pressed','true');await matte.click();await expect(matte).toHaveAttribute('aria-pressed','false');
  await input.focus();await page.waitForTimeout(250);if(width<1280)await expect(page.locator('div.fixed.left-0.right-0.bottom-0').filter({visible:true})).toHaveCount(0);
- await expect(page.getByTestId('assistant-launcher')).toHaveCount(0);
+ await expect(page.getByTestId('button-assistant-open')).toHaveCount(0);
  r.overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);expect(r.overflow).toBe(false);
  await page.screenshot({path:'p5-verification/product-search-'+width+'.jpg'});r.passed=true;
  }catch(e){r.error=e.message;await page.screenshot({path:'p5-verification/product-search-failure-'+width+'.jpg'}).catch(()=>{})}
