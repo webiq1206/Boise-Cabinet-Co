@@ -428,8 +428,14 @@ export function CabinetOptionsSelector({
   initialExpanded = false,
   className,
 }: CabinetOptionsSelectorProps) {
-  let curatedList = curated ?? cabinets.slice(0, 6);
-  if (curatedList.length === 0) curatedList = cabinets.slice(0, 6);
+  // Start with different cabinet types instead of six size variants of one box.
+  const seenCategories = new Set<string>();
+  const typeExamples = cabinets.filter((cabinet) => {
+    if (seenCategories.has(cabinet.category)) return false;
+    seenCategories.add(cabinet.category);
+    return true;
+  }).slice(0, 3);
+  const curatedList = curated?.length ? curated : typeExamples;
 
   const groups: OptionsFilterGroup<CabinetProduct>[] = [];
 
@@ -474,7 +480,7 @@ export function CabinetOptionsSelector({
       filterGroups={groups}
       getId={(c) => c.slug}
       renderItem={(c) => <CabinetCard product={c} />}
-      curatedLabel="Popular cabinets"
+      curatedLabel="Explore cabinet types"
       nounSingular="cabinet"
       nounPlural="cabinets"
       initialFilters={initialFilters}

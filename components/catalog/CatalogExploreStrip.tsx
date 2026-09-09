@@ -38,13 +38,13 @@ export function CatalogExploreStrip() {
       <div className="grid sm:grid-cols-3 gap-4">
         {doors.map((door) => {
           if (!door) return null;
-          const imgs = getDoorStyleImages(door.slug, door.imagePath);
+          const imgs = getDoorStyleImages(door.slug);
           return (
             <CatalogVisualCard
               key={door.slug}
               name={door.name}
-              imageSrc={imgs.thumb640}
-              imageAlt={`${door.name} door profile`}
+              imageSrc={imgs.primary}
+              imageAlt={`${door.name} door profile illustration`}
               primaryHref="/catalog"
             />
           );

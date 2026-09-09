@@ -5,7 +5,7 @@ await fs.mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true});
 const widths=[320,390,430,768,1024,1440,1920];
 const parent=process.env.P5_PARENT==='1';
-const routes=parent?['/','/quote','/sitemap','/legal/terms','/legal/privacy','/legal/quickbooks-disconnect']:['/','/cabinets','/catalog','/accessories','/construction','/compare','/shaker-cabinets','/estimate','/about','/contact','/testimonials'];
+const routes=parent?['/','/quote','/sitemap','/legal/terms','/legal/privacy','/legal/quickbooks-disconnect']:['/','/cabinets','/cabinets/kitchen','/cabinets/bathroom','/cabinets/laundry','/catalog','/accessories','/construction','/compare','/shaker-cabinets','/estimate','/about','/contact','/testimonials'];
 const results=[];
 let failed=false;
 function check(ok,message){if(!ok)throw new Error(message);}
@@ -18,6 +18,14 @@ try {
    try {
     const response=await page.goto('http://127.0.0.1:5000'+route,{waitUntil:'networkidle'});
     check(response.status()<400,route+' status '+response.status());
+    if (route.startsWith('/cabinets/')) {
+      const count = page.getByTestId('text-options-count');
+      check((await count.textContent()).includes('3 to start'), 'Cabinet examples should start with three distinct types');
+      await page.getByTestId('button-options-seeall').click();
+      check((await count.textContent()).startsWith('Showing '), 'Full cabinet range did not open');
+      await page.getByTestId('button-options-reset').click();
+      check((await count.textContent()).includes('3 to start'), 'Cabinet examples did not reset');
+    }
     await page.evaluate(async()=>{await document.fonts.ready; for(let y=0;y<document.documentElement.scrollHeight;y+=650){window.scrollTo({top:y,behavior:'instant'});await new Promise(r=>setTimeout(r,70));}});
     await page.evaluate(async()=>{
       const images=[...document.images].filter(i=>i.getClientRects().length);

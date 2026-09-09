@@ -43,14 +43,14 @@ export function RoomCatalogShowcase({
       {doors.length > 0 && (
         <div className="grid sm:grid-cols-3 gap-6">
           {doors.map((door) => {
-            const imgs = getDoorStyleImages(door.slug, door.imagePath);
+            const imgs = getDoorStyleImages(door.slug);
             return (
               <CatalogVisualCard
                 key={door.slug}
                 name={door.name}
                 description={door.description.slice(0, 120)}
-                imageSrc={imgs.thumb640}
-                imageAlt={`${door.name} door profile`}
+                imageSrc={imgs.primary}
+                imageAlt={`${door.name} door profile illustration`}
                 aspectRatio="4/3"
                 primaryHref="/catalog"
                 primaryLabel="View door style"
