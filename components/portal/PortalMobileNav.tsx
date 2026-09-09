@@ -270,7 +270,7 @@ export function PortalMobileNav({ variant }: { variant: PortalShellVariant }) {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 pb-[env(safe-area-inset-bottom,0px)]"
+      className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background pb-[env(safe-area-inset-bottom,0px)]"
       aria-label="Portal navigation"
     >
       {variant === "customer" && <CustomerMobileNav pathname={pathname} />}
