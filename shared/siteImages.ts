@@ -9,7 +9,7 @@ export const MARKETING_IMAGES = {
   designStudio: "/images/marketing/hero-design-studio.webp",
   processHome: "/images/marketing/process-home-branded.webp",
   processAbout: "/images/marketing/process-about-branded.webp",
-  processContact: "/images/marketing/process-contact.webp",
+  processContact: "/images/marketing/process-home-branded.webp",
   hardware: "/images/marketing/hero-hardware.webp",
   construction: "/images/marketing/hero-construction.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",
