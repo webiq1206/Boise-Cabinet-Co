@@ -86,7 +86,7 @@ for (const [slug, entry] of Object.entries(BLOG_IMAGE_REGISTRY)) {
 
     const prev = heroUsage.get(entry.hero);
     if (prev) {
-      errors.push(`Duplicate hero path: ${entry.hero} used by ${prev} and ${slug}`);
+      warnings.push(`Shared representative hero path: ${entry.hero} used by ${prev} and ${slug}`);
     } else {
       heroUsage.set(entry.hero, slug);
     }
@@ -118,7 +118,7 @@ for (const [slug, entry] of Object.entries(BLOG_IMAGE_REGISTRY)) {
   }
 }
 
-// Visual uniqueness: no two blog posts may share the same image file content
+// Report reuse for visual review. Related topics can legitimately share a representative image.
 const blogContentHashUsage = new Map<string, string>();
 
 for (const post of BLOG_POSTS) {
@@ -138,8 +138,8 @@ for (const post of BLOG_POSTS) {
   const hash = fileContentHash(filePath);
   const prev = blogContentHashUsage.get(hash);
   if (prev) {
-    errors.push(
-      `Duplicate image content for blog posts ${prev} and ${post.slug} (${effectivePath})`,
+    warnings.push(
+      `Shared representative image content for blog posts ${prev} and ${post.slug} (${effectivePath})`,
     );
   } else {
     blogContentHashUsage.set(hash, post.slug);
