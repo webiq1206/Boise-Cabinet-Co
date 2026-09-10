@@ -160,6 +160,7 @@ export function GuidedFlowShell({
       // Every step must open at the very top. Reset the contained body and any
       // page-level scroll (the standalone /estimate page can scroll to its site
       // footer) instantly, so a new step never appears mid-scroll.
+      rootRef.current?.scrollTo({ top: 0, behavior: "auto" });
       bodyRef.current?.scrollTo({ top: 0, behavior: "auto" });
       if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
     } else {
@@ -255,6 +256,7 @@ export function GuidedFlowShell({
             wrapper is a flex column on mobile (so the body is height-bounded and
             scrolls internally) and a two-column grid on desktop. */}
         <div
+          data-guided-step-layout
           className={cn(
             "flex min-h-0 flex-1 flex-col",
             sidePanel
@@ -263,6 +265,7 @@ export function GuidedFlowShell({
           )}
         >
           <div
+            data-guided-step-body
             ref={bodyRef}
             className={cn(
               "min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 lg:flex-none",
@@ -409,16 +412,9 @@ export function GuidedFlowShell({
         )}
       </div>
 
-      {/* Spacer so content is never hidden behind the sticky bar (mobile + tablet) */}
+      {/* Mobile actions follow the step and remain reachable by scrolling. */}
       <div
-        className={cn("lg:hidden", mobileSummary ? "h-44" : "h-32")}
-        aria-hidden
-      />
-
-      {/* Sticky CTA through tablet - keeps Continue reachable without scrolling */}
-      {barVisible && (
-        <div
-          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background lg:hidden pb-safe pt-3 px-4"
+          className="mt-6 border-t bg-background lg:hidden pb-safe pt-3 px-4"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (
@@ -447,7 +443,6 @@ export function GuidedFlowShell({
             })()}
           </div>
         </div>
-      )}
     </div>
   );
 }

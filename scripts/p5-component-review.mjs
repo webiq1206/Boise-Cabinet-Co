@@ -10,12 +10,14 @@ const records=[];
 const origin='http://127.0.0.1:5000';
 const cabinet=process.env.P5_SITE==='cabinet';
 const remodeling=process.env.P5_SITE==='remodeling';
+const reviewedImages=cabinet?JSON.parse(await fs.readFile('docs/p5-cabinet-image-corrections-2026-09-10.json','utf8')):{};
+const correctedRoutes=Object.keys(reviewedImages).map(slug=>routes.find(r=>r==='/blog/'+slug||r==='/guides/'+slug)).filter(Boolean);
 const selected=[...new Set(['/', '/contact','/about','/testimonials',...(routes.includes('/services')?['/services']:[]),
  routes.find(r=>/^\/(services|cabinets)\/[^/]+$/.test(r)),
  routes.find(r=>/^\/services\/[^/]+\/[^/]+$/.test(r)),
  routes.find(r=>/^\/guides\/[^/]+$/.test(r)),
  routes.find(r=>/^\/blog\/[^/]+$/.test(r)),
- ...(cabinet?['/catalog','/cabinets','/compare','/construction','/builders','/warranty']:[])
+ ...(cabinet?['/catalog','/cabinets','/compare','/construction','/builders','/warranty',...correctedRoutes]:[])
 ].filter(Boolean))];
 try {
  for(const width of widths){
@@ -34,7 +36,8 @@ try {
     await page.goto(origin+route,{waitUntil:'domcontentloaded'});
     await page.evaluate(async()=>{await document.fonts.ready;for(let y=0;y<document.documentElement.scrollHeight;y+=600){window.scrollTo({top:y,behavior:'instant'});await new Promise(r=>setTimeout(r,80));}});
     await page.locator('article details:not([open]) > summary').evaluateAll(es=>es.forEach(e=>e.click()));
-    await page.evaluate(async()=>{const is=[...document.images].filter(i=>i.getClientRects().length);is.forEach(i=>i.loading='eager');await Promise.allSettled(is.map(i=>i.decode()));});
+    await page.evaluate(async()=>{const is=[...document.images].filter(i=>i.getClientRects().length);is.forEach(i=>i.loading='eager');await Promise.race([Promise.allSettled(is.map(i=>i.decode())),new Promise(r=>setTimeout(r,15000))]);});
+    await page.evaluate(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=750){window.scrollTo({top:y,behavior:'instant'});await new Promise(r=>setTimeout(r,35));}});
     await page.waitForTimeout(700);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow');
     const missingGradients=await page.evaluate(()=>[...document.querySelectorAll('[class*="bg-gradient-to-"]')].filter(e=>e.getClientRects().length&&getComputedStyle(e).backgroundImage==='none').map(e=>e.className));
@@ -43,6 +46,13 @@ try {
     assert.equal(brokenImages.length,0,'Broken images: '+JSON.stringify(brokenImages));
     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
     await page.screenshot({path:`${out}/${width}-${route.replaceAll('/','_')}.jpg`,fullPage:true,type:'jpeg',quality:72});
+    const imageCorrection=reviewedImages[route.split('/').pop()];
+    if(imageCorrection){
+     const [expected,alt]=imageCorrection;
+     const shown=await page.locator('main img').evaluateAll(es=>es.map(i=>({src:i.currentSrc,alt:i.alt})));
+     const expectedStem=expected.replace(/\.webp$/,'');
+     assert(shown.some(i=>(i.src.includes(expected)||i.src.includes(expectedStem+'-'))&&i.alt===alt),'Production build must retain the reviewed article image and description');
+    }
     if(route==='/'){
      const menu=page.getByRole('button',{name:'Open navigation menu',exact:true});
      if(width<1440){

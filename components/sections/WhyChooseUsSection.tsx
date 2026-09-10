@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { SITE_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/marketing/Section";
 import {
@@ -64,8 +63,8 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
               <figure className="mt-10 hidden lg:block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
-                    src={SITE_IMAGES.processAbout}
-                    alt="Representative image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                    src="/images/marketing/hero-construction.webp"
+                    alt="Representative cabinet workshop with a CNC router shaping a cabinet door"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

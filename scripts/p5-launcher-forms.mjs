@@ -11,6 +11,7 @@ for(const width of [320,390,430,600,768,1024,1366,1440,1920]){
   await page.goto('http://127.0.0.1:5000/contact',{waitUntil:'load'});
   await assistantReady;
   await page.evaluate(async()=>{await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});
+  await page.waitForTimeout(700);
   const launcher=page.locator('[data-testid="button-assistant-open"],[data-testid="assistant-launcher"]');
   await page.locator('footer').scrollIntoViewIfNeeded();
   await page.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
