@@ -27,3 +27,5 @@ backlink-engine/data/pipeline.json
 
 # Estimator test outputs
 /p5-verification/
+
+!/scripts/test-p5-receipt.mts
