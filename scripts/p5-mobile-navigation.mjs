@@ -12,6 +12,7 @@ try {
  for(const width of [320,390,768,1024,1440]){
   const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<1024});
   const page=await context.newPage();
+  page.on('pageerror',error=>console.log('Browser error:',error.stack||error.message));
   await context.route('**/api/estimator-session',r=>r.fulfill({json:{ok:true}}));
   await context.route('**/api/meta-capi',r=>r.fulfill({json:{ok:true}}));
   for(const route of parent?['/quote']:['/estimate','/',...extraRoutes]){
@@ -19,7 +20,12 @@ try {
    await page.goto(`http://127.0.0.1:5000${route}`,{waitUntil:'load'});
    if(route==='/')await page.locator('#calculator').scrollIntoViewIfNeeded();
    const option=page.locator('[data-scope-estimate-option]').first();
-   await option.waitFor();await option.scrollIntoViewIfNeeded();
+   try{await option.waitFor();}catch(error){
+    await page.screenshot({path:`p5-verification/navigation-failure-${width}.png`,fullPage:true});
+    console.log('Failed route:',page.url(),(await page.locator('body').innerText()).slice(0,5000));
+    throw error;
+   }
+   await option.scrollIntoViewIfNeeded();
    assert.equal(await option.locator('a').getAttribute('href'),'/estimate/scope');
    if(width<1024&&!parent){
     await page.waitForFunction(()=>[...document.querySelectorAll('[data-mobile-nav-bar], [data-assistant-launcher]')].every(e=>!e.getClientRects().length||getComputedStyle(e).visibility==='hidden'||getComputedStyle(e).display==='none'),{},{timeout:5000});
