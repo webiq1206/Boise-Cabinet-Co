@@ -41,7 +41,7 @@ export function CatalogVisualCard({
   className,
 }: CatalogVisualCardProps) {
   return (
-    <article className={cn("flex flex-col overflow-hidden rounded-lg border bg-card", className)}>
+    <article data-catalog-visual-card className={cn("flex min-w-0 flex-col overflow-hidden rounded-lg border bg-card", className)}>
       {imageSrc ? (
         <CatalogImage
           src={imageSrc}
@@ -58,7 +58,7 @@ export function CatalogVisualCard({
           aria-label={imageAlt ?? name}
         />
       ) : null}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-6">
         <h3 className="text-lg font-serif tracking-tight hyphens-auto break-words">{name}</h3>
         {description && (
           <p className="text-sm text-muted-foreground mt-2 line-clamp-4">{description}</p>
@@ -66,23 +66,23 @@ export function CatalogVisualCard({
         {specs.length > 0 && (
           <dl className="mt-4 grid gap-2 text-sm">
             {specs.map((spec) => (
-              <div key={spec.label} className="flex justify-between gap-4">
+              <div key={spec.label} className="flex flex-wrap justify-between gap-x-3 gap-y-1">
                 <dt className="text-muted-foreground">{spec.label}</dt>
-                <dd className="font-medium text-right">{spec.value}</dd>
+                <dd className="min-w-0 break-words font-medium text-right">{spec.value}</dd>
               </div>
             ))}
           </dl>
         )}
         <div className="mt-auto pt-6 flex flex-wrap gap-3">
           {primaryHref && (
-            <Button variant="brand" size="sm" asChild>
+            <Button variant="brand" size="sm" className="h-auto min-h-11 max-w-full whitespace-normal py-3 text-left leading-relaxed" asChild>
               <Link href={primaryHref}>
-                {primaryLabel} <ArrowRight className="h-4 w-4" />
+                {primaryLabel} <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
               </Link>
             </Button>
           )}
           {secondaryHref && (
-            <Button variant="brandOutline" size="sm" asChild>
+            <Button variant="brandOutline" size="sm" className="h-auto min-h-11 max-w-full whitespace-normal py-3 text-left leading-relaxed" asChild>
               <Link href={secondaryHref}>{secondaryLabel ?? "Learn more"}</Link>
             </Button>
           )}

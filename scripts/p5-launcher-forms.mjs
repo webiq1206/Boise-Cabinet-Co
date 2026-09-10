@@ -7,6 +7,11 @@ for(const width of [320,390,430,600,768,1024,1366,1440,1920]){
  await context.route('**/api/assistant/chat',r=>r.fulfill({contentType:'application/json',body:'{"available":true}'}));
  const page=await context.newPage(); page.setDefaultTimeout(10000);
  try{
+  if(width<1024){
+   await page.goto('http://127.0.0.1:5000/',{waitUntil:'domcontentloaded'});
+   await page.waitForTimeout(700);
+   if(await page.locator('[data-assistant-launcher]').isVisible())throw new Error('Assistant launcher overlaps mobile hero');
+  }
   const assistantReady=page.waitForResponse(r=>r.url().includes('/api/assistant/chat')&&r.request().method()==='GET');
   await page.goto('http://127.0.0.1:5000/contact',{waitUntil:'load'});
   await assistantReady;
