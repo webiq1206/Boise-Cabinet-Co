@@ -24,7 +24,7 @@ export function ProcessSection() {
         <div className="ed-panel-media">
           <Image
             src={MARKETING_IMAGES.designStudio}
-            alt="Custom cabinet door samples, finish swatches, and a kitchen layout rendering laid out during a Boise Cabinet Co design consultation"
+            alt="Representative cabinet door samples, finish swatches and a kitchen layout rendering"
             fill
             sizes="(max-width: 820px) 100vw, 43vw"
             className="object-cover img-brand-grade"

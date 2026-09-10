@@ -126,7 +126,7 @@ function EstimateCard({ estimate }: { estimate: CombinedEstimateResult }) {
 
 export function AssistantWidget() {
   const pathname = usePathname();
-  const formInView = useFormInView(pathname);
+  const formInView = useFormInView(pathname, true);
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);

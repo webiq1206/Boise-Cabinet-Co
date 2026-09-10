@@ -41,7 +41,7 @@ function Logo() {
 export function Navigation() {
   const pathname = usePathname();
   const formInView = useFormInView(pathname);
-  // P5's header: transparent over the hero, gaining ground, blur and a hairline once scrolled.
+  // Solid contrast over every hero; a shadow separates the header while scrolling.
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -50,6 +50,13 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const [mobileOpen, setMobileOpen] = useState(false);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1440px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileOpen(false); };
+    closeOnDesktop();
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const { openEstimate } = useModals();
   const { isAuthenticated, isCustomer } = useAuth();
@@ -148,13 +155,14 @@ export function Navigation() {
       <header
         className={cn(
           "fixed top-0 z-[100] w-full transition-[background-color,border-color] duration-300",
-          scrolled ? "bg-background/95 backdrop-blur border-b border-border" : "bg-transparent border-b border-transparent",
+          "bg-background/95 backdrop-blur border-b border-border",
+          scrolled && "shadow-sm",
         )}
       >
         <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
           <Logo />
 
-          <div className="hidden xl:flex items-center">
+          <div className="hidden min-[1440px]:flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {PRIMARY_NAV.map((item) =>
@@ -221,7 +229,7 @@ export function Navigation() {
             </NavigationMenu>
           </div>
 
-          <div className="hidden xl:flex items-center gap-3 shrink-0">
+          <div className="hidden min-[1440px]:flex items-center gap-3 shrink-0">
             {isAuthenticated && isCustomer && (
               <Button variant="brandOutline" size="sm" asChild>
                 <Link href="/portal">{CTA_PORTAL_SHORT}</Link>
@@ -259,10 +267,11 @@ export function Navigation() {
             </Button>
           </div>
 
-          <div className="flex xl:hidden items-center gap-2">
+          <div className="flex min-[1440px]:hidden items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
+              className="h-11 w-11 shrink-0"
               aria-label="Open navigation menu"
               onClick={() => setMobileOpen(true)}
             >
@@ -276,15 +285,15 @@ export function Navigation() {
         <SheetContent
           side="right"
           showClose={false}
-          className="w-full sm:max-w-full h-full max-h-none border-0 p-0 gap-0 flex flex-col xl:hidden z-[200] rounded-none"
+          className="w-full sm:max-w-full h-full max-h-none border-0 p-0 gap-0 flex flex-col min-[1440px]:hidden z-[200] rounded-none"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Navigation menu</SheetTitle>
           </SheetHeader>
-          <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
+          <div className="flex items-center justify-between gap-3 px-4 h-[60px] border-b border-border/40 shrink-0 [&_img]:max-w-[65vw] [&_img]:h-auto">
             <Logo />
             <SheetClose asChild>
-              <Button variant="ghost" size="icon" aria-label="Close menu">
+              <Button variant="ghost" size="icon" className="h-11 w-11 shrink-0" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </Button>
             </SheetClose>
@@ -307,6 +316,7 @@ export function Navigation() {
                   <>
                     <button
                       type="button"
+                      aria-expanded={expandedMobile === item.label}
                       onClick={() =>
                         setExpandedMobile(expandedMobile === item.label ? null : item.label)
                       }
@@ -330,7 +340,7 @@ export function Navigation() {
                         <Link
                           href={item.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-sm font-medium text-foreground"
+                          className="flex min-h-11 items-center py-2 text-sm font-medium text-foreground"
                         >
                           All {item.label}
                         </Link>
@@ -353,7 +363,7 @@ export function Navigation() {
                           <Link
                             href={item.footerLink.href}
                             onClick={() => setMobileOpen(false)}
-                            className="block py-2 text-sm text-muted-foreground"
+                            className="flex min-h-11 items-center py-2 text-sm text-muted-foreground"
                           >
                             {item.footerLink.label}
                           </Link>
@@ -379,12 +389,12 @@ export function Navigation() {
             ))}
           </nav>
 
-          <div className="shrink-0 border-t border-border/40 px-6 py-6 space-y-3">
-            <a href={SITE_CONFIG.phoneHref} className="flex items-center gap-3 text-base font-medium">
+          <div className="shrink-0 border-t border-border/40 px-6 py-4 pb-safe space-y-3">
+            <a href={SITE_CONFIG.phoneHref} className="flex min-h-11 items-center gap-3 text-base font-medium">
               <Phone className="h-5 w-5" strokeWidth={1.5} />
               Call {SITE_CONFIG.phone}
             </a>
-            <a href={SITE_CONFIG.phoneSmsHref} className="flex items-center gap-3 text-base font-medium">
+            <a href={SITE_CONFIG.phoneSmsHref} className="flex min-h-11 items-center gap-3 text-base font-medium">
               <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
               Text {SITE_CONFIG.phone}
             </a>
