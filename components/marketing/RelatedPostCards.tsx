@@ -75,7 +75,7 @@ export function RelatedPostCards({
         {links.map((link) => {
           const image = imageForUrl(link.url);
           return (
-            <Link key={link.url} href={link.url} className="block group">
+            <Link key={link.url} href={link.url} className="block group" aria-label={link.anchor}>
               <article className="ed-card ed-card-link h-full overflow-hidden p-0">
                 {image && (
                   <div className="relative aspect-[16/9]">

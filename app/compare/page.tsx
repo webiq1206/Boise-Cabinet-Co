@@ -227,7 +227,7 @@ export default function ComparePage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={"/images/catalog/collections/custom.webp"}
-          alt="Custom Cabinets built to your exact sizes and finishes by Boise Cabinet Co"
+          alt="Representative custom cabinetry with coordinated sizes and finishes"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Catalog", href: "/catalog" }, { name: "Compare" }]}
           eyebrow="Product catalog"
           title={<>

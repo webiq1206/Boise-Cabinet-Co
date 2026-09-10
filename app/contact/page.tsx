@@ -2,7 +2,7 @@ import { ArrowRight, Check, ChevronRight, Mail, MapPin, MessageSquare, Phone } f
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import Image from 'next/image';
-import { DisplayNum, Section } from '@/components/marketing';
+import { Section } from '@/components/marketing';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { Hairline } from '@/components/marketing/Hairline';
 import { SITE_IMAGES } from '@/shared/siteImages';
@@ -61,21 +61,6 @@ function HeroBreadcrumbs() {
         })}
       </ol>
     </nav>
-  );
-}
-
-function StatCard({ num, label }: { num: string; label: string }) {
-  /* Phones: a plain cell inside the strip the container draws. Boxed and
-     three-up, the labels wrapped onto three or four lines each. */
-  return (
-    <div className="px-2 py-3 text-center md:px-6 md:py-5 md:text-left md:rounded-sm md:bg-inverse-foreground/10 md:border md:border-inverse-foreground/15 md:backdrop-blur-sm">
-      <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
-        {num}
-      </DisplayNum>
-      <div className="mt-1.5 text-[0.625rem] leading-tight tracking-[0.08em] md:text-label md:tracking-[0.1em] uppercase text-inverse-muted md:leading-snug">
-        {label}
-      </div>
-    </div>
   );
 }
 
@@ -175,7 +160,7 @@ export default function ContactPage() {
             priority
           />
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/50 via-inverse/15 to-transparent" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/60 to-inverse/10" />
           <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div
@@ -188,7 +173,7 @@ export default function ContactPage() {
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
             </p>
-            <div className="ed-eyebrow">Get in touch</div>
+            <div className="ed-eyebrow mt-6 text-inverse-foreground">Get in touch</div>
             <h1 className="ed-display ed-statement-display text-inverse-foreground mb-8">
               Contact {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
@@ -208,11 +193,14 @@ export default function ContactPage() {
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
             </div>
-            <div className="grid grid-cols-3 max-w-xl divide-x divide-inverse-foreground/15 rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/10 backdrop-blur-sm md:gap-3 md:divide-x-0 md:rounded-none md:border-0 md:bg-transparent md:backdrop-blur-none">
+            <dl className="ed-hero-facts">
               {HERO_STATS.map((stat) => (
-                <StatCard key={stat.num} num={stat.num} label={stat.label} />
+                <div key={stat.label}>
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.num}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </div>
         </section>
 
@@ -233,7 +221,7 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="md:col-span-3" padding="lg">
+            <MarketingCard className="md:col-span-3 p-4 sm:p-7 md:p-10" padding="lg">
               <ConsultationForm />
             </MarketingCard>
           </div>

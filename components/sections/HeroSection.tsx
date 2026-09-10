@@ -5,23 +5,10 @@ import { Button } from "@/components/ui/button";
 import { HERO_EYEBROW, HERO_SUBHEAD, HERO_STATS, TRUST_ITEMS } from "@/shared/siteContent";
 import { SITE_IMAGES } from "@/shared/siteImages";
 import { CTA_BROWSE_CABINETS, CTA_ESTIMATE } from "@/shared/ctaCopy";
-import { DisplayNum } from "@/components/marketing";
+
 import { AggregateRating } from "@/components/marketing/AggregateRating";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
-
-function StatCard({ num, label }: { num: string; label: string }) {
-  return (
-    <div className="px-3 py-3 md:px-6 md:py-5 rounded-sm bg-inverse-foreground/10 border border-inverse-foreground/15 backdrop-blur-sm">
-      <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
-        {num}
-      </DisplayNum>
-      <div className="mt-1 md:mt-1.5 text-[12px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
-        {label}
-      </div>
-    </div>
-  );
-}
 
 export function HeroSection() {
   return (
@@ -29,14 +16,14 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-          alt="Custom cream shaker kitchen cabinets with a white oak island, aged brass hardware, and lit glass-front uppers in a Treasure Valley, Idaho home by Boise Cabinet Co"
+          alt="Representative kitchen with cream Shaker cabinets, a white oak island, brass hardware and glass-front upper cabinets"
           fill
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover opacity-[0.92] img-brand-grade animate-hero-reveal"
+          className="object-cover img-brand-grade animate-hero-reveal"
         />
-        <div className="hidden md:block absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/55 to-inverse/25" />
+        <div className="hidden md:block absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/60 to-inverse/10" />
         {/* Mobile stacks the copy over the middle of the photo, so it needs a
             bottom-up scrim the desktop left-to-right one cannot provide. */}
         <div className="md:hidden absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/70 to-inverse/45" />
@@ -44,17 +31,17 @@ export function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.13 }}
+          style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.025 }}
         />
 
         <div className="relative z-10 container px-4 md:px-8 py-20 md:py-32 pb-16 md:pb-28">
-          <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-center">
+          <div className="ed-hero-copy">
             <Reveal>
-              <div className="brc-label mb-6 text-inverse-muted">{HERO_EYEBROW}</div>
+              <div className="brc-label mb-6 text-inverse-foreground">{HERO_EYEBROW}</div>
               {/* Display scale from the family layer: up to 92px, tight leading,
                   negative tracking. The hero heading is the one line the whole
                   site is judged on in the first second. */}
-              <h1 className="ed-display text-inverse-foreground mb-8 max-w-[12ch]">
+              <h1 className="ed-display text-inverse-foreground mb-8 max-w-[16ch]">
                 Idaho&apos;s premier{" "}
                 <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
                   cabinet
@@ -83,27 +70,15 @@ export function HeroSection() {
                 className="mb-8 md:mb-0 [&_.text-muted-foreground]:text-inverse-muted"
               />
 
-              {/* Phones: one translucent strip with three hairline-divided
-                  cells, not three boxes clipping their labels. */}
-              <div className="grid grid-cols-3 divide-x divide-inverse-foreground/15 rounded-sm bg-inverse-foreground/10 border border-inverse-foreground/15 backdrop-blur-sm md:hidden">
+              <dl className="ed-hero-facts">
                 {HERO_STATS.map((stat) => (
-                  <div key={stat.num} className="px-2 py-3 text-center">
-                    <DisplayNum className="text-inverse-foreground text-lg leading-none">{stat.num}</DisplayNum>
-                    <div className="mt-1.5 text-[0.625rem] leading-tight tracking-[0.08em] uppercase text-inverse-muted">
-                      {stat.label}
-                    </div>
+                  <div key={stat.num} className="flex flex-col">
+                    <dt className="order-2">{stat.label}</dt>
+                    <dd className="order-1">{stat.num}</dd>
                   </div>
                 ))}
-              </div>
+              </dl>
             </Reveal>
-
-            <div className="hidden md:flex flex-col gap-3">
-              {HERO_STATS.map((stat, i) => (
-                <Reveal key={stat.num} delay={i * 90}>
-                  <StatCard num={stat.num} label={stat.label} />
-                </Reveal>
-              ))}
-            </div>
           </div>
         </div>
 
