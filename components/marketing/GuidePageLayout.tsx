@@ -193,7 +193,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
               )}
 
               <div className="lg:hidden mt-10">
-                <ArticleSidebarCta />
+                <ArticleSidebarCta description="Schedule a design consultation to review your cabinet project." />
               </div>
             </div>
 

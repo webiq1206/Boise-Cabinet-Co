@@ -37,7 +37,8 @@ export function RoomPhotoQuickMeasure() {
     if (!design.photoUrl || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const next = [...tapPoints, { x }];
+    const y = e.clientY - rect.top;
+    const next = [...tapPoints, { x, y }];
     setTapPoints(next);
     if (next.length < 2) return;
 

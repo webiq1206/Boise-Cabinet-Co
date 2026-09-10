@@ -180,7 +180,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               )}
 
               <div className="lg:hidden mt-10">
-                <ArticleSidebarCta ctaDescription="Planning cabinet work? Get a free design visit and planning range from our team." />
+                <ArticleSidebarCta description="Planning cabinet work? Get a free design visit and planning range from our team." />
               </div>
             </div>
 
