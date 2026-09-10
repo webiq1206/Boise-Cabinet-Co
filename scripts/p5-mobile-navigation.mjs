@@ -6,7 +6,9 @@ const browser=await chromium.launch();
 const extraRoutes=[];
 if(await fs.stat('components/re10/Re10Wizard.tsx').catch(()=>null))extraRoutes.push('/re-10-repairs-boise');
 if(await fs.stat('components/plans/PlansWizard.tsx').catch(()=>null))extraRoutes.push('/remodel-plans-boise');
-if(await fs.stat('components/design-studio/DesignWizard.tsx').catch(()=>null))extraRoutes.push('/design-studio');
+const hasDesignStudio=!!(await fs.stat('components/design-studio/DesignWizard.tsx').catch(()=>null));
+const designStudioEnabled=process.env.NEXT_PUBLIC_DESIGN_STUDIO_ENABLED==='true';
+if(hasDesignStudio&&designStudioEnabled)extraRoutes.push('/design-studio');
 const results=[];await fs.mkdir('p5-verification',{recursive:true});
 try {
  for(const width of [320,390,768,1024,1440]){
@@ -15,6 +17,11 @@ try {
   page.on('pageerror',error=>console.log('Browser error:',error.stack||error.message));
   await context.route('**/api/estimator-session',r=>r.fulfill({json:{ok:true}}));
   await context.route('**/api/meta-capi',r=>r.fulfill({json:{ok:true}}));
+  if(hasDesignStudio&&!designStudioEnabled){
+   const response=await page.goto('http://127.0.0.1:5000/design-studio',{waitUntil:'load'});
+   assert.equal(response.status(),404,'Disabled Design Studio must remain unavailable');
+   results.push({width,route:'/design-studio',disabled:true,passed:true});
+  }
   for(const route of parent?['/quote']:['/estimate','/',...extraRoutes]){
    console.log(`Checking estimator navigation at ${width}px on ${route}`);
    await page.goto(`http://127.0.0.1:5000${route}`,{waitUntil:'load'});
