@@ -271,7 +271,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="h-11 w-11"
+              className="h-11 w-11 shrink-0"
               aria-label="Open navigation menu"
               onClick={() => setMobileOpen(true)}
             >
@@ -290,10 +290,10 @@ export function Navigation() {
           <SheetHeader className="sr-only">
             <SheetTitle>Navigation menu</SheetTitle>
           </SheetHeader>
-          <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
+          <div className="flex items-center justify-between gap-3 px-4 h-[60px] border-b border-border/40 shrink-0 [&_img]:max-w-[65vw] [&_img]:h-auto">
             <Logo />
             <SheetClose asChild>
-              <Button variant="ghost" size="icon" className="h-11 w-11" aria-label="Close menu">
+              <Button variant="ghost" size="icon" className="h-11 w-11 shrink-0" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </Button>
             </SheetClose>
