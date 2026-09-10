@@ -50,7 +50,7 @@ export function CatalogExploreStrip() {
           );
         })}
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {finishes.map((finish) => {
           if (!finish) return null;
           const imgs = getFinishImages(finish.slug, finish.imagePath);
