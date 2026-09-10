@@ -1,4 +1,5 @@
 "use client";
+import { ScopeEstimateOption } from "@/components/ScopeEstimateOption";
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -243,6 +244,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
 
   const shell = (
     <GuidedFlowShell
+      headerExtra={isFirst ? <ScopeEstimateOption /> : undefined}
       steps={steps}
       currentIndex={currentStep}
       isStepComplete={isStepComplete}
