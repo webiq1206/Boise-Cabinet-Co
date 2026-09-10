@@ -1,0 +1,26 @@
+{
+  "main_source_commit": "c1fcc2effcdfda4314c116c2a5e5f351caab6e40",
+  "route_checks": 1251,
+  "route_count": 139,
+  "route_failures": 0,
+  "route_workflow_runs": [
+    "34520565752",
+    "34522534543",
+    "34524608499"
+  ],
+  "component_checks": 297,
+  "component_workflow_run": 34522973322,
+  "assistant_form_checks": 9,
+  "catalog_checks": 9,
+  "product_search_checks": 9,
+  "scope_workflow_run": 34526070978,
+  "scope_workflow_status": "passed",
+  "production_build": "passed at documented tested revisions",
+  "route_evidence": "p5-route-verification-2026-09-10.csv",
+  "interaction_evidence": "p5-interaction-verification-2026-09-10.json",
+  "manual_review": "Selected templates and changed sections; exhaustive per-section approval incomplete",
+  "deployment": "Requires pull and republish",
+  "scope_workflow_checks": 9,
+  "scope_workflow_failures": 0,
+  "scope_source_commit": "1642588d8743da412b67075730e6aa428e1603a5"
+}
