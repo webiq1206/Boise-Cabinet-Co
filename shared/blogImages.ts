@@ -24,7 +24,7 @@ export function getBlogImageForSlug(
 }
 
 export function getBlogImageAlt(slug: string): string {
-  return BLOG_IMAGE_REGISTRY[slug]?.alt ?? 'Boise Cabinet Co project photography';
+  return BLOG_IMAGE_REGISTRY[slug]?.alt ?? 'Representative cabinetry and design inspiration';
 }
 
 export function getBlogHeroImage(
