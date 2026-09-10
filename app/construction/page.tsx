@@ -72,7 +72,7 @@ export default function ConstructionPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Meridian shop"
+          alt="Representative CNC cabinet door machining and inspection"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>
