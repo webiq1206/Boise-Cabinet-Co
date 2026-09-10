@@ -377,7 +377,7 @@ export function EstimateResultPanel({
           </p>
         ) : (
           <div
-            className="mb-4 p-3 rounded-sm bg-inverse-foreground/6 border border-inverse-foreground/10"
+            className="mb-4 p-3 rounded-sm bg-inverse-foreground/[0.06] border border-inverse-foreground/10"
             data-testid="text-scope-summary"
           >
             <div className="flex items-center justify-between gap-2 mb-1">
@@ -468,7 +468,7 @@ export function EstimateResultPanel({
         (compact ? (
           <CompactDisclaimer />
         ) : (
-          <div className="rounded-sm flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10 p-4">
+          <div className="rounded-sm flex gap-3 bg-inverse-foreground/[0.06] border border-inverse-foreground/10 p-4">
             <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
             <p
               className="text-[12px] leading-relaxed text-inverse-muted"
@@ -490,7 +490,7 @@ export function EstimateResultPanel({
 function CompactDisclaimer() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-sm bg-inverse-foreground/6 border border-inverse-foreground/10">
+    <div className="rounded-sm bg-inverse-foreground/[0.06] border border-inverse-foreground/10">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

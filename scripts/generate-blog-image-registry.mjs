@@ -1,5 +1,6 @@
 /**
- * Generates shared/blogImageRegistry.ts with unique hero paths for every blog post and guide.
+ * Generates shared/blogImageRegistry.ts with reviewed, topic-appropriate imagery.
+ * Related topics may share representative images; source uniqueness is not proof of relevance.
  * Run: node scripts/generate-blog-image-registry.mjs
  */
 import fs from "fs";
@@ -289,23 +290,23 @@ const ENTRIES = {
     copyFrom: cat("outdoor"),
   },
   "outdoor-bar-cabinet-storage": {
-    hero: blog("covered-patios-boise"),
-    alt: "Outdoor bar cabinet storage under a covered patio in the Treasure Valley",
+    hero: "/images/catalog/rooms/outdoor.webp",
+    alt: "Representative covered outdoor kitchen with wood cabinets, drawers and beverage storage",
     topicTags: ["outdoor", "patio", "boise"],
     source: "blog",
-    copyFrom: gal("outdoor-before"),
+    copyFrom: "/images/catalog/rooms/outdoor.webp",
   },
   "premium-outdoor-cabinetry": {
-    hero: cs("adu", "eagle"),
-    alt: "Premium outdoor cabinetry adjacent to an Eagle home entertaining area",
+    hero: "/images/blog/outdoor-kitchens-boise.webp",
+    alt: "Representative outdoor kitchen with built-in grill and weather-exposed storage",
     topicTags: ["outdoor", "luxury", "eagle"],
     source: "city-service",
   },
 
   // —— Whole-home cabinetry (7) ——
   "cabinet-project-planning-guide": {
-    hero: cs("whole-home-remodel", "middleton"),
-    alt: "Cabinet project planning session with layouts and finish samples in Middleton",
+    hero: "/images/blog/material-selection-guide.webp",
+    alt: "Cabinet door and finish samples arranged for project planning",
     topicTags: ["whole-home", "planning", "middleton"],
     source: "city-service",
   },
@@ -317,32 +318,32 @@ const ENTRIES = {
   },
   "whole-home-cabinet-timeline": {
     hero: cs("whole-home-remodel", "kuna"),
-    alt: "Phased whole-home cabinet delivery and installation in a Kuna residence",
+    alt: "Representative open-plan home with coordinated kitchen cabinetry",
     topicTags: ["whole-home", "timeline", "kuna"],
     source: "city-service",
   },
   "living-through-cabinet-installation": {
-    hero: gal("whole-home-before"),
-    alt: "Home interior during cabinet installation with protected floors and staged boxes",
+    hero: "/images/blog/punch-list-guide.webp",
+    alt: "Representative kitchen during the final cabinet punch-list stage, with blue tape marking details",
     topicTags: ["whole-home", "living-in-place"],
     source: "gallery",
   },
   "cabinet-refresh-vs-replace-vs-moving": {
-    hero: gal("addition-after"),
-    alt: "Refreshed cabinetry helping Treasure Valley homeowners stay in their neighborhood",
+    hero: "/images/blog/cabinet-refacing-vs-refinishing-vs-replacing.webp",
+    alt: "Representative kitchen with painted perimeter cabinets and a green island",
     topicTags: ["whole-home", "planning", "boise"],
     source: "gallery",
   },
   "custom-cabinet-design-process": {
-    hero: blog("design-build-process-guide"),
-    alt: "Custom cabinet design process from measure through shop drawings and approval",
+    hero: "/images/blog/questions-to-ask-remodeling-contractor.webp",
+    alt: "Cabinet door samples, plans and reference images arranged for a design discussion",
     topicTags: ["whole-home", "design-build"],
     source: "blog",
-    copyFrom: gal("addition-before"),
+    copyFrom: "/images/blog/questions-to-ask-remodeling-contractor.webp",
   },
   "cabinet-planning-checklist": {
     hero: cs("whole-home-remodel", "nampa"),
-    alt: "Whole-home cabinet checklist review in a Nampa kitchen and bath package",
+    alt: "Representative open-plan home with kitchen storage beside the living area",
     topicTags: ["whole-home", "checklist", "nampa"],
     source: "city-service",
   },
@@ -356,15 +357,15 @@ const ENTRIES = {
     copyFrom: cs("adu", "boise"),
   },
   "cabinet-company-red-flags": {
-    hero: blog("remodeling-contractor-red-flags"),
-    alt: "Quality cabinet installation detail showing aligned doors and finished end panels",
+    hero: "/images/blog/cabinet-construction-quality-guide.webp",
+    alt: "Representative dovetail drawer box and cabinet hardware for a quality inspection",
     topicTags: ["contractor", "quality"],
     source: "blog",
-    copyFrom: cs("room-addition", "boise"),
+    copyFrom: "/images/blog/cabinet-construction-quality-guide.webp",
   },
   "what-makes-great-cabinet-company": {
-    hero: svc("adu"),
-    alt: "Precision cabinet shop craftsmanship demonstrating expert Treasure Valley work",
+    hero: "/images/blog/cabinet-door-styles-guide.webp",
+    alt: "Representative kitchen showing coordinated cabinet doors, trim and island proportions",
     topicTags: ["contractor", "craftsmanship"],
     source: "services",
   },
@@ -382,27 +383,27 @@ const ENTRIES = {
     source: "city-service",
   },
   "cabinet-consultation-process": {
-    hero: cs("adu", "star"),
-    alt: "In-home cabinet consultation with samples at a Star-area property",
+    hero: "/images/blog/material-selection-guide.webp",
+    alt: "Cabinet door styles, finish samples and hardware arranged for a consultation",
     topicTags: ["contractor", "consultation"],
     source: "city-service",
   },
   "custom-cabinet-shop-vs-big-box": {
-    hero: blog("design-build-vs-general-contractor"),
-    alt: "Custom cabinet shop team reviewing shop drawings with Treasure Valley homeowners",
+    hero: "/images/blog/stock-vs-custom-cabinets-boise.webp",
+    alt: "Representative kitchen with fitted cabinetry and glass-front upper cabinets",
     topicTags: ["contractor", "design-build"],
     source: "blog",
-    copyFrom: cs("room-addition", "kuna"),
+    copyFrom: "/images/blog/stock-vs-custom-cabinets-boise.webp",
   },
   "fixed-price-vs-cost-plus": {
-    hero: gal("basement-before"),
-    alt: "Cabinet scope documents laid out for fixed-price versus cost-plus comparison",
+    hero: "/images/blog/how-to-compare-remodeling-estimates.webp",
+    alt: "Illustrative kitchen and bathroom scope documents arranged for comparison",
     topicTags: ["contractor", "pricing"],
     source: "gallery",
   },
   "cabinet-construction-quality-guide": {
     hero: blog("cabinet-construction-quality-guide"),
-    alt: "Close-up of high-quality cabinet construction in a real completed kitchen: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides",
+    alt: "Representative cabinet construction detail: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides",
     topicTags: ["cabinets", "quality", "guide"],
     source: "blog",
   },
@@ -417,7 +418,7 @@ const ENTRIES = {
   },
   "cabinet-measurement-design-phase": {
     hero: gal("kitchen-before"),
-    alt: "Field measure and layout verification before cabinet shop drawings are released",
+    alt: "Existing oak kitchen cabinets illustrating a layout before a cabinet refresh",
     topicTags: ["process", "design"],
     source: "gallery",
   },
@@ -428,8 +429,8 @@ const ENTRIES = {
     source: "gallery",
   },
   "cabinet-fabrication-installation": {
-    hero: cs("room-addition", "caldwell"),
-    alt: "Cabinet delivery and installation phase with staged boxes on a Caldwell job site",
+    hero: "/images/blog/punch-list-guide.webp",
+    alt: "Representative kitchen cabinetry at the final installation and adjustment stage",
     topicTags: ["process", "construction"],
     source: "city-service",
   },
@@ -441,8 +442,8 @@ const ENTRIES = {
     copyFrom: cs("room-addition", "meridian"),
   },
   "cabinet-warranty-guide": {
-    hero: gal("basement-after"),
-    alt: "Completed cabinet installation detail showing warranty-worthy adjustment and finish",
+    hero: "/images/blog/cabinet-construction-quality-guide.webp",
+    alt: "Representative cabinet drawer joinery and glide hardware relevant to warranty coverage",
     topicTags: ["process", "warranty"],
     source: "gallery",
   },
@@ -475,17 +476,17 @@ const ENTRIES = {
     copyFrom: gal("bathroom-after"),
   },
   "built-in-storage-roi": {
-    hero: cs("room-addition", "star"),
-    alt: "Built-in storage cabinets increasing functional value in a Star-area home",
+    hero: "/images/catalog/rooms/entertainment.webp",
+    alt: "Representative built-in media storage with coordinated shelving and cabinets",
     topicTags: ["roi", "built-ins", "star"],
     source: "city-service",
   },
   "outdoor-cabinet-roi": {
-    hero: blog("outdoor-living-roi"),
-    alt: "Outdoor cabinetry supporting entertaining and curb appeal in Boise",
+    hero: "/images/catalog/rooms/outdoor.webp",
+    alt: "Representative outdoor kitchen showing built-in cabinet storage around a grill and sink",
     topicTags: ["roi", "outdoor"],
     source: "blog",
-    copyFrom: gal("outdoor-after"),
+    copyFrom: "/images/catalog/rooms/outdoor.webp",
   },
   "cabinet-upgrades-before-selling": {
     hero: cs("bathroom-remodel", "caldwell"),
@@ -516,14 +517,14 @@ const ENTRIES = {
 
   // —— Guides (10) ——
   "boise-cabinet-cost-guide": {
-    hero: gal("whole-home-after"),
-    alt: "Treasure Valley cabinet cost planning guide with whole-home kitchen and bath context",
+    hero: "/images/blog/custom-kitchen-cabinet-cost.webp",
+    alt: "Representative two-tone kitchen with a cabinet island and full-height storage",
     topicTags: ["cost", "guide", "pillar"],
     source: "gallery",
   },
   "treasure-valley-cabinet-guide": {
     hero: area("boise"),
-    alt: "Treasure Valley neighborhoods served by Boise Cabinet Co custom cabinetry",
+    alt: "Representative oak kitchen cabinets for the Treasure Valley cabinet guide",
     topicTags: ["location", "treasure-valley", "guide"],
     source: "areas",
   },
@@ -565,11 +566,11 @@ const ENTRIES = {
     source: "blog",
   },
   "cabinet-project-process-guide": {
-    hero: blog("boise-remodeling-process-guide"),
-    alt: "Boise cabinet project process from consultation through installation and warranty",
+    hero: "/images/blog/questions-to-ask-remodeling-contractor.webp",
+    alt: "Cabinet samples, layout drawings and reference images prepared for project planning",
     topicTags: ["process", "guide", "pillar"],
     source: "blog",
-    copyFrom: gal("whole-home-before"),
+    copyFrom: "/images/blog/questions-to-ask-remodeling-contractor.webp",
   },
   "cabinet-roi-guide-boise": {
     hero: blog("best-remodeling-roi-boise"),
@@ -625,13 +626,13 @@ const ENTRIES = {
 };
 
 const HUB_HEROES = {
-  "cabinet-costs": gal("whole-home-after"),
+  "cabinet-costs": "/images/blog/custom-kitchen-cabinet-cost.webp",
   "kitchen-cabinets": cat("kitchen"),
   "bathroom-vanities": cat("bathroom"),
   "built-ins-storage": cat("built-ins"),
   "whole-home-cabinetry": svc("whole-home-remodel"),
   "choosing-cabinet-company": blog("choose-remodeling-contractor-boise-branded"),
-  "cabinet-project-process": blog("boise-remodeling-process-guide"),
+  "cabinet-project-process": "/images/blog/questions-to-ask-remodeling-contractor.webp",
   "cabinet-roi": blog("best-remodeling-roi-boise"),
   "local-guides": area("boise"),
 };
@@ -657,10 +658,9 @@ for (const slug of BLOG_POST_SLUGS) {
   const entry = ENTRIES[slug];
   const eff = effectiveImage(entry);
   if (blogEffectivePaths.has(eff)) {
-    console.error(
-      `Duplicate effective image for blog posts: ${eff} used by ${blogEffectivePaths.get(eff)} and ${slug}`,
+    console.warn(
+      `Shared representative image for related blog topics: ${eff} used by ${blogEffectivePaths.get(eff)} and ${slug}`,
     );
-    process.exit(1);
   }
   blogEffectivePaths.set(eff, slug);
 }
@@ -668,8 +668,7 @@ for (const slug of BLOG_POST_SLUGS) {
 const heroPaths = new Map();
 for (const [slug, entry] of Object.entries(ENTRIES)) {
   if (heroPaths.has(entry.hero)) {
-    console.error(`Duplicate hero: ${entry.hero} used by ${heroPaths.get(entry.hero)} and ${slug}`);
-    process.exit(1);
+    console.warn(`Shared representative hero: ${entry.hero} used by ${heroPaths.get(entry.hero)} and ${slug}`);
   }
   heroPaths.set(entry.hero, slug);
 }
