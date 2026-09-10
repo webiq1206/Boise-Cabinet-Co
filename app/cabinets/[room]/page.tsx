@@ -255,7 +255,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                         src={project.hero.src}
                         alt={project.hero.alt}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes={roomProjects.length === 1 ? "(max-width: 1023px) 100vw, 66vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                         className="object-cover img-brand-grade"
                       />
                       {project.kind === "concept" && (
