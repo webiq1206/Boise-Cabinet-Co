@@ -1,7 +1,7 @@
 import {chromium,expect} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 await mkdir('p5-verification',{recursive:true});const browser=await chromium.launch();const results=[];
-for(const width of [320,390,430,768,1024,1440,1920]){
+for(const width of [320,390,430,600,768,1024,1366,1440,1920]){
  const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<768});const page=await context.newPage();const r={width,passed:false};
  try{
  await page.goto('http://127.0.0.1:5000/search');const input=page.getByRole('searchbox',{name:'Search by name or code'});

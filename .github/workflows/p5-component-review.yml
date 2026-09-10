@@ -29,6 +29,8 @@ jobs:
         run: |
           mkdir -p app/p5-audit-fixture
           cat > app/p5-audit-fixture/page.tsx <<'FIXTURE'
+          "use client";
+          import { useEffect, useState } from "react";
           import { NotificationsBell } from "@/components/NotificationsBell";
           import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
           export default function AuditFixture() {
@@ -50,6 +52,10 @@ jobs:
       - name: Check assistant and form separation
         if: always()
         run: node scripts/p5-launcher-forms.mjs
+      - name: Verify catalog navigation, zoom and search
+        run: node scripts/p5-catalog-search.mjs
+      - name: Verify cabinet and product search
+        run: node scripts/p5-product-search.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
