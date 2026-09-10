@@ -29,6 +29,8 @@ try {
    if(!['GET','HEAD'].includes(route.request().method())){blockedWrites.add(route.request().url());return route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Audit preview: submission is disabled.'})});}
    return route.continue();
   });
+   // Third-party analytics is outside the localhost visual preview; fulfill its script before it can send telemetry.
+   await context.route(url => url.hostname === 'clarity.ms' || url.hostname.endsWith('.clarity.ms'), route => route.fulfill({status:200,contentType:'application/javascript',body:''}));
    // Isolate each document so a previous route's aborted prefetch cannot leak into its console record.
    const page=await context.newPage();
    page.setDefaultTimeout(20000);page.setDefaultNavigationTimeout(45000);
