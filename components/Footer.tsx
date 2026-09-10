@@ -85,7 +85,7 @@ export function Footer() {
   const sortedCities = [...CITIES].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <footer className="bg-inverse text-inverse-foreground">
+    <footer className="bg-inverse text-inverse-foreground pb-[calc(96px+env(safe-area-inset-bottom))] xl:pb-0">
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_repeat(3,1fr)] gap-10 lg:gap-0 mb-10 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-8 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           {/* Brand & contact - always visible, never collapsed, above the accordions on mobile. */}

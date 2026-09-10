@@ -72,6 +72,9 @@ try {
       assert(!style.background.startsWith('rgba')&&!['transparent',''].includes(style.background),'Sticky CTA must be opaque');
       const boxes=await sticky.locator('a,button').evaluateAll(es=>es.filter(e=>e.getClientRects().length).map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height})));
       assert(boxes.every(b=>b.w>=44&&b.h>=44),'Sticky tap target');
+      const barBox=await sticky.boundingBox();
+      const footerBottom=await page.locator('footer a').evaluateAll(es=>Math.max(...es.filter(e=>e.getClientRects().length).map(e=>e.getBoundingClientRect().bottom)));
+      assert(footerBottom<=barBox.y-8,'Last footer links must clear the sticky CTA');
       rec.sticky=style;
      }
      await page.screenshot({path:`${out}/${width}-footer-cta.jpg`});
