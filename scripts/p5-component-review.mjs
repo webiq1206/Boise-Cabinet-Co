@@ -74,6 +74,13 @@ try {
      const clipped=await page.locator('[data-catalog-visual-card]').evaluateAll(cards=>cards.flatMap(card=>[...card.querySelectorAll('a')].filter(a=>a.getClientRects().length).map(a=>{const c=card.getBoundingClientRect(),b=a.getBoundingClientRect();return {text:a.textContent.trim(),left:b.left-c.left,right:c.right-b.right,height:b.height};})).filter(b=>b.left<0||b.right<0||b.height<44));
      assert(!clipped.length,'Clipped or undersized catalog card actions: '+JSON.stringify(clipped));
     }
+    const sidebar=page.locator('[data-article-sidebar-cta]').first();
+    if(await sidebar.count()){
+     const clipped=await sidebar.evaluate(card=>[...card.querySelectorAll('a,button')].filter(a=>a.getClientRects().length).some(a=>{const c=card.getBoundingClientRect(),b=a.getBoundingClientRect();return b.left<c.left||b.right>c.right||b.height<44||a.scrollWidth>a.clientWidth+1;}));
+     assert(!clipped,'Sidebar actions must fit and have 44px targets');
+     await sidebar.scrollIntoViewIfNeeded();await page.waitForTimeout(250);
+     await page.screenshot({path:`${out}/${width}-article-sidebar.jpg`});
+    }
     if(route.startsWith('/guides/')){
      const related=page.getByRole('heading',{name:'Related resources',exact:true});
      if(await related.count()){await related.scrollIntoViewIfNeeded();await page.waitForTimeout(350);await page.screenshot({path:`${out}/${width}-related-resources.jpg`});}
