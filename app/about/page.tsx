@@ -70,21 +70,6 @@ function HeroBreadcrumbs() {
   );
 }
 
-function StatCard({ num, label }: { num: string; label: string }) {
-  /* Phones: a plain cell inside the strip the container draws. Boxed and
-     three-up, the labels wrapped onto three or four lines each. */
-  return (
-    <div className="px-2 py-3 text-center md:px-6 md:py-5 md:text-left md:rounded-sm md:bg-inverse-foreground/10 md:border md:border-inverse-foreground/15 md:backdrop-blur-sm">
-      <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
-        {num}
-      </DisplayNum>
-      <div className="mt-1.5 text-[0.625rem] leading-tight tracking-[0.08em] md:text-label md:tracking-[0.1em] uppercase text-inverse-muted md:leading-snug">
-        {label}
-      </div>
-    </div>
-  );
-}
-
 export const metadata = buildPageMetadata({
   kind: 'about',
   path: '/about',
@@ -157,7 +142,7 @@ export default function AboutPage() {
             priority
           />
           <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/50 via-inverse/15 to-transparent" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/60 to-inverse/10" />
           <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
           <div
@@ -192,11 +177,14 @@ export default function AboutPage() {
                 <Link href="/catalog">{CTA_EXPLORE_COLLECTIONS}</Link>
               </Button>
             </div>
-            <div className="grid grid-cols-3 max-w-xl divide-x divide-inverse-foreground/15 rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/10 backdrop-blur-sm md:gap-3 md:divide-x-0 md:rounded-none md:border-0 md:bg-transparent md:backdrop-blur-none">
+            <dl className="ed-hero-facts">
               {HERO_STATS.map((stat) => (
-                <StatCard key={stat.num} num={stat.num} label={stat.label} />
+                <div key={stat.label}>
+                  <dt>{stat.label}</dt>
+                  <dd>{stat.num}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </div>
         </section>
 
