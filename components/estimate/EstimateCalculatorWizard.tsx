@@ -295,7 +295,7 @@ function SelectButton<T extends string>({
               aspectClass={aspectClass}
               imageFit={imageFit}
             />
-            <span className="w-full truncate font-medium text-xs text-foreground leading-tight">{opt.label}</span>
+            <span className="w-full break-words font-medium text-xs text-foreground leading-tight">{opt.label}</span>
             {opt.sub && (
               <span className="hidden text-[12px] leading-snug text-muted-foreground line-clamp-1 sm:block">
                 {opt.sub}
@@ -846,7 +846,7 @@ export function EstimateCalculatorWizard({
     switch (currentStep.kind) {
       case "project":
         return (
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-2">
             {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
               const info = PROJECT_LABELS[type];
               const active = rooms.some((r) => r.project === type);
