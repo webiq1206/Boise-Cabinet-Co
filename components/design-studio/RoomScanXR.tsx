@@ -155,7 +155,7 @@ export function RoomScanXR({
 
       try {
         session = await nav.xr.requestSession("immersive-ar", {
-          requiredFeatures: ["hit-test"],
+          requiredFeatures: ["hit-test", "local-floor"],
         });
       } catch (e) {
         setStatus("error");
@@ -166,19 +166,22 @@ export function RoomScanXR({
         return;
       }
 
-      await renderer.xr.setSession(session);
-      refSpace = await session.requestReferenceSpace("local-floor");
-
       try {
-        hitTestSource = await session.requestHitTestSourceForTransientInput(
-          "input",
-          refSpace,
-        );
-      } catch {
+        await renderer.xr.setSession(session);
+        refSpace = await session.requestReferenceSpace("local-floor");
         const viewerSpace = await session.requestReferenceSpace("viewer");
-        hitTestSource = await session.requestHitTestSource!({
-          space: viewerSpace,
-        });
+        if (!session.requestHitTestSource) throw new Error(scanCopy.arUnavailable);
+        const source = await session.requestHitTestSource({ space: viewerSpace });
+        if (!source) throw new Error(scanCopy.arUnavailable);
+        hitTestSource = source;
+      } catch (error) {
+        await session.end().catch(() => {});
+        renderer.dispose();
+        markerGeo.dispose();
+        markerMat.dispose();
+        setStatus("error");
+        setMessage(error instanceof Error ? error.message : scanCopy.arUnavailable);
+        return;
       }
 
       const updateMessage = (count: number) => {

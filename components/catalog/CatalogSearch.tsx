@@ -16,6 +16,7 @@ const TYPE_LABELS: Record<CatalogSearchResult["type"], string> = {
   accessory: "Accessory",
   hardware: "Hardware",
   cabinetType: "Cabinet type",
+  cabinetProduct: "Cabinet product",
 };
 
 export interface CatalogSearchProps {

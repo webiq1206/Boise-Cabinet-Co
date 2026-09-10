@@ -42,7 +42,7 @@ export interface DesignSnapshot {
 
 /** Extract catalog selections aligned with shared/catalog/projectSelections */
 export function snapshotToProjectSelections(snapshot: DesignSnapshot): ProjectSelections {
-  return toProjectSelections(snapshot);
+  return toProjectSelections({ ...snapshot });
 }
 
 /** Build styleJson keys that match ProjectSelections (plus notes). */
@@ -128,8 +128,8 @@ export interface DesignRow {
   photo_url?: string | null;
   shareToken?: string | null;
   share_token?: string | null;
-  createdAt?: string | null;
-  created_at?: string | null;
+  createdAt?: Date | string | null;
+  created_at?: Date | string | null;
   layoutJson?: Record<string, unknown> | null;
   layout_json?: Record<string, unknown> | null;
   styleJson?: Record<string, unknown> | null;
