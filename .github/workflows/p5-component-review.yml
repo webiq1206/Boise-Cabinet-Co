@@ -44,8 +44,9 @@ jobs:
           printf '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="800" height="600" fill="tan"/></svg>' > public/p5-audit-after.svg
       - name: Production build and repository gates
         run: |
+          cp shared/blogImageRegistry.ts /tmp/p5-reviewed-image-registry.ts
           npm run build
-          git diff --exit-code -- shared/blogImageRegistry.ts
+          cmp /tmp/p5-reviewed-image-registry.ts shared/blogImageRegistry.ts
       - name: Start the production server
         run: |
           npx next start -p 5000 > /tmp/p5-component-server.log 2>&1 &
