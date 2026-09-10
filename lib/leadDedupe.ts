@@ -67,7 +67,7 @@ export function verifyEditToken(
 export interface DedupeCandidate {
   id: string;
   quoteId?: string | null;
-  email: string;
+  email: string | null;
   address: string | null;
   status: string;
   createdAt: Date | string;
@@ -147,7 +147,7 @@ export function attachOverlaps<T extends DedupeCandidate>(
 interface LeadLike {
   id: string;
   quoteId?: string | null;
-  email: string;
+  email: string | null;
   address?: string | null;
   status: string;
   createdAt?: Date | string | null;

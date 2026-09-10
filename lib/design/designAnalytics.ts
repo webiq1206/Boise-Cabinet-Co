@@ -1,4 +1,5 @@
 export type DesignAnalyticsEvent =
+  | "skip_sizing_browse"
   | "scan_started"
   | "scan_completed"
   | "scan_failed"

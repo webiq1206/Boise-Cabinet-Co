@@ -408,7 +408,7 @@ export function Navigation() {
         className={cn(
           "fixed left-0 right-0 bottom-0 z-[100] xl:hidden pb-safe border-t",
           "bg-background border-border transition-opacity duration-200",
-          (wizardBarActive || ctaSuppressed || formInView || mobileOpen || !pastHero) && "invisible pointer-events-none opacity-0",
+          (wizardBarActive || ctaSuppressed || formInView || mobileOpen || !pastHero || pathname?.startsWith("/estimate")) && "invisible pointer-events-none opacity-0",
         )}
       >
         <div className="grid grid-cols-3 divide-x divide-border">

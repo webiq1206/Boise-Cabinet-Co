@@ -44,7 +44,7 @@ export function getEstimatedTier(
   const finish = finishSlug ? FINISH_BY_SLUG[finishSlug] : undefined;
 
   const base = COLLECTION_WEIGHT[collection.priceTier] ?? 1;
-  const bump = finish ? FINISH_WEIGHT[finish.tier] ?? 0 : 0;
+  const bump = finish?.tier ? FINISH_WEIGHT[finish.tier] ?? 0 : 0;
   const weight = base + bump;
   const label = TIER_LABELS[Math.min(weight, TIER_LABELS.length - 1)];
 
