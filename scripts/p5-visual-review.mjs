@@ -22,8 +22,10 @@ try {
    if(!['GET','HEAD'].includes(route.request().method()))return route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Audit preview: submission is disabled.'})});
    return route.continue();
   });
-  const page=await context.newPage();
   for(const route of selected){
+   // A fresh page prevents aborted prefetches from the previous route from
+   // being attributed to this route. Keep all page and console assertions.
+   const page=await context.newPage();
    const errors=[],consoleErrors=[];
    const onError=e=>errors.push(e.message),onConsole=e=>{if(e.type()==='error')consoleErrors.push(e.text());};
    page.on('pageerror',onError);page.on('console',onConsole);
@@ -76,6 +78,7 @@ try {
     }
    }catch(e){rec.ok=false;rec.error=String(e);try{await page.screenshot({path:`${out}/FAIL-${width}-${route.replaceAll('/','_')}.jpg`,fullPage:true,type:'jpeg',quality:60});}catch{}}
    records.push(rec);page.off('pageerror',onError);page.off('console',onConsole);
+   await page.close();
    await fs.writeFile(`${out}/records-${shard}.json`,JSON.stringify(records));
   }
   await context.close();
