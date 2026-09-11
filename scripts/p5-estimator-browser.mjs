@@ -92,7 +92,7 @@ for(const scenario of ['manual','conflict','unavailable']){
 if(brand.id==='cabinet')for(const width of [390,768,1440]){
  const context=await browser.newContext({viewport:{width,height:1000}});const state=await mock(context,{scenario:'design'});const page=await context.newPage();page.setDefaultTimeout(20000);
  try{
-  await page.goto(base+'/design-studio?fixtureManual=1');const next=page.getByTestId('wizard-next').first();
+  await page.goto(base+'/design-studio?fixtureManual=1');const next=page.locator('[data-testid="wizard-next"]:visible').first();
   await page.getByTestId('button-room-kitchen').click();await next.click();
   await page.getByTestId(/^button-layout-/).first().click();await next.click();
   await page.getByTestId(/^button-door-style-/).first().click();await next.click();

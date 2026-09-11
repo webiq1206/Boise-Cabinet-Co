@@ -1,5 +1,6 @@
 "use client";
 
+import handoffStyles from "../DesignEstimate.module.css";
 import {P5Estimator} from '@/components/P5Estimator';
 import {cabinetProjectSource} from '@/lib/design/projectScope';
 import Link from "next/link";
@@ -279,8 +280,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
-      <section id="request-pricing" className="rounded-md border p-3 sm:p-5">
-        <p className="mb-4 text-sm text-muted-foreground">Your design selections are included. Add any other work or documents below.</p>
+      <section id="request-pricing" className={handoffStyles.root}>
         <P5Estimator headingAs="h2" projectSource={cabinetProjectSource({roomType:design.roomType,modules:design.modules,selections:buildSelectionsSummary(design),notes:design.notes,imageUrl:design.photoUrl||undefined,room:layoutSummary.roomDimensionsConfirmed?`Confirmed room: ${layoutSummary.roomWidthIn} by ${layoutSummary.roomDepthIn} inches`:undefined})}/>
       </section>
 
