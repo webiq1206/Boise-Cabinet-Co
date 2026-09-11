@@ -9,6 +9,8 @@ on:
 jobs:
   playwright:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_DESIGN_STUDIO_ENABLED: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,7 +19,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium webkit
+      - run: npm run build
       - run: npm run test:e2e -- --project="Desktop Chrome" --project="Pixel 7"
         env:
           CI: true
+          E2E_SERVER_COMMAND: npx next start -p 3456
           SESSION_SECRET: e2e-test-session-secret-min-32-chars-long

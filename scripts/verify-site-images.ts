@@ -12,7 +12,7 @@ const warnings: string[] = [];
 
 // Run existing blog image checks
 try {
-  execSync("npx tsx scripts/verify-blog-images.ts", { stdio: "pipe", cwd: root });
+  execSync("node --import tsx scripts/verify-blog-images.ts", { stdio: "pipe", cwd: root });
 } catch (e) {
   const out = e instanceof Error && "stdout" in e ? String((e as { stdout: Buffer }).stdout) : "";
   errors.push(`Blog image verification failed:\n${out}`);

@@ -1,5 +1,4 @@
 "use client";
-import { ScopeEstimateOption } from "@/components/ScopeEstimateOption";
 
 import { EstimatorRecovery } from "@/components/estimate/recovery/EstimatorRecovery";
 
@@ -1289,7 +1288,7 @@ export function EstimateCalculatorWizard({
 
   const shell = (
     <GuidedFlowShell
-      headerExtra={isFirst ? <ScopeEstimateOption /> : undefined}
+      
       steps={guidedSteps}
       currentIndex={safeIndex}
       isStepComplete={isStepComplete}

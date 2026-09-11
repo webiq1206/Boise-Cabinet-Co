@@ -58,8 +58,7 @@ export function designToEstimateSelections(
     });
     if (summary.approximateLinearFeet > 0) {
       size = summary.approximateLinearFeet;
-    } else if (design.roomMeta?.widthIn) {
-      size = Math.round(design.roomMeta.widthIn / 12);
+
     }
   }
 
@@ -69,7 +68,7 @@ export function designToEstimateSelections(
     size,
     // Designs don't separate base vs. wall runs, so model a typical upper run
     // (~0.75 × base) for projects that have uppers; null otherwise.
-    sizeUpper: cfg.uppers && size != null ? Math.round(size * 0.75) : null,
+    sizeUpper: cfg.uppers && design.modules.length ? Math.round(design.modules.filter(m=>m.isWall).reduce((n,m)=>n+m.width/.3048,0)*100)/100 : null,
     doorStyle: design.doorStyle ? resolveDoorStyleSlug(design.doorStyle) : "",
     finishSlug: "",
     finishCategory: "",

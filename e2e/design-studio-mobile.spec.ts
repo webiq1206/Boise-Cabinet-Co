@@ -8,7 +8,7 @@ test.describe("Design Studio mobile paths", () => {
       timeout: 15_000,
     });
     await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText(/Kitchen shape|Pick a layout/i).first()).toBeVisible({
+    await expect(page.getByTestId(/^button-layout-/).first()).toBeVisible({
       timeout: 10_000,
     });
   });

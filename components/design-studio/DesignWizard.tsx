@@ -1,5 +1,4 @@
 "use client";
-import { ScopeEstimateOption } from "@/components/ScopeEstimateOption";
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -177,15 +176,6 @@ function DesignWizardInner({ className }: DesignWizardProps) {
     />
   );
 
-  // Live estimate shown in the mobile sticky bar; opens the summary sheet.
-  // Null until the design has a size source (layout, scan, or tuner).
-  const estimate = design.roomType
-    ? getDesignEstimate(design, {
-        size: tuner.size,
-        construction: tuner.construction,
-      })
-    : null;
-
   const mobileSummaryNode = design.roomType ? (
     <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
       <DrawerTrigger asChild>
@@ -195,18 +185,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
           data-testid="button-open-summary-sheet"
         >
           <span className="text-sm">
-            {estimate ? (
-              <>
-                <span className="font-semibold text-foreground">
-                  {estimate.rangeLabel}
-                </span>{" "}
-                <span className="text-muted-foreground">est.</span>
-              </>
-            ) : (
-              <span className="text-muted-foreground">
-                Complete your room to see a range
-              </span>
-            )}
+            <span className="font-medium">Your design selections</span>
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             View summary
@@ -244,7 +223,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
 
   const shell = (
     <GuidedFlowShell
-      headerExtra={isFirst ? <ScopeEstimateOption /> : undefined}
+      
       steps={steps}
       currentIndex={currentStep}
       isStepComplete={isStepComplete}

@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 /**
- * Covers the cloud-draft autosave + resume continuity and the live tunable
- * dollar estimate surfaced in the persistent summary.
+ * Covers the cloud-draft autosave + resume continuity and the shared
+ * selections surfaced in the persistent summary.
  */
 test.describe("Design Studio autosave & summary", () => {
   test("autosaves progress and offers to restore after reload", async ({
@@ -34,12 +34,12 @@ test.describe("Design Studio autosave & summary", () => {
     await page.reload();
 
     // The local mirror is restored and the visitor is told so.
-    await expect(page.getByText(/restored your in-progress design/i)).toBeVisible({
+    await expect(page.getByText("We restored your in-progress design.", { exact: true })).toBeVisible({
       timeout: 15_000,
     });
   });
 
-  test("summary shows a tunable dollar estimate", async ({ page }, testInfo) => {
+  test("summary carries selections without a competing guessed price", async ({ page }, testInfo) => {
     const isMobile =
       testInfo.project.name === "iPhone 14" ||
       testInfo.project.name === "Pixel 7";
@@ -59,8 +59,7 @@ test.describe("Design Studio autosave & summary", () => {
       await page.getByTestId("button-open-summary-sheet").click();
     }
 
-    const range = page.getByTestId("summary-estimate-range").first();
-    await expect(range).toBeVisible({ timeout: 10_000 });
-    await expect(range).toContainText("$");
+    await expect(page.getByTestId("summary-estimate-range")).toHaveCount(0);
+    await expect(page.getByText(/Your selections carry into the project estimator/).first()).toBeVisible();
   });
 });

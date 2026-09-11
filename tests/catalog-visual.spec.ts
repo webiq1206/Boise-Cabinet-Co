@@ -31,7 +31,7 @@ test.describe("Catalog visuals", () => {
   test("Compare page includes door style comparison section", async ({ page }) => {
     await page.goto("/compare");
     await expect(page.getByRole("heading", { name: /Six door styles/i })).toBeVisible();
-    const doorTable = page.getByRole("table").filter({ hasText: "Modern Shaker" });
+    const doorTable = page.getByRole("heading", { name: /Six door styles/i }).locator("xpath=ancestor::section");
     await expect(doorTable.getByText("Modern Shaker", { exact: true })).toBeVisible();
     await expect(doorTable.getByText("Alpha Shaker", { exact: true })).toBeVisible();
     await expect(doorTable.getByText("Beta Shaker", { exact: true })).toBeVisible();

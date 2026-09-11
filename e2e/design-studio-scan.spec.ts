@@ -11,7 +11,7 @@ test.describe("Design Studio scan-first flow", () => {
     });
 
     await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText(/Kitchen shape|Pick a layout/i).first()).toBeVisible({
+    await expect(page.getByTestId(/^button-layout-/).first()).toBeVisible({
       timeout: 10_000,
     });
 

@@ -52,7 +52,7 @@ export function LazyEstimateCalculator() {
   }
 
   if (show) {
-    return <EstimateCalculator featured onBookVisit={handleBookVisit} />;
+    return <Section id="calculator" divider><EstimateCalculator inModal headingAs="h2" sectionId={null} /></Section>;
   }
 
   return (
@@ -62,15 +62,14 @@ export function LazyEstimateCalculator() {
           <div className="brc-label mb-2 md:mb-3">Project Estimator</div>
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs tracking-wide text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-            Free &middot; No obligation &middot; Instant range
+            Free &middot; No obligation
           </span>
           <h2 className="font-serif text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
             Plan your cabinet{" "}
             <em className="brc-accent text-accent">investment</em>
           </h2>
           <p className="hidden sm:block text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
-            A short guided flow - pick your project, size, and style. Your planning range stays
-            in view and updates at each step.
+            Tell us about your project or add plans and photos. We will ask only for the details still needed.
           </p>
           <p className="hidden sm:block text-base max-w-2xl leading-relaxed text-foreground/80">
             {ESTIMATE_VALUE_PROP}

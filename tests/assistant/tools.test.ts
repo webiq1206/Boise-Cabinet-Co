@@ -107,53 +107,11 @@ async function main() {
     );
   }
 
-  // ── calculate_estimate ────────────────────────────────────────────────────
-  {
-    const empty = (await executeAssistantTool("calculate_estimate", {}, ctx())) as {
-      priceable: boolean;
-    };
-    check(empty.priceable === false, "no rooms -> priceable false, never a number");
-
-    const rooms = [
-      getDefaultSelectionsForProject("kitchen"),
-      getDefaultSelectionsForProject("bathroom"),
-    ];
-    const c = ctx(rooms);
-    const result = (await executeAssistantTool("calculate_estimate", {}, c)) as {
-      priceable: boolean;
-      priceLow: number;
-      priceHigh: number;
-      rooms: Array<{ priceLow: number; priceHigh: number }>;
-      requiredDisclaimer: string;
-    };
-    const direct = calculateCombinedEstimate(rooms)!;
-    check(result.priceable === true, "defaults are priceable");
-    check(
-      result.priceLow === direct.priceLow && result.priceHigh === direct.priceHigh,
-      `tool total EXACTLY equals the wizard's engine result (${direct.priceLow}..${direct.priceHigh})`,
-    );
-    check(
-      result.rooms.every(
-        (r, i) =>
-          r.priceLow === direct.rooms[i].priceLow && r.priceHigh === direct.rooms[i].priceHigh,
-      ),
-      "tool per-room breakdown EXACTLY equals the engine's",
-    );
-    check(
-      result.requiredDisclaimer.includes("general investment range"),
-      "estimate carries the range disclaimer",
-    );
-
-    const partial = (await executeAssistantTool(
-      "calculate_estimate",
-      {},
-      ctx([{ ...EMPTY_SELECTIONS, project: "kitchen", size: 24 }]),
-    )) as { priceable: boolean; rooms?: Array<{ missingForPricing: string[] }> };
-    check(
-      partial.priceable === false &&
-        Boolean(partial.rooms?.[0].missingForPricing.length),
-      "unpriceable rooms report what's missing instead of a number",
-    );
+  // All pricing paths now converge on the reviewed-scope estimator.
+  for(const rooms of [[],[getDefaultSelectionsForProject('kitchen')],[{...EMPTY_SELECTIONS,project:'kitchen' as const,size:24}]]){
+    const result=await executeAssistantTool('calculate_estimate',{},ctx(rooms));
+    check(result.priceable===false&&result.nextStep==='/estimate','chat routes pricing to the shared estimator');
+    check(!('priceLow' in result)&&!('priceHigh' in result),'chat never publishes a competing legacy price');
   }
 
   // ── get_business_info ─────────────────────────────────────────────────────
@@ -216,27 +174,7 @@ async function main() {
 
     // The estimate payload must be byte-identical to what ConsultationFields
     // builds for the same rooms.
-    const expectedEstimate = buildCombinedConsultationPayload(
-      buildCombinedStoredEstimate(rooms),
-    );
-    check(
-      JSON.stringify(body.estimate) === JSON.stringify(expectedEstimate),
-      "assistant lead estimate payload EXACTLY equals the wizard's",
-    );
-
-    const expectedRecord = buildEstimateRecord({
-      rooms,
-      capturedAt: "x",
-      budget: input.budget,
-      notes: input.message,
-      propertyAddress: input.address,
-    })!;
-    check(
-      body.estimateRecord?.rangeLow === expectedRecord.rangeLow &&
-        body.estimateRecord?.rangeHigh === expectedRecord.rangeHigh &&
-        body.estimateRecord?.roomCount === 2,
-      "assistant estimate record matches the wizard's ranges and rooms",
-    );
+    check(body.estimate===null&&body.estimateRecord===null,'human handoff preserves the request without attaching unreviewed legacy prices');
     check(body.projectType === "other", "multi-room lead resolves to whole-home type");
     check(body.source === "assistant" && body.sourceDetail === "assistant_chat", "source fields set");
     check(typeof body.conversationTranscript === "string", "transcript attached");

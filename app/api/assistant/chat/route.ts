@@ -209,9 +209,7 @@ export async function POST(request: NextRequest) {
       reply = "Sorry - I lost my train of thought. Could you say that again?";
     }
 
-    // The widget's estimate card renders only engine-validated numbers.
-    const combined = calculateCombinedEstimate(ctx.rooms);
-    const estimate = validateCombinedEstimate(combined, ctx.rooms).ok ? combined : null;
+    const estimate = null;
 
     return NextResponse.json({
       reply,

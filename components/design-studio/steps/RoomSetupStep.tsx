@@ -82,6 +82,7 @@ function ScanFixtureLoader() {
     const fixtureScan = params.get("fixtureScan") === "1";
     const fixtureManual = params.get("fixtureManual") === "1";
     if (!fixtureScan && !fixtureManual) return;
+    if (!design.roomType) return;
     if (design.roomMeta && design.roomMeta.userConfirmed) return;
 
     const widthIn = 120;
@@ -92,7 +93,7 @@ function ScanFixtureLoader() {
       depthIn,
       fixtureManual ? "manual" : "ar-scan",
     );
-  }, [params, design.roomMeta, updateDesign]);
+  }, [params, design.roomType, design.roomMeta, updateDesign]);
 
   return null;
 }

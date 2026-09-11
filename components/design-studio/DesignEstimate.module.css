@@ -1,0 +1,5 @@
+.root [data-p5-estimator]{padding:24px;box-shadow:none}
+.root [aria-label="Estimator progress"]{display:none}
+.root [data-p5-estimator]>div:first-child>p:first-child{display:none}
+.root [data-p5-estimator] h2{margin-top:0;font-size:26px}
+@media(max-width:580px){.root [data-p5-estimator]{padding:18px 0;border:0}}

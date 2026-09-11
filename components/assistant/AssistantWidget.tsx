@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useFormInView } from "@/hooks/use-form-in-view";
 import Link from "next/link";
 import { ImagePlus, Loader2, MessageCircle, Send, X } from "lucide-react";
+import {loadBrowserDraft,persistBrowserDraft,loadCachedFiles,cacheFiles} from '@/lib/p5/browserDraft';
+import {SCOPE_TEXT_LIMIT,SCOPE_BATCH_LIMIT,SCOPE_FILE_LIMIT} from '@/lib/p5/scope';
 import type { CombinedEstimateResult, EstimateSelections } from "@/shared/estimateEngine";
 import { formatPlanningCurrency } from "@/shared/estimateEngine";
 import { loadWizardState, saveWizardState } from "@/lib/estimate/wizardPersistence";
@@ -35,7 +37,7 @@ const MAX_PHOTOS = 3;
 const GREETING: ChatMessage = {
   role: "assistant",
   content:
-    "Hi! I'm Boise Cabinet Co's virtual assistant. I can put together an honest planning price range for custom cabinets in a couple of minutes, answer questions about how we work, or connect you with the team. Which room are you thinking about?",
+    "Hi! I can answer questions about cabinets and connect you with our team. If you want an estimate, tell me what you have in mind and use Continue project to carry it into the estimator.",
 };
 
 /** Routes where the launcher stays out of the way. */
@@ -64,10 +66,10 @@ function loadChat(): ChatMessage[] | null {
 
 function saveChat(messages: ChatMessage[]) {
   try {
-    // Persist text only - photos are large and context-only.
+    // Preserve bounded reference photos for recovery and estimator handoff.
     const slim = messages
       .slice(-MAX_HISTORY)
-      .map(({ role, content }) => ({ role, content }));
+      .map(({ role, content, images }) => ({ role, content, images }));
     sessionStorage.setItem(CHAT_STORE_KEY, JSON.stringify({ messages: slim }));
   } catch {
     /* storage unavailable; non-fatal */
@@ -256,6 +258,24 @@ export function AssistantWidget() {
     }
   }, [input, photos, pending, messages, pathname]);
 
+  async function continueProject(){
+    try{
+      const draft=loadBrowserDraft('');const transcript=messages.filter(m=>m.role==='user').map(m=>m.content).join('\n');
+      const previous=(draft as typeof draft & {chatScope?:string}).chatScope;
+      const text=previous&&draft.text.includes(previous)?draft.text.replace(previous,transcript):[draft.text,transcript].filter(Boolean).join('\n');
+      if(text.length>SCOPE_TEXT_LIMIT)throw new Error('Your conversation is longer than one description. Please add it as a document in the estimator.');
+      const files=await loadCachedFiles(draft.id);
+      for(const [i,url] of messages.flatMap(m=>m.role==='user'?m.images||[]:[]).entries()){
+        const blob=await(await fetch(url)).blob();const name=`chat-photo-${i+1}.jpg`;
+        if(!files.some(f=>f.name===name)&&!draft.uploads?.some(f=>f.name===name))files.push(new File([blob],name,{type:blob.type,lastModified:0}));
+      }
+      if(files.length+(draft.uploads?.length||0)>12||files.some(f=>f.size>SCOPE_FILE_LIMIT)||files.reduce((n,f)=>n+f.size,0)+(draft.uploads||[]).reduce((n,f)=>n+f.size,0)>SCOPE_BATCH_LIMIT)throw new Error('Your project has reached the upload limit. Open the estimator to review its saved files.');
+      await cacheFiles(draft.id,files);
+      const next={...draft,text,step:0,dirty:true,chatScope:transcript};
+      if(!persistBrowserDraft(next))throw new Error('This browser could not save the handoff. Keep this chat open and copy your notes into the estimator.');
+      window.location.assign('/estimate');
+    }catch(error){setError(error instanceof Error?error.message:'Your project could not be carried over. Please retry.');}
+  }
   const attachPhotos = useCallback(async (files: FileList | null) => {
     if (!files) return;
     const converted: string[] = [];
@@ -345,7 +365,7 @@ export function AssistantWidget() {
             )}
           </div>
 
-          {estimate && <EstimateCard estimate={estimate} />}
+          {messages.some(m=>m.role==='user')&&<button type="button" onClick={continueProject} className="m-3 min-h-11 rounded-md bg-primary px-4 py-3 text-primary-foreground">Continue project</button>}
 
           {photos.length > 0 && (
             <div className="flex gap-2 px-4 pb-1">

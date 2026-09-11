@@ -24,7 +24,7 @@ test.describe("Design Studio save payload", () => {
     // 6-step flow: room -> layout -> door -> finish -> extras -> review.
     // Each required step needs a selection, then an explicit Continue (no more
     // silent auto-advance).
-    const next = page.getByTestId("wizard-next").first();
+    const next = page.locator('[data-testid="wizard-next"]:visible').first();
 
     // Room
     await page.getByTestId("button-room-kitchen").click();
