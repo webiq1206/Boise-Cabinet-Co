@@ -4,7 +4,8 @@ import { tasks } from "@/shared/schema";
 import { desc, eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 
-export async function GET(_request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function GET(_request: NextRequest, props: { params: Promise<{ leadId: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -13,7 +14,8 @@ export async function GET(_request: NextRequest, { params }: { params: { leadId:
   return NextResponse.json(rows);
 }
 
-export async function POST(request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function POST(request: NextRequest, props: { params: Promise<{ leadId: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -33,7 +35,7 @@ export async function POST(request: NextRequest, { params }: { params: { leadId:
   return NextResponse.json(created, { status: 201 });
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function PATCH(request: NextRequest) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -55,7 +57,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { leadId
   return NextResponse.json(updated);
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function DELETE(request: NextRequest) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });

@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { getEntityDocumentById } from "@/server/services/projectService";
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(_request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const session = await getSession();
     if (!session.userId) {

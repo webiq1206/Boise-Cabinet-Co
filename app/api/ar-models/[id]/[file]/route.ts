@@ -14,8 +14,9 @@ export const runtime = "nodejs";
  */
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string; file: string } },
+  props: { params: Promise<{ id: string; file: string }> }
 ) {
+  const params = await props.params;
   const { id, file } = params;
 
   const isGlb = file === "model.glb";

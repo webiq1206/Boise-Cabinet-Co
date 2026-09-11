@@ -19,7 +19,8 @@ const EDITABLE = [
   "secondaryCtaUrl",
 ] as const;
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -29,7 +30,8 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
   return NextResponse.json(row);
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -55,7 +57,8 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   return NextResponse.json(updated);
 }
 
-export async function DELETE(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
