@@ -31,4 +31,3 @@
 - [pdf.js must use the legacy build](pdfjs-legacy-ios.md) — modern pdfjs-dist needs iOS 17.4+ (Promise.withResolvers); import legacy build + serve legacy worker (build.sh syncs it) or the catalog dies on iPhones.
 - [Publish DB-diff disconnect](publish-db-diff-disconnect.md) — "Failed to check for database diff: SERVER unexpectedly disconnected" = transient platform blip when both DBs are healthy + schema md5s match; verify then just retry Publish.
 - [OG link-preview images must be JPEG/PNG](og-images-webp-imessage.md) — iMessage won't render WebP og:image (blank card); site default is still WebP, page-specific overrides go through the metadata builder's ogImage option.
-- [Next 14 package firewall constraint](next14-package-firewall.md) — exact dependency restore is blocked; verify with an untracked secure Next runtime without changing GitHub manifests.
