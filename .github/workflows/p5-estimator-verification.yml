@@ -9,6 +9,8 @@ permissions:
   contents: read
 jobs:
   verify:
+    env:
+      NEXT_PUBLIC_DESIGN_STUDIO_ENABLED: "true"
     runs-on: ubuntu-latest
     timeout-minutes: 45
     container: mcr.microsoft.com/playwright:v1.60.0-noble
