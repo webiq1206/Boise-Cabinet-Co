@@ -29,7 +29,7 @@ jobs:
           node --import tsx scripts/test-p5-workflow.mts
           node --import tsx scripts/test-p5-receipt.mts
           node --import tsx scripts/test-p5-upload.mts
-          node --import tsx --test tests/p5-adaptive.test.ts tests/p5-provider.test.ts tests/p5-wizard-resume.test.ts tests/p5-file-snapshot.test.ts
+          node --import tsx --test tests/p5-adaptive.test.ts tests/p5-provider.test.ts tests/p5-wizard-resume.test.ts tests/p5-file-snapshot.test.ts tests/p5-upload-transfer.test.ts
           npm run test:assistant
           npm run test:parity
       - name: TypeScript verification
