@@ -64,3 +64,6 @@ NODE_OPTIONS = "--max-old-space-size=1536"
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 60000
+
+[objectStorage]
+defaultBucketID = "replit-objstore-11dee11a-ebde-4b24-8527-428a2d058755"
