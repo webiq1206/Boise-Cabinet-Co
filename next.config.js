@@ -21,6 +21,7 @@ const nextConfig = {
   // WebSocket connection ("Connection terminated unexpectedly"). Loading these
   // from real node_modules at runtime preserves the unminified module.
   experimental: {
+    outputFileTracingIncludes: { "/api/p5-estimator/*": ["./node_modules/heic-convert/**/*", "./node_modules/heic-decode/**/*", "./node_modules/libheif-js/**/*", "./node_modules/jpeg-js/**/*", "./node_modules/pngjs/**/*"] },
     serverComponentsExternalPackages: ['ws', '@neondatabase/serverless', 'bufferutil', 'utf-8-validate'],
     instrumentationHook: true,
     // Run the webpack compile in a separate worker process so its heap is
