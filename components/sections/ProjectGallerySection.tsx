@@ -6,11 +6,10 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
-import { PROJECTS, DESIGN_CONCEPT_DISCLOSURE } from "@/shared/galleryData";
+import { PROJECTS } from "@/shared/galleryData";
 import type { SiteProject } from "@/shared/projects/types";
 
 function ProjectCard({ project }: { project: SiteProject }) {
-  const isConcept = project.kind === "concept";
   return (
     <MarketingCard className="overflow-hidden p-0">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -31,11 +30,6 @@ function ProjectCard({ project }: { project: SiteProject }) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover img-brand-grade"
             />
-            {isConcept && (
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
-                Design concept
-              </span>
-            )}
           </>
         )}
       </div>
@@ -54,8 +48,7 @@ interface ProjectGallerySectionProps {
 
 export function ProjectGallerySection({ limit = 6, showViewAll = true }: ProjectGallerySectionProps) {
   const projects = PROJECTS.slice(0, limit);
-  const hasConcept = projects.some((p) => p.kind === "concept");
-  const allVerified = projects.length > 0 && !hasConcept;
+  const allVerified = projects.length > 0 && projects.every((project) => project.kind !== "concept");
 
   return (
     <Section id="gallery" divider>
@@ -82,11 +75,6 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
             </Reveal>
           ))}
         </div>
-        {hasConcept && (
-          <p className="mt-6 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
-            {DESIGN_CONCEPT_DISCLOSURE}
-          </p>
-        )}
         {showViewAll && (
           <div className="mt-8 text-center">
             <Button variant="brandOutline" asChild>

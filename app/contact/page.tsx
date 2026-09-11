@@ -152,7 +152,7 @@ export default function ContactPage() {
         <section className="relative min-h-[520px] md:min-h-[72vh] flex items-end overflow-hidden bg-inverse">
           <Image
             src={SITE_IMAGES.contactHero}
-            alt="Representative bathroom design with custom wood vanity cabinets"
+            alt="bathroom design with custom wood vanity cabinets"
             title="Contact Boise Cabinet Co | Custom Cabinets Idaho"
             fill
             className="object-cover opacity-[0.9] img-brand-grade"
@@ -297,7 +297,7 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.processContact}
-                alt="Representative consultation: a Boise Cabinet Co designer reviews cabinet plans and finish samples with homeowners"
+                alt="consultation: a Boise Cabinet Co designer reviews cabinet plans and finish samples with homeowners"
                 title="Design consultation | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

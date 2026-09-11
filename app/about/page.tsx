@@ -135,7 +135,7 @@ export default function AboutPage() {
         <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
           <Image
             src={SITE_IMAGES.leadership}
-            alt={`Representative consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}
+            alt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}
             fill
             className="object-cover opacity-[0.9] img-brand-grade"
             sizes="100vw"
@@ -194,7 +194,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="Representative image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                alt="image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

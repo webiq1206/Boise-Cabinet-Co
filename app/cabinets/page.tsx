@@ -45,7 +45,7 @@ export default function CabinetsHubPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.designStudio}
-          alt="Representative display of cabinet finish samples and door styles"
+          alt="display of cabinet finish samples and door styles"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={<>Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em></>}

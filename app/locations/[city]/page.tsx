@@ -155,11 +155,6 @@ export default function LocationPage({ params }: { params: { city: string } }) {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover img-brand-grade"
                       />
-                      {project.kind === "concept" && (
-                        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
-                          Design concept
-                        </span>
-                      )}
                     </div>
                     <div className="p-5">
                       <h3 className="ed-h4">

@@ -16,7 +16,7 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-          alt="Representative kitchen with cream Shaker cabinets, a white oak island, brass hardware and glass-front upper cabinets"
+          alt="kitchen with cream Shaker cabinets, a white oak island, brass hardware and glass-front upper cabinets"
           fill
           priority
           fetchPriority="high"
