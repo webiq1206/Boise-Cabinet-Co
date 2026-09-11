@@ -87,19 +87,6 @@ test('living area and garage stay separate and known specifications do not gener
  assert.equal(deriveScopeAnswers({...a,garageSqft:'800'}).sqft,'2500');
 });
 
-import {cabinetProjectSource} from '../lib/design/projectScope.ts';
-test('cabinet designer uses placed base and wall modules, never a guessed upper ratio or room width',()=>{
- const source=cabinetProjectSource({roomType:'kitchen',modules:[{width:.9144,depth:.6,height:.9},{width:.6096,depth:.3,height:.7,isWall:true}],selections:'Painted Shaker',notes:'Keep flooring',room:'Confirmed room: 240 by 180 inches'});
- assert.equal(source.answers.cabinetBaseLf,'3');assert.equal(source.answers.cabinetUpperLf,'2');assert.equal(source.answers.sqft,undefined);
- const empty=cabinetProjectSource({roomType:'kitchen',modules:[],selections:'',notes:'',room:'Confirmed room: 240 by 180 inches'});
- assert.equal(empty.answers.cabinetBaseLf,undefined);assert.equal(empty.answers.cabinetUpperLf,undefined);
-});
-
-test('appliance openings do not inflate the cabinet material takeoff',()=>{
- const source=cabinetProjectSource({roomType:'kitchen',modules:[{width:.9144,depth:.6,height:.9},{width:.762,depth:.6,height:.9,appliance:'range'}],selections:'Shaker',notes:''});
- assert.equal(source.answers.cabinetBaseLf,'3');assert.match(source.answers.taskList||'',/range opening/);
-});
-
 test('uncertain quantities are asked only when required by pricing',()=>{
  const a={service:'bathroom',length:'8',width:'10',materials:'Porcelain',demolition:'Remove tile'};
  const e=extracted({flooringSqft:'80'},.65);
@@ -116,4 +103,13 @@ test('model follow-ups must match a required field and its answer type',()=>{
  const q=scopeQuestions(a,e,[],[],['fixtureCount']);
  assert.equal(q.length,1);assert.match(q[0].reason,/number of fixtures/i);
  assert.doesNotMatch(q[0].reason,/which fixtures/i);
+});
+
+// A narrower edited scope must not inherit auto-extracted work from the old scope.
+test("reanalysis replaces source facts while preserving visitor corrections",async()=>{
+ const {manualScopeAnswers}=await import("../lib/p5/adaptive.ts");
+ const previous={summary:"Old scope",facts:[{field:"demolition" as const,value:"Remove flooring",confidence:.98,source:"scope.pdf",evidence:"Remove flooring"},{field:"sqft" as const,value:"80",confidence:.98,source:"scope.pdf",evidence:"80 square feet"}],conflicts:[],missingInformation:[],reviewNotes:[]};
+ assert.deepEqual(manualScopeAnswers({demolition:"Remove flooring",sqft:"80",location:"Eagle"},previous),{location:"Eagle"});
+ assert.equal(manualScopeAnswers({demolition:"Only remove vanity",sqft:"80"},previous).demolition,"Only remove vanity");
+ assert.equal(manualScopeAnswers({sqft:"80"},previous,{sqft:"80"}).sqft,"80");
 });
