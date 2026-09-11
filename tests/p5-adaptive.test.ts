@@ -99,3 +99,12 @@ test('appliance openings do not inflate the cabinet material takeoff',()=>{
  const source=cabinetProjectSource({roomType:'kitchen',modules:[{width:.9144,depth:.6,height:.9},{width:.762,depth:.6,height:.9,appliance:'range'}],selections:'Shaker',notes:''});
  assert.equal(source.answers.cabinetBaseLf,'3');assert.match(source.answers.taskList||'',/range opening/);
 });
+
+test('uncertain quantities are asked only when required by pricing',()=>{
+ const a={service:'bathroom',length:'8',width:'10',materials:'Porcelain',demolition:'Remove tile'};
+ const e=extracted({flooringSqft:'80'},.65);
+ assert.deepEqual(scopeQuestions(a,e),[]);
+ const q=scopeQuestions(a,e,[],[],['flooringSqft']);
+ assert.equal(q.length,1);assert.equal(q[0].field,'flooringSqft');
+ assert.ok(q[0].reason.includes(q[0].label));
+});

@@ -34,7 +34,7 @@ test.describe("Design Studio autosave & summary", () => {
     await page.reload();
 
     // The local mirror is restored and the visitor is told so.
-    await expect(page.getByText(/restored your in-progress design/i)).toBeVisible({
+    await expect(page.getByText("We restored your in-progress design.", { exact: true })).toBeVisible({
       timeout: 15_000,
     });
   });
