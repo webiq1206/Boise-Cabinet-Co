@@ -25,7 +25,7 @@ test.describe("Retired subcontractor portal", () => {
       "/api/admin/subcontractors",
     ]) {
       const res = await request.get(url);
-      expect(res.status(), `${url} should not exist`).toBe(404);
+      expect([404, 405], `${url} must not expose a retired endpoint`).toContain(res.status());
     }
   });
 

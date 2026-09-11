@@ -31,12 +31,12 @@ export default defineConfig({
   webServer: process.env.E2E_NO_WEBSERVER
     ? undefined
     : {
-        command: "npm run dev -- -p 3456",
+        command: process.env.E2E_SERVER_COMMAND || "npm run dev -- -p 3456",
         url: process.env.E2E_BASE_URL || "http://127.0.0.1:3456",
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
         env: {
-          NODE_ENV: "development",
+          NODE_ENV: process.env.E2E_SERVER_COMMAND ? "production" : "development",
           PORT: process.env.PORT || "3456",
           HOST: process.env.HOST || "127.0.0.1",
           SESSION_SECRET:
