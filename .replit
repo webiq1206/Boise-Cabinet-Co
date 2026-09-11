@@ -63,9 +63,11 @@ NODE_OPTIONS = "--max-old-space-size=1536"
 
 [userenv.development]
 P5_OBJECT_STORAGE_ENABLED = "true"
+P5_SCOPE_OPENAI_MODEL = "gpt-4.1"
 
 [userenv.production]
 P5_OBJECT_STORAGE_ENABLED = "true"
+P5_SCOPE_OPENAI_MODEL = "gpt-4.1"
 
 [postMerge]
 path = "scripts/post-merge.sh"
