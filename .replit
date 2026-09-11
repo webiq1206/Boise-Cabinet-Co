@@ -61,6 +61,12 @@ ADMIN_EMAILS = "webiq.co@gmail.com,info@webiq.co,hello@boisecabinetco.co,hello@b
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51LGm9XKmgtIDVx8lrH27gaoWAdwf1F0O7Gxx2RkNqICfBvPslxV7IJCdufiFDHnNxaCKgr3IcOZokNdmNaxy3z6z000ipOzjOv"
 NODE_OPTIONS = "--max-old-space-size=1536"
 
+[userenv.development]
+P5_OBJECT_STORAGE_ENABLED = "true"
+
+[userenv.production]
+P5_OBJECT_STORAGE_ENABLED = "true"
+
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 60000
