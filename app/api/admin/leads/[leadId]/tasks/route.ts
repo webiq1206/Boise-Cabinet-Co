@@ -35,7 +35,7 @@ export async function POST(request: NextRequest, props: { params: Promise<{ lead
   return NextResponse.json(created, { status: 201 });
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function PATCH(request: NextRequest) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -57,7 +57,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { leadId
   return NextResponse.json(updated);
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { leadId: string } }) {
+export async function DELETE(request: NextRequest) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
