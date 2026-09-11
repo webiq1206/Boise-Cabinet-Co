@@ -54,24 +54,15 @@ export function ReviewStep() {
         </p>
       </div>
 
-      {/* On desktop the 3D preview lives in the sticky sidebar; on mobile we add
-          it here so Review always offers a 3D look (without a second canvas). */}
-      {!isDesktop && <RoomStepLivePreview />}
-
-      <VisualizeStep embedded />
-
-      {/* On desktop the recap lives in the sticky sidebar; show it inline only
-          on smaller screens so the review step isn't duplicated. */}
-      {!isDesktop && (
-        <DesignSummaryPanel
-          variant="review"
-          tuner={tuner}
-          onTunerChange={onTunerChange}
-          onNavigate={gotoDesignStep}
-        />
-      )}
-
       <SaveStep embedded />
+      <details className="rounded-md border p-4">
+        <summary className="cursor-pointer font-medium">Preview your design and layout checks</summary>
+        <div className="mt-4 space-y-6">
+          {!isDesktop && <RoomStepLivePreview />}
+          <VisualizeStep embedded />
+          {!isDesktop && <DesignSummaryPanel variant="review" tuner={tuner} onTunerChange={onTunerChange} onNavigate={gotoDesignStep} />}
+        </div>
+      </details>
     </div>
   );
 }

@@ -94,3 +94,8 @@ test('cabinet designer uses placed base and wall modules, never a guessed upper 
  const empty=cabinetProjectSource({roomType:'kitchen',modules:[],selections:'',notes:'',room:'Confirmed room: 240 by 180 inches'});
  assert.equal(empty.answers.cabinetBaseLf,undefined);assert.equal(empty.answers.cabinetUpperLf,undefined);
 });
+
+test('appliance openings do not inflate the cabinet material takeoff',()=>{
+ const source=cabinetProjectSource({roomType:'kitchen',modules:[{width:.9144,depth:.6,height:.9},{width:.762,depth:.6,height:.9,appliance:'range'}],selections:'Shaker',notes:''});
+ assert.equal(source.answers.cabinetBaseLf,'3');assert.match(source.answers.taskList||'',/range opening/);
+});
