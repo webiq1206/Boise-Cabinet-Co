@@ -20,10 +20,9 @@ const nextConfig = {
   // "TypeError: t.mask is not a function" at runtime and killing the Neon
   // WebSocket connection ("Connection terminated unexpectedly"). Loading these
   // from real node_modules at runtime preserves the unminified module.
+  outputFileTracingIncludes: { "/api/p5-estimator/*": ["./node_modules/heic-convert/**/*", "./node_modules/heic-decode/**/*", "./node_modules/libheif-js/**/*", "./node_modules/jpeg-js/**/*", "./node_modules/pngjs/**/*"] },
+  serverExternalPackages: ['ws', '@neondatabase/serverless', 'bufferutil', 'utf-8-validate'],
   experimental: {
-    outputFileTracingIncludes: { "/api/p5-estimator/*": ["./node_modules/heic-convert/**/*", "./node_modules/heic-decode/**/*", "./node_modules/libheif-js/**/*", "./node_modules/jpeg-js/**/*", "./node_modules/pngjs/**/*"] },
-    serverComponentsExternalPackages: ['ws', '@neondatabase/serverless', 'bufferutil', 'utf-8-validate'],
-    instrumentationHook: true,
     // Run the webpack compile in a separate worker process so its heap is
     // isolated from (and freed before) the static-page-generation phase. This
     // keeps the two biggest memory consumers from stacking on top of each

@@ -5,10 +5,8 @@ import {
   deleteEntityDocument,
 } from "@/server/services/projectService";
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: { id: string } },
-) {
+export async function DELETE(_request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const session = await getSession();
     if (!session.userId) {

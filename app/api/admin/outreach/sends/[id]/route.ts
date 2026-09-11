@@ -21,7 +21,8 @@ export const dynamic = "force-dynamic";
 // we re-render from the template + lead tokens (the same inputs the sender used).
 // Links are shown clean (no click-tracking wrapper) and the open pixel is
 // omitted so this preview faithfully represents the message as written.
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database unavailable" }, { status: 503 });

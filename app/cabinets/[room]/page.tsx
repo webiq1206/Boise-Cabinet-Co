@@ -92,7 +92,8 @@ const REVIEW_SERVICE_MATCH: Record<string, string[]> = {
   pantry: ["room-addition"],
 };
 
-export async function generateMetadata({ params }: { params: { room: string } }) {
+export async function generateMetadata(props: { params: Promise<{ room: string }> }) {
+  const params = await props.params;
   const room = getRoomBySlug(params.room);
   if (!room) return {};
   return catalogMetadata(
@@ -104,7 +105,8 @@ export async function generateMetadata({ params }: { params: { room: string } })
   );
 }
 
-export default function RoomCabinetPage({ params }: { params: { room: string } }) {
+export default async function RoomCabinetPage(props: { params: Promise<{ room: string }> }) {
+  const params = await props.params;
   const room = getRoomBySlug(params.room);
   if (!room) notFound();
 
