@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
-import { PROJECTS, DESIGN_CONCEPT_DISCLOSURE } from "@/shared/galleryData";
+import { PROJECTS } from "@/shared/galleryData";
 
 export function FeaturedProjectSection() {
   const project = PROJECTS[0];
@@ -16,7 +16,7 @@ export function FeaturedProjectSection() {
       <div className="ed-shell pt-[var(--ed-pad)] pb-[clamp(32px,4vw,56px)]">
         <div className="ed-split ed-split-end">
           <Reveal>
-            <p className="ed-eyebrow">{isConcept ? "Design concept" : "Featured project"}</p>
+            <p className="ed-eyebrow">{isConcept ? "Cabinet design example" : "Featured project"}</p>
             <h2 className="ed-h2 ed-statement">
               See what quality cabinetry can{" "}
               <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
@@ -63,11 +63,6 @@ export function FeaturedProjectSection() {
                 priority
                 className="object-cover img-brand-grade"
               />
-              {isConcept && (
-                <span className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
-                  Design concept
-                </span>
-              )}
               <div className="hidden md:block absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/50 via-inverse/15 to-transparent pointer-events-none" />
             </div>
             <div className="ed-shell pt-4 md:w-auto md:pt-0 md:absolute md:bottom-8 md:left-8 md:right-8">
@@ -75,7 +70,7 @@ export function FeaturedProjectSection() {
                 {project.title}
               </p>
               <p className="text-sm text-inverse-muted max-w-xl">
-                {isConcept ? DESIGN_CONCEPT_DISCLOSURE : project.description}
+                {project.description}
               </p>
             </div>
           </div>

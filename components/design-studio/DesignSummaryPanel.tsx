@@ -73,19 +73,6 @@ export function DesignSummaryPanel({
 }) {
   const { design } = useDesignStudio();
 
-  const estimate = getDesignEstimate(design, {
-    size: tuner.size,
-    construction: tuner.construction,
-  });
-  const selections = designToEstimateSelections(design, {
-    size: tuner.size,
-    construction: tuner.construction,
-  });
-  const project = (PROJECT_TYPES.has(design.roomType ?? "")
-    ? design.roomType
-    : "kitchen") as ProjectType;
-  const sizeCfg = getProjectSizeConfig(project);
-  const effectiveSize = selections.size;
   const progress = getDesignProgress(design);
 
   const door = design.doorStyle
@@ -129,23 +116,6 @@ export function DesignSummaryPanel({
     { step: "extras", label: "Finishing touches", value: extrasValue },
   ];
 
-  // When the design has no size source yet, the first tap seeds the tuner at
-  // the project's typical size so the visitor can dial in from a sane start.
-  const decSize = () =>
-    onTunerChange({
-      size:
-        effectiveSize == null
-          ? sizeCfg.default
-          : Math.max(sizeCfg.min, effectiveSize - sizeCfg.step),
-    });
-  const incSize = () =>
-    onTunerChange({
-      size:
-        effectiveSize == null
-          ? sizeCfg.default
-          : Math.min(sizeCfg.max, effectiveSize + sizeCfg.step),
-    });
-
   return (
     <div
       className={cn(
@@ -155,107 +125,8 @@ export function DesignSummaryPanel({
       )}
       data-testid="design-summary-panel"
     >
-      {/* Estimate headline */}
-      <div className="space-y-1">
-        <div className="flex items-center gap-1.5">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground">
-            Estimated cost
-          </p>
-          <HelpHint label="About this estimate">
-            A planning range modeled on Treasure Valley cabinetry rates and your
-            selections. Your exact quote is confirmed at your free consultation.
-          </HelpHint>
-        </div>
-        {estimate ? (
-          <>
-            <p
-              className="text-2xl font-semibold tracking-tight"
-              data-testid="summary-estimate-range"
-            >
-              {estimate.rangeLabel}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Planning estimate · about {estimate.timelineLabel} · {estimate.confidencePercent}% confidence
-            </p>
-          </>
-        ) : (
-          <p
-            className="text-sm text-muted-foreground"
-            data-testid="summary-estimate-range"
-          >
-            Complete your room to see a planning range.
-          </p>
-        )}
-      </div>
-
-      {/* Tuners */}
-      <div className="mt-4 space-y-3 rounded-md bg-muted/50 p-3">
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-sm font-medium">{sizeCfg.sizeStepLabel}</span>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-11 w-11"
-              onClick={decSize}
-              aria-label="Decrease size"
-              data-testid="summary-size-dec"
-            >
-              <Minus className="h-4 w-4" />
-            </Button>
-            <span
-              className="min-w-[4.5rem] text-center text-sm tabular-nums"
-              aria-live="polite"
-            >
-              {effectiveSize == null
-                ? "Not set"
-                : `${effectiveSize} ${sizeCfg.unitShort}`}
-            </span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-11 w-11"
-              onClick={incSize}
-              aria-label="Increase size"
-              data-testid="summary-size-inc"
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-        <div className="space-y-1.5">
-          <div className="flex items-center gap-1.5">
-            <span className="text-sm font-medium">Construction</span>
-            <HelpHint label="About construction tiers">
-              Box quality and drawer hardware. Higher tiers add durability and
-              cost.
-            </HelpHint>
-          </div>
-          <div
-            className="grid grid-cols-3 gap-1 rounded-md border bg-background p-1"
-            role="group"
-            aria-label="Construction quality"
-          >
-            {CONSTRUCTION_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => onTunerChange({ construction: opt.value })}
-                aria-pressed={tuner.construction === opt.value}
-                className={cn(
-                  "min-h-11 rounded-sm px-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  tuner.construction === opt.value
-                    ? "bg-primary text-primary-foreground font-medium"
-                    : "text-muted-foreground hover:bg-muted",
-                )}
-                data-testid={`summary-construction-${opt.value}`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      <p className="font-medium">Your design</p>
+      <p className="mt-1 text-sm text-muted-foreground">Your selections carry into the project estimator. We’ll ask only for missing details.</p>
 
       {/* Progress */}
       <div className="mt-4 space-y-1.5">

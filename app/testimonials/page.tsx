@@ -27,7 +27,7 @@ export default function TestimonialsPage() {
       ? 'Boise Cabinet Co Design Concepts'
       : 'Boise Cabinet Co Project Gallery',
     description: galleryHasConcept
-      ? 'Custom cabinet design concepts for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages. Illustrative renderings, not photographs of specific completed homes.'
+      ? 'Custom cabinet design examples for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages.'
       : 'Custom cabinet projects completed for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages.',
     url: '/testimonials',
     images: PROJECTS.map((project) => ({
@@ -52,7 +52,7 @@ export default function TestimonialsPage() {
     <div className="flex flex-col pb-20 md:pb-0">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="Representative consultation with a Boise Cabinet Co designer and homeowners reviewing cabinet finishes"
+        alt="consultation with a Boise Cabinet Co designer and homeowners reviewing cabinet finishes"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Projects & Reviews' }]}
         eyebrow="Proof of work"
         title={<>Projects &amp; homeowner <em className="brc-accent text-accent">reviews</em></>}

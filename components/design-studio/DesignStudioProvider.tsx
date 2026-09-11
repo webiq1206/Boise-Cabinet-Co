@@ -53,7 +53,7 @@ import {
 import { getCabinetNeedLabel } from "@/shared/catalog/cabinetLabels";
 
 /** Plain-English recap of every catalog selection, for the pricing/consultation payload. */
-function buildSelectionsSummary(d: DesignState): string {
+export function buildSelectionsSummary(d: DesignState): string {
   const lines: string[] = [];
   if (d.doorStyle) {
     const door = getDoorStyleBySlug(resolveDoorStyleSlug(d.doorStyle));

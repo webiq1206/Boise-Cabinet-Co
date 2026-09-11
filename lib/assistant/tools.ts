@@ -303,57 +303,8 @@ function executeUpdateProject(input: unknown, ctx: AssistantToolContext) {
   };
 }
 
-function executeCalculateEstimate(ctx: AssistantToolContext) {
-  if (!ctx.rooms.length) {
-    return {
-      priceable: false,
-      reason: "No rooms in the project yet. Call update_project first.",
-    };
-  }
-  const combined = calculateCombinedEstimate(ctx.rooms);
-  const validation = validateCombinedEstimate(combined, ctx.rooms);
-  if (!validation.ok) {
-    console.error(
-      `[assistant] calculate_estimate validation failed: ${validation.issues.join("; ")}`,
-    );
-    return {
-      priceable: false,
-      reason:
-        "The estimate could not be validated. Do not state any price; offer the free in-home consultation instead.",
-    };
-  }
-  if (!combined) {
-    return {
-      priceable: false,
-      reason: "At least one room needs its required details before pricing.",
-      rooms: ctx.rooms.map((room, i) => ({
-        index: i + 1,
-        projectLabel: room.project ? PROJECT_LABELS[room.project as ProjectType].label : null,
-        missingForPricing: missingForPricing(room),
-      })),
-    };
-  }
-  return {
-    priceable: true,
-    priceLow: combined.priceLow,
-    priceHigh: combined.priceHigh,
-    formattedRange: formatEstimateRangeShort(combined.priceLow, combined.priceHigh),
-    confidenceLabel: combined.confidenceLabel,
-    rooms: combined.rooms.map((room) => ({
-      projectLabel: room.projectLabel,
-      sizeLabel: room.sizeLabel,
-      scopeSummary: room.scopeSummary,
-      priceLow: room.priceLow,
-      priceHigh: room.priceHigh,
-    })),
-    included: combined.included,
-    refinementsThatWouldTightenTheRange: ctx.rooms
-      .filter(isPriceable)
-      .flatMap((room, i) =>
-        refinements(room).map((r) => `room ${i + 1}: ${r}`),
-      ),
-    requiredDisclaimer: ESTIMATE_RANGE_DISCLAIMER,
-  };
+function executeCalculateEstimate(_ctx: AssistantToolContext) {
+  return {priceable:false,nextStep:'/estimate',reason:'Use the project estimator for all preliminary pricing. The Continue project button carries the homeowner’s description and photos into that estimator. Do not ask a separate list of pricing questions here and do not quote legacy market bands.'};
 }
 
 function executeGetBusinessInfo(input: unknown) {
@@ -408,8 +359,8 @@ export function buildAssistantLeadBody(
     timeline: input.timeline ?? "",
     companyWebsite: "",
     propertyProfile: null,
-    estimate: buildCombinedConsultationPayload(stored),
-    estimateRecord: record,
+    estimate: null,
+    estimateRecord: null,
     source: "assistant" as const,
     sourceDetail,
     conversationTranscript: ctx.transcript.slice(0, 60_000),

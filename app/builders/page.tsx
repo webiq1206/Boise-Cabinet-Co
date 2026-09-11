@@ -143,7 +143,7 @@ export default function BuildersPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="Representative cabinet boxes being prepared in a woodworking shop"
+          alt="cabinet boxes being prepared in a woodworking shop"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>

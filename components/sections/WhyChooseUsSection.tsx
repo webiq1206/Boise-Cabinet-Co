@@ -64,7 +64,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
                     src="/images/marketing/hero-construction.webp"
-                    alt="Representative cabinet workshop with a CNC router shaping a cabinet door"
+                    alt="cabinet workshop with a CNC router shaping a cabinet door"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

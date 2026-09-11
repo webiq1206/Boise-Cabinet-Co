@@ -25,7 +25,7 @@ async function mock(context,{interruptions=false,scenario='full'}={}){
   }
   if(endpoint==='scope'){
    state.scopeCalls++;if(state.failUpload){state.failUpload=false;return send({error:'Synthetic upload interruption. Your saved work is intact.'},503);}
-   const desired=scenario==='unavailable'?{}:scenario==='manual'?{service,taskList:state.saved.answers.taskList||'Repair three interior doors',...(service.startsWith('cabinet-')?{cabinetRoom:'kitchen',cabinetBaseLf:'20',cabinetUpperLf:'0'}:{})}:fullAnswers;
+   const desired=scenario==='design'?{...state.saved.answers,service:'cabinet-install'}:scenario==='unavailable'?{}:scenario==='manual'?{service,taskList:state.saved.answers.taskList||'Repair three interior doors',...(service.startsWith('cabinet-')?{cabinetRoom:'kitchen',cabinetBaseLf:'20',cabinetUpperLf:'0'}:{})}:fullAnswers;
    const extraction={summary:'Synthetic project',facts:Object.entries(desired).map(([field,value])=>({field,value,confidence:.98,source:'scope.txt',evidence:value})),conflicts:scenario==='conflict'?[{field:'taskList',values:['Repair three doors','Replace three doors'],explanation:'The documents disagree. Which work should be included?'}]:[],missingInformation:[],reviewNotes:[],clarifications:[]};
    const merged=reconcileScope(state.saved.answers,extraction,state.saved.wizard?.resolutions||{});
    state.saved={...state.saved,revision:state.saved.revision+1,answers:merged.answers,uploads:scenario==='manual'?[]:[{id:'test-upload',name:'scope.txt',size:30,type:'text/plain',sha256:'test',status:'stored'}],extraction};
@@ -87,6 +87,22 @@ for(const scenario of ['manual','conflict','unavailable']){
   }
   await est.getByRole('heading',{name:'Your project is ready to review',exact:true}).waitFor();await overflow(page);results.push({scenario,passed:true});
  }catch(error){results.push({scenario,passed:false,error:String(error)});await capture(page,`${scenario}-failure`).catch(()=>{});}await context.close();
+}
+// The optional designer hands its catalog selections to the SAME estimator.
+if(brand.id==='cabinet')for(const width of [390,768,1440]){
+ const context=await browser.newContext({viewport:{width,height:1000}});const state=await mock(context,{scenario:'design'});const page=await context.newPage();page.setDefaultTimeout(20000);
+ try{
+  await page.goto(base+'/design-studio?fixtureManual=1');const next=page.getByTestId('wizard-next').first();
+  await page.getByTestId('button-room-kitchen').click();await next.click();
+  await page.getByTestId(/^button-layout-/).first().click();await next.click();
+  await page.getByTestId(/^button-door-style-/).first().click();await next.click();
+  await page.getByTestId(/^button-finish-/).first().click();await next.click();await next.click();
+  const est=page.locator('[data-p5-estimator]');await est.getByLabel('Tell us about your project',{exact:true}).waitFor();
+  await est.getByRole('button',{name:'Continue',exact:true}).click();await est.getByRole('heading',{name:'Your project is ready to review',exact:true}).waitFor();
+  assert.equal(state.saved.answers.cabinetRoom,'kitchen');assert.ok(Number(state.saved.answers.cabinetBaseLf)>0);assert.ok(state.saved.answers.materials);assert.match(state.saved.answers.taskList,/Proposed cabinet modules/);
+  assert.equal(await page.getByRole('button',{name:'Increase size',exact:true}).count(),0);assert.equal(await est.getByRole('region',{name:'Project question'}).count(),0);await overflow(page);
+  await capture(page,`designer-${width}`);results.push({width,path:'/design-studio',passed:true});
+ }catch(error){results.push({width,path:'/design-studio',passed:false,error:String(error)});await capture(page,`designer-${width}-failure`).catch(()=>{});}await context.close();
 }
 const paths=brand.id==='p5'?['/estimate','/estimate/scope','/quote',...['kitchen-remodel','bathroom-remodel','home-addition','adu','custom-home','custom-cabinets','handyman'].map(s=>'/quote/'+s)]:['/estimate','/estimate/scope','/#calculator',...(brand.services.includes('re10')?['/re-10-repairs-boise']:[]),...(brand.id==='remodeling'?['/remodel-plans-boise']:[])];
 for(const width of [390,768,1440])for(const path of paths){

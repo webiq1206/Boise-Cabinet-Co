@@ -65,7 +65,7 @@ export default function WarrantyPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
-          alt="Representative cabinet hardware and finished door fronts"
+          alt="cabinet hardware and finished door fronts"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
           title={<>

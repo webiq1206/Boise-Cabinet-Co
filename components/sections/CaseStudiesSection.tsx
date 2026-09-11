@@ -9,13 +9,13 @@ export function CaseStudiesSection() {
   const allVerified = CASE_STUDIES.length > 0 && !hasConcept;
   const description = allVerified
     ? "Detailed kitchen, bath, and whole-home projects completed for Treasure Valley homeowners, with scope, timeline, and finish details."
-    : "Representative kitchen, bath, and whole-home scenarios drawn from typical Treasure Valley projects and our published planning ranges. Images are illustrative design renderings, not photographs of specific completed homes.";
+    : "Kitchen, bath, and whole-home cabinet examples with scope, timeline, and finish details drawn from typical Treasure Valley planning.";
 
   return (
     <Section divider>
       <div className="container px-4 max-w-5xl">
         <SectionHeader
-          eyebrow={allVerified ? "Project case studies" : "Representative scenarios"}
+          eyebrow={allVerified ? "Project case studies" : "Cabinet design examples"}
           title={
             <>
               Detailed looks at{" "}
@@ -41,11 +41,6 @@ export function CaseStudiesSection() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover img-brand-grade"
                 />
-                {study.kind === "concept" && (
-                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-inverse/75 backdrop-blur-sm text-inverse-foreground text-[12px] tracking-[0.14em] uppercase font-medium">
-                    Illustrative rendering
-                  </span>
-                )}
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">

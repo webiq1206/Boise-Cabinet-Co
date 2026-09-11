@@ -24,7 +24,7 @@ export function ProcessSection() {
         <div className="ed-panel-media">
           <Image
             src={MARKETING_IMAGES.designStudio}
-            alt="Representative cabinet door samples, finish swatches and a kitchen layout rendering"
+            alt="cabinet door samples, finish swatches and a kitchen layout rendering"
             fill
             sizes="(max-width: 820px) 100vw, 43vw"
             className="object-cover img-brand-grade"
@@ -33,7 +33,7 @@ export function ProcessSection() {
             className="pointer-events-none absolute inset-0"
             style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.028 }}
           />
-          <p className="ed-panel-caption">Design consultation · Meridian studio</p>
+          
         </div>
 
         <div className="ed-panel-body">

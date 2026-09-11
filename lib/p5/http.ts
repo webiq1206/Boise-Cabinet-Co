@@ -3,7 +3,8 @@ import { DraftError } from "./store";
 const buckets=new Map<string,{count:number;until:number}>();
 export function protectRequest(request:Request,limit=60) {
   const origin=request.headers.get("origin");const url=new URL(request.url);
-  if(origin && origin!==url.origin && origin!==`https://${ESTIMATOR_BRAND.domain}`)throw new DraftError("Request origin is not allowed.",403);
+  const localPreview=process.env.NODE_ENV==="development" && origin==="http://terminal.local:4173";
+  if(origin && !localPreview && origin!==url.origin && origin!==`https://${ESTIMATOR_BRAND.domain}` && origin!==`https://www.${ESTIMATOR_BRAND.domain}`)throw new DraftError("Request origin is not allowed.",403);
   const key=`${url.pathname}:${request.method}:${(request.headers.get("x-forwarded-for")||"unknown").split(",")[0]}`;const now=Date.now();
   if(buckets.size>10000)for(const [k,v]of buckets)if(v.until<now)buckets.delete(k);
   const b=buckets.get(key);if(!b||b.until<now)buckets.set(key,{count:1,until:now+600000});
