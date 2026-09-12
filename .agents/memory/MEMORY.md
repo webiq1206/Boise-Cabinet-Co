@@ -31,4 +31,4 @@
 - [pdf.js must use the legacy build](pdfjs-legacy-ios.md) — modern pdfjs-dist needs iOS 17.4+ (Promise.withResolvers); import legacy build + serve legacy worker (build.sh syncs it) or the catalog dies on iPhones.
 - [Publish DB-diff disconnect](publish-db-diff-disconnect.md) — "Failed to check for database diff: SERVER unexpectedly disconnected" = transient platform blip when both DBs are healthy + schema md5s match; verify then just retry Publish.
 - [OG link-preview images must be JPEG/PNG](og-images-webp-imessage.md) — iMessage won't render WebP og:image (blank card); site default is still WebP, page-specific overrides go through the metadata builder's ogImage option.
-- [Estimator local verification limits](estimator-local-verification-limits.md) — Replit may lack Playwright shared libs, and tsx misresolves query-suffixed dynamic TS imports; distinguish environment failures from app failures.
+- [Estimator local verification limits](estimator-local-verification-limits.md) — Replit may lack Playwright shared libs; clarification query-import compatibility was fixed upstream and now passes locally.
