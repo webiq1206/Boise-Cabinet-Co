@@ -76,10 +76,24 @@ export const SCOPE_UPLOAD_HELP = "Up to 50 files, 250 MB each and 1 GB total. La
 const normalizedUnit=(unit:string)=>unit.toLowerCase().replace(/[._-]/g,' ').replace(/\s+/g,' ').trim();
 /** A scalar field cannot represent distinct trade hours. Keep those quantities in evidence-linked takeoffs instead of presenting a false either/or conflict. */
 export function separateAdditiveQuantities(facts:ExtractedFact[],conflicts:ScopeConflict[],takeoffs:Takeoff[]){
-  const ordinaryHours=takeoffs.filter(t=>t.quantity!==null&&!t.alternativeGroup&&['hr','hrs','hour','hours'].includes(normalizedUnit(t.unit))&&!/\b(?:sub)?total\b/i.test(t.description+' '+t.evidence));
+  const ordinaryHours=takeoffs.filter(t=>t.quantity!==null&&!t.alternativeGroup&&!t.duplicateOf&&!t.aggregateOf?.length&&t.basis!=='uncertain'&&!t.issues.length&&['hr','hrs','hour','hours'].includes(normalizedUnit(t.unit))&&!/\b(?:sub)?total\b/i.test(t.description+' '+t.evidence));
   const hourValues=[...new Set(facts.filter(f=>f.field==='laborHours'&&f.confidence>=.4).map(f=>Number(f.value.replaceAll(',',''))).filter(Number.isFinite))];
-  const identities=new Set(ordinaryHours.map(t=>[t.building,t.floor,t.component,t.id].map(v=>v.trim().toLowerCase()).join('|')));
-  const additive=hourValues.length>1&&identities.size>=hourValues.length&&hourValues.every(value=>ordinaryHours.some(t=>t.quantity===value));
+  const automaticExplanations=new Set([
+    "The supplied information contains different values. Please confirm the intended scope.",
+    "Different document pages state different values. Confirm the intended project information.",
+  ]);
+  // A generated ID is not proof of separate work. Only distinct physical
+  // components can reconcile an automatic scalar conflict.
+  const matching=ordinaryHours.filter(t=>hourValues.includes(t.quantity!));
+  const identities=new Map<string,Set<number>>();
+  for(const item of matching){
+    const identity=[item.building,item.floor,item.component].map(v=>v.toLowerCase().replace(/\s+/g,' ').trim()).join('|');
+    if(!item.component.trim())return {facts,conflicts};
+    const values=identities.get(identity)||new Set<number>();
+    values.add(item.quantity!);identities.set(identity,values);
+  }
+  const explicitConflict=conflicts.some(c=>c.field==='laborHours'&&(!automaticExplanations.has(c.explanation)||c.values.some(value=>!hourValues.includes(Number(value.replaceAll(',',''))))));
+  const additive=!explicitConflict&&hourValues.length>1&&identities.size>=hourValues.length&&[...identities.values()].every(values=>values.size===1)&&hourValues.every(value=>matching.some(t=>t.quantity===value));
   return additive?{facts:facts.filter(f=>f.field!=='laborHours'),conflicts:conflicts.filter(c=>c.field!=='laborHours')}:{facts,conflicts};
 }
 export function validateAnswer(field: ScopeField, value: string): string | null {
