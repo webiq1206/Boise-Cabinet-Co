@@ -1,9 +1,13 @@
 import type {ReviewedScope} from './scope.ts';
+export function pricingScopeSource(scope:ReviewedScope){
+  const extraction=scope.extraction?{...scope.extraction,takeoffs:scope.extraction.takeoffs?.filter(item=>item.selectionStatus!=='excluded-alternative')}:null;
+  return {text:scope.text,answers:scope.answers,extraction};
+}
 /** Every character is covered. Overlap preserves sentences across boundaries;
  * inventory and the final audit reconcile repeated descriptions, not quantities.
  */
 export function pricingSourceParts(scope:ReviewedScope){
-  const original={text:scope.text,answers:scope.answers,extraction:scope.extraction};
+  const original=pricingScopeSource(scope);
   const serialized=JSON.stringify(original);
   if(serialized.length<=40000)return [original];
   const parts:Record<string,unknown>[]=[];

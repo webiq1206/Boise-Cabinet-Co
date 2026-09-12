@@ -1,4 +1,5 @@
 import type {ScopeAnswers,ScopeExtraction} from './scope.ts';
+import type {Takeoff} from './documentLedger.ts';
 
 export interface InstructionAnswer {id:string;question:string;answer:string}
 export interface InstructionPrompt {id:string;question:string;detail?:string;values?:string[]}
@@ -11,6 +12,47 @@ const publicQuestion=(text:string)=>text
   .replace(/\b(?:alternativeOption|alternative_option)\b/gi,'option')
   .replace(/\btakeoffs?\b/gi,'work quantities');
 const serviceQuestion=(text:string)=>/which .*services|what .*remodel.*service|company.s scope|typical .*services|offered.*services|services.*offered|residential remodel|boise .*estimate|requested subset/i.test(text);
+export interface DocumentAlternativeGroup {id:string;label:string;options:{label:string;items:Takeoff[]}[]}
+const inferredBenchTop=(item:Takeoff)=>{
+  const text=`${item.description} ${item.component} ${item.evidence}`;
+  if(!/\b(?:bench ?top|counter ?top|work ?top|butcher block|laminate|quartz)\b/i.test(text))return '';
+  if(/\bbutcher block\b/i.test(text))return 'Butcher block';
+  if(/\b(?:matching )?painted\b/i.test(text)&&/\b(?:mdf|wood)\b/i.test(text))return 'Matching painted MDF/wood';
+  if(/\blaminate\b/i.test(text))return 'Laminate';
+  if(/\bquartz\b/i.test(text))return 'Quartz';
+  return '';
+};
+export function documentAlternativeGroups(extraction:ScopeExtraction|null):DocumentAlternativeGroup[]{
+  const groups=new Map<string,{label:string;options:Map<string,Takeoff[]>}>();
+  const add=(id:string,label:string,option:string,item:Takeoff)=>{
+    const group=groups.get(id)||{label,options:new Map<string,Takeoff[]>()};
+    group.options.set(option,[...(group.options.get(option)||[]),item]);groups.set(id,group);
+  };
+  for(const item of extraction?.takeoffs||[])if(item.alternativeGroup&&item.alternativeOption)add(`explicit:${questionKey(item.alternativeGroup)}`,item.alternativeGroup,item.alternativeOption,item);
+  const inferred:Array<[Takeoff,string]>=[];
+  for(const item of extraction?.takeoffs||[])if(!item.alternativeGroup){const option=inferredBenchTop(item);if(option)inferred.push([item,option]);}
+  if(new Set(inferred.map(([,option])=>option)).size>1)for(const [item,option] of inferred)add('inferred:bench-top','Bench top option',option,item);
+  const benchOrder=['Butcher block','Matching painted MDF/wood','Laminate','Quartz'];
+  return [...groups].map(([id,group])=>{
+    const options=[...group.options].map(([label,items])=>({label,items}));
+    options.sort((a,b)=>{
+      const numbered=(value:string)=>Number(value.match(/\boption\s*(\d+)\b/i)?.[1]||0);
+      const aNumber=numbered(a.label),bNumber=numbered(b.label);
+      if(aNumber&&bNumber)return aNumber-bNumber;
+      if(id==='inferred:bench-top')return benchOrder.indexOf(a.label)-benchOrder.indexOf(b.label);
+      return 0;
+    });
+    return {id,label:group.label,options};
+  }).filter(group=>group.options.length>1);
+}
+export function alternativeGroupForQuestion(extraction:ScopeExtraction|null,question:string){
+  const q=questionKey(question),words=new Set(q.split(' ').filter(word=>word.length>2));
+  return documentAlternativeGroups(extraction).find(group=>{
+    if(group.id==='inferred:bench-top'&&/\b(?:bench ?top|counter ?top|work ?top|top option)\b/i.test(question))return true;
+    const groupWords=questionKey(group.label).split(' ').filter(word=>word.length>2);
+    return q.includes(questionKey(group.label))||group.options.some(option=>q.includes(questionKey(option.label)))||groupWords.filter(word=>words.has(word)).length>=2;
+  });
+}
 
 /** One question per card, including older extractions that stored paragraphs. */
 export function instructionPrompts(extraction:ScopeExtraction|null,answers:ScopeAnswers):InstructionPrompt[]{
@@ -23,10 +65,8 @@ export function instructionPrompts(extraction:ScopeExtraction|null,answers:Scope
       const id=questionKey(full);
       if(result.some(q=>q.id===id))continue;
       const question=full.length<=240?full:'What should we include for this part of your project?';
-      const alternativeGroups=new Map<string,string[]>();
-      for(const item of extraction?.takeoffs||[])if(item.alternativeGroup&&item.alternativeOption)alternativeGroups.set(item.alternativeGroup,[...new Set([...(alternativeGroups.get(item.alternativeGroup)||[]),item.alternativeOption])]);
-      const alternatives=[...alternativeGroups].find(([group,options])=>options.length>1&&(questionKey(full).includes(questionKey(group))||options.some(option=>questionKey(full).includes(questionKey(option)))));
-      const values=alternatives?.[1]||(/labor.only/i.test(full)&&/materials.only/i.test(full)?['Labor only','Materials only','Labor and materials']:
+      const alternatives=alternativeGroupForQuestion(extraction,full);
+      const values=alternatives?.options.map(option=>option.label)||(/labor.only/i.test(full)&&/materials.only/i.test(full)?['Labor only','Materials only','Labor and materials']:
         /include or exclude|include.*or.*exclude/i.test(full)?['Include it','Exclude it']:undefined);
       result.push({id,question,...(question!==full?{detail:full}:{}),values});
     }

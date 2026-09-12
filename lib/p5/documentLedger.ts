@@ -4,7 +4,7 @@ export interface Takeoff {
   id:string;description:string;building:string;floor:string;component:string;
   quantity:number|null;unit:string;basis:'stated'|'calculated'|'uncertain';evidence:string;
   sources:{source:string;page:number;sheet:string;revision:string}[];
-  supersedes:string[];issues:string[];alternativeGroup?:string;alternativeOption?:string;aggregateOf?:string[];duplicateOf?:string;
+  supersedes:string[];issues:string[];alternativeGroup?:string;alternativeOption?:string;selectionStatus?:'selected'|'excluded-alternative';aggregateOf?:string[];duplicateOf?:string;
 }
 const isObject=(v:unknown):v is Record<string,unknown>=>Boolean(v&&typeof v==='object'&&!Array.isArray(v));
 const strings=(v:unknown):v is string[]=>Array.isArray(v)&&v.every(x=>typeof x==='string');
@@ -18,7 +18,7 @@ export function readPageRecords(raw:unknown):PageRecord[]{
 export function readTakeoffs(raw:unknown):Takeoff[]{
   if(!Array.isArray(raw))throw new Error('Invalid quantity takeoff');
   return raw.map(v=>{
-    if(!isObject(v)||!['id','description','building','floor','component','unit','evidence'].every(k=>typeof v[k]==='string')||!v.id||!v.evidence||!(v.quantity===null||typeof v.quantity==='number'&&Number.isFinite(v.quantity)&&v.quantity>0)||!['stated','calculated','uncertain'].includes(String(v.basis))||!strings(v.supersedes)||!strings(v.issues)||!Array.isArray(v.sources)||!v.sources.length||v.alternativeGroup!==undefined&&typeof v.alternativeGroup!=='string'||v.alternativeOption!==undefined&&typeof v.alternativeOption!=='string'||v.aggregateOf!==undefined&&!strings(v.aggregateOf)||v.duplicateOf!==undefined&&typeof v.duplicateOf!=='string')throw new Error('Invalid takeoff evidence');
+    if(!isObject(v)||!['id','description','building','floor','component','unit','evidence'].every(k=>typeof v[k]==='string')||!v.id||!v.evidence||!(v.quantity===null||typeof v.quantity==='number'&&Number.isFinite(v.quantity)&&v.quantity>0)||!['stated','calculated','uncertain'].includes(String(v.basis))||!strings(v.supersedes)||!strings(v.issues)||!Array.isArray(v.sources)||!v.sources.length||v.alternativeGroup!==undefined&&typeof v.alternativeGroup!=='string'||v.alternativeOption!==undefined&&typeof v.alternativeOption!=='string'||v.selectionStatus!==undefined&&!['selected','excluded-alternative'].includes(String(v.selectionStatus))||v.aggregateOf!==undefined&&!strings(v.aggregateOf)||v.duplicateOf!==undefined&&typeof v.duplicateOf!=='string')throw new Error('Invalid takeoff evidence');
     for(const s of v.sources)if(!isObject(s)||!['source','sheet','revision'].every(k=>typeof s[k]==='string')||!Number.isInteger(s.page)||Number(s.page)<1)throw new Error('Invalid takeoff page reference');
     if(v.basis==='uncertain'&&v.quantity!==null)throw new Error('An uncertain measurement must not masquerade as a measured quantity');
     return v as unknown as Takeoff;

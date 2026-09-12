@@ -5,7 +5,7 @@ import {suggestedTrade} from './trades.ts';
 import {priceReviewedScope,type CostRule,type EstimatorConfiguration,type ScopePriceResolution} from './costBook.ts';
 import type {ReviewedScope} from './scope.ts';
 import {hasRestrictedScope,INSTRUCTION_POLICY} from './instructions.ts';
-import {pricingSourceParts} from './pricingSources.ts';
+import {pricingScopeSource,pricingSourceParts} from './pricingSources.ts';
 
 // This module runs only on the server at submission. No client-supplied mapping
 // or rate can authorize a price. The approved catalog is never mutated here.
@@ -205,7 +205,7 @@ export async function priceCompleteScope(scope:ReviewedScope,configuration:Estim
   const resolution:ScopePriceResolution={rules:[],assumptions:[],issues:[],replaceBase};
   const base=priceReviewedScope(scope,configuration,now,replaceBase?resolution:undefined);
   const deadline=Date.now()+255000;
-  const original={text:scope.text,answers:scope.answers,extraction:scope.extraction};
+  const original=pricingScopeSource(scope);
   const sourceParts=pricingSourceParts(scope);
   const taskSources=new Map<string,number>();
   const auditTrail:{version:string;scopeHash:string;tasks:unknown[];adjustments:unknown;research:unknown;verification:unknown;issues:string[]}={version:'complete-scope-v3',scopeHash:createHash('sha256').update(JSON.stringify({scope,configuration})).digest('hex'),tasks:[],adjustments:null,research:null,verification:null,issues:[]};
