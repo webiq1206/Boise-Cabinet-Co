@@ -2,7 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {elapsedLabel,pricingActivity} from '../lib/p5/processingStatus.ts';
 import {completeSubmission} from '../lib/p5/submitProgress.ts';
-test('Live status reports actual provider operations without exposing private rates',()=>{
+test('Live status reports actual provider operations without exposing private rates',t=>{
+  // A timestamp must not randomly match the private unit-cost probe.
+  t.mock.timers.enable({apis:['Date'],now:new Date('2026-01-01T00:00:00.000Z')});
   const input={taskBatch:[{description:'First-floor trim',unitCost:85}],financialConfig:{profit:0.2}};
   assert.equal(pricingActivity('Inventory the complete requested construction scope.',input,false).phase,'inventory');
   const mapped=pricingActivity('You are a construction estimator checking COMPLETE scope coverage.',input,false);
