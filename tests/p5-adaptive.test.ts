@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveScopeAnswers,reconcileScope,scopeQuestions,scopeAssumptions,validateScopeAnswer} from '../lib/p5/adaptive.ts';
+import {deriveScopeAnswers,failedAnalysisFallback,reconcileScope,scopeQuestions,scopeAssumptions,sourceScopedAnswers,sourceScopedWizard,validateScopeAnswer} from '../lib/p5/adaptive.ts';
 import {requireDraftReceipt} from '../lib/p5/browserDraft.ts';
 import {validateExtraction,type ScopeAnswers,type ScopeExtraction} from '../lib/p5/scope.ts';
 const extracted=(answers:ScopeAnswers,confidence=.98):ScopeExtraction=>({summary:'Synthetic scope',facts:Object.entries(answers).map(([field,value])=>({field:field as keyof ScopeAnswers,value:value!,confidence,source:'scope.pdf',evidence:value!})),conflicts:[],reviewNotes:[],missingInformation:[]});
@@ -112,4 +112,15 @@ test("reanalysis replaces source facts while preserving visitor corrections",asy
  assert.deepEqual(manualScopeAnswers({demolition:"Remove flooring",sqft:"80",location:"Eagle"},previous),{location:"Eagle"});
  assert.equal(manualScopeAnswers({demolition:"Only remove vanity",sqft:"80"},previous).demolition,"Only remove vanity");
  assert.equal(manualScopeAnswers({sqft:"80"},previous,{sqft:"80"}).sqft,"80");
+});
+test("a replaced scope drops old question state and source resolutions",()=>{
+  const wizard={sourceVersion:"old",resolutions:{sqft:"80"},skipped:["finish" as const],instructionAnswers:[{id:"old-question",question:"Old question?",answer:"Old answer"}]};
+  assert.deepEqual(sourceScopedWizard(wizard,"new"),{sameSource:false,resolutions:{},skipped:[],instructionAnswers:[]});
+  assert.deepEqual(sourceScopedWizard(wizard,"old"),{sameSource:true,resolutions:{sqft:"80"},skipped:["finish"],instructionAnswers:wizard.instructionAnswers});
+  const previous=extracted({service:"bathroom",sqft:"80"});
+  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},false,true),{});
+  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},false,false),{location:"Eagle"});
+  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},true,false),{sqft:"80",location:"Eagle"});
+  assert.deepEqual(failedAnalysisFallback(false,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"cabinet-install"},extraction:null});
+  assert.deepEqual(failedAnalysisFallback(true,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"bathroom",sqft:"80"},extraction:previous});
 });

@@ -17,6 +17,29 @@ export function manualScopeAnswers(current:ScopeAnswers,previous:ScopeExtraction
   }
   return answers;
 }
+export function sourceScopedWizard(
+  wizard:{sourceVersion?:string;resolutions?:ScopeAnswers;skipped?:ScopeField[];instructionAnswers?:{id:string;question:string;answer:string}[]}|undefined,
+  version:string,
+){
+  const sameSource=wizard?.sourceVersion===version;
+  return {
+    sameSource,
+    resolutions:sameSource?wizard?.resolutions||{}:{},
+    skipped:sameSource?wizard?.skipped||[]:[],
+    instructionAnswers:sameSource?wizard?.instructionAnswers||[]:[],
+  };
+}
+export function sourceScopedAnswers(current:ScopeAnswers,previous:ScopeExtraction|null,resolutions:ScopeAnswers,sameSource:boolean,replacedScope:boolean){
+  if(replacedScope)return {};
+  return manualScopeAnswers(current,previous,sameSource?resolutions:{});
+}
+export function failedAnalysisFallback(
+  sameSource:boolean,
+  draft:{answers:ScopeAnswers;extraction:ScopeExtraction|null},
+  visitorAnswers:ScopeAnswers,
+){
+  return sameSource?draft:{answers:visitorAnswers,extraction:null};
+}
 /** Only arithmetic on explicit dimensions. Photos never supply an assumed scale. */
 export function deriveScopeAnswers(input:ScopeAnswers){
   const answers={...input};

@@ -63,3 +63,11 @@
 @media(max-width:580px){.actions .primary{flex:1 1 100%;width:100%}.root .question h2{font-size:22px}.choices{grid-template-columns:1fr}.loadingCard .processingActivity{margin-top:14px}}
 
 .inputTools[data-dragging=true] .attach{outline:3px solid var(--p5-accent);outline-offset:3px;background:#46584e}
+
+/* The final review action stays reachable on phones without becoming a
+ * viewport-fixed overlay. Focused fields return it to normal flow so a
+ * software keyboard never competes with the contact inputs. */
+@media(max-width:580px){
+  .actions.finalActions{position:sticky!important;bottom:0!important;z-index:20;margin:24px -18px 0;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom,rgba(44,48,47,.92),#2c302f 28%);box-shadow:0 -10px 24px rgba(0,0,0,.24)}
+  .formBody[data-entry-focused=true] .actions.finalActions{position:static!important;margin:24px 0 0;padding:0 0 env(safe-area-inset-bottom,0px);background:transparent;box-shadow:none}
+}

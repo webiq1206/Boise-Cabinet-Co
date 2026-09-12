@@ -1,7 +1,7 @@
 import {applyCabinetIntent} from "./projectIntent";
 import {advanceAnalysis} from "./analysisWork";
 import {queuedJob} from './backgroundJobs';
-import {reconcileScope,scopeQuestions,manualScopeAnswers} from "./adaptive";
+import {reconcileScope,scopeQuestions,failedAnalysisFallback,sourceScopedAnswers,sourceScopedWizard} from "./adaptive";
 import {costQuestionFields} from "./questionPolicy";
 import {createHash} from "node:crypto";
 import { analyzeScope } from "./extraction.ts";
@@ -34,14 +34,17 @@ export async function postScope(request:Request){
     const checkpointed=form.get("resumable")==="true"&&process.env.P5_OBJECT_STORAGE_ENABLED==="true";
     const stored=checkpointed?[]:await readUploads(id,key);if(stored.reduce((n,f)=>n+f.data.length,0)>SCOPE_BATCH_LIMIT)throw new DraftError(SCOPE_UPLOAD_HELP,413);
     const version=createHash("sha256").update(JSON.stringify([text,draft.uploads.map(f=>f.sha256)])).digest("hex");
-    const resolutions=draft.wizard?.sourceVersion===version?draft.wizard.resolutions:{};
-    const visitorAnswers=applyCabinetIntent(text,ESTIMATOR_BRAND.services,manualScopeAnswers(draft.answers,draft.extraction,draft.wizard?.resolutions)).answers;
+    const sourceState=sourceScopedWizard(draft.wizard,version);
+    const resolutions=sourceState.resolutions;
+    const replacedScope=form.get("replaceScope")==="true"&&!sourceState.sameSource;
+    const visitorAnswers=applyCabinetIntent(text,ESTIMATOR_BRAND.services,sourceScopedAnswers(draft.answers,draft.extraction,resolutions,sourceState.sameSource,replacedScope)).answers;
     let analysis=null;let warning="";
     try{
       if(checkpointed){
         const background=form.get('background')==='true';
         const job=background?await queuedJob({kind:'analysis',draft,text,answers:visitorAnswers},form.get('retry')==='true'):null;
-        if(job&&job.state!=='complete')return json({pending:job.state!=='failed',progress:job.progress,processing:job.processing,...(job.state==='failed'?{error:job.progress}:{})},job.state==='failed'?503:200);
+        if(job?.state==='failed')throw new Error(job.progress);
+        if(job&&job.state!=='complete')return json({pending:true,progress:job.progress,processing:job.processing});
         const step=job?job.result:await advanceAnalysis(draft,text,visitorAnswers,fetch,form.get("retry")==="true");
         if(step.pending)return json(step);
         analysis=step.analysis;
@@ -58,9 +61,10 @@ export async function postScope(request:Request){
       warning="Your files are saved, but automatic reading could not finish. You can retry without uploading again, or add the key details below. Unread documents will need review before pricing.";
     }
     if(analysis)analysis.extraction=applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!;
-    const extraction=analysis?.extraction||draft.extraction;
-    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:draft.answers,conflicts:[]};
-    const wizard={instructionAnswers:draft.wizard?.instructionAnswers||[],skipped:draft.wizard?.skipped||[],resolutions,sourceVersion:analysis?version:draft.wizard?.sourceVersion};
+    const fallback=failedAnalysisFallback(sourceState.sameSource,draft,visitorAnswers);
+    const extraction=analysis?.extraction||fallback.extraction;
+    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:fallback.answers,conflicts:[]};
+    const wizard={instructionAnswers:sourceState.instructionAnswers,skipped:sourceState.skipped,resolutions,sourceVersion:analysis||!sourceState.sameSource?version:draft.wizard?.sourceVersion};
     // Partial analysis is visible and prevents unread documents from being priced.
     const safeExtraction=warning?{...extraction,summary:extraction?.summary||text,facts:extraction?.facts||[],conflicts:extraction?.conflicts||[],missingInformation:extraction?.missingInformation||[],reviewNotes:[...new Set([...(extraction?.reviewNotes||[]),warning])]}:extraction;
     const saved=await saveDraft(id,key,ESTIMATOR_BRAND.id,{text,answers:merged.answers,extraction:safeExtraction,reviewed:null,contact:draft.contact,wizard},draft.revision);

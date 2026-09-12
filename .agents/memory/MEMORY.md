@@ -32,3 +32,4 @@
 - [Publish DB-diff disconnect](publish-db-diff-disconnect.md) — "Failed to check for database diff: SERVER unexpectedly disconnected" = transient platform blip when both DBs are healthy + schema md5s match; verify then just retry Publish.
 - [OG link-preview images must be JPEG/PNG](og-images-webp-imessage.md) — iMessage won't render WebP og:image (blank card); site default is still WebP, page-specific overrides go through the metadata builder's ogImage option.
 - [Estimator local verification limits](estimator-local-verification-limits.md) — Replit may lack Playwright shared libs; clarification query-import compatibility was fixed upstream and now passes locally.
+- [Estimator changed-source isolation](estimator-changed-source-isolation.md) — source replacement must clear stale scope state on success and failure, including queued-job failures; additive uploads preserve manual facts.

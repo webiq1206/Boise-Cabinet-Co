@@ -75,6 +75,19 @@ for(const width of [320,390,430,768,1024,1440,1920]){
   await page.evaluate(()=>{const key='p5-project-draft-v2';const draft=JSON.parse(localStorage.getItem(key));draft.step=1;localStorage.setItem(key,JSON.stringify(draft));});
   await page.reload();await estimator.getByRole('button',{name:'Get my estimate',exact:true}).waitFor();await estimator.getByRole('checkbox').waitFor();
   assert.equal(await estimator.getByRole('region',{name:'Project question'}).count(),0,'Restored known facts were asked again');
+  const finalAction=estimator.locator('[data-final-estimate-action]');
+  const finalPosition=await finalAction.evaluate(el=>getComputedStyle(el).position);
+  assert.equal(finalPosition,width<=580?'sticky':'static','Final estimate action has the wrong responsive position');
+  if(width<=580){
+   assert.ok(Number.parseFloat(await finalAction.evaluate(el=>getComputedStyle(el).paddingBottom))>=12,'Final action lacks safe-area base spacing');
+   await estimator.getByLabel('Your name',{exact:true}).focus();
+   assert.equal(await finalAction.evaluate(el=>getComputedStyle(el).position),'static','Focused contact fields must not compete with the software keyboard');
+   await estimator.getByRole('checkbox').focus();
+   assert.equal(await finalAction.evaluate(el=>getComputedStyle(el).position),'sticky','Final action must recover after data-entry focus ends');
+  }
+  await estimator.getByRole('button',{name:'Get my estimate',exact:true}).click();
+  await estimator.getByRole('alert').filter({hasText:'Please confirm your project details'}).waitFor();
+  assert.equal(state.submissions,0,'Sticky action bypassed required confirmation');
   await estimator.getByLabel('Your name',{exact:true}).fill('Synthetic Test');await estimator.getByLabel('Email',{exact:true}).fill('customer@example.invalid');
   await estimator.getByRole('button',{name:'Back to my project',exact:true}).click();await estimator.getByText('Uploaded',{exact:true}).waitFor();assert.match(await description.inputValue(),/LongUnbroken/);
   const calls=state.scopeCalls;await estimator.getByRole('button',{name:'Continue',exact:true}).click();await estimator.getByLabel('Email',{exact:true}).waitFor();assert.equal(await estimator.getByLabel('Email',{exact:true}).inputValue(),'customer@example.invalid');assert.equal(state.scopeCalls,calls,'Going back unnecessarily repeated analysis');
@@ -85,7 +98,7 @@ for(const width of [320,390,430,768,1024,1440,1920]){
   await estimator.getByRole('heading',{name:'Carpentry',exact:true}).waitFor();await estimator.getByText('Repair three interior doors',{exact:true}).waitFor();await overflow(page);
   assert.ok(!/overheadRecovery|operatingProfit|unitCost/.test(await estimator.innerText()));await capture(page,`${width}-result`);
   await page.waitForTimeout(2100);assert.equal(state.postSubmissionSaves,0);await page.reload();await estimator.getByText('Schedule a scope review.',{exact:true}).waitFor();assert.equal(state.submissions,1);assert.deepEqual(errors,[]);
-  results.push({width,passed:true,checks:['null receipt preserves files','single input and native keyboard dictation','typed and uploaded mixed input','failed upload and reload recovery','known facts skipped','back and contact preservation','manual text reanalysis','line-item privacy','single submission','result restoration','overflow']});
+   results.push({width,passed:true,checks:['null receipt preserves files','single input and native keyboard dictation','typed and uploaded mixed input','failed upload and reload recovery','known facts skipped','sticky mobile final action','safe-area spacing','keyboard-safe contact focus','required confirmation','back and contact preservation','manual text reanalysis','line-item privacy','single submission','result restoration','overflow']});
  }catch(error){results.push({width,passed:false,error:String(error),pageErrors:errors});await capture(page,`${width}-failure`).catch(()=>{});}await context.close();
 }
 // Reproduce two clarification questions, a failed save, same-answer retry and reload.
