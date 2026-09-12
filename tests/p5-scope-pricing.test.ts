@@ -14,9 +14,11 @@ const base=priceReviewedScope(scope,config,now);
 const ids=(base.internal as any).lines.map((l:any)=>l.id);
 const task={id:'cabinets',description:'Cabinet supply',evidence:'ten feet',existingLineIds:ids,additions:[],researchDescription:'',issues:[]};
 const extra={id:'overlay',description:'Protective overlay',evidence:'ten feet',existingLineIds:[],additions:[],researchDescription:'Protective cabinet overlay',issues:[]};
-const source=(url:string,low:number,high:number)=>({url,low,high,publishedAt:'2026-09-01',region:'Idaho',excerpt:`Material price ${low} to ${high} dollars per linear foot.`});
+const source=(url:string,low:number,high:number)=>({url,low,high,unit:'LF',costBasis:'material-purchase',sourceType:'regional-guide',dateBasis:'published',publishedAt:'2026-09-01',region:'Idaho',excerpt:`Material price ${low} to ${high} dollars per linear foot.`});
 const urls=['https://supplier-a.example/pricing','https://supplier-b.example/pricing'];
-const researched={rates:[{taskId:'overlay',description:'Protective overlay',unit:'LF',quantity:10,quantityEvidence:'Ten feet requested',basis:'material-purchase',includes:'overlay material',excludes:'',sources:[source(urls[0],10,20),source(urls[1],20,30)]}],issues:[]};
+const adjustmentEvidence={url:urls[0],publishedAt:'',dateBasis:'retrieved' as const,region:'Synthetic test region',excerpt:'Synthetic fixture price includes tax and pickup with no additional freight charge.'};
+const purchaseAdjustments={taxRate:0,freightPerUnit:0,taxOnFreight:false,taxEvidence:adjustmentEvidence,freightEvidence:adjustmentEvidence};
+const researched={rates:[{taskId:'overlay',description:'Protective overlay',unit:'LF',quantity:10,quantityEvidence:'Ten feet requested',basis:'material-purchase',includes:'overlay material',excludes:'',landedCost:purchaseAdjustments,sources:[source(urls[0],10,20),source(urls[1],20,30)]}],issues:[]};
 const replies=(values:unknown[]):PricingRequest=>{const first=values[0] as {tasks:typeof task[]};const queue=[{tasks:first.tasks.map(({id,description,evidence})=>({id,description,evidence})),issues:[]},...values];return async()=>({value:queue.shift(),sourceUrls:urls});};
 test('Provider failure cannot publish the otherwise available partial range',async()=>{
  assert.ok(base.customer.range);
@@ -32,6 +34,20 @@ test('Semantic mapping uses the existing cost amount without inventing a rate',a
  assert.ok(r.customer.range);assert.equal((r.internal as any).lines.find((l:any)=>l.id==='scope-1').unitCost,100);
  assert.notEqual(r.internal.revision,base.internal.revision);
 });
+test('Scope facts use notes and earlier model issues require an explicit evidenced resolution',async()=>{
+ const note='The cabinetry quantity is explicitly stated in the reviewed scope.';
+ const mapping={tasks:[task],issues:[note],notes:['No additional cabinet runs requested.']};
+ const verified={coveredTaskIds:[task.id],issues:[],resolvedIssues:[{issue:note,reason:'The supplied positive cabinet line covers the requested task; this statement records the scope boundary.',lineIds:[ids[0]]}]};
+ const r=await priceCompleteScope(scope,config,replies([mapping,verified]),now);
+ assert.ok(r.customer.range);assert.ok((r.internal as any).assumptions.includes(mapping.notes[0]));
+ assert.ok((r.internal as any).assumptions.some((n:string)=>n.includes(note)));
+ for(const lineIds of [['invented-line'],[]]){
+  const invalid=await priceCompleteScope(scope,config,replies([mapping,{...verified,resolvedIssues:[{...verified.resolvedIssues[0],lineIds}]}]),now);
+  assert.equal(invalid.customer.range,null,'A resolved issue must reference actual positive priced components');
+ }
+ const unaddressed=await priceCompleteScope(scope,config,replies([mapping,{coveredTaskIds:[task.id],issues:[]}]),now);
+ assert.equal(unaddressed.customer.range,null,'A clean audit cannot silently discard an earlier unresolved issue');
+});
 test('Sourced averages add missing costs, retain sources, and preserve financial reconciliation',async()=>{
  const r=await priceCompleteScope(scope,config,replies([{tasks:[task,extra],issues:[]},researched,{coveredTaskIds:['cabinets','overlay'],issues:[]}]),now);
  assert.ok(r.customer.range);assert.equal((r.internal as any).lines.find((l:any)=>l.id==='market-1').cost,200);
@@ -39,6 +55,18 @@ test('Sourced averages add missing costs, retain sources, and preserve financial
  assert.ok((r.customer.range?.low||0)>(base.customer.range?.low||0));
  assert.ok(JSON.stringify(r.internal.scopePricing).includes(urls[0]));
  assert.ok(!JSON.stringify(r.customer).includes('unitCost'));
+});
+test('Regional unit-cost benchmarks reject incompatible units, responsibility and supplier offers',()=>{
+ const priced=marketResolution(researched,urls,[extra],now).rules[0];assert.equal(priced.unitCost,20);assert.equal(priced.quantity.fixed,10);
+ const aliases=structuredClone(researched);aliases.rates[0].sources[0].unit='linear feet';assert.equal(marketResolution(aliases,urls,[extra],now).rules[0].unitCost,20);
+ for(const change of [{unit:'hour'},{costBasis:'subcontractor-installed'},{sourceType:'supplier'}]){
+  const wrong=structuredClone(researched);Object.assign(wrong.rates[0].sources[0],change);assert.throws(()=>marketResolution(wrong,urls,[extra],now));
+ }
+ const noCheckout={...researched,rates:[{...researched.rates[0],landedCost:null}]};assert.equal(marketResolution(noCheckout,urls,[extra],now).rules[0].unitCost,20);
+});
+test('An incomplete scope price is not misreported as a missing quantity',()=>{
+ const r=priceReviewedScope(scope,config,now,{replaceBase:true,rules:[],assumptions:[],issues:['Supplier research could not complete.']});
+ assert.deepEqual(r.internal.pricingWarnings,['scope-pricing-incomplete']);assert.ok(!r.customer.message.includes('missing quantities'));assert.equal(r.customer.range,null);
 });
 test('Uncited, stale, duplicate-source, reversed and selling-price evidence is rejected',()=>{
  assert.throws(()=>marketResolution(researched,[],[extra],now));
@@ -78,6 +106,24 @@ test('Anthropic-only configuration supports JSON and real tool-source extraction
   process.env.OPENAI_API_KEY='synthetic-openai-key';
   assert.deepEqual((await requestPricing('JSON',{},false,1000)).value,{coveredTaskIds:['cabinets'],issues:[]});
   const r=await requestPricing('JSON',{},true,1000);assert.ok(search);assert.deepEqual(r.sourceUrls,urls);assert.deepEqual(r.value,researched);
+  globalThis.fetch=async(_url,init)=>{
+   const input=JSON.parse(String(init?.body));assert.ok(input.tools.some((t:any)=>t.name==='web_fetch'&&t.max_uses>0));
+   return Response.json({stop_reason:'end_turn',content:[{type:'text',text:'Opening supplier evidence.'},{type:'web_fetch_tool_result',content:{type:'web_fetch_result',url:urls[0],content:{type:'document',source:{type:'text',data:'Synthetic product price.'}}}},{type:'text',text:JSON.stringify(researched)}]});
+  };
+  const fetched=await requestPricing('JSON',{},true,1000);assert.deepEqual(fetched.sourceUrls,[urls[0]]);assert.deepEqual(fetched.value,researched);
+  let pausedCalls=0;
+  const pausedContent=[{type:'web_search_tool_result',content:urls.map(url=>({type:'web_search_result',url}))}];
+  globalThis.fetch=async(_url,init)=>{
+   pausedCalls++;const body=JSON.parse(String(init?.body));
+   if(pausedCalls===1)return Response.json({stop_reason:'pause_turn',content:pausedContent});
+   assert.deepEqual(body.messages[1],{role:'assistant',content:pausedContent});assert.ok(body.tools.some((t:any)=>t.name==='web_fetch'));
+   return Response.json({stop_reason:'end_turn',content:[{type:'text',text:JSON.stringify(researched)}]});
+  };
+  const resumed=await requestPricing('JSON',{},true,5000);assert.equal(pausedCalls,2);assert.deepEqual(resumed.sourceUrls,urls);assert.deepEqual(resumed.value,researched);
+  pausedCalls=0;globalThis.fetch=async()=>{pausedCalls++;return Response.json({stop_reason:'pause_turn',content:pausedContent});};
+  await assert.rejects(()=>requestPricing('JSON',{},true,5000),/pricing-check-incomplete:pause_turn/);assert.equal(pausedCalls,3);
+  globalThis.fetch=async()=>Response.json({stop_reason:'max_tokens',content:[{type:'text',text:'{"rates":['}]});
+  await assert.rejects(()=>requestPricing('JSON',{},true,5000),/pricing-check-incomplete:max_tokens/);
   let calls=0;
   globalThis.fetch=async(_url,init)=>{
    calls++;const body=JSON.parse(String(init?.body));
@@ -185,10 +231,10 @@ test('Separate building prices require every component to be assigned to a build
  const missing=tasks.map(t=>({...t,additions:t.additions.map(a=>({...a,building:undefined}))}));
  const held=await priceCompleteScope(restricted,config,replies([{tasks:missing,issues:[]},{coveredTaskIds:['Main','ADU'],issues:[]}]),now);assert.equal(held.customer.range,null);
 });
-test('An undated actual supplier offering records retrieval date without inventing a publication date',()=>{
- const single={...researched,rates:[{...researched.rates[0],sources:[{...source(urls[0],10,20),publishedAt:'',dateBasis:'retrieved',sourceType:'supplier'}]}]};
- const rate=marketResolution(single,urls,[extra],now,0,'Boise').rules[0];
+test('Undated independent guide averages retain retrieval date and freshness limitations',()=>{
+ const guides={...researched,rates:[{...researched.rates[0],sources:researched.rates[0].sources.map(s=>({...s,publishedAt:'',dateBasis:'retrieved',sourceType:'national-guide',region:'United States'}))}]};
+ const result=marketResolution(guides,urls,[extra],now,0,'Boise'),rate=result.rules[0];
  assert.equal(rate.evidence.provenance?.status,'estimated');assert.equal(rate.evidence.provenance?.location,'Boise');
  assert.equal(rate.evidence.provenance?.sources[0].date,'2026-09-11');assert.equal(rate.evidence.provenance?.sources[0].dateBasis,'retrieved');
- assert.match(rate.evidence.reference,/retrieved 2026-09-11/);
+ assert.match(rate.evidence.reference,/retrieved 2026-09-11/);assert.match(result.assumptions[0],/United States.*national-guide/);assert.match(result.assumptions[0],/freshness requires verification/);
 });
