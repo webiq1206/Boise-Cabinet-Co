@@ -1,5 +1,5 @@
 import {mergeInstructions,validateInstructions,type ScopeInstructions} from './instructions.ts';
-import {readPageRecords,readTakeoffs,reconcileTakeoffs,combineCoverage} from './documentLedger.ts';
+import {readPageRecords,readTakeoffs,reconcileTakeoffs,combineCoverage,type Takeoff} from './documentLedger.ts';
 /** Public scope vocabulary. No internal prices or financial policy belongs here. */
 export const SCOPE_FIELDS = {
   estimatingInstructions: {label: "Custom estimating instructions", kind: "text"},
@@ -73,6 +73,15 @@ export const SCOPE_BATCH_LIMIT = 1024 * 1024 * 1024;
 export const SCOPE_FILE_COUNT = 50;
 export const SCOPE_CHUNK_SIZE = 4 * 1024 * 1024;
 export const SCOPE_UPLOAD_HELP = "Up to 50 files, 250 MB each and 1 GB total. Large uploads resume after interruptions.";
+const normalizedUnit=(unit:string)=>unit.toLowerCase().replace(/[._-]/g,' ').replace(/\s+/g,' ').trim();
+/** A scalar field cannot represent distinct trade hours. Keep those quantities in evidence-linked takeoffs instead of presenting a false either/or conflict. */
+export function separateAdditiveQuantities(facts:ExtractedFact[],conflicts:ScopeConflict[],takeoffs:Takeoff[]){
+  const ordinaryHours=takeoffs.filter(t=>t.quantity!==null&&!t.alternativeGroup&&['hr','hrs','hour','hours'].includes(normalizedUnit(t.unit))&&!/\b(?:sub)?total\b/i.test(t.description+' '+t.evidence));
+  const hourValues=[...new Set(facts.filter(f=>f.field==='laborHours'&&f.confidence>=.4).map(f=>Number(f.value.replaceAll(',',''))).filter(Number.isFinite))];
+  const identities=new Set(ordinaryHours.map(t=>[t.building,t.floor,t.component,t.id].map(v=>v.trim().toLowerCase()).join('|')));
+  const additive=hourValues.length>1&&identities.size>=hourValues.length&&hourValues.every(value=>ordinaryHours.some(t=>t.quantity===value));
+  return additive?{facts:facts.filter(f=>f.field!=='laborHours'),conflicts:conflicts.filter(c=>c.field!=='laborHours')}:{facts,conflicts};
+}
 export function validateAnswer(field: ScopeField, value: string): string | null {
   if (!Object.hasOwn(SCOPE_FIELDS,field)) return "Unknown field";
   if (typeof value !== "string" || value.length > SCOPE_TEXT_LIMIT) return "This text exceeds the request transport size. Upload it as an instruction document; do not shorten or omit instructions.";
@@ -132,7 +141,9 @@ export function validateExtraction(raw: unknown): ScopeExtraction {
     return {field:q.field as ScopeField,question:q.question,reason:q.reason};
   }):[];
   const pages=r.pages?readPageRecords(r.pages):[];
-  return { summary: r.summary, facts, conflicts,clarifications, ...(r.instructions?{instructions:validateInstructions(r.instructions)}:{}), ...(r.pages?{documentCoverage:{pages,expectedPages:pages.length,complete:pages.every(p=>p.status==='read')}}:{}),...(r.takeoffs?{takeoffs:readTakeoffs(r.takeoffs)}:{}), missingInformation: [...strings(r.missingInformation, 50),...unreadValues], reviewNotes: strings(r.reviewNotes, 50) };
+  const takeoffResult=reconcileTakeoffs(r.takeoffs?readTakeoffs(r.takeoffs):[]);
+  const separated=separateAdditiveQuantities(facts,conflicts,takeoffResult.items);
+  return { summary: r.summary, facts:separated.facts, conflicts:separated.conflicts,clarifications, ...(r.instructions?{instructions:validateInstructions(r.instructions)}:{}), ...(r.pages?{documentCoverage:{pages,expectedPages:pages.length,complete:pages.every(p=>p.status==='read')}}:{}),...(r.takeoffs?{takeoffs:takeoffResult.items}:{}), missingInformation: [...strings(r.missingInformation, 50),...unreadValues,...takeoffResult.issues], reviewNotes: strings(r.reviewNotes, 50) };
 }
 const IMAGE_SOURCE = /\.(?:jpe?g|png|webp|gif|heic|heif)(?:\b|[),])/i;
 const EXPLICIT_URGENCY = /\b(?:standard|normal timing|not urgent|priority|prioritized|emergency|urgent|rush|asap|same[- ]day|immediately)\b/i;
@@ -152,6 +163,12 @@ export function protectPricingFacts(extraction: ScopeExtraction): ScopeExtractio
   let heldUrgency = false;
   let heldDerivedMeasurement = false;
   for (const fact of extraction.facts) {
+    if(fact.field==='cabinetBaseLf'&&/\b(?:bench ?top|counter ?top|work ?top)\b/i.test(fact.evidence)&&!/\b(?:base|lower)\s+cabinets?\b.{0,50}\b(?:linear feet|linear foot|lf)\b/i.test(fact.evidence)){
+      heldDerivedMeasurement=true;reviewNotes.push(`Unconfirmed derived measurement - ${SCOPE_FIELDS[fact.field].label}: ${fact.value}. A top length is not evidence of the base-cabinet run.`);continue;
+    }
+    if(fact.field==='cabinetTallLf'&&Number(fact.value)===0&&!/\b(?:0|zero|no)\s+(?:linear feet\s+of\s+)?tall\s+cabinets?\b/i.test(fact.evidence)){
+      heldDerivedMeasurement=true;reviewNotes.push(`Unconfirmed derived measurement - ${SCOPE_FIELDS[fact.field].label}: ${fact.value}. An undocumented tall-cabinet length must remain unknown, not zero.`);continue;
+    }
     if (IMAGE_SOURCE.test(fact.source)) {
       heldPhotoFacts++;
       reviewNotes.push(`Unconfirmed photo observation - ${SCOPE_FIELDS[fact.field].label}: ${fact.value}. Confirm from written scope before pricing.`);
@@ -218,6 +235,8 @@ export function combineScopeExtractions(parts:ScopeExtraction[]):ScopeExtraction
     const key=JSON.stringify([fact.field,fact.value.trim(),fact.source,fact.evidence]);
     if(!seen.has(key)){seen.add(key);merged.facts.push(fact);}
   }
+  const separated=separateAdditiveQuantities(merged.facts,merged.conflicts,merged.takeoffs||[]);
+  merged.facts=separated.facts;merged.conflicts=separated.conflicts;
   for(const field of Object.keys(SCOPE_FIELDS) as ScopeField[]){
     const values=[...new Set(merged.facts.filter(f=>f.field===field&&f.confidence>=.4).map(f=>f.value.trim()))];
     if(values.length>1&&SCOPE_FIELDS[field].kind!=="text"&&!merged.conflicts.some(c=>c.field===field))merged.conflicts.push({field,values,explanation:"Different document pages state different values. Confirm the intended project information."});

@@ -14,3 +14,10 @@ test('only the final mobile estimate action is sticky and keyboard safe',()=>{
   assert.doesNotMatch(css,/\.actions\{[^}]*position:sticky/);
   assert.match(component,/onFocusCapture=\{event=>setEntryFocused\(\(event\.target as HTMLElement\)\.matches/);
 });
+test('new-project replacement carries only files added since the last analysis',()=>{
+ const source=readFileSync('components/P5Estimator.tsx','utf8');
+ assert.match(source,/pending=\[\.\.\.filesAddedSinceAnalysis\.current\]/);
+ assert.doesNotMatch(source,/replacementBrowserDraft\(prior\),pending=\[\.\.\.filesRef\.current\]/);
+ assert.match(source,/loadCachedFiles\(d\.id\).*filesAddedSinceAnalysis\.current=f/);
+ assert.match(source,/filesAddedSinceAnalysis\.current=filesAddedSinceAnalysis\.current\.filter\(file=>file!==removed\)/);
+});

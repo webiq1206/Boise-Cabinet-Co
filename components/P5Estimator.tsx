@@ -7,7 +7,7 @@ import {useEffect,useId,useRef,useState} from 'react';
 import {ESTIMATOR_BRAND as brand} from '@/lib/p5/brand';
 import {SCOPE_FIELDS,SCOPE_TEXT_LIMIT,SCOPE_FILE_LIMIT,SCOPE_BATCH_LIMIT,SCOPE_FILE_COUNT,SCOPE_UPLOAD_HELP,type ScopeField,type ScopeAnswers,type ScopeUpload} from '@/lib/p5/scope';
 import {deriveScopeAnswers,reconcileScope,scopeQuestions,scopeAssumptions,validateScopeAnswer,type ScopeQuestion} from '@/lib/p5/adaptive';
-import {loadBrowserDraft,newBrowserDraft,persistBrowserDraft,draftHeaders,cacheFiles,loadCachedFiles,clearCachedFiles,requireDraftReceipt,type BrowserDraft} from '@/lib/p5/browserDraft';
+import {loadBrowserDraft,newBrowserDraft,replacementBrowserDraft,persistBrowserDraft,draftHeaders,cacheFiles,loadCachedFiles,clearCachedFiles,requireDraftReceipt,type BrowserDraft} from '@/lib/p5/browserDraft';
 import {mergeProjectSource,type ProjectSource} from '@/lib/p5/projectSource';
 import {resumeWizardDraft} from '@/lib/p5/wizardResume';
 import {snapshotProjectFile} from '@/lib/p5/fileSnapshot';
@@ -23,6 +23,7 @@ const accept='.pdf,.jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.tif,.tiff,.avif,.txt,
 export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{defaultService?:string;headingAs?:'h1'|'h2';projectSource?:ProjectSource}){
   const [draft,setDraft]=useState<BrowserDraft|null>(null);const current=useRef<BrowserDraft|null>(null);
   const [files,setFiles]=useState<File[]>([]);const filesRef=useRef<File[]>([]);
+  const filesAddedSinceAnalysis=useRef<File[]>([]);
   const [busy,setBusy]=useState('');const busyRef=useRef(false);const [error,setError]=useState('');const [warning,setWarning]=useState('');const [status,setStatus]=useState('');
   const [uploadPercent,setUploadPercent]=useState<number|null>(null);const [preparingFiles,setPreparingFiles]=useState(false);const [dragging,setDragging]=useState(false);
   const [processing,setProcessing]=useState<ProcessingStatus|null>(null);
@@ -49,7 +50,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
   useEffect(()=>{
     mounted.current=true;const loaded=loadBrowserDraft(defaultService,projectSource?.id);const d=projectSource?mergeProjectSource(loaded,projectSource):loaded;resume(d);setWarning(d.analysisWarning||d.extraction?.reviewNotes.find(n=>n.startsWith("Your files are saved, but"))||"");
 
-    loadCachedFiles(d.id).then(f=>{if(mounted.current&&current.current?.id===d.id){filesRef.current=f;setFiles(f);}}).catch(()=>setStatus('File recovery is unavailable. Keep this page open while uploading.'));
+    loadCachedFiles(d.id).then(f=>{if(mounted.current&&current.current?.id===d.id){filesRef.current=f;filesAddedSinceAnalysis.current=f;setFiles(f);}}).catch(()=>setStatus('File recovery is unavailable. Keep this page open while uploading.'));
     if(d.revision>0)fetch('/api/p5-estimator/draft',{headers:draftHeaders(d),cache:'no-store'}).then(r=>r.ok?r.json():null).then(async data=>{
       if(!mounted.current||!data?.draft||current.current?.id!==d.id)return;
       const saved=requireDraftReceipt(data);
@@ -84,6 +85,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
   }
   useEffect(()=>{
     if(!draft?.contact.email||busy||result)return;
+    if(draft.analyzedText!==undefined&&draft.text!==draft.analyzedText)return;
     const timer=setTimeout(()=>{if(!busyRef.current)void serialized(()=>save()).then(()=>setStatus('Project saved.')).catch(()=>setStatus('Saved on this device. We will retry saving when connected.'));},1800);
     return()=>clearTimeout(timer);
   },[draft?.text,JSON.stringify(draft?.answers),JSON.stringify(draft?.contact),busy,Boolean(result)]);
@@ -117,7 +119,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
       else{const upload=new FormData();upload.set('analyze','false');for(const f of pending)upload.append('files',new Blob([await f.arrayBuffer()],{type:f.type}),f.name);uploaded=await transferProjectFiles(upload,draftHeaders(d),setUploadPercent);}
       const receipt=requireDraftReceipt(uploaded);
       for(const f of pending){const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await f.arrayBuffer()))).map(b=>b.toString(16).padStart(2,'0')).join('');if(!receipt.uploads.some(stored=>stored.sha256===digest))throw new Error(`${f.name}: upload was not confirmed. Please retry.`);}
-      apply({...current.current!,uploads:receipt.uploads,revision:receipt.revision});filesRef.current=[];setFiles([]);await clearCachedFiles(d.id).catch(()=>undefined);setUploadPercent(null);setStatus('Files uploaded and saved.');
+      apply({...current.current!,uploads:receipt.uploads,revision:receipt.revision});filesRef.current=[];filesAddedSinceAnalysis.current=[];setFiles([]);await clearCachedFiles(d.id).catch(()=>undefined);setUploadPercent(null);setStatus('Files uploaded and saved.');
     }
     setBusy('Reading your documents and project details...');const form=new FormData();form.set('text',d.text);form.set('replaceScope',d.analyzedText!==undefined&&d.text!==d.analyzedText?'true':'false');form.set('resumable','true');form.set('background','true');form.set('retry',d.analysisWarning?'true':'false');
     let data:any;
@@ -129,6 +131,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
     const saved=requireDraftReceipt(data);
     const next={...current.current!,...saved,key:d.key,step:1,updatedAt:Date.now(),dirty:false,conflicts:data.conflicts||[],pricedFields:data.pricedFields||[],analysisWarning:data.warning||"",sourceImageUrl:projectSource?.imageUrl,analyzedText:d.text,analyzedAnswers:textAnswers(saved.answers)} as BrowserDraft;
     apply(next);setWarning(data.warning||'');if(pending.length)trackScopeEvent(d.uploads?.length?'additionalDocuments':'documentUploaded',saved.answers.service);trackScopeEvent(data.warning?'analysisFailed':'analysisCompleted',saved.answers.service);filesRef.current=[];setFiles([]);
+    filesAddedSinceAnalysis.current=[];
     try{await clearCachedFiles(d.id);}catch{setStatus('Files are uploaded. Local file cleanup will retry later.');}
     setStatus(data.warning?'Files uploaded. Some details still need review.':'Project details saved. We will only ask about what is missing.');showQuestions(next);
   }
@@ -146,7 +149,16 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
     let copied:File[];setPreparingFiles(true);
     try{copied=[];for(const file of next)copied.push(filesRef.current.includes(file)||file.size>10*1024*1024?file:await snapshotProjectFile(file));}catch(error){setPreparingFiles(false);setError(error instanceof Error?error.message:'The selected file could not be read. Please select it again.');return;}
     filesRef.current=copied;setFiles(copied);setError('');setConfirmed(false);
+    filesAddedSinceAnalysis.current=[...new Set([...filesAddedSinceAnalysis.current,...copied.filter(file=>incoming.some(candidate=>candidate.name===file.name&&candidate.size===file.size&&candidate.lastModified===file.lastModified))])];
     try{if(copied.reduce((n,f)=>n+f.size,0)>22*1024*1024)throw new Error('Large files stay in this tab until upload.');await cacheFiles(current.current.id,copied);setStatus('Files ready. Continue to read them with your project details.');}catch{setStatus('Files are ready in this tab. Device storage is unavailable; keep this tab open until upload completes.');}finally{setPreparingFiles(false);}
+  }
+  async function startReplacementProject(){
+    const prior=current.current;if(!prior)return;
+    const next=replacementBrowserDraft(prior),pending=[...filesAddedSinceAnalysis.current];
+    filesRef.current=pending;setFiles(pending);filesAddedSinceAnalysis.current=pending;
+    apply(next);setResult(null);setDelivery([]);setConfirmed(false);setActive(null);setClarificationReply('');setWarning('');setError('');setInputOpen(false);setKnownOpen(false);setEditField('');
+    try{await cacheFiles(next.id,pending);setStatus('A separate new project is ready. Review it, then continue.');}catch{setStatus('The new project is ready in this tab. Keep it open until the files upload.');}
+    focus();
   }
   async function advance(skip=false){
     if(!current.current)return;
@@ -176,13 +188,14 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
   const field=(key:ScopeField)=>{const definition=SCOPE_FIELDS[key];const value=draft?.answers[key]||'';const fieldId=`${id}-${key}`;
     return <div key={key} className={styles.field}><label htmlFor={fieldId}>{definition.label}</label>{definition.kind==='choice'?<select id={fieldId} value={value} onChange={e=>answer(key,e.target.value)}><option value="">Choose an answer</option>{definition.options.filter(v=>key!=='service'||(brand.services as readonly string[]).includes(v)).map(v=><option key={v} value={v}>{key==='cabinetRoom'?v.replaceAll('-',' '):labels[v]||v.replaceAll('-',' ')}</option>)}</select>:definition.kind==='number'?<input id={fieldId} inputMode="decimal" value={value} onChange={e=>answer(key,e.target.value)} placeholder="Approximate is fine"/>:<textarea id={fieldId} rows={3} value={value} onChange={e=>answer(key,e.target.value)} />}</div>;};
   if(!draft)return <div className={styles.root} role="status">Loading your project...</div>;
+  const pendingReplacement=draft.analyzedText!==undefined&&draft.text!==draft.analyzedText;
   const projectInput=<>
     <div className={styles.field}><label htmlFor={`${id}-scope`}>Tell us about your project</label><textarea id={`${id}-scope`} rows={6} value={[draft.text,draft.answers.estimatingInstructions].filter(Boolean).join('\n\n')} onChange={e=>{const d=current.current!;change({text:e.target.value,answers:{...d.answers,estimatingInstructions:''},wizard:{...d.wizard,skipped:d.wizard?.skipped||[],resolutions:{...d.wizard?.resolutions,estimatingInstructions:''}}});}} placeholder={`${scopeExample}\nInclude any notes, instructions, inclusions or exclusions.`}/><p className={styles.hint}>Type everything here, or use your keyboard’s dictation. Include what to price, what to leave out and who supplies materials.</p></div>
     <div className={styles.inputTools} data-dragging={dragging} onDragEnter={e=>{e.preventDefault();setDragging(true);}} onDragOver={e=>e.preventDefault()} onDragLeave={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node|null))setDragging(false);}} onDrop={e=>{e.preventDefault();setDragging(false);void addFiles(e.dataTransfer.files);}}><label className={styles.attach} htmlFor={`${id}-files`}><span aria-hidden="true">↑</span><span><strong>Upload project files</strong><small>Scopes, blueprints, plans, notes, photos and more</small></span><input id={`${id}-files`} type="file" accept={accept} multiple aria-label="Upload project files" onChange={e=>{const input=e.currentTarget;const selected=Array.from(input.files||[]);void addFiles(selected).then(()=>{input.value='';});}}/></label></div>
     <p className={styles.hint}>Choose files or drag them here. PDFs, images, Word, spreadsheets and text. {SCOPE_UPLOAD_HELP}</p>
-    {Boolean(files.length||draft.uploads?.length)&&<ul className={styles.files}>{draft.uploads?.map(f=><li key={f.id}><span>{f.name}</span><span className={styles.hint}>Uploaded</span></li>)}{files.map((f,i)=><li key={`${f.name}-${i}`}><span>{f.name}<small>Ready to upload</small></span><button type="button" aria-label={`Remove ${f.name}`} onClick={async()=>{const next=filesRef.current.filter((_,index)=>i!==index);filesRef.current=next;setFiles(next);try{await cacheFiles(draft.id,next);}catch{setStatus('File removed from this session. Local storage could not be updated.');}}}>Remove</button></li>)}</ul>}
+    {Boolean(files.length||draft.uploads?.length)&&<ul className={styles.files}>{draft.uploads?.map(f=><li key={f.id}><span>{f.name}</span><span className={styles.hint}>Uploaded</span></li>)}{files.map((f,i)=><li key={`${f.name}-${i}`}><span>{f.name}<small>Ready to upload</small></span><button type="button" aria-label={`Remove ${f.name}`} onClick={async()=>{const removed=filesRef.current[i];const next=filesRef.current.filter((_,index)=>i!==index);filesRef.current=next;filesAddedSinceAnalysis.current=filesAddedSinceAnalysis.current.filter(file=>file!==removed);setFiles(next);try{await cacheFiles(draft.id,next);}catch{setStatus('File removed from this session. Local storage could not be updated.');}}}>Remove</button></li>)}</ul>}
   </>;
-  const known=Object.keys(draft.answers).filter(k=>draft.answers[k as ScopeField]?.trim()) as ScopeField[];
+  const known=(pendingReplacement?[]:Object.keys(draft.answers).filter(k=>draft.answers[k as ScopeField]?.trim())) as ScopeField[];
   const review=<details className={styles.known} open={knownOpen}><summary onClick={e=>{e.preventDefault();setKnownOpen(v=>!v);}}>{known.length?`${known.length} project details saved`:'Project details'}</summary><dl>{known.map(k=><div key={k}><dt>{SCOPE_FIELDS[k].label}</dt><dd>{labels[draft.answers[k]!]||draft.answers[k]} <button type="button" aria-label={`Edit ${SCOPE_FIELDS[k].label}`} onClick={()=>setEditField(k)}>Edit</button></dd></div>)}</dl>{editField&&<div>{field(editField)}<button type="button" onClick={()=>{const issue=validateScopeAnswer(editField,draft.answers[editField]||'');if(issue){setError(issue);return;}setEditField('');}}>Done</button></div>}</details>;
   return <div role="region" aria-label="Project estimator" className={styles.root} data-p5-estimator aria-busy={Boolean(busy)} style={{'--p5-accent':brand.accent} as React.CSSProperties}>
     <div className={styles.intro}><p className={styles.eyebrow}>{brand.name} · Project estimator</p><Heading ref={heading} tabIndex={-1}>{result?'Your project summary':draft.step===0?(projectSource?'Your design is ready to estimate':'What would you like to do?'):draft.step===1?'A little more about your project':'Your project is ready to review'}</Heading><p>{result?'Review your estimate and the next step below.':draft.step===0?(projectSource?'Your design selections are included. Add anything else, then continue.':'Tell us or show us. We’ll ask only for the details we still need.'):draft.step===1?'We’ve saved what you provided. Let’s fill in the remaining details.':'Check your details and tell us where to send your estimate.'}</p></div>
@@ -193,7 +206,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
       <button type="button" onClick={downloadPdf} disabled={Boolean(busy)}>Download your project summary</button><h3>Recommended next step</h3><p>{result.nextStep}</p><p>{result.disclaimer}</p>
       <p role="status">{delivery.length>0&&delivery.every(d=>d.status==="sent")?"Your summary was sent and the team has your record.":"Your project is saved. Some deliveries are pending or need team review. Please do not submit the same project again."}</p>
       <a className={styles.primary} href={brand.consultationPath} onClick={()=>trackScopeEvent("onsiteRequested",draft.answers.service)}>Schedule a consultation</a><a className={styles.secondary} href="tel:+12084771169">Call {brand.phone}</a>
-      <button type="button" onClick={()=>{const next={...newBrowserDraft(defaultService),namespace:draft.namespace};apply(next);started.current=false;setResult(null);filesRef.current=[];setFiles([]);setConfirmed(false);setActive(null);setWarning("");setStatus("");}}>Start another project</button>
+      <button type="button" onClick={()=>{const next={...newBrowserDraft(defaultService),namespace:draft.namespace};apply(next);started.current=false;setResult(null);filesRef.current=[];filesAddedSinceAnalysis.current=[];setFiles([]);setConfirmed(false);setActive(null);setWarning("");setStatus("");}}>Start another project</button>
     </div>:<form onSubmit={submit} noValidate><fieldset disabled={Boolean(busy)||preparingFiles} className={styles.formBody} data-entry-focused={entryFocused||undefined} onFocusCapture={event=>setEntryFocused((event.target as HTMLElement).matches('input:not([type="checkbox"]),textarea,select'))} onBlurCapture={event=>setEntryFocused(Boolean(event.relatedTarget&&event.currentTarget.contains(event.relatedTarget as Node)&&(event.relatedTarget as HTMLElement).matches('input:not([type="checkbox"]),textarea,select')))}>
       {draft.step===0?<>{projectSource&&review}{projectInput}<div className={styles.actions}><button className={styles.primary} type="button" onClick={begin}>Continue <span aria-hidden="true">→</span></button></div><p className={styles.hint}>Add what you know, or continue and we’ll help with the rest.</p></>:<>
         {draft.step===1&&active?<section key={active.instructionId||active.field} className={styles.question} aria-label="Project question"><p className={styles.eyebrow}>One detail at a time</p><h2>{active.label}</h2><p className={styles.questionReason}>{active.reason}</p>{active.detail&&<details><summary>Question context</summary><p>{active.detail}</p></details>}{active.values?.length?<div className={styles.choices} role="group" aria-label="Suggested answers">{active.values.map(value=><button type="button" key={value} onClick={()=>active.instructionId?reply(value):answer(active.field,value)} aria-pressed={(active.instructionId?clarificationReply:draft.answers[active.field])===value}>{labels[value]||value.replaceAll('-',' ')}</button>)}</div>:null}{active.instructionId?<div className={styles.field}><label htmlFor={`${id}-reply`}>Your answer</label><textarea id={`${id}-reply`} rows={3} value={clarificationReply} onChange={e=>reply(e.target.value)} placeholder="Choose an option above or type your answer."/></div>:active.values?.length?<details><summary>Use a different answer</summary>{field(active.field)}</details>:field(active.field)}<div className={styles.actions}><button className={styles.primary} type="button" onClick={()=>advance()}>Continue <span aria-hidden="true">→</span></button>{active.field!=='service'&&!active.conflict&&!active.instructionId&&<button type="button" onClick={()=>advance(true)}>Not sure yet</button>}</div></section>:<>
@@ -201,7 +214,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource}:{de
           <div className={styles.fields}>{([['name','Your name','text'],['email','Email','email'],['phone','Phone (optional)','tel']] as const).map(([key,label,type])=><label className={styles.field} key={key} htmlFor={`${id}-contact-${key}`}><span>{label}</span><input id={`${id}-contact-${key}`} type={type} autoComplete={key} required={key!=='phone'} value={draft.contact[key]} onChange={e=>changeContact(key,e.target.value)} maxLength={key==='name'?120:key==='email'?200:40}/></label>)}</div>
         </>}
         {review}
-        <details open={inputOpen} onToggle={e=>setInputOpen(e.currentTarget.open)}><summary>Add or edit project information</summary>{inputOpen&&<>{projectInput}<button className={styles.primary} type="button" onClick={begin}>Update project</button></>}</details>
+        <details open={inputOpen} onToggle={e=>setInputOpen(e.currentTarget.open)}><summary>Add or edit project information</summary>{inputOpen&&<>{projectInput}{pendingReplacement&&<p className={styles.notice}>Is this still the same project, or should it be saved as a separate new project?</p>}<div className={styles.actions}><button className={styles.primary} type="button" onClick={begin}>Update this project</button>{pendingReplacement&&<button type="button" onClick={()=>void startReplacementProject()}>Start as a new project</button>}</div></>}</details>
         {warning&&<div className={styles.notice}><p>{warning}</p><button type="button" onClick={()=>run('Reading your saved documents...',analyze)}>Retry document reading</button></div>}
         {draft.step===2&&<>
           {draft.extraction?.instructions&&<P5EstimateDetails result={{instructions:draft.extraction.instructions,documentCoverage:draft.extraction.documentCoverage}}/>}

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {priceCompleteScope,marketResolution,requestPricing,type PricingRequest} from '../lib/p5/scopePricing.ts';
+import {priceCompleteScope,marketResolution,normalizeMarketFormatting,requestPricing,type PricingRequest} from '../lib/p5/scopePricing.ts';
 import {priceReviewedScope} from '../lib/p5/costBook.ts';
 import {createPlanningConfiguration,PLANNING_MODEL_VERSION,type PlanningCatalog} from '../lib/p5/planningBooks.ts';
 import type {ReviewedScope} from '../lib/p5/scope.ts';
@@ -196,6 +196,29 @@ test('Valid JSON research with incompatible field types gets a saved constrained
   return {value:inputs.shift(),sourceUrls:search?urls:[]};
  },now);
  assert.equal(formatting,1);assert.ok(result.customer.range);assert.ok(JSON.stringify(result.internal.scopePricing.research).includes(urls[0]));
+});
+test('Known research formatting drift is repaired locally without another provider stage',async()=>{
+ const malformed={...researched,rates:researched.rates.map(rate=>({...rate,basis:'Material-only unit cost for paint-grade wood moulding.',includes:['paint-grade wood','stock profile'],excludes:['installation'],building:null,floor:null,sources:rate.sources.map(item=>({...item,costBasis:'material-only'}))}))};
+ const formatted=normalizeMarketFormatting(malformed) as any;
+ assert.equal(formatted.rates[0].basis,'material-purchase');assert.equal(formatted.rates[0].includes,'paint-grade wood; stock profile');
+ assert.equal(marketResolution(formatted,urls,[extra],now).rules[0].category,'materials');
+ let calls=0,formatting=0;
+ const result=await priceCompleteScope(scope,config,async(instructions,input,search)=>{
+  calls++;if(instructions.startsWith('Convert the supplied research'))formatting++;
+  const data=input as any;
+  if(calls===1)return {value:{tasks:[task,extra].map(({id,description,evidence})=>({id,description,evidence})),issues:[]},sourceUrls:[]};
+  if(data.taskBatch)return {value:{tasks:[task,extra],issues:[]},sourceUrls:[]};
+  if(search)return {value:malformed,sourceUrls:urls,sourceReport:JSON.stringify(malformed)};
+  return {value:{coveredTaskIds:['cabinets','overlay'],issues:[]},sourceUrls:[]};
+ },now);
+ assert.equal(formatting,0);assert.equal(calls,4);assert.ok(result.customer.range);
+});
+test('Local formatting repair never reclassifies historical selling-price prose as direct cost',()=>{
+ const unsafe={...researched,rates:researched.rates.map(rate=>({...rate,basis:'Historical material-only customer selling price',sources:rate.sources.map(item=>({...item,costBasis:'material-only',excerpt:'Historical customer selling price per linear foot.'}))}))};
+ const formatted=normalizeMarketFormatting(unsafe) as any;
+ assert.equal(formatted.rates[0].basis,'Historical material-only customer selling price');
+ assert.equal(formatted.rates[0].sources[0].costBasis,'material-only');
+ assert.throws(()=>marketResolution(formatted,urls,[extra],now));
 });
 
 test('An audit finding is repaired with a labeled quantity allowance, then audited again',async()=>{

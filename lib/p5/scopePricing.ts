@@ -66,6 +66,22 @@ const inventoryJson=jsObject({tasks:jsArray(jsObject({id:jsText,description:jsTe
 const auditJson=jsObject({coveredTaskIds:jsArray(jsText),issues:jsArray(jsText),notes:jsArray(jsText),resolvedIssues:jsArray(jsObject({issue:jsText,reason:jsText,lineIds:jsArray(jsText)}))});
 const normalizeResearch=`Convert the supplied research report to the required JSON schema using ONLY evidence in that report. ${UNTRUSTED} ${BENCHMARK_POLICY} ${ISSUE_POLICY} Put permitted benchmark limitations in notes, not issues. Do not invent missing dates, costs, quantities, units, or source excerpts. Use only supplied source URLs. If a task lacks the required evidence, omit its rate and state the missing evidence in issues. Preserve exact scope, units and direct-cost basis. Do not conduct new research or change the original requested tasks.`;
 const parseJson=(raw:string)=>JSON.parse(raw.replace(/^\s*```(?:json)?\s*/,'').replace(/\s*```\s*$/,''));
+const directCostBasis=(value:unknown)=>{
+  const text=String(value||'').toLowerCase().trim().replace(/_/g,'-');
+  return ['material-only','material-purchase'].includes(text)?'material-purchase':['labor-only','trade-labor'].includes(text)?'trade-labor':['subcontractor-installed','installed-subcontractor'].includes(text)?'subcontractor-installed':value;
+};
+/** Repair harmless presentation-shape drift locally; schema and source-evidence validation still run afterward. */
+export function normalizeMarketFormatting(raw:unknown){
+  if(!raw||typeof raw!=='object'||!Array.isArray((raw as any).rates))return raw;
+  return {...raw as any,rates:(raw as any).rates.map((rate:any)=>{
+    if(!rate||typeof rate!=='object')return rate;
+    const unsafe=/\b(?:selling|retail|customer price|quoted price|proposal total|bid total|historical price)\b/i.test(JSON.stringify(rate));
+    const sources=Array.isArray(rate.sources)?rate.sources.map((source:any)=>source&&typeof source==='object'?{...source,costBasis:unsafe?source.costBasis:directCostBasis(source.costBasis)}:source):rate.sources;
+    const sourceBases=Array.isArray(sources)?[...new Set(sources.map((source:any)=>source?.costBasis).filter(Boolean))]:[];
+    const basis=!unsafe&&sourceBases.length===1&&['material-purchase','trade-labor','subcontractor-installed'].includes(sourceBases[0])?sourceBases[0]:unsafe?rate.basis:directCostBasis(rate.basis);
+    return {...rate,basis,includes:Array.isArray(rate.includes)?rate.includes.join('; '):rate.includes,excludes:Array.isArray(rate.excludes)?rate.excludes.join('; '):rate.excludes,building:rate.building??undefined,floor:rate.floor??undefined,sources};
+  })};
+}
 
 export const requestPricing:PricingRequest=async(instructions,input,search,remainingMs)=>{
   const started=Date.now();
@@ -233,6 +249,7 @@ export async function priceCompleteScope(scope:ReviewedScope,configuration:Estim
       // JSON syntax alone does not ensure the research schema is valid. Save a
       // separate formatting stage for valid JSON with arrays/objects in string
       // fields, retaining the original report and tool-returned source URLs.
+      researched={...researched,value:normalizeMarketFormatting(researched.value)};
       if(!marketSchema.safeParse(researched.value).success){
         const normalized=await request(normalizeResearch,{requested:{tasks:gapBatch.map(t=>({id:t.id,description:t.researchDescription,quantityEvidence:t.evidence}))},report:researched.sourceReport||JSON.stringify(researched.value),sourceUrls:researched.sourceUrls},false,deadline-Date.now());
         researched={...researched,value:marketSchema.parse(normalized.value)};
@@ -291,6 +308,7 @@ export async function priceCompleteScope(scope:ReviewedScope,configuration:Estim
       const repairGaps=fixes.tasks.filter(t=>t.researchDescription);
       for(const t of repairGaps){
         let reply=await request(RESEARCH,{date:now.toISOString(),region:scope.answers.location||'Boise / Treasure Valley, Idaho',tasks:[{id:t.id,description:t.researchDescription,quantityEvidence:t.evidence,alreadyCovered:t.existingLineIds.map(id=>pricedComponents.find(l=>l.id===id)).filter(Boolean)}],priorIssues},true,deadline-Date.now());
+        reply={...reply,value:normalizeMarketFormatting(reply.value)};
         if(!marketSchema.safeParse(reply.value).success){const normalized=await request(normalizeResearch,{report:reply.sourceReport||JSON.stringify(reply.value),sourceUrls:reply.sourceUrls,requested:{tasks:[t]}},false,deadline-Date.now());reply={...reply,value:normalized.value};}
         research.push(reply);const market=marketResolution(reply.value,reply.sourceUrls,[t],now,marketOffset,scope.answers.location||'Boise / Treasure Valley, Idaho');marketOffset+=market.rules.length;
         marketSchema.parse(reply.value).issues.forEach(issue=>modelIssues.add(issue));

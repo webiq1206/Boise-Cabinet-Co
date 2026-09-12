@@ -124,3 +124,20 @@ test("a replaced scope drops old question state and source resolutions",()=>{
   assert.deepEqual(failedAnalysisFallback(false,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"cabinet-install"},extraction:null});
   assert.deepEqual(failedAnalysisFallback(true,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"bathroom",sqft:"80"},extraction:previous});
 });
+test("an explicit new project gets a separate record without old answers or uploads",async()=>{
+  const {replacementBrowserDraft}=await import('../lib/p5/browserDraft.ts');
+  const old:any={id:'11111111-1111-4111-8111-111111111111',key:'a'.repeat(64),revision:8,text:'A new 676 SF garage-to-ADU conversion',answers:{service:'new-construction',sqft:'2500',garageSqft:'800'},extraction:extracted({service:'new-construction',sqft:'2500',garageSqft:'800'}),contact:{name:'Owner',email:'owner@example.invalid',phone:''},step:2,updatedAt:1,uploads:[{id:'old-home.pdf'}],wizard:{skipped:['finish'],resolutions:{sqft:'2500'}}};
+  const next=replacementBrowserDraft(old);
+  assert.notEqual(next.id,old.id);assert.notEqual(next.key,old.key);assert.equal(next.text,'A new 676 SF garage-to-ADU conversion');
+  assert.deepEqual(next.answers,{});assert.equal(next.extraction,null);assert.equal(next.uploads,undefined);assert.deepEqual(next.wizard,{skipped:[],resolutions:{}});
+  assert.equal(old.uploads[0].id,'old-home.pdf');assert.equal(old.answers.sqft,'2500');
+});
+test("a whole-home repair replacement does not inherit an old bathroom-paint exclusion",async()=>{
+  const {replacementBrowserDraft}=await import('../lib/p5/browserDraft.ts');
+  const old:any={id:'22222222-2222-4222-8222-222222222222',key:'b'.repeat(64),revision:3,text:'Repair drywall, trim, doors, and paint throughout the home',answers:{service:'handyman',exclusions:'Exclude bathroom painting'},extraction:extracted({service:'handyman',exclusions:'Exclude bathroom painting'}),contact:{name:'Owner',email:'owner@example.invalid',phone:''},step:2,updatedAt:1,uploads:[{id:'bathroom.pdf'}],wizard:{skipped:[],resolutions:{exclusions:'Exclude bathroom painting'}}};
+  const next=replacementBrowserDraft(old);
+  assert.equal(next.text,'Repair drywall, trim, doors, and paint throughout the home');
+  assert.equal(next.answers.exclusions,undefined);assert.equal(next.extraction,null);
+  assert.equal(JSON.stringify(next).includes('Exclude bathroom painting'),false);
+  assert.equal(old.answers.exclusions,'Exclude bathroom painting');
+});

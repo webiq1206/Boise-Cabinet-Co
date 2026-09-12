@@ -3,8 +3,8 @@ name: Estimator changed-source isolation
 description: Lifecycle rule for preventing prior project facts and clarifications from leaking into replacement estimator scopes.
 ---
 
-When an already-analyzed project description is replaced, clear prior answers, extraction, conflicts, skipped fields, resolutions, instruction history, and pending client clarification text before installing the new analysis. Apply the same cleanup if analysis fails.
+When an already-analyzed project description is explicitly replaced as a different project, create a fresh draft ID and key. Do not mutate or delete the prior server draft or its uploads. The new identity starts without prior answers, contact, extraction, conflicts, skipped fields, resolutions, instruction history, or uploaded-file metadata. Only files added locally since the prior analysis may follow the new identity.
 
-**Why:** Background analysis failures can return before normal reconciliation. Without a common sanitized save path, a new description can be displayed with the old project’s facts and evidence. Pending clarification text can also appear against a different question.
+**Why:** Same-draft replacement cannot detach old server uploads and can autosave new text into the old record before project intent is clear. A new identity preserves the old record while preventing its facts, evidence, files, or clarification state from contaminating the replacement.
 
-**How to apply:** Distinguish replacement text from first analysis and additive uploads. Replacement text starts a new scope; additive uploads may preserve demonstrably visitor-entered or project-handoff facts but must remove values attributable only to the previous extraction. Queued and synchronous failures must use the same source-version cleanup.
+**How to apply:** Pause contact-triggered autosave while analyzed text differs and offer two explicit actions: update this project or start a separate new project. Ordinary same-project edits and additive uploads remain on the current draft. Keep pending-file provenance synchronized across recovery, upload, removal, and reset so old uploaded files never follow the replacement.

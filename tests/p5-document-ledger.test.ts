@@ -32,6 +32,34 @@ test('Plans and schedules do not double count physical work; conflicts remain vi
   const revised={...takeoff,quantity:3,sources:[{...page,page:256,sheet:'A101',revision:'2'}],supersedes:['plan.pdf:A101:1']};
   for(const order of [[takeoff,revised],[revised,takeoff]])assert.equal(reconcileTakeoffs(order).items[0].quantity,3,'explicit supersession must work independently of upload order');
 });
+test('explicit aggregate and duplicate relationships remove only referenced repeated work',()=>{
+  const source=(page:number)=>({source:'trade.pdf',page,sheet:`S${page}`,revision:'1'});
+  const line=(id:string,description:string,quantity:number,component:string):Takeoff=>({id,description,building:'Main',floor:'1',component,quantity,unit:'hours',basis:'stated',evidence:description,sources:[source(1)],supersedes:[],issues:[]});
+  const excavation=line('excavation','Excavation labor',16,'excavation');
+  const repeat={...line('excavation-note','Repeated excavation note',16,'excavation'),duplicateOf:'excavation',sources:[source(2)]};
+  const forming=line('forming','Concrete forming labor',10,'concrete');
+  const pouring=line('pouring','Concrete pouring labor',14,'concrete');
+  const total={...line('concrete-total','Concrete labor subtotal',24,'concrete'),aggregateOf:['forming','pouring']};
+  const unrelated=line('electrical','Electrical labor on the same floor',7,'electrical');
+  const reconciled=reconcileTakeoffs([excavation,repeat,forming,pouring,total,unrelated]);
+  assert.deepEqual(reconciled.items.map(item=>item.id),['excavation','forming','pouring','electrical']);
+  assert.deepEqual(reconciled.items[0].sources.map(item=>item.page),[1,2]);
+  assert.equal(reconciled.items.reduce((sum,item)=>sum+(item.quantity||0),0),47);
+});
+test('malformed ledger relationships never delete physical scope',()=>{
+  const self={...takeoff,id:'self',duplicateOf:'self'};
+  const aggregate={...takeoff,id:'total',aggregateOf:['total']};
+  const missing={...takeoff,id:'missing-link',duplicateOf:'not-present'};
+  const result=reconcileTakeoffs([self,aggregate,missing]);
+  assert.deepEqual(result.items.map(item=>item.id),['self','total','missing-link']);
+  assert.ok(result.issues.length>=3);
+});
+test('a duplicate reference with a different quantity becomes uncertain instead of disappearing',()=>{
+  const different={...takeoff,id:'door-D1-repeat',quantity:2,duplicateOf:'door-D1',sources:[{...page,page:2,sheet:'A600',revision:'1'}]};
+  const result=reconcileTakeoffs([takeoff,different]);
+  assert.equal(result.items.length,1);assert.equal(result.items[0].quantity,null);assert.equal(result.items[0].basis,'uncertain');
+  assert.deepEqual(result.items[0].sources.map(item=>item.page),[1,2]);assert.match(result.issues.join(' '),/Conflicting duplicate quantities/);
+});
 test('Lengthy instructions preserve clauses and expose conflicting responsibilities',()=>{
   const instructions=mergeInstructions([{...emptyInstructions(),inclusions:Array.from({length:500},(_,i)=>`Trim item ${i}`),laborOnly:true},{...emptyInstructions(),materialsOnly:true,exclusions:['Trim item 499']}]);
   assert.equal(instructions.inclusions.length,500);assert.equal(instructions.questions.length,2);
