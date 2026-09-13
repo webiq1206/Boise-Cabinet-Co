@@ -1,10 +1,10 @@
-import {atomicInstructionQuestions,textBenchTopChoices} from './atomicQuestions.ts';
-import type {ScopeAnswers,ScopeExtraction} from './scope.ts';
+import {atomicInstructionQuestions,textBenchTopChoices,cabinetQuestionField} from './atomicQuestions.ts';
+import type {ScopeAnswers,ScopeExtraction,ScopeField} from './scope.ts';
 import type {Takeoff} from './documentLedger.ts';
 import {typedHourAlternatives,TYPED_OPTIONS_SOURCE} from './typedAlternatives.ts';
 
 export interface InstructionAnswer {id:string;question:string;answer:string}
-export interface InstructionPrompt {id:string;question:string;detail?:string;values?:string[]}
+export interface InstructionPrompt {id:string;question:string;detail?:string;values?:string[];field?:ScopeField}
 export const questionKey=(text:string)=>text.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const publicQuestion=(text:string)=>text
   .replace(/\b(?:previousAnswers|knownProjectDetails|previous_answers|known_project_details)\b/gi,'details already provided')
@@ -66,13 +66,15 @@ export function instructionPrompts(extraction:ScopeExtraction|null,answers:Scope
       const full=publicQuestion(part.replace(/\s+/g,' ').trim());if(!full)continue;
       // Filter each question separately so a legacy paragraph cannot lose a real scope decision.
       if(serviceQuestion(full))continue;
+      const field=cabinetQuestionField(full);
+      if(field&&answers[field]?.trim()&&!extraction?.conflicts.some(conflict=>conflict.field===field))continue;
       const id=questionKey(full);
       if(result.some(q=>q.id===id))continue;
       const question=full.length<=240?full:'What should we include for this part of your project?';
       const alternatives=alternativeGroupForQuestion(extraction,full);
       const values=alternatives?.options.map(option=>option.label)||(/labor.only/i.test(full)&&/materials.only/i.test(full)?['Labor only','Materials only','Labor and materials']:
         /include or exclude|include.*or.*exclude/i.test(full)?['Include it','Exclude it']:undefined);
-      result.push({id,question,...(question!==full?{detail:full}:{}),values:values?.length?values:textBenchTopChoices(extraction,full)});
+      result.push({id,question,...(field?{field}:{}),...(question!==full?{detail:full}:{}),values:values?.length?values:textBenchTopChoices(extraction,full)});
     }
   }
   return result;
