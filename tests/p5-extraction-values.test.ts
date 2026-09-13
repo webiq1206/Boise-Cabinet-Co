@@ -26,3 +26,13 @@ test("separate trade hours remain additive takeoffs while repeated totals and pa
  assert.equal(result.takeoffs?.reduce((sum,item)=>sum+(item.quantity||0),0),40);
  assert.deepEqual(result.takeoffs?.find(item=>item.component==="excavation")?.sources.map(item=>item.page),[1,2]);
 });
+
+test('blank optional facts remain unknown while stated quantities survive',()=>{
+ const result=validateExtraction({summary:'600 square foot addition',facts:[
+  {field:'sqft',value:'600',confidence:1,source:'typed scope',evidence:'600 square foot addition',basis:'stated'},
+  {field:'countertopSqft',value:'',confidence:1,source:'typed scope',evidence:'',basis:'inferred'},
+  {field:'cabinetTallLf',value:null,confidence:1,source:'typed scope',evidence:'',basis:'inferred'},
+ ],conflicts:[],missingInformation:[],reviewNotes:[]});
+ assert.deepEqual(result.facts.map(f=>[f.field,f.value]),[['sqft','600']]);
+ assert.equal(result.missingInformation.length,2);
+});

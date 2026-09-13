@@ -75,7 +75,8 @@ test('text-only OpenAI requests forbid blank known facts and fabricated document
    assert.equal(schema.properties.pages.maxItems,0);assert.equal(schema.properties.takeoffs.maxItems,0);
    return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(extraction)}]}]});
   });
-  await assert.rejects(analyzeBatch('Cabinet lengths are unknown.',[],{},async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({...extraction,facts:[{field:'cabinetTallLf',value:'',confidence:1,source:'typed scope',evidence:'Unknown cabinet length',basis:'inferred'}]})}]}]})),/Invalid extracted fact|analysis-provider-failed/);
+  const unknown=await analyzeBatch('Cabinet lengths are unknown.',[],{},async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({...extraction,facts:[{field:'cabinetTallLf',value:'',confidence:1,source:'typed scope',evidence:'Unknown cabinet length',basis:'inferred'}]})}]}]}));
+  assert.equal(unknown.extraction.facts.length,0);assert.ok(unknown.extraction.missingInformation.some(note=>note.includes('tall cabinet')));
   await assert.rejects(analyzeBatch('Typed scope only.',[],{},async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({...extraction,pages:[{source:'invented.pdf',page:1,sheet:'',revision:'',status:'read',notes:[]}]})}]}]})),/Invalid takeoff evidence|analysis-provider-failed/);
  }finally{for(const k of variables){if(before[k]===undefined)delete process.env[k];else process.env[k]=before[k];}}
 });
