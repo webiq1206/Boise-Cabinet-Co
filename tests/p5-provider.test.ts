@@ -59,9 +59,23 @@ test('provider fallback retains the request and failed provider bodies never esc
  try{
   const urls:string[]=[];const result=await analyzeScope('Retain the selected cabinet doors',[],{cabinetBaseLf:'20'},async(url,options)=>{
    urls.push(String(url));if(url.toString().includes('openai'))return Response.json({error:{message:'PRIVATE DOCUMENT CONTENT'}},{status:503});
-   const body=JSON.parse(String(options?.body));assert.match(String(options?.body),/cabinetBaseLf/);assert.equal(body.output_config,undefined);assert.equal(body.tool_choice.name,'record_scope_analysis');assert.equal(body.tools[0].strict,undefined);return Response.json({stop_reason:'tool_use',content:[{type:'tool_use',name:'record_scope_analysis',input:extraction}]});
+   const body=JSON.parse(String(options?.body));assert.match(String(options?.body),/cabinetBaseLf/);assert.equal(body.output_config,undefined);assert.equal(body.tool_choice.name,'record_scope_analysis');assert.equal(body.tools[0].strict,undefined);assert.equal(body.tools[0].input_schema.properties.pages.maxItems,0);assert.equal(body.tools[0].input_schema.properties.takeoffs.maxItems,0);return Response.json({stop_reason:'tool_use',content:[{type:'tool_use',name:'record_scope_analysis',input:{parameters:extraction}}]});
   });assert.equal(result.provider,'Anthropic');assert.equal(urls.length,2);
   delete process.env.ANTHROPIC_API_KEY;
   await assert.rejects(analyzeScope('scope',[],{},async()=>Response.json({error:{message:'PRIVATE DOCUMENT CONTENT'}},{status:400})),error=>!String(error).includes('PRIVATE DOCUMENT'));
+ }finally{for(const k of variables){if(before[k]===undefined)delete process.env[k];else process.env[k]=before[k];}}
+});
+
+test('text-only OpenAI requests forbid blank known facts and fabricated document records',async()=>{
+ const before=Object.fromEntries(variables.map(k=>[k,process.env[k]]));for(const k of variables)delete process.env[k];process.env.OPENAI_API_KEY='fixture-only';
+ try{
+  await analyzeBatch('Cabinet lengths are unknown.',[],{},async(_url,options)=>{
+   const body=JSON.parse(String(options?.body)),schema=body.text.format.schema;
+   for(const field of ['value','source','evidence'])assert.equal(schema.properties.facts.items.properties[field].minLength,1);
+   assert.equal(schema.properties.pages.maxItems,0);assert.equal(schema.properties.takeoffs.maxItems,0);
+   return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(extraction)}]}]});
+  });
+  await assert.rejects(analyzeBatch('Cabinet lengths are unknown.',[],{},async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({...extraction,facts:[{field:'cabinetTallLf',value:'',confidence:1,source:'typed scope',evidence:'Unknown cabinet length',basis:'inferred'}]})}]}]})),/Invalid extracted fact|analysis-provider-failed/);
+  await assert.rejects(analyzeBatch('Typed scope only.',[],{},async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({...extraction,pages:[{source:'invented.pdf',page:1,sheet:'',revision:'',status:'read',notes:[]}]})}]}]})),/Invalid takeoff evidence|analysis-provider-failed/);
  }finally{for(const k of variables){if(before[k]===undefined)delete process.env[k];else process.env[k]=before[k];}}
 });

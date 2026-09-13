@@ -60,6 +60,11 @@ export async function advanceAnalysis(draft:Draft,text:string,answers:ScopeAnswe
   // overwrite a more recent completed section.
   let saving=Promise.resolve();
   const checkpoint=()=>{saving=saving.then(()=>{
+    if(!draft.uploads.length&&!job.units.length){
+      job.progress=job.textDone?'Checking your project details.':'Reading your project details.';
+      job.processing={phase:job.textDone?'cross-referencing':'reading',message:job.progress,currentItems:[],updatedAt:new Date().toISOString()};
+      return writeWork(draft.id,workKey,lease.token,job);
+    }
     const progress=analysisProgress(job.units,job.expected);
     const active=job.units.filter(u=>u.active);
     const phase=!active.length&&job.prepared<draft.uploads.length?'preparing':active.some(u=>isInstructionFile(u.name))?'instructions':progress.readSections===progress.totalSections?'cross-referencing':'reading';
