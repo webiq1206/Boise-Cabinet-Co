@@ -7,7 +7,7 @@ test('only the final mobile estimate action is sticky and keyboard safe',()=>{
   const css=readFileSync('components/P5Estimator.module.css','utf8');
   assert.equal((component.match(/data-final-estimate-action/g)||[]).length,1);
   assert.equal((component.match(/type="file"/g)||[]).length,1);
-  assert.equal((component.match(/Tell us about your project/g)||[]).length,1);
+  assert.equal((component.match(/label htmlFor=\{`\$\{id\}-scope`\}/g)||[]).length,1);
   assert.match(css,/\.actions\.finalActions\{position:sticky!important;bottom:0!important/);
   assert.match(css,/env\(safe-area-inset-bottom,0px\)/);
   assert.match(css,/\.formBody\[data-entry-focused=true\] \.actions\.finalActions\{position:static!important/);

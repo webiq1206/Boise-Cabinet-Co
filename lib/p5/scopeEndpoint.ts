@@ -1,3 +1,4 @@
+import {ProcessingDeadlineError,PROCESSING_PAUSED} from './processingBudget';
 import {applyCabinetIntent} from "./projectIntent";
 import {advanceAnalysis} from "./analysisWork";
 import {queuedJob} from './backgroundJobs';
@@ -57,6 +58,7 @@ export async function postScope(request:Request){
       const unread=analysis.extraction.reviewNotes.filter((note:string)=>/saved for manual review|could not read|automatic read failed|automatic reading could not finish|unread section requires review|unreadable|partial/.test(note));
       if(unread.length)warning="Some files need review before pricing. "+unread.join(" ");
     }catch(error){
+      if(error instanceof ProcessingDeadlineError)throw new DraftError(PROCESSING_PAUSED,503);
       console.error("[p5-scope-analysis]",error instanceof Error?error.message:"analysis failed");
       if(!draft.uploads.length)return json({error:"Your project details are saved, but the analysis could not finish. Please retry to continue."},503);
       warning="Your files are saved, but automatic reading could not finish. You can retry without uploading again, or add the key details below. Unread documents will need review before pricing.";

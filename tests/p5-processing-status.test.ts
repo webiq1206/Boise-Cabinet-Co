@@ -9,7 +9,7 @@ test('Live status reports actual provider operations without exposing private ra
   assert.equal(pricingActivity('Inventory the complete requested construction scope.',input,false).phase,'inventory');
   const mapped=pricingActivity('You are a construction estimator checking COMPLETE scope coverage.',input,false);
   assert.equal(mapped.phase,'mapping');assert.deepEqual(mapped.currentItems,['First-floor trim']);
-  assert.ok(!JSON.stringify(mapped).includes('85'));assert.ok(!JSON.stringify(mapped).includes('profit'));
+  assert.ok(!JSON.stringify(mapped).includes('unitCost'));assert.ok(!JSON.stringify(mapped).includes('financialConfig'));assert.deepEqual(mapped.currentItems,['First-floor trim']);
   assert.equal(pricingActivity('Research published construction average costs.',{tasks:input.taskBatch},true).phase,'research');
   const normalized=pricingActivity('Convert the supplied research report to the required JSON schema.',input,false);
   assert.equal(normalized.phase,'normalizing');assert.match(normalized.message,/Formatting the verified source evidence/);
