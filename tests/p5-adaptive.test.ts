@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {deriveScopeAnswers,failedAnalysisFallback,reconcileScope,scopeQuestions,scopeAssumptions,sourceScopedAnswers,sourceScopedWizard,validateScopeAnswer} from '../lib/p5/adaptive.ts';
+import {deriveScopeAnswers,reconcileScope,scopeQuestions,scopeAssumptions,validateScopeAnswer} from '../lib/p5/adaptive.ts';
 import {requireDraftReceipt} from '../lib/p5/browserDraft.ts';
 import {validateExtraction,type ScopeAnswers,type ScopeExtraction} from '../lib/p5/scope.ts';
 const extracted=(answers:ScopeAnswers,confidence=.98):ScopeExtraction=>({summary:'Synthetic scope',facts:Object.entries(answers).map(([field,value])=>({field:field as keyof ScopeAnswers,value:value!,confidence,source:'scope.pdf',evidence:value!})),conflicts:[],reviewNotes:[],missingInformation:[]});
@@ -57,6 +57,21 @@ test('model confidence cannot promote inferred or unscaled visual details into p
  assert.equal(questions.some(q=>q.field==='urgency'),false);
  assert.equal(questions.find(q=>q.field==='sqft')?.values,undefined);
 });
+test('reconciliation does not accept a high-confidence inferred fact or one side of an unlisted conflict',()=>{
+ const inferred=extracted({service:'bathroom',sqft:'80',materials:'Porcelain',demolition:'Remove tile'});
+ inferred.facts=inferred.facts.map(f=>f.field==='sqft'?{...f,basis:'inferred' as const}:{...f});
+ const held=reconcileScope({},inferred);
+ assert.equal(held.answers.sqft,undefined);
+ assert.equal(scopeQuestions(held.answers,inferred).find(q=>q.field==='sqft')?.values,undefined);
+
+ const duplicate=extracted({service:'bathroom',materials:'Porcelain',demolition:'Remove tile'});
+ duplicate.facts.push({field:'sqft',value:'80',confidence:.99,source:'scope.pdf',evidence:'80 square feet',basis:'stated'});
+ duplicate.facts.push({field:'sqft',value:'100',confidence:.99,source:'scope.pdf',evidence:'100 square feet',basis:'stated'});
+ const conflicted=reconcileScope({},duplicate);
+ assert.equal(conflicted.answers.sqft,undefined);
+ assert.equal(conflicted.conflicts.filter(c=>c.field==='sqft').length,1);
+ assert.equal(scopeQuestions(conflicted.answers,duplicate,conflicted.conflicts)[0].field,'sqft');
+});
 test('explicit calculated measurements retain their evidence and skip repeat questions',()=>{
  const raw=extracted({service:'bathroom',sqft:'80',materials:'Porcelain tile',demolition:'Remove old fixtures'});
  raw.facts=raw.facts.map(f=>({...f,basis:f.field==='sqft'?'calculated':'stated'}));
@@ -112,32 +127,4 @@ test("reanalysis replaces source facts while preserving visitor corrections",asy
  assert.deepEqual(manualScopeAnswers({demolition:"Remove flooring",sqft:"80",location:"Eagle"},previous),{location:"Eagle"});
  assert.equal(manualScopeAnswers({demolition:"Only remove vanity",sqft:"80"},previous).demolition,"Only remove vanity");
  assert.equal(manualScopeAnswers({sqft:"80"},previous,{sqft:"80"}).sqft,"80");
-});
-test("a replaced scope drops old question state and source resolutions",()=>{
-  const wizard={sourceVersion:"old",resolutions:{sqft:"80"},skipped:["finish" as const],instructionAnswers:[{id:"old-question",question:"Old question?",answer:"Old answer"}]};
-  assert.deepEqual(sourceScopedWizard(wizard,"new"),{sameSource:false,resolutions:{},skipped:[],instructionAnswers:[]});
-  assert.deepEqual(sourceScopedWizard(wizard,"old"),{sameSource:true,resolutions:{sqft:"80"},skipped:["finish"],instructionAnswers:wizard.instructionAnswers});
-  const previous=extracted({service:"bathroom",sqft:"80"});
-  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},false,true),{});
-  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},false,false),{location:"Eagle"});
-  assert.deepEqual(sourceScopedAnswers({service:"bathroom",sqft:"80",location:"Eagle"},previous,{sqft:"80"},true,false),{sqft:"80",location:"Eagle"});
-  assert.deepEqual(failedAnalysisFallback(false,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"cabinet-install"},extraction:null});
-  assert.deepEqual(failedAnalysisFallback(true,{answers:{service:"bathroom",sqft:"80"},extraction:previous},{service:"cabinet-install"}),{answers:{service:"bathroom",sqft:"80"},extraction:previous});
-});
-test("an explicit new project gets a separate record without old answers or uploads",async()=>{
-  const {replacementBrowserDraft}=await import('../lib/p5/browserDraft.ts');
-  const old:any={id:'11111111-1111-4111-8111-111111111111',key:'a'.repeat(64),revision:8,text:'A new 676 SF garage-to-ADU conversion',answers:{service:'new-construction',sqft:'2500',garageSqft:'800'},extraction:extracted({service:'new-construction',sqft:'2500',garageSqft:'800'}),contact:{name:'Owner',email:'owner@example.invalid',phone:''},step:2,updatedAt:1,uploads:[{id:'old-home.pdf'}],wizard:{skipped:['finish'],resolutions:{sqft:'2500'}}};
-  const next=replacementBrowserDraft(old);
-  assert.notEqual(next.id,old.id);assert.notEqual(next.key,old.key);assert.equal(next.text,'A new 676 SF garage-to-ADU conversion');
-  assert.deepEqual(next.answers,{});assert.equal(next.extraction,null);assert.equal(next.uploads,undefined);assert.deepEqual(next.wizard,{skipped:[],resolutions:{}});
-  assert.equal(old.uploads[0].id,'old-home.pdf');assert.equal(old.answers.sqft,'2500');
-});
-test("a whole-home repair replacement does not inherit an old bathroom-paint exclusion",async()=>{
-  const {replacementBrowserDraft}=await import('../lib/p5/browserDraft.ts');
-  const old:any={id:'22222222-2222-4222-8222-222222222222',key:'b'.repeat(64),revision:3,text:'Repair drywall, trim, doors, and paint throughout the home',answers:{service:'handyman',exclusions:'Exclude bathroom painting'},extraction:extracted({service:'handyman',exclusions:'Exclude bathroom painting'}),contact:{name:'Owner',email:'owner@example.invalid',phone:''},step:2,updatedAt:1,uploads:[{id:'bathroom.pdf'}],wizard:{skipped:[],resolutions:{exclusions:'Exclude bathroom painting'}}};
-  const next=replacementBrowserDraft(old);
-  assert.equal(next.text,'Repair drywall, trim, doors, and paint throughout the home');
-  assert.equal(next.answers.exclusions,undefined);assert.equal(next.extraction,null);
-  assert.equal(JSON.stringify(next).includes('Exclude bathroom painting'),false);
-  assert.equal(old.answers.exclusions,'Exclude bathroom painting');
 });

@@ -17,29 +17,6 @@ export function manualScopeAnswers(current:ScopeAnswers,previous:ScopeExtraction
   }
   return answers;
 }
-export function sourceScopedWizard(
-  wizard:{sourceVersion?:string;resolutions?:ScopeAnswers;skipped?:ScopeField[];instructionAnswers?:{id:string;question:string;answer:string}[]}|undefined,
-  version:string,
-){
-  const sameSource=wizard?.sourceVersion===version;
-  return {
-    sameSource,
-    resolutions:sameSource?wizard?.resolutions||{}:{},
-    skipped:sameSource?wizard?.skipped||[]:[],
-    instructionAnswers:sameSource?wizard?.instructionAnswers||[]:[],
-  };
-}
-export function sourceScopedAnswers(current:ScopeAnswers,previous:ScopeExtraction|null,resolutions:ScopeAnswers,sameSource:boolean,replacedScope:boolean){
-  if(replacedScope)return {};
-  return manualScopeAnswers(current,previous,sameSource?resolutions:{});
-}
-export function failedAnalysisFallback(
-  sameSource:boolean,
-  draft:{answers:ScopeAnswers;extraction:ScopeExtraction|null},
-  visitorAnswers:ScopeAnswers,
-){
-  return sameSource?draft:{answers:visitorAnswers,extraction:null};
-}
 /** Only arithmetic on explicit dimensions. Photos never supply an assumed scale. */
 export function deriveScopeAnswers(input:ScopeAnswers){
   const answers={...input};
@@ -49,8 +26,20 @@ export function deriveScopeAnswers(input:ScopeAnswers){
   }
   return answers;
 }
+/** A source fact may suppress a question only after local validation, with
+ * enough confidence to price it and without an unresolved field conflict.
+ * validateExtraction normally performs the same evidence/basis gating before
+ * this function is reached; keeping the guard here protects direct callers. */
+function isValidatedSuppliedFact(fact:ScopeExtraction['facts'][number],conflicts:ScopeConflict[]){
+  return Number.isFinite(fact.confidence)&&fact.confidence>=.85
+    &&Boolean(fact.value?.trim())
+    &&fact.basis!=='visual'&&fact.basis!=='inferred'
+    &&!validateAnswer(fact.field,fact.value)
+    &&!conflicts.some(conflict=>conflict.field===fact.field);
+}
 export function reconcileScope(current:ScopeAnswers,extraction:ScopeExtraction,resolutions:ScopeAnswers={}){
-  const normalized={...extraction,facts:extraction.facts.map(f=>({...f,value:current[f.field]&&sameAnswer(f.field,current[f.field]!,f.value)?current[f.field]!:f.value})),conflicts:extraction.conflicts.filter(c=>!resolutions[c.field]||!sameAnswer(c.field,resolutions[c.field]!,current[c.field]||''))};
+  const unresolvedConflicts=extraction.conflicts.filter(c=>!resolutions[c.field]||!sameAnswer(c.field,resolutions[c.field]!,current[c.field]||''));
+  const normalized={...extraction,facts:extraction.facts.filter(f=>isValidatedSuppliedFact(f,unresolvedConflicts)).map(f=>({...f,value:current[f.field]&&sameAnswer(f.field,current[f.field]!,f.value)?current[f.field]!:f.value})),conflicts:unresolvedConflicts};
   const resolvedFacts=normalized.facts.filter(f=>!resolutions[f.field]||!sameAnswer(f.field,resolutions[f.field]!,current[f.field]||''));
   const merged=mergeScopeFacts(current,{...normalized,facts:resolvedFacts});
   const answers=deriveScopeAnswers(merged.answers);
@@ -59,6 +48,10 @@ export function reconcileScope(current:ScopeAnswers,extraction:ScopeExtraction,r
     const calculated=deriveScopeAnswers({...current,sqft:''}).sqft;
     if(calculated&&!sameAnswer('sqft',current.sqft,calculated)&&!resolutions.sqft)conflicts.push({field:'sqft',values:[current.sqft,calculated],explanation:'The stated area differs from length multiplied by width. Which area is being estimated?'});
   }
+  // mergeScopeFacts detects duplicate high-confidence values while merging.
+  // Do not leave its first value in answers when no visitor answer exists:
+  // that would make a conflict look resolved on the next question pass.
+  for(const conflict of conflicts)if(!current[conflict.field]?.trim())delete answers[conflict.field];
   return {answers,conflicts};
 }
 const remodels=['kitchen','bathroom','whole-home'];
@@ -87,6 +80,19 @@ const detailQuestions:Partial<Record<ScopeField,string>>={
  bathrooms:'How many bathrooms are included?',
  stories:'How many stories are included?',
 };
+/** Everyday wording for one missing detail. Shared by the question flow and the missing-detail links shown after Get my estimate. */
+export function questionReason(field:ScopeField,answers:ScopeAnswers):string{
+  const service=answers.service||"";
+  if(field==="service")return "What would you like help with?";
+  if(field==="taskList")return "What work should be included? A short list with quantities is enough.";
+  if(field==="sqft")return builds.includes(service)?"About how many square feet of living space are included? Keep garage and outdoor areas separate.":"About how large is the area being worked on?";
+  if(field==="finish")return "What finish level would you like?";
+  return detailQuestions[field]||`What should we use for ${SCOPE_FIELDS[field].label.toLowerCase()}?`;
+}
+export function questionForField(field:ScopeField,answers:ScopeAnswers):ScopeQuestion{
+  const definition=SCOPE_FIELDS[field];
+  return {field,label:definition.label,reason:questionReason(field,answers),...(definition.kind==="choice"?{values:definition.options.filter(v=>field!=="service"||(ESTIMATOR_BRAND.services as readonly string[]).includes(v))}:{})};
+}
 export function scopeQuestions(input:ScopeAnswers,extraction:ScopeExtraction|null,conflicts:ScopeConflict[]=[],skipped:ScopeField[]=[],pricedFields:ScopeField[]=[]):ScopeQuestion[]{
   const answers=deriveScopeAnswers(input);
   const relevant=new Set<ScopeField>(['service',...materialScopeFields(answers,pricedFields),...pricedFields]);
