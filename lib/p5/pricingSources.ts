@@ -1,7 +1,7 @@
 import type {ReviewedScope} from './scope.ts';
 export function pricingScopeSource(scope:ReviewedScope){
   const extraction=scope.extraction?{...scope.extraction,takeoffs:scope.extraction.takeoffs?.filter(item=>item.selectionStatus!=='excluded-alternative')}:null;
-  return {text:scope.text,answers:scope.answers,extraction};
+  return {text:scope.text,answers:scope.answers,extraction,...(extraction?.sourceText?{sourceNotice:'sourceText retains the original native document text. Reconcile every included item, exclusion and responsibility against it; a shorter summary never removes source scope. User scope selections and exclusions define the requested subset. Missing numbers remain unknown.'}:{})};
 }
 /** Every character is covered. Overlap preserves sentences across boundaries;
  * inventory and the final audit reconcile repeated descriptions, not quantities.
