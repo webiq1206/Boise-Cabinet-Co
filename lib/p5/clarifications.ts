@@ -1,6 +1,7 @@
 import {atomicInstructionQuestions,textBenchTopChoices} from './atomicQuestions.ts';
 import type {ScopeAnswers,ScopeExtraction} from './scope.ts';
 import type {Takeoff} from './documentLedger.ts';
+import {typedHourAlternatives,TYPED_OPTIONS_SOURCE} from './typedAlternatives.ts';
 
 export interface InstructionAnswer {id:string;question:string;answer:string}
 export interface InstructionPrompt {id:string;question:string;detail?:string;values?:string[]}
@@ -13,7 +14,7 @@ const publicQuestion=(text:string)=>text
   .replace(/\b(?:alternativeOption|alternative_option)\b/gi,'option')
   .replace(/\btakeoffs?\b/gi,'work quantities');
 const serviceQuestion=(text:string)=>/which .*services|what .*remodel.*service|company.s scope|typical .*services|offered.*services|services.*offered|residential remodel|boise .*estimate|requested subset/i.test(text);
-export interface DocumentAlternativeGroup {id:string;label:string;options:{label:string;items:Takeoff[]}[]}
+export interface DocumentAlternativeGroup {id:string;label:string;sourceText?:string;options:{label:string;items:Takeoff[]}[]}
 const inferredBenchTop=(item:Takeoff)=>{
   const text=`${item.description} ${item.component} ${item.evidence}`;
   if(!/\b(?:bench ?top|counter ?top|work ?top|butcher block|laminate|quartz)\b/i.test(text))return '';
@@ -34,7 +35,7 @@ export function documentAlternativeGroups(extraction:ScopeExtraction|null):Docum
   for(const item of extraction?.takeoffs||[])if(!item.alternativeGroup){const option=inferredBenchTop(item);if(option)inferred.push([item,option]);}
   if(new Set(inferred.map(([,option])=>option)).size>1)for(const [item,option] of inferred)add('inferred:bench-top','Bench top option',option,item);
   const benchOrder=['Butcher block','Matching painted MDF/wood','Laminate','Quartz'];
-  return [...groups].map(([id,group])=>{
+  const documented=[...groups].map(([id,group])=>{
     const options=[...group.options].map(([label,items])=>({label,items}));
     options.sort((a,b)=>{
       const numbered=(value:string)=>Number(value.match(/\boption\s*(\d+)\b/i)?.[1]||0);
@@ -45,6 +46,8 @@ export function documentAlternativeGroups(extraction:ScopeExtraction|null):Docum
     });
     return {id,label:group.label,options};
   }).filter(group=>group.options.length>1);
+  const typed=(extraction?.facts||[]).filter(fact=>fact.source===TYPED_OPTIONS_SOURCE).flatMap(fact=>typedHourAlternatives(fact.value)).map(group=>({id:`typed:${questionKey(group.label)}`,label:group.label,sourceText:group.sourceText,options:group.options.map(option=>({label:`${option.label} (${option.hours} hours)`,items:[]}))}));
+  return [...documented,...typed.filter(group=>!documented.some(existing=>questionKey(existing.label).includes(questionKey(group.label))))];
 }
 export function alternativeGroupForQuestion(extraction:ScopeExtraction|null,question:string){
   const q=questionKey(question),words=new Set(q.split(' ').filter(word=>word.length>2));
@@ -79,6 +82,6 @@ export function instructionPrompts(extraction:ScopeExtraction|null,answers:Scope
 export function clarificationContext(extraction:ScopeExtraction,question:string,answer:string){
   return JSON.stringify({
     task:'Resolve only this answered scope question using the answer below. Return the complete updated instructions, preserving every unrelated inclusion, exclusion, responsibility, building and floor. Remove this question when answered. Never ask it again because a page was not reuploaded. This is a clarification of a document review already completed. Do not produce page records, takeoffs, or unreadable-file notes. If the answer is insufficient, return one short, specific follow-up explaining the missing decision.',
-    previousInstructions:extraction.instructions,question,answer,
+    previousInstructions:extraction.instructions,retainedScopeFacts:extraction.facts,question,answer,
   });
 }

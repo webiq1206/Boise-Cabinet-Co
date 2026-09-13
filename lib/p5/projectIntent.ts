@@ -1,4 +1,5 @@
 import type {ScopeAnswers,ScopeExtraction} from './scope';
+import {retainTypedAlternatives} from './typedAlternatives.ts';
 /** An explicit current request wins over the Cabinet page's historical supply-only default. */
 export function cabinetIntent(text:string,services:readonly string[]):'cabinet-install'|'cabinet-product'|undefined{
   if(!services.includes('cabinet-install')||!services.includes('cabinet-product')||!/\b(?:cabinets?|vanity)\b/i.test(text))return;
@@ -8,6 +9,7 @@ export function cabinetIntent(text:string,services:readonly string[]):'cabinet-i
   return withInstall?'cabinet-install':'cabinet-product';
 }
 export function applyCabinetIntent(text:string,services:readonly string[],answers:ScopeAnswers,extraction?:ScopeExtraction){
+  if(extraction)extraction=retainTypedAlternatives(text,extraction);
   const service=cabinetIntent(text,services);
   if(!service)return {answers,extraction};
   return {answers:{...answers,service},extraction:extraction?{...extraction,facts:[...extraction.facts.filter(f=>f.field!=='service'),{field:'service' as const,value:service,confidence:1,source:'typed scope',evidence:text.slice(0,4000),basis:'stated' as const}],conflicts:extraction.conflicts.filter(c=>c.field!=='service')}:undefined};

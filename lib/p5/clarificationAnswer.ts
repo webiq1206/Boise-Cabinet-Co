@@ -10,7 +10,7 @@ const cabinetTop=(value:string)=>/\b(?:bench ?top|counter ?top|work ?top|butcher
 const explicitZero=(value:string)=>/\b(?:0|zero|no)\s+(?:linear feet\s+of\s+)?(?:tall|base|upper|wall)\s+cabinets?\b/i.test(value);
 const numberValue=(value:string)=>({one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10}[value.toLowerCase() as 'one']||Number(value));
 const optionMention=(text:string,label:string)=>{
-  const words=normalized(label).split(' ').filter(word=>word.length>2&&!['option','matching','painted','bench','top'].includes(word));
+  const words=normalized(label.replace(/\(\d+(?:\.\d+)? hours?\)/gi,'')).split(' ').filter(word=>word.length>2&&!['option','matching','painted','bench','top'].includes(word));
   return words.length>0&&words.every(word=>normalized(text).includes(word));
 };
 function answerSelection(group:DocumentAlternativeGroup,answer:string){
@@ -69,9 +69,11 @@ export function applyAlternativeSelection(extraction:ScopeExtraction,answers:Sco
   }else delete nextAnswers.laborHours;
   nextAnswers.materials=[preserveUnrelated(nextAnswers.materials),selected.label].filter(Boolean).join('; ');
   nextAnswers.alternates=[preserveUnrelated(nextAnswers.alternates),`Selected ${selected.label}.`].filter(Boolean).join(' ');
+  if(group.sourceText)nextAnswers.estimatingInstructions=[nextAnswers.estimatingInstructions,`Selected ${group.label}: ${selected.label}. Exclude the unselected alternatives: ${removed.map(option=>option.label).join(', ')}. Retain all other project work.`].filter(Boolean).join('\n\n');
   const cabinetMatch=answer.match(/\b(one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+cabinet units?\b/i);
   const hardwareMatch=answer.match(/\b(one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+(?:knobs?\s*\/\s*pulls?|knobs?\s+and\s+pulls?|knobs?|pulls?)\b/i);
   const taskLines=included.map(item=>`${item.description}: ${item.quantity??'quantity to confirm'} ${item.unit}`);
+  if(group.sourceText)taskLines.push(`Selected ${group.label}: ${selected.label}`);
   if(cabinetMatch&&!included.some(item=>item.quantity===numberValue(cabinetMatch[1])&&!hourUnit(item.unit)&&/\bcabinet\b/i.test(item.description+' '+item.component)))taskLines.push(`Cabinet units: ${numberValue(cabinetMatch[1])} each`);
   if(hardwareMatch&&!included.some(item=>item.quantity===numberValue(hardwareMatch[1])&&!hourUnit(item.unit)&&/\b(?:knob|pull|hardware)\b/i.test(item.description+' '+item.component)))taskLines.push(`Knobs/pulls: ${numberValue(hardwareMatch[1])} each`);
   const retainedTasks=(nextAnswers.taskList||'').split('\n').map(line=>line.trim()).filter(line=>line&&!mentionsOption(line));
@@ -80,7 +82,7 @@ export function applyAlternativeSelection(extraction:ScopeExtraction,answers:Sco
     const retainedFixtures=(nextAnswers.fixtures||'').split(/[;\n]+/).map(part=>part.trim()).filter(part=>part&&!/\b(?:knob|pull|cabinet hardware)\b/i.test(part));
     nextAnswers.fixtures=[...retainedFixtures,`${numberValue(hardwareMatch[1])} knobs/pulls`].join('; ');
   }
-  const selectedEvidence=[...new Set(selected.items.flatMap(item=>item.sources.map(source=>`${source.source} page ${source.page}`)))].join(', ');
+  const selectedEvidence=group.sourceText||[...new Set(selected.items.flatMap(item=>item.sources.map(source=>`${source.source} page ${source.page}`)))].join(', ');
   safeFacts.push({field:'materials',value:selected.label,confidence:1,source:'clarification answer',evidence:`Selected ${selected.label} from ${selectedEvidence}.`,basis:'stated'});
   safeFacts.push({field:'alternates',value:nextAnswers.alternates,confidence:1,source:'clarification answer',evidence:`Selected option from ${selectedEvidence}.`,basis:'stated'});
   safeFacts.push({field:'taskList',value:nextAnswers.taskList,confidence:1,source:'selected document option',evidence:`Selected option work retained from ${selectedEvidence}; unselected option takeoffs preserved as inactive source history.`,basis:'calculated'});

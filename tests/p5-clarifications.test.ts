@@ -8,7 +8,30 @@ import {emptyInstructions} from '../lib/p5/instructions.ts';
 import {scopeQuestions} from '../lib/p5/adaptive.ts';
 import type {ScopeExtraction} from '../lib/p5/scope.ts';
 import {pricingScopeSource} from '../lib/p5/pricingSources.ts';
+import {retainTypedAlternatives,typedHourAlternatives} from '../lib/p5/typedAlternatives.ts';
 const scope=():ScopeExtraction=>({summary:'Trim scope',facts:[],conflicts:[],reviewNotes:[],missingInformation:[],instructions:{...emptyInstructions(),inclusions:['Trim'],exclusions:['Plumbing'],questions:['Labor only or materials only?','Should we include or exclude painting?']},documentCoverage:{expectedPages:80,complete:true,pages:[]},takeoffs:[]});
+
+test('typed option hours survive provider omission and selecting one advances without another provider call',async()=>{
+ const source='Supply and install two cabinets with 9 knobs. Assembly is 2 hours and cabinet installation is 8 hours. Choose one bench top: butcher block 5 hours, painted MDF/wood 4 hours, laminate 2 hours, quartz 5 hours. Cabinet lengths have not been measured. Exclude plumbing and electrical.';
+ const extraction=retainTypedAlternatives(source,{...scope(),documentCoverage:undefined,instructions:{...emptyInstructions(),questions:[]}});
+ assert.match(extraction.facts[0].value,/butcher block 5 hours, painted MDF\/wood 4 hours, laminate 2 hours, quartz 5 hours/);
+ const prompt=instructionPrompts(extraction,{})[0];assert.equal(prompt.question,'Which bench top should we include?');
+ assert.deepEqual(prompt.values,['butcher block (5 hours)','painted MDF/wood (4 hours)','laminate (2 hours)','quartz (5 hours)']);
+ const {resolveInstructionAnswer}=await resolver();let calls=0;
+ const request:typeof fetch=async()=>{calls++;throw new Error('No provider needed for an explicit selection');};
+ const result=await resolveInstructionAnswer(extraction,{service:'cabinet-install',installation:'Assembly 2 hours; cabinet installation 8 hours',fixtures:'9 knobs'}, {id:prompt.id,answer:'painted MDF/wood'},[],request);
+ assert.equal(calls,0);assert.equal(instructionPrompts(result.extraction,result.answers).length,0);
+ assert.match(result.answers.taskList||'',/painted MDF\/wood \(4 hours\)/);
+ assert.match(result.answers.estimatingInstructions||'',/Exclude the unselected alternatives: butcher block \(5 hours\), laminate \(2 hours\), quartz \(5 hours\)/);
+ assert.equal(result.answers.installation,'Assembly 2 hours; cabinet installation 8 hours');assert.equal(result.answers.fixtures,'9 knobs');
+ assert.equal(result.answers.laborHours,undefined);assert.equal(result.extraction?.documentCoverage,undefined);
+ const repeated=await resolveInstructionAnswer(result.extraction,result.answers,{id:prompt.id,answer:'painted MDF/wood'},result.history,request);assert.equal(repeated.history.length,1);assert.equal(calls,0);
+});
+test('typed option retention respects decimals and refuses unmeasured or additive hours',()=>{
+ assert.deepEqual(typedHourAlternatives('Choose one top: oak 2.5 hours, maple 3.75 hours. Exclude plumbing.')[0].options.map(option=>option.hours),[2.5,3.75]);
+ assert.equal(typedHourAlternatives('Choose one top: oak hours TBD, maple 3 hours.').length,0);
+ assert.equal(typedHourAlternatives('Include oak 2 hours, maple 3 hours.').length,0);
+});
 
 test('legacy paragraphs become distinct, concise questions and exact duplicates collapse',()=>{
   const e=scope();e.instructions!.questions=['Labor only or materials only? Should we include or exclude painting?','Labor only or materials only?'];

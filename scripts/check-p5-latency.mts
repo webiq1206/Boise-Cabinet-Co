@@ -8,6 +8,7 @@ import {reconcileScope,scopeQuestionsForBrand as scopeQuestions} from '../lib/p5
 import {applyCabinetIntent} from '../lib/p5/projectIntent.ts';
 import {SCOPE_FIELDS} from '../lib/p5/scope.ts';
 import {ESTIMATOR_BRAND} from '../lib/p5/brand.ts';
+import {applyAlternativeSelection} from '../lib/p5/clarificationAnswer.ts';
 const index=process.argv.indexOf('--file');
 const filename=index>=0?process.argv[index+1]:'';
 const files=filename?[{name:'Acceptance scope.pdf',type:'application/pdf',data:await readFile(filename)}]:[];
@@ -40,4 +41,9 @@ const questions=scopeQuestions(merged.answers,extraction,merged.conflicts);
 const expectedPages=files.length?(await PDFDocument.load(files[0].data)).getPageCount():0;
 const report={brand:ESTIMATOR_BRAND.id,elapsedMs,under60Seconds:elapsedMs<60000,provider:result.provider,model:result.model,input:files.length?{bytes:files[0].data.length,sha256:createHash('sha256').update(files[0].data).digest('hex'),expectedPages}:{typedFixture:true},readPages:extraction.documentCoverage?.pages.filter(p=>p.status==='read').length||0,complete:files.length?Boolean(extraction.documentCoverage?.complete)&&extraction.documentCoverage?.expectedPages===expectedPages:true,takeoffCount:extraction.takeoffs?.length||0,retainedOptions:{facts:extraction.facts.filter(f=>['alternates','installation','laborHours','taskList','materials'].includes(f.field)).map(({field,value,basis})=>({field,value,basis})),items:extraction.takeoffs?.filter(item=>('alternativeGroup' in item&&item.alternativeGroup)||/\b(?:option|alternate|bench.?top)\b/i.test(item.description)).map(({description,quantity,unit,basis,issues})=>({description,quantity,unit,basis,issues}))||[],questions:extraction.instructions?.questions||[]},unresolvedNotes:extraction.reviewNotes,answers:Object.fromEntries(Object.entries(merged.answers).filter(([key])=>!['address','location'].includes(key))),firstQuestion:questions[0]||null,questionCount:questions.length};
 console.log(JSON.stringify(report,null,2));
+if(!files.length&&questions[0]?.instructionId&&questions[0].values?.some(value=>/painted MDF\/wood.*4 hours/i.test(value))){
+ const selected=applyAlternativeSelection(extraction,merged.answers,questions[0].reason,'painted MDF/wood');
+ console.log(JSON.stringify({selectionCheck:{handled:selected.handled,ambiguous:selected.ambiguous,selectedTasks:selected.answers.taskList,instructions:selected.answers.estimatingInstructions,nextQuestion:scopeQuestions(selected.answers,selected.extraction,selected.extraction.conflicts)[0]||null}},null,2));
+ if(!selected.handled||selected.ambiguous||!/painted MDF\/wood \(4 hours\)/.test(selected.answers.taskList||''))process.exitCode=1;
+}
 if(!report.under60Seconds||!report.complete)process.exitCode=1;
