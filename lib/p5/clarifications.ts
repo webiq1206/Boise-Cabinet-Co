@@ -1,3 +1,4 @@
+import {atomicInstructionQuestions,textBenchTopChoices} from './atomicQuestions.ts';
 import type {ScopeAnswers,ScopeExtraction} from './scope.ts';
 import type {Takeoff} from './documentLedger.ts';
 
@@ -58,7 +59,7 @@ export function alternativeGroupForQuestion(extraction:ScopeExtraction|null,ques
 export function instructionPrompts(extraction:ScopeExtraction|null,answers:ScopeAnswers):InstructionPrompt[]{
   const result:InstructionPrompt[]=[];
   for(const raw of extraction?.instructions?.questions||[]){
-    for(const part of raw.match(/[^?]+\??/g)||[]){
+    for(const part of (raw.match(/[^?]+\??/g)||[]).flatMap(part=>atomicInstructionQuestions(part,answers,extraction?.conflicts))){
       const full=publicQuestion(part.replace(/\s+/g,' ').trim());if(!full)continue;
       // Filter each question separately so a legacy paragraph cannot lose a real scope decision.
       if(serviceQuestion(full))continue;
@@ -68,7 +69,7 @@ export function instructionPrompts(extraction:ScopeExtraction|null,answers:Scope
       const alternatives=alternativeGroupForQuestion(extraction,full);
       const values=alternatives?.options.map(option=>option.label)||(/labor.only/i.test(full)&&/materials.only/i.test(full)?['Labor only','Materials only','Labor and materials']:
         /include or exclude|include.*or.*exclude/i.test(full)?['Include it','Exclude it']:undefined);
-      result.push({id,question,...(question!==full?{detail:full}:{}),values});
+      result.push({id,question,...(question!==full?{detail:full}:{}),values:values?.length?values:textBenchTopChoices(extraction,full)});
     }
   }
   return result;
