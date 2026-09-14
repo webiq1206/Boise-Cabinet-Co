@@ -508,6 +508,7 @@ export function ConsultationFields({
         track("form_completed", { form: "consultation" });
         trackGoogleAdsLeadOnce(
           result.submissionId || metaEventIdRef.current || "",
+          { projectType: String(form.getValues("projectType") ?? "") },
         );
         // Meta conversion: the consultation request is the site's primary Lead.
         // Pass the shared event ID so this browser event dedupes with the

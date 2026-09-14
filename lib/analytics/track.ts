@@ -8,10 +8,10 @@
  * document contents. Pass identifiers and categories only (e.g. a project
  * type, a step name, a boolean), never free-text user input.
  */
+import { googleAdsLeadParams, type LeadContext } from "@/lib/googleAdsConversion";
+
 export type TrackParams = Record<string, string | number | boolean | undefined>;
 
-const GOOGLE_ADS_LEAD_DESTINATION =
-  "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
 const sentGoogleAdsLeadIds = new Set<string>();
 
 export function track(eventName: string, params?: TrackParams): void {
@@ -32,7 +32,10 @@ export function track(eventName: string, params?: TrackParams): void {
  * server-accepted consultation. The opaque submission id is used only for
  * browser-side deduplication and is never included in analytics parameters.
  */
-export function trackGoogleAdsLeadOnce(submissionId: string): boolean {
+export function trackGoogleAdsLeadOnce(
+  submissionId: string,
+  context: LeadContext = {},
+): boolean {
   if (typeof window === "undefined" || !submissionId) return false;
 
   const storageKey = `google_ads_lead:${submissionId}`;
@@ -52,8 +55,8 @@ export function trackGoogleAdsLeadOnce(submissionId: string): boolean {
   } catch {
     // The in-memory guard still prevents duplicate callbacks in this page load.
   }
-  gtag("event", "conversion", {
-    send_to: GOOGLE_ADS_LEAD_DESTINATION,
-  });
+  // Value is the per-lead estimate for the campaign that brought the visitor
+  // (see lib/googleAdsConversion.ts); no PII is included.
+  gtag("event", "conversion", googleAdsLeadParams(context, submissionId));
   return true;
 }
