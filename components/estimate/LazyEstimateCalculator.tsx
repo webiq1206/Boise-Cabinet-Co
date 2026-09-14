@@ -52,7 +52,7 @@ export function LazyEstimateCalculator() {
   }
 
   if (show) {
-    return <Section id="calculator" divider><EstimateCalculator inModal headingAs="h2" sectionId={null} /></Section>;
+    return <Section id="calculator" divider><EstimateCalculator headingAs="h2" sectionId={null} /></Section>;
   }
 
   return (

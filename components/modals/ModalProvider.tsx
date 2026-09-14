@@ -1,13 +1,6 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { EstimateCalculator } from "@/components/EstimateCalculator";
 
 interface ModalsContextValue {
@@ -47,28 +40,11 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     <ModalsContext.Provider value={{ openConsult, openEstimate, close }}>
       {children}
 
-      <Dialog open={open} onOpenChange={(v) => !v && close()}>
-        {/* Bounded flex column so the estimator fills exactly the dialog and pins
-            its own CTA - the quote flow never scrolls the page or the dialog. On
-            mobile the sheet starts just below the sticky site header (so its title
-            is never clipped behind the nav) and fills the rest of the screen; on
-            desktop it is a centered, capped-height card. */}
-        <DialogContent className="flex max-w-4xl w-[100vw] sm:w-[95vw] flex-col overflow-hidden rounded-none p-4 sm:rounded-lg sm:p-6 top-[var(--app-header-h,61px)] !translate-y-0 h-[calc(100dvh-var(--app-header-h,61px))] sm:!top-1/2 sm:!-translate-y-1/2 sm:h-[min(88dvh,720px)]">
-          <DialogHeader className="shrink-0">
-            <DialogTitle className="font-sans font-light text-xl text-foreground">
-              Get your free quote
-            </DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">
-              Build your planning range in about two minutes, then book a free in-home visit.
-              No obligation, no spam.
-            </DialogDescription>
-          </DialogHeader>
-          {/* Remount per open so the deep-link step + saved progress apply cleanly. */}
-          <div className="min-h-0 flex-1">
-            {open && <EstimateCalculator inModal startStep={startStep} />}
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* The estimator is its own full-screen experience beneath the site
+          header, not a form inside a dialog: it owns the screen with its own
+          scroll area and bottom-anchored input, and Exit returns here. Saved
+          progress resumes on its own. */}
+      {open && <EstimateCalculator inModal sectionId="estimate-modal" onExit={close} startStep={startStep} />}
     </ModalsContext.Provider>
   );
 }
