@@ -29,6 +29,8 @@ test('typed scope reaches review and submission without repeating known details'
  await est.getByLabel('Email',{exact:true}).fill('qa@example.invalid');
  await est.getByRole('checkbox').check();
  await est.getByRole('button',{name:'Get my estimate',exact:true}).click();
- await expect(est.getByText('Schedule a scope review.',{exact:true})).toBeVisible();
+ await expect(est.getByRole('heading',{name:'Your project estimate',exact:true})).toBeVisible();
+ await expect(est.getByRole('heading',{name:'$1,000 to $1,800',exact:true})).toBeVisible();
+ await expect(est.getByText('Synthetic test range.',{exact:true})).toBeVisible();
  expect(submissions).toBe(1);
 });
