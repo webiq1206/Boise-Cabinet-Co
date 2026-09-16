@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -41,14 +42,14 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
   const params = await props.params;
   const city = getCityBySlug(params.city);
   if (!city) return {};
-  return buildPageMetadata({
+  return withBrandPageMetadata(await (buildPageMetadata({
     kind: "area",
     path: locationPath(city.slug),
     cityName: city.name,
     citySlug: city.slug,
     titleOverride: `Custom Cabinets in ${city.name}, Idaho`,
     descriptionOverride: `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
-  });
+  })), "/locations/[city]");
 }
 
 export default async function LocationPage(props: { params: Promise<{ city: string }> }) {

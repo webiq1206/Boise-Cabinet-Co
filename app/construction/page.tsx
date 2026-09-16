@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -41,13 +42,13 @@ const STANDARDS = [
   },
 ];
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/construction",
   "Frameless Cabinet Construction",
   catalogDescription(
     "How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
   ),
-);
+)), "/construction");
 
 export default function ConstructionPage() {
   const schemas = [

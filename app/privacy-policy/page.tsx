@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
@@ -5,7 +6,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withBrandPageMetadata(({
   title: { absolute: "Privacy Policy | Boise Cabinet Co" },
   description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Meridian & Boise, Idaho.",
   alternates: {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
     images: ["/images/marketing/og-default.png"],
   },
-};
+}), "/privacy-policy");
 
 export default function PrivacyPolicyPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([

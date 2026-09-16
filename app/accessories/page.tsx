@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -15,13 +16,13 @@ import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/accessories",
   "Cabinet Accessories",
   catalogDescription(
     "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. Accessory families for interior upgrades.",
   ),
-);
+)), "/accessories");
 
 export default function AccessoriesPage() {
   const schemas = [

@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -12,13 +13,13 @@ import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { PROJECTS } from '@/shared/galleryData';
 import { CtaButton } from '@/components/modals/CtaButton';
 
-export const metadata = buildPageMetadata({
+export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
   path: '/testimonials',
   titleOverride: 'Projects & Reviews',
   descriptionOverride:
     'See Treasure Valley custom cabinet projects and read reviews from Boise Cabinet Co homeowners. Kitchen, bath, closet, and built-in cabinetry.',
-});
+})), "/testimonials");
 
 export default function TestimonialsPage() {
   const galleryHasConcept = PROJECTS.some((p) => p.kind === 'concept');

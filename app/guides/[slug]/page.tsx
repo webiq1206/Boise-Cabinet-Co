@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
@@ -31,7 +32,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const params = await props.params;
   const guide = getGuideBySlug(params.slug);
-  if (!guide) return { title: 'Guide Not Found' };
+  if (!guide) return withBrandPageMetadata(await ({ title: 'Guide Not Found' }), "/guides/[slug]");
 
   const rawTitle = guide.seoTitle || guide.title;
   const brandSuffix = ' | Boise Cabinet Co';
@@ -50,7 +51,7 @@ export async function generateMetadata(
     ? getAbsoluteImageUrl(`/images/og/${guide.slug}.jpg`, getBaseUrl())
     : imageUrl;
 
-  return {
+  return withBrandPageMetadata(await ({
     title,
     description,
     alternates: { canonical: buildCanonical(guidePath(guide.slug)) },
@@ -70,7 +71,7 @@ export async function generateMetadata(
       description,
       images: [shareImageUrl],
     },
-  };
+  }), "/guides/[slug]");
 }
 
 function formatDate(dateString: string): string {

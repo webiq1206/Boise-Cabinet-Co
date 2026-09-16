@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
@@ -9,12 +10,12 @@ import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata } from "@/lib/catalog-metadata";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/dealer",
   "Dealer Catalog | {company}",
   "{company} catalog reference for authorized dealers.",
   { noindex: true },
-);
+)), "/dealer");
 
 export default function DealerPortalPage() {
   return (
