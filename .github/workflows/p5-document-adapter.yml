@@ -43,7 +43,10 @@ jobs:
           set -o pipefail
           npm run build 2>&1 | tee document-adapter-verification/build.log
       - name: Confirm maintained source remains unchanged
-        run: git diff --exit-code
+        run: |
+          # Existing prebuild scripts regenerate these assets, including PDF timestamps.
+          # Keep every maintained source file protected against test-time mutation.
+          git diff --exit-code -- . ':(exclude)public/downloads/*.pdf' ':(exclude)public/images/blog/cabinet-company-red-flags.webp' ':(exclude)public/images/blog/cabinet-project-process-guide.webp' ':(exclude)public/images/blog/custom-cabinet-design-process.webp' ':(exclude)public/images/blog/custom-cabinet-shop-vs-big-box.webp' ':(exclude)public/images/blog/outdoor-bar-cabinet-storage.webp' ':(exclude)public/images/blog/outdoor-cabinet-roi.webp' ':(exclude)shared/generated/imageBlur.ts' ':(exclude)shared/generated/projects.generated.ts'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
