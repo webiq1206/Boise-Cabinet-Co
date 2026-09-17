@@ -85,9 +85,7 @@ export function Navigation() {
       return;
     }
     setPastHero(false);
-    const ob = new IntersectionObserver(([entry]) => setPastHero(!entry.isIntersecting), {
-      threshold: 0,
-    });
+    const ob = new IntersectionObserver(([entry]) => setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0), { threshold: 0 });
     ob.observe(sentinel);
     return () => ob.disconnect();
   }, [pathname]);
