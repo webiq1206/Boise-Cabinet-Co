@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from "next";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -7,7 +8,7 @@ import { getSiteUrlGroups } from "@/lib/siteUrls";
 
 const DESCRIPTION = `Every page on the ${SITE_CONFIG.name} website in one place: cabinets by room, service areas, guides, and articles.`;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withBrandPageMetadata(({
   title: { absolute: `Site Map | ${SITE_CONFIG.name}` },
   description: DESCRIPTION,
   alternates: { canonical: buildCanonical("/sitemap") },
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     images: [{ url: "/images/marketing/og-default.png", width: 1200, height: 630, alt: `${SITE_CONFIG.name} custom cabinets` }],
   },
   twitter: { card: "summary_large_image", title: `Site Map | ${SITE_CONFIG.name}`, description: DESCRIPTION, images: ["/images/marketing/og-default.png"] },
-};
+}), "/sitemap");
 
 /**
  * The HTML sitemap: a page of real followed links, so every public URL is

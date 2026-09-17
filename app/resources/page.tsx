@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Download, FileText, Workflow } from 'lucide-react';
@@ -8,13 +9,13 @@ import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
 import { generateWebPageSchema, generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
 
-export const metadata: Metadata = buildPageMetadata({
+export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'blog',
   path: '/resources',
   titleOverride: 'Cabinet Planning Resources',
   descriptionOverride:
     'Free PDF worksheets and visual guides for Treasure Valley cabinet planning: budget worksheet, kitchen and bath checklist, Ada vs Canyon permits.',
-});
+})), "/resources");
 
 export default function ResourcesIndexPage() {
   const pdfs = ALL_RESOURCES_LIST.filter((r) => r.kind === 'pdf');

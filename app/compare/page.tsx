@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Check, X } from "lucide-react";
@@ -21,13 +22,13 @@ import {
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { cn } from "@/lib/utils";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/compare",
   "Compare Collections",
   catalogDescription(
     "How {company} builds Custom Cabinets to your exact sizes, finishes, and details.",
   ),
-);
+)), "/compare");
 
 const FINISH_ROW_IMAGES: Record<string, string> = {
   "matte-finishes": "/images/catalog/finishes/category-matte.webp",

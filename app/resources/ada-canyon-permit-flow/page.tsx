@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
@@ -8,13 +9,13 @@ import { CtaButton } from '@/components/modals/CtaButton';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { generateWebPageSchema, generateBreadcrumbSchema, generateArticleSchema } from '@/lib/schema';
 
-export const metadata: Metadata = buildPageMetadata({
+export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'blog',
   path: '/resources/ada-canyon-permit-flow',
   titleOverride: 'Ada vs Canyon County Permit Flow',
   descriptionOverride:
     'Visual guide to cabinet and trade permits in Ada and Canyon County, jurisdiction, review steps, and inspections for Treasure Valley homeowners.',
-});
+})), "/resources/ada-canyon-permit-flow");
 
 export default function AdaCanyonPermitFlowPage() {
   const webPageSchema = generateWebPageSchema({

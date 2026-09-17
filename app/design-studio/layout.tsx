@@ -1,13 +1,14 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DESIGN_STUDIO_ENABLED } from "@/shared/featureFlags";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withBrandPageMetadata(({
   title: "Design Studio",
   description: "Configure your custom cabinet design with Boise Cabinet Co.",
   alternates: { canonical: "/design-studio" },
   robots: { index: false, follow: false },
-};
+}), "__layout__");
 
 export default function DesignStudioLayout({ children }: { children: React.ReactNode }) {
   // Hidden while the studio is rebuilt. Enable locally via

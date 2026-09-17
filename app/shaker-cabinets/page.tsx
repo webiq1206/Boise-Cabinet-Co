@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Link from "next/link";
 import Image from "next/image";
 import { getDoorStyleImages } from "@/shared/catalog";
@@ -18,13 +19,13 @@ import {
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/shaker-cabinets",
   "Shaker Cabinets",
   catalogDescription(
     "Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction.",
   ),
-);
+)), "/shaker-cabinets");
 
 /** The four shaker profiles we build, each with its own detail page. */
 const PROFILES = [

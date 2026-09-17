@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import fs from "fs";
 import path from "path";
 import { Metadata } from "next";
@@ -35,7 +36,7 @@ export async function generateMetadata(
   const post = BLOG_POSTS.find((p) => p.slug === params.slug);
 
   if (!post) {
-    return { title: "Post Not Found" };
+    return withBrandPageMetadata(await ({ title: "Post Not Found" }), "/blog/[slug]");
   }
 
   const rawTitle = post.seoTitle || post.title;
@@ -56,7 +57,7 @@ export async function generateMetadata(
     ? getAbsoluteImageUrl(`/images/og/${post.slug}.jpg`, getBaseUrl())
     : imageUrl;
 
-  return {
+  return withBrandPageMetadata(await ({
     title,
     description,
     alternates: {
@@ -78,7 +79,7 @@ export async function generateMetadata(
       description,
       images: [shareImageUrl],
     },
-  };
+  }), "/blog/[slug]");
 }
 
 function formatDate(dateString: string): string {

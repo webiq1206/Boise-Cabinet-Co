@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
@@ -5,7 +6,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withBrandPageMetadata(({
   title: { absolute: "Terms of Service | Boise Cabinet Co" },
   description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Meridian & Boise, Idaho.",
   alternates: {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
     images: ["/images/marketing/og-default.png"],
   },
-};
+}), "/terms-of-service");
 
 export default function TermsOfServicePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([

@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Metadata } from "next";
 import { BlogIndexClient } from "@/components/marketing/BlogIndexClient";
 import { buildPageMetadata } from "@/lib/page-metadata";
@@ -8,10 +9,10 @@ import {
 } from "@/lib/schema";
 import { BLOG_POSTS } from "@/shared/blogContent";
 
-export const metadata: Metadata = buildPageMetadata({
+export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "blog",
   path: "/blog",
-});
+})), "/blog");
 
 export default function BlogPage() {
   const webPageSchema = generateWebPageSchema({

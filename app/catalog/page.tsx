@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { Download } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -17,7 +18,7 @@ import {
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/catalog",
   "Full Cabinet Catalog",
   catalogDescription(
@@ -33,7 +34,7 @@ export const metadata = catalogMetadata(
       alt: "Boise Cabinet Co full cabinet catalog cover",
     },
   },
-);
+)), "/catalog");
 
 const CATALOG_PDF_PATH = "/downloads/boise-cabinet-catalog.pdf";
 

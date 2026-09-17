@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { FAQSection } from "@/components/FAQSection";
 import { LazyEstimateCalculator } from "@/components/estimate/LazyEstimateCalculator";
 import { ConsultationForm } from "@/components/ConsultationForm";
@@ -19,7 +20,7 @@ import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata = buildPageMetadata({ kind: "home", path: "/" });
+export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home", path: "/" })), "/");
 
 export default function HomePage() {
   return (

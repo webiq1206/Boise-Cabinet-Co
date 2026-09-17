@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {useMobileActionVisibility} from "@/hooks/use-mobile-action-visibility";
 import { useFormInView } from "@/hooks/use-form-in-view";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,21 +75,7 @@ export function Navigation() {
     return () => window.removeEventListener("wizardmobilebar", sync);
   }, []);
 
-  // Hide the sticky bar until the hero scrolls out of view. Pages with no
-  // hero (most interior pages) never find the sentinel, so they keep the
-  // bar visible from first paint, same as today.
-  const [pastHero, setPastHero] = useState(true);
-  useEffect(() => {
-    const sentinel = document.getElementById("hero-sentinel");
-    if (!sentinel || typeof IntersectionObserver === "undefined") {
-      setPastHero(true);
-      return;
-    }
-    setPastHero(false);
-    const ob = new IntersectionObserver(([entry]) => setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0), { threshold: 0 });
-    ob.observe(sentinel);
-    return () => ob.disconnect();
-  }, [pathname]);
+  const pastHero=useMobileActionVisibility(pathname);
 
   // Hide the sticky bar while an on-page final CTA (marked
   // data-suppress-sticky-cta) is in view, so the two never compete.
@@ -423,9 +410,9 @@ export function Navigation() {
           <a
             href={SITE_CONFIG.phoneHref}
             aria-label={`Call us at ${SITE_CONFIG.phone}`}
-            className="flex min-h-14 w-14 shrink-0 items-center justify-center rounded-sm border border-border text-foreground hover-elevate active-elevate-2"
+            className="flex min-h-14 w-[76px] shrink-0 flex-col gap-1 items-center justify-center rounded-sm border border-border text-foreground hover-elevate active-elevate-2"
           >
-            <Phone className="h-5 w-5" strokeWidth={1.5} />
+            <Phone className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Call</span>
           </a>
           <button
             type="button"

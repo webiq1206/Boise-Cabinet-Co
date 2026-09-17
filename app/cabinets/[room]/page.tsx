@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -96,13 +97,13 @@ export async function generateMetadata(props: { params: Promise<{ room: string }
   const params = await props.params;
   const room = getRoomBySlug(params.room);
   if (!room) return {};
-  return catalogMetadata(
+  return withBrandPageMetadata(await (catalogMetadata(
     `/cabinets/${room.slug}`,
     `${seoName(room)} Cabinets`,
     catalogDescription(
       `Custom ${seoName(room).toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
     ),
-  );
+  )), "/cabinets/[room]");
 }
 
 export default async function RoomCabinetPage(props: { params: Promise<{ room: string }> }) {

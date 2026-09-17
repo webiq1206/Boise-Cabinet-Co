@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,13 +16,13 @@ import { ROOM_CATEGORIES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { getCollectionBySlug } from "@/shared/catalog";
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/cabinets",
   "Cabinet Catalog by Room",
   catalogDescription(
     "Browse custom cabinets by room, kitchen, bath, laundry, mudroom, and more. {company} builds and installs cabinetry across the Treasure Valley.",
   ),
-);
+)), "/cabinets");
 
 export default function CabinetsHubPage() {
   const schemas = [
