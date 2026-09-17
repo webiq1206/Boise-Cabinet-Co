@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, MapPin } from 'lucide-react';
@@ -45,13 +46,13 @@ function GuideCardStats({ guide }: { guide: GuidePageData }) {
   );
 }
 
-export const metadata: Metadata = buildPageMetadata({
+export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'blog',
   path: '/guides',
   titleOverride: 'Cabinet Design Guides',
   descriptionOverride:
     'Treasure Valley cabinet guides: costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, and local city resources.',
-});
+})), "/guides");
 
 const PILLAR_TYPES = new Set(['hub-pillar', 'master']);
 

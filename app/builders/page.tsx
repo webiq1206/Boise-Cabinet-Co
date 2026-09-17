@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
@@ -17,14 +18,14 @@ import {
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-export const metadata = buildPageMetadata({
+export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "service",
   path: "/builders",
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
     "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order in Meridian, Idaho.",
-});
+})), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */
 const REASONS = [

@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
@@ -40,7 +41,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const params = await props.params;
   const hub = getHubBySlug(params.hubSlug);
-  if (!hub) return { title: 'Not Found' };
+  if (!hub) return withBrandPageMetadata(await ({ title: 'Not Found' }), "/blog/category/[hubSlug]");
 
   const posts = BLOG_POSTS.filter((p) => p.hubSlug === params.hubSlug);
   const indexable = isCategoryHubIndexable(params.hubSlug, posts.length);
@@ -58,7 +59,7 @@ export async function generateMetadata(
     ? getAbsoluteImageUrl(`/images/og/${params.hubSlug}.jpg`, getBaseUrl())
     : imageUrl;
 
-  return {
+  return withBrandPageMetadata(await ({
     title,
     description,
     alternates: { canonical: buildCanonical(categoryHubPath(params.hubSlug)) },
@@ -78,7 +79,7 @@ export async function generateMetadata(
       description,
       images: [shareImageUrl],
     },
-  };
+  }), "/blog/category/[hubSlug]");
 }
 
 export default async function BlogCategoryHubPage(

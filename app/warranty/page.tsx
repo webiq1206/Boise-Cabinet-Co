@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
@@ -38,13 +39,13 @@ const EXCLUDED = [
   "Customer-supplied appliances, fixtures, or third-party hardware",
 ];
 
-export const metadata = catalogMetadata(
+export const metadata = withBrandPageMetadata((catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
     "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.",
   ),
-);
+)), "/warranty");
 
 export default function WarrantyPage() {
   const schemas = [

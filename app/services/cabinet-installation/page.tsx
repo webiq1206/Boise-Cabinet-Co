@@ -1,3 +1,4 @@
+import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, Hammer, Sparkles } from "lucide-react";
@@ -13,7 +14,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema, generateServiceSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata = buildPageMetadata({
+export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "service",
   serviceName: "Cabinet Installation",
   serviceSlug: "cabinet-installation",
@@ -21,7 +22,7 @@ export const metadata = buildPageMetadata({
   titleOverride: "Cabinet Installation in Boise, ID",
   descriptionOverride:
     "Professional cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley communities. Bring your own cabinets or work with Boise Cabinet Co for custom cabinetry and installation.",
-});
+})), "/services/cabinet-installation");
 
 const areas = ["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton", "Caldwell", "Garden City"];
 
