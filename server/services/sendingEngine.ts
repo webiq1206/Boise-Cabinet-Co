@@ -17,6 +17,7 @@ import {
   getOutreachReplyTo,
   getOutreachSenderName,
   isOutreachSendable,
+  isOutreachTrackingEnabled,
 } from "@/lib/outreach/config";
 import { renderOutreachEmail, tokensForLead } from "./outreachRender";
 import { buildOutreachAttachments } from "./outreachAttachments";
@@ -232,12 +233,13 @@ async function reserveNext(
 async function deliver(job: SendJob, dryRun: boolean): Promise<{ ok: boolean; error?: string }> {
   if (!db) return { ok: false, error: "no db" };
 
-  const clickTracker = (url: string) => buildClickUrl(job.trackingToken, url);
+  const trackingEnabled = !dryRun && isOutreachTrackingEnabled();
+  const clickTracker = trackingEnabled ? (url: string) => buildClickUrl(job.trackingToken, url) : undefined;
   const rendered = renderOutreachEmail({
     template: job.template,
     tokens: tokensForLead(job.lead, undefined, job.template.audience),
     unsubscribeUrl: buildUnsubscribeUrl(job.lead.unsubscribeToken),
-    openPixelUrl: dryRun ? null : buildOpenPixelUrl(job.trackingToken),
+    openPixelUrl: trackingEnabled ? buildOpenPixelUrl(job.trackingToken) : null,
     clickTracker,
   });
 
@@ -257,7 +259,7 @@ async function deliver(job: SendJob, dryRun: boolean): Promise<{ ok: boolean; er
     const { client } = await getUncachableResendClient();
     const from = `${getOutreachSenderName()} <${fromEmail}>`;
     const unsubscribeUrl = buildUnsubscribeUrl(job.lead.unsubscribeToken);
-    const attachments = await buildOutreachAttachments(job.template.attachmentKey);
+    const attachments = job.lead.lastContactedAt ? await buildOutreachAttachments(job.template.attachmentKey) : undefined;
     await client.emails.send({
       from,
       replyTo: getOutreachReplyTo(),

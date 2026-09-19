@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { checkedEmailSender } from '@/lib/emailDelivery';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 let connectionSettings: any;
@@ -45,8 +46,10 @@ async function getCredentials() {
 export async function getUncachableResendClient() {
   try {
     const { apiKey, fromEmail } = await getCredentials();
+    const client = new Resend(apiKey);
+    client.emails.send = checkedEmailSender(client.emails.send.bind(client.emails), 'boisecabinet.co');
     return {
-      client: new Resend(apiKey),
+      client,
       fromEmail
     };
   } catch (error) {
@@ -59,7 +62,7 @@ export async function getUncachableResendClient() {
       const noopClient = {
         __noop: true,
         emails: {
-          send: async () => ({ id: "noop", skipped: true }),
+          send: async () => { throw new Error('Email delivery is not configured'); },
         },
       } as any;
 

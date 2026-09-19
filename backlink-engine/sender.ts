@@ -18,6 +18,9 @@ export interface SendResult {
 }
 
 export async function sendOutreach(opp: Opportunity, toEmail?: string): Promise<SendResult> {
+  if (process.env.BACKLINK_SEND_LIVE === "true") {
+    return { ok: false, mode: "live", detail: "Legacy backlink dispatch is paused. Use outreach with suppression and unsubscribe handling." };
+  }
   const draft = opp.outreachDraft ?? "";
   const subject = (draft.match(/^Subject:\s*(.+)$/m)?.[1] ?? `Regarding ${SITE.name}`).trim();
   const body = draft.replace(/^Subject:.*\n\n?/, "");

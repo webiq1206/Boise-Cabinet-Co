@@ -3,6 +3,7 @@ import { siteSettings } from "@/shared/schema";
 import { inArray } from "drizzle-orm";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { resolveTemplateKey } from "@/lib/outreach/template";
+import { mailboxAddress } from "@/lib/emailDelivery";
 
 /**
  * Outreach configuration. Safety-first defaults: the system is OFF and in
@@ -113,12 +114,13 @@ export async function getOutreachConfig(): Promise<OutreachRuntimeConfig> {
 /**
  * Sending identity. MUST be an address on a separate, Resend-verified
  * subdomain (e.g. jordan@outreach.boisecabinet.co), never hello@boisecabinet.co,
- * so transactional deliverability for the main domain is never put at risk by
- * cold outreach.
+ * to separate outreach from transactional mail. A subdomain does not guarantee
+ * that the parent domain's reputation will be unaffected.
  */
 export function getOutreachFromEmail(): string | null {
-  const email = process.env.OUTREACH_FROM_EMAIL?.trim().toLowerCase();
-  if (!email || !email.includes("@")) return null;
+  let email: string;
+  try { email = mailboxAddress(process.env.OUTREACH_FROM_EMAIL || ""); }
+  catch { return null; }
 
   // Refuse to send outreach from the primary transactional address...
   if (email === SITE_CONFIG.email.toLowerCase()) return null;
@@ -128,15 +130,20 @@ export function getOutreachFromEmail(): string | null {
   if (!outreachDomain || !primaryDomain) return null;
 
   // Cold outreach MUST go out on a dedicated subdomain OF the business domain
-  // (e.g. jordan@outreach.boisecabinet.co) so its sending reputation is isolated
-  // from, and can never harm, transactional mail on the root domain. We reject:
+  // (e.g. jordan@outreach.boisecabinet.co) to separate the sending streams.
+  // This does not guarantee isolation of reputation. We reject:
   //   - the bare root domain itself (no isolation), and
   //   - any unrelated external domain (gmail.com, a random vendor, etc.), which
   //     would not be the business's domain at all and breaks the policy.
   if (outreachDomain === primaryDomain) return null;
   if (!outreachDomain.endsWith(`.${primaryDomain}`)) return null;
 
-  return process.env.OUTREACH_FROM_EMAIL?.trim() ?? null;
+  return email;
+}
+
+/** Custom tracking stays off until deliberately enabled for a verified stream. */
+export function isOutreachTrackingEnabled(): boolean {
+  return process.env.OUTREACH_TRACKING_ENABLED === "true";
 }
 
 export function getOutreachSenderName(): string {
