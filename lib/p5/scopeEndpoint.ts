@@ -6,7 +6,7 @@ import {manualScopeAnswers,reconcileScope,scopeQuestionsForBrand as scopeQuestio
 import {costQuestionFields} from "./questionPolicy.ts";
 import {createHash} from "node:crypto";
 import { analyzeScope } from "./extraction.ts";
-import { prepareAnalysisFiles,verifyUpload } from "./documents.ts";
+import { prepareAnalysisFiles,verifyPdfPageLimit,verifyUpload } from "./documents.ts";
 import { SCOPE_BATCH_LIMIT,SCOPE_TEXT_LIMIT,SCOPE_FILE_COUNT,SCOPE_UPLOAD_HELP,SCOPE_FIELDS } from "./scope.ts";
 import { draftCredentials,readDraft,readUploads,saveUpload,saveDraft,DraftError } from "./store.ts";
 import {answersForEditedScope,normalizeScopeText,scopeFingerprint,scopeTextChanged,sourceSnapshot,sourceSnapshotsEqual} from "./scopeReplacement.ts";
@@ -54,7 +54,10 @@ export async function postScope(request:Request){
     const requested:string[]=[];const incoming=[];const known=new Set(analysisDraft.uploads.map(f=>f.sha256));
     for(const file of files){
       if(!(file instanceof File))throw new DraftError("Invalid file.");
-      let verified;try{verified=verifyUpload(file.name,Buffer.from(await file.arrayBuffer()));}catch(error){throw new DraftError(error instanceof Error?error.message:"Invalid upload.");}
+      let verified;try{
+        verified=verifyUpload(file.name,Buffer.from(await file.arrayBuffer()));
+        if(verified.type==="application/pdf")await verifyPdfPageLimit(verified.name,verified.data);
+      }catch(error){throw new DraftError(error instanceof Error?error.message:"Invalid upload.",422);}
       const digest=createHash("sha256").update(verified.data).digest("hex");
       requested.push(digest);
       if(!known.has(digest)){known.add(digest);incoming.push(verified);}

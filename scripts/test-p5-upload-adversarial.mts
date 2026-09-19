@@ -4,6 +4,7 @@ import {randomUUID,randomBytes,createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import path from 'node:path';
 import {createRequire} from 'node:module';
+import {PDFDocument} from 'pdf-lib';
 const ExcelJS=createRequire(path.join(process.cwd(),'package.json'))('exceljs');
 const root=process.cwd();await mkdir('node_modules/.cache',{recursive:true});
 const dir=await mkdtemp(path.join(root,'node_modules/.cache/adversarial-upload-'));
@@ -41,6 +42,11 @@ await test('retry can restore a missing acknowledged segment',async()=>{const d=
 await test('wrong whole-file digest rejected despite valid chunk checksum',async()=>{const d=await draft(),b=Buffer.from('scope'),digest=sha('different');await start(d,b,'scope.txt',digest);await part(d,b,digest);assert.equal((await request(d,digest,'finish')).status,503);assert.equal(await count(d),0);});
 await test('simultaneous finish yields one durable receipt and safe replay',async()=>{const d=await draft(),b=Buffer.from('scope');await start(d,b);await part(d,b);fixture.state.delay=30;try{const responses=await Promise.all([request(d,sha(b),'finish'),request(d,sha(b),'finish')]);assert.ok(responses.some(r=>r.status===200));assert.ok(responses.every(r=>[200,409].includes(r.status)));assert.equal(await count(d),1);assert.equal((await request(d,sha(b),'finish')).status,200);assert.equal(await count(d),1);}finally{fixture.state.delay=0;}});
 await test('invalid PDF has no acknowledged file or orphan final object',async()=>{const d=await draft(),b=Buffer.from('not a PDF');await start(d,b,'bad.pdf');await part(d,b);assert.notEqual((await request(d,sha(b),'finish')).status,200);assert.equal(await count(d),0);const finals=[...fixture.objects.keys()].filter((k:string)=>k.includes(d.id)&&!k.startsWith('transfers/'));assert.equal(finals.length,0,'invalid file remains in final object storage without a database receipt');});
+await test('250-page plan is accepted and 251-page plan is rejected without a receipt',async()=>{
+  const make=async(pages:number)=>{const pdf=await PDFDocument.create();for(let i=0;i<pages;i++)pdf.addPage();return Buffer.from(await pdf.save());};
+  const accepted=await draft(),max=await make(250);await start(accepted,max,'max-pages.pdf');await part(accepted,max);assert.equal((await request(accepted,sha(max),'finish')).status,200);assert.equal(await count(accepted),1);
+  const rejected=await draft(),over=await make(251);await start(rejected,over,'over-pages.pdf');await part(rejected,over);assert.equal((await request(rejected,sha(over),'finish')).status,422);assert.equal(await count(rejected),0);
+});
 await test('damaged Office ZIP is not acknowledged as successfully uploaded',async()=>{const d=await draft(),b=Buffer.from('PKthis is not a zip');await start(d,b,'broken.xlsx');await part(d,b);assert.notEqual((await request(d,sha(b),'finish')).status,200,'signature-only Office bytes incorrectly receive success');assert.equal(await count(d),0);});
 await test('malformed start JSON is a client error not transient service outage',async()=>{const d=await draft();assert.equal((await request(d,sha('x'),'start','{')).status,400);});
 await test('null and array start payloads are client errors',async()=>{const d=await draft();for(const value of ['null','[]'])assert.equal((await request(d,sha('x'),'start',value)).status,400);});

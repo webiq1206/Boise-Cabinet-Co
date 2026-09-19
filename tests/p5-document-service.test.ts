@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {documentServiceEligible,documentServiceHeaders,remoteDocumentId} from '../lib/p5/documentServiceClient.ts';
 import {analysisProgressWorkKeys,partitionDocumentUploads} from '../lib/p5/analysisWork.ts';
-import {combineScopeExtractions,SCOPE_PLAN_PAGE_TARGET,SCOPE_UPLOAD_HELP} from '../lib/p5/scope.ts';
+import {combineScopeExtractions,SCOPE_PLAN_PAGE_LIMIT,SCOPE_PLAN_PAGE_TARGET,SCOPE_UPLOAD_HELP} from '../lib/p5/scope.ts';
 const pdf:any={id:'file',name:'scope.pdf',type:'application/pdf',size:1000,sha256:'a'.repeat(64),status:'stored'};
 test('shared service is off by default and never changes legacy mixed-format inputs',()=>{
  assert.equal(documentServiceEligible([pdf],{}),false);
@@ -47,7 +47,9 @@ test('mixed route reconciliation retains quantities, responsibilities, conflicts
   assert.match(merged.reviewNotes.join(' '),/finish needs confirmation/);
 });
 test('the advertised plan envelope is 250 pages without weakening parser safety',()=>{
+  assert.equal(SCOPE_PLAN_PAGE_LIMIT,250);
   assert.equal(SCOPE_PLAN_PAGE_TARGET,250);
+  assert.match(SCOPE_UPLOAD_HELP,/250 MiB each/);
   assert.match(SCOPE_UPLOAD_HELP,/plans up to 250 pages/);
 });
 test('cross-site and cross-project source identities cannot collide',()=>{

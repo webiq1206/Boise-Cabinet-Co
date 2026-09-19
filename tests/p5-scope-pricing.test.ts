@@ -21,6 +21,15 @@ const adjustmentEvidence={url:urls[0],publishedAt:'',dateBasis:'retrieved' as co
 const purchaseAdjustments={taxRate:0,freightPerUnit:0,taxOnFreight:false,taxEvidence:adjustmentEvidence,freightEvidence:adjustmentEvidence};
 const researched={rates:[{taskId:'overlay',description:'Protective overlay',unit:'LF',quantity:10,quantityEvidence:'Ten feet requested',basis:'material-purchase',includes:'overlay material',excludes:'',landedCost:purchaseAdjustments,sources:[source(urls[0],10,20),source(urls[1],20,30)]}],issues:[]};
 const replies=(values:unknown[]):PricingRequest=>{const first=values[0] as {tasks:typeof task[]};const queue=[{tasks:first.tasks.map(({id,description,evidence})=>({id,description,evidence})),issues:[]},...values];return async()=>({value:queue.shift(),sourceUrls:urls});};
+test('Production pricing does not require QA-only spending allowance variables',async()=>{
+ const names=['P5_LIVE_PRICING_ALLOWANCE_ID','P5_LIVE_PRICING_ALLOWANCE_USD','P5_LIVE_PRICING_RESERVE_USD'] as const;
+ const saved=Object.fromEntries(names.map(name=>[name,process.env[name]]));
+ for(const name of names)delete process.env[name];
+ try{
+  const result=await priceCompleteScope(scope,config,replies([{tasks:[task],issues:[]},{coveredTaskIds:[task.id],issues:[]}]),now);
+  assert.ok(result.customer.range);
+ }finally{for(const name of names){const value=saved[name];if(value===undefined)delete process.env[name];else process.env[name]=value;}}
+});
 test('Provider failure cannot publish the otherwise available partial range',async()=>{
  assert.ok(base.customer.range);
  const r=await priceCompleteScope(scope,config,async()=>{throw new Error('offline')},now);

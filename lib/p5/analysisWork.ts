@@ -5,7 +5,7 @@ import {PDFDocument} from 'pdf-lib';
 import {Client} from '@replit/object-storage';
 import {analyzeBatch,AnalysisBusyError,type AnalysisFile,type AnalysisResult} from './extraction.ts';
 import {prepareAnalysisFiles} from './documents.ts';
-import {combineScopeExtractions,type ScopeAnswers,type ScopeExtraction} from './scope.ts';
+import {combineScopeExtractions,SCOPE_PLAN_PAGE_LIMIT,type ScopeAnswers,type ScopeExtraction} from './scope.ts';
 import {query} from './database.ts';
 import {readStoredBytes,ESTIMATOR_BUCKETS} from './objectStorage.ts';
 import {ESTIMATOR_BRAND} from './brand.ts';
@@ -113,7 +113,11 @@ async function advanceLocalAnalysis(draft:Draft,text:string,answers:ScopeAnswers
       const file={name,type:String(row.mime_type),data:await readStoredBytes(row)};
       const preparing=Date.now();
       if(file.type==='application/pdf'){
-        try{const pdf=await PDFDocument.load(file.data);job.expected=[...(job.expected||[]).filter(p=>p.source!==file.name),...Array.from({length:pdf.getPageCount()},(_,i)=>({source:file.name,page:i+1}))];}
+        try{
+          const pdf=await PDFDocument.load(file.data),pages=pdf.getPageCount();
+          if(pages>SCOPE_PLAN_PAGE_LIMIT)throw new Error(`plans may contain at most ${SCOPE_PLAN_PAGE_LIMIT} pages`);
+          job.expected=[...(job.expected||[]).filter(p=>p.source!==file.name),...Array.from({length:pages},(_,i)=>({source:file.name,page:i+1}))];
+        }
         catch(error){job.notes.push(`${file.name}: unreadable or encrypted PDF. No pages can be claimed as analyzed.`);event('prepare','failed',{file:file.name,code:'unreadable-pdf',message:error instanceof Error?error.message:String(error),durationMs:Date.now()-preparing});job.prepared++;await checkpoint();return {pending:true as const,progress:`Saved an unreadable-file exception for ${file.name}. Continuing remaining files.`};}
       }
       const {readable,manualReview}=await prepareAnalysisFiles([file]);job.notes.push(...manualReview);

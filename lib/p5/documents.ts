@@ -1,8 +1,9 @@
 import {prepareImages} from "./imagePreparation.ts";
 import ExcelJS from "exceljs";
 import mammoth from "mammoth";
+import {PDFDocument} from "pdf-lib";
 import type { AnalysisFile } from "./extraction.ts";
-import { SCOPE_FILE_LIMIT } from "./scope.ts";
+import { SCOPE_FILE_LIMIT,SCOPE_PLAN_PAGE_LIMIT } from "./scope.ts";
 const TYPES: Record<string,string> = {
   pdf:"application/pdf",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",webp:"image/webp",gif:"image/gif",
   txt:"text/plain",csv:"text/csv",json:"application/json",
@@ -13,7 +14,7 @@ const TYPES: Record<string,string> = {
 };
 export const ACCEPT_SCOPE_FILES = Object.keys(TYPES).map(ext=>`.${ext}`).join(",");
 export function verifyUpload(name: string, data: Buffer): AnalysisFile {
-  if (!data.length || data.length > SCOPE_FILE_LIMIT) throw new Error("Files must be nonempty and no larger than 250 MB each.");
+  if (!data.length || data.length > SCOPE_FILE_LIMIT) throw new Error("Files must be nonempty and no larger than 250 MiB each.");
   const safeName=name.replace(/[\u0000-\u001f/\\]/g,"_").slice(0,180);
   const extension=safeName.split(".").pop()?.toLowerCase()||"";const type=TYPES[extension];
   if(!type)throw new Error("Use a PDF, photo, Word document, spreadsheet or text file.");
@@ -24,6 +25,15 @@ export function verifyUpload(name: string, data: Buffer): AnalysisFile {
   if(extension==="gif" && !/^GIF8[79]a$/.test(data.subarray(0,6).toString()))throw new Error("This file is not a valid GIF.");
   if(["docx","xlsx","ods"].includes(extension))checkOfficeArchive(data);
   return {name:safeName,type,data};
+}
+/** Enforce the customer-facing PDF boundary before any provider work begins. */
+export async function verifyPdfPageLimit(name:string,data:Buffer){
+  let pages:number;
+  try{pages=(await PDFDocument.load(data)).getPageCount();}
+  catch{throw new Error(`Unreadable or encrypted PDF: ${name}. Supply an unlocked copy.`);}
+  if(!pages)throw new Error(`${name}: PDF must contain at least one page.`);
+  if(pages>SCOPE_PLAN_PAGE_LIMIT)throw new Error(`${name}: plans may contain at most ${SCOPE_PLAN_PAGE_LIMIT} pages.`);
+  return pages;
 }
 /** Reject oversized/encrypted archives before invoking an office parser. No extraction to disk. */
 export function checkOfficeArchive(data:Buffer) {

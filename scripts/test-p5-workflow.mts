@@ -51,7 +51,7 @@ const runtime=await mkdtemp(path.join(cache,'p5-test-'));
 try{
  await cp(path.join(root,'lib/p5'),runtime,{recursive:true});
  await writeFile(path.join(runtime,'database.ts'),`import {PGlite} from '@electric-sql/pglite'; export const database=new PGlite(); export async function query(statement:string,values:unknown[]=[]){return (await database.query(statement,values)).rows as any[];}`);
- await writeFile(path.join(runtime,'deliveryAdapter.ts'),`export const EMAIL_SUPPORTS_IDEMPOTENCY=true; export const attempts:any[]=[]; export const delivered=new Map(); export const failures=new Set<string>(); export async function adminRecipients(){return ['admin@example.invalid'];} export async function sendEmail(input:any){attempts.push(input);if(failures.has(input.to))throw new Error('Synthetic transport failure');if(!delivered.has(input.key))delivered.set(input.key,input);return 'test-'+input.key;} export async function syncCrm(record:any,key:string){attempts.push({crm:key,record});if(failures.has('crm'))throw new Error('Synthetic CRM outage');if(!delivered.has(key))delivered.set(key,record);return 'test-lead-'+key;}`);
+ await writeFile(path.join(runtime,'deliveryAdapter.ts'),`export const EMAIL_SUPPORTS_IDEMPOTENCY=true; export const attempts:any[]=[]; export const delivered=new Map(); export const failures=new Set<string>(); export const ambiguous=new Set<string>(); export async function adminRecipients(){return ['admin@example.invalid'];} export async function sendEmail(input:any){attempts.push(input);if(failures.has(input.to))throw new Error('Synthetic transport failure');if(!delivered.has(input.key))delivered.set(input.key,input);return 'test-'+input.key;} export async function syncCrm(record:any,key:string){attempts.push({crm:key,record});if(failures.has('crm'))throw new Error('Synthetic CRM outage');if(!delivered.has(key))delivered.set(key,record);if(ambiguous.has('crm'))throw new Error('Synthetic acknowledgement lost after CRM accepted');return 'test-lead-'+key;}`);
  await writeFile(path.join(runtime,'adminAuth.ts'),`import {DraftError} from './store';export let enabled=true;export function disable(){enabled=false;}export function enable(){enabled=true;}export async function requireEstimatorAdmin(){if(!enabled)throw new DraftError('Administrator sign-in is required.',403);return {id:'fixture-admin',email:'admin@example.invalid'};}`);
  const module=(name:string)=>import(pathToFileURL(path.join(runtime,name+'.ts')).href);
  const store=await module('store');const outbox=await module('outbox');const db=await module('database');const transport=await module('deliveryAdapter');
@@ -99,10 +99,20 @@ try{
  assert.equal(recovered.find((r:any)=>r.destination==='crm').status,'needs-review');
  assert.equal(recovered.find((r:any)=>r.destination==='customer:customer@example.invalid').status,'needs-review');
  assert.equal(recovered.filter((r:any)=>r.destination==='alert:admin@example.invalid').length,1);
+  await outbox.processOutbox({draftId:interruptedId});
+  // A CRM may accept a lead and lose its acknowledgement. The saved external
+  // key is retained for reconciliation, and the outbox must not call it again.
+  const ambiguousId=randomUUID(),ambiguousKey=randomBytes(32).toString('hex');
+  await store.saveDraft(ambiguousId,ambiguousKey,'test',payload,0);
+  await outbox.enqueueSubmission(ambiguousId,1,{...record,draftId:ambiguousId});
+  await db.query("UPDATE p5_estimator_outbox SET status='sent' WHERE draft_id=$1 AND destination<>'crm'",[ambiguousId]);
+  transport.ambiguous.add('crm');const crmAttempts=()=>transport.attempts.filter((attempt:any)=>attempt.crm).length,beforeAmbiguous=crmAttempts();
+  await outbox.processOutbox({draftId:ambiguousId});await outbox.processOutbox({draftId:ambiguousId});
+  assert.equal(crmAttempts(),beforeAmbiguous+1,'Ambiguous CRM acceptance must not be silently delivered twice');
+  const [ambiguousCrm]=await db.query("SELECT status,last_error FROM p5_estimator_outbox WHERE draft_id=$1 AND destination='crm'",[ambiguousId]);
+  assert.equal(ambiguousCrm.status,'needs-review');assert.match(ambiguousCrm.last_error,/acknowledgement lost/);
+  transport.ambiguous.clear();
  await outbox.processOutbox({draftId:interruptedId});
- assert.equal(transport.attempts.length,beforeRecovery+1);
- await outbox.processOutbox({draftId:interruptedId});
- assert.equal(transport.attempts.length,beforeRecovery+1);
  const manual=await module('manualReview');
  const costBook=await module('costBook');
  const unresolvedScope={text:'TEST scope',answers:{service:'kitchen'},extraction:{summary:'TEST scope',facts:[],conflicts:[],missingInformation:[],reviewNotes:['plans.doc: saved for manual review. Export as PDF, XLSX, DOCX, JPEG or PNG for automatic extraction.']},uploads:[],reviewedAt:today,corrections:[]};

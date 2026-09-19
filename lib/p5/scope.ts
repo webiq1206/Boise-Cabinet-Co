@@ -92,10 +92,12 @@ export const SCOPE_FILE_LIMIT = 250 * 1024 * 1024;
 export const SCOPE_BATCH_LIMIT = 1024 * 1024 * 1024;
 export const SCOPE_FILE_COUNT = 50;
 export const SCOPE_CHUNK_SIZE = 4 * 1024 * 1024;
-/** Supported plan envelope advertised by the estimator; the 2,000-page parser
- * safety ceiling remains enforced independently in extraction.ts. */
-export const SCOPE_PLAN_PAGE_TARGET = 250;
-export const SCOPE_UPLOAD_HELP = "Up to 50 files, 250 MB each and 1 GB total; plans up to 250 pages. Large uploads resume after interruptions.";
+/** Public plan limit. The parser keeps an independent defensive ceiling, but
+ * customer uploads must never cross this boundary. */
+export const SCOPE_PLAN_PAGE_LIMIT = 250;
+/** Backward-compatible name retained for callers that display the limit. */
+export const SCOPE_PLAN_PAGE_TARGET = SCOPE_PLAN_PAGE_LIMIT;
+export const SCOPE_UPLOAD_HELP = "Up to 50 files, 250 MiB each and 1 GiB total; plans up to 250 pages. Large uploads resume after interruptions.";
 /** Map a model's wording for a choice field onto one of its options, or
  * null when no option is a clear match. Providers answer "Standard finishes"
  * or "premium" for a field whose options are refresh / mid-range / high-end /
