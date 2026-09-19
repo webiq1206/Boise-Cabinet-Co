@@ -35,3 +35,4 @@
 - [Estimator changed-source isolation](estimator-changed-source-isolation.md) — source replacement must clear stale scope state on success and failure, including queued-job failures; additive uploads preserve manual facts.
 - [Playwright WebKit Nix ABI gap](playwright-webkit-nix-abi-gap.md) — downloaded WebKit may require exact Ubuntu sonames unavailable from the active Nix channel even when Chromium works.
 - [Managed OpenAI endpoint is loopback](managed-openai-loopback.md) — Replit’s managed OpenAI base URL is an HTTP localhost sidecar; qualification must reject external/direct endpoints.
+- [GitHub connector commit sync](github-connector-commit-sync.md) — HTTPS Git may lack auth while the GitHub connector works; preserve history and align exact commit objects after API writes.
