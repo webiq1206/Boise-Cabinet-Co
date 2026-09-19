@@ -27,8 +27,9 @@ type Job={prepared:number;units:Unit[];notes:string[];textDone?:AnalysisResult;t
  * strategies, not the same call repeated. */
 export const MAX_READ_ATTEMPTS=Math.max(1,Number(process.env.P5_READ_ATTEMPTS||4));
 const pending=(u:Unit)=>!u.result&&(u.attempts||0)<MAX_READ_ATTEMPTS;
-export function analysisWorkKey(draft:Draft,text:string,answers:ScopeAnswers){
-  return `analysis:${process.env.P5_DOCUMENT_SERVICE_MODE==='remote'?'document-service-v1':'v8'}:${createHash('sha256').update(JSON.stringify([text,answers,draft.uploads.map(f=>[f.id,f.sha256])])).digest('hex')}`;
+export function analysisWorkKey(draft:Draft,text:string,answers:ScopeAnswers,route?:'remote'|'local'){
+  const mode=route?(route==='remote'?'document-service-v1':'v8'):process.env.P5_DOCUMENT_SERVICE_MODE==='remote'?'document-service-v1':'v8';
+  return `analysis:${mode}:${createHash('sha256').update(JSON.stringify([text,answers,draft.uploads.map(f=>[f.id,f.sha256])])).digest('hex')}`;
 }
 /** Page numbers as compact ranges: 1-4, 7, 9-10. */
 export function pageRanges(pages:number[]):string{
@@ -53,11 +54,24 @@ export function unreadNotes(units:Unit[]):string[]{
 }
 /** Each request checkpoints work before returning. Reloading resumes the same source fingerprint. */
 type DocumentAnalysisStep={pending:true;progress:string;retryAfterMs?:number}|{pending:false;version:string;analysis:AnalysisResult};
-export async function advanceAnalysis(draft:Draft,text:string,answers:ScopeAnswers,request=fetch,retryFailed=false,absoluteDeadline=Date.now()+ANALYSIS_PASS_MS):Promise<DocumentAnalysisStep>{
+export function partitionDocumentUploads(uploads:Draft['uploads'],env:Readonly<Record<string,string|undefined>>=process.env){
+  const remote=uploads.filter(upload=>documentServiceEligible([upload],env));
+  const remoteIds=new Set(remote.map(upload=>upload.id));
+  return {remote,local:uploads.filter(upload=>!remoteIds.has(upload.id))};
+}
+export function analysisProgressWorkKeys(draft:Draft,text:string,answers:ScopeAnswers,env:Readonly<Record<string,string|undefined>>=process.env){
+  const {remote,local}=partitionDocumentUploads(draft.uploads,env);
+  if(!remote.length)return [analysisWorkKey(draft,text,answers,'local')];
+  if(!local.length)return [analysisWorkKey(draft,text,answers,'remote')];
+  return [
+    analysisWorkKey({...draft,uploads:remote},text,answers,'remote'),
+    analysisWorkKey({...draft,uploads:local},text,answers,'local'),
+  ];
+}
+async function advanceLocalAnalysis(draft:Draft,text:string,answers:ScopeAnswers,request=fetch,retryFailed=false,absoluteDeadline=Date.now()+ANALYSIS_PASS_MS):Promise<DocumentAnalysisStep>{
   remainingBudget(absoluteDeadline);
-  if(documentServiceEligible(draft.uploads))return advanceDocumentService(draft,text,answers,analysisWorkKey(draft,text,answers),request,retryFailed,absoluteDeadline);
   const version=createHash('sha256').update(JSON.stringify([text,answers,draft.uploads.map(f=>[f.id,f.sha256])])).digest('hex');
-  const workKey=analysisWorkKey(draft,text,answers),bucketId=ESTIMATOR_BUCKETS[ESTIMATOR_BRAND.domain],client=new Client({bucketId});
+  const workKey=analysisWorkKey(draft,text,answers,'local'),bucketId=ESTIMATOR_BUCKETS[ESTIMATOR_BRAND.domain],client=new Client({bucketId});
   const lease=await claimWork(draft.id,workKey,{prepared:0,units:[],notes:[]},300);
   if(!lease)return {pending:true as const,progress:analysisMessage(draft.uploads.length>0,'busy')};
   const job=lease.payload as Job;
@@ -175,6 +189,7 @@ export async function advanceAnalysis(draft:Draft,text:string,answers:ScopeAnswe
             unit.retryAt=Date.now()+Math.min(30000,1500*2**((unit.attempts||1)-1));
           }
         }
+
         unit.active=false;await checkpoint();
         }
       }));
@@ -201,4 +216,42 @@ export async function advanceAnalysis(draft:Draft,text:string,answers:ScopeAnswe
     event('complete',unread?'failed':'ok',{meta:{sections:job.units.length,unread,pages:job.expected?.length||0,files:draft.uploads.length}});
     return {pending:false as const,version,analysis:{...last,extraction,analyzedAt:new Date().toISOString()}};
   }finally{await releaseWork(draft.id,workKey,lease.token);}
+}
+
+/**
+ * Analyze one scope through the configured reader(s) without allowing a
+ * mixed-format upload to discard either route. PDFs that meet the shared
+ * reader's contract use it; every remaining upload is processed by the
+ * resumable local worker. Each partition has its own durable work key so a
+ * reload resumes both halves independently, then their verified facts and
+ * coverage are reconciled once both are complete.
+ */
+export async function advanceAnalysis(draft:Draft,text:string,answers:ScopeAnswers,request=fetch,retryFailed=false,absoluteDeadline=Date.now()+ANALYSIS_PASS_MS):Promise<DocumentAnalysisStep>{
+  remainingBudget(absoluteDeadline);
+  const remoteMode=process.env.P5_DOCUMENT_SERVICE_MODE==='remote';
+  if(!remoteMode)return advanceLocalAnalysis(draft,text,answers,request,retryFailed,absoluteDeadline);
+  const {remote:remoteUploads,local:localUploads}=partitionDocumentUploads(draft.uploads);
+  if(!remoteUploads.length)return advanceLocalAnalysis(draft,text,answers,request,retryFailed,absoluteDeadline);
+  if(remoteUploads.length===draft.uploads.length)return advanceDocumentService(draft,text,answers,analysisWorkKey(draft,text,answers,'remote'),request,retryFailed,absoluteDeadline);
+  const remoteDraft={...draft,uploads:remoteUploads};
+  const localDraft={...draft,uploads:localUploads};
+  const remoteStep=await advanceDocumentService(remoteDraft,text,answers,analysisWorkKey(remoteDraft,text,answers,'remote'),request,retryFailed,absoluteDeadline);
+  const localStep=await advanceLocalAnalysis(localDraft,text,answers,request,retryFailed,absoluteDeadline);
+  if(remoteStep.pending||localStep.pending){
+    const progress=[remoteStep.pending?`Shared reader: ${remoteStep.progress}`:'Shared reader complete.',localStep.pending?`Local reader: ${localStep.progress}`:'Local reader complete.'].join(' ');
+    const retryAfterMs=Math.max(remoteStep.pending?remoteStep.retryAfterMs||0:0,localStep.pending?localStep.retryAfterMs||0:0);
+    return {pending:true as const,progress,retryAfterMs:retryAfterMs||750};
+  }
+  const extraction=combineScopeExtractions([remoteStep.analysis.extraction,localStep.analysis.extraction]);
+  return {
+    pending:false as const,
+    version:createHash('sha256').update(JSON.stringify([text,answers,draft.uploads.map(f=>[f.id,f.sha256])])).digest('hex'),
+    analysis:{
+      ...remoteStep.analysis,
+      provider:`${remoteStep.analysis.provider} + ${localStep.analysis.provider}`,
+      model:`${remoteStep.analysis.model} + ${localStep.analysis.model}`,
+      extraction,
+      analyzedAt:new Date().toISOString(),
+    },
+  };
 }

@@ -157,6 +157,13 @@ const requestPricingWith=async(provider:'anthropic'|'openai',instructions:string
   if(search&&!sourceUrls.length)throw new Error('pricing-search-unavailable');
   return {value:JSON.parse(raw.replace(/^\s*```(?:json)?\s*/,'').replace(/\s*```\s*$/,'')),sourceUrls};
 };
+/** Qualification-only single paid boundary. It deliberately has no provider
+ * fallback or continuation path, so one ledger reservation covers one request. */
+export const requestPricingOpenAI:PricingRequest=async(instructions,input,search,remainingMs)=>{
+  const integrated=Boolean(process.env.AI_INTEGRATIONS_OPENAI_API_KEY&&process.env.AI_INTEGRATIONS_OPENAI_BASE_URL);
+  if(!Boolean(integrated?process.env.AI_INTEGRATIONS_OPENAI_API_KEY:process.env.OPENAI_API_KEY))throw new Error('pricing-provider-unavailable');
+  return requestPricingWith('openai',instructions,input,search,remainingMs);
+};
 /** Anthropic prices first when configured. A refusal it will repeat (billing
  * block, invalid request, oversized reply) falls back to OpenAI for the rest
  * of the stage when an OpenAI key exists; a billing block also parks
