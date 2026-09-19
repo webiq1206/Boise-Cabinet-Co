@@ -27,7 +27,7 @@ export function customerSafeText(value:string):string{
     .replace(/:\s*\.\s*/g,': ')
     .replace(/\s+([,.;!?])/g,'$1')
     .trim();
-  const confidential=/\b(?:(?:direct|unit)\s+cost|(?:gross|net|operating)?\s*profit|markup|margin|overhead(?:\s+recovery)?|cost\s+location)\b/i;
+  const confidential=/\b(?:(?:direct|unit)\s+cost|(?:gross|net|operating)?\s*profit|markup|margin|overhead\s+(?:recovery|allocation|costs?|expenses?|burden|rate|charge|percentage|factor)|cost\s+location)\b|\boverhead\b\s*(?::|=|\bis\b|\bof\b)?\s*(?:\$[\d,.]+|\d+(?:\.\d+)?\s*%)|(?:\$[\d,.]+|\d+(?:\.\d+)?\s*%)\s*(?:(?:for|in|as)\s+)?overhead\b/i;
   return stripped.split(/\n+|(?<=[.!?])\s+/).filter(part=>part.trim()&&!confidential.test(part)).join(' ').replace(/\s{2,}/g,' ').trim();
 }
 // Preserve original wording, numbers and exclusions. Never split decimal values or URLs.

@@ -1,54 +1,75 @@
+
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {assertCrmPayloadSize,crmPayload,CRM_PAYLOAD_HARD_BYTES,CRM_PAYLOAD_WARNING_BYTES} from '../lib/p5/deliveryPayloads.ts';
+import {buildCrmPayload,CRM_PAYLOAD_LIMIT_BYTES} from '../lib/p5/boundedCrmPayload.ts';
 import {syncCrm} from '../lib/p5/deliveryAdapter.ts';
-
-const record=(extra:any={})=>({draftId:'00000000-0000-4000-8000-000000000000',contact:{name:'QA',email:'qa@example.com',phone:''},scope:{text:'20 LF owner-supplied cabinet installation',answers:{service:'cabinet-install',location:'Caldwell'}},customer:{summary:'20 LF labor-only cabinet installation',range:{low:100,high:200}},internal:{lines:[],...extra}});
-
-test('CRM payload is compact, UTF-8 measured, and keeps Cabinet routing fields',()=>{
-  const payload=crmPayload(record(),'p5-key');
-  const result=assertCrmPayloadSize(payload);
-  assert.ok(result.bytes<CRM_PAYLOAD_WARNING_BYTES);
-  assert.equal(payload.source,'boisecabinet.co');
-  assert.equal(payload.externalLeadId,'p5-key');
-  assert.equal(payload.estimate.brand,'Boise Cabinet Co');
-  assert.equal(payload.estimate.scope.answers.service,'cabinet-install');
-  assert.ok(result.bytes<CRM_PAYLOAD_HARD_BYTES);
+import {ESTIMATOR_BRAND as brand} from '../lib/p5/brand.ts';
+const id='12345678-1234-4123-8123-123456789abc';
+const receipt=(key='test-key',mode='live')=>({success:true,leadId:id,source:brand.domain,externalLeadId:key,acceptanceMode:mode});
+const fixture=()=>({draftId:id,revision:7,contact:{name:'TEST ONLY',email:'test@example.invalid',phone:''},
+ scope:{instructions:'Install owner-supplied trim',answers:{service:'installation',location:'Boise'}},
+ customer:{summary:'Install 20 LF owner-supplied trim',range:{low:200,high:300},lineItems:[{description:'Installation',quantity:20,unit:'LF',low:200,high:300}]},
+ internal:{lines:[{description:'Installation',quantity:20,unit:'LF',sellingUnitPrice:10,sellingAmount:200,evidence:{reference:'private source narrative'},quantitySource:'private measurement narrative'}],contractPrice:200,costBookSnapshot:{private:'catalog'},scopePricing:{trace:'private research'}}});
+async function network(fetcher,fn){
+ const old=globalThis.fetch,keys=['LEAD_DASHBOARD_KEY','LEAD_DASHBOARD_API_URL','SYNTHETIC_QA_EMAIL_ALLOWLIST'];
+ const env=keys.map(k=>process.env[k]);globalThis.fetch=fetcher;
+ process.env.LEAD_DASHBOARD_KEY='synthetic-token';process.env.LEAD_DASHBOARD_API_URL='https://crm.example.invalid/api/external/leads';delete process.env.SYNTHETIC_QA_EMAIL_ALLOWLIST;
+ try{return await fn();}finally{globalThis.fetch=old;keys.forEach((k,i)=>{if(env[i]===undefined)delete process.env[k];else process.env[k]=env[i];});}
+}
+test('CRM projection preserves full scope and priced quantities without mutating the durable record',()=>{
+ const record=fixture(),before=JSON.stringify(record),p=buildCrmPayload(record,'test-key',brand.domain);
+ assert.equal(p.source,brand.domain);assert.equal(p.externalLeadId,'test-key');
+ assert.deepEqual(p.estimate.scope,record.scope);assert.deepEqual(p.estimate.customer,record.customer);
+ assert.equal(p.estimate.internal.lines[0].quantity,20);assert.equal(p.estimate.internal.lines[0].sellingUnitPrice,10);
+ assert.equal(p.estimate.internal.contractPrice,200);assert.ok(!JSON.stringify(p).includes('private source narrative'));
+ assert.ok(p.estimate.omittedRedundantMetadata.length>=3);assert.equal(JSON.stringify(record),before);
 });
-
-test('CRM size preflight rejects an oversized internal line set before network',()=>{
-  const oversized=record();
-  oversized.scope.answers={...oversized.scope.answers,...Object.fromEntries(Array.from({length:80},(_,i)=>[`detail${i}`,'x'.repeat(2000)]))};
-  const payload=crmPayload(oversized,'p5-key');
-  assert.throws(()=>assertCrmPayloadSize(payload),/CRM payload is/);
+test('large UTF-8 scope and priced lines use an explicit authenticated revision reference',()=>{
+ for(const field of ['scope','line']){
+  const record=fixture();if(field==='scope')record.scope.instructions='🏗'.repeat(40000);else record.internal.lines[0].description='priced work '.repeat(20000);
+  const before=JSON.stringify(record),p=buildCrmPayload(record,'test-key',brand.domain);
+  assert.equal(p.estimate.mode,'authenticated-reference');assert.equal(p.estimate.revision,7);
+  const url=new URL(p.estimate.durableAdminRecord.url);assert.equal(url.hostname,brand.domain);assert.equal(url.searchParams.get('id'),id);assert.equal(url.searchParams.get('revision'),'7');
+  assert.match(p.estimate.durableAdminRecord.access,/authenticated/);assert.deepEqual(p.estimate.sellingRange,{low:200,high:300});
+  assert.ok(Buffer.byteLength(JSON.stringify(p))<CRM_PAYLOAD_LIMIT_BYTES);assert.equal(JSON.stringify(record),before);
+ }
 });
-
-test('CRM adapter never starts a request when the compact payload is still oversized',async()=>{
-  const oldFetch=globalThis.fetch,oldToken=process.env.LEAD_DASHBOARD_KEY;
-  const oversized=record();
-  oversized.scope.answers={...oversized.scope.answers,...Object.fromEntries(Array.from({length:80},(_,i)=>[`detail${i}`,'x'.repeat(2000)]))};
-  let calls=0;process.env.LEAD_DASHBOARD_KEY='test-token';
-  globalThis.fetch=async()=>{calls++;throw new Error('fetch must not run');};
-  try{await assert.rejects(()=>syncCrm(oversized,'p5-key'),/CRM payload is/);assert.equal(calls,0);}
-  finally{globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.LEAD_DASHBOARD_KEY;else process.env.LEAD_DASHBOARD_KEY=oldToken;}
+test('contact limits reject before dispatch and never truncate identity',async()=>{
+ const record=fixture();record.contact.name='N'.repeat(256);let calls=0;
+ await network(async()=>{calls++;throw Error('unexpected');},async()=>assert.rejects(syncCrm(record,'test-key'),/fullName.*no customer identity was truncated/));
+ assert.equal(calls,0);
 });
-
-test('HTTP 413 is permanent and never retried by the CRM adapter',async()=>{
-  const oldFetch=globalThis.fetch,oldToken=process.env.LEAD_DASHBOARD_KEY;
-  let calls=0;process.env.LEAD_DASHBOARD_KEY='test-token';
-  globalThis.fetch=async()=>{calls++;return new Response('too large',{status:413});};
-  try{await assert.rejects(()=>syncCrm(record(),'p5-key'),/permanently oversized.*manual review.*do not retry/);assert.equal(calls,1);}
-  finally{globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.LEAD_DASHBOARD_KEY;else process.env.LEAD_DASHBOARD_KEY=oldToken;}
+test('one POST accepts only a matching durable estimate receipt',async()=>{
+ let calls=0;await network(async(url,init)=>{calls++;assert.equal(init?.method,'POST');assert.equal(init?.redirect,'error');assert.equal(new Headers(init?.headers).get('Idempotency-Key'),'test-key');
+ const body=JSON.parse(String(init?.body));assert.equal(body.source,brand.domain);assert.equal(body.externalLeadId,'test-key');assert.equal(body.deliveryMode,'live');
+ return Response.json(receipt(),{status:201});},async()=>assert.equal(await syncCrm(fixture(),'test-key'),id));assert.equal(calls,1);
 });
-
-test('an email-only HTTP 409 is ambiguous and never accepted as proof of Cabinet intake',async()=>{
-  const oldFetch=globalThis.fetch,oldToken=process.env.LEAD_DASHBOARD_KEY;
-  let calls=0;process.env.LEAD_DASHBOARD_KEY='test-token';
-  globalThis.fetch=async(_url,init)=>{
-    calls++;
-    assert.equal(new Headers(init?.headers).get('Idempotency-Key'),'p5-key');
-    return new Response(JSON.stringify({duplicate:true,reason:'email recently received'}),{status:409,headers:{'content-type':'application/json'}});
-  };
-  try{await assert.rejects(()=>syncCrm(record(),'p5-key'),/CRM returned HTTP 409/);assert.equal(calls,1);}
-  finally{globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.LEAD_DASHBOARD_KEY;else process.env.LEAD_DASHBOARD_KEY=oldToken;}
+test('email-only conflicts and oversized receiver errors are rejected without resubmission',async()=>{
+ for(const status of [409,413]){let calls=0;await network(async()=>{calls++;return Response.json({duplicate:true,leadId:id},{status});},async()=>assert.rejects(syncCrm(fixture(),'test-key'),new RegExp('HTTP '+status)));assert.equal(calls,1);}
+});
+test('lost or invalid POST receipts reconcile once with authenticated GET and never replay POST',async()=>{
+ for(const first of [()=>{throw Error('private credential');},()=>Response.json({}, {status:500}),()=>Response.json({...receipt(),externalLeadId:'other-estimate'}),()=>new Response('malformed')]){
+  const methods=[];await network(async(url,init)=>{methods.push(init?.method||'GET');if(methods.length===1)return first();
+  const u=new URL(String(url));assert.match(u.pathname,/\/reconcile$/);assert.equal(u.searchParams.get('externalLeadId'),'test-key');
+  assert.equal(new Headers(init?.headers).get('Authorization'),'Bearer synthetic-token');
+  return Response.json({...receipt(),found:true,status:'accepted'});},async()=>assert.equal(await syncCrm(fixture(),'test-key'),id));assert.deepEqual(methods,['POST','GET']);
+ }
+});
+test('unconfirmed transport failures expose no credentials, URL or provider body',async()=>{
+ let calls=0;await network(async()=>{calls++;throw Error('SECRET https://user:password@private');},async()=>assert.rejects(syncCrm(fixture(),'test-key'),e=>{
+ assert.match(e.message,/unconfirmed.*reconciliation transport/);assert.doesNotMatch(e.message,/SECRET|password|private/);return true;}));assert.equal(calls,2);
+});
+test('QA receipt requires matching reconciliation and suppressed downstream campaigns',async()=>{
+ for(const suppressed of [true,false]){
+ const record=fixture();record.contact.name='[QA] Acceptance';let calls=0;
+ await network(async(_url,init)=>{calls++;if(init?.method==='POST')return Response.json(receipt('qa-test-key','synthetic_qa'),{status:201});
+ return Response.json({...receipt('qa-test-key','synthetic_qa'),found:true,status:'accepted',downstreamStatus:suppressed?'suppressed':'queued'});},async()=>{
+ if(suppressed)assert.equal(await syncCrm(record,'test-key'),id);else await assert.rejects(syncCrm(record,'test-key'),/did not prove/);
+ });assert.equal(calls,2);
+ }
+});
+test('credential-bearing or insecure destinations fail before network',async()=>{
+ for(const url of ['http://crm.example.invalid','https://user:password@crm.example.invalid','not-a-url']){
+ let calls=0;await network(async()=>{calls++;throw Error('unexpected');},async()=>{process.env.LEAD_DASHBOARD_API_URL=url;await assert.rejects(syncCrm(fixture(),'test-key'),/credential-free HTTPS/);});assert.equal(calls,0);
+ }
 });
