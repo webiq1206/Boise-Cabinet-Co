@@ -11,6 +11,8 @@ const verifyAnalysis=process.argv.includes('--verify-analysis');
 const confirmed=process.argv.includes('--confirm-production');
 if(live&&!confirmed)throw new Error('Live acceptance requires --confirm-production.');
 if(live&&(dispatch===verifyAnalysis))throw new Error('Live acceptance requires exactly one action: --verify-analysis or --dispatch.');
+if(live&&dispatch&&process.env.P5_ACCEPTANCE_RECEIVER_CONTRACT_VERIFIED!=='true')
+  throw new Error('Live dispatch is blocked until the durable source-scoped keyed receiver contract has been tested and P5_ACCEPTANCE_RECEIVER_CONTRACT_VERIFIED=true is set.');
 let liveCredentials:{base:string;draftId:string;draftKey:string;revision:number;adminCookie:string;sourceFingerprint:string}|undefined;
 if(live){
   for(const key of ['P5_ACCEPTANCE_BASE_URL','P5_ACCEPTANCE_DRAFT_ID','P5_ACCEPTANCE_DRAFT_KEY','P5_ACCEPTANCE_DRAFT_REVISION','P5_ACCEPTANCE_ADMIN_COOKIE','P5_ACCEPTANCE_SOURCE_FINGERPRINT'])

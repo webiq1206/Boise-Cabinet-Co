@@ -10,6 +10,7 @@ test('CRM payload is compact, UTF-8 measured, and keeps Cabinet routing fields',
   const result=assertCrmPayloadSize(payload);
   assert.ok(result.bytes<CRM_PAYLOAD_WARNING_BYTES);
   assert.equal(payload.source,'boisecabinet.co');
+  assert.equal(payload.externalLeadId,'p5-key');
   assert.equal(payload.estimate.brand,'Boise Cabinet Co');
   assert.equal(payload.estimate.scope.answers.service,'cabinet-install');
   assert.ok(result.bytes<CRM_PAYLOAD_HARD_BYTES);
@@ -37,5 +38,17 @@ test('HTTP 413 is permanent and never retried by the CRM adapter',async()=>{
   let calls=0;process.env.LEAD_DASHBOARD_KEY='test-token';
   globalThis.fetch=async()=>{calls++;return new Response('too large',{status:413});};
   try{await assert.rejects(()=>syncCrm(record(),'p5-key'),/permanently oversized.*manual review.*do not retry/);assert.equal(calls,1);}
+  finally{globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.LEAD_DASHBOARD_KEY;else process.env.LEAD_DASHBOARD_KEY=oldToken;}
+});
+
+test('an email-only HTTP 409 is ambiguous and never accepted as proof of Cabinet intake',async()=>{
+  const oldFetch=globalThis.fetch,oldToken=process.env.LEAD_DASHBOARD_KEY;
+  let calls=0;process.env.LEAD_DASHBOARD_KEY='test-token';
+  globalThis.fetch=async(_url,init)=>{
+    calls++;
+    assert.equal(new Headers(init?.headers).get('Idempotency-Key'),'p5-key');
+    return new Response(JSON.stringify({duplicate:true,reason:'email recently received'}),{status:409,headers:{'content-type':'application/json'}});
+  };
+  try{await assert.rejects(()=>syncCrm(record(),'p5-key'),/CRM returned HTTP 409/);assert.equal(calls,1);}
   finally{globalThis.fetch=oldFetch;if(oldToken===undefined)delete process.env.LEAD_DASHBOARD_KEY;else process.env.LEAD_DASHBOARD_KEY=oldToken;}
 });

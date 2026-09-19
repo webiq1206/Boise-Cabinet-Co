@@ -15,11 +15,11 @@ Customer page, PDF, and email outputs must omit direct/unit cost, markup, margin
 
 **How to apply:** Keep quantities, selling totals/ranges, scope, and allowance caveats. Add adversarial output tests whenever customer result fields or renderers change.
 
-Cabinet CRM continues to use the central Remodeling leads endpoint with Cabinet source/brand fields unless a verified environment override is intentionally configured. Keep CRM payloads under 96 KiB and treat HTTP 413 as permanent manual review.
+Cabinet CRM intentionally uses the central Remodeling leads endpoint; that receiver accepts both brands and resolves Cabinet from source attribution. Keep Cabinet source/brand fields, keep payloads under 96 KiB, and treat HTTP 413 as permanent manual review.
 
-**Why:** A real 133,555-byte production payload received HTTP 413; the compact representation measured 67,148 bytes. CRM has no verified replay-safe idempotency contract.
+**Why:** Live deployment metadata and source confirmed the shared destination is intentional. A real 133,555-byte production payload received HTTP 413; the compact representation measured 67,148 bytes. The legacy receiver ignores `externalLeadId` and `Idempotency-Key` and only compares email for 60 seconds, so it has no replay-safe acceptance contract.
 
-**How to apply:** Measure UTF-8 bytes before fetch, never start the request when oversized, and scope manual delivery processing to the exact draft revision.
+**How to apply:** Measure UTF-8 bytes before fetch, never start the request when oversized, and scope manual delivery processing to the exact draft revision. Never accept an email-only HTTP 409 as proof of this estimate: preserve it as ambiguous manual review without CRM retry. Do not run live acceptance delivery until the durable source-scoped keyed receiver contract is tested and explicitly enabled.
 
 Production alternate-scope acceptance must pin the canonical approved planning-catalog fingerprint, while supply-only, labor-only, and mixed scenarios remain explicitly synthetic.
 
