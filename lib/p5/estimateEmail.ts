@@ -1,4 +1,4 @@
-import {estimateSections,groupSections,money,orderedSections,scopeBullets,type EstimateSection} from './presentation.ts';
+import {customerEstimateSections,customerSafeText,groupSections,money,orderedSections,scopeBullets,type EstimateSection} from './presentation.ts';
 import {ESTIMATOR_BRAND as brand} from './brand.ts';
 
 /**
@@ -38,13 +38,13 @@ function heading(text:string,note?:string){return `<h2 style="margin:28px 0 12px
 function button(label:string,href:string,primary=true){return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table;margin:0 10px 10px 0"><tr><td style="border-radius:10px;background:${primary?PALETTE.button:PALETTE.card};border:1px solid ${primary?PALETTE.button:'#B7C0B8'}"><a href="${escape(href)}" style="display:inline-block;padding:14px 22px;font-size:15px;font-weight:700;color:${primary?PALETTE.buttonInk:PALETTE.ink};text-decoration:none;${FONT}">${escape(label)}</a></td></tr></table>`;}
 
 function customerBody(id:string,result:any,contact:{name?:string}|undefined){
- const sections=estimateSections(result);
+  const sections=customerEstimateSections(result);
  const g=groupSections(sections);
  const range=result.range?`${money(result.range.low)} to ${money(result.range.high)}`:'';
  const parts:string[]=[];
  parts.push(`<p style="margin:0 0 16px;font-size:16px;line-height:1.6;color:${PALETTE.ink}">${escape(contact?.name?`Hi ${contact.name.split(' ')[0]},`:'Hello,')}</p>`);
  parts.push(`<p style="margin:0 0 20px;font-size:16px;line-height:1.6;color:${PALETTE.ink}">Thank you for using the ${escape(brand.name)} project estimator. Your complete project summary is below and attached as a PDF.</p>`);
- parts.push(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:separate;margin:0 0 8px"><tr><td style="padding:22px 22px;border-radius:14px;background:${PALETTE.card};border:1px solid ${PALETTE.line};border-left:5px solid ${PALETTE.accent}"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${PALETTE.soft}">${range?'Preliminary planning range':'Status'}</p><p style="margin:0 0 8px;font-size:${range?'32px':'22px'};line-height:1.2;font-weight:700;color:${PALETTE.ink};${SERIF}">${escape(range||'Scope received for pricing review')}</p><p style="margin:0;font-size:15px;line-height:1.6;color:${PALETTE.muted}">${escape(result.message||'')}</p></td></tr></table>`);
+ parts.push(`<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:separate;margin:0 0 8px"><tr><td style="padding:22px 22px;border-radius:14px;background:${PALETTE.card};border:1px solid ${PALETTE.line};border-left:5px solid ${PALETTE.accent}"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${PALETTE.soft}">${range?'Preliminary planning range':'Status'}</p><p style="margin:0 0 8px;font-size:${range?'32px':'22px'};line-height:1.2;font-weight:700;color:${PALETTE.ink};${SERIF}">${escape(range||'Scope received for pricing review')}</p><p style="margin:0;font-size:15px;line-height:1.6;color:${PALETTE.muted}">${escape(customerSafeText(result.message||''))}</p></td></tr></table>`);
  if(g.glance||g.brief){parts.push(heading('Project summary'));if(g.glance)parts.push(card(g.glance));if(g.brief)parts.push(card(g.brief));}
  if(g.included.length||g.categories.length){parts.push(heading(result.range?'What is included':'Requested work',g.categories.length?g.categoriesIntro?.text:undefined));for(const s of g.included)parts.push(card(s));for(const s of g.categories)parts.push(card(s));}
  if(g.excluded.length){parts.push(heading('Not included','The following work is not part of this estimate.'));for(const s of g.excluded)parts.push(card(s));}
@@ -52,10 +52,10 @@ function customerBody(id:string,result:any,contact:{name?:string}|undefined){
  if(g.assumptions.length){parts.push(heading('Assumptions and items to confirm','These affect the final price and will be confirmed with you before a firm proposal.'));for(const s of g.assumptions)parts.push(card(s));}
  if(g.info.length){parts.push(heading('Supporting details'));for(const s of g.info)parts.push(card(s));}
  parts.push(heading('Next step'));
- parts.push(`<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:${PALETTE.ink}">${escape(result.nextStep||'Schedule a consultation to confirm the scope and refine this range.')}</p>`);
+ parts.push(`<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:${PALETTE.ink}">${escape(customerSafeText(result.nextStep||'Schedule a consultation to confirm the scope and refine this range.'))}</p>`);
  parts.push(`<div>${button('Schedule a consultation',`${SITE}${brand.consultationPath}`)}${button(`Call ${brand.phone}`,`tel:${brand.phone.replace(/[^\d+]/g,'')}`,false)}</div>`);
  parts.push(`<p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:${PALETTE.muted}">Attached: <b>${escape(brand.id)}-estimate-${escape(id)}-customer.pdf</b>, the complete summary including every section above.</p>`);
- parts.push(`<p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:${PALETTE.soft}">${escape(result.disclaimer||'')}</p>`);
+ parts.push(`<p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:${PALETTE.soft}">${escape(customerSafeText(result.disclaimer||''))}</p>`);
  return parts.join('');
 }
 function internalBody(id:string,record:any){
@@ -70,7 +70,7 @@ function internalBody(id:string,record:any){
  if(financial.length){parts.push(heading('Internal financial breakdown'));parts.push(card({title:'Pricing',rows:financial}));}
  if(internal.warnings?.length){parts.push(heading('Pricing checks requiring attention'));parts.push(card({title:'Warnings',kind:'assumption',bullets:internal.warnings.map((w:any)=>w.message||String(w))}));}
  parts.push(heading('Customer summary as delivered'));
- const g=groupSections(estimateSections(result||{}));
+  const g=groupSections(customerEstimateSections(result||{}));
  for(const s of orderedSections([g.glance,g.brief,...g.included,...g.categories,...g.excluded,...g.allowances,...g.assumptions,...g.info].filter((s):s is EstimateSection=>Boolean(s))))parts.push(card(s));
  parts.push(`<p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:${PALETTE.muted}">Attached: the complete administrative estimate (PDF). Open <a href="${SITE}/admin/p5-estimators" style="color:${PALETTE.ink}">the estimator admin</a> to review the saved record.</p>`);
  return parts.join('');
@@ -99,8 +99,8 @@ function plainText(id:string,record:any,admin:boolean){
  const result=record.customer,internal=record.internal||{};
  const lines:string[]=[brand.name,admin?'CONFIDENTIAL INTERNAL ESTIMATE':'YOUR PROJECT ESTIMATE',`Reference: ${id}`,''];
  if(admin)lines.push('LEAD',`Customer: ${record.contact?.name||'Not supplied'}`,`Email: ${record.contact?.email||'Not supplied'}`,`Phone: ${record.contact?.phone||'Not supplied'}`,'');
- lines.push(result?.range?`PLANNING RANGE: ${money(result.range.low)} to ${money(result.range.high)}`:'STATUS: Scope received for pricing review',result?.message||'','');
- const g=groupSections(estimateSections(result||{}));
+ lines.push(result?.range?`PLANNING RANGE: ${money(result.range.low)} to ${money(result.range.high)}`:'STATUS: Scope received for pricing review',customerSafeText(result?.message||''),'');
+  const g=groupSections(customerEstimateSections(result||{}));
  const block=(title:string,sections:EstimateSection[],note?:string)=>{if(!sections.length)return;lines.push(title.toUpperCase());if(note)lines.push(note);for(const s of sections){lines.push('',`${s.title}${s.kind==='category'&&s.text?`: ${s.text}`:''}`);if(s.text&&s.kind!=='category')lines.push(s.text);for(const b of s.bullets||[])lines.push(`  - ${b}`);for(const [k,v] of s.rows||[])lines.push(`  ${k}: ${v.replace(/\n+/g,' ')}`);}lines.push('');};
  block('Project summary',[g.glance,g.brief].filter((s):s is EstimateSection=>Boolean(s)));
  block(result?.range?'What is included':'Requested work',[...g.included,...g.categories],g.categoriesIntro?.text);
@@ -113,7 +113,7 @@ function plainText(id:string,record:any,admin:boolean){
   if(financial.length){lines.push('INTERNAL FINANCIAL BREAKDOWN');for(const [k,v] of financial)lines.push(`  ${k}: ${money(Number(v))}`);lines.push('');}
   if(internal.warnings?.length){lines.push('PRICING CHECKS REQUIRING ATTENTION');for(const w of internal.warnings)lines.push(`  - ${w.message||String(w)}`);lines.push('');}
  }
- lines.push('NEXT STEP',result?.nextStep||'Schedule a consultation to confirm the scope and refine this range.',`Schedule: https://${brand.domain}${brand.consultationPath}`,`Call: ${brand.phone}`,'',admin?'The complete administrative estimate is attached. Do not forward it to the customer.':'Your complete project summary is attached as a PDF.','',result?.disclaimer||'');
+ lines.push('NEXT STEP',customerSafeText(result?.nextStep||'Schedule a consultation to confirm the scope and refine this range.'),`Schedule: https://${brand.domain}${brand.consultationPath}`,`Call: ${brand.phone}`,'',admin?'The complete administrative estimate is attached. Do not forward it to the customer.':'Your complete project summary is attached as a PDF.','',customerSafeText(result?.disclaimer||''));
  return lines.join('\n');
 }
 export function estimateEmail(id:string,record:any,admin:boolean){

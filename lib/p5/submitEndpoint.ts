@@ -19,7 +19,7 @@ export async function postSubmission(request:Request,schedule?:(task:()=>Promise
     if(draft.status==="submitted"){
       const [row]=await query("SELECT customer_estimate FROM p5_estimator_drafts WHERE id=$1",[id]);
       // A status check after submission drives any delivery still queued; an autoscale host has no CPU between requests.
-      await processOutbox({draftId:id,limit:12}).catch(()=>undefined);
+      await processOutbox({draftId:id,revision:draft.revision,limit:12}).catch(()=>undefined);
       return json({accepted:false,duplicate:true,id,result:row.customer_estimate,delivery:await deliveryStatus(id)});
     }
     const body=JSON.parse(new TextDecoder().decode(await limitedBody(request,4000)));
@@ -60,7 +60,7 @@ export async function postSubmission(request:Request,schedule?:(task:()=>Promise
     const accepted=await enqueueSubmission(id,draft.revision,record);
     // Persistence is acknowledged separately from delivery. A transport failure
     // never erases the submission or tells a visitor to create a duplicate.
-    const deliver=async()=>{await processOutbox({draftId:id,limit:12}).catch(()=>undefined);};
+    const deliver=async()=>{await processOutbox({draftId:id,revision:draft.revision,limit:12}).catch(()=>undefined);};
     // An autoscale host gives a request no CPU after its response, so delivery
     // runs inside this request within a bounded wait; anything left continues
     // after the response and on the visitor's next status check.

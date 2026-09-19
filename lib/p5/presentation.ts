@@ -9,6 +9,27 @@ export type SectionKind='glance'|'brief'|'included'|'category'|'excluded'|'allow
 export type EstimateSection={title:string;kind?:SectionKind;text?:string;bullets?:string[];rows?:[string,string][]};
 export const money=(n:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
 export const readable=(s:string)=>s.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/-/g,' ').replace(/^./,c=>c.toUpperCase());
+/**
+ * Customer-facing renderers must not expose the estimator's direct-cost
+ * arithmetic.  Keep this transformation here so the page, PDF and email use
+ * the same boundary while administrative renderers retain the source detail.
+ */
+export function customerSafeText(value:string):string{
+  const stripped=value
+    .replace(/\$[\d,]+(?:\.\d{1,2})?\s*\/\s*[A-Za-z]+\s*\(\s*\$[\d,]+(?:\.\d{1,2})?\s+(?:direct|unit)\s+cost\s*\)/gi,'')
+    .replace(/\([^)]*\b(?:direct|unit)\s+cost\b[^)]*\)/gi,'')
+    .replace(/\b(?:direct|unit)\s+cost\b\s*(?:is|was|of|:|=)?\s*\$?[\d,.]+(?:%|\b)/gi,'')
+    .replace(/\$[\d,]+(?:\.\d{1,2})?\s*(?:direct|unit)\s+cost\b/gi,'')
+    .replace(/\b(?:markup|margin|operating profit)\b\s*(?:is|was|of|:|=)?\s*\$?[\d,.]+(?:%|\b)/gi,'')
+    .replace(/\$?[\d,]+(?:\.\d{1,2})?%?\s+(?:markup|margin|operating profit)\b/gi,'')
+    .replace(/\(\s*\)/g,'')
+    .replace(/\s{2,}/g,' ')
+    .replace(/:\s*\.\s*/g,': ')
+    .replace(/\s+([,.;!?])/g,'$1')
+    .trim();
+  const confidential=/\b(?:(?:direct|unit)\s+cost|(?:gross|net|operating)?\s*profit|markup|margin|overhead(?:\s+recovery)?|cost\s+location)\b/i;
+  return stripped.split(/\n+|(?<=[.!?])\s+/).filter(part=>part.trim()&&!confidential.test(part)).join(' ').replace(/\s{2,}/g,' ').trim();
+}
 // Preserve original wording, numbers and exclusions. Never split decimal values or URLs.
 export const scopeBullets=(s:string)=>s.split(/\n+|(?<=[.!?])\s+(?=[A-Z])/).map(x=>x.trim().replace(/^[•*]\s*/, '')).filter(Boolean);
 const overview=new Set(['service','location','address','sqft','garageSqft','coveredOutdoorSqft','rooms','bathrooms','stories','schedule','urgency','complexity','finish']);
@@ -19,10 +40,7 @@ export const SECTION_TITLES={included:'Included work',excluded:'Excluded work',r
 function itemPriceText(item:any){
  const quantity=`${Number(item.quantity).toLocaleString('en-US')} ${item.unit}${item.quantityRange?` modeled allowance (${item.quantityRange.low.toLocaleString('en-US')} to ${item.quantityRange.high.toLocaleString('en-US')} ${item.unit} to verify)`:''}`;
  const total=`${money(item.low)} to ${money(item.high)} total`;
- // A one-package price is already its unit price. Avoid repeating it.
- if(item.quantity===1&&!item.quantityRange)return `${quantity} • ${total}`;
- const unit=`${Number(item.unitLow).toLocaleString('en-US',{style:'currency',currency:'USD'})} to ${Number(item.unitHigh).toLocaleString('en-US',{style:'currency',currency:'USD'})} / ${item.unit}${item.quantityRange?' at the modeled quantity':''}`;
- return `${quantity}\n${total}\n${unit}`;
+ return `${quantity} • ${total}`;
 }
 export function summarySections(summary:string):EstimateSection[]{
  const groups=new Map<string,[string,string][]>(); const original:string[]=[];
@@ -122,6 +140,15 @@ export function estimateSections(result:any):EstimateSection[]{
  }
  return uniqueCustomerSections(sections);
 }
+export function customerEstimateSections(result:any):EstimateSection[]{
+  return estimateSections(result).map(section=>({
+    ...section,
+    title:customerSafeText(section.title),
+    text:section.text?customerSafeText(section.text):section.text,
+    bullets:section.bullets?.map(customerSafeText).filter(Boolean),
+    rows:section.rows?.map(([name,value])=>[customerSafeText(name),customerSafeText(value)] as [string,string]).filter(([name,value])=>Boolean(name||value)),
+  })).filter(section=>Boolean(section.title&&(section.text||section.bullets?.length||section.rows?.length)));
+}
 export interface GroupedSections{glance?:EstimateSection;brief?:EstimateSection;categoriesIntro?:EstimateSection;included:EstimateSection[];categories:EstimateSection[];excluded:EstimateSection[];allowances:EstimateSection[];assumptions:EstimateSection[];info:EstimateSection[]}
 /**
  * Reading order for every customer-facing output: what the project is, what
@@ -155,15 +182,18 @@ export const KIND_LABEL:Record<SectionKind,string>={glance:'',brief:'',included:
 export function fieldCategory(field:string):string{
  return overview.has(field)?"Project at a glance":FIELD_CATEGORY_TITLES[field]||"Additional scope details";
 }
-export interface CategoryLine {id:string;label:string;quantity:number;unit:string;quantityRange?:{low:number;high:number};low:number;high:number;unitLow:number;unitHigh:number;status:string;verification?:string;rateLocation?:string;rateDate?:string}
+export interface CategoryLine {id:string;label:string;quantity:number;unit:string;quantityRange?:{low:number;high:number};low:number;high:number;unitLow?:number;unitHigh?:number;status:string;verification?:string;rateLocation?:string;rateDate?:string}
 export interface CategoryBreakdown {category:string;low?:number;high?:number;tasks:string[];items:CategoryLine[]}
 /** Structured category accordions for the customer result. Same data as estimateSections, without prose. */
-export function categoryBreakdown(result:any):CategoryBreakdown[]{
+export function categoryBreakdown(result:any,customerSafe=true):CategoryBreakdown[]{
  const lines:any[]=result?.lineItems||[],tasks:any[]=result?.scopeTasks||[];
  const categories=[...new Set<string>([...(result?.includedCategories||[]),...lines.map(x=>x.category),...tasks.map(x=>x.category||suggestedTrade(x.description))])];
- return categories.map(category=>{
+  return categories.map(category=>{
   const range=result?.categoryRanges?.find((x:any)=>x.category===category);
-  const items:CategoryLine[]=lines.filter(x=>x.category===category).map(x=>({id:String(x.id),label:[x.building&&!/^(main|default)$/i.test(x.building)?x.building:"",x.floor?`Floor ${x.floor}`:"",x.description].filter(Boolean).join(" / "),quantity:Number(x.quantity),unit:String(x.unit),...(x.quantityRange?{quantityRange:x.quantityRange}:{}),low:Number(x.low),high:Number(x.high),unitLow:Number(x.unitLow),unitHigh:Number(x.unitHigh),status:String(x.pricingStatus||"verified-cost"),...(x.verification?{verification:x.verification}:{}),...(x.rateLocation?{rateLocation:x.rateLocation}:{}),...(x.rateDate?{rateDate:String(x.rateDate).slice(0,10)}:{})}));
-  return {category,...(range?{low:range.low,high:range.high}:{}),tasks:[...new Set<string>(tasks.filter(x=>(x.category||suggestedTrade(x.description))===category).map(x=>x.description))],items};
- });
+   const items:CategoryLine[]=lines.filter(x=>x.category===category).map(x=>({id:String(x.id),label:[x.building&&!/^(main|default)$/i.test(x.building)?x.building:"",x.floor?`Floor ${x.floor}`:"",x.description].filter(Boolean).join(" / "),quantity:Number(x.quantity),unit:String(x.unit),...(x.quantityRange?{quantityRange:x.quantityRange}:{}),low:Number(x.low),high:Number(x.high),unitLow:Number(x.unitLow),unitHigh:Number(x.unitHigh),status:String(x.pricingStatus||"verified-cost"),...(x.verification?{verification:x.verification}:{}),...(x.rateLocation?{rateLocation:x.rateLocation}:{}),...(x.rateDate?{rateDate:String(x.rateDate).slice(0,10)}:{})}));
+   if(customerSafe){
+     for(const item of items){delete item.rateLocation;delete item.rateDate;delete item.unitLow;delete item.unitHigh;item.label=customerSafeText(item.label);item.verification=item.verification?customerSafeText(item.verification):item.verification;}
+   }
+    return {category:customerSafeText(category),...(range?{low:range.low,high:range.high}:{}),tasks:[...new Set<string>(tasks.filter(x=>(x.category||suggestedTrade(x.description))===category).map(x=>customerSafeText(x.description)).filter(Boolean))],items:items.filter(item=>item.label)};
+  }).filter(group=>group.category);
 }

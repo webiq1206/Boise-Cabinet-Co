@@ -1,4 +1,4 @@
-import {timingSafeEqual} from "node:crypto";
+import {createHash,timingSafeEqual} from "node:crypto";
 import {readStoredBytes} from "./objectStorage.ts";
 import {requireEstimatorAdmin} from "./adminAuth.ts";
 import {query} from "./database.ts";
@@ -11,17 +11,31 @@ import {ensureReviewSchema,saveManualReview,approveManualReview,publishManualRev
 import {administrativePdf,customerPdf,pdfFilename} from "./pdf.ts";
 import {protectRequest,limitedBody,json,failed} from "./http.ts";
 import {draftEvents,recentFailures} from './events.ts';
+import {manualScopeAnswers} from './adaptive.ts';
+import {applyCabinetIntent} from './projectIntent.ts';
+import {selectReusableAnalysis} from './analysisReuse.ts';
+import {ESTIMATOR_BRAND} from './brand.ts';
 function validId(id:string){if(!/^[a-f0-9-]{36}$/.test(id))throw new DraftError("Invalid record id.");return id;}
 export async function getAdminEstimates(request:Request){try{
-  await requireEstimatorAdmin();await ensureReviewSchema();const url=new URL(request.url);const id=url.searchParams.get("id");
+  await requireEstimatorAdmin();const url=new URL(request.url);const id=url.searchParams.get("id");
   if(id){const [row]=await query("SELECT id,brand,revision,status,payload,internal_estimate,customer_estimate,updated_at FROM p5_estimator_drafts WHERE id=$1",[validId(id)]);
     if(!row)throw new DraftError("Estimate not found.",404);
+    if(url.searchParams.get("analysisReuse")==="true"){
+      const draft=row.payload||{};
+      const answers=applyCabinetIntent(draft.text||"",ESTIMATOR_BRAND.services,manualScopeAnswers(draft.answers||{},draft.extraction||null,draft.wizard?.resolutions||{})).answers;
+      const candidates=(await query("SELECT work_key,payload FROM p5_estimator_work WHERE draft_id=$1 AND work_key LIKE 'background-v1-%' AND payload->>'state'='complete' AND payload->'input'->>'kind'='analysis' ORDER BY updated_at DESC",[id])).map(candidate=>({workKey:String(candidate.work_key),payload:candidate.payload}));
+      const selected=selectReusableAnalysis(candidates,{text:draft.text||"",answers,uploads:draft.uploads||[]});
+      const sourceFingerprint=createHash("sha256").update(JSON.stringify([draft.text||"",(draft.uploads||[]).map((file:any)=>[file.id,file.sha256])])).digest("hex");
+      return json({id,revision:row.revision,sourceFingerprint,reusable:Boolean(selected.reusable),reason:selected.reason||null,provider:selected.reusable?.analysis.provider,model:selected.reusable?.analysis.model,analyzedAt:selected.reusable?.analysis.analyzedAt});
+    }
+    await ensureReviewSchema();
     if(url.searchParams.get("pdf")){const customer=url.searchParams.get("pdf")==="customer";
       if(customer&&!row.customer_estimate)throw new DraftError("This draft has no submitted customer summary yet.",409);
       const data=customer?await customerPdf(id,row.customer_estimate):await administrativePdf(id,{...row.internal_estimate,contact:row.payload.contact,scope:row.internal_estimate?.scope||row.payload});
       return new Response(data as BodyInit,{headers:{"Content-Type":"application/pdf","Content-Disposition":`attachment; filename="${pdfFilename(id,customer?"customer":"administrative")}"`,"Cache-Control":"no-store"}});}
     const uploads=await query("SELECT id,name,mime_type,size_bytes,sha256 FROM p5_estimator_files WHERE draft_id=$1",[id]);
     const deliveries=await query("SELECT id,destination,status,attempts,provider_id,last_error,created_at,sent_at FROM p5_estimator_outbox WHERE draft_id=$1",[id]);const reviews=await query("SELECT id,source_revision,input,notes,actor_id,created_at FROM p5_estimator_reviews WHERE draft_id=$1 ORDER BY created_at DESC",[id]);const history=await query("SELECT revision,record,created_at FROM p5_estimator_history WHERE draft_id=$1 ORDER BY revision DESC",[id]);const reconciliation=await query("SELECT r.* FROM p5_estimator_delivery_reviews r JOIN p5_estimator_outbox o ON r.delivery_id=o.id WHERE o.draft_id=$1 ORDER BY r.created_at",[id]);const referenceChecks=await query("SELECT review_id,reference_version,selection,result,created_at FROM p5_estimator_reference_checks WHERE draft_id=$1 ORDER BY created_at DESC",[id]);const events=await draftEvents(id,200);return json({estimate:row,uploads,deliveries,reviews,history,reconciliation,referenceChecks,events});}
+  await ensureReviewSchema();
   if(url.searchParams.get("events")==="failures")return json({events:await recentFailures(Number(url.searchParams.get("limit")||200))});
   const [policy]=await query("SELECT payload,version,updated_by,updated_at FROM p5_estimator_policy WHERE id='current'");
   const drafts=await query("SELECT id,brand,status,revision,payload->'contact' AS contact,payload->'answers'->>'service' AS service,updated_at FROM p5_estimator_drafts ORDER BY updated_at DESC LIMIT 100");
@@ -59,7 +73,10 @@ export async function putAdminPolicy(request:Request){try{
 }catch(error){return failed(error);}}
 export async function postAdminAction(request:Request){try{
   protectRequest(request);const actor=await requireEstimatorAdmin();await ensureSchema();const body=JSON.parse(new TextDecoder().decode(await limitedBody(request,2000000)));
-  if(body.action==="process-delivery")return json({results:await processOutbox({draftId:body.id?validId(body.id):undefined})});
+  if(body.action==="process-delivery"){
+    if(body.revision!==undefined&&(!Number.isInteger(body.revision)||body.revision<0))throw new DraftError("A valid delivery revision is required.");
+    return json({results:await processOutbox({draftId:body.id?validId(body.id):undefined,revision:body.revision})});
+  }
   if(body.action==="save-review")return json(await saveManualReview({...body,id:validId(body.id)},actor));
   if(body.action==="approve-review")return json(await approveManualReview(body,actor));
   if(body.action==="publish-review"){

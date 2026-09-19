@@ -32,11 +32,12 @@ test('review details group by presentation category',()=>{
   assert.equal(fieldCategory('taskList'),'Additional scope details');
 });
 
-test('category breakdown carries subtotals, quantities, unit prices and pricing status',()=>{
+test('customer category breakdown omits unit rates while internal breakdown retains them',()=>{
   const result={includedCategories:['Plumbing'],range:{low:100,high:200},categoryRanges:[{category:'Plumbing',low:100,high:200}],lineItems:[{id:'p',category:'Plumbing',description:'Fixture installation',quantity:2,unit:'EA',low:100,high:200,unitLow:50,unitHigh:100,pricingStatus:'estimated-allowance',verification:'Confirm selections.'}],scopeTasks:[{description:'Install two fixtures',category:'Plumbing'},{description:'Paint the walls'}]};
   const groups=categoryBreakdown(result);
   assert.deepEqual(groups.map(g=>g.category),['Plumbing','Painting']);
-  assert.equal(groups[0].low,100);assert.equal(groups[0].items[0].unitHigh,100);assert.equal(groups[0].items[0].status,'estimated-allowance');
+  assert.equal(groups[0].low,100);assert.equal(groups[0].items[0].unitHigh,undefined);assert.equal(groups[0].items[0].status,'estimated-allowance');
+  assert.equal(categoryBreakdown(result,false)[0].items[0].unitHigh,100);
   assert.deepEqual(groups[1].tasks,['Paint the walls']);assert.equal(groups[1].items.length,0);
 });
 

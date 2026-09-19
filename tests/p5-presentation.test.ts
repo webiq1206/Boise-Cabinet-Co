@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {summarySections,estimateSections,SECTION_TITLES} from '../lib/p5/presentation.ts';
+import {summarySections,estimateSections,customerEstimateSections,customerSafeText,SECTION_TITLES} from '../lib/p5/presentation.ts';
 import {estimateEmail} from '../lib/p5/estimateEmail.ts';
+import {customerPdf} from '../lib/p5/pdf.ts';
+import {pdfTextLayers} from '../lib/p5/pdfText.ts';
 import {suggestedTrade} from '../lib/p5/trades.ts';
 const result={summary:'Project type: new-construction\nProject area in square feet: 4500\nPlumbing work: Supply fixtures. Install connections.\nExcluded work: Land and financing.',includedCategories:['Plumbing'],range:{low:100,high:200},lineItems:[{id:'p',category:'Plumbing',description:'Fixture installation',quantity:2,unit:'EA',low:100,high:200,unitLow:50,unitHigh:100}],categoryRanges:[{category:'Plumbing',low:100,high:200}],assumptions:[],exclusions:['Land'],allowances:[],factors:[],message:'Review your estimate.',nextStep:'Consultation',disclaimer:'Preliminary only.'};
 test('Customer outputs combine repeated exclusions and retain every distinct condition',()=>{
@@ -29,6 +31,27 @@ test('Formatted customer emails escape scope HTML and never include internal fin
  assert.ok(admin.html.includes('98,765'));assert.ok(customer.text.includes('Plumbing'));assert.ok(customer.text.includes('NOT INCLUDED'));
  // Excluded work is its own labeled section in both formats, never under an included heading.
  assert.ok(customer.html.includes('Not included'));assert.ok(customer.html.indexOf('Land and financing.')>customer.html.indexOf('Not included'));
+});
+test('Customer presentation removes direct-cost arithmetic while retaining selling totals and allowances',async()=>{
+ const leaked='$2.00/LF ($200.00 direct cost)';
+ const r={...result,lineItems:[{...result.lineItems[0],description:'20 LF cabinet run',quantity:20,unit:'LF',unitLow:10,unitHigh:15,pricingStatus:'estimated-allowance',rateLocation:leaked,rateDate:'2026-09-19',verification:`${leaked}; confirm selections before a firm proposal.`}],instructions:{inclusions:['Install 20 LF of cabinets.'],exclusions:[]}};
+ const customer=customerEstimateSections(r);
+ assert.ok(JSON.stringify(customer).includes('$100 to $200'));
+ assert.ok(JSON.stringify(customer).includes('20 LF'));
+ assert.doesNotMatch(JSON.stringify(customer),/direct cost|unit cost|markup|profit|\$2\.00\/LF/i);
+ assert.equal(customerSafeText('Preliminary allowance: $2.00/LF ($200.00 direct cost). Confirm selections.'),'Preliminary allowance: Confirm selections.');
+ assert.equal(customerSafeText('Projected gross profit is $5,000. Confirm final selections.'),'Confirm final selections.');
+ assert.equal(customerSafeText('Overhead recovery: $800. Scope remains preliminary.'),'Scope remains preliminary.');
+ const mail=estimateEmail('cabinet-leak',{customer:r,internal:{directCost:200,operatingProfit:75},contact:{name:'QA'}},false);
+ const admin=estimateEmail('cabinet-leak',{customer:r,internal:{directCost:200,operatingProfit:75},contact:{name:'QA'}},true);
+ assert.doesNotMatch(mail.text,/direct cost|unit cost|markup|profit|\$2\.00\/LF/i);
+ assert.doesNotMatch(mail.html,/direct cost|unit cost|markup|profit|\$2\.00\/LF/i);
+ assert.match(admin.text,/Direct project cost/);
+ const pdf=await customerPdf('cabinet-leak',r as any);
+ assert.ok(pdf.length>1000);
+ const pdfText=(await pdfTextLayers(pdf)).join('\n');
+ assert.ok(pdfText.includes('$100 to $200'));
+ assert.doesNotMatch(pdfText,/direct cost|unit cost|markup|profit|\$2\.00\/LF/i);
 });
 test('Specialty cabinet products and paint-grade trim retain the correct trade',()=>{
  assert.equal(suggestedTrade('Wood cabinet pullout product with door-mount hardware'),'Cabinets');

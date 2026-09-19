@@ -14,6 +14,8 @@ import { failed,json,limitedBody,protectRequest } from "./http.ts";
 import { ESTIMATOR_BRAND } from "./brand.ts";
 import {recordEvent,describeError} from './events.ts';
 import {blockingReviewNote} from './costBook.ts';
+import {selectReusableAnalysis} from './analysisReuse.ts';
+import {query} from './database.ts';
 
 /** Guard multipart analysis/upload requests before they can mutate files. */
 export function guardScopeRequestRevision(storedRevision:number,requestedRevision:unknown,storedText:string,incomingText:string){
@@ -95,9 +97,14 @@ export async function postScope(request:Request){
     try{
       if(checkpointed){
         const background=form.get('background')==='true';
-        const job=background?await queuedJob({kind:'analysis',draft:analysisDraft,text,answers:visitorAnswers},form.get('retry')==='true'):null;
+        const reuse=background&&form.get('retry')!=='true'?selectReusableAnalysis(
+          (await query("SELECT work_key,payload FROM p5_estimator_work WHERE draft_id=$1 AND work_key LIKE 'background-v1-%' AND payload->>'state'='complete' AND payload->'input'->>'kind'='analysis' ORDER BY updated_at DESC",[analysisDraft.id]))
+            .map(row=>({workKey:String(row.work_key),payload:row.payload})),
+          {text,answers:visitorAnswers,uploads:analysisDraft.uploads},
+        ).reusable:null;
+        const job=!reuse&&background?await queuedJob({kind:'analysis',draft:analysisDraft,text,answers:visitorAnswers},form.get('retry')==='true'):null;
         if(job&&job.state!=='complete')return json({pending:job.state!=='failed',progress:job.progress,processing:job.processing,revision:draft.revision,draftRevision:draft.revision,...(job.state==='failed'?{error:job.progress}:{})},job.state==='failed'?503:200);
-        const step=job?job.result:await advanceAnalysis(analysisDraft,text,visitorAnswers,fetch,form.get("retry")==="true");
+        const step=reuse?{pending:false as const,version:reuse.version,analysis:reuse.analysis}:job?job.result:await advanceAnalysis(analysisDraft,text,visitorAnswers,fetch,form.get("retry")==="true");
          if(step.pending)return json({...step,revision:draft.revision,draftRevision:draft.revision});
         analysis=step.analysis;
       }else{
@@ -118,7 +125,7 @@ export async function postScope(request:Request){
       void recordEvent({draftId:id,estimator:visitorAnswers.service||null,kind:'analysis',stage:'scope-request',code:detail.code,status:detail.status,message:detail.message,outcome:'failed'});
       warning=scopeAnalysisFailureWarning(Boolean(analysisDraft.uploads.length));
     }
-    if(analysis)analysis.extraction=applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!;
+     if(analysis)analysis={...analysis,extraction:applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!};
     const extraction=analysis?.extraction||analysisDraft.extraction;
     const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:visitorAnswers,conflicts:[]};
     const wizard={instructionAnswers:sourceChanged?[]:analysisDraft.wizard?.instructionAnswers||[],skipped:sourceChanged?[]:analysisDraft.wizard?.skipped||[],resolutions,sourceVersion:analysis?version:sourceChanged?undefined:analysisDraft.wizard?.sourceVersion};
