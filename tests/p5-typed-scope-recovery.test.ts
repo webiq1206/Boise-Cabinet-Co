@@ -22,11 +22,38 @@ test('completed work progress binds each work key as scalar text',()=>{
 
 test('owner-supplied labor-only cabinet installation is installation work',()=>{
   assert.equal(cabinetIntent(text,services),'cabinet-install');
+  assert.equal(cabinetIntent('Install the kitchen cabinets.',services),'cabinet-install');
+  assert.equal(cabinetIntent('Cabinet installation is required.',services),'cabinet-install');
   assert.equal(cabinetIntent('Supply cabinets only; do not install them.',services),'cabinet-product');
   assert.equal(cabinetIntent('The owner-supplied cabinets are stored on site.',services),undefined);
   const component=readFileSync(new URL('../components/P5Estimator.tsx',import.meta.url),'utf8');
   assert.match(component,/'cabinet-install':'Cabinet installation'/);
   assert.doesNotMatch(component,/'cabinet-install':'Cabinets with installation'/);
+});
+
+test('excluded, unrelated and uncertain cabinet language does not assert cabinet installation',()=>{
+  const boundaries=[
+    'Install tile; exclude cabinets.',
+    'Install appliances but do not include cabinets.',
+    'Install shelving without cabinets.',
+    'Maybe install owner-supplied cabinets.',
+  ];
+  for(const instruction of boundaries)assert.equal(cabinetIntent(instruction,services),undefined,instruction);
+  const excluded:ScopeExtraction={
+    summary:'Install tile; cabinets are excluded.',
+    facts:[
+      {field:'service',value:'cabinet-install',confidence:.7,source:'typed scope',evidence:'install',basis:'inferred'},
+      {field:'exclusions',value:'Cabinets excluded',confidence:1,source:'typed scope',evidence:'exclude cabinets',basis:'stated'},
+    ],
+    conflicts:[],missingInformation:[],reviewNotes:[],clarifications:[],
+  };
+  const suppressed=applyCabinetIntent(boundaries[0],services,{service:'cabinet-install'},excluded);
+  assert.equal(suppressed.answers.service,undefined);
+  assert.ok(!suppressed.extraction?.facts.some(f=>f.field==='service'&&f.value==='cabinet-install'));
+  assert.ok(suppressed.extraction?.facts.some(f=>f.field==='exclusions'&&f.value==='Cabinets excluded'));
+  const uncertain=applyCabinetIntent(boundaries[3],services,{service:'cabinet-install'},excluded);
+  assert.equal(uncertain.answers.service,undefined);
+  assert.ok(!uncertain.extraction?.facts.some(f=>f.field==='service'&&f.value==='cabinet-install'));
 });
 
 test('the reproduced typed scope returns captured details without asking project type',()=>{
