@@ -3,6 +3,7 @@
  * and `@/server/services/emailLayout`. Kept for the legacy `/api/quotes` pipeline only.
  */
 import { Resend } from 'resend';
+import { checkedEmailSender } from '@/lib/emailDelivery';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import {
   escapeHtml,
@@ -71,8 +72,10 @@ async function getCredentials() {
 
 async function getUncachableResendClient() {
   const { apiKey, fromEmail } = await getCredentials();
+  const client = new Resend(apiKey);
+  client.emails.send = checkedEmailSender(client.emails.send.bind(client.emails), 'boisecabinet.co');
   return {
-    client: new Resend(apiKey),
+    client,
     fromEmail
   };
 }
@@ -270,4 +273,3 @@ function formatServiceName(slug: string): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 }
-

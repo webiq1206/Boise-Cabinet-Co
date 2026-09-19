@@ -9,6 +9,7 @@ import {
   getOutreachReplyTo,
   getOutreachSenderName,
   isOutreachSendable,
+  isOutreachTrackingEnabled,
   type OutreachRuntimeConfig,
 } from "@/lib/outreach/config";
 import { buildOutreachCopy } from "@/lib/outreach/template";
@@ -307,7 +308,7 @@ async function sendToProspect(
     templateKey: isFollowup ? config.followupTemplate : prospect.templateKey ?? config.defaultTemplate,
     isFollowup,
     // Only embed the open-tracking pixel in a real send, never in a dry run.
-    openTrackingUrl: config.dryRun ? null : buildOpenTrackingUrl(prospect.unsubscribeToken),
+    openTrackingUrl: config.dryRun || !isOutreachTrackingEnabled() ? null : buildOpenTrackingUrl(prospect.unsubscribeToken),
   });
 
   // Dry run: compose and preview only. Do not call Resend, do not mark sent.

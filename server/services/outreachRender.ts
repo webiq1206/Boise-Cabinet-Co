@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { getOutreachPostalAddress } from "@/lib/outreach/config";
 import {
   EMAIL_BRAND,
   SITE_BASE_URL,
@@ -127,11 +128,11 @@ function buildSignature(signerName?: string | null): string {
 
 // CAN-SPAM compliant footer: physical identity line + one-click unsubscribe.
 function buildOutreachFooter(unsubscribeUrl: string): string {
-  const identity = `Boise Cabinet Co · ${SITE_CONFIG.address.city}, ${SITE_CONFIG.address.state} · ${SITE_CONFIG.serviceAreaLabel}`;
+  const identity = `Boise Cabinet Co · ${getOutreachPostalAddress()}`;
   return `
     <div style="padding:18px 30px 28px 30px; border-top:1px solid ${EMAIL_BRAND.border};">
       <p style="margin:0 0 4px 0; font-size:12px; color:${EMAIL_BRAND.charcoalLight};">${escapeHtml(identity)}</p>
-      <p style="margin:0; font-size:12px; color:${EMAIL_BRAND.charcoalLight};">Would you rather not hear from me? <a href="${unsubscribeUrl}" style="color:${EMAIL_BRAND.charcoalLight}; text-decoration:underline;">Unsubscribe here</a> and I will not reach out again.</p>
+      <p style="margin:0; font-size:12px; color:${EMAIL_BRAND.charcoalLight};">Would you rather not hear from me? <a href="${escapeHtml(unsubscribeUrl)}" style="color:${EMAIL_BRAND.charcoalLight}; text-decoration:underline;">Unsubscribe here</a> and I will not reach out again.</p>
     </div>
   `;
 }
@@ -194,7 +195,7 @@ export function renderOutreachEmail(ctx: RenderContext): RenderedEmail {
 </body>
 </html>`;
 
-  const text = htmlToPlainText(html);
+  const text = `${htmlToPlainText(html)}\n\nUnsubscribe: ${unsubscribeUrl}`;
   return { subject, html, text };
 }
 
