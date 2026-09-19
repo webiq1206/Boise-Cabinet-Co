@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-09-09";
+export const PROJECTS_GENERATED_ON = "2026-09-19";
 
 export const PROJECTS: SiteProject[] = [
   {

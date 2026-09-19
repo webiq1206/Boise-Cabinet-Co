@@ -2,11 +2,11 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {query} from '../lib/p5/database';
-import {priceCompleteScope,requestPricingOpenAI,type PricingRequest} from '../lib/p5/scopePricing';
+import {priceCompleteScope,requestPricingOpenAI,validateManagedPricingOpenAI,type PricingRequest} from '../lib/p5/scopePricing';
 import {ESTIMATOR_BRAND as brand} from '../lib/p5/brand';
 import type {EstimatorConfiguration} from '../lib/p5/costBook';
 import type {ReviewedScope} from '../lib/p5/scope';
-import {beginPricingSpend,confirmPricingSpend,ensurePricingSpendSchema,reservePricingSpend} from '../lib/p5/pricingSpend';
+import {beginPricingSpend,confirmPricingSpend,ensurePricingSpendSchema,finishPricingSpend,reservePricingSpend} from '../lib/p5/pricingSpend';
 
 // Opt-in paid inference with synthetic scope and read-only approved pricing.
 // No draft, rate, lead, CRM, outbox or email write is called by this script.
@@ -14,7 +14,8 @@ if(process.env.P5_RUN_LIVE_PRICING!=='true')throw new Error('Explicit live prici
 const fingerprint=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 async function main(){
   const integrated=Boolean(process.env.AI_INTEGRATIONS_OPENAI_API_KEY&&process.env.AI_INTEGRATIONS_OPENAI_BASE_URL);
-  if(!Boolean(integrated?process.env.AI_INTEGRATIONS_OPENAI_API_KEY:process.env.OPENAI_API_KEY))throw new Error('OpenAI pricing qualification is not configured.');
+  if(!integrated)throw new Error('Managed OpenAI pricing qualification is not configured.');
+  validateManagedPricingOpenAI();
   await ensurePricingSpendSchema();
  const [policy]=await query("SELECT payload FROM p5_estimator_policy WHERE id='current'");
  assert.ok(policy?.payload?.planningCatalog?.rates?.length,'The approved catalog must be populated');
@@ -33,15 +34,36 @@ async function main(){
   // the research path. The owner's saved185-rate catalog remains untouched.
   if(missing)config.planningCatalog!.rates=config.planningCatalog!.rates.filter(rate=>rate.type!=='Material');
     const stages:any[]=[];const request:PricingRequest=async(instructions,input,search,remaining)=>{
-     const stage=search?'research':'provider';const operationKey=`${scenario}:${stage}:${createHash('sha256').update(JSON.stringify([instructions,input,search])).digest('hex').slice(0,32)}`;
+     const stage=search?'research':'provider';const runId=process.env.P5_LIVE_PRICING_RUN_ID||'default';const operationKey=`${scenario}:${stage}:${createHash('sha256').update(JSON.stringify([runId,instructions,input,search])).digest('hex').slice(0,32)}`;
      const provider='OpenAI';
      const model=process.env.P5_PRICING_OPENAI_MODEL||process.env.P5_SCOPE_OPENAI_MODEL||'gpt-4.1';
-    const reservation=await reservePricingSpend({operationKey,provider,model,scenario,stage});
+     const maxOutputTokens=search?24000:10000;
+     const conservativeInputTokens=Buffer.byteLength(instructions)+Buffer.byteLength(JSON.stringify(input))+65536;
+     const reserveUsd=Math.ceil((conservativeInputTokens*6.875/1_000_000+maxOutputTokens*33/1_000_000)*1_000_000)/1_000_000;
+     const reservation=await reservePricingSpend({operationKey,provider,model,scenario,stage,reserveUsd});
     const outcome={scenario,stage,operationKey,reservationStatus:reservation.status,reservationCode:reservation.code,provider,model,elapsedMs:0,errorCode:null as string|null};
     if(reservation.status!=='reserved'){stages.push(outcome);throw new Error(`pricing-spend-${reservation.code}`);}
-     await beginPricingSpend(reservation.id!);outcome.reservationStatus='unknown';
      const started=performance.now();
-     try{const result=await requestPricingOpenAI(instructions,input,search,remaining);outcome.elapsedMs=Math.round(performance.now()-started);await confirmPricingSpend(reservation.id!,{elapsedMs:outcome.elapsedMs});outcome.reservationStatus='consumed';stages.push({...outcome,sourceUrlCount:result.sourceUrls.length});return result;}catch(error){outcome.elapsedMs=Math.round(performance.now()-started);const message=error instanceof Error?error.message:'provider-failed';outcome.errorCode=/timeout|abort/i.test(message)?'provider-timeout':'provider-error';stages.push(outcome);throw error;}finally{await writeFile(`p5-verification/live-pricing-${scenario}-stages.json`,JSON.stringify(stages,null,2));}
+     try{
+       const result=await requestPricingOpenAI(instructions,input,search,remaining,async()=>{await beginPricingSpend(reservation.id!);outcome.reservationStatus='unknown';});
+       outcome.elapsedMs=Math.round(performance.now()-started);
+       const identity=result.providerIdentity;
+       if(!identity?.responseId||!identity.returnedModel||identity.returnedServiceTier!=='default')throw new Error('pricing-provider-identity-unverified');
+       const inputPerMillion=6.875,outputPerMillion=33;
+       const rawUsd=identity.usage.inputTokens*inputPerMillion/1_000_000+identity.usage.outputTokens*outputPerMillion/1_000_000;
+       const actualUsd=Math.ceil(rawUsd*1_000_000)/1_000_000;
+       if(actualUsd<=0)throw new Error('pricing-spend-actual-invalid');
+       await confirmPricingSpend(reservation.id!,{elapsedMs:outcome.elapsedMs,actualUsd,responseId:identity.responseId,returnedModel:identity.returnedModel,
+         serviceTier:identity.returnedServiceTier,inputTokens:identity.usage.inputTokens,outputTokens:identity.usage.outputTokens,
+         cachedInputTokens:identity.usage.cachedInputTokens,inputPerMillion,outputPerMillion});
+       outcome.reservationStatus='consumed';
+       stages.push({...outcome,amountUsd:actualUsd,sourceUrlCount:result.sourceUrls.length,providerIdentity:identity});
+       return result;
+     }catch(error){
+       outcome.elapsedMs=Math.round(performance.now()-started);const message=error instanceof Error?error.message:'provider-failed';outcome.errorCode=/timeout|abort/i.test(message)?'provider-timeout':'provider-error';
+       if(outcome.reservationStatus==='reserved'){await finishPricingSpend(reservation.id!,'released',{elapsedMs:outcome.elapsedMs,errorCode:'pre-dispatch-failure'});outcome.reservationStatus='released';}
+       stages.push(outcome);throw error;
+     }finally{await writeFile(`p5-verification/live-pricing-${scenario}-stages.json`,JSON.stringify(stages,null,2));}
   };
   const start=performance.now();const result=await priceCompleteScope(scope,config,request);const internal=result.internal as any;
   const issues=internal.scopePricing?.issues||[];const lines=internal.lines||[];

@@ -37,10 +37,26 @@ export const PRICING_SPEND_SCHEMA=[
     stage text,
     elapsed_ms integer,
     error_code text,
+    response_id text,
+    returned_model text,
+    service_tier text,
+    input_tokens integer,
+    output_tokens integer,
+    cached_input_tokens integer,
+    pricing_input_per_million numeric(14,6),
+    pricing_output_per_million numeric(14,6),
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
     UNIQUE (allowance_id,operation_key)
   )`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS response_id text`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS returned_model text`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS service_tier text`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS input_tokens integer`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS output_tokens integer`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS cached_input_tokens integer`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS pricing_input_per_million numeric(14,6)`,
+  `ALTER TABLE p5_estimator_pricing_spend ADD COLUMN IF NOT EXISTS pricing_output_per_million numeric(14,6)`,
   `CREATE INDEX IF NOT EXISTS p5_estimator_pricing_spend_status ON p5_estimator_pricing_spend(allowance_id,status)`
 ];
 
@@ -60,23 +76,25 @@ export function configuredPricingAllowance(env:Readonly<Record<string,string|und
 }
 
 export async function reservePricingSpend(input:{
-  operationKey:string; provider?:string; model?:string; scenario?:string; stage?:string;
+  operationKey:string; provider?:string; model?:string; scenario?:string; stage?:string; reserveUsd?:number;
 },env:Readonly<Record<string,string|undefined>>=process.env):Promise<PricingSpendOutcome>{
   if(!/^[A-Za-z0-9._:-]{1,240}$/.test(input.operationKey))throw new Error('pricing-spend-operation-key-invalid');
   const config=configuredPricingAllowance(env);
+  const reserveUsd=input.reserveUsd==null?config.reserveUsd:Number(input.reserveUsd);
+  if(!validAmount(reserveUsd)||reserveUsd-config.reserveUsd>0.000001)throw new Error('pricing-spend-reservation-invalid');
   await ensurePricingSpendSchema();
   return transaction(async tx=>{
     await tx(`INSERT INTO p5_estimator_pricing_allowances(allowance_id,budget_usd)
       VALUES($1,$2) ON CONFLICT(allowance_id) DO NOTHING`,[config.allowanceId,config.budgetUsd]);
-    const [allowance]=await tx('SELECT budget_usd AS "budgetUsd" FROM p5_estimator_pricing_allowances WHERE allowance_id=$1 FOR UPDATE',[config.allowanceId]);
+    const [allowance]=await tx('SELECT budget_usd AS "budgetUsd",reserved_usd AS "reservedUsd",consumed_usd AS "consumedUsd" FROM p5_estimator_pricing_allowances WHERE allowance_id=$1 FOR UPDATE',[config.allowanceId]);
     if(!allowance||Math.abs(money(allowance.budgetUsd)-config.budgetUsd)>0.000001)throw new Error('pricing-spend-allowance-mismatch');
     const existing=await tx('SELECT id FROM p5_estimator_pricing_spend WHERE allowance_id=$1 AND operation_key=$2',[config.allowanceId,input.operationKey]);
     if(!existing.length){
       const debited=await tx(`UPDATE p5_estimator_pricing_allowances SET reserved_usd=reserved_usd+$2,updated_at=now()
-        WHERE allowance_id=$1 AND budget_usd-reserved_usd-consumed_usd >= $2 RETURNING allowance_id`,[config.allowanceId,config.reserveUsd]);
+        WHERE allowance_id=$1 AND budget_usd-reserved_usd-consumed_usd >= $2 RETURNING allowance_id`,[config.allowanceId,reserveUsd]);
       await tx(`INSERT INTO p5_estimator_pricing_spend(id,allowance_id,operation_key,amount_usd,status,provider,model,scenario,stage)
         VALUES($8,$1,$2,$3,$9,$4,$5,$6,$7)`,
-        [config.allowanceId,input.operationKey,config.reserveUsd,input.provider||null,input.model||null,input.scenario||null,input.stage||null,randomUUID(),debited.length?'reserved':'stopped']);
+        [config.allowanceId,input.operationKey,reserveUsd,input.provider||null,input.model||null,input.scenario||null,input.stage||null,randomUUID(),debited.length?'reserved':'stopped']);
     }
     const rows=await tx(`SELECT s.id,s.allowance_id AS "allowanceId",s.operation_key AS "operationKey",s.amount_usd AS "amountUsd",
       s.status,a.budget_usd-a.reserved_usd-a.consumed_usd AS "remainingUsd",
@@ -124,11 +142,50 @@ export async function beginPricingSpend(id:string){
   return money(rows[0].remainingUsd);
 }
 
-export async function confirmPricingSpend(id:string,details:{elapsedMs?:number}={}){
+export async function confirmPricingSpend(id:string,details:{
+  elapsedMs?:number;
+  actualUsd?:number;
+  responseId?:string;
+  returnedModel?:string;
+  serviceTier?:string;
+  inputTokens?:number;
+  outputTokens?:number;
+  cachedInputTokens?:number;
+  inputPerMillion?:number;
+  outputPerMillion?:number;
+}={}){
   if(!/^[0-9a-f-]{20,}$/i.test(id))throw new Error('pricing-spend-id-invalid');
+  const actualUsd=Number(details.actualUsd);
+  if(!validAmount(actualUsd))throw new Error('pricing-spend-actual-amount-invalid');
   await ensurePricingSpendSchema();
-  const rows=await query(`UPDATE p5_estimator_pricing_spend
-    SET status='consumed',elapsed_ms=$2,error_code=NULL,updated_at=now()
-    WHERE id=$1 AND status='unknown' RETURNING id`,[id,details.elapsedMs==null?null:Math.max(0,Math.round(details.elapsedMs))]);
+  const rows=await transaction(async tx=>{
+    const [spend]=await tx(`SELECT allowance_id AS "allowanceId",amount_usd AS "amountUsd" FROM p5_estimator_pricing_spend WHERE id=$1 AND status='unknown' FOR UPDATE`,[id]);
+    if(!spend)return [];
+    await tx(`UPDATE p5_estimator_pricing_allowances SET consumed_usd=consumed_usd+($2-amount_usd),updated_at=now()
+      FROM p5_estimator_pricing_spend WHERE p5_estimator_pricing_allowances.allowance_id=$3 AND p5_estimator_pricing_spend.id=$1`,
+      [id,actualUsd,spend.allowanceId]);
+    return tx(`UPDATE p5_estimator_pricing_spend SET status='consumed',amount_usd=$2,elapsed_ms=$3,error_code=NULL,
+      response_id=$4,returned_model=$5,service_tier=$6,input_tokens=$7,output_tokens=$8,cached_input_tokens=$9,
+      pricing_input_per_million=$10,pricing_output_per_million=$11,updated_at=now()
+      WHERE id=$1 AND status='unknown' RETURNING id`,
+      [id,actualUsd,details.elapsedMs==null?null:Math.max(0,Math.round(details.elapsedMs)),details.responseId||null,details.returnedModel||null,details.serviceTier||null,
+       details.inputTokens==null?null:Math.max(0,Math.round(details.inputTokens)),details.outputTokens==null?null:Math.max(0,Math.round(details.outputTokens)),
+       details.cachedInputTokens==null?null:Math.max(0,Math.round(details.cachedInputTokens)),details.inputPerMillion||null,details.outputPerMillion||null]);
+  });
   if(!rows.length)throw new Error('pricing-spend-outcome-not-pending');
+}
+
+/** Reconcile a reservation only when local validation proves fetch was never
+ * entered. The row remains as released with the explicit pre-dispatch reason. */
+export async function releaseUndispatchedPricingSpend(id:string,errorCode:string){
+  if(!/^[0-9a-f-]{20,}$/i.test(id)||!/^[a-z0-9-]{3,120}$/.test(errorCode))throw new Error('pricing-spend-reconciliation-invalid');
+  await ensurePricingSpendSchema();
+  const rows=await transaction(async tx=>{
+    const [spend]=await tx(`SELECT allowance_id AS "allowanceId",amount_usd AS "amountUsd" FROM p5_estimator_pricing_spend
+      WHERE id=$1 AND status='unknown' AND error_code='provider-outcome-pending' FOR UPDATE`,[id]);
+    if(!spend)return [];
+    await tx(`UPDATE p5_estimator_pricing_allowances SET consumed_usd=consumed_usd-$2,updated_at=now() WHERE allowance_id=$1`,[spend.allowanceId,money(spend.amountUsd)]);
+    return tx(`UPDATE p5_estimator_pricing_spend SET status='released',error_code=$2,updated_at=now() WHERE id=$1 AND status='unknown' RETURNING id`,[id,errorCode]);
+  });
+  if(!rows.length)throw new Error('pricing-spend-reconciliation-not-pending');
 }

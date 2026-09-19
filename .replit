@@ -64,6 +64,9 @@ NODE_OPTIONS = "--max-old-space-size=1536"
 [userenv.development]
 P5_OBJECT_STORAGE_ENABLED = "true"
 P5_SCOPE_OPENAI_MODEL = "gpt-5.6-sol"
+P5_LIVE_PRICING_ALLOWANCE_ID = "cabinet-final-qualification-20260919"
+P5_LIVE_PRICING_ALLOWANCE_USD = "1"
+P5_LIVE_PRICING_RESERVE_USD = "1"
 
 [userenv.production]
 P5_OBJECT_STORAGE_ENABLED = "true"

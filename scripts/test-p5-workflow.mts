@@ -51,7 +51,7 @@ const runtime=await mkdtemp(path.join(cache,'p5-test-'));
 try{
  await cp(path.join(root,'lib/p5'),runtime,{recursive:true});
  await writeFile(path.join(runtime,'database.ts'),`import {PGlite} from '@electric-sql/pglite'; export const database=new PGlite(); export async function query(statement:string,values:unknown[]=[]){return (await database.query(statement,values)).rows as any[];}`);
- await writeFile(path.join(runtime,'deliveryAdapter.ts'),`export const EMAIL_SUPPORTS_IDEMPOTENCY=true; export const attempts:any[]=[]; export const delivered=new Map(); export const failures=new Set<string>(); export const ambiguous=new Set<string>(); export async function adminRecipients(){return ['admin@example.invalid'];} export async function sendEmail(input:any){attempts.push(input);if(failures.has(input.to))throw new Error('Synthetic transport failure');if(!delivered.has(input.key))delivered.set(input.key,input);return 'test-'+input.key;} export async function syncCrm(record:any,key:string){attempts.push({crm:key,record});if(failures.has('crm'))throw new Error('Synthetic CRM outage');if(!delivered.has(key))delivered.set(key,record);if(ambiguous.has('crm'))throw new Error('Synthetic acknowledgement lost after CRM accepted');return 'test-lead-'+key;}`);
+  await writeFile(path.join(runtime,'deliveryAdapter.ts'),`import {crmPayload} from './deliveryPayloads';export const EMAIL_SUPPORTS_IDEMPOTENCY=true; export const attempts:any[]=[]; export const delivered=new Map(); export const failures=new Set<string>(); export const ambiguous=new Set<string>(); export async function adminRecipients(){return ['admin@example.invalid'];} export async function sendEmail(input:any){attempts.push(input);if(failures.has(input.to))throw new Error('Synthetic transport failure');if(!delivered.has(input.key))delivered.set(input.key,input);return 'test-'+input.key;} export async function syncCrm(record:any,key:string){const payload=crmPayload(record,key);attempts.push({crm:key,payload});if(failures.has('crm'))throw new Error('Synthetic CRM outage');if(!delivered.has(key))delivered.set(key,payload);if(ambiguous.has('crm'))throw new Error('Synthetic acknowledgement lost after CRM accepted');return 'test-lead-'+key;}`);
  await writeFile(path.join(runtime,'adminAuth.ts'),`import {DraftError} from './store';export let enabled=true;export function disable(){enabled=false;}export function enable(){enabled=true;}export async function requireEstimatorAdmin(){if(!enabled)throw new DraftError('Administrator sign-in is required.',403);return {id:'fixture-admin',email:'admin@example.invalid'};}`);
  const module=(name:string)=>import(pathToFileURL(path.join(runtime,name+'.ts')).href);
  const store=await module('store');const outbox=await module('outbox');const db=await module('database');const transport=await module('deliveryAdapter');
@@ -81,6 +81,13 @@ try{
  const customerMail=[...transport.delivered.values()].find((v:any)=>v.to==='customer@example.invalid') as any;
  assert.ok(customerMail);assert.match(customerMail.attachments[0].filename,/-customer.pdf$/);
  assert.ok(!customerMail.text.includes('operatingProfit'));
+  const adminMail=[...transport.delivered.values()].find((v:any)=>v.to==='admin@example.invalid') as any;
+  assert.ok(adminMail);
+  const emailPayload=(mail:any)=>({...mail,attachments:mail.attachments.map((attachment:any)=>({filename:attachment.filename,bytes:attachment.content.length,sha256:createHash('sha256').update(attachment.content).digest('hex')}))});
+  await writeFile('p5-verification/customer-email-payload.json',JSON.stringify(emailPayload(customerMail),null,2));
+  await writeFile('p5-verification/admin-email-payload.json',JSON.stringify(emailPayload(adminMail),null,2));
+  const crmAttempt=transport.attempts.find((attempt:any)=>attempt.crm);
+  assert.ok(crmAttempt?.payload);await writeFile('p5-verification/crm-payload.json',JSON.stringify(crmAttempt.payload,null,2));
  const alertMail=[...transport.delivered.values()].find((v:any)=>v.subject?.includes('needs attention')) as any;
  assert.ok(alertMail);assert.equal(alertMail.attachments.length,0);
  const publicRecord=await store.readDraft(id,key);assert.equal(publicRecord.internal_estimate,undefined);

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {mkdtemp,cp,writeFile,rm} from 'node:fs/promises';
-import {randomUUID,randomBytes} from 'node:crypto';
+import {randomBytes} from 'node:crypto';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
@@ -25,11 +25,16 @@ try{
   const third=await mod.reservePricingSpend({operationKey:'third',provider:'Fake',model:'fixture'},env);
   assert.equal(third.status,'reserved');
   await mod.finishPricingSpend(third.id!,'consumed');
-  const fourth=await mod.reservePricingSpend({operationKey:'fourth',provider:'Fake',model:'fixture'},env);
+  const fourth=await mod.reservePricingSpend({operationKey:'fourth',provider:'Fake'},env);
   assert.equal(fourth.status,'reserved');
   await mod.beginPricingSpend(fourth.id!);
-  await mod.confirmPricingSpend(fourth.id!,{elapsedMs:12});
-  const stopped=await mod.reservePricingSpend({operationKey:'fifth',provider:'Fake',model:'fixture'},env);
+  await mod.confirmPricingSpend(fourth.id!,{elapsedMs:12,actualUsd:.25,responseId:'fixture-response',returnedModel:'fixture',serviceTier:'default',inputTokens:100,outputTokens:20,cachedInputTokens:0,inputPerMillion:6.875,outputPerMillion:33});
+  const fullReservation=await mod.reservePricingSpend({operationKey:'fifth-full',provider:'Fake'},env);
+  assert.equal(fullReservation.status,'stopped');
+  const remainder=await mod.reservePricingSpend({operationKey:'fifth',provider:'Fake',reserveUsd:.75},env);
+  assert.equal(remainder.status,'reserved');assert.equal(remainder.amountUsd,.75);
+  await mod.beginPricingSpend(remainder.id!);
+  const stopped=await mod.reservePricingSpend({operationKey:'sixth',provider:'Fake'},env);
   assert.equal(stopped.status,'stopped');assert.equal(stopped.code,'allowance-exhausted');
   assert.throws(()=>mod.configuredPricingAllowance({}),/configuration-required/);
   const concurrentEnv={P5_LIVE_PRICING_ALLOWANCE_ID:'concurrent',P5_LIVE_PRICING_ALLOWANCE_USD:'1',P5_LIVE_PRICING_RESERVE_USD:'1'};
@@ -37,7 +42,7 @@ try{
   assert.equal(concurrent.filter(value=>value.status==='reserved').length,1);
   assert.equal(concurrent.filter(value=>value.status==='stopped').length,1);
   const rows=await db.database.query("SELECT status,amount_usd,operation_key FROM p5_estimator_pricing_spend WHERE allowance_id='fixture-allowance' ORDER BY operation_key");
-  assert.deepEqual(rows.rows.map((r:any)=>r.status).sort(),['consumed','consumed','released','stopped','unknown']);
+  assert.deepEqual(rows.rows.map((r:any)=>r.status).sort(),['consumed','consumed','released','stopped','stopped','unknown','unknown']);
   await db.database.close();
-  console.log('PASS: pricing spend ledger is explicit, atomic, idempotent across restart keys, conservative on unknown outcomes, and stops exhausted allowance.');
+  console.log('PASS: pricing spend ledger is explicit, atomic, idempotent across restart keys, settles conservative actual usage, preserves unknown outcomes, and stops exhausted allowance.');
 }finally{await rm(dir,{recursive:true,force:true});}

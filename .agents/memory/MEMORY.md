@@ -33,3 +33,5 @@
 - [OG link-preview images must be JPEG/PNG](og-images-webp-imessage.md) — iMessage won't render WebP og:image (blank card); site default is still WebP, page-specific overrides go through the metadata builder's ogImage option.
 - [Estimator local verification limits](estimator-local-verification-limits.md) — Replit may lack Playwright shared libs; clarification query-import compatibility was fixed upstream and now passes locally.
 - [Estimator changed-source isolation](estimator-changed-source-isolation.md) — source replacement must clear stale scope state on success and failure, including queued-job failures; additive uploads preserve manual facts.
+- [Playwright WebKit Nix ABI gap](playwright-webkit-nix-abi-gap.md) — downloaded WebKit may require exact Ubuntu sonames unavailable from the active Nix channel even when Chromium works.
+- [Managed OpenAI endpoint is loopback](managed-openai-loopback.md) — Replit’s managed OpenAI base URL is an HTTP localhost sidecar; qualification must reject external/direct endpoints.
