@@ -26,6 +26,17 @@ export const JOB_HOLD_MS=Number(process.env.P5_JOB_HOLD_MS||25_000);
 const jobExpired=(job:Job)=>Date.now()-Date.parse(job.createdAt)>=BACKGROUND_JOB_LIMIT_MS;
 const sleep=(ms:number)=>new Promise<void>(resolve=>{setTimeout(resolve,Math.max(0,ms));});
 const runs=()=>runtime.p5JobRuns||(runtime.p5JobRuns=new Map());
+/** Work keys are bound as scalar text values. Passing a JavaScript array through
+ * the Drizzle SQL bridge can reach Postgres as one scalar and fail its text[]
+ * parser before the completed analysis is returned to the browser. */
+export function processingLookup(workKeys:string[]){
+  if(!workKeys.length)throw new Error('processing-work-key-missing');
+  const [first,second=first]=workKeys;
+  return {
+    statement:"SELECT payload->'processing' AS processing FROM p5_estimator_work WHERE draft_id=$1 AND work_key IN ($2,$3) ORDER BY updated_at DESC LIMIT 1",
+    values:[first,second],
+  };
+}
 export async function bootEstimatorWorker(){
   if(!process.env.DATABASE_URL||process.env.NEXT_PHASE==='phase-production-build')return;
   try{await (await import('./store.ts')).ensureSchema();startEstimatorWorker();}
@@ -58,7 +69,8 @@ export async function queuedJob(input:Input,retry=false,holdMs=JOB_HOLD_MS){
   if(job.state!=='complete'&&job.state!=='failed'&&jobExpired(job)){job.state='failed';job.progress=PROCESSING_PAUSED;}
   if(job.state!=='complete'&&job.state!=='failed'){
     const workKeys=input.kind==='analysis'?(await import('./analysisWork.ts')).analysisProgressWorkKeys(input.draft,input.text,input.answers):[(await import('./pricingWork.ts')).pricingWorkKey(input.draft.reviewed!,input.configuration,new Date(job.createdAt))];
-    const [detail]=await query("SELECT payload->'processing' AS processing FROM p5_estimator_work WHERE draft_id=$1 AND work_key=ANY($2::text[]) ORDER BY updated_at DESC LIMIT 1",[input.draft.id,workKeys]);
+    const lookup=processingLookup(workKeys);
+    const [detail]=await query(lookup.statement,[input.draft.id,...lookup.values]);
     if(detail?.processing){job.processing={...detail.processing,startedAt:job.createdAt};job.progress=job.processing!.message;}
   }
   if(job.state==='failed'||job.retryAt&&job.retryAt>Date.now()+2000)job.processing={...job.processing,phase:'retrying',message:job.progress,startedAt:job.createdAt,updatedAt:new Date().toISOString()};

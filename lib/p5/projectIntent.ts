@@ -4,7 +4,11 @@ import {retainTypedAlternatives} from './typedAlternatives.ts';
 export function cabinetIntent(text:string,services:readonly string[]):'cabinet-install'|'cabinet-product'|undefined{
   if(!services.includes('cabinet-install')||!services.includes('cabinet-product')||!/\b(?:cabinets?|vanity)\b/i.test(text))return;
   const without=/\b(?:exclude|excluding|without|no)\s+(?:the\s+)?install(?:ation|ing)?\b|\bsupply\s+only\b|\bdo\s+not\s+install\b/i.test(text);
-  const withInstall=/\b(?:supply|supplying)\s+and\s+install(?:ing|ation)?\b|\binclude\s+(?:the\s+)?installation\b|\bcabinets?\s+with\s+installation\b/i.test(text);
+  const positive=text.replace(/\b(?:do\s+not|don't|without|no|exclude|excluding)\s+(?:the\s+)?install(?:ation|ing)?\b/gi,'');
+  const directInstall=/\binstall(?:ing)?\b[^.!?\n]{0,160}\b(?:cabinets?|vanity)\b|\b(?:cabinets?|vanity)\b[^.!?\n]{0,160}\binstallation\b/i.test(positive);
+  const ownerSupplied=/\b(?:owner|customer|client)[ -]?(?:supplied|provided|purchased)\b[^.!?\n]{0,120}\b(?:cabinets?|vanity)\b|\b(?:cabinets?|vanity)\b[^.!?\n]{0,120}\b(?:owner|customer|client)[ -]?(?:supplied|provided|purchased)\b/i.test(text);
+  const laborOnly=/\blabor[ -]only\b/i.test(text);
+  const withInstall=/\b(?:supply|supplying)\s+and\s+install(?:ing|ation)?\b|\binclude\s+(?:the\s+)?installation\b|\bcabinets?\s+with\s+installation\b/i.test(text)||directInstall||laborOnly&&ownerSupplied;
   if(without===withInstall)return;
   return withInstall?'cabinet-install':'cabinet-product';
 }

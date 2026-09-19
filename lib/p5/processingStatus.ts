@@ -31,6 +31,14 @@ export function analysisMessage(hasAttachments:boolean,event:'start'|'busy'|'err
   if(event==='retry')return hasAttachments?'Reviewing your saved documents...':'Reviewing your saved project details...';
   return hasAttachments?'Reading your documents and project details...':'Understanding your project...';
 }
+export function analysisAcknowledgement(captured:number,attachments:number,warning:boolean,remaining:number){
+  const saved=`Thanks. I read ${attachments?`${attachments} ${attachments===1?'file':'files'} and `:''}your description and saved ${captured} project ${captured===1?'detail':'details'}.`;
+  const next=warning
+    ?attachments?'Some files still need review; see the note below.':'I could not finish reading your description; your text is saved. See the note below.'
+    :remaining?`I have ${remaining===1?'one quick question':`${remaining} quick questions`} before your estimate.`
+    :'That is everything I need. Review your project below, then add where to send your estimate.';
+  return `${saved} ${next}`;
+}
 /** Explicit input context prevents stale or legacy document labels on text-only work. */
 export function processingPresentation(message:string,processing:ProcessingStatus|null|undefined,uploadPercent:number|null,hasAttachments?:boolean){
   const documents=hasAttachments??(processing?.inputKind?processing.inputKind==='documents':Boolean(processing?.totalPages));

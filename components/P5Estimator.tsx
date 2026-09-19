@@ -3,7 +3,7 @@ import {CLIENT_BUDGET_MS,CLIENT_BACKGROUND_BUDGET_MS,ProcessingDeadlineError,rem
 import {completeSubmission} from '@/lib/p5/submitProgress';
 import P5EstimateDetails from './P5EstimateDetails';
 import P5ProcessingStatus from './P5ProcessingStatus';
-import {analysisMessage,type ProcessingStatus} from '@/lib/p5/processingStatus';
+import {analysisAcknowledgement,analysisMessage,type ProcessingStatus} from '@/lib/p5/processingStatus';
 import {customerChoiceLabel,selectCustomerAnswer,contextualCustomerAnswer,exactCustomerChoice,customerQuestionKey} from '@/lib/p5/customerAnswers';
 import {useEffect,useId,useLayoutEffect,useRef,useState} from 'react';
 import {ESTIMATOR_BRAND as brand} from '@/lib/p5/brand';
@@ -25,7 +25,7 @@ import {displayScopeText,refreshAnalyzedScope,scopeFingerprint,scopeTextChanged,
 import {ESTIMATOR_VERSION} from '@/lib/p5/version';
 
 const textAnswers=(a:ScopeAnswers)=>JSON.stringify(Object.entries(a).filter(([k,v])=>SCOPE_FIELDS[k as ScopeField].kind==='text'&&v?.trim()).sort(([a],[b])=>a.localeCompare(b)));
-const labels:Record<string,string>={handyman:'Home repairs',re10:'Inspection and RE-10 repairs','cabinet-product':'Cabinets, supply only','cabinet-install':'Cabinets with installation',kitchen:'Kitchen remodel',bathroom:'Bathroom remodel','whole-home':'Whole-home remodel',addition:'Home addition',adu:'ADU','new-construction':'New home','change-order':'Change order',rush:'Rush work',refresh:'Simple refresh','mid-range':'Standard finishes','high-end':'Premium finishes',luxury:'Custom luxury finishes',standard:'Standard',priority:'Priority',emergency:'Emergency',complex:'Complex',yes:'Yes',no:'No'};
+const labels:Record<string,string>={handyman:'Home repairs',re10:'Inspection and RE-10 repairs','cabinet-product':'Cabinets, supply only','cabinet-install':'Cabinet installation',kitchen:'Kitchen remodel',bathroom:'Bathroom remodel','whole-home':'Whole-home remodel',addition:'Home addition',adu:'ADU','new-construction':'New home','change-order':'Change order',rush:'Rush work',refresh:'Simple refresh','mid-range':'Standard finishes','high-end':'Premium finishes',luxury:'Custom luxury finishes',standard:'Standard',priority:'Priority',emergency:'Emergency',complex:'Complex',yes:'Yes',no:'No'};
 const readable=(field:ScopeField,value:string)=>field==='cabinetRoom'?value.replaceAll('-',' ').replace(/\b\w/g,letter=>letter.toUpperCase()):labels[value]||value.replaceAll('-',' ');
 const brandId=brand.id as string;
 const SUGGESTIONS:Record<string,string[]>={
@@ -290,7 +290,7 @@ export function P5Estimator({defaultService='',headingAs='h1',projectSource,layo
     apply(next);setWarning(data.warning||'');if(pending.length)trackScopeEvent(d.uploads?.length?'additionalDocuments':'documentUploaded',saved.answers.service);trackScopeEvent(data.warning?'analysisFailed':'analysisCompleted',saved.answers.service);filesRef.current=[];setFiles([]);
     if(next.uploads?.length)try{await clearCachedFiles(d.id);}catch{setStatus('Files are uploaded. Local file cleanup will retry later.');}
     const remaining=questions(next);const captured=Object.keys(next.answers).filter(k=>k!=='estimatingInstructions'&&next.answers[k as ScopeField]?.trim()).length;const read=next.uploads?.length||0;
-    const ack=[`Thanks. I read ${read?`${read} ${read===1?'file':'files'} and `:''}your description and saved ${captured} project ${captured===1?'detail':'details'}.`,data.warning?'Some files still need review; see the note below.':remaining.length?`I have ${remaining.length===1?'one quick question':`${remaining.length} quick questions`} before your estimate.`:'That is everything I need. Review your project below, then add where to send your estimate.'].join(' ');
+    const ack=analysisAcknowledgement(captured,read,Boolean(data.warning),remaining.length);
     log(newEntry('assistant',ack,{kind:'ack'}));setStatus('');showQuestions(current.current!);
   }
   const needsAnalysis=()=>{const d=current.current;return Boolean(d&&(d.analysisWarning||!d.sourceDetached&&projectSource?.imageUrl&&d.sourceImageUrl!==projectSource.imageUrl||filesRef.current.length||d.text.trim()&&d.text!==d.analyzedText||textAnswers(d.answers)!=='[]'&&textAnswers(d.answers)!==d.analyzedAnswers));};

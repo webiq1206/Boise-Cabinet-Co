@@ -31,6 +31,11 @@ export function guardScopeRequestRevision(storedRevision:number,requestedRevisio
 export function guardUploadedSourceSnapshot(expectedRevision:number,rereadRevision:number,expectedSource:ReturnType<typeof sourceSnapshot>,rereadSource:ReturnType<typeof sourceSnapshot>){
   if(rereadRevision!==expectedRevision||!sourceSnapshotsEqual(expectedSource,rereadSource))throw new DraftError("This project changed while its files were uploading. The files are saved; refresh before continuing.",409);
 }
+export function scopeAnalysisFailureWarning(hasUploads:boolean){
+  return hasUploads
+    ?"Your files are saved, but automatic reading could not finish. You can retry without uploading again, or add the key details below. Unread documents will need review before pricing."
+    :"Your project description is saved, but automatic reading could not finish. Retry, or add the key details below.";
+}
 export async function postScope(request:Request){
   try{
     protectRequest(request,1000);const {id,key}=draftCredentials(request);let draft=await readDraft(id,key);
@@ -111,11 +116,11 @@ export async function postScope(request:Request){
       console.error("[p5-scope-analysis]",error instanceof Error?error.message:"analysis failed");
       const detail=describeError(error);
       void recordEvent({draftId:id,estimator:visitorAnswers.service||null,kind:'analysis',stage:'scope-request',code:detail.code,status:detail.status,message:detail.message,outcome:'failed'});
-      warning="Your files are saved, but automatic reading could not finish. You can retry without uploading again, or add the key details below. Unread documents will need review before pricing.";
+      warning=scopeAnalysisFailureWarning(Boolean(analysisDraft.uploads.length));
     }
     if(analysis)analysis.extraction=applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!;
     const extraction=analysis?.extraction||analysisDraft.extraction;
-    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:analysisDraft.answers,conflicts:[]};
+    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:visitorAnswers,conflicts:[]};
     const wizard={instructionAnswers:sourceChanged?[]:analysisDraft.wizard?.instructionAnswers||[],skipped:sourceChanged?[]:analysisDraft.wizard?.skipped||[],resolutions,sourceVersion:analysis?version:sourceChanged?undefined:analysisDraft.wizard?.sourceVersion};
     // Partial analysis is visible and prevents unread documents from being priced.
     const safeExtraction=warning?{...extraction,summary:extraction?.summary||text,facts:extraction?.facts||[],conflicts:extraction?.conflicts||[],missingInformation:extraction?.missingInformation||[],reviewNotes:[...new Set([...(extraction?.reviewNotes||[]),warning])]}:extraction;
