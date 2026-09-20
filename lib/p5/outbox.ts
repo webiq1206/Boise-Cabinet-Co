@@ -5,6 +5,10 @@ import { ensureSchema } from "./store.ts";
 import { adminRecipients,sendEmail,syncCrm,EMAIL_SUPPORTS_IDEMPOTENCY } from "./deliveryAdapter.ts";
 import { customerPdf,administrativePdf,pdfFilename } from "./pdf.ts";
 import { ESTIMATOR_BRAND as brand } from "./brand.ts";
+export function deliveryRetryDecision(destination:string,emailIdempotent:boolean,attempts:number,createdAt:Date,now=Date.now()){
+  const canRetry=destination!=="crm"&&emailIdempotent&&now-createdAt.getTime()<23*3600000&&attempts<6;
+  return canRetry?"retry":"needs-review";
+}
 export async function enqueueSubmission(id:string,revision:number,record:any){
   const recipients=await adminRecipients();if(!recipients.length)throw new Error("No estimate administrator is configured");
   const jobs=[...recipients.map(email=>({id:randomUUID(),destination:`admin:${email}`,payload:record})),
@@ -49,8 +53,7 @@ export async function processOutbox(options:{draftId?:string;revision?:number;li
       const message=error instanceof Error?error.message:"Delivery failed";
       // CRM has no verified durable idempotency contract. Ambiguous acknowledgments
       // require reconciliation, not a second potentially duplicate lead.
-      const canRetry=destination!=="crm"&&EMAIL_SUPPORTS_IDEMPOTENCY&&Date.now()-new Date(row.created_at).getTime()<23*3600000&&row.attempts<6;
-      const status=canRetry?"retry":"needs-review";
+      const status=deliveryRetryDecision(destination,EMAIL_SUPPORTS_IDEMPOTENCY,row.attempts,new Date(row.created_at));
       await query("UPDATE p5_estimator_outbox SET status=$1,last_error=$2,locked_until=NULL,next_attempt_at=now()+($3*interval '1 second') WHERE id=$4",[status,message.slice(0,500),Math.min(3600,60*2**row.attempts),row.id]);
       if(!destination.startsWith("alert:"))for(const email of await adminRecipients())await query("INSERT INTO p5_estimator_outbox(id,draft_id,revision,destination,payload) VALUES($1,$2,$3,$4,$5::jsonb) ON CONFLICT(draft_id,revision,destination) DO NOTHING",[randomUUID(),row.draft_id,row.revision,`alert:${email}`,JSON.stringify({error:message,failedDestination:destination})]);
       results.push({id:row.id,status});
@@ -67,7 +70,7 @@ export async function processOutbox(options:{draftId?:string;revision?:number;li
     await query(`WITH recovered AS (
       UPDATE p5_estimator_outbox SET status=CASE WHEN destination<>'crm' AND $1::boolean AND attempts<6 AND created_at>now()-interval '23 hours' THEN 'retry' ELSE 'needs-review' END,
         locked_until=NULL,last_error='Delivery worker interrupted; acknowledgement requires reconciliation'
-       WHERE status='sending' AND locked_until<now() AND ($3::uuid IS NULL OR draft_id=$3::uuid) AND ($4::integer IS NULL OR revision=$4::integer) RETURNING id,draft_id,revision,destination
+      WHERE status='sending' AND locked_until<now() AND ($3::uuid IS NULL OR draft_id=$3::uuid) AND ($4::integer IS NULL OR revision=$4::integer) RETURNING id,draft_id,revision,destination
     ) INSERT INTO p5_estimator_outbox(id,draft_id,revision,destination,payload)
       SELECT gen_random_uuid(),r.draft_id,r.revision,'alert:'||a.email,
         jsonb_build_object('error','Delivery worker interrupted; inspect and reconcile the saved delivery record.','failedDestination',r.destination)

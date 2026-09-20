@@ -1,30 +1,65 @@
 import assert from 'node:assert/strict';
-import {createHash} from 'node:crypto';
+import {createHash,randomUUID} from 'node:crypto';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {query} from '../lib/p5/database';
-import {priceCompleteScope,requestPricingOpenAI,validateManagedPricingOpenAI,type PricingRequest} from '../lib/p5/scopePricing';
+import {PricingQualification,digest,readAllowance,pricingSourceIdentity} from './lib/pricingQualification.ts';
+import {capturePricingDelivery} from './lib/capturedPricingDelivery.ts';
+import {priceCompleteScope,requestPricing,type PricingRequest} from '../lib/p5/scopePricing';
 import {ESTIMATOR_BRAND as brand} from '../lib/p5/brand';
 import type {EstimatorConfiguration} from '../lib/p5/costBook';
 import type {ReviewedScope} from '../lib/p5/scope';
-import {beginPricingSpend,confirmPricingSpend,ensurePricingSpendSchema,finishPricingSpend,reservePricingSpend} from '../lib/p5/pricingSpend';
 
 // Opt-in paid inference with synthetic scope and read-only approved pricing.
-// No draft, rate, lead, CRM, outbox or email write is called by this script.
+// Application DB reads are SELECT-only. Draft/outbox writes and delivery are
+// exercised exclusively in the isolated in-memory capture fixture.
 if(process.env.P5_RUN_LIVE_PRICING!=='true')throw new Error('Explicit live pricing test authorization is required.');
+// A boolean opt-in is NOT a spending allowance. Validate before even reading DB.
+const allowanceFile=process.env.P5_PRICING_ALLOWANCE_FILE;
+const allowance=readAllowance(allowanceFile);
 const fingerprint=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 async function main(){
-  const integrated=Boolean(process.env.AI_INTEGRATIONS_OPENAI_API_KEY&&process.env.AI_INTEGRATIONS_OPENAI_BASE_URL);
-  if(!integrated)throw new Error('Managed OpenAI pricing qualification is not configured.');
-  validateManagedPricingOpenAI();
-  await ensurePricingSpendSchema();
+ const sourceSha256=pricingSourceIdentity();
+ const allowanceRoot=`p5-verification/pricing-qualification/${digest(allowance.id)}`;
+ const artifactRoot=`${allowanceRoot}/${Date.now()}-${randomUUID()}`;
+ const qualification=new PricingQualification(allowanceFile,`${allowanceRoot}.sqlite`,sourceSha256);
+ const originalFetch=globalThis.fetch;
+ const providerReceipts:unknown[]=[];
+ try{
+ qualification.assertClear();
+ const {query}=await import('../lib/p5/database');
  const [policy]=await query("SELECT payload FROM p5_estimator_policy WHERE id='current'");
  assert.ok(policy?.payload?.planningCatalog?.rates?.length,'The approved catalog must be populated');
  const configuration=policy.payload as EstimatorConfiguration,before=fingerprint(configuration),reports:any[]=[];
  const services=brand.services as readonly string[],cabinet=String(brand.id)==='cabinet';
  const baseService=services.includes('handyman')?'handyman':services.includes('kitchen')?'kitchen':services[0];
  const selected=process.env.P5_LIVE_PRICING_SCENARIO||'both';assert.ok(['both','mapping','missing'].includes(selected));
- await mkdir('p5-verification',{recursive:true});
+  await mkdir(artifactRoot,{recursive:true});
  for(const scenario of ['mapping','missing'].filter(s=>selected==='both'||s===selected)){
+   const capturedTransport:typeof fetch=async(input,init)=>{
+    const response=await originalFetch(input,init);
+    let metadata:any=null;
+    try{metadata=await response.clone().json();}catch{/* The guard freezes unparseable replies. */}
+    // Capture only billing/identity evidence, never keys, headers, raw errors
+    // or provider content. Keep mismatched identities visible for reconciliation.
+    providerReceipts.push({scenario,httpStatus:response.status,
+     model:typeof metadata?.model==='string'?metadata.model:null,
+     serviceTier:typeof metadata?.service_tier==='string'?metadata.service_tier:null,
+     status:typeof metadata?.status==='string'?metadata.status:null,
+     usage:metadata?.usage&&typeof metadata.usage==='object'?metadata.usage:null});
+    await writeFile(`${artifactRoot}/provider-receipts.json`,JSON.stringify(providerReceipts,null,2));
+    return response;
+   };
+   const guarded=qualification.guardedFetch({documentId:`pricing-${scenario}`,kind:'short'},capturedTransport);
+   // QA-only: request standard processing explicitly, before the guard computes
+   // the durable request identity and reservation. Customer pricing is unchanged.
+   globalThis.fetch=(input,init)=>{
+    const endpoint=typeof input==='string'?input:input instanceof URL?input.href:input.url;
+    if(endpoint.endsWith('/responses')&&typeof init?.body==='string'){
+     const body=JSON.parse(init.body);
+     if(body.service_tier===undefined)body.service_tier='default';
+     return guarded(input,{...init,body:JSON.stringify(body)});
+    }
+    return guarded(input,init);
+   };
   const missing=scenario==='missing';
   const text=missing?'Supply 100 linear feet of standard paint-grade wood crown moulding for kitchen cabinets in Boise, Idaho. Materials only; owner installs it. Price the moulding by linear foot using a preliminary average material cost for the area.':cabinet?'Install 20 linear feet of owner-supplied, assembled paint-grade Shaker base cabinets on the first floor of Building Alpha. Installation labor only, including normal leveling, fastening and adjustment.':'Fit and fasten 100 linear feet of paint-grade interior base moulding on the first floor of Building Alpha. Baseboard installation labor only. Owner supplies all materials.';
   const instructions=missing?'Price only the 100 linear feet of crown moulding material. Exclude installation, painting, cabinet casework and all other work. Use sourced regional average material costs per linear foot, or a clearly labeled broader benchmark. Do not shop suppliers or require an exact SKU.':'Price only the specified first-floor installation labor in Building Alpha. Owner supplies all materials. Exclude all plumbing, electrical and second-floor work. Do not charge owner-supplied materials.';
@@ -33,47 +68,26 @@ async function main(){
   // A deliberately missing material category in an in-memory test copy forces
   // the research path. The owner's saved185-rate catalog remains untouched.
   if(missing)config.planningCatalog!.rates=config.planningCatalog!.rates.filter(rate=>rate.type!=='Material');
-    const stages:any[]=[];const request:PricingRequest=async(instructions,input,search,remaining)=>{
-     const stage=search?'research':'provider';const runId=process.env.P5_LIVE_PRICING_RUN_ID||'default';const operationKey=`${scenario}:${stage}:${createHash('sha256').update(JSON.stringify([runId,instructions,input,search])).digest('hex').slice(0,32)}`;
-     const provider='OpenAI';
-     const model=process.env.P5_PRICING_OPENAI_MODEL||process.env.P5_SCOPE_OPENAI_MODEL||'gpt-4.1';
-     const maxOutputTokens=search?24000:10000;
-     const conservativeInputTokens=Buffer.byteLength(instructions)+Buffer.byteLength(JSON.stringify(input))+65536;
-     const reserveUsd=Math.ceil((conservativeInputTokens*6.875/1_000_000+maxOutputTokens*33/1_000_000)*1_000_000)/1_000_000;
-     const reservation=await reservePricingSpend({operationKey,provider,model,scenario,stage,reserveUsd});
-    const outcome={scenario,stage,operationKey,reservationStatus:reservation.status,reservationCode:reservation.code,provider,model,elapsedMs:0,errorCode:null as string|null};
-    if(reservation.status!=='reserved'){stages.push(outcome);throw new Error(`pricing-spend-${reservation.code}`);}
-     const started=performance.now();
-     try{
-       const result=await requestPricingOpenAI(instructions,input,search,remaining,async()=>{await beginPricingSpend(reservation.id!);outcome.reservationStatus='unknown';});
-       outcome.elapsedMs=Math.round(performance.now()-started);
-       const identity=result.providerIdentity;
-       if(!identity?.responseId||!identity.returnedModel||identity.returnedServiceTier!=='default')throw new Error('pricing-provider-identity-unverified');
-       const inputPerMillion=6.875,outputPerMillion=33;
-       const rawUsd=identity.usage.inputTokens*inputPerMillion/1_000_000+identity.usage.outputTokens*outputPerMillion/1_000_000;
-       const actualUsd=Math.ceil(rawUsd*1_000_000)/1_000_000;
-       if(actualUsd<=0)throw new Error('pricing-spend-actual-invalid');
-       await confirmPricingSpend(reservation.id!,{elapsedMs:outcome.elapsedMs,actualUsd,responseId:identity.responseId,returnedModel:identity.returnedModel,
-         serviceTier:identity.returnedServiceTier,inputTokens:identity.usage.inputTokens,outputTokens:identity.usage.outputTokens,
-         cachedInputTokens:identity.usage.cachedInputTokens,inputPerMillion,outputPerMillion});
-       outcome.reservationStatus='consumed';
-       stages.push({...outcome,amountUsd:actualUsd,sourceUrlCount:result.sourceUrls.length,providerIdentity:identity});
-       return result;
-     }catch(error){
-       outcome.elapsedMs=Math.round(performance.now()-started);const message=error instanceof Error?error.message:'provider-failed';outcome.errorCode=/timeout|abort/i.test(message)?'provider-timeout':'provider-error';
-       if(outcome.reservationStatus==='reserved'){await finishPricingSpend(reservation.id!,'released',{elapsedMs:outcome.elapsedMs,errorCode:'pre-dispatch-failure'});outcome.reservationStatus='released';}
-       stages.push(outcome);throw error;
-     }finally{await writeFile(`p5-verification/live-pricing-${scenario}-stages.json`,JSON.stringify(stages,null,2));}
+  const stages:any[]=[];const request:PricingRequest=async(instructions,input,search,remaining)=>{
+   const start=performance.now();try{const result=await requestPricing(instructions,input,search,remaining);stages.push({search,milliseconds:Math.round(performance.now()-start),sourceUrls:result.sourceUrls,value:result.value});return result;}catch(error){stages.push({search,milliseconds:Math.round(performance.now()-start),error:'Qualification pricing stage blocked or failed'});throw error;}finally{await writeFile(`${artifactRoot}/live-pricing-${scenario}-stages.json`,JSON.stringify(stages,null,2));}
   };
   const start=performance.now();const result=await priceCompleteScope(scope,config,request);const internal=result.internal as any;
   const issues=internal.scopePricing?.issues||[];const lines=internal.lines||[];
   reports.push({scenario,scope,elapsedMs:Math.round(performance.now()-start),stages,result,passed:Boolean(result.customer.range)&&lines.length>0&&lines.every((line:any)=>line.quantity>0&&line.cost>0)&&issues.length===0});
-  await writeFile(`p5-verification/live-pricing-${scenario}-report.json`,JSON.stringify(reports.at(-1),null,2));
+  await writeFile(`${artifactRoot}/live-pricing-${scenario}-report.json`,JSON.stringify(reports.at(-1),null,2));
+  qualification.assertClear();
+  if(reports.at(-1).passed)await capturePricingDelivery(result,scope,`${artifactRoot}/${scenario}`,originalFetch);
  }
+ globalThis.fetch=originalFetch;
  const [after]=await query("SELECT payload FROM p5_estimator_policy WHERE id='current'");
- const report={synthetic:true,brand:brand.id,approvedRateCount:configuration.planningCatalog!.rates.length,approvedConfigurationUnchanged:before===fingerprint(after.payload),businessWrites:0,reports};
- await mkdir('p5-verification',{recursive:true});await writeFile('p5-verification/live-pricing-report.json',JSON.stringify(report,null,2));
+  const report={synthetic:true,brand:brand.id,sourceSha256,configurationSha256:before,allowanceId:allowance.id,approvedRateCount:configuration.planningCatalog!.rates.length,approvedConfigurationUnchanged:before===fingerprint(after.payload),businessWrites:0,reports};
+  await writeFile(`${artifactRoot}/live-pricing-report.json`,JSON.stringify(report,null,2));
  console.log(JSON.stringify({brand:brand.id,approvedRateCount:report.approvedRateCount,unchanged:report.approvedConfigurationUnchanged,scenarios:reports.map(r=>({scenario:r.scenario,passed:r.passed,range:r.result.customer.range,elapsedMs:r.elapsedMs,issues:r.result.internal.scopePricing?.issues}))}));
  assert.ok(report.approvedConfigurationUnchanged,'The approved configuration must not change');assert.ok(reports.every(r=>r.passed),'Every synthetic scope must have a complete positive range');
+ }finally{
+  globalThis.fetch=originalFetch;
+  await writeFile(`p5-verification/pricing-qualification/${digest(allowance.id)}-spend.json`,JSON.stringify(qualification.report(),null,2));
+  qualification.close();
+ }
 }
-main().then(()=>process.exit(0)).catch(error=>{console.error(error instanceof Error?error.message:'Live pricing check failed');process.exit(1);});
+main().then(()=>process.exit(0)).catch(()=>{console.error('Pricing qualification blocked or failed; inspect the local spend ledger and qualification artifacts.');process.exit(1);});

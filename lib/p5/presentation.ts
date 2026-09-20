@@ -1,5 +1,9 @@
 import {SCOPE_FIELDS} from './scope.ts';
 import {suggestedTrade} from './trades.ts';
+import {ESTIMATOR_BRAND as brand} from './brand.ts';
+import {customerPresentation,publicPricingText,scopeBullets} from './customerProjection.ts';
+// The customer boundary lives in customerProjection.ts; it is re-exported here so every presenter imports one module.
+export {customerPresentation,publicPricingText,projectCustomerEstimate,customerText,customerSafeText,customerSafeValue,scopeBullets} from './customerProjection.ts';
 /**
  * What a section means to the reader. Every consumer (estimator, email, PDF,
  * admin preview) labels sections by kind so excluded work is never shown as
@@ -9,38 +13,25 @@ export type SectionKind='glance'|'brief'|'included'|'category'|'excluded'|'allow
 export type EstimateSection={title:string;kind?:SectionKind;text?:string;bullets?:string[];rows?:[string,string][]};
 export const money=(n:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
 export const readable=(s:string)=>s.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/-/g,' ').replace(/^./,c=>c.toUpperCase());
-/**
- * Customer-facing renderers must not expose the estimator's direct-cost
- * arithmetic.  Keep this transformation here so the page, PDF and email use
- * the same boundary while administrative renderers retain the source detail.
- */
-export function customerSafeText(value:string):string{
-  const stripped=value
-    .replace(/\$[\d,]+(?:\.\d{1,2})?\s*\/\s*[A-Za-z]+\s*\(\s*\$[\d,]+(?:\.\d{1,2})?\s+(?:direct|unit)\s+cost\s*\)/gi,'')
-    .replace(/\([^)]*\b(?:direct|unit)\s+cost\b[^)]*\)/gi,'')
-    .replace(/\b(?:direct|unit)\s+cost\b\s*(?:is|was|of|:|=)?\s*\$?[\d,.]+(?:%|\b)/gi,'')
-    .replace(/\$[\d,]+(?:\.\d{1,2})?\s*(?:direct|unit)\s+cost\b/gi,'')
-    .replace(/\b(?:markup|margin|operating profit)\b\s*(?:is|was|of|:|=)?\s*\$?[\d,.]+(?:%|\b)/gi,'')
-    .replace(/\$?[\d,]+(?:\.\d{1,2})?%?\s+(?:markup|margin|operating profit)\b/gi,'')
-    .replace(/\(\s*\)/g,'')
-    .replace(/\s{2,}/g,' ')
-    .replace(/:\s*\.\s*/g,': ')
-    .replace(/\s+([,.;!?])/g,'$1')
-    .trim();
-  const confidential=/\b(?:(?:direct|unit)\s+cost|(?:gross|net|operating)?\s*profit|markup|margin|overhead\s+(?:recovery|allocation|costs?|expenses?|burden|rate|charge|percentage|factor)|cost\s+location)\b|\boverhead\b\s*(?::|=|\bis\b|\bof\b)?\s*(?:\$[\d,.]+|\d+(?:\.\d+)?\s*%)|(?:\$[\d,.]+|\d+(?:\.\d+)?\s*%)\s*(?:(?:for|in|as)\s+)?overhead\b/i;
-  return stripped.split(/\n+|(?<=[.!?])\s+/).filter(part=>part.trim()&&!confidential.test(part)).join(' ').replace(/\s{2,}/g,' ').trim();
-}
-// Preserve original wording, numbers and exclusions. Never split decimal values or URLs.
-export const scopeBullets=(s:string)=>s.split(/\n+|(?<=[.!?])\s+(?=[A-Z])/).map(x=>x.trim().replace(/^[•*]\s*/, '')).filter(Boolean);
 const overview=new Set(['service','location','address','sqft','garageSqft','coveredOutdoorSqft','rooms','bathrooms','stories','schedule','urgency','complexity','finish']);
 export const FIELD_CATEGORY_TITLES:Record<string,string>={site:'Site & utilities',utilities:'Site & utilities',access:'Site & utilities',demolition:'Demolition',structural:'Structure',mechanical:'Heating & Cooling',plumbing:'Plumbing',electrical:'Electrical',appliances:'Appliances',permits:'Permits & design',engineering:'Permits & design',materials:'Materials & finishes',fixtures:'Fixtures & finishes',allowances:'Allowances & selections',exclusions:'Excluded work',ownerSupplied:'Owner responsibilities',alternates:'Alternates'};
 const FIELD_SECTION_KIND:Record<string,SectionKind>={'Excluded work':'excluded','Allowances & selections':'allowance','Owner responsibilities':'info','Alternates':'info'};
 /** Section titles used by consumers that group by kind; kept in one place. */
 export const SECTION_TITLES={included:'Included work',excluded:'Excluded work',responsibilities:'Responsibilities',buildings:'Buildings and floors',questions:'Scope questions requiring clarification',coverage:'Document review coverage',buildingPrices:'Separate building prices',pricingBasis:'Pricing basis',allowances:'Included preliminary allowances',verify:'Items to verify before a firm proposal',categoriesIntro:'Included scope by category',requestedIntro:'Requested scope by category'} as const;
+/**
+ * Cabinet customers see quantities and totals only: per-unit selling rates and
+ * rate provenance stay in the administrative record. Every other brand shows
+ * the unit range beside each priced line. Administrative renderers are never
+ * affected.
+ */
+export const HIDE_CUSTOMER_UNIT_RATES=(brand.id as string)==='cabinet';
 function itemPriceText(item:any){
  const quantity=`${Number(item.quantity).toLocaleString('en-US')} ${item.unit}${item.quantityRange?` modeled allowance (${item.quantityRange.low.toLocaleString('en-US')} to ${item.quantityRange.high.toLocaleString('en-US')} ${item.unit} to verify)`:''}`;
  const total=`${money(item.low)} to ${money(item.high)} total`;
- return `${quantity} • ${total}`;
+ // A one-package price is already its unit price. Avoid repeating it.
+ if((item.quantity===1&&!item.quantityRange)||!Number.isFinite(Number(item.unitLow))||!Number.isFinite(Number(item.unitHigh))||item.unitLow==null||item.unitHigh==null)return `${quantity} • ${total}`;
+ const unit=`${Number(item.unitLow).toLocaleString('en-US',{style:'currency',currency:'USD'})} to ${Number(item.unitHigh).toLocaleString('en-US',{style:'currency',currency:'USD'})} / ${item.unit}${item.quantityRange?' at the modeled quantity':''}`;
+ return `${quantity}\n${total}\n${unit}`;
 }
 export function summarySections(summary:string):EstimateSection[]{
  const groups=new Map<string,[string,string][]>(); const original:string[]=[];
@@ -85,7 +76,8 @@ function uniqueCustomerSections(sections:EstimateSection[]):EstimateSection[]{
   return {...section,bullets,rows};
  }).filter(s=>s.text||s.bullets?.length||s.rows?.length);
 }
-export function estimateSections(result:any):EstimateSection[]{
+export function estimateSections(result:any,hideUnitRates=HIDE_CUSTOMER_UNIT_RATES):EstimateSection[]{
+ result=customerPresentation(result,{hideUnitRates});
  const sections=summarySections(result.summary||'');
  const lines:any[]=result.lineItems||[], tasks:any[]=result.scopeTasks||[];
  const suppliedInstructions=result.instructions;
@@ -140,15 +132,8 @@ export function estimateSections(result:any):EstimateSection[]{
  }
  return uniqueCustomerSections(sections);
 }
-export function customerEstimateSections(result:any):EstimateSection[]{
-  return estimateSections(result).map(section=>({
-    ...section,
-    title:customerSafeText(section.title),
-    text:section.text?customerSafeText(section.text):section.text,
-    bullets:section.bullets?.map(customerSafeText).filter(Boolean),
-    rows:section.rows?.map(([name,value])=>[customerSafeText(name),customerSafeText(value)] as [string,string]).filter(([name,value])=>Boolean(name||value)),
-  })).filter(section=>Boolean(section.title&&(section.text||section.bullets?.length||section.rows?.length)));
-}
+/** Customer renderers (page, email, PDF). estimateSections already applies the single customer projection; rendered selling prices are not re-scrubbed. */
+export const customerEstimateSections=(result:any):EstimateSection[]=>estimateSections(result);
 export interface GroupedSections{glance?:EstimateSection;brief?:EstimateSection;categoriesIntro?:EstimateSection;included:EstimateSection[];categories:EstimateSection[];excluded:EstimateSection[];allowances:EstimateSection[];assumptions:EstimateSection[];info:EstimateSection[]}
 /**
  * Reading order for every customer-facing output: what the project is, what
@@ -185,15 +170,14 @@ export function fieldCategory(field:string):string{
 export interface CategoryLine {id:string;label:string;quantity:number;unit:string;quantityRange?:{low:number;high:number};low:number;high:number;unitLow?:number;unitHigh?:number;status:string;verification?:string;rateLocation?:string;rateDate?:string}
 export interface CategoryBreakdown {category:string;low?:number;high?:number;tasks:string[];items:CategoryLine[]}
 /** Structured category accordions for the customer result. Same data as estimateSections, without prose. */
-export function categoryBreakdown(result:any,customerSafe=true):CategoryBreakdown[]{
+/** customerSafe=false is for authenticated administrative views only: it skips the customer projection and keeps unit rates. */
+export function categoryBreakdown(result:any,customerSafe=true,hideUnitRates=HIDE_CUSTOMER_UNIT_RATES):CategoryBreakdown[]{
+  if(customerSafe)result=customerPresentation(result,{hideUnitRates});
  const lines:any[]=result?.lineItems||[],tasks:any[]=result?.scopeTasks||[];
  const categories=[...new Set<string>([...(result?.includedCategories||[]),...lines.map(x=>x.category),...tasks.map(x=>x.category||suggestedTrade(x.description))])];
-  return categories.map(category=>{
+ return categories.map(category=>{
   const range=result?.categoryRanges?.find((x:any)=>x.category===category);
-   const items:CategoryLine[]=lines.filter(x=>x.category===category).map(x=>({id:String(x.id),label:[x.building&&!/^(main|default)$/i.test(x.building)?x.building:"",x.floor?`Floor ${x.floor}`:"",x.description].filter(Boolean).join(" / "),quantity:Number(x.quantity),unit:String(x.unit),...(x.quantityRange?{quantityRange:x.quantityRange}:{}),low:Number(x.low),high:Number(x.high),unitLow:Number(x.unitLow),unitHigh:Number(x.unitHigh),status:String(x.pricingStatus||"verified-cost"),...(x.verification?{verification:x.verification}:{}),...(x.rateLocation?{rateLocation:x.rateLocation}:{}),...(x.rateDate?{rateDate:String(x.rateDate).slice(0,10)}:{})}));
-   if(customerSafe){
-     for(const item of items){delete item.rateLocation;delete item.rateDate;delete item.unitLow;delete item.unitHigh;item.label=customerSafeText(item.label);item.verification=item.verification?customerSafeText(item.verification):item.verification;}
-   }
-    return {category:customerSafeText(category),...(range?{low:range.low,high:range.high}:{}),tasks:[...new Set<string>(tasks.filter(x=>(x.category||suggestedTrade(x.description))===category).map(x=>customerSafeText(x.description)).filter(Boolean))],items:items.filter(item=>item.label)};
-  }).filter(group=>group.category);
+  const items:CategoryLine[]=lines.filter(x=>x.category===category).map(x=>({id:String(x.id),label:[x.building&&!/^(main|default)$/i.test(x.building)?x.building:"",x.floor?`Floor ${x.floor}`:"",x.description].filter(Boolean).join(" / "),quantity:Number(x.quantity),unit:String(x.unit),...(x.quantityRange?{quantityRange:x.quantityRange}:{}),low:Number(x.low),high:Number(x.high),...(x.unitLow!=null&&x.unitHigh!=null?{unitLow:Number(x.unitLow),unitHigh:Number(x.unitHigh)}:{}),status:String(x.pricingStatus||"verified-cost"),...(x.verification?{verification:x.verification}:{}),...(x.rateLocation?{rateLocation:x.rateLocation}:{}),...(x.rateDate?{rateDate:String(x.rateDate).slice(0,10)}:{})}));
+  return {category,...(range?{low:range.low,high:range.high}:{}),tasks:[...new Set<string>(tasks.filter(x=>(x.category||suggestedTrade(x.description))===category).map(x=>x.description))],items};
+ });
 }

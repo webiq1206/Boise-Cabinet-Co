@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {crmIdentity,deliverKeyedCrm} from '../lib/p5/keyedCrm.ts';
 const id='5ded40b8-1513-4fc2-99ac-1114f467b100';
-const payload={...crmIdentity({contact:{name:'Customer',email:'person@example.invalid'}},'estimate-7','boisecabinet.co'),fullName:'Customer'};
+const payload={...crmIdentity({contact:{name:'Customer',email:'person@example.invalid'}},'estimate-7','boiseremodeling.co'),fullName:'Customer'};
 const ack={success:true,leadId:id,source:payload.source,externalLeadId:payload.externalLeadId,acceptanceMode:'live'};
 const receipt={...ack,found:true,status:'accepted',downstreamStatus:'scheduled'};
 const json=(body:any,status=200)=>Response.json(body,{status});

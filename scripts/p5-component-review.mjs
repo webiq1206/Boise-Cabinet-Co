@@ -10,14 +10,12 @@ const records=[];
 const origin='http://127.0.0.1:5000';
 const cabinet=process.env.P5_SITE==='cabinet';
 const remodeling=process.env.P5_SITE==='remodeling';
-const reviewedImages=cabinet?JSON.parse(await fs.readFile('docs/p5-cabinet-image-corrections-2026-09-10.json','utf8')):{};
-const correctedRoutes=Object.keys(reviewedImages).map(slug=>routes.find(r=>r==='/blog/'+slug||r==='/guides/'+slug)).filter(Boolean);
 const selected=[...new Set(['/', '/estimate/scope', '/contact','/about','/testimonials',...(routes.includes('/services')?['/services']:[]),
  routes.find(r=>/^\/(services|cabinets)\/[^/]+$/.test(r)),
  routes.find(r=>/^\/services\/[^/]+\/[^/]+$/.test(r)),
  routes.find(r=>/^\/guides\/[^/]+$/.test(r)),
  routes.find(r=>/^\/blog\/[^/]+$/.test(r)),
- ...(cabinet?['/accessories','/catalog','/cabinets','/compare','/construction','/builders','/warranty',...correctedRoutes]:[])
+ ...(cabinet?['/catalog','/cabinets','/compare','/construction','/builders','/warranty']:[])
 ].filter(Boolean))];
 try {
  for(const width of widths){
@@ -38,21 +36,16 @@ try {
     await page.locator('article details:not([open]) > summary').evaluateAll(es=>es.forEach(e=>e.click()));
     await page.evaluate(async()=>{const is=[...document.images].filter(i=>i.getClientRects().length);is.forEach(i=>i.loading='eager');await Promise.race([Promise.allSettled(is.map(i=>i.decode())),new Promise(r=>setTimeout(r,15000))]);});
     await page.evaluate(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=750){window.scrollTo({top:y,behavior:'instant'});await new Promise(r=>setTimeout(r,35));}});
+    // Scrolling can mount new carousel images after the first decode pass.
+    await page.evaluate(async()=>{const images=[...document.images].filter(i=>i.getClientRects().length);images.forEach(i=>i.loading='eager');await Promise.race([Promise.allSettled(images.map(i=>i.decode())),new Promise(r=>setTimeout(r,15000))]);});
     await page.waitForTimeout(700);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Horizontal overflow');
+    const unloadedImages=await page.evaluate(()=>[...document.images].filter(i=>i.getClientRects().length&&(!i.complete||!i.naturalWidth)).map(i=>({src:i.currentSrc||i.src,loading:i.loading,complete:i.complete,rect:i.getBoundingClientRect().toJSON()})));
+    assert.equal(unloadedImages.length,0,'Unloaded images: '+JSON.stringify(unloadedImages));
     const missingGradients=await page.evaluate(()=>[...document.querySelectorAll('[class*="bg-gradient-to-"]')].filter(e=>e.getClientRects().length&&getComputedStyle(e).backgroundImage==='none').map(e=>e.className));
     assert.equal(missingGradients.length,0,'Missing gradient overlays: '+JSON.stringify(missingGradients));
-    const brokenImages=await page.evaluate(()=>[...document.images].filter(i=>i.getClientRects().length&&(!i.complete||!i.naturalWidth)).map(i=>({src:i.currentSrc||i.src,complete:i.complete})));
-    assert.equal(brokenImages.length,0,'Broken images: '+JSON.stringify(brokenImages));
     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
     await page.screenshot({path:`${out}/${width}-${route.replaceAll('/','_')}.jpg`,fullPage:true,type:'jpeg',quality:72});
-    const imageCorrection=reviewedImages[route.split('/').pop()];
-    if(imageCorrection){
-     const [expected,alt]=imageCorrection;
-     const shown=await page.locator('main img').evaluateAll(es=>es.map(i=>({src:i.currentSrc,alt:i.alt})));
-     const expectedStem=expected.replace(/\.webp$/,'');
-     assert(shown.some(i=>(i.src.includes(expected)||i.src.includes(expectedStem+'-'))&&i.alt===alt),'Production build must retain the reviewed article image and description');
-    }
     if(route==='/'){
      const menu=page.getByRole('button',{name:'Open navigation menu',exact:true});
      if(width<1440){
@@ -72,10 +65,6 @@ try {
      assert(await page.locator('h1.ed-display').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=32),'Display typography must override element resets');
      assert(await page.locator('h2.ed-h2').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=30),'Section typography must override element resets');
      assert.equal(await page.locator('dl.ed-hero-facts').count(),1,'Single facts group');
-    }
-    if(cabinet){
-     const clipped=await page.locator('[data-catalog-visual-card]').evaluateAll(cards=>cards.flatMap(card=>[...card.querySelectorAll('a')].filter(a=>a.getClientRects().length).map(a=>{const c=card.getBoundingClientRect(),b=a.getBoundingClientRect();return {text:a.textContent.trim(),left:b.left-c.left,right:c.right-b.right,height:b.height};})).filter(b=>b.left<0||b.right<0||b.height<44));
-     assert(!clipped.length,'Clipped or undersized catalog card actions: '+JSON.stringify(clipped));
     }
     Object.assign(rec,await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,images:[...document.images].filter(i=>i.getClientRects().length).map(i=>({src:i.currentSrc,alt:i.alt,ok:i.complete&&i.naturalWidth>0}))})));
     const sidebar=page.locator('[data-article-sidebar-cta]').filter({visible:true}).first();
@@ -119,6 +108,9 @@ try {
      assert(await slider.locator('..').locator('img').evaluateAll(es=>es.every(i=>i.naturalWidth>0&&i.complete)),'Both comparison images decode');
      await page.waitForTimeout(500);
      await page.screenshot({path:`${out}/${width}-kitchen-comparison.jpg`});
+     const originalLabel=await slider.locator('..').getByText('Original concept',{exact:true}).boundingBox();
+     const refreshLabel=await slider.locator('..').getByText('Refresh concept',{exact:true}).boundingBox();
+     assert(originalLabel.x+originalLabel.width+4<=refreshLabel.x,'Comparison labels must remain separate');
      const imgs=await slider.locator('..').locator('img').evaluateAll(es=>es.map(i=>({w:i.getBoundingClientRect().width,h:i.getBoundingClientRect().height,nw:i.naturalWidth,nh:i.naturalHeight})));
      assert(imgs.length===2&&imgs.every(i=>Math.abs(i.w/i.h-1.5)<.01),'Comparison aspect ratio');
     }

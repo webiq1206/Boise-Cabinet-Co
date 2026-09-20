@@ -63,6 +63,7 @@ export async function postScope(request:Request){
       if(!(file instanceof File))throw new DraftError("Invalid file.");
       let verified;try{
         verified=verifyUpload(file.name,Buffer.from(await file.arrayBuffer()));
+        // Enforce the customer-facing PDF page boundary before any provider work begins.
         if(verified.type==="application/pdf")await verifyPdfPageLimit(verified.name,verified.data);
       }catch(error){throw new DraftError(error instanceof Error?error.message:"Invalid upload.",422);}
       const digest=createHash("sha256").update(verified.data).digest("hex");
@@ -97,7 +98,10 @@ export async function postScope(request:Request){
     try{
       if(checkpointed){
         const background=form.get('background')==='true';
-        const reuse=background&&form.get('retry')!=='true'?selectReusableAnalysis(
+        // Cabinet only: a completed legacy read queued before the service answer
+        // was inferred is reused when its full source identity is exact, instead
+        // of spending a second read on the same typed scope.
+        const reuse=(ESTIMATOR_BRAND.id as string)==='cabinet'&&background&&form.get('retry')!=='true'?selectReusableAnalysis(
           (await query("SELECT work_key,payload FROM p5_estimator_work WHERE draft_id=$1 AND work_key LIKE 'background-v1-%' AND payload->>'state'='complete' AND payload->'input'->>'kind'='analysis' ORDER BY updated_at DESC",[analysisDraft.id]))
             .map(row=>({workKey:String(row.work_key),payload:row.payload})),
           {text,answers:visitorAnswers,uploads:analysisDraft.uploads},
@@ -125,9 +129,10 @@ export async function postScope(request:Request){
       void recordEvent({draftId:id,estimator:visitorAnswers.service||null,kind:'analysis',stage:'scope-request',code:detail.code,status:detail.status,message:detail.message,outcome:'failed'});
       warning=scopeAnalysisFailureWarning(Boolean(analysisDraft.uploads.length));
     }
-     if(analysis)analysis={...analysis,extraction:applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!};
+    // Copy before applying intent: a stored or reused result must never be mutated in place.
+    if(analysis)analysis={...analysis,extraction:applyCabinetIntent(text,ESTIMATOR_BRAND.services,visitorAnswers,analysis.extraction).extraction!};
     const extraction=analysis?.extraction||analysisDraft.extraction;
-    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:visitorAnswers,conflicts:[]};
+    const merged=analysis?reconcileScope(visitorAnswers,analysis.extraction,resolutions):{answers:{...analysisDraft.answers,...visitorAnswers},conflicts:[]};
     const wizard={instructionAnswers:sourceChanged?[]:analysisDraft.wizard?.instructionAnswers||[],skipped:sourceChanged?[]:analysisDraft.wizard?.skipped||[],resolutions,sourceVersion:analysis?version:sourceChanged?undefined:analysisDraft.wizard?.sourceVersion};
     // Partial analysis is visible and prevents unread documents from being priced.
     const safeExtraction=warning?{...extraction,summary:extraction?.summary||text,facts:extraction?.facts||[],conflicts:extraction?.conflicts||[],missingInformation:extraction?.missingInformation||[],reviewNotes:[...new Set([...(extraction?.reviewNotes||[]),warning])]}:extraction;

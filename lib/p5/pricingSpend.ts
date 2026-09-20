@@ -1,5 +1,15 @@
 import {randomUUID} from 'node:crypto';
-import {query,transaction} from './database.ts';
+// The database adapter is brand-owned. It is loaded only when spend accounting
+// runs, and its transaction helper is optional: a brand without one can still
+// import this module, and any reservation then fails closed.
+type SpendQuery=(statement:string,values?:unknown[])=>Promise<Record<string,any>[]>;
+const adapter=()=>import('./database.ts');
+const query:SpendQuery=async(statement,values=[])=>(await adapter()).query(statement,values);
+async function transaction<T>(run:(query:SpendQuery)=>Promise<T>):Promise<T>{
+  const key='transaction',exported:unknown=Reflect.get(await adapter(),key);
+  if(typeof exported!=='function')throw new Error('pricing-spend-transaction-required');
+  return (exported as (run:(query:SpendQuery)=>Promise<T>)=>Promise<T>)(run);
+}
 
 export type PricingSpendStatus='reserved'|'consumed'|'released'|'unknown'|'stopped';
 export type PricingSpendOutcome={
