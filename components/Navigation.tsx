@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
 import {useMobileActionVisibility} from "@/hooks/use-mobile-action-visibility";
 import { useFormInView } from "@/hooks/use-form-in-view";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,11 @@ function Logo() {
 
 export function Navigation() {
   const pathname = usePathname();
+  // The estimator is a one-page app with its own brand bar, step progress and exit control.
+  // Stacking the marketing header on top of it cost about a third of a phone screen before any
+  // content, and gave the customer a hamburger out of the flow they were in (owner 2026-09-23).
+  if (isEstimatorPath(pathname)) return null;
+
   const formInView = useFormInView(pathname);
   // Solid contrast over every hero; a shadow separates the header while scrolling.
   const [scrolled, setScrolled] = useState(false);
