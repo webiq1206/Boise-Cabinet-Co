@@ -42,47 +42,21 @@ export async function register() {
     // dynamic `pg` import inside this nodejs guard also keeps it out of the edge
     // bundle.
     void (async () => {
-      const GARY_USER_ID = "55074230";
-
-      const UNRESOLVED_PURCHASES = [
-        { leadId: "d934a12c-2d73-470c-a7f2-481b991a9b69", price: "30.00", label: "Jeff L Johnson bathroom-remodel Boise $30" },
-        { leadId: "2c924537-de65-47a1-bb5c-d5f8bb748111", price: "5.00", label: "Hannah kitchen-remodel Boise $5" },
-        { leadId: "2a8eb4b6-dfb5-4f3f-a8f2-09962889a897", price: "10.00", label: "Hannah Turner kitchen-remodel Boise $10" },
-      ];
-
-      const pool = new (await import("pg")).Pool({ connectionString: dbUrl });
+      // A boot task must never be able to hold readiness open. Live 2026-09-23, Boise Cabinet Co:
+      // five deploys in a row built and then failed to promote, logging
+      // "[startup] Error during startup tasks: error: Authentication timed out" (Postgres 08P01)
+      // against a cold Neon connection. One connection, and hard limits on how long it may wait or
+      // run, so a slow database costs this maintenance and nothing else.
+      const pool = new (await import("pg")).Pool({
+        connectionString: dbUrl,
+        max: 1,
+        connectionTimeoutMillis: 10_000,
+        idleTimeoutMillis: 5_000,
+        statement_timeout: 15_000,
+        query_timeout: 15_000,
+      });
 
       try {
-        for (const entry of UNRESOLVED_PURCHASES) {
-          const leadRows = await pool.query(
-            "SELECT id, status FROM leads WHERE id = $1",
-            [entry.leadId],
-          );
-          if (leadRows.rows.length > 0 && leadRows.rows[0].status !== "purchased") {
-            const existingRows = await pool.query(
-              "SELECT id FROM lead_purchases WHERE lead_id = $1",
-              [entry.leadId],
-            );
-            if (existingRows.rows.length === 0) {
-              await pool.query(
-                `INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
-                 VALUES ($1, $2, $3, $4, NOW())`,
-                [entry.leadId, GARY_USER_ID, entry.price, `pi_admin_resolved_${Date.now()}`],
-              );
-              await pool.query(
-                `UPDATE leads SET
-                  status = 'purchased',
-                  purchased_by = $1,
-                  purchased_at = NOW(),
-                  purchase_price = $2
-                 WHERE id = $3`,
-                [GARY_USER_ID, entry.price, entry.leadId],
-              );
-              console.log("[startup] Resolved purchase: " + entry.label);
-            }
-          }
-        }
-
         await pool.query(`
           UPDATE leads SET status = 'archived', updated_at = NOW()
           WHERE status = 'available' AND created_at < NOW() - INTERVAL '7 days'
@@ -93,10 +67,16 @@ export async function register() {
           const { normalizeStoredAddress, hasLeadingHouseNumber } = await import(
             "./shared/addressValidation"
           );
+          // Bounded on purpose. This is a backfill, and it read and rewrote the whole leads table on
+          // every boot - the exact "DB work that scales with the leads table" this file's own header
+          // warns can push readiness past the health-check timeout. A slice per boot converges just
+          // as surely, and cannot grow into a failed deploy.
           const rows = await pool.query(`
             SELECT id, address, city, address_missing_house_number
             FROM leads
             WHERE address IS NOT NULL AND address <> '***'
+            ORDER BY updated_at DESC NULLS LAST
+            LIMIT 500
           `);
           let cleaned = 0;
           let flagged = 0;
