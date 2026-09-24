@@ -1,41 +1,35 @@
 "use client";
+import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
-import {useMobileActionVisibility} from "@/hooks/use-mobile-action-visibility";
-import { useFormInView } from "@/hooks/use-form-in-view";
+
+import { useModals } from "@/components/modals/ModalProvider";
 import { Button } from "@/components/ui/button";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+NavigationMenu,
+NavigationMenuContent,
+NavigationMenuItem,
+NavigationMenuLink,
+NavigationMenuList,
+NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, ChevronDown, Search, Phone, MessageSquare } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { CTA_ESTIMATE, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
-import { track } from "@/lib/analytics/track";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { PRIMARY_NAV } from "@/shared/cabinetNav";
-import { useModals } from "@/components/modals/ModalProvider";
+import { Sheet,SheetClose,SheetContent,SheetHeader,SheetTitle } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { track } from "@/lib/analytics/track";
+import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
+import { cn } from "@/lib/utils";
+import { PRIMARY_NAV } from "@/shared/cabinetNav";
+import { CTA_ESTIMATE,CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ChevronDown,Menu,MessageSquare,Phone,Search,X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect,useState } from "react";
 
 function Logo() {
   return (
     <Link href="/" className="tap-target flex items-center leading-none" aria-label="Boise Cabinet Co - home">
       {/* Bone (reverse) wordmark for the dark ground. eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/brand/svg/wordmark/dark/boise-cabinet-co-wordmark-bone.svg"
-        alt="Boise Cabinet Co"
-        width={190}
-        height={28}
-        className="h-[26px] w-auto md:h-7"
-      />
+      <ApprovedBrand />
     </Link>
   );
 }
@@ -51,7 +45,6 @@ function MarketingNavigation() {
   // Stacking the marketing header on top of it cost about a third of a phone screen before any
   // content, and gave the customer a hamburger out of the flow they were in (owner 2026-09-23).
 
-  const formInView = useFormInView(pathname);
   // Solid contrast over every hero; a shadow separates the header while scrolling.
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -62,7 +55,7 @@ function MarketingNavigation() {
   }, []);
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1440px)");
+    const desktop = window.matchMedia("(min-width: 1180px)");
     const closeOnDesktop = () => { if (desktop.matches) setMobileOpen(false); };
     closeOnDesktop();
     desktop.addEventListener("change", closeOnDesktop);
@@ -85,7 +78,6 @@ function MarketingNavigation() {
     return () => window.removeEventListener("wizardmobilebar", sync);
   }, []);
 
-  const pastHero=useMobileActionVisibility(pathname);
 
   // Hide the sticky bar while an on-page final CTA (marked
   // data-suppress-sticky-cta) is in view, so the two never compete.
@@ -147,7 +139,7 @@ function MarketingNavigation() {
 
   return (
     <>
-      <header
+      <header data-approved-navigation
         className={cn(
           "fixed top-0 z-[100] w-full transition-[background-color,border-color] duration-300",
           "bg-background/95 backdrop-blur border-b border-border",
@@ -157,7 +149,7 @@ function MarketingNavigation() {
         <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
           <Logo />
 
-          <div className="hidden min-[1440px]:flex items-center">
+          <div className="hidden min-[1180px]:flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {PRIMARY_NAV.map((item) =>
@@ -224,7 +216,7 @@ function MarketingNavigation() {
             </NavigationMenu>
           </div>
 
-          <div className="hidden min-[1440px]:flex items-center gap-3 shrink-0">
+          <div className="hidden min-[1180px]:flex items-center gap-3 shrink-0">
             {isAuthenticated && isCustomer && (
               <Button variant="brandOutline" size="sm" asChild>
                 <Link href="/portal">{CTA_PORTAL_SHORT}</Link>
@@ -262,7 +254,7 @@ function MarketingNavigation() {
             </Button>
           </div>
 
-          <div className="flex min-[1440px]:hidden items-center gap-2">
+          <div className="flex min-[1180px]:hidden items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
@@ -280,7 +272,7 @@ function MarketingNavigation() {
         <SheetContent
           side="right"
           showClose={false}
-          className="w-full sm:max-w-full h-full max-h-none border-0 p-0 gap-0 flex flex-col min-[1440px]:hidden z-[200] rounded-none"
+          className="w-full sm:max-w-full h-full max-h-none border-0 p-0 gap-0 flex flex-col min-[1180px]:hidden z-[200] rounded-none"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Navigation menu</SheetTitle>
@@ -411,9 +403,9 @@ function MarketingNavigation() {
       <div
         data-mobile-nav-bar=""
         className={cn(
-          "fixed left-0 right-0 bottom-0 z-[100] xl:hidden pb-safe border-t",
+          "fixed left-0 right-0 bottom-0 z-[100] min-[1180px]:hidden pb-safe border-t",
           "bg-background border-border transition-opacity duration-200",
-          (wizardBarActive || ctaSuppressed || formInView || mobileOpen || !pastHero || pathname?.startsWith("/estimate")) && "invisible pointer-events-none opacity-0",
+          (wizardBarActive || ctaSuppressed || mobileOpen || pathname?.startsWith("/estimate")) && "invisible pointer-events-none opacity-0",
         )}
       >
         <div className="flex items-stretch gap-2 p-2">

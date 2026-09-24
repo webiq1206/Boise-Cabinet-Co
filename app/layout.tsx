@@ -1,3 +1,4 @@
+import { ApprovedShell } from "@/components/approved/ApprovedShell";
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
@@ -16,6 +17,9 @@ import './globals.css'
 // The shared P5 family editorial layer. Imported after globals so it can build
 // on the site's tokens; identical file in all four brand repositories.
 import './family.css'
+import './approved-family.css'
+import './approved-cabinet.css'
+import './approved-system.css'
 
 // P5 family typefaces, self-hosted from the same two OFL variable files P5 Home Co serves.
 const manrope = localFont({
@@ -142,13 +146,13 @@ export default function RootLayout({
         </a>
         <Providers>
           <ScrollToTop />
-          <div className="flex flex-col min-h-screen">
+          <ApprovedShell><div className="flex flex-col min-h-screen">
             <Navigation />
             <main id="main-content" className="flex-1">
               {children}
             </main>
             <ConditionalFooter />
-          </div>
+          </div></ApprovedShell>
           <AssistantWidget />
           <Toaster />
         </Providers>

@@ -1,24 +1,15 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { FAQSection } from "@/components/FAQSection";
-import { LazyEstimateCalculator } from "@/components/estimate/LazyEstimateCalculator";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
-import { HeroSection } from "@/components/sections/HeroSection";
-import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
-import { RoomCategoriesGrid } from "@/components/sections/RoomCategoriesGrid";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { FeaturedProjectSection } from "@/components/sections/FeaturedProjectSection";
-import { CraftStatementBand } from "@/components/sections/CraftStatementBand";
-import { ValueOverheadSection } from "@/components/sections/ValueOverheadSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import Image from "next/image";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
-import { Section } from "@/components/marketing/Section";
+import { ApprovedHome } from "@/components/approved/ApprovedHome";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { Check } from "lucide-react";
-import { CONSULT_BULLETS } from "@/shared/siteContent";
+import { Section } from "@/components/marketing/Section";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { CONSULT_BULLETS } from "@/shared/siteContent";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { Check } from "lucide-react";
+import Image from "next/image";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home", path: "/" })), "/");
 
@@ -26,10 +17,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0 bg-background">
       <HomePageSchema />
-      <HeroSection />
-      {/* This sr-only summary must stay after HeroSection so its <h2> follows
-          the page's one <h1> in DOM order, keeping the heading hierarchy
-          valid for assistive tech and voice-answer "speakable" crawlers. */}
+      <ApprovedHome />
       <h2 data-speakable="summary" className="sr-only">
         Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle,
         Nampa, Kuna, Star, Middleton, and Caldwell across Idaho&apos;s Treasure Valley.
@@ -37,15 +25,6 @@ export default function HomePage() {
         vanities, and built-in storage, with 299 finishes, six door styles, a free
         design consultation, and a lifetime workmanship warranty.
       </h2>
-      <RoomCategoriesGrid />
-      <ProcessSection />
-      <FeaturedProjectSection />
-      <TestimonialsSection limit={3} showViewAll={true} />
-      <CraftStatementBand />
-      <WhyChooseUsSection limit={5} />
-      <ValueOverheadSection />
-      <FAQSection />
-      <LazyEstimateCalculator />
       <Section
         id="consult"
         divider

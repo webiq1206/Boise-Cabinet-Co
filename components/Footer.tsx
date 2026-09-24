@@ -1,11 +1,13 @@
-import Link from "next/link";
+
+import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
+import { FooterCTAs } from "@/components/modals/FooterCTAs";
 import { SiteEmailLink } from "@/components/SiteEmailLink";
 import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { FooterCTAs } from "@/components/modals/FooterCTAs";
-import { CONTENT_HUBS, guidePath } from "@/shared/contentHubs";
+import { CITIES,locationPath } from "@/shared/contentData";
+import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
-import { CITIES, locationPath } from "@/shared/contentData";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import Link from "next/link";
 
 const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
 
@@ -92,13 +94,7 @@ export function Footer() {
           <div>
             <Link href="/" className="mb-6 inline-block" aria-label="Boise Cabinet Co - home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/brand/svg/wordmark-full/dark/boise-cabinet-co-wordmark-full-bone-accent.svg"
-                alt="Boise Cabinet Co - Custom Cabinetry, Treasure Valley, Idaho"
-                width={236}
-                height={110}
-                className="h-24 w-auto"
-              />
+              <ApprovedBrand />
             </Link>
             <div className="space-y-2 mb-6">
               <a
