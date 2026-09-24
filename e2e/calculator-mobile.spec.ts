@@ -26,7 +26,7 @@ test('typed scope reaches review and submission without repeating known details'
  await expect(est.getByRole('heading',{name:'Review your project',exact:true})).toBeVisible();
  await expect(est.getByRole('region',{name:'Project question'})).toHaveCount(0);
  await est.getByLabel('Your name',{exact:true}).fill('Synthetic QA');
- await est.getByLabel('Email',{exact:true}).fill('qa@example.invalid');
+ await est.getByLabel(/^Email/).fill('qa@example.invalid');
  await est.getByRole('checkbox').check();
  await est.getByRole('button',{name:'Get my estimate',exact:true}).click();
  await expect(est.getByRole('heading',{name:'Your project estimate',exact:true})).toBeVisible();
