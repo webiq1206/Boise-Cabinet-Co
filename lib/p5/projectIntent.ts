@@ -3,8 +3,10 @@ import {retainTypedAlternatives} from './typedAlternatives.ts';
 type CabinetIntentDecision={service?:'cabinet-install'|'cabinet-product';suppressCabinetService:boolean};
 const CABINET_VALUE=new Set(['cabinet-install','cabinet-product']);
 function cabinetIntentDecision(text:string,services:readonly string[]):CabinetIntentDecision{
+  if(services.some(service=>!['cabinet-install','cabinet-product','change-order','rush'].includes(service)))return {suppressCabinetService:false};
   if(!services.includes('cabinet-install')||!services.includes('cabinet-product')||!/\b(?:cabinets?|vanit(?:y|ies))\b/i.test(text))return {suppressCabinetService:false};
-  const cabinetsExcluded=/\b(?:exclude|excluding|omit|omitting|without|no|do\s+not\s+include|don't\s+include)\s+(?:any\s+|the\s+)?(?:cabinets?|vanit(?:y|ies))\b|\b(?:cabinets?|vanit(?:y|ies))\b[^.!?;\n]{0,40}\b(?:are\s+)?(?:excluded|omitted|not\s+included)\b/i.test(text);
+  const cabinetScope=text.replace(/\b(?:cabinets?|vanit(?:y|ies))\s+(?:purchase|supply|products?|materials?|painting|refinishing)\b/gi,'product responsibility');
+  const cabinetsExcluded=/\b(?:exclude|excluding|omit|omitting|without|no|do\s+not\s+include|don't\s+include)\s+(?:any\s+|the\s+)?(?:cabinets?|vanit(?:y|ies))\b|\b(?:cabinets?|vanit(?:y|ies))\b[^.!?;\n]{0,40}\b(?:are\s+)?(?:excluded|omitted|not\s+included)\b/i.test(cabinetScope);
   const positive=text.replace(/\b(?:do\s+not|don't|without|no|exclude|excluding)\s+(?:the\s+)?install(?:ation|ing)?\b/gi,'');
   const directInstall=/\binstall(?:ing)?\b[^.!?;\n]{0,160}\b(?:cabinets?|vanit(?:y|ies))\b|\b(?:installation\s+of|(?:cabinets?|vanit(?:y|ies))\s+installation)\b/i.test(positive);
   const uncertainInstall=directInstall&&/\b(?:maybe|possibly|potentially|might|may|could|considering|undecided|unsure|not\s+sure)\b/i.test(positive);
