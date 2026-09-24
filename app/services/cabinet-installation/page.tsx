@@ -1,18 +1,18 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Check, Hammer, Sparkles } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Reveal } from "@/components/Reveal";
+import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { ConsultationForm } from "@/components/ConsultationForm";
-import { CtaButton } from "@/components/modals/CtaButton";
 import { Section } from "@/components/marketing";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { SITE_IMAGES } from "@/shared/siteImages";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { CtaButton } from "@/components/modals/CtaButton";
+import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
-import { generateBreadcrumbSchema, generateServiceSchema, generateWebPageSchema } from "@/lib/schema";
+import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
+import { SITE_IMAGES } from "@/shared/siteImages";
+import { ArrowRight,Check,Hammer,Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "service",
@@ -59,23 +59,10 @@ export default function CabinetInstallationPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="services"><>
       <JsonLd data={schemas} />
       <main className="pb-20 md:pb-0">
-        <section className="relative isolate overflow-hidden bg-inverse">
-          <div className="absolute inset-0">
-            <Image
-              src={SITE_IMAGES.contactHero}
-              alt="Finished custom cabinetry in a Treasure Valley home"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover opacity-60 img-brand-grade"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-inverse via-inverse/80 to-inverse/25" />
-            <div className="absolute inset-0 bg-gradient-to-t from-inverse via-transparent to-inverse/20" />
-          </div>
-          <div className="relative z-10 container mx-auto px-6 pb-16 pt-10 md:px-10 md:pb-24 md:pt-14">
+        <InteriorHero layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Finished custom cabinetry in a Treasure Valley home">
             <nav aria-label="Breadcrumb" className="mb-16 text-sm text-inverse-muted">
               <Link href="/" className="tap-target hover:text-inverse-foreground">Home</Link>
               <span className="mx-2 opacity-50">/</span>
@@ -98,8 +85,7 @@ export default function CabinetInstallationPage() {
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </InteriorHero>
 
         <Section variant="greige" spacing="lg">
           <div className="container mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1fr_1.2fr] md:px-10">
@@ -249,6 +235,6 @@ export default function CabinetInstallationPage() {
           </div>
         </Section>
       </main>
-    </>
+    </></InteriorPage>
   );
 }

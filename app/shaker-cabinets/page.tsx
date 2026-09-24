@@ -1,23 +1,24 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import Link from "next/link";
-import Image from "next/image";
-import { getDoorStyleImages } from "@/shared/catalog";
-import { ArrowRight, Check } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { SplitSection } from "@/components/marketing/SplitSection";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import {
-  generateBreadcrumbSchema,
-  generateWebPageSchema,
-  generateServiceSchema,
-  generateFAQSchema,
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateServiceSchema,
+generateWebPageSchema,
 } from "@/lib/schema";
+import { getDoorStyleImages } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ArrowRight,Check } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/shaker-cabinets",
@@ -104,7 +105,7 @@ export default function ShakerCabinetsPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="shaker-cabinets"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -257,6 +258,6 @@ export default function ShakerCabinetsPage() {
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

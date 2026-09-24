@@ -1,49 +1,50 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
+import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
+import { FaqAccordion } from "@/components/marketing/FaqAccordion";
+import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { CtaButton } from "@/components/modals/CtaButton";
+import { ProcessSection } from "@/components/sections/ProcessSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import {
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateServiceSchema,
+generateWebPageSchema,
+} from "@/lib/schema";
+import {
+CABINET_PRODUCTS,
+CATALOG_CONTENT,
+ROOM_CATEGORIES,
+getRoomBySlug,
+} from "@/shared/catalog";
+import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
+import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
+import { CITIES,locationPath } from "@/shared/contentData";
+import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
+import {
+PROJECT_PRICING,
+calculateEstimate,
+formatPlanningCurrency,
+getDefaultSelectionsForProject,
+type ProjectType,
+} from "@/shared/estimateEngine";
+import { PROJECTS } from "@/shared/galleryData";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
+import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { ArrowRight,Check,MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, MapPin, Check } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
-import { FaqAccordion } from "@/components/marketing/FaqAccordion";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { Button } from "@/components/ui/button";
-import { CtaButton } from "@/components/modals/CtaButton";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import {
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-  generateServiceSchema,
-  generateWebPageSchema,
-} from "@/lib/schema";
-import {
-  ROOM_CATEGORIES,
-  getRoomBySlug,
-  CABINET_PRODUCTS,
-} from "@/shared/catalog";
-import { CATALOG_CONTENT } from "@/shared/catalog";
-import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
-import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
-import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
-import { CITIES, locationPath } from "@/shared/contentData";
-import { PROJECTS } from "@/shared/galleryData";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
-import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
-import { CTA_ESTIMATE, CTA_BOOK_VISIT } from "@/shared/ctaCopy";
-import {
-  PROJECT_PRICING,
-  calculateEstimate,
-  getDefaultSelectionsForProject,
-  formatPlanningCurrency,
-  type ProjectType,
-} from "@/shared/estimateEngine";
 
 export function generateStaticParams() {
   return ROOM_CATEGORIES.map((room) => ({ room: room.slug }));
@@ -152,23 +153,11 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   ];
 
   return (
-    <>
+    <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Hero */}
-        <Section spacing="sm" className="pt-0">
-          <div className="relative aspect-[21/9] max-h-[360px] w-full overflow-hidden bg-muted">
-            <Image
-              src={room.heroImage}
-              alt={`${room.name} custom cabinets`}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover img-brand-grade"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
-          </div>
-          <div className="container px-4 max-w-3xl pt-6">
+        <InteriorHero layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
@@ -193,8 +182,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
             </div>
-          </div>
-        </Section>
+          </InteriorHero>
 
         {/* Cost and timeline expectation */}
         <Section variant="greige" divider>
@@ -443,6 +431,6 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

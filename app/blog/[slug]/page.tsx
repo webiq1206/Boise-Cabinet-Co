@@ -1,25 +1,26 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import fs from "fs";
-import path from "path";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
+import { BlogPostLayout } from "@/components/marketing/BlogPostLayout";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildCanonical,fitTitle } from '@/lib/page-metadata';
+import {
+generateArticleSchema,
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateSpeakableSchema,
+} from "@/lib/schema";
+import { clampMetaDescription,getBaseUrl } from "@/lib/seo";
 import { BLOG_POSTS } from "@/shared/blogContent";
 import {
-  generateArticleSchema,
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-  generateSpeakableSchema,
-} from "@/lib/schema";
-import { buildCanonical, fitTitle } from '@/lib/page-metadata';
-import { BlogPostLayout } from "@/components/marketing/BlogPostLayout";
-import {
-  getAbsoluteImageUrl,
-  getBlogHeroImage,
-  getBlogImageAlt,
+getAbsoluteImageUrl,
+getBlogHeroImage,
+getBlogImageAlt,
 } from "@/shared/blogImages";
-import { clampMetaDescription, getBaseUrl } from "@/lib/seo";
+import { CONTENT_HUBS,categoryHubPath } from "@/shared/contentHubs";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { CONTENT_HUBS, categoryHubPath } from "@/shared/contentHubs";
+import fs from "fs";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import path from "path";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -124,7 +125,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     : null;
 
   return (
-    <>
+    <InteriorPage kind="blog"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -146,6 +147,6 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
         />
       )}
       <BlogPostLayout post={post} formatDate={formatDate} />
-    </>
+    </></InteriorPage>
   );
 }

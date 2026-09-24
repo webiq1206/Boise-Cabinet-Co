@@ -1,10 +1,11 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorDocument,InteriorPage } from '@/components/approved/InteriorLayout';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildCanonical } from "@/lib/page-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { getSiteUrlGroups } from "@/lib/siteUrls";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Metadata } from "next";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import { buildCanonical } from "@/lib/page-metadata";
-import { getSiteUrlGroups } from "@/lib/siteUrls";
 
 const DESCRIPTION = `Every page on the ${SITE_CONFIG.name} website in one place: cabinets by room, service areas, guides, and articles.`;
 
@@ -30,13 +31,13 @@ export default function SitemapPage() {
   const webPageSchema = generateWebPageSchema({ title: "Site Map", description: DESCRIPTION, url: "/sitemap" });
   const id = (h: string) => `sitemap-${h.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <div className="flex flex-col">
+    <InteriorPage kind="sitemap"><div className="flex flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
       <section className="py-16 md:py-24">
         <div className="container px-4">
-          <div className="blog-content">
-            <h1>Site Map</h1>
+          <InteriorDocument heading={<h1>Site Map</h1>} contents={[]}>
+
             <p className="lead text-muted-foreground">{DESCRIPTION}</p>
             <div className="mt-10 columns-1 gap-x-10 sm:columns-2 lg:columns-3 [&_section]:mb-8 [&_section]:break-inside-avoid [&_ul]:mt-3 [&_h2]:mt-0 [&_li]:my-1">
             {groups.map((g) => g.entries.length === 0 ? null : (
@@ -46,9 +47,9 @@ export default function SitemapPage() {
               </section>
             ))}
             </div>
-          </div>
+          </InteriorDocument>
         </div>
       </section>
-    </div>
+    </div></InteriorPage>
   );
 }

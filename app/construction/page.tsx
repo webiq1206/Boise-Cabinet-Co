@@ -1,19 +1,20 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
-import { CinematicHero } from "@/components/marketing/CinematicHero";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { SplitSection } from "@/components/marketing/SplitSection";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { Button } from "@/components/ui/button";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema, generateServiceSchema } from "@/lib/schema";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { SplitSection } from "@/components/marketing/SplitSection";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const STANDARDS = [
   {
@@ -68,7 +69,7 @@ export default function ConstructionPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="construction"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -120,6 +121,6 @@ export default function ConstructionPage() {
         </Section>
         <CatalogClosingCTA />
       </div>
-    </>
+    </></InteriorPage>
   );
 }

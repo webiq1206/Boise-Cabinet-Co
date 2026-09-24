@@ -1,17 +1,18 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { MARKETING_IMAGES } from '@/shared/siteImages';
-import { ArrowRight } from 'lucide-react';
-import { JsonLd } from '@/components/seo/JsonLd';
-import { Section } from '@/components/marketing/Section';
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from '@/components/marketing/CinematicHero';
+import { Section } from '@/components/marketing/Section';
+import { CtaButton } from '@/components/modals/CtaButton';
 import { CaseStudiesSection } from '@/components/sections/CaseStudiesSection';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from '@/lib/page-metadata';
-import { generateImageGallerySchema, generateLocalBusinessSchema } from '@/lib/schema';
+import { generateImageGallerySchema,generateLocalBusinessSchema } from '@/lib/schema';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { PROJECTS } from '@/shared/galleryData';
-import { CtaButton } from '@/components/modals/CtaButton';
+import { MARKETING_IMAGES } from '@/shared/siteImages';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
@@ -48,7 +49,7 @@ export default function TestimonialsPage() {
   const schemas = [gallerySchema, generateLocalBusinessSchema()];
 
   return (
-    <>
+    <InteriorPage kind="testimonials"><>
       <JsonLd data={schemas} />
     <div className="flex flex-col pb-20 md:pb-0">
       <CinematicHero
@@ -86,6 +87,6 @@ export default function TestimonialsPage() {
         </div>
       </Section>
     </div>
-    </>
+    </></InteriorPage>
   );
 }

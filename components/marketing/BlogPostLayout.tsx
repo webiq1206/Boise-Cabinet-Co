@@ -1,39 +1,39 @@
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Calendar, Tag, User, BookOpen } from 'lucide-react';
+import { ShareBar } from '@/components/blog/ShareBar';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+Accordion,
+AccordionContent,
+AccordionItem,
+AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Chip } from './Chip';
+import {
+countSubstantiveWords,
+estimateReadingTime,
+extractHeadingsFromHtml,
+injectHeadingIds,
+} from '@/lib/content-utils';
+import type { BlogPostData } from '@/shared/blogContent';
+import { getBlogPostsByHub } from '@/shared/blogContent';
+import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
+import {
+categoryHubPath,
+getHubBySlug,
+getHubPillarSlug,
+guidePath,
+isCategoryHubIndexable,
+} from '@/shared/contentHubs';
+import { getResourcesForBlog } from '@/shared/guideResources';
+import { SITE_CONFIG } from '@/shared/siteConfig';
+import { ArrowLeft,ArrowRight,BookOpen,Calendar,Tag,User } from 'lucide-react';
+import Link from 'next/link';
+import { ArticleSidebar,ArticleSidebarCta } from './ArticleSidebar';
 import { BlogEndCta } from './BlogEndCta';
+import { BlogHeroBanner } from './BlogHeroBanner';
+import { Chip } from './Chip';
+import { GuideContentBlocks,GuideJumpChips } from './GuideContentBlocks';
+import { GuideResourceDownloads } from './GuideResourceDownloads';
 import { RelatedPostCards } from './RelatedPostCards';
 import { Section } from './Section';
-import type { BlogPostData } from '@/shared/blogContent';
-import { getBlogHeroImage, getBlogImageAlt } from '@/shared/blogImages';
-import { BlogHeroBanner } from './BlogHeroBanner';
-import { GuideContentBlocks, GuideJumpChips } from './GuideContentBlocks';
 import { SectionedArticle } from './SectionedArticle';
-import { ArticleSidebar, ArticleSidebarCta } from './ArticleSidebar';
-import {
-  injectHeadingIds,
-  extractHeadingsFromHtml,
-  estimateReadingTime,
-  countSubstantiveWords,
-} from '@/lib/content-utils';
-import {
-  getHubBySlug,
-  categoryHubPath,
-  guidePath,
-  getHubPillarSlug,
-  isCategoryHubIndexable,
-} from '@/shared/contentHubs';
-import { getBlogPostsByHub } from '@/shared/blogContent';
-import { getResourcesForBlog } from '@/shared/guideResources';
-import { GuideResourceDownloads } from './GuideResourceDownloads';
-import { ShareBar } from '@/components/blog/ShareBar';
-import { SITE_CONFIG } from '@/shared/siteConfig';
 
 interface BlogPostLayoutProps {
   post: BlogPostData;
@@ -56,10 +56,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
-      <BlogHeroBanner src={heroImage} alt={heroAlt} />
-      <div className="container px-4 max-w-4xl mx-auto -mt-2 mb-2">
-        <p className="text-sm text-muted-foreground text-center md:text-left">{heroCaption}</p>
-      </div>
+
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">
@@ -72,7 +69,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
             Back to Blog
           </Link>
 
-          <header className="max-w-3xl mb-8 md:mb-10">
+          <header className="interior-article-header">
             <Chip className="mb-4">{hub?.categoryLabel ?? post.category}</Chip>
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-serif tracking-tight text-foreground mb-4">
               {post.title}
@@ -92,13 +89,13 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
                 </span>
               )}
             </div>
-          </header>
+          </header><BlogHeroBanner src={heroImage} alt={heroAlt}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 
           <ShareBar url={shareUrl} title={post.title} className="mb-8" />
 
           <GuideJumpChips headings={tocHeadings} />
 
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-start">
+          <div className="interior-article-grid">
             <div className="flex-1 min-w-0 w-full">
               <GuideContentBlocks quickAnswer={post.quickAnswer} keyTakeaways={post.keyTakeaways}>
                 <GuideResourceDownloads resources={resources} />

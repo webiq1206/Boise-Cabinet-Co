@@ -1,38 +1,39 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FaqAccordion } from "@/components/marketing/FaqAccordion";
+import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { Section } from "@/components/marketing/Section";
+import { SectionedArticle } from "@/components/marketing/SectionedArticle";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { CtaButton } from "@/components/modals/CtaButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildPageMetadata } from "@/lib/page-metadata";
+import {
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateLocalBusinessSchema,
+generateWebPageSchema,
+} from "@/lib/schema";
+import { getAreaImageSet } from "@/shared/cityServiceImages";
+import {
+CITIES,
+SERVICES,
+getCityBySlug,
+getCountyLabel,
+locationPath,
+} from "@/shared/contentData";
+import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { PROJECTS } from "@/shared/galleryData";
+import { GUIDE_PAGES } from "@/shared/guideContent";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { ArrowRight,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, MapPin, Phone } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { SectionedArticle } from "@/components/marketing/SectionedArticle";
-import { FaqAccordion } from "@/components/marketing/FaqAccordion";
-import { CtaButton } from "@/components/modals/CtaButton";
-import { Button } from "@/components/ui/button";
-import {
-  CITIES,
-  SERVICES,
-  getCityBySlug,
-  getCountyLabel,
-  locationPath,
-} from "@/shared/contentData";
-import { GUIDE_PAGES } from "@/shared/guideContent";
-import { getAreaImageSet } from "@/shared/cityServiceImages";
-import { PROJECTS } from "@/shared/galleryData";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { CTA_ESTIMATE, CTA_BOOK_VISIT } from "@/shared/ctaCopy";
-import { buildPageMetadata } from "@/lib/page-metadata";
-import {
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-  generateLocalBusinessSchema,
-  generateWebPageSchema,
-} from "@/lib/schema";
 
 export function generateStaticParams() {
   return CITIES.map((c) => ({ city: c.slug }));
@@ -89,23 +90,11 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   ];
 
   return (
-    <>
+    <InteriorPage kind="locations"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Local hero */}
-        <Section spacing="sm" className="pt-0">
-          <div className="relative aspect-[21/9] max-h-[360px] w-full overflow-hidden bg-muted">
-            <Image
-              src={images.hero}
-              alt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover img-brand-grade"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
-          </div>
-          <div className="container px-4 max-w-3xl pt-6">
+        <InteriorHero layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
               items={[{ name: "Home", href: "/" }, { name: `${city.name}, Idaho` }]}
             />
@@ -134,8 +123,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                 </a>
               </Button>
             </div>
-          </div>
-        </Section>
+          </InteriorHero>
 
         {/* Local project proof */}
         {cityProjects.length > 0 && (
@@ -308,6 +296,6 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

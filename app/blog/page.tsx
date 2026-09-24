@@ -1,13 +1,14 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { Metadata } from "next";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { BlogIndexClient } from "@/components/marketing/BlogIndexClient";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
-  generateBreadcrumbSchema,
-  generateCollectionPageSchema,
-  generateWebPageSchema,
+generateBreadcrumbSchema,
+generateCollectionPageSchema,
+generateWebPageSchema,
 } from "@/lib/schema";
 import { BLOG_POSTS } from "@/shared/blogContent";
+import { Metadata } from "next";
 
 export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "blog",
@@ -39,7 +40,7 @@ export default function BlogPage() {
   });
 
   return (
-    <>
+    <InteriorPage kind="blog"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
@@ -53,6 +54,6 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
       <BlogIndexClient />
-    </>
+    </></InteriorPage>
   );
 }

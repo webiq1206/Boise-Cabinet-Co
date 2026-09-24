@@ -1,20 +1,20 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
-import { CinematicHero } from "@/components/marketing/CinematicHero";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
+import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { CatalogVisualCard } from "@/components/catalog/visual";
-import { getAccessoryImagePath } from "@/shared/catalog";
-import { ACCESSORY_FAMILIES } from "@/shared/catalog";
-import { Button } from "@/components/ui/button";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Reveal } from "@/components/Reveal";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { ACCESSORY_FAMILIES,getAccessoryImagePath } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/accessories",
@@ -38,7 +38,7 @@ export default function AccessoriesPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="accessories"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -88,6 +88,6 @@ export default function AccessoriesPage() {
         </Section>
         <CatalogClosingCTA />
       </div>
-    </>
+    </></InteriorPage>
   );
 }

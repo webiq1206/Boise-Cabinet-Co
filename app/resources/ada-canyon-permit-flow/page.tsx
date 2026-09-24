@@ -1,13 +1,14 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorDocument,InteriorPage } from '@/components/approved/InteriorLayout';
+import { Section } from '@/components/marketing/Section';
+import { CtaButton } from '@/components/modals/CtaButton';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildPageMetadata } from '@/lib/page-metadata';
+import { generateArticleSchema,generateBreadcrumbSchema,generateWebPageSchema } from '@/lib/schema';
+import { CTA_ESTIMATE } from '@/shared/ctaCopy';
+import { ArrowLeft,ArrowRight,Download } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
-import { buildPageMetadata } from '@/lib/page-metadata';
-import { Section } from '@/components/marketing/Section';
 import { PermitFlowGraphic } from './PermitFlowGraphic';
-import { CtaButton } from '@/components/modals/CtaButton';
-import { CTA_ESTIMATE } from '@/shared/ctaCopy';
-import { generateWebPageSchema, generateBreadcrumbSchema, generateArticleSchema } from '@/lib/schema';
 
 export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'blog',
@@ -41,7 +42,7 @@ export default function AdaCanyonPermitFlowPage() {
   });
 
   return (
-    <>
+    <InteriorPage kind="resources"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
@@ -56,7 +57,9 @@ export default function AdaCanyonPermitFlowPage() {
       />
       <div className="flex flex-col pb-20">
       <Section spacing="none" className="pt-28 md:pt-32">
-        <div className="container px-4 max-w-4xl mx-auto">
+        <InteriorDocument heading={<h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
+            Ada vs Canyon County permit flow
+          </h1>} contents={[]}>
           <Link
             href="/resources"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8"
@@ -68,9 +71,7 @@ export default function AdaCanyonPermitFlowPage() {
           <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
             Visual guide
           </p>
-          <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
-            Ada vs Canyon County permit flow
-          </h1>
+
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
             A step-by-step view of how cabinet and trade permits move through review and inspections in
             the Treasure Valley. Timelines vary by project scope.
@@ -120,9 +121,9 @@ export default function AdaCanyonPermitFlowPage() {
               cabinet project process guide
             </Link>
           </div>
-        </div>
+        </InteriorDocument>
       </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

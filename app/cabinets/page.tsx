@@ -1,20 +1,18 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { MARKETING_IMAGES } from "@/shared/siteImages";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
-import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { Section } from "@/components/marketing/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/Reveal";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import { ROOM_CATEGORIES } from "@/shared/catalog";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { getCollectionBySlug,ROOM_CATEGORIES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { getCollectionBySlug } from "@/shared/catalog";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/cabinets",
@@ -41,7 +39,7 @@ export default function CabinetsHubPage() {
   const leadCollection = lead ? getCollectionBySlug(lead.defaultCollectionId) : undefined;
 
   return (
-    <>
+    <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -70,76 +68,9 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <Section surface="deep" spacing="xl" edge>
-          <div className="ed-shell">
-            <Reveal>
-              <p className="ed-eyebrow">Rooms</p>
-              <h2 className="ed-h2 ed-statement-wide">Twelve room categories</h2>
-              <p className="ed-body mt-6">
-                Each room page outlines typical cabinet types and our recommended collection line.
-              </p>
-            </Reveal>
-
-            {lead && (
-              <Reveal delay={60}>
-                <Link
-                  href={`/cabinets/${lead.slug}`}
-                  className="ed-zoom group mt-[clamp(40px,5vw,72px)] grid overflow-hidden lg:grid-cols-[1.2fr_0.8fr]"
-                  style={{ border: "1px solid var(--ed-line)" }}
-                >
-                  <div className="relative min-h-[clamp(280px,38vw,460px)] overflow-hidden">
-                    <Image
-                      src={lead.heroImage}
-                      alt={`${lead.name} custom cabinets`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 60vw"
-                      className="object-cover img-brand-grade"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center p-[clamp(28px,3.4vw,56px)]">
-                    <p className="ed-eyebrow ed-eyebrow-accent">Most requested</p>
-                    <h2 className="ed-h2-sm">{lead.name}</h2>
-                    <p className="ed-body mt-5">{lead.description}</p>
-                    <p className="ed-small mt-5">Suggested line: {leadCollection?.name ?? "Custom Cabinets"}</p>
-                    <span className="ed-link ed-link-accent mt-8 self-start">
-                      Explore {lead.name.toLowerCase()} cabinets
-                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            )}
-
-            <Reveal delay={100}>
-              <div
-                className="ed-matrix ed-matrix-hover mt-[clamp(32px,4vw,56px)]"
-                style={{ ["--ed-cols" as string]: 4, ["--ed-cell-h" as string]: "220px" }}
-              >
-                {rest.map((room) => {
-                  const collection = getCollectionBySlug(room.defaultCollectionId);
-                  return (
-                    <Link key={room.id} href={`/cabinets/${room.slug}`} className="group flex flex-col justify-between">
-                      <span className="self-end transition-transform group-hover:translate-x-1">
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                      <span>
-                        <h2 className="ed-h4">{room.name}</h2>
-                        <p className="mt-2 line-clamp-2 text-[0.8125rem] leading-[1.6]" style={{ color: "inherit", opacity: 0.72 }}>
-                          {room.description}
-                        </p>
-                        <p className="mt-3 text-[0.6875rem] uppercase tracking-[0.16em]" style={{ color: "inherit", opacity: 0.6 }}>
-                          {collection?.name ?? "Custom Cabinets"}
-                        </p>
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </Reveal>
-          </div>
-        </Section>
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={room.heroImage} alt={`${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p><p className="interior-price">Suggested line: {getCollectionBySlug(room.defaultCollectionId)?.name ?? 'Custom Cabinets'}</p></Link>)}</section>
         <CatalogClosingCTA />
       </div>
-    </>
+    </></InteriorPage>
   );
 }

@@ -1,22 +1,23 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { MARKETING_IMAGES } from "@/shared/siteImages";
-import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { SplitSection } from "@/components/marketing/SplitSection";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
-  generateBreadcrumbSchema,
-  generateWebPageSchema,
-  generateServiceSchema,
-  generateFAQSchema,
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateServiceSchema,
+generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { ArrowRight,Check } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "service",
@@ -139,7 +140,7 @@ export default function BuildersPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="builders"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -268,6 +269,6 @@ export default function BuildersPage() {
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

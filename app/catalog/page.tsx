@@ -1,22 +1,23 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { Download } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
-import { CatalogFlipbook } from "@/components/catalog/CatalogFlipbook";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
+import { CatalogFlipbook } from "@/components/catalog/CatalogFlipbook";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { Section } from "@/components/marketing/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import {
-  DOOR_STYLES,
-  FINISHES,
-  CABINET_PRODUCTS,
-  HARDWARE_OPTIONS,
-  ACCESSORY_FAMILIES,
+ACCESSORY_FAMILIES,
+CABINET_PRODUCTS,
+DOOR_STYLES,
+FINISHES,
+HARDWARE_OPTIONS,
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { Download } from "lucide-react";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/catalog",
@@ -52,7 +53,7 @@ export default function CatalogPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="catalog"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <Section spacing="sm" className="pt-4 md:pt-6">
@@ -103,6 +104,6 @@ export default function CatalogPage() {
 
         <CatalogClosingCTA />
       </div>
-    </>
+    </></InteriorPage>
   );
 }

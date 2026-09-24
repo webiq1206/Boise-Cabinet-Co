@@ -1,28 +1,29 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { ArrowRight, Check, ChevronRight, Mail, MapPin, MessageSquare, Phone } from 'lucide-react';
-import Link from 'next/link';
-import { JsonLd } from '@/components/seo/JsonLd';
-import Image from 'next/image';
+import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
+import { ConsultationForm } from '@/components/ConsultationForm';
 import { Section } from '@/components/marketing';
-import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { Hairline } from '@/components/marketing/Hairline';
-import { SITE_IMAGES } from '@/shared/siteImages';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { SectionHeader } from '@/components/marketing/SectionHeader';
+import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { SiteEmailLink } from '@/components/SiteEmailLink';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
-  generateBreadcrumbSchema,
-  generateLocalBusinessSchema,
-  generateWebPageSchema,
+generateBreadcrumbSchema,
+generateLocalBusinessSchema,
+generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
-import { SITE_CONFIG } from '@/shared/siteConfig';
-import { ConsultationForm } from '@/components/ConsultationForm';
-import { SiteEmailLink } from '@/components/SiteEmailLink';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
-import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
-import { CtaButton } from '@/components/modals/CtaButton';
+import { SITE_CONFIG } from '@/shared/siteConfig';
+import { CONSULT_BULLETS,HERO_STATS } from '@/shared/siteContent';
+import { SITE_IMAGES } from '@/shared/siteImages';
+import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -146,30 +147,11 @@ export default function ContactPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="contact"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        {/* ─── Cinematic hero ─── */}
-        <section className="relative min-h-[520px] md:min-h-[72vh] flex items-end overflow-hidden bg-inverse">
-          <Image
-            src={SITE_IMAGES.contactHero}
-            alt="bathroom design with custom wood vanity cabinets"
-            title="Contact Boise Cabinet Co | Custom Cabinets Idaho"
-            fill
-            className="object-cover opacity-[0.9] img-brand-grade"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/60 to-inverse/10" />
-          <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
-          />
-
-          <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10 fade-up">
+        {/* Approved editorial hero */}
+        <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="bathroom design with custom wood vanity cabinets">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -189,11 +171,7 @@ export default function ContactPage() {
             >
               {BUSINESS_INFO.phone}
             </a>
-            <div className="flex flex-wrap gap-3 mb-8">
-              <CtaButton variant="brand">
-                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
-              </CtaButton>
-            </div>
+            <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a></div>
             <dl className="ed-hero-facts">
               {HERO_STATS.map((stat) => (
                 <div key={stat.label}>
@@ -202,8 +180,7 @@ export default function ContactPage() {
                 </div>
               ))}
             </dl>
-          </div>
-        </section>
+          </InteriorHero>
 
         {/* ─── Consultation form ─── */}
         <Section id="consult" divider data-suppress-sticky-cta="">
@@ -376,12 +353,12 @@ export default function ContactPage() {
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                   <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
                 </div>
-              
+
               </div></div>
             </Reveal>
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

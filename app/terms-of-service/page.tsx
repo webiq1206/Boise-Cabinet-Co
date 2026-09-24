@@ -1,10 +1,11 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { Metadata } from "next";
+import { InteriorDocument,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildCanonical } from "@/lib/page-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { Metadata } from "next";
 
 export const metadata: Metadata = withBrandPageMetadata(({
   title: { absolute: "Terms of Service | Boise Cabinet Co" },
@@ -41,7 +42,7 @@ export default function TermsOfServicePage() {
   });
 
   return (
-    <div className="flex flex-col">
+    <InteriorPage kind="legal"><div className="flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -55,23 +56,23 @@ export default function TermsOfServicePage() {
           <div className="max-w-3xl mx-auto mb-6">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Terms of Service" }]} />
           </div>
-          <div className="max-w-3xl mx-auto blog-content prose-measure">
-            <h1>Terms of Service for Boise Cabinet Co</h1>
+          <InteriorDocument heading={<h1>Terms of Service for Boise Cabinet Co</h1>} contents={[{"id":"document-section-1","label":"Agreement to Terms"},{"id":"document-section-2","label":"Services"},{"id":"document-section-3","label":"Estimates and Pricing"},{"id":"document-section-4","label":"Payment Terms"},{"id":"document-section-5","label":"Fabrication and Installation Scheduling"},{"id":"document-section-6","label":"Property Access"},{"id":"document-section-7","label":"Installation Partners"},{"id":"document-section-8","label":"Limitation of Liability"},{"id":"document-section-9","label":"Workmanship Guarantee"},{"id":"document-section-10","label":"Changes to Terms"},{"id":"document-section-11","label":"Contact Information"}]}>
+
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>
 
-            <h2>Agreement to Terms</h2>
+            <h2 id="document-section-1">Agreement to Terms</h2>
             <p>
               By accessing or using the services provided by Boise Cabinet Co ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
             </p>
 
-            <h2>Services</h2>
+            <h2 id="document-section-2">Services</h2>
             <p>
               Boise Cabinet Co provides custom cabinet design, fabrication, and installation services to residential and commercial customers in the Treasure Valley area of Idaho.
             </p>
 
-            <h2>Estimates and Pricing</h2>
+            <h2 id="document-section-3">Estimates and Pricing</h2>
             <ul>
               <li>Online and in-home estimates are planning ranges based on the information available at the time, not a binding quote</li>
               <li>Final pricing is set in a written scope and proposal before fabrication begins</li>
@@ -79,7 +80,7 @@ export default function TermsOfServicePage() {
               <li>Any significant change to the approved scope is documented in a written change order before work proceeds</li>
             </ul>
 
-            <h2>Payment Terms</h2>
+            <h2 id="document-section-4">Payment Terms</h2>
             <ul>
               <li>A deposit is typically required to confirm your order and begin fabrication</li>
               <li>The remaining balance is due according to the milestones set out in your written proposal</li>
@@ -87,39 +88,39 @@ export default function TermsOfServicePage() {
               <li>Late payments may incur additional fees as described in your proposal</li>
             </ul>
 
-            <h2>Fabrication and Installation Scheduling</h2>
+            <h2 id="document-section-5">Fabrication and Installation Scheduling</h2>
             <ul>
               <li>Custom cabinets are built to order, so lead times are estimated and may shift based on material availability and order volume</li>
               <li>We will make reasonable efforts to keep you informed of your fabrication and installation timeline</li>
               <li>Installation dates are scheduled in advance; please let us know promptly if you need to reschedule</li>
             </ul>
 
-            <h2>Property Access</h2>
+            <h2 id="document-section-6">Property Access</h2>
             <p>
               By engaging our services, you grant us permission to access your home as necessary to take field measurements and complete installation. Please ensure the work area is clear and accessible on scheduled measurement and installation days.
             </p>
 
-            <h2>Installation Partners</h2>
+            <h2 id="document-section-7">Installation Partners</h2>
             <p>
               Boise Cabinet Co may use qualified installation partners to complete certain work. We remain accountable for the quality and warranty of the cabinetry we design, build, and install.
             </p>
 
-            <h2>Limitation of Liability</h2>
+            <h2 id="document-section-8">Limitation of Liability</h2>
             <p>
               While we take great care in providing our services, Boise Cabinet Co's liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
             </p>
 
-            <h2>Workmanship Guarantee</h2>
+            <h2 id="document-section-9">Workmanship Guarantee</h2>
             <p>
               We stand behind our cabinetry and installation. If you have a concern with your completed project, please contact us and we will work to address it under the terms of your written workmanship warranty.
             </p>
 
-            <h2>Changes to Terms</h2>
+            <h2 id="document-section-10">Changes to Terms</h2>
             <p>
               We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to our website.
             </p>
 
-            <h2>Contact Information</h2>
+            <h2 id="document-section-11">Contact Information</h2>
             <p>
               For questions about these Terms of Service, please contact us:
             </p>
@@ -128,9 +129,9 @@ export default function TermsOfServicePage() {
               <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
               <li>{SITE_CONFIG.name}, {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}</li>
             </ul>
-          </div>
+          </InteriorDocument>
         </div>
       </section>
-    </div>
+    </div></InteriorPage>
   );
 }

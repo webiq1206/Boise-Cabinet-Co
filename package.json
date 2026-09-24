@@ -73,8 +73,10 @@
     "og:generate": "node --import tsx scripts/generate-og-images.ts",
     "og:generate:force": "node --import tsx scripts/generate-og-images.ts --force",
     "verify:p5-shared": "node --import tsx --test tests/p5-shared-engine.test.ts",
-    "prebuild": "npm run verify:p5-shared && npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run verify:redirect-collisions && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash && npm run verify:estimator-recovery",
-    "verify:contrast": "node scripts/verify-contrast.mjs"
+    "prebuild": "npm run sync:pdf-worker && npm run verify:p5-shared && npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run verify:redirect-collisions && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash && npm run verify:estimator-recovery",
+    "verify:contrast": "node scripts/verify-contrast.mjs",
+    "sync:pdf-worker": "node scripts/sync-pdf-worker.mjs",
+    "predev": "npm run sync:pdf-worker"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",

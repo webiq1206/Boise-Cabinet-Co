@@ -1,34 +1,35 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import { ArrowRight, Check, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import { JsonLd } from '@/components/seo/JsonLd';
-import Image from 'next/image';
-import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
-import { SectionHeader } from '@/components/marketing/SectionHeader';
+import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
+import { DisplayNum,formatStepNumber,Section } from '@/components/marketing';
 import { Hairline } from '@/components/marketing/Hairline';
-import { SITE_IMAGES } from '@/shared/siteImages';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { SectionHeader } from '@/components/marketing/SectionHeader';
+import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
-import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
+import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+Accordion,
+AccordionContent,
+AccordionItem,
+AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
-  generateBreadcrumbSchema,
-  generateOrganizationSchema,
-  generateWebPageSchema,
-  generateFAQSchema,
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateOrganizationSchema,
+generateWebPageSchema,
 } from '@/lib/schema';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { HERO_STATS, PRINCIPLES, TRUST_ITEMS, TEAM } from '@/shared/siteContent';
-import { CTA_ESTIMATE, CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
-import { CtaButton } from '@/components/modals/CtaButton';
-import { Button } from '@/components/ui/button';
+import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
+import { SITE_IMAGES } from '@/shared/siteImages';
+import { ArrowRight,Check,ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -129,29 +130,11 @@ export default function AboutPage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        {/* ─── Cinematic hero ─── */}
-        <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
-          <Image
-            src={SITE_IMAGES.leadership}
-            alt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}
-            fill
-            className="object-cover opacity-[0.9] img-brand-grade"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse/85 via-inverse/45 to-inverse/5" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/90 via-inverse/60 to-inverse/10" />
-          <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/50 via-inverse/20 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
-          />
-
-          <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10 fade-up">
+        {/* Approved editorial hero */}
+        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}>
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -186,8 +169,7 @@ export default function AboutPage() {
                 </div>
               ))}
             </dl>
-          </div>
-        </section>
+          </InteriorHero>
 
         {/* ─── Design-build split ─── */}
         <Section variant="greige" spacing="none" divider className="p-0">
@@ -403,6 +385,6 @@ export default function AboutPage() {
           </div>
         </Section>
       </div>
-    </>
+    </></InteriorPage>
   );
 }

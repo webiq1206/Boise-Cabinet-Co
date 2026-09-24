@@ -1,26 +1,27 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorPage } from '@/components/approved/InteriorLayout';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { Section } from '@/components/marketing/Section';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import {
+countH2Headings,
+countSubstantiveWords,
+estimateReadingTime,
+} from '@/lib/content-utils';
+import { buildPageMetadata } from '@/lib/page-metadata';
+import {
+generateBreadcrumbSchema,
+generateCollectionPageSchema,
+generateWebPageSchema,
+} from '@/lib/schema';
+import { getBlogImageAlt,getBlogThumbnail } from '@/shared/blogImages';
+import { locationPath } from '@/shared/contentData';
+import { CONTENT_HUBS,guidePath } from '@/shared/contentHubs';
+import { GUIDE_PAGES,type GuidePageData } from '@/shared/guideContent';
+import { ArrowRight,BookOpen,MapPin } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, BookOpen, MapPin } from 'lucide-react';
-import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/page-metadata';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Section } from '@/components/marketing/Section';
-import { MarketingCard } from '@/components/marketing/MarketingCard';
-import { getBlogThumbnail, getBlogImageAlt } from '@/shared/blogImages';
-import { CONTENT_HUBS, guidePath } from '@/shared/contentHubs';
-import { GUIDE_PAGES, type GuidePageData } from '@/shared/guideContent';
-import { locationPath } from '@/shared/contentData';
-import {
-  generateBreadcrumbSchema,
-  generateCollectionPageSchema,
-  generateWebPageSchema,
-} from '@/lib/schema';
-import {
-  countH2Headings,
-  countSubstantiveWords,
-  estimateReadingTime,
-} from '@/lib/content-utils';
 
 /** City guides moved to /locations/[city]; every other guide keeps /guides/[slug]. */
 function guideHref(guide: GuidePageData): string {
@@ -98,7 +99,7 @@ export default function GuidesIndexPage() {
   });
 
   return (
-    <>
+    <InteriorPage kind="guides"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
@@ -236,6 +237,6 @@ export default function GuidesIndexPage() {
           </div>
         </div>
       </Section>
-    </>
+    </></InteriorPage>
   );
 }

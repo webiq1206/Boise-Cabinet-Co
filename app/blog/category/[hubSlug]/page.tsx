@@ -1,3 +1,4 @@
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import fs from 'fs';
 import path from 'path';
@@ -120,7 +121,7 @@ export default async function BlogCategoryHubPage(
       : null;
 
   return (
-    <>
+    <InteriorPage kind="blog"><>
       {collectionSchema && (
         <script
           type="application/ld+json"
@@ -140,9 +141,9 @@ export default async function BlogCategoryHubPage(
             ← Back to blog
           </Link>
 
-          <HubHeroBanner src={hubHero} alt={hubAlt} />
 
-          <h1 className="text-3xl md:text-4xl font-serif tracking-tight mb-4">
+
+          <header className="interior-article-header"><h1 className="text-3xl md:text-4xl font-serif tracking-tight mb-4">
             {hub.title}
           </h1>
           <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{hub.description}</p>
@@ -155,6 +156,7 @@ export default async function BlogCategoryHubPage(
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           )}
+          </header><HubHeroBanner src={hubHero} alt={hubAlt} />
 
           <div className="ed-cards-3 gap-6">
             {posts.map((post) => (
@@ -163,6 +165,6 @@ export default async function BlogCategoryHubPage(
           </div>
         </div>
       </Section>
-    </>
+    </></InteriorPage>
   );
 }

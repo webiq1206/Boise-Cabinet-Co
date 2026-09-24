@@ -1,25 +1,26 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorPage } from '@/components/approved/InteriorLayout';
+import { GuidePageLayout } from '@/components/marketing/GuidePageLayout';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildCanonical,fitTitle } from '@/lib/page-metadata';
+import {
+generateArticleSchema,
+generateBreadcrumbSchema,
+generateFAQSchema,
+generateServiceSchema,
+generateSpeakableSchema,
+} from '@/lib/schema';
+import { clampMetaDescription,getBaseUrl } from '@/lib/seo';
+import {
+getAbsoluteImageUrl,
+getBlogHeroImage,
+getBlogImageAlt,
+} from '@/shared/blogImages';
+import { getHubBySlug,guidePath } from '@/shared/contentHubs';
+import { GUIDE_PAGES,getGuideBySlug } from '@/shared/guideContent';
 import fs from 'fs';
-import path from 'path';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { GUIDE_PAGES, getGuideBySlug } from '@/shared/guideContent';
-import {
-  generateArticleSchema,
-  generateBreadcrumbSchema,
-  generateFAQSchema,
-  generateServiceSchema,
-  generateSpeakableSchema,
-} from '@/lib/schema';
-import { buildCanonical, fitTitle } from '@/lib/page-metadata';
-import { GuidePageLayout } from '@/components/marketing/GuidePageLayout';
-import { getHubBySlug, guidePath } from '@/shared/contentHubs';
-import {
-  getAbsoluteImageUrl,
-  getBlogHeroImage,
-  getBlogImageAlt,
-} from '@/shared/blogImages';
-import { clampMetaDescription, getBaseUrl } from '@/lib/seo';
+import path from 'path';
 
 export async function generateStaticParams() {
   return GUIDE_PAGES.map((guide) => ({ slug: guide.slug }));
@@ -131,7 +132,7 @@ export default async function GuidePage(props: { params: Promise<{ slug: string 
     : null;
 
   return (
-    <>
+    <InteriorPage kind="guides"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -159,6 +160,6 @@ export default async function GuidePage(props: { params: Promise<{ slug: string 
         />
       )}
       <GuidePageLayout guide={guide} formatDate={formatDate} />
-    </>
+    </></InteriorPage>
   );
 }

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
 import { VisualSearchResult } from "@/components/catalog/visual";
-import { searchCatalogWithFacets } from "@/shared/catalog";
-import type { FinishCategory, CabinetProductCategory } from "@/shared/catalog";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { Section } from "@/components/marketing/Section";
 import { catalogResultHref } from "@/lib/catalog-routes";
+import type { CabinetProductCategory,FinishCategory } from "@/shared/catalog";
+import { searchCatalogWithFacets } from "@/shared/catalog";
+import { useMemo,useState } from "react";
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
@@ -24,7 +25,7 @@ export default function SearchPage() {
   );
 
   return (
-    <div className="flex flex-col pb-20 md:pb-0">
+    <InteriorPage kind="search"><div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4 max-w-2xl">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Search" }]} />
@@ -78,6 +79,6 @@ export default function SearchPage() {
           </ul>
         </div>
       </Section>
-    </div>
+    </div></InteriorPage>
   );
 }

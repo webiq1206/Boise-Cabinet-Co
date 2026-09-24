@@ -1,26 +1,27 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Check, X } from "lucide-react";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { Section } from "@/components/marketing/Section";
-import { CinematicHero } from "@/components/marketing/CinematicHero";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { Button } from "@/components/ui/button";
+import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
-import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Button } from "@/components/ui/button";
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { cn } from "@/lib/utils";
 import {
-  COLLECTIONS,
-  COLLECTION_COMPARISON,
-  DOOR_STYLE_COMPARISON,
-  FINISH_TIER_COMPARISON,
-  getDoorStyleImages,
-  type CollectionComparisonMatrix,
-  type ComparisonValue,
+COLLECTIONS,
+COLLECTION_COMPARISON,
+DOOR_STYLE_COMPARISON,
+FINISH_TIER_COMPARISON,
+getDoorStyleImages,
+type CollectionComparisonMatrix,
+type ComparisonValue,
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { cn } from "@/lib/utils";
+import { ArrowRight,Check,X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/compare",
@@ -223,7 +224,7 @@ export default function ComparePage() {
   ];
 
   return (
-    <>
+    <InteriorPage kind="compare"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
@@ -303,6 +304,6 @@ export default function ComparePage() {
         )}
         <CatalogClosingCTA />
       </div>
-    </>
+    </></InteriorPage>
   );
 }

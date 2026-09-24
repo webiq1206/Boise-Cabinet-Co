@@ -1,13 +1,14 @@
-import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
+import { InteriorDocument,InteriorPage } from '@/components/approved/InteriorLayout';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { Section } from '@/components/marketing/Section';
+import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { buildPageMetadata } from '@/lib/page-metadata';
+import { generateBreadcrumbSchema,generateCollectionPageSchema,generateWebPageSchema } from '@/lib/schema';
+import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
+import { ArrowRight,Download,FileText,Workflow } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Download, FileText, Workflow } from 'lucide-react';
-import { buildPageMetadata } from '@/lib/page-metadata';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Section } from '@/components/marketing/Section';
-import { MarketingCard } from '@/components/marketing/MarketingCard';
-import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
-import { generateWebPageSchema, generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'blog',
@@ -42,7 +43,7 @@ export default function ResourcesIndexPage() {
   });
 
   return (
-    <>
+    <InteriorPage kind="resources"><>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
@@ -56,14 +57,14 @@ export default function ResourcesIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
       <Section spacing="none" className="pt-28 md:pt-32">
-      <div className="container px-4 max-w-4xl mx-auto">
+      <InteriorDocument heading={<h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
+          Cabinet planning resources
+        </h1>} contents={[{"id":"document-section-1","label":"PDF worksheets"},{"id":"document-section-2","label":"Visual guides"}]}>
         <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Resources' }]} />
         <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
           Free downloads
         </p>
-        <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
-          Cabinet planning resources
-        </h1>
+
         <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
           Printable PDFs and visual guides to use alongside our{' '}
           <Link href="/guides" className="text-accent underline underline-offset-2">
@@ -72,7 +73,7 @@ export default function ResourcesIndexPage() {
           . These are planning tools, not quotes or contracts.
         </p>
 
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <h2 id="document-section-1" className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           PDF worksheets
         </h2>
         <div className="ed-grid-balance grid gap-4 sm:grid-cols-2 mb-12">
@@ -93,7 +94,7 @@ export default function ResourcesIndexPage() {
           ))}
         </div>
 
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <h2 id="document-section-2" className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Visual guides
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -122,8 +123,8 @@ export default function ResourcesIndexPage() {
             Schedule a consultation
           </Link>
         </p>
-      </div>
+      </InteriorDocument>
       </Section>
-    </>
+    </></InteriorPage>
   );
 }
