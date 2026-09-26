@@ -223,6 +223,7 @@ export function RoomScanPanel() {
     // cancelling the low-confidence dialog would leave a photo on screen with
     // no measured room (an orphaned, un-advanceable state).
     if (roomMeta.scanConfidence === "low" || !roomMeta.userConfirmed) {
+      setLowConfAck(false);
       trackDesignEvent("vision_scan_low_confidence");
       setPendingVision({
         roomMeta,
@@ -245,8 +246,9 @@ export function RoomScanPanel() {
   async function handlePhotoScan(file: File) {
     setPhotoLoading(true);
     trackDesignEvent("scan_method", { method: "vision-scan" });
-    const image = await fileToDataUrl(file);
+    let image = '';
     try {
+      image = await fileToDataUrl(file);
       const res = await fetch("/api/design-studio/scan-room", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -287,7 +289,7 @@ export function RoomScanPanel() {
         const roomMeta = await estimateRoomFromDataUrl(image, design.roomType);
         await applyPhotoRoomMeta(
           image,
-          { ...roomMeta, scanConfidence: "medium" },
+          { ...roomMeta, userConfirmed: false, scanConfidence: "low" },
           roomBoundsFromInches(roomMeta.widthIn, roomMeta.depthIn),
           "vision-scan-fallback",
         );

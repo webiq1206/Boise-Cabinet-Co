@@ -31,9 +31,9 @@ export const scanCopy = {
     `About ${Math.round(w / 12)}′ × ${Math.round(d / 12)}′ (${w}" × ${d}")`,
   photoReviewTitle: "Your room",
   photoReviewHint: "Tap two points on the back wall below to refine width, or use the size buttons.",
-  photoFallbackTitle: "Used a quick photo estimate",
+  photoFallbackTitle: "Preview size needs confirmation",
   photoFallbackNote:
-    "AI sizing was unavailable - we estimated from your photo proportions. Adjust with the buttons below.",
+    "Photo proportions and preset room sizes cannot establish measurements. This suggested size is for visual planning only. Check it against your measurements before continuing.",
   accuracySiteMeasure: "Using your size for layout checks - we confirm exact dimensions at your home visit.",
   accuracyEstimated:
     "Planning estimate from photo or rough size - not a site measure. Layout may flag issues if cabinets won't fit.",
@@ -54,12 +54,12 @@ export const scanCopy = {
     "We couldn't read your photo. Try again or use phone camera measure.",
   arUnavailable: "Camera ruler isn't available on this phone.",
   arTryPhoto: "Take a room photo instead",
-  lowConfidenceTitle: "Does this look about right?",
+  lowConfidenceTitle: "Check these planning dimensions",
   lowConfidenceBody: (w: number, d: number, notes?: string) =>
-    `Your room looks about ${w}" wide × ${d}" deep.${notes ? ` ${notes}` : ""}`,
+    `Suggested preview size: ${w}" wide × ${d}" deep. A photo alone cannot verify room dimensions.${notes ? ` ${notes}` : ""}`,
   lowConfidenceConfirm: "Yes, continue",
   lowConfidenceCancel: "Try again",
-  lowConfidenceAck: "I know we'll double-check sizes at your home",
+  lowConfidenceAck: "I understand these are unverified planning sizes and must be checked before ordering",
   manualTitle: "Type your room size (inches)",
   manualApply: "Use these sizes",
   manualInvalid: "Width and depth must be at least 48 inches.",

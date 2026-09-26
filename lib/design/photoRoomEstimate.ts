@@ -31,9 +31,9 @@ export function estimateRoomFromPhotoAspect(
     depthIn,
     ceilingIn: prev?.ceilingIn ?? typical.ceilingIn,
     obstacles: prev?.obstacles ?? [],
-    userConfirmed: true,
+    userConfirmed: false,
     source: "vision-scan",
-    scanConfidence: "medium",
+    scanConfidence: "low",
   };
 }
 
