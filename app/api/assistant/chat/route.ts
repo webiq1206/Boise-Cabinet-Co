@@ -1,3 +1,4 @@
+import {createEstimatorModelClient,estimatorConnection} from "@/lib/p5/estimatorModelClient";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import Anthropic from "@anthropic-ai/sdk";
@@ -72,7 +73,7 @@ function parseImageDataUrl(dataUrl: string): ImageBlock | null {
 
 /** Availability probe: the widget only renders its launcher when this is true. */
 export async function GET() {
-  return NextResponse.json({ available: Boolean(process.env.ANTHROPIC_API_KEY) });
+  return NextResponse.json({ available: Boolean(estimatorConnection().key) });
 }
 
 export async function POST(request: NextRequest) {
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = estimatorConnection().key;
     if (!apiKey) {
       return NextResponse.json({ error: FRIENDLY_UNAVAILABLE }, { status: 503 });
     }
@@ -140,8 +141,8 @@ export async function POST(request: NextRequest) {
       return { role: "user", content: blocks };
     });
 
-    const client = new Anthropic({ apiKey });
-    const model = process.env.ASSISTANT_MODEL || "claude-opus-5";
+    const client = (createEstimatorModelClient() as unknown as Anthropic);
+    const model = "gpt-4.1";
     const system: Anthropic.TextBlockParam[] = [
       {
         type: "text",

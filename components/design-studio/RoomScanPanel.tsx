@@ -269,7 +269,7 @@ export function RoomScanPanel() {
           depthIn: data.depthIn,
           ceilingIn: data.ceilingIn ?? ceilingIn,
           obstacles: data.openings ?? [],
-          userConfirmed: data.confidence !== "low",
+          userConfirmed: false,
           source: "vision-scan",
           scanConfidence: data.confidence,
         };
