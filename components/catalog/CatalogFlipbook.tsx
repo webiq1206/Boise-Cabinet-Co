@@ -213,7 +213,7 @@ function PdfPageCanvas({
 export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   const { pdf, numPages, status } = usePdfDocument(pdfUrl);
 
-  const [mode, setMode] = useState<"flip" | "scroll">("flip");
+  const [mode, setMode] = useState<"flip" | "scroll">("scroll");
   const [page, setPage] = useState(1); // 1-indexed current page
   const [zoom, setZoom] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -236,6 +236,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   // fails to load (old browser, network hiccup), fall back to scroll mode
   // instead of blocking the whole viewer.
   useEffect(() => {
+    if(mode!=='flip'||FlipBook)return;
     let alive = true;
     import("react-pageflip")
       .then((m) => {
@@ -250,7 +251,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [mode,FlipBook]);
 
   // Track container size for responsive flip sizing.
   useEffect(() => {

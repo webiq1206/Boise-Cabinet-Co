@@ -208,6 +208,15 @@ const wholeSlugs = [
   ['cabinet-planning-checklist', 'Cabinet Planning Checklist'],
 ] as const;
 
+const wholeHomeAnswers:Record<string,string>={
+  'cabinet-project-planning-guide':'Start a cabinet project with measured room dimensions, a list of what you need to store, and a written scope for supply, removal and installation. Confirm appliance sizes, door clearances and countertop responsibilities before ordering. Compare quotes against the same cabinet schedule, then record selections and delivery dependencies in one place.',
+  'cabinet-buying-mistakes':'The most expensive cabinet buying mistakes often start with an incomplete scope: missing fillers, end panels, hardware, delivery or installation. Compare construction and finish specifications as well as price. Confirm dimensions and appliance clearances before signing off, review a physical finish sample, and document who resolves fit issues discovered during installation.',
+  'whole-home-cabinet-timeline':'A whole-home cabinet timeline includes design, field measurement, selection approval, fabrication or procurement, delivery and installation. Countertops and trade work can add dependencies after cabinets arrive. Ask for dates tied to approved drawings and product availability, not a single generic lead time. Plan room-by-room access so unfinished spaces do not block the next trade.',
+  'living-through-cabinet-installation':'You may be able to remain at home during cabinet installation, but plan for noise, dust, delivery access and temporary loss of kitchen or bathroom storage. Ask which rooms remain usable, where tools and materials will be stored, and when water or power must be isolated. Agree on daily cleanup and a temporary food-preparation area before removal starts.',
+  'cabinet-refresh-vs-replace-vs-moving':'Refresh cabinets when their layout and boxes still work and the main concern is appearance. Replacement makes more sense when storage, dimensions or condition need to change. Moving addresses broader location or space needs but adds transaction and moving costs. Compare the complete scope and disruption of each option before deciding on finishes.',
+  'custom-cabinet-design-process':'Custom cabinet design starts with room measurements and how you use the space. A layout translates those needs into cabinet sizes, storage and clearances; door, finish and hardware selections follow. Review drawings alongside appliance specifications and installation conditions before approval. Keep changes in writing so the final order matches the plan you accepted.',
+  'cabinet-planning-checklist':'Before ordering cabinets, check room dimensions, ceiling height, appliance models, door swings, plumbing locations and electrical needs. List every cabinet, filler, panel, trim piece and hardware item. Confirm removal, delivery, installation and countertop responsibilities, review physical samples, and approve a written drawing set with a process for changes and damaged deliveries.',
+};
 export const WHOLE_HOME_CLUSTER_POSTS: BlogPostData[] = wholeSlugs.map(([slug, title]) =>
   buildClusterPost({
     slug,
@@ -217,7 +226,7 @@ export const WHOLE_HOME_CLUSTER_POSTS: BlogPostData[] = wholeSlugs.map(([slug, t
     excerpt: `${title}: practical Idaho advice for coordinated cabinetry.`,
     hubSlug: 'whole-home-cabinetry',
     tags: ['whole-home', 'cabinets'],
-    quickAnswer: `${title} should account for Treasure Valley home values, lead times, and how you use each room.`,
+    quickAnswer: wholeHomeAnswers[slug],
     takeaways: ['Plan one master specification.', 'Use a written selections schedule.'],
     serviceUrl: k,
   }),
