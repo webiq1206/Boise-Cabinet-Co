@@ -1,5 +1,6 @@
 import { buildSectionsHtml, PILLAR_COST, PILLAR_TV, type ContentSection } from './wave1/snippets';
 import type { GuidePageData } from '../guideContent';
+import {permitGuidanceHtml} from '../../lib/permitGuidance';
 
 /**
  * City location guides for the seven Treasure Valley cities beyond Boise.
@@ -30,22 +31,11 @@ const NEXT_STEPS: ContentSection = {
   ],
 };
 
-function countySection(cityName: string, county: 'ada' | 'canyon'): ContentSection {
-  return county === 'ada'
-    ? {
-        h2: `Ada County permits for ${cityName} cabinet projects`,
-        paragraphs: [
-          `${cityName} sits in Ada County. Cabinet-only replacements rarely require permits, but projects that move plumbing, electrical, or walls route through Ada County or city plan review. We flag permit triggers during design so your schedule stays realistic.`,
-          'See our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for how permits fit the overall timeline.',
-        ],
-      }
-    : {
-        h2: `Canyon County permits for ${cityName} cabinet projects`,
-        paragraphs: [
-          `${cityName} uses Canyon County processes, with different portals and review cadence than Boise or Meridian. Cabinet-only swaps usually move fast; tied-in plumbing or electrical work needs review. We work both counties weekly and handle the paperwork.`,
-          'Our <a href="/guides/cabinet-project-process-guide">project process guide</a> and the Ada vs Canyon permit flow resource cover the details.',
-        ],
-      };
+function countySection(cityName: string, _county: 'ada' | 'canyon'): ContentSection {
+  return {h2:`Permits for ${cityName} cabinet projects`,paragraphs:[
+    permitGuidanceHtml(cityName),
+    'Replacing cabinets and relocating plumbing, electrical or walls are different scopes. Confirm which permits apply before demolition. See the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for the planning sequence.',
+  ]};
 }
 
 const CITY_GUIDE_SPECS: CityGuideSpec[] = [
@@ -247,7 +237,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     takeaways: [
       'Older Nampa bungalows reward custom widths and tall storage in compact kitchens.',
       'Newer subdivisions follow the builder-grade upgrade path common across the valley.',
-      'Nampa permits run through Canyon County, a different process than Ada.',
+      'Confirm whether your property is within Nampa city limits or unincorporated Canyon County before applying for permits.',
     ],
     sections: [
       {
