@@ -17,7 +17,7 @@ function cityLabel(slug: string) {
 
 function StarRow({ count }: { count: number }) {
   return (
-    <div className="flex gap-0.5" aria-label={`${count} out of 5 stars`}>
+    <div className="flex gap-0.5" role="img" aria-label={`${count} out of 5 stars`}>
       {Array.from({ length: count }).map((_, idx) => (
         <Star key={idx} className="h-3.5 w-3.5" style={{ fill: "var(--ed-accent)", color: "var(--ed-accent)" }} aria-hidden="true" />
       ))}

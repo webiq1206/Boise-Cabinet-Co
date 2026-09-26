@@ -17,9 +17,9 @@ import { ArrowRight } from 'lucide-react';
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
   path: '/testimonials',
-  titleOverride: 'Projects & Reviews',
+  titleOverride: 'Cabinet Design Ideas & Reviews',
   descriptionOverride:
-    'See Treasure Valley custom cabinet projects and read reviews from Boise Cabinet Co homeowners. Kitchen, bath, closet, and built-in cabinetry.',
+    'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
 })), "/testimonials");
 
 export default function TestimonialsPage() {
@@ -54,10 +54,10 @@ export default function TestimonialsPage() {
     <div className="flex flex-col pb-20 md:pb-0">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="consultation with a Boise Cabinet Co designer and homeowners reviewing cabinet finishes"
+        alt="Illustrative consultation scene showing cabinet finish selections"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Projects & Reviews' }]}
-        eyebrow="Proof of work"
-        title={<>Projects &amp; homeowner <em className="brc-accent text-accent">reviews</em></>}
+        eyebrow="Cabinet design inspiration"
+        title={<>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></>}
         description="Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
       >
         <CtaButton variant="brand">
@@ -66,6 +66,7 @@ export default function TestimonialsPage() {
       </CinematicHero>
 
       <ProjectGallerySection limit={6} showViewAll={false} />
+      <p className="mx-auto max-w-3xl px-6 py-5 text-center">Design concepts illustrate possible layouts and finishes. They are not photographs of completed client projects. Ask us for relevant project references when discussing your scope.</p>
       <CaseStudiesSection />
       <TestimonialsSection limit={4} showViewAll={false} />
 

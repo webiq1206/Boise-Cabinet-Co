@@ -1,7 +1,7 @@
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
-import { CatalogFlipbook } from "@/components/catalog/CatalogFlipbook";
+import { CatalogPreview } from "@/components/catalog/CatalogPreview";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { Section } from "@/components/marketing/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -86,7 +86,12 @@ export default function CatalogPage() {
         {/* Interactive, embedded catalog experience (above the download CTA) */}
         <Section spacing="sm" className="pt-0">
           <div className="container px-4">
-            <CatalogFlipbook pdfUrl={CATALOG_PDF_PATH} downloadUrl={CATALOG_PDF_PATH} />
+            <CatalogPreview pdfUrl={CATALOG_PDF_PATH} />
+            <nav aria-label="Browse cabinet products" className="my-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <a className="rounded-lg border p-4 underline" href="/cabinets/kitchen">Kitchen cabinets</a>
+              <a className="rounded-lg border p-4 underline" href="/cabinets/bathroom">Bathroom vanities</a>
+              <a className="rounded-lg border p-4 underline" href="/cabinets/mudroom">Mudroom cabinetry</a>
+            </nav>
             <p className="mt-3 text-center text-sm text-muted-foreground">
               Use the toolbar to flip pages, scroll continuously, zoom, search, view thumbnails,
               or go fullscreen. On touch devices, swipe to turn pages and pinch to zoom.

@@ -29,13 +29,17 @@ test.describe("Design Studio photo room sizing", () => {
       ),
     });
 
+    await expect(page.getByRole('alertdialog')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Yes, continue' })).toBeDisabled();
+    await page.getByTestId('checkbox-low-confidence-ack').check();
+    await page.getByRole('button', { name: 'Yes, continue' }).click();
     await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
       timeout: 15_000,
     });
     await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled();
   });
 
-  test("scan API failure uses client fallback estimate", async ({ page }) => {
+  test("scan API failure requires confirmation of unverified preview sizes", async ({ page }) => {
     await page.route("**/api/design-studio/scan-room", async (route) => {
       await route.fulfill({ status: 503, body: JSON.stringify({ error: "unavailable" }) });
     });
@@ -54,9 +58,10 @@ test.describe("Design Studio photo room sizing", () => {
       ),
     });
 
-    await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
-      timeout: 15_000,
-    });
-    await expect(page.getByRole("status").getByText(/quick photo estimate/i).first()).toBeVisible();
+    await expect(page.getByRole('alertdialog')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Yes, continue' })).toBeDisabled();
+    await expect(page.getByTestId('room-scan-panel').getByText(/Room size saved/i)).not.toBeVisible();
+    await page.getByRole('button', { name: 'Try again', exact: true }).click();
+    await expect(page.getByTestId('room-scan-panel').getByText(/Room size saved/i)).not.toBeVisible();
   });
 });
