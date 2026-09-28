@@ -284,8 +284,8 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               Ready to plan your {city.name} project?
             </h2>
             <p className="text-inverse-muted mb-6">
-              Build a planning range in about two minutes, then book a free in-home visit. No
-              obligation, no spam.
+              Get a preliminary estimate online in a few minutes. No call or appointment needed.
+              Larger plan sets may take longer. Book a free in-home visit whenever you are ready.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
