@@ -64,7 +64,7 @@ const TERMS = [
   },
   {
     label: "Permits",
-    value: "Ada and Canyon County cabinet permits pulled in-house when your project requires them.",
+    value: "Permit requirements and the issuing authority depend on the project scope and address. We confirm permit coordination in the project plan.",
   },
   {
     label: "Construction",
