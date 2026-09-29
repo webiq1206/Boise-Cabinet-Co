@@ -1,3 +1,4 @@
+import { googleTagBootstrap } from '@/lib/analyticsBootstrap';
 import Script from 'next/script'
 
 /**
@@ -7,30 +8,19 @@ import Script from 'next/script'
  */
 const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-7VW3996ZLD'
-const GOOGLE_ADS_DESTINATION_ID = 'AW-18354188204'
 
+/** Load only for real visitors on this brand's live hostname. */
 export function GoogleAnalytics() {
-  if (!GA_MEASUREMENT_ID) return null
-  // Keep dev / preview traffic out of the production GA property.
-  if (process.env.NODE_ENV !== 'production') return null
-
+  if (process.env.NODE_ENV !== 'production' || !GA_MEASUREMENT_ID) return null;
   return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="ga4-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}');
-          gtag('config', '${GOOGLE_ADS_DESTINATION_ID}');
-          gtag('config', '${GOOGLE_ADS_DESTINATION_ID}/YHR0CIaPz_ccEKzf-q9E', { 'phone_conversion_number': '(208) 477-1169' });
-          try { if (!sessionStorage.getItem('p5_entry_path')) sessionStorage.setItem('p5_entry_path', location.pathname); } catch (e) {}
-        `}
-      </Script>
-    </>
-  )
+    <Script id="ga-init" strategy="afterInteractive">
+      {googleTagBootstrap({
+        hostname: 'boisecabinet.co',
+        measurementId: GA_MEASUREMENT_ID,
+        adsId: 'AW-18354188204',
+        phoneConversionLabel: 'YHR0CIaPz_ccEKzf-q9E',
+        phoneNumber: '(208) 477-1169',
+      })}
+    </Script>
+  );
 }
