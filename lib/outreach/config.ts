@@ -152,8 +152,31 @@ export function getOutreachSenderName(): string {
   return process.env.OUTREACH_SENDER_NAME?.trim() || SITE_CONFIG.senderDisplayName;
 }
 
+/**
+ * Human replies go directly to the working business inbox by default. A stale
+ * OUTREACH_REPLY_TO alone must never divert them into an unverified mail relay.
+ * Enable inbound routing only after its MX, webhook and forwarding are tested.
+ */
+function getConfiguredInboundReplyTo(): string | null {
+  if (process.env.OUTREACH_INBOUND_REPLY_ROUTING_ENABLED !== "true" ||
+      !process.env.RESEND_WEBHOOK_SECRET?.trim()) return null;
+  try {
+    const address = mailboxAddress(process.env.OUTREACH_REPLY_TO || "");
+    const domain = mailboxAddress(SITE_CONFIG.email).split("@")[1];
+    // Inbound automation belongs on a dedicated, owned receiving subdomain.
+    return address.split("@")[1].endsWith(`.${domain}`) ? address : null;
+  } catch {
+    return null;
+  }
+}
+
 export function getOutreachReplyTo(): string {
-  return process.env.OUTREACH_REPLY_TO?.trim() || SITE_CONFIG.email;
+  return getConfiguredInboundReplyTo() || SITE_CONFIG.email;
+}
+
+/** Direct inbox replies cannot be observed by the Resend webhook. */
+export function isOutreachInboundReplyRoutingEnabled(): boolean {
+  return getConfiguredInboundReplyTo() !== null;
 }
 
 /**

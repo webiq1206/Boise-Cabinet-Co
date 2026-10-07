@@ -9,6 +9,7 @@ import {
   OUTREACH_MAX_BATCH_SIZE,
   getOutreachConfig,
   isOutreachSendable,
+  isOutreachInboundReplyRoutingEnabled,
 } from "@/lib/outreach/config";
 import {
   OUTREACH_TEMPLATE_KEYS,
@@ -27,6 +28,7 @@ export async function GET() {
     readiness: {
       discoveryConfigured: isDiscoveryConfigured(),
       sendable: isOutreachSendable(),
+      automatedReplyTracking: isOutreachInboundReplyRoutingEnabled(),
     },
   });
 }

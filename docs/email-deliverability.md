@@ -50,3 +50,60 @@ Human confirmation uses the same suppression callback. Both lead and legacy
 prospect tokens remain supported, repeat requests are safe, and storage errors
 return 503 so providers can retry. Unsubscribe pages cannot be cached or indexed
 and do not leak their token through referrer headers.
+
+## October 7 reply delivery repair
+
+Outreach replies now go to the working `hello@boisecabinet.co` inbox by default.
+An existing `OUTREACH_REPLY_TO` setting does not override that default on its
+own. The verified Cabinet From identity and the dedicated outreach sender
+subdomain remain unchanged.
+
+Resend inbound routing requires `OUTREACH_INBOUND_REPLY_ROUTING_ENABLED=true`,
+a valid `OUTREACH_REPLY_TO` on an owned receiving subdomain, and
+`RESEND_WEBHOOK_SECRET`. Enable it only after verifying receiving MX records,
+successful signed webhook deliveries, and a complete reply arriving in the
+human inbox. The MX target must resolve directly to its mail server addresses;
+an MX target with only another MX record does not establish that route.
+
+While replies go directly to the human inbox, automatic follow-up steps are
+held because the webhook cannot detect those replies. Initial outreach and
+separately approved runs keep their current behavior. Pending sequence steps
+and stored campaign settings are preserved. Do not resume follow-ups until
+replies received during this period have been reconciled in the CRM.
+
+Already-sent emails retain their original Reply-To address. Repair receiving
+on that old subdomain as well, and inspect any delivery failures or received
+messages that need recovery. Changing new messages cannot repair old headers.
+
+The inbound handler uses `client.emails.receiving.get` through the same
+credential source as sending, verifies the received message ID and sender
+against the signed event, and fetches full content for matched and unmatched
+senders. Temporary retrieval, forwarding, or database failures return 503.
+Both CRM and legacy prospect follow-ups stop when a reply is recorded.
+
+Forwarding uses a deterministic Resend idempotency key. Accepted forwards also
+have a durable `outreach_reply_receipt:<email_id>` entry in `site_settings`,
+including unmatched replies. This entry contains only delivery status,
+provider ID, and acceptance time, with no sender or message content. Existing
+CRM activities without a forwarding receipt remain recoverable. Provider
+acceptance is recorded separately from successful delivery to the inbox.
+
+Forwarded copies include the full text and HTML body. If the original message
+contains attachments, the copy identifies their filenames and directs the
+operator to retrieve the originals from the received message in Resend.
+Attachments are not automatically copied by this handler.
+
+Run the regression tests with database connection variables unset so the signed
+webhook's unavailable-database case cannot touch a real database:
+
+```sh
+env -u DATABASE_URL -u PGDATABASE_URL -u REPLIT_DB_URL \
+  node --import tsx --test tests/outreach-reply-routing.test.ts \
+  tests/outreach-inbound-reply.test.ts tests/email-delivery.test.ts \
+  tests/outreach-email-footer.test.ts tests/outreach-unsubscribe.test.ts
+```
+
+Then typecheck and build. After deployment, verify the new Reply-To header from an
+actual external received email and separately test a reply to the legacy
+receiving address. Keep automatic inbound routing disabled until that test
+succeeds.
