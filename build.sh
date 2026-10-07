@@ -39,6 +39,8 @@ cp -r .next/static .next/standalone/.next/static
 # resolved from .next/standalone) so it stays valid wherever the deploy runs.
 rm -rf .next/standalone/public
 ln -sfn ../../public .next/standalone/public
+# Include a verified runtime in the deployment artifact, not just the workspace.
+bash scripts/package-node-runtime.sh
 # Submit sitemap URLs to IndexNow for search engine indexing.
 if command -v node &>/dev/null; then
   node scripts/submit-indexnow.mjs || echo "IndexNow submission skipped (non-fatal)"

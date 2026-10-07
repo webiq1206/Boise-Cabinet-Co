@@ -35,7 +35,7 @@
     pkgs.pango
     pkgs.gtk3
     pkgs.glib
-    # Node is supplied by the nodejs-24 module in .replit. A second Node
-    # package can shadow it in the published container and prevent startup.
+    # Workspace Node comes from the nodejs-24 module. Production ships its
+    # verified runtime with the standalone app; do not add a competing Node.
   ];
 }
