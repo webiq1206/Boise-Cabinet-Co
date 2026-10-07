@@ -35,6 +35,7 @@
     pkgs.pango
     pkgs.gtk3
     pkgs.glib
-    pkgs.nodejs_20
+    # Node is supplied by the nodejs-24 module in .replit. A second Node
+    # package can shadow it in the published container and prevent startup.
   ];
 }
