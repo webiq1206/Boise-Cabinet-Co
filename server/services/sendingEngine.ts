@@ -18,6 +18,7 @@ import {
   getOutreachSenderName,
   isOutreachSendable,
   isOutreachTrackingEnabled,
+  isOutreachInboundReplyRoutingEnabled,
 } from "@/lib/outreach/config";
 import { renderOutreachEmail, tokensForLead } from "./outreachRender";
 import { buildOutreachAttachments } from "./outreachAttachments";
@@ -103,7 +104,15 @@ async function reserveNext(
     const dueEnrollments = await tx
       .select()
       .from(sequenceEnrollments)
-      .where(and(eq(sequenceEnrollments.status, "active"), lte(sequenceEnrollments.nextDueAt, new Date())))
+      .where(and(
+        eq(sequenceEnrollments.status, "active"),
+        lte(sequenceEnrollments.nextDueAt, new Date()),
+        // Hold follow-ups when replies go directly to the human inbox: the
+        // webhook cannot know that those leads have already answered. Keep
+        // pending steps intact and continue first emails and approved runs.
+        dryRun || isOutreachInboundReplyRoutingEnabled()
+          ? undefined : eq(sequenceEnrollments.currentStep, 0),
+      ))
       .orderBy(asc(sequenceEnrollments.nextDueAt))
       .limit(5);
 

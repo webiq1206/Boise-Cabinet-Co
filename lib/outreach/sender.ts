@@ -10,6 +10,7 @@ import {
   getOutreachSenderName,
   isOutreachSendable,
   isOutreachTrackingEnabled,
+  isOutreachInboundReplyRoutingEnabled,
   type OutreachRuntimeConfig,
 } from "@/lib/outreach/config";
 import { buildOutreachCopy } from "@/lib/outreach/template";
@@ -177,7 +178,7 @@ async function reserveNextProspect(config: OutreachRuntimeConfig): Promise<Reser
       .limit(10);
 
     let followupCandidates: OutreachProspect[] = [];
-    if (config.sequenceEnabled) {
+    if (config.sequenceEnabled && (config.dryRun || isOutreachInboundReplyRoutingEnabled())) {
       const cutoff = new Date(Date.now() - config.followupDelayDays * 24 * 60 * 60 * 1000);
       followupCandidates = await tx
         .select()
