@@ -22,7 +22,7 @@ test('typed scope reaches review and submission without repeating known details'
  });
  await page.goto('/estimate');const est=page.locator('[data-p5-estimator]');
  await est.getByLabel('Tell us about your project',{exact:true}).fill('Install 20 linear feet of paint-grade Shaker base cabinets in the kitchen. No upper cabinets.');
- await est.getByRole('button',{name:'Continue',exact:true}).click();
+ await est.getByRole('button',{name:'Send message',exact:true}).click();
  await expect(est.getByRole('heading',{name:'Review your project',exact:true})).toBeVisible();
  await expect(est.getByRole('region',{name:'Project question'})).toHaveCount(0);
  await est.getByLabel('Your name',{exact:true}).fill('Synthetic QA');
