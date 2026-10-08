@@ -149,6 +149,7 @@ export function StyleStep({
                 description: item.description,
                 imageSrc: images.primary,
                 imageAlt: `${item.name} door profile`,
+                imageFit: "contain" as const,
                 badge: item.slug === "modern-shaker" ? "Popular" : undefined,
               };
             })}

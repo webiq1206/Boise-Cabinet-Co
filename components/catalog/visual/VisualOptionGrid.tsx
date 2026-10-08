@@ -10,6 +10,7 @@ export interface VisualOptionItem {
   meta?: string;
   imageSrc?: string;
   imageAlt?: string;
+  imageFit?: "cover" | "contain";
   fallbackHex?: string;
   /** Optional recommendation badge, e.g. "Popular" or "Most loved". */
   badge?: string;
@@ -64,6 +65,7 @@ export function VisualOptionGrid({
           meta={typeof item.meta === "string" ? item.meta : undefined}
           imageSrc={item.imageSrc}
           imageAlt={item.imageAlt}
+          imageFit={item.imageFit}
           fallbackHex={item.fallbackHex}
           badge={item.badge}
           enableZoom={enableZoom}

@@ -1,5 +1,5 @@
 import {expect,test} from '@playwright/test';
-// The review intake separates the whole-project confirmation from the customer confirmation.
+// Explicit Send confirms the visible review; duplicate confirmation checkboxes stay absent.
 const SCOPE_REVIEW_LABEL='I checked the whole project type, supporting work and exclusions against this description.';
 const INTAKE_CONFIRM_LABEL='These details reflect my project. I understand the team will review them before preparing an estimate.';
 test('typed scope reaches review and a saved request without repeating known details',async({page})=>{
@@ -50,11 +50,12 @@ test('typed scope reaches review and a saved request without repeating known det
  await expect(est.getByRole('region',{name:'Project question'})).toHaveCount(0);
  await est.getByLabel('Your name',{exact:true}).fill('Synthetic QA');
  await est.getByLabel(/^Email/).fill('qa@example.invalid');
- await est.getByLabel(SCOPE_REVIEW_LABEL,{exact:true}).check();
- await est.getByLabel(INTAKE_CONFIRM_LABEL,{exact:true}).check();
+ await expect(est.getByLabel(SCOPE_REVIEW_LABEL,{exact:true})).toHaveCount(0);
+ await expect(est.getByLabel(INTAKE_CONFIRM_LABEL,{exact:true})).toHaveCount(0);
  await est.getByRole('button',{name:'Send project request',exact:true}).click();
  await expect(est.getByRole('heading',{name:'Your project request is saved',exact:true})).toBeVisible();
  await expect(est.getByText('Boise Cabinet Co',{exact:false}).first()).toBeVisible();
  expect(await est.innerText()).not.toMatch(/\$\s?\d/);
  expect(submissions).toBe(1);
+ expect(draft.intake.reviewedScopeFingerprint).toBeTruthy();
 });

@@ -308,3 +308,14 @@
 }
 
 .cabinet-approved{--paper:#fbfaf6;--bone:#f1ede4;--charcoal:#2c302f;--ink:#2c302f;--teal:#7aaaaa}.cabinet-approved [role=tablist]{height:auto;background:transparent}.cabinet-approved [role=tab]{white-space:normal;border-radius:0;box-shadow:none;background:transparent;padding:15px 10px}.cabinet-approved [role=tab][data-state=active]{border-bottom:2px solid #7aaaaa}.cabinet-approved h3>button{font:inherit;text-align:left;line-height:1.25;gap:18px}.cabinet-approved [role=region]{line-height:1.8}.cabinet-approved .hero{margin-top:0}.cabinet-approved .hero h1 em{color:#7aaaaa}.cabinet-approved .approved-native-estimator h1{font-family:inherit}.cabinet-approved .approved-native-estimator button{font:inherit}@media(max-width:700px){.cabinet-approved .hero{height:auto;min-height:650px}.cabinet-approved .hero h1{font-size:clamp(44px,12vw,58px)}.cabinet-approved .room-tabs{display:grid;grid-template-columns:repeat(4,1fr)}.cabinet-approved .room-tabs [role=tab]{font-size:13px;min-width:0}}
+
+/* Crop only the photographed sample margins; retain the source finish color. */
+.cabinet-approved .swatches>button{padding:0;border:0;box-shadow:0 0 0 1px #f1ede44d}
+.cabinet-approved .swatches>button.selected{box-shadow:0 0 0 2px var(--cabinet-accent)}
+.cabinet-approved .swatches button>.swatch-image{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;border-radius:50%;background:none;display:block}
+.cabinet-approved .swatches .swatch-image img{position:absolute;left:50%;top:50%;width:125%;max-width:none;height:125%;border-radius:0;object-fit:cover;transform:translate(-50%,-56.25%);filter:none}
+.cabinet-approved .door-choices label{flex-direction:column;align-items:stretch;padding:10px;gap:10px;min-width:0}
+.cabinet-approved .door-choices .door-reference{width:100%;height:140px;object-fit:contain;background:#fff;filter:none}
+.cabinet-approved .door-choice-control{display:flex;align-items:center;gap:10px;min-height:24px}
+.cabinet-approved .door-choices label:has(:focus-visible){outline:2px solid var(--cabinet-accent);outline-offset:3px}
+@media(max-width:640px){.cabinet-approved .door-choices .door-reference{height:120px}}
