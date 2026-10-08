@@ -51,18 +51,9 @@ export function buildCanonical(path: string): string {
   return `${base}${normalized}`;
 }
 
-/** Titles over ~60 characters (with the brand suffix) lose their tail in search results. */
-const TITLE_SUFFIX_LENGTH = ` | ${SITE_CONFIG.name}`.length;
+/** Normalize metadata text while preserving complete authored phrases. */
 export function fitTitle(title: string): string {
-  let t = title.replace(/[\s:|,-]+$/, '').trim();
-  if (t.length + TITLE_SUFFIX_LENGTH > 60) t = t.replace(/\s*\|\s*(Boise\s+)?Treasure Valley\b/, '').replace(/,\s*Idaho$/, ', ID');
-  if (t.length + TITLE_SUFFIX_LENGTH > 60 && t.includes(' | ')) t = t.slice(0, t.lastIndexOf(' | '));
-  // A subtitle after a colon is the expendable part; the head term comes first.
-  if (t.length + TITLE_SUFFIX_LENGTH > 60 && t.includes(': ')) t = t.slice(0, t.indexOf(': '));
-  // Then a trailing parenthetical, then anything after a question mark.
-  if (t.length + TITLE_SUFFIX_LENGTH > 60) t = t.replace(/\s*\([^)]*\)$/, '');
-  if (t.length + TITLE_SUFFIX_LENGTH > 60 && t.includes('? ')) t = t.slice(0, t.indexOf('? ') + 1);
-  return t;
+  return title.replace(/\s+/g, ' ').trim().replace(/[\s:|,-]+$/, '');
 }
 
 export function buildPageMetadata(input: PageMetaInput): Metadata {
