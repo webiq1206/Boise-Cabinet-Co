@@ -223,48 +223,22 @@ export function generateCityServiceDescription(
   return `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
 }
 
-/**
- * Generate a page title for any service or area page
- * Ensures final rendered title (with layout template " | Boise Cabinet Co")
- * stays under 60 characters
- */
+/** Keep complete authored titles; an optional secondary label may be omitted. */
 export function generateSafePageTitle(primary: string, suffix?: string): string {
-  const templateSuffix = ` | ${BRAND}`;
-  const maxLen = 60 - templateSuffix.length;
-
-  if (suffix) {
-    const full = `${primary} | ${suffix}`;
-    if (full.length <= maxLen) return full;
+  const title = primary.replace(/\s+/g, ' ').trim();
+  const detail = suffix?.replace(/\s+/g, ' ').trim();
+  if (detail) {
+    const candidate = title + ' | ' + detail;
+    if (candidate.length + (' | ' + SITE_CONFIG.name).length <= 60) return candidate;
   }
-
-  if (primary.length <= maxLen) return primary;
-
-  return primary.substring(0, maxLen - 3).trim() + "...";
+  // Preserve the authored topic, including dates and qualifiers. A display
+  // length preference must not become a broken title in the document itself.
+  return title;
 }
 
-/**
- * Clamp a meta description into the 110-160 character sweet spot.
- * - Longer than 160: truncate at a word boundary and add an ellipsis.
- * - Shorter than 110: append a brand tail sentence.
- */
+/** Normalize authored descriptions without clipping them or appending filler. */
 export function clampMetaDescription(text: string): string {
-  const MAX = 160;
-  const MIN = 110;
-  let desc = text.trim().replace(/\s+/g, ' ');
-
-  if (desc.length < MIN) {
-    const tail = `Custom cabinets designed, built, and installed by ${SITE_CONFIG.name} in Boise and the Treasure Valley.`;
-    const sep = /[.!?]$/.test(desc) ? ' ' : '. ';
-    desc = `${desc}${sep}${tail}`;
-  }
-
-  if (desc.length > MAX) {
-    const cut = desc.slice(0, MAX - 1);
-    const lastSpace = cut.lastIndexOf(' ');
-    desc = cut.slice(0, lastSpace > MIN ? lastSpace : MAX - 1).replace(/[\s,;:.]+$/, '') + '…';
-  }
-
-  return desc;
+  return text.replace(/\s+/g, ' ').trim();
 }
 
 /**
