@@ -15,9 +15,10 @@ const progressOnly=process.env.P5_TEST_SCENARIO==='live-progress';
 const focusOnly=process.env.P5_TEST_SCENARIO==='keyboard-focus';
 if(process.env.P5_TEST_SCENARIO&&!progressOnly&&!focusOnly)throw new Error('Unsupported P5_TEST_SCENARIO');
 await mkdir(output,{recursive:true});
-const browser=await (process.env.P5_TEST_BROWSER==='webkit'?webkit:chromium).launch({
+const launchBrowser=()=> (process.env.P5_TEST_BROWSER==='webkit'?webkit:chromium).launch({
  ...(process.env.P5_TEST_BROWSER!=='webkit'&&process.env.P5_TEST_CHROMIUM_PATH?{executablePath:process.env.P5_TEST_CHROMIUM_PATH}:{}),
-});const results=[];
+});
+const browser=await launchBrowser(),results=[];
 const fixturePdf=await PDFDocument.create();fixturePdf.addPage().drawText('Synthetic estimate PDF download.');
 const pdfBytes=Buffer.from(await fixturePdf.save());
 // Brands ask their own extra questions before review (finish level for cabinets, trim length when trim is priced).
@@ -147,7 +148,11 @@ async function focusedHeading(page,text){
 // Hold the real local-cache open receipt so the restoration state is visible.
 // This never mocks provider processing or writes a server draft.
 for(const width of progressOnly?[]:[320,390,1440]){
- const context=await browser.newContext({viewport:{width,height:900}}),state=await mock(context),page=await context.newPage();
+ // A held native database request needs a fresh storage process, not just a
+ // fresh page/context. Closing it also prevents a stalled fixture carrying over.
+ const recoveryBrowser=await launchBrowser();
+ const context=await recoveryBrowser.newContext({viewport:{width,height:900}}),state=await mock(context),page=await context.newPage();
+ const pageErrors=[];page.on('pageerror',error=>pageErrors.push(error.message));
  await context.addInitScript(()=>{
   const open=indexedDB.open.bind(indexedDB),success=Object.getOwnPropertyDescriptor(IDBRequest.prototype,'onsuccess').set;
   // Isolate this held-open fixture from every other recovery context. Keep real
@@ -158,6 +163,7 @@ for(const width of progressOnly?[]:[320,390,1440]){
   window.__p5RecoveryEvents=[];
   indexedDB.open=(name,...args)=>{
    if(name!=='p5-project-files-v1')return open(name,...args);
+   window.__p5RecoveryEvents.push({event:"open-requested"});
    const request=open(database,...args);
    for(const event of ['upgradeneeded','blocked','error','success'])request.addEventListener(event,()=>window.__p5RecoveryEvents.push({event,error:event==='error'?request.error?.name||null:null}));
    Object.defineProperty(request,'onsuccess',{configurable:true,set(callback){success.call(request,event=>{
@@ -212,8 +218,8 @@ for(const width of progressOnly?[]:[320,390,1440]){
   }
   assert.equal(state.scopeCalls,0);assert.equal(state.submissions,0);
   results.push({scenario:'local-cache-restoration-and-focus-contrast',width,passed:true});
- }catch(error){const recoveryEvents=await page.evaluate(()=>window.__p5RecoveryEvents||[]).catch(()=>[]);console.error(error,recoveryEvents);results.push({scenario:'local-cache-restoration-copy',width,passed:false,error:String(error),recoveryEvents});}
- await context.close();
+ }catch(error){const recoveryEvents=await page.evaluate(()=>window.__p5RecoveryEvents||[]).catch(()=>[]);console.error(error,recoveryEvents);results.push({scenario:'local-cache-restoration-copy',width,passed:false,error:String(error),recoveryEvents,pageErrors});}
+ await recoveryBrowser.close();
 }
 for(const width of progressOnly?[]:[390,1440])for(const scenario of ['fresh','resumed','back','questions']){
  const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<768});
