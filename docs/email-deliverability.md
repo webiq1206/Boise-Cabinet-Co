@@ -99,7 +99,8 @@ webhook's unavailable-database case cannot touch a real database:
 ```sh
 env -u DATABASE_URL -u PGDATABASE_URL -u REPLIT_DB_URL \
   node --import tsx --test tests/outreach-reply-routing.test.ts \
-  tests/outreach-inbound-reply.test.ts tests/email-delivery.test.ts \
+  tests/outreach-inbound-reply.test.ts tests/outreach-hubspot-forward.test.ts \
+  tests/email-delivery.test.ts \
   tests/outreach-email-footer.test.ts tests/outreach-unsubscribe.test.ts
 ```
 
@@ -107,3 +108,50 @@ Then typecheck and build. After deployment, verify the new Reply-To header from 
 actual external received email and separately test a reply to the legacy
 receiving address. Keep automatic inbound routing disabled until that test
 succeeds.
+
+## HubSpot capture for provider-received replies
+
+The direct P5 Gmail account is connected to HubSpot portal `247066159`. Native
+logging captures direct messages involving known CRM contacts, but the Cabinet
+provider-forwarded copy has the Cabinet mailbox as both From and To. Its external
+Reply-To does not establish the original sender as a CRM participant.
+
+`lib/outreach/hubspotForward.ts` builds a separate forward to the verified P5
+logging address `247066159@forward.na2.hubspot.com`. It uses the existing Resend
+credentials and the Cabinet From address registered as a HubSpot email alias.
+The external author remains in Reply-To and the original-message header, never
+in the outer From address. Both text and HTML include the original From, Date,
+Subject, To and any Cc recipients, followed by the full body. A footer retains
+the original RFC Message-ID, provider received-email ID, receipt time, and the
+existing notice for attachments retained in Resend. A valid original Date header
+is preserved; otherwise the provider receipt time is used and identified. A
+missing or invalid provider receipt time fails only the CRM copy, without
+inventing a current timestamp or blocking the human inbox copy.
+
+The inbox payload and `outreach-reply/<email_id>` provider key are unchanged.
+The HubSpot copy uses `outreach-reply-hubspot/<email_id>` and a separate durable
+`outreach_reply_hubspot_receipt:<email_id>` entry in `site_settings`. This receipt
+contains only provider acceptance metadata and the logging destination. It does
+not mean a HubSpot record was confirmed. Existing inbox receipts and legacy
+activity forwarding receipts never stand in for the HubSpot receipt, so an
+explicit replay can backfill only the missing CRM copy without another inbox
+email. The handler does not enumerate or automatically replay historical mail.
+
+Each missing destination is attempted independently. A failed copy or receipt
+write returns a retryable error, and subsequent webhook attempts skip every
+durably accepted destination. A malformed or mismatched HubSpot receipt is
+ambiguous: it leaves that CRM copy pending for review, without resending it or
+blocking a pending inbox delivery. Attachment copying, campaign settings,
+suppression behavior, and the automatic follow-up hold are unchanged.
+
+HubSpot's forwarding parser is format-sensitive. Provider acceptance is only a
+transport milestone. Before calling this capture path verified, send an owner
+diagnostic to each receiving address and inspect the resulting HubSpot EMAIL
+record for the original sender, original recipient, original date, complete
+body, and correct contact association. Also replay one previously forwarded
+diagnostic and confirm it adds only the missing CRM record, with no duplicate
+Gmail copy. Do not use a manual EMAIL import as proof of automatic capture.
+
+References:
+- https://knowledge.hubspot.com/connected-email/log-email-in-your-crm-with-the-bcc-or-forwarding-address
+- https://resend.com/docs/api-reference/emails/retrieve-received-email

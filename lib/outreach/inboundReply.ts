@@ -4,6 +4,7 @@ import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
 import { getUncachableResendClient } from "@/server/resend";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { assertEmailAccepted, mailboxAddress } from "@/lib/emailDelivery";
+import { buildHubSpotForward, HUBSPOT_FORWARD_ADDRESS } from "@/lib/outreach/hubspotForward";
 
 export interface InboundReplyData {
   email_id?: string;
@@ -26,11 +27,10 @@ function escapeHtml(text: string): string {
 }
 
 /**
- * Recording a reply and delivering its inbox copy are separate milestones.
- * A retry must still forward an existing activity that has no accepted forward.
- * A dedicated receipt in the existing key-value store covers unmatched senders
- * as well. It contains only delivery metadata, never the sender or message body.
- * The provider key covers concurrent retries and recovery after a failed write.
+ * Recording a reply, forwarding its inbox copy, and submitting its HubSpot copy
+ * are separate milestones. Each destination has its own durable receipt and
+ * provider key, including for unmatched senders. A receipt proves only provider
+ * acceptance, not that HubSpot parsed a CRM record. It contains no message body.
  */
 export async function handleInboundReply(
   data: InboundReplyData | undefined,
@@ -45,6 +45,7 @@ export async function handleInboundReply(
   const from = mailboxAddress(rawFrom.match(/<([^>]+)>/)?.[1] ?? rawFrom);
   const eventSubject = (data?.subject ?? "").replace(/[\r\n]+/g, " ").trim();
   const receiptKey = `outreach_reply_receipt:${emailId}`;
+  const hubspotReceiptKey = `outreach_reply_hubspot_receipt:${emailId}`;
   const receiptCondition = and(
     eq(leadActivities.type, "email_received"),
     sql`${leadActivities.detail}->>'emailId' = ${emailId}`,
@@ -54,17 +55,32 @@ export async function handleInboundReply(
   // unavailable. Lock only the database work, never the provider network calls.
   const state = await database.transaction(async (tx) => {
     await tx.execute(sql`SELECT pg_advisory_xact_lock(814730, hashtext(${emailId}))`);
-    const [receipt] = await tx.select({ value: siteSettings.value }).from(siteSettings)
-      .where(eq(siteSettings.key, receiptKey)).limit(1);
-    if (receipt) {
-      const saved = JSON.parse(receipt.value) as { status?: string; providerId?: string };
-      if (saved.status !== "accepted" || !saved.providerId) throw new Error("Invalid reply delivery receipt");
-      return { matched: 0, forwarded: true };
+    const receipts = await tx.select({ key: siteSettings.key, value: siteSettings.value }).from(siteSettings)
+      .where(inArray(siteSettings.key, [receiptKey, hubspotReceiptKey]));
+    const accepted = (key: string) => {
+      const receipt = receipts.find((row) => row.key === key);
+      if (!receipt) return false;
+      const saved = JSON.parse(receipt.value) as { status?: string; providerId?: string; destination?: string };
+      if (saved.status !== "accepted" || typeof saved.providerId !== "string" || !saved.providerId.trim() ||
+          (key === hubspotReceiptKey && saved.destination !== HUBSPOT_FORWARD_ADDRESS)) {
+        throw new Error("Invalid reply delivery receipt");
+      }
+      return true;
+    };
+    let hubspotForwarded = false;
+    let hubspotReceiptError: Error | undefined;
+    try {
+      hubspotForwarded = accepted(hubspotReceiptKey);
+    } catch {
+      // An invalid CRM receipt is ambiguous, so do not resend that leg. It
+      // must not block an independently pending delivery to the human inbox.
+      hubspotReceiptError = new Error("Invalid HubSpot reply delivery receipt");
     }
+    if (accepted(receiptKey)) return { matched: 0, forwarded: true, hubspotForwarded, hubspotReceiptError };
     const seen = await tx.select({ leadId: leadActivities.leadId, detail: leadActivities.detail })
       .from(leadActivities).where(receiptCondition);
     if (seen.some((row) => typeof row.detail?.forwardedMessageId === "string")) {
-      return { matched: seen.length, forwarded: true };
+      return { matched: seen.length, forwarded: true, hubspotForwarded, hubspotReceiptError };
     }
 
     const matched = await tx.select({ id: leads.id }).from(leads)
@@ -94,9 +110,10 @@ export async function handleInboundReply(
         sql`lower(${outreachProspects.email}) = ${from}`,
         notInArray(outreachProspects.status, ["unsubscribed", "bounced"]),
       ));
-    return { matched: ids.length, forwarded: false };
+    return { matched: ids.length, forwarded: false, hubspotForwarded, hubspotReceiptError };
   });
-  if (state.forwarded) return 0;
+  if (state.forwarded && state.hubspotForwarded) return 0;
+  if (state.forwarded && state.hubspotReceiptError) throw state.hubspotReceiptError;
 
   // Use the same credential source as sending, including a Replit connector.
   // The SDK uses /emails/receiving/{id}; /emails/received/{id} is not this API.
@@ -124,32 +141,62 @@ export async function handleInboundReply(
   const attachmentNames: string[] = received.data.attachments?.map((attachment: { filename?: string | null }) => attachment.filename || "unnamed attachment") ?? [];
   const attachmentNotice = attachmentNames.length
     ? `This reply includes ${attachmentNames.length} attachment(s): ${attachmentNames.join(", ")}. Retrieve the original files from the received email in Resend.` : "";
-  const result = await client.emails.send({
-    from: `${SITE_CONFIG.senderDisplayName} <${SITE_CONFIG.email}>`,
-    to: SITE_CONFIG.email,
-    replyTo: from,
-    subject: `[Outreach reply] ${subject || "(no subject)"}`,
-    text: `${banner}\n\n${plainText || "(This reply has no message text.)"}${attachmentNotice ? `\n\n${attachmentNotice}` : ""}`,
-    html: `${html ? `<p>${escapeHtml(banner)}</p><hr/>${html}`
-      : `<p>${escapeHtml(banner)}</p><pre>${escapeHtml(plainText)}</pre>`}${attachmentNotice ? `<hr/><p>${escapeHtml(attachmentNotice)}</p>` : ""}`,
-  }, { idempotencyKey: `outreach-reply/${emailId}` });
-  assertEmailAccepted(result);
+  const failures: unknown[] = state.hubspotReceiptError ? [state.hubspotReceiptError] : [];
+  if (!state.forwarded) {
+    try {
+      // Keep this payload and key unchanged so a pre-existing accepted inbox
+      // send can still be reconciled safely within the provider key lifetime.
+      const result = await client.emails.send({
+        from: `${SITE_CONFIG.senderDisplayName} <${SITE_CONFIG.email}>`,
+        to: SITE_CONFIG.email,
+        replyTo: from,
+        subject: `[Outreach reply] ${subject || "(no subject)"}`,
+        text: `${banner}\n\n${plainText || "(This reply has no message text.)"}${attachmentNotice ? `\n\n${attachmentNotice}` : ""}`,
+        html: `${html ? `<p>${escapeHtml(banner)}</p><hr/>${html}`
+          : `<p>${escapeHtml(banner)}</p><pre>${escapeHtml(plainText)}</pre>`}${attachmentNotice ? `<hr/><p>${escapeHtml(attachmentNotice)}</p>` : ""}`,
+      }, { idempotencyKey: `outreach-reply/${emailId}` });
+      assertEmailAccepted(result);
 
-  // If this write fails, the event stays retryable. The provider idempotency key
-  // prevents another send while its accepted response is recovered on retry.
-  const forwarded = {
-    forwarding: "accepted",
-    forwardedMessageId: result.data!.id,
-    forwardedAt: new Date().toISOString(),
-  };
-  await database.transaction(async (tx) => {
-    await tx.insert(siteSettings).values({
-      key: receiptKey,
-      value: JSON.stringify({ status: "accepted", providerId: result.data!.id, acceptedAt: forwarded.forwardedAt }),
-    }).onConflictDoNothing();
-    await tx.update(leadActivities).set({
-      detail: sql`coalesce(${leadActivities.detail}, '{}'::jsonb) || ${JSON.stringify(forwarded)}::jsonb`,
-    }).where(receiptCondition);
-  });
-  return state.matched;
+      // Persist each leg immediately; a later CRM failure cannot undo this
+      // receipt or make a retry send another copy to the human inbox.
+      const forwarded = {
+        forwarding: "accepted",
+        forwardedMessageId: result.data!.id,
+        forwardedAt: new Date().toISOString(),
+      };
+      await database.transaction(async (tx) => {
+        await tx.insert(siteSettings).values({
+          key: receiptKey,
+          value: JSON.stringify({ status: "accepted", providerId: result.data!.id, acceptedAt: forwarded.forwardedAt }),
+        }).onConflictDoNothing();
+        await tx.update(leadActivities).set({
+          detail: sql`coalesce(${leadActivities.detail}, '{}'::jsonb) || ${JSON.stringify(forwarded)}::jsonb`,
+        }).where(receiptCondition);
+      });
+    } catch (error) {
+      failures.push(error);
+    }
+  }
+  if (!state.hubspotForwarded && !state.hubspotReceiptError) {
+    try {
+      // Build inside this leg: unusable CRM header metadata must not prevent
+      // the complete original message from reaching the human inbox.
+      const payload = buildHubSpotForward(received.data, { plainText, html, attachmentNotice });
+      const result = await client.emails.send(payload, { idempotencyKey: `outreach-reply-hubspot/${emailId}` });
+      assertEmailAccepted(result);
+      await database.insert(siteSettings).values({
+        key: hubspotReceiptKey,
+        value: JSON.stringify({
+          status: "accepted", providerId: result.data!.id, acceptedAt: new Date().toISOString(),
+          destination: HUBSPOT_FORWARD_ADDRESS,
+        }),
+      }).onConflictDoNothing();
+    } catch (error) {
+      failures.push(error);
+    }
+  }
+  // The signed webhook returns 503 for an incomplete leg. The next attempt
+  // skips every durably accepted destination, including old inbox-only copies.
+  if (failures.length) throw failures[0];
+  return state.forwarded ? 0 : state.matched;
 }
