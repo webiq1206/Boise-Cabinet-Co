@@ -37,3 +37,4 @@
 - [Managed OpenAI endpoint is loopback](managed-openai-loopback.md) — Replit’s managed OpenAI base URL is an HTTP localhost sidecar; qualification must reject external/direct endpoints.
 - [GitHub connector commit sync](github-connector-commit-sync.md) — HTTPS Git may lack auth while the GitHub connector works; preserve history and align exact commit objects after API writes.
 - [Cabinet estimator acceptance boundaries](cabinet-estimator-acceptance-boundaries.md) — legacy read reuse, customer finance redaction, CRM size/routing, and catalog identity are fail-closed release gates.
+- [Temporary-storage quota diagnostics](temporary-storage-quota.md) — df free space can conceal quota exhaustion; even stderr capture can fail, making archive extraction appear to exit silently.
