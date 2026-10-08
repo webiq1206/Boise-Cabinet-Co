@@ -64,7 +64,7 @@ export default function TermsOfServicePage() {
 
             <h2 id="document-section-1">Agreement to Terms</h2>
             <p>
-              By accessing or using the services provided by Boise Cabinet Co ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+              By accessing or using the services provided by Boise Cabinet Co (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
             </p>
 
             <h2 id="document-section-2">Services</h2>
@@ -107,7 +107,7 @@ export default function TermsOfServicePage() {
 
             <h2 id="document-section-8">Limitation of Liability</h2>
             <p>
-              While we take great care in providing our services, Boise Cabinet Co's liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
+              While we take great care in providing our services, Boise Cabinet Co&apos;s liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
             </p>
 
             <h2 id="document-section-9">Workmanship Guarantee</h2>

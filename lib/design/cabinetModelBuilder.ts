@@ -397,8 +397,8 @@ export function buildCabinetGroup(opts: BuildCabinetOptions): THREE.Group {
   const root = new THREE.Group();
   root.name = "CabinetDesign";
 
-  for (const module of config.modules) {
-    addModule(root, module, resolveModule(module), hardware, accessories);
+  for (const cabinetModule of config.modules) {
+    addModule(root, cabinetModule, resolveModule(cabinetModule), hardware, accessories);
   }
 
   // Recenter on origin and drop the bottom to the floor plane.

@@ -4,6 +4,7 @@ import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogPreview } from "@/components/catalog/CatalogPreview";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { Section } from "@/components/marketing/Section";
+import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
@@ -88,9 +89,9 @@ export default function CatalogPage() {
           <div className="container px-4">
             <CatalogPreview pdfUrl={CATALOG_PDF_PATH} />
             <nav aria-label="Browse cabinet products" className="my-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <a className="rounded-lg border p-4 underline" href="/cabinets/kitchen">Kitchen cabinets</a>
-              <a className="rounded-lg border p-4 underline" href="/cabinets/bathroom">Bathroom vanities</a>
-              <a className="rounded-lg border p-4 underline" href="/cabinets/mudroom">Mudroom cabinetry</a>
+              <Link prefetch={false} className="rounded-lg border p-4 underline" href="/cabinets/kitchen">Kitchen cabinets</Link>
+              <Link prefetch={false} className="rounded-lg border p-4 underline" href="/cabinets/bathroom">Bathroom vanities</Link>
+              <Link prefetch={false} className="rounded-lg border p-4 underline" href="/cabinets/mudroom">Mudroom cabinetry</Link>
             </nav>
             <p className="mt-3 text-center text-sm text-muted-foreground">
               Use the toolbar to flip pages, scroll continuously, zoom, search, view thumbnails,

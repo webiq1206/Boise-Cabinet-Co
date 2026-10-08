@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useModals } from "./ModalProvider";
 import { useEstimateInline } from "./useEstimateHref";
 import { CTA_ESTIMATE } from "@/shared/ctaCopy";
@@ -17,9 +18,9 @@ export function FooterCTAs() {
 
   if (inline) {
     return (
-      <a href="/#calculator" className={cls} onClick={trackClick}>
+      <Link prefetch={false} href="/#calculator" className={cls} onClick={trackClick}>
         {CTA_ESTIMATE}
-      </a>
+      </Link>
     );
   }
 

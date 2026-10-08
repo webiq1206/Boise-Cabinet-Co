@@ -117,7 +117,7 @@
   {
     "route": "/testimonials",
     "file": "app/testimonials/page.tsx",
-    "seoSignature": "96c4e4a27445c1b204c507c5138517cb73da586c5292b0d11e01f13381ecd589"
+    "seoSignature": "92e62b5b87a22c8d630368f4308114638927bd9e24841ba28fc63110d04797b2"
   },
   {
     "route": "/warranty",

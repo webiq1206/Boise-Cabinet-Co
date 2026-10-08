@@ -127,7 +127,7 @@ export function ComposeTab() {
             <span><span className="block text-sm font-medium">Enroll in a sequence</span><span className="block text-xs text-muted-foreground">Multi-step emails sent automatically on a schedule.</span></span>
           </button>
         </div>
-          <p className="text-sm text-muted-foreground">Choose who to reach using the audience filters below. Leave them on "All" to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
+          <p className="text-sm text-muted-foreground">Choose who to reach using the audience filters below. Leave them on &quot;All&quot; to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
 
           <div className="space-y-2">
             <Label className="text-xs">Who gets included (audience filters)</Label>

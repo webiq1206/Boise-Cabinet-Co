@@ -189,7 +189,7 @@ export function LeadTimeline({
             <DialogHeader>
               <DialogTitle>Add note</DialogTitle>
               <DialogDescription>
-                Add an internal note. It will appear in this lead's timeline.
+                Add an internal note. It will appear in this lead&apos;s timeline.
               </DialogDescription>
             </DialogHeader>
             <Textarea

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { ButtonProps } from "@/components/ui/button";
 import { useModals } from "./ModalProvider";
@@ -26,7 +27,8 @@ export function CtaButton({ intent = "estimate", onExtraClick, children, ...prop
   if (inline) {
     return (
       <Button {...props} asChild>
-        <a
+        <Link
+          prefetch={false}
           href="/#calculator"
           onClick={() => {
             trackClick();
@@ -34,7 +36,7 @@ export function CtaButton({ intent = "estimate", onExtraClick, children, ...prop
           }}
         >
           {children}
-        </a>
+        </Link>
       </Button>
     );
   }

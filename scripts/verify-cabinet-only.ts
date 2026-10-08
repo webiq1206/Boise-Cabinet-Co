@@ -49,8 +49,16 @@ for (const rel of FORBIDDEN_PATHS) {
 const SCAN_DIRS = ["app", "components", "shared", "server", "lib", "hooks"];
 const SCAN_EXTENSIONS = new Set([".ts", ".tsx"]);
 
+// Shared estimator reference data describes many trades, not Cabinet services.
+// Exempt only these exact data files from the service-copy vocabulary scan.
+// They remain subject to the retired-portal link checks below.
+const SHARED_REFERENCE_DATA = new Set([
+  "lib/p5/priceBookData.ts",
+  "lib/p5/tradeVocabulary.ts",
+]);
+
 /**
- * Lawn-care vocabulary that must never appear in shipped copy/code.
+ * Lawn-care vocabulary that must never appear in Cabinet service copy/code.
  *
  * The risk this guards is that boisecabinet.co reads as though it still sells
  * lawn care, so the terms are matched in SERVICE context. Two of them used to
@@ -62,8 +70,8 @@ const SCAN_EXTENSIONS = new Set([".ts", ".tsx"]);
  *
  * "lawn" is still matched on its own (a bare "Lawn" nav item would fail); only
  * the storage idiom "lawn and garden" is excluded. Mowing, aeration, weed
- * control, snow removal and sprinklers stay bare words - none of them has an
- * innocent reading on a cabinet site.
+ * control, snow removal and sprinklers stay bare words in service code/copy.
+ * Shared cost-book and trade vocabulary data are not service advertisements.
  */
 const LAWN_TERMS: RegExp[] = [
   /\blawn\b(?!\s*(?:and|&)\s*garden)/i,
@@ -145,9 +153,11 @@ for (const dirRel of SCAN_DIRS) {
     const text = fs.readFileSync(file, "utf8");
     const relFile = path.relative(ROOT, file);
 
-    for (const re of LAWN_TERMS) {
-      if (re.test(text)) {
-        failures.push(`${relFile}: lawn-care term ${re}`);
+    if (!SHARED_REFERENCE_DATA.has(relFile.split(path.sep).join("/"))) {
+      for (const re of LAWN_TERMS) {
+        if (re.test(text)) {
+          failures.push(`${relFile}: lawn-care term ${re}`);
+        }
       }
     }
     for (const re of FORBIDDEN_LINKS) {

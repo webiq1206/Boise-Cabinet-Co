@@ -3,6 +3,13 @@
   "commit": "04d9a6b8059c09a1602e2133a7d2f37d21865eff",
   "generatedAt": "2026-10-08T14:27:22.467Z",
   "note": "Shared estimator engine published from p5-home-co. Edit shared files there and run scripts/p5-sync.mjs; hash checks remain mandatory in every brand.",
+  "localPatchProvenance": {
+    "reason": "Owner-authorized Cabinet release hygiene: Next Link navigation with prefetch disabled and JSX entity escapes; no pricing or estimator logic changes. These two local UI patches are not an upstream engine sync.",
+    "upstreamHashes": {
+      "components/P5EstimatorNavigation.tsx": "e203317513965f77dc314e3ef8aa2be0e9fca1e7ca72494b3a23f3741cabbe83",
+      "components/P5ReferenceCostBudget.tsx": "81f85ff0199fdaa7484d36b56d7d404c568c0010bf7588430471a9f6201414dd"
+    }
+  },
   "files": {
     "app/admin/p5-estimators/page.tsx": "f9b7f729daa74f542cdece161d2bf158fb784f5a8c55356fe7283e73db2c139d",
     "app/api/admin/p5-intake/file/route.ts": "e8b49e0f2e19508d1f21903445fdcd36b2e3f6aa95edbc6ecdac110a625b11dc",
@@ -27,7 +34,7 @@
     "components/P5EstimateDetails.tsx": "ad36be0cb27f55e51ee63f222af7c749b3037e1fb12ff7131be62a6db93565d0",
     "components/P5Estimator.module.css": "238f6f6056a35c2076041e90a3e845203e013f3b8a657bafb01b98fa397ae1f0",
     "components/P5Estimator.tsx": "9251975a491257a9e0cb33e13521189dddd62827c7537aee72f6cd48cd43fc2c",
-    "components/P5EstimatorNavigation.tsx": "e203317513965f77dc314e3ef8aa2be0e9fca1e7ca72494b3a23f3741cabbe83",
+    "components/P5EstimatorNavigation.tsx": "8efff91f5b290de51ef2912328dbb38d7a1d7fb30a7e6df71f686339a27bf606",
     "components/P5IntakeQueue.tsx": "25b0e4cb34de7c93fd028787221a837d1bb6e7bcddf6cd4606dd27d69c096526",
     "components/P5IntakeReview.tsx": "8573dbcca06351c3f5a96e9dff72d4fc82a15c339557a2fb4a7960352eafb0bc",
     "components/P5LazyEstimator.tsx": "237e404e81442499d54bf8668134e77b36513898b91503d5f275af80e6b8019a",
@@ -38,7 +45,7 @@
     "components/P5ProcessingStatus.tsx": "32b054a6e4228ea834b9d10be847587bb814fe837d0a6019ea610271da09a271",
     "components/P5ProjectReview.module.css": "acf5143d5c61ca7f08cca1e233643d05fe04dd9c8c2e870f013f6c180c4889d9",
     "components/P5ProjectReview.tsx": "07e824342f00b96669e9d6996fcdd3c9cb8499cfe6420af1c88fdf0d47e500f8",
-    "components/P5ReferenceCostBudget.tsx": "81f85ff0199fdaa7484d36b56d7d404c568c0010bf7588430471a9f6201414dd",
+    "components/P5ReferenceCostBudget.tsx": "5093bd8a0cbf6201a04d2c0ad8c1b85c9f614db59cee322d9129d42b72d8fc08",
     "components/P5ReviewRequest.tsx": "0406decc13bd8eb97d7e35bd39a05d067571dc00a05405ca7f525fdc440ce399",
     "lib/p5/adaptive.ts": "d874b26921c2c77a028d6609d2530a084e193699b0e9786d06e44a03f52430f4",
     "lib/p5/adminEndpoint.ts": "8cccba7746097375b7277845a2682c0547bfd2653ae0387eefa6e1b03ff0b239",
