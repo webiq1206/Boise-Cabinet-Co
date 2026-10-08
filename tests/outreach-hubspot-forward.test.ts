@@ -47,13 +47,25 @@ test("both provider receiving addresses remain the original To in the CRM copy",
 });
 
 test("missing or malformed original Date uses only the documented provider receipt time", () => {
-  for (const headers of [{}, { date: "not-a-date" }]) {
+  for (const headers of [{}, { date: "not-a-date" }, { date: '"not-a-date"' }, { date: '"2026-10-06T14:12:58.000Z' }]) {
     const payload = buildHubSpotForward({ ...original, headers }, content);
     assert.match(payload.text, /Date: Tue, 06 Oct 2026 14:13:00 GMT/);
     assert.match(payload.text, /Forwarded Date uses the provider receipt time/);
     assert.match(payload.html, /Forwarded Date uses the provider receipt time/);
     assert.deepEqual(buildHubSpotForward({ ...original, headers }, content), payload);
   }
+});
+
+test("Resend's JSON-quoted original Date is preserved in both forwarded MIME bodies", () => {
+  const payload = buildHubSpotForward({
+    ...original, headers: { dAtE: JSON.stringify("2026-10-08T18:38:04.000Z") },
+    created_at: "2026-10-08T18:38:05.996Z",
+  }, content);
+  assert.ok(payload.text.includes("Date: Thu, 08 Oct 2026 18:38:04 GMT"));
+  assert.ok(payload.html.includes("Date: Thu, 08 Oct 2026 18:38:04 GMT"));
+  assert.ok(payload.text.includes("Received at: 2026-10-08T18:38:05.996Z"));
+  assert.ok(!payload.text.includes("Forwarded Date uses the provider receipt time"));
+  assert.ok(!payload.html.includes("Forwarded Date uses the provider receipt time"));
 });
 
 test("unusable receipt dates and missing participants fail without inventing message metadata", () => {

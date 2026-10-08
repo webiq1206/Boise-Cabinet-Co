@@ -32,7 +32,19 @@ function header(message: ReceivedEmail, name: string): string {
 
 function sourceDate(value: string): Date | null {
   if (!value?.trim()) return null;
-  const date = new Date(value);
+  let dateText = value.trim();
+  // Resend can serialize a parsed Date header as a JSON string, including
+  // literal surrounding quotes. Decode that one layer before parsing it.
+  if (dateText.startsWith('"')) {
+    try {
+      const decoded: unknown = JSON.parse(dateText);
+      if (typeof decoded !== "string") return null;
+      dateText = decoded;
+    } catch {
+      return null;
+    }
+  }
+  const date = new Date(dateText);
   return Number.isFinite(date.getTime()) ? date : null;
 }
 
