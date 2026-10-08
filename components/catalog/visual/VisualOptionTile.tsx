@@ -21,6 +21,8 @@ export interface VisualOptionTileProps {
   meta?: string;
   imageSrc?: string;
   imageAlt?: string;
+  /** Keep full product/profile references visible without cropping. */
+  imageFit?: "cover" | "contain";
   /** Flat color tile shown when no swatch image is available */
   fallbackHex?: string;
   selected?: boolean;
@@ -42,6 +44,7 @@ export function VisualOptionTile({
   meta,
   imageSrc,
   imageAlt,
+  imageFit = "cover",
   fallbackHex,
   selected,
   variant = "media",
@@ -103,7 +106,7 @@ export function VisualOptionTile({
               sizes="(max-width: 640px) 50vw, 220px"
               placeholder={getBlurDataURL(imageSrc as string) ? "blur" : undefined}
               blurDataURL={getBlurDataURL(imageSrc as string)}
-              className="object-cover img-brand-grade"
+              className={imageFit === "contain" ? "object-contain" : "object-cover"}
               onError={() => setImageFailed(true)}
             />
           ) : null}
@@ -158,7 +161,7 @@ export function VisualOptionTile({
                   alt={imageAlt ?? label}
                   fill
                   sizes="(max-width: 768px) 100vw, 672px"
-                  className="object-cover"
+                  className={imageFit === "contain" ? "object-contain" : "object-cover"}
                   onError={() => setZoomFailed(true)}
                 />
               ) : null}
