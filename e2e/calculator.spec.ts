@@ -4,7 +4,7 @@ for (const path of ['/#calculator','/estimate','/estimate/scope']) {
   await page.goto(path);
   const estimator=page.locator('[data-p5-estimator]').first();
   await expect(estimator.getByLabel('Tell us about your project',{exact:true})).toBeVisible({timeout:30000});
-  await expect(estimator.getByRole('button',{name:'Continue',exact:true})).toBeVisible();
+  await expect(estimator.getByRole('button',{name:'Send message',exact:true})).toBeVisible();
   await expect(estimator.getByRole('button',{name:'Use microphone',exact:true})).toHaveCount(0);
   await expect(estimator.locator('input[type=file]')).toHaveCount(1);
   await expect(estimator.getByLabel('Upload project files',{exact:true})).toHaveCount(1);
