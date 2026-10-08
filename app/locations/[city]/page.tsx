@@ -284,7 +284,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               Ready to plan your {city.name} project?
             </h2>
             <p className="text-inverse-muted mb-6">
-              Get a preliminary estimate online in a few minutes. No call or appointment needed.
+              Share your project online for team review. More information or a site visit may be needed before we prepare your estimate.
               Larger plan sets may take longer. Book a free in-home visit whenever you are ready.
             </p>
             <div className="flex flex-wrap justify-center gap-3">

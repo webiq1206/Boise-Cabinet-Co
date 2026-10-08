@@ -19,7 +19,7 @@ interface CatalogClosingCTAProps {
  */
 export function CatalogClosingCTA({
   title = "Ready to plan your project?",
-  description = "Describe your cabinet project or upload your plans. Get a preliminary estimate in a few minutes, with no call or appointment needed. Larger plan sets may take longer.",
+  description = "Describe your cabinet project or upload your plans for our team to review. We may need more information or a site visit before preparing your estimate.",
 }: CatalogClosingCTAProps) {
   return (
     <Section surface="gradient" spacing="xl" edge>
