@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from './P5Estimator.module.css';
 
 interface EstimatorNavigationProps {
@@ -8,7 +7,7 @@ interface EstimatorNavigationProps {
   frameActive: boolean;
   embedded: boolean;
   onBack: () => void;
-  onExit?: () => void;
+  onExit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onNewProject?: () => void;
   disabled?: boolean;
 }
@@ -18,16 +17,16 @@ export function P5EstimatorNavigation({brandName, stepLabel, showBack, frameActi
   return <nav className={styles.topbar} aria-label="Estimator navigation">
     {showBack
       ? <button type="button" className={styles.navBtn} onClick={onBack} aria-label="Back to the previous step">Back</button>
-      : <Link prefetch={false} className={styles.navBtn} href="/" aria-label="Back to the homepage">Home</Link>}
-    <Link prefetch={false} className={styles.topCenter} href="/" aria-label={`${brandName}, back to the homepage`}>
+      : <a className={styles.navBtn} href="/" aria-label="Back to the homepage">Home</a>}
+    <a className={styles.topCenter} href="/" aria-label={`${brandName}, back to the homepage`}>
       <span className={styles.brandLine}><span data-brand>{brandName}</span><span data-sep aria-hidden="true"> · </span><span data-title>Project estimator</span></span>
       <span className={styles.stepPill}>{stepLabel}</span>
-    </Link>
+    </a>
     {onNewProject&&<button type="button" className={styles.navBtn} onClick={onNewProject} disabled={disabled} aria-label="Start a new project" title="Start a new project">New project</button>}
     {frameActive
       ? onExit
         ? <button type="button" className={styles.navBtn} onClick={onExit} aria-label={embedded ? 'Exit full screen. Your progress is saved.' : 'Close the estimator. Your progress is saved.'}>Exit</button>
-        : <Link prefetch={false} className={styles.navBtn} href="/" aria-label="Exit the estimator and return to the homepage. Your progress is saved.">Exit</Link>
+        : <a className={styles.navBtn} href="/" aria-label="Exit the estimator and return to the homepage. Your progress is saved.">Exit</a>
       : <span className={styles.navSpacer} aria-hidden="true"/>}
   </nav>;
 }
