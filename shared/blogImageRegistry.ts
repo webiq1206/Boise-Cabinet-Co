@@ -381,6 +381,12 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["cabinets","quality","guide"],
     source: 'blog',
   },
+  'cabinet-materials-labels-certifications': {
+    hero: '/images/blog/cabinet-construction-quality-guide.webp',
+    alt: 'cabinet construction detail: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides',
+    topicTags: ["materials","cabinets","guide"],
+    source: 'blog',
+  },
   'cabinet-finishes-door-styles-guide': {
     hero: '/images/blog/material-selection-guide.webp',
     alt: 'Cabinet door style and finish samples for Treasure Valley selections',

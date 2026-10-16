@@ -1,7 +1,7 @@
 {
   "generatedAt": null,
   "counts": {
-    "blog": 77,
+    "blog": 78,
     "guide": 17,
     "catalog": 22
   },
@@ -375,18 +375,18 @@
           "score": 999
         },
         {
-          "url": "/blog/what-are-shaker-cabinets",
-          "anchor": "What Are Shaker Cabinets? (And Why They're Timeless)",
-          "title": "What Are Shaker Cabinets? (And Why They're Timeless)",
-          "type": "blog",
-          "score": 0.75
-        },
-        {
           "url": "/locations/kuna",
           "anchor": "Kuna cabinets",
           "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
           "score": 0.163
+        },
+        {
+          "url": "/cabinets/wet-bar",
+          "anchor": "Wet Bar cabinets",
+          "title": "Wet Bar Cabinets",
+          "type": "catalog",
+          "score": 0.123
         }
       ]
     },
@@ -653,6 +653,13 @@
       "url": "/blog/cabinet-construction-quality-guide",
       "links": [
         {
+          "url": "/blog/cabinet-materials-labels-certifications",
+          "anchor": "Materials, labels, and certifications",
+          "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "type": "blog",
+          "score": 999
+        },
+        {
           "url": "/blog/stock-vs-custom-cabinets-boise",
           "anchor": "Stock vs custom cabinets",
           "title": "Stock vs Custom Cabinets: Which Is Right for You?",
@@ -679,13 +686,6 @@
           "title": "Custom Cabinet Shop vs Big Box",
           "type": "blog",
           "score": 0.775
-        },
-        {
-          "url": "/blog/cabinet-company-red-flags",
-          "anchor": "Cabinet Company Red Flags",
-          "title": "Cabinet Company Red Flags",
-          "type": "blog",
-          "score": 0.737
         },
         {
           "url": "/locations/boise",
@@ -745,9 +745,9 @@
           "score": 1.31
         },
         {
-          "url": "/blog/how-to-compare-cabinet-quotes",
-          "anchor": "How to Compare Cabinet Quotes",
-          "title": "How to Compare Cabinet Quotes",
+          "url": "/blog/cabinet-company-red-flags",
+          "anchor": "Cabinet Company Red Flags",
+          "title": "Cabinet Company Red Flags",
           "type": "blog",
           "score": 1.279
         },
@@ -887,18 +887,18 @@
           "score": 1.183
         },
         {
-          "url": "/blog/cabinet-installation-punch-list",
-          "anchor": "Cabinet Installation Punch List",
-          "title": "Cabinet Installation Punch List",
-          "type": "blog",
-          "score": 1.136
-        },
-        {
           "url": "/locations/eagle",
           "anchor": "Eagle cabinets",
           "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
           "score": 0.22
+        },
+        {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
+          "type": "catalog",
+          "score": 0.12
         }
       ]
     },
@@ -1286,6 +1286,77 @@
         }
       ]
     },
+    "/blog/cabinet-materials-labels-certifications": {
+      "type": "blog",
+      "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
+      "anchor": "What's inside your cabinet boxes? Materials, labels, and certifications",
+      "url": "/blog/cabinet-materials-labels-certifications",
+      "links": [
+        {
+          "url": "/blog/cabinet-construction-quality-guide",
+          "anchor": "Cabinet construction quality",
+          "title": "Cabinet Construction Quality: How to Judge a Well-Built Cabinet",
+          "type": "blog",
+          "score": 999
+        },
+        {
+          "url": "/blog/cabinet-warranty-guide",
+          "anchor": "Cabinet warranty",
+          "title": "Cabinet Warranty Guide",
+          "type": "blog",
+          "score": 999
+        },
+        {
+          "url": "/blog/how-to-compare-cabinet-quotes",
+          "anchor": "How to compare cabinet quotes",
+          "title": "How to Compare Cabinet Quotes",
+          "type": "blog",
+          "score": 999
+        },
+        {
+          "url": "/blog/questions-to-ask-cabinet-company",
+          "anchor": "Questions to ask a cabinet company",
+          "title": "Questions to Ask a Cabinet Company",
+          "type": "blog",
+          "score": 999
+        },
+        {
+          "url": "/guides/boise-bathroom-vanity-guide",
+          "anchor": "Bathroom vanities",
+          "title": "Boise Bathroom Vanity Guide",
+          "type": "guide",
+          "score": 999
+        },
+        {
+          "url": "/guides/boise-kitchen-cabinet-guide",
+          "anchor": "Kitchen cabinets",
+          "title": "Boise Kitchen Cabinet Guide",
+          "type": "guide",
+          "score": 999
+        },
+        {
+          "url": "/guides/choose-cabinet-company-boise",
+          "anchor": "Choosing a Cabinet Company",
+          "title": "How to Choose a Cabinet Company in Boise",
+          "type": "guide",
+          "score": 999
+        },
+        {
+          "url": "/guides/treasure-valley-cabinet-guide",
+          "anchor": "Treasure Valley cabinet guide",
+          "title": "Treasure Valley Custom Cabinet Guide",
+          "type": "guide",
+          "score": 999
+        },
+        {
+          "url": "/guides/built-in-cabinet-guide",
+          "anchor": "Built-In Cabinet Guide",
+          "title": "Built-In Cabinet Guide",
+          "type": "guide",
+          "score": 0.19
+        }
+      ]
+    },
     "/blog/cabinet-measurement-design-phase": {
       "type": "blog",
       "title": "Cabinet Measurement & Design Phase",
@@ -1321,13 +1392,6 @@
           "score": 1.31
         },
         {
-          "url": "/blog/cabinet-warranty-guide",
-          "anchor": "Cabinet Warranty Guide",
-          "title": "Cabinet Warranty Guide",
-          "type": "blog",
-          "score": 1.183
-        },
-        {
           "url": "/blog/cabinet-installation-punch-list",
           "anchor": "Cabinet Installation Punch List",
           "title": "Cabinet Installation Punch List",
@@ -1347,6 +1411,13 @@
           "title": "Whole-Home Cabinetry Guide",
           "type": "guide",
           "score": 0.18
+        },
+        {
+          "url": "/cabinets/built-ins",
+          "anchor": "Built-Ins cabinets",
+          "title": "Built-Ins Cabinets",
+          "type": "catalog",
+          "score": 0.08
         }
       ]
     },
@@ -1392,11 +1463,11 @@
           "score": 1.477
         },
         {
-          "url": "/guides/built-in-cabinet-guide",
-          "anchor": "Built-In Cabinet Guide",
-          "title": "Built-In Cabinet Guide",
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": 0.207
+          "score": 0.18
         },
         {
           "url": "/cabinets/home-office",
@@ -1463,11 +1534,11 @@
           "score": 1.395
         },
         {
-          "url": "/guides/treasure-valley-cabinet-guide",
-          "anchor": "Treasure Valley Custom Cabinet Guide",
-          "title": "Treasure Valley Custom Cabinet Guide",
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
-          "score": 0.193
+          "score": 0.18
         },
         {
           "url": "/cabinets/garage",
@@ -1584,9 +1655,9 @@
           "score": 1.35
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
           "score": 0.18
         },
@@ -1655,9 +1726,9 @@
           "score": 1.406
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": 0.18
         },
@@ -1726,9 +1797,9 @@
           "score": 1.136
         },
         {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": 0.18
         }
@@ -1783,9 +1854,9 @@
           "score": 1.326
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.18
         },
@@ -1826,6 +1897,13 @@
           "score": 999
         },
         {
+          "url": "/blog/cabinet-planning-checklist",
+          "anchor": "Cabinet Planning Checklist",
+          "title": "Cabinet Planning Checklist",
+          "type": "blog",
+          "score": 1.395
+        },
+        {
           "url": "/blog/cabinet-refresh-vs-replace-vs-moving",
           "anchor": "Cabinet Refresh vs Replace vs Moving",
           "title": "Cabinet Refresh vs Replace vs Moving",
@@ -1840,9 +1918,9 @@
           "score": 1.35
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
           "type": "guide",
           "score": 0.263
         },
@@ -1850,13 +1928,6 @@
           "url": "/cabinets/garage",
           "anchor": "Garage cabinets",
           "title": "Garage Cabinets",
-          "type": "catalog",
-          "score": 0.04
-        },
-        {
-          "url": "/cabinets/laundry",
-          "anchor": "Laundry cabinets",
-          "title": "Laundry Cabinets",
           "type": "catalog",
           "score": 0.04
         }
@@ -1890,13 +1961,6 @@
           "score": 999
         },
         {
-          "url": "/blog/questions-to-ask-cabinet-company",
-          "anchor": "Questions to Ask a Cabinet Company",
-          "title": "Questions to Ask a Cabinet Company",
-          "type": "blog",
-          "score": 1.183
-        },
-        {
           "url": "/blog/why-cabinet-quotes-vary",
           "anchor": "Why Cabinet Quotes Vary So Much",
           "title": "Why Cabinet Quotes Vary So Much",
@@ -1904,11 +1968,18 @@
           "score": 1.15
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
+          "url": "/blog/what-makes-great-cabinet-company",
+          "anchor": "What Makes a Great Cabinet Company",
+          "title": "What Makes a Great Cabinet Company",
+          "type": "blog",
+          "score": 1.145
+        },
+        {
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": 0.28
+          "score": 0.251
         },
         {
           "url": "/cabinets/mudroom",
@@ -2096,23 +2167,23 @@
           "score": 1.21
         },
         {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
+          "url": "/blog/cabinet-consultation-process",
+          "anchor": "Cabinet Consultation Process",
+          "title": "Cabinet Consultation Process",
+          "type": "blog",
+          "score": 1.15
+        },
+        {
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": 0.18
+          "score": 0.14
         },
         {
           "url": "/cabinets/bathroom",
           "anchor": "Bathroom cabinets",
           "title": "Bathroom Cabinets",
-          "type": "catalog",
-          "score": 0
-        },
-        {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
           "type": "catalog",
           "score": 0
         }
@@ -2160,18 +2231,11 @@
           "score": 0.882
         },
         {
-          "url": "/blog/what-are-rta-cabinets",
-          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
-          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
-          "type": "blog",
-          "score": 0.843
-        },
-        {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
-          "score": 0.177
+          "score": 0.176
         },
         {
           "url": "/cabinets/garage",
@@ -2179,6 +2243,13 @@
           "title": "Garage Cabinets",
           "type": "catalog",
           "score": 0.022
+        },
+        {
+          "url": "/cabinets/laundry",
+          "anchor": "Laundry cabinets",
+          "title": "Laundry Cabinets",
+          "type": "catalog",
+          "score": 0.021
         }
       ]
     },
@@ -2302,9 +2373,9 @@
           "score": 1.069
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": 0.077
         }
@@ -2366,9 +2437,9 @@
           "score": 0.501
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": 0.088
         }
@@ -2494,9 +2565,9 @@
           "score": 0.495
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.076
         }
@@ -2530,13 +2601,6 @@
           "score": 999
         },
         {
-          "url": "/blog/what-makes-great-cabinet-company",
-          "anchor": "What Makes a Great Cabinet Company",
-          "title": "What Makes a Great Cabinet Company",
-          "type": "blog",
-          "score": 1.35
-        },
-        {
           "url": "/blog/why-cabinet-quotes-vary",
           "anchor": "Why Cabinet Quotes Vary So Much",
           "title": "Why Cabinet Quotes Vary So Much",
@@ -2551,6 +2615,13 @@
           "score": 1.294
         },
         {
+          "url": "/blog/cabinet-company-red-flags",
+          "anchor": "Cabinet Company Red Flags",
+          "title": "Cabinet Company Red Flags",
+          "type": "blog",
+          "score": 1.279
+        },
+        {
           "url": "/blog/questions-to-ask-cabinet-company",
           "anchor": "Questions to Ask a Cabinet Company",
           "title": "Questions to Ask a Cabinet Company",
@@ -2558,9 +2629,9 @@
           "score": 1.279
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
           "type": "guide",
           "score": 0.14
         }
@@ -2622,11 +2693,11 @@
           "score": 0.569
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": 0.08
+          "score": 0.042
         }
       ]
     },
@@ -2686,11 +2757,11 @@
           "score": 0.517
         },
         {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": 0.078
+          "score": 0.038
         }
       ]
     },
@@ -2942,9 +3013,9 @@
           "score": 1.406
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": 0.211
         }
@@ -2999,11 +3070,11 @@
           "score": 0.79
         },
         {
-          "url": "/blog/two-tone-kitchen-cabinets",
-          "anchor": "Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off",
-          "title": "Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off",
+          "url": "/blog/what-are-rta-cabinets",
+          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
+          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
           "type": "blog",
-          "score": 0.527
+          "score": 0.786
         },
         {
           "url": "/locations/boise",
@@ -3056,11 +3127,11 @@
           "score": 1.043
         },
         {
-          "url": "/blog/what-are-rta-cabinets",
-          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
-          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
+          "url": "/blog/cabinet-refacing-vs-refinishing-vs-replacing",
+          "anchor": "Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?",
+          "title": "Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?",
           "type": "blog",
-          "score": 0.786
+          "score": 0.79
         },
         {
           "url": "/blog/pantry-cabinet-ideas",
@@ -3074,7 +3145,7 @@
           "anchor": "Eagle cabinets",
           "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
-          "score": 0.322
+          "score": 0.282
         }
       ]
     },
@@ -3127,18 +3198,18 @@
           "score": 0.879
         },
         {
-          "url": "/blog/cabinet-refacing-vs-refinishing-vs-replacing",
-          "anchor": "Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?",
-          "title": "Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?",
+          "url": "/blog/what-are-rta-cabinets",
+          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
+          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
           "type": "blog",
-          "score": 0.786
+          "score": 0.782
         },
         {
           "url": "/locations/meridian",
           "anchor": "Meridian cabinets",
           "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
-          "score": 0.267
+          "score": 0.227
         }
       ]
     },
@@ -3191,11 +3262,11 @@
           "score": 0.786
         },
         {
-          "url": "/blog/how-deep-are-kitchen-cabinets",
-          "anchor": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
-          "title": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
+          "url": "/blog/what-are-rta-cabinets",
+          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
+          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
           "type": "blog",
-          "score": 0.487
+          "score": 0.782
         },
         {
           "url": "/locations/middleton",
@@ -3298,18 +3369,18 @@
           "score": 999
         },
         {
-          "url": "/blog/cabinet-planning-checklist",
-          "anchor": "Cabinet Planning Checklist",
-          "title": "Cabinet Planning Checklist",
-          "type": "blog",
-          "score": 1.395
-        },
-        {
           "url": "/blog/cabinet-project-planning-guide",
           "anchor": "Cabinet Project Planning Guide",
           "title": "Cabinet Project Planning Guide",
           "type": "blog",
           "score": 1.395
+        },
+        {
+          "url": "/blog/cabinet-refresh-vs-replace-vs-moving",
+          "anchor": "Cabinet Refresh vs Replace vs Moving",
+          "title": "Cabinet Refresh vs Replace vs Moving",
+          "type": "blog",
+          "score": 1.35
         },
         {
           "url": "/blog/custom-cabinet-design-process",
@@ -3458,7 +3529,7 @@
           "anchor": "Eagle cabinets",
           "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
-          "score": 0.385
+          "score": 0.345
         }
       ]
     },
@@ -3568,9 +3639,9 @@
           "score": 1.586
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": 0.06
         },
@@ -3696,9 +3767,9 @@
           "score": 1.677
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.06
         },
@@ -3831,11 +3902,11 @@
           "score": 0.653
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": 0.143
+          "score": 0.111
         },
         {
           "url": "/cabinets/built-ins",
@@ -3888,6 +3959,13 @@
           "score": 999
         },
         {
+          "url": "/blog/two-tone-kitchen-cabinets",
+          "anchor": "Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off",
+          "title": "Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off",
+          "type": "blog",
+          "score": 0.55
+        },
+        {
           "url": "/blog/how-to-plan-a-kitchen-cabinet-project",
           "anchor": "How to Plan a Kitchen Cabinet Project (Step-by-Step)",
           "title": "How to Plan a Kitchen Cabinet Project (Step-by-Step)",
@@ -3900,13 +3978,6 @@
           "title": "Sage Green Kitchen Cabinets: A Designer's Guide",
           "type": "blog",
           "score": 0.495
-        },
-        {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": -0.002
         }
       ]
     },
@@ -4023,9 +4094,9 @@
           "score": 0.722
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": 0.02
         },
@@ -4066,23 +4137,16 @@
           "score": 999
         },
         {
-          "url": "/blog/cabinet-consultation-process",
-          "anchor": "Cabinet Consultation Process",
-          "title": "Cabinet Consultation Process",
-          "type": "blog",
-          "score": 1.279
-        },
-        {
-          "url": "/blog/what-makes-great-cabinet-company",
-          "anchor": "What Makes a Great Cabinet Company",
-          "title": "What Makes a Great Cabinet Company",
-          "type": "blog",
-          "score": 1.27
-        },
-        {
           "url": "/blog/cabinet-company-red-flags",
           "anchor": "Cabinet Company Red Flags",
           "title": "Cabinet Company Red Flags",
+          "type": "blog",
+          "score": 1.239
+        },
+        {
+          "url": "/blog/cabinet-consultation-process",
+          "anchor": "Cabinet Consultation Process",
+          "title": "Cabinet Consultation Process",
           "type": "blog",
           "score": 1.239
         },
@@ -4094,11 +4158,18 @@
           "score": 1.225
         },
         {
-          "url": "/blog/fixed-price-vs-cost-plus",
-          "anchor": "Fixed Price vs Cost Plus Cabinet Quotes",
-          "title": "Fixed Price vs Cost Plus Cabinet Quotes",
+          "url": "/blog/cabinet-materials-labels-certifications",
+          "anchor": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
           "type": "blog",
-          "score": 1.15
+          "score": 0.95
+        },
+        {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
+          "type": "guide",
+          "score": 0.02
         }
       ]
     },
@@ -4222,9 +4293,9 @@
           "score": 0.993
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
           "type": "guide",
           "score": 0.02
         }
@@ -4286,11 +4357,11 @@
           "score": 0.506
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": 0.038
+          "score": 0.005
         }
       ]
     },
@@ -4478,11 +4549,11 @@
           "score": 0.48
         },
         {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
+          "url": "/locations/boise",
+          "anchor": "Boise cabinets",
+          "title": "Custom Cabinets in Boise, Idaho",
           "type": "guide",
-          "score": 0.103
+          "score": 0.071
         }
       ]
     },
@@ -4535,18 +4606,18 @@
           "score": 0.55
         },
         {
+          "url": "/blog/how-deep-are-kitchen-cabinets",
+          "anchor": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
+          "title": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
+          "type": "blog",
+          "score": 0.503
+        },
+        {
           "url": "/blog/best-kitchen-cabinet-colors",
           "anchor": "Best Kitchen Cabinet Colors (2026 Trends + How to Choose)",
           "title": "Best Kitchen Cabinet Colors (2026 Trends + How to Choose)",
           "type": "blog",
           "score": 0.499
-        },
-        {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
-          "type": "guide",
-          "score": -0.033
         }
       ]
     },
@@ -4713,13 +4784,6 @@
           "score": 1.35
         },
         {
-          "url": "/blog/cabinet-consultation-process",
-          "anchor": "Cabinet Consultation Process",
-          "title": "Cabinet Consultation Process",
-          "type": "blog",
-          "score": 1.31
-        },
-        {
           "url": "/blog/questions-to-ask-cabinet-company",
           "anchor": "Questions to Ask a Cabinet Company",
           "title": "Questions to Ask a Cabinet Company",
@@ -4732,6 +4796,13 @@
           "title": "Why Cabinet Quotes Vary So Much",
           "type": "blog",
           "score": 1.279
+        },
+        {
+          "url": "/blog/cabinet-company-red-flags",
+          "anchor": "Cabinet Company Red Flags",
+          "title": "Cabinet Company Red Flags",
+          "type": "blog",
+          "score": 1.27
         },
         {
           "url": "/blog/fixed-price-vs-cost-plus",
@@ -4905,11 +4976,11 @@
           "score": 1.301
         },
         {
-          "url": "/blog/cabinet-company-red-flags",
-          "anchor": "Cabinet Company Red Flags",
-          "title": "Cabinet Company Red Flags",
+          "url": "/blog/what-makes-great-cabinet-company",
+          "anchor": "What Makes a Great Cabinet Company",
+          "title": "What Makes a Great Cabinet Company",
           "type": "blog",
-          "score": 1.225
+          "score": 1.279
         },
         {
           "url": "/blog/questions-to-ask-cabinet-company",
@@ -4926,11 +4997,11 @@
           "score": 1.21
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": -0.02
+          "url": "/blog/cabinet-materials-labels-certifications",
+          "anchor": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "type": "blog",
+          "score": 0.868
         }
       ]
     },
@@ -4976,25 +5047,25 @@
           "score": -0.011
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
-          "type": "guide",
-          "score": -0.037
-        },
-        {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": -0.037
-        },
-        {
           "url": "/cabinets/wet-bar",
           "anchor": "Wet Bar cabinets",
           "title": "Wet Bar Cabinets",
           "type": "catalog",
           "score": -0.049
+        },
+        {
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
+          "type": "guide",
+          "score": -0.069
+        },
+        {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": -0.077
         }
       ]
     },
@@ -5054,9 +5125,9 @@
           "score": 0.071
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": -0.06
         }
@@ -5111,16 +5182,16 @@
           "score": 0.12
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": -0.06
         },
         {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": -0.06
         }
@@ -5175,18 +5246,18 @@
           "score": 0.1
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
           "type": "guide",
           "score": -0.06
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
+          "url": "/guides/cabinet-project-process-guide",
+          "anchor": "Boise Cabinet Project Process Guide",
+          "title": "Boise Cabinet Project Process Guide",
           "type": "guide",
-          "score": -0.06
+          "score": -0.1
         }
       ]
     },
@@ -5239,18 +5310,18 @@
           "score": 0.08
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
+          "url": "/guides/cabinet-roi-guide-boise",
+          "anchor": "Best Cabinet Upgrades for ROI in Boise",
+          "title": "Best Cabinet Upgrades for ROI in Boise",
           "type": "guide",
-          "score": -0.06
+          "score": -0.1
         },
         {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": -0.06
+          "score": -0.1
         }
       ]
     },
@@ -5282,6 +5353,13 @@
           "score": 0.095
         },
         {
+          "url": "/blog/cabinet-materials-labels-certifications",
+          "anchor": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "type": "blog",
+          "score": 0.091
+        },
+        {
           "url": "/blog/laundry-room-cabinet-ideas",
           "anchor": "Laundry Room Cabinet Ideas & Storage Solutions",
           "title": "Laundry Room Cabinet Ideas & Storage Solutions",
@@ -5296,23 +5374,16 @@
           "score": 0.061
         },
         {
-          "url": "/blog/cabinet-buying-mistakes",
-          "anchor": "Cabinet Buying Mistakes to Avoid",
-          "title": "Cabinet Buying Mistakes to Avoid",
-          "type": "blog",
-          "score": 0.06
-        },
-        {
-          "url": "/guides/cabinet-project-process-guide",
-          "anchor": "Boise Cabinet Project Process Guide",
-          "title": "Boise Cabinet Project Process Guide",
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
           "score": -0.1
         },
         {
-          "url": "/guides/cabinet-roi-guide-boise",
-          "anchor": "Best Cabinet Upgrades for ROI in Boise",
-          "title": "Best Cabinet Upgrades for ROI in Boise",
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
           "score": -0.1
         }
@@ -5353,6 +5424,13 @@
           "score": 0.063
         },
         {
+          "url": "/blog/cabinet-buying-mistakes",
+          "anchor": "Cabinet Buying Mistakes to Avoid",
+          "title": "Cabinet Buying Mistakes to Avoid",
+          "type": "blog",
+          "score": 0.06
+        },
+        {
           "url": "/blog/cabinet-installation-punch-list",
           "anchor": "Cabinet Installation Punch List",
           "title": "Cabinet Installation Punch List",
@@ -5360,23 +5438,16 @@
           "score": 0.06
         },
         {
-          "url": "/blog/cabinet-measurement-design-phase",
-          "anchor": "Cabinet Measurement & Design Phase",
-          "title": "Cabinet Measurement & Design Phase",
-          "type": "blog",
-          "score": 0.06
-        },
-        {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": -0.1
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": -0.1
         }
@@ -5431,18 +5502,18 @@
           "score": 0.061
         },
         {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
-          "type": "guide",
-          "score": -0.068
-        },
-        {
           "url": "/locations/nampa",
           "anchor": "Nampa cabinets",
           "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": -0.068
+        },
+        {
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
+          "type": "guide",
+          "score": -0.1
         }
       ]
     },
@@ -5495,18 +5566,18 @@
           "score": 0.042
         },
         {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": -0.073
+        },
+        {
           "url": "/locations/kuna",
           "anchor": "Kuna cabinets",
           "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": -0.067
-        },
-        {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": -0.068
+          "score": -0.107
         }
       ]
     },
@@ -5538,16 +5609,16 @@
           "score": 0.086
         },
         {
-          "url": "/blog/living-through-cabinet-installation",
-          "anchor": "Living Through Cabinet Installation",
-          "title": "Living Through Cabinet Installation",
+          "url": "/blog/cabinet-measurement-design-phase",
+          "anchor": "Cabinet Measurement & Design Phase",
+          "title": "Cabinet Measurement & Design Phase",
           "type": "blog",
           "score": 0.06
         },
         {
-          "url": "/blog/small-bathroom-vanity-ideas",
-          "anchor": "Small Bathroom Vanity Ideas",
-          "title": "Small Bathroom Vanity Ideas",
+          "url": "/blog/living-through-cabinet-installation",
+          "anchor": "Living Through Cabinet Installation",
+          "title": "Living Through Cabinet Installation",
           "type": "blog",
           "score": 0.06
         },
@@ -5559,18 +5630,18 @@
           "score": 0.045
         },
         {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": -0.1
-        },
-        {
           "url": "/guides/whole-home-cabinetry-guide",
           "anchor": "Whole-Home Cabinetry Guide",
           "title": "Whole-Home Cabinetry Guide",
           "type": "guide",
           "score": -0.107
+        },
+        {
+          "url": "/guides/boise-bathroom-vanity-guide",
+          "anchor": "Boise Bathroom Vanity Guide",
+          "title": "Boise Bathroom Vanity Guide",
+          "type": "guide",
+          "score": -0.14
         }
       ]
     },
@@ -5616,23 +5687,23 @@
           "score": 0.071
         },
         {
-          "url": "/blog/cabinet-finishes-door-styles-guide",
-          "anchor": "Cabinet Finishes & Door Styles Selection",
-          "title": "Cabinet Finishes & Door Styles Selection",
+          "url": "/blog/small-bathroom-vanity-ideas",
+          "anchor": "Small Bathroom Vanity Ideas",
+          "title": "Small Bathroom Vanity Ideas",
           "type": "blog",
-          "score": 0.057
-        },
-        {
-          "url": "/guides/boise-bathroom-vanity-guide",
-          "anchor": "Boise Bathroom Vanity Guide",
-          "title": "Boise Bathroom Vanity Guide",
-          "type": "guide",
-          "score": -0.14
+          "score": 0.06
         },
         {
           "url": "/guides/cabinet-project-process-guide",
           "anchor": "Boise Cabinet Project Process Guide",
           "title": "Boise Cabinet Project Process Guide",
+          "type": "guide",
+          "score": -0.14
+        },
+        {
+          "url": "/guides/cabinet-roi-guide-boise",
+          "anchor": "Best Cabinet Upgrades for ROI in Boise",
+          "title": "Best Cabinet Upgrades for ROI in Boise",
           "type": "guide",
           "score": -0.14
         }
@@ -5650,6 +5721,13 @@
           "title": "Mudroom Cabinets",
           "type": "catalog",
           "score": 0.071
+        },
+        {
+          "url": "/blog/cabinet-finishes-door-styles-guide",
+          "anchor": "Cabinet Finishes & Door Styles Selection",
+          "title": "Cabinet Finishes & Door Styles Selection",
+          "type": "blog",
+          "score": 0.056
         },
         {
           "url": "/blog/cabinet-buying-mistakes",
@@ -5673,13 +5751,6 @@
           "score": 0.052
         },
         {
-          "url": "/blog/living-through-cabinet-installation",
-          "anchor": "Living Through Cabinet Installation",
-          "title": "Living Through Cabinet Installation",
-          "type": "blog",
-          "score": 0.052
-        },
-        {
           "url": "/cabinets/garage",
           "anchor": "Garage cabinets",
           "title": "Garage Cabinets",
@@ -5687,16 +5758,16 @@
           "score": 0.033
         },
         {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
-          "type": "guide",
-          "score": -0.1
-        },
-        {
           "url": "/locations/caldwell",
           "anchor": "Caldwell cabinets",
           "title": "Custom Cabinets in Caldwell, Idaho",
+          "type": "guide",
+          "score": -0.102
+        },
+        {
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
           "type": "guide",
           "score": -0.102
         }
@@ -5737,9 +5808,9 @@
           "score": 0.056
         },
         {
-          "url": "/blog/garage-storage-cabinet-systems",
-          "anchor": "Garage Storage Cabinet Systems",
-          "title": "Garage Storage Cabinet Systems",
+          "url": "/blog/cabinet-materials-labels-certifications",
+          "anchor": "What's inside your cabinet boxes? Materials, labels, and certifications",
+          "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
           "type": "blog",
           "score": 0.049
         },
@@ -5751,16 +5822,16 @@
           "score": 0.045
         },
         {
-          "url": "/guides/cabinet-roi-guide-boise",
-          "anchor": "Best Cabinet Upgrades for ROI in Boise",
-          "title": "Best Cabinet Upgrades for ROI in Boise",
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": -0.14
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": -0.14
         }
@@ -5801,13 +5872,6 @@
           "score": 0.02
         },
         {
-          "url": "/blog/cabinet-company-red-flags",
-          "anchor": "Cabinet Company Red Flags",
-          "title": "Cabinet Company Red Flags",
-          "type": "blog",
-          "score": 0.02
-        },
-        {
           "url": "/blog/cabinet-consultation-process",
           "anchor": "Cabinet Consultation Process",
           "title": "Cabinet Consultation Process",
@@ -5815,11 +5879,11 @@
           "score": 0.02
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": -0.103
+          "url": "/blog/cabinet-installation-punch-list",
+          "anchor": "Cabinet Installation Punch List",
+          "title": "Cabinet Installation Punch List",
+          "type": "blog",
+          "score": 0.02
         },
         {
           "url": "/locations/star",
@@ -5827,6 +5891,13 @@
           "title": "Custom Cabinets in Star, Idaho",
           "type": "guide",
           "score": -0.103
+        },
+        {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
+          "type": "guide",
+          "score": -0.143
         }
       ]
     },
@@ -6014,6 +6085,13 @@
           "score": 0.797
         },
         {
+          "url": "/blog/what-are-shaker-cabinets",
+          "anchor": "What Are Shaker Cabinets? (And Why They're Timeless)",
+          "title": "What Are Shaker Cabinets? (And Why They're Timeless)",
+          "type": "blog",
+          "score": 0.688
+        },
+        {
           "url": "/blog/kitchen-layout-ideas-boise-homes",
           "anchor": "Kitchen Layout Ideas for Boise Homes",
           "title": "Kitchen Layout Ideas for Boise Homes",
@@ -6054,13 +6132,6 @@
           "title": "How to Make Oak Cabinets Look Modern (Without Replacing Them)",
           "type": "blog",
           "score": 0.48
-        },
-        {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
-          "type": "guide",
-          "score": 0.091
         }
       ]
     },
@@ -6083,6 +6154,13 @@
           "title": "Treasure Valley Custom Cabinet Guide",
           "type": "guide",
           "score": 999
+        },
+        {
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
+          "type": "blog",
+          "score": 0.744
         },
         {
           "url": "/blog/multi-room-cabinet-planning",
@@ -6118,13 +6196,6 @@
           "title": "Primary Suite Closet Cabinets",
           "type": "blog",
           "score": 0.73
-        },
-        {
-          "url": "/blog/garage-storage-cabinet-systems",
-          "anchor": "Garage Storage Cabinet Systems",
-          "title": "Garage Storage Cabinet Systems",
-          "type": "blog",
-          "score": 0.704
         },
         {
           "url": "/blog/mudroom-cabinets",
@@ -6177,20 +6248,6 @@
           "score": 0.732
         },
         {
-          "url": "/blog/cabinet-warranty-guide",
-          "anchor": "Cabinet Warranty Guide",
-          "title": "Cabinet Warranty Guide",
-          "type": "blog",
-          "score": 0.68
-        },
-        {
-          "url": "/blog/cabinet-installation-punch-list",
-          "anchor": "Cabinet Installation Punch List",
-          "title": "Cabinet Installation Punch List",
-          "type": "blog",
-          "score": 0.67
-        },
-        {
           "url": "/blog/cabinet-design-development",
           "anchor": "Cabinet Design Development",
           "title": "Cabinet Design Development",
@@ -6205,11 +6262,25 @@
           "score": 0.652
         },
         {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
+          "url": "/blog/cabinet-warranty-guide",
+          "anchor": "Cabinet Warranty Guide",
+          "title": "Cabinet Warranty Guide",
+          "type": "blog",
+          "score": 0.64
+        },
+        {
+          "url": "/blog/cabinet-installation-punch-list",
+          "anchor": "Cabinet Installation Punch List",
+          "title": "Cabinet Installation Punch List",
+          "type": "blog",
+          "score": 0.63
+        },
+        {
+          "url": "/locations/kuna",
+          "anchor": "Kuna cabinets",
+          "title": "Custom Cabinets in Kuna, Idaho",
           "type": "guide",
-          "score": -0.04
+          "score": -0.069
         },
         {
           "url": "/catalog",
@@ -6319,6 +6390,13 @@
           "score": 999
         },
         {
+          "url": "/blog/fixed-price-vs-cost-plus",
+          "anchor": "Fixed Price vs Cost Plus Cabinet Quotes",
+          "title": "Fixed Price vs Cost Plus Cabinet Quotes",
+          "type": "blog",
+          "score": 0.764
+        },
+        {
           "url": "/blog/questions-to-ask-cabinet-company",
           "anchor": "Questions to Ask a Cabinet Company",
           "title": "Questions to Ask a Cabinet Company",
@@ -6366,13 +6444,6 @@
           "title": "Mudroom Cabinets",
           "type": "catalog",
           "score": -0.44
-        },
-        {
-          "url": "/cabinets/pantry",
-          "anchor": "Pantry cabinets",
-          "title": "Pantry Cabinets",
-          "type": "catalog",
-          "score": -0.44
         }
       ]
     },
@@ -6388,6 +6459,13 @@
           "title": "Boise Cabinet Cost Guide (2026 Planning Ranges)",
           "type": "guide",
           "score": 999
+        },
+        {
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
+          "type": "blog",
+          "score": 0.045
         },
         {
           "url": "/blog/multi-room-cabinet-planning",
@@ -6425,18 +6503,11 @@
           "score": 0.04
         },
         {
-          "url": "/blog/custom-cabinet-shop-vs-big-box",
-          "anchor": "Custom Cabinet Shop vs Big Box",
-          "title": "Custom Cabinet Shop vs Big Box",
-          "type": "blog",
-          "score": 0.036
-        },
-        {
-          "url": "/locations/kuna",
-          "anchor": "Kuna cabinets",
-          "title": "Custom Cabinets in Kuna, Idaho",
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": -0.109
+          "score": -0.113
         },
         {
           "url": "/catalog",
@@ -6475,6 +6546,13 @@
           "score": 999
         },
         {
+          "url": "/blog/living-through-cabinet-installation",
+          "anchor": "Living Through Cabinet Installation",
+          "title": "Living Through Cabinet Installation",
+          "type": "blog",
+          "score": 0.701
+        },
+        {
           "url": "/blog/cabinet-planning-checklist",
           "anchor": "Cabinet Planning Checklist",
           "title": "Cabinet Planning Checklist",
@@ -6503,16 +6581,9 @@
           "score": 0.661
         },
         {
-          "url": "/blog/cabinet-refresh-vs-replace-vs-moving",
-          "anchor": "Cabinet Refresh vs Replace vs Moving",
-          "title": "Cabinet Refresh vs Replace vs Moving",
-          "type": "blog",
-          "score": 0.661
-        },
-        {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
           "score": -0.18
         },
@@ -6546,23 +6617,9 @@
           "score": 1.18
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
-          "type": "guide",
-          "score": 0.97
-        },
-        {
           "url": "/locations/meridian",
           "anchor": "Meridian cabinets",
           "title": "Custom Cabinets in Meridian, Idaho",
-          "type": "guide",
-          "score": 0.97
-        },
-        {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": 0.97
         },
@@ -6572,6 +6629,20 @@
           "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.97
+        },
+        {
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
+          "type": "guide",
+          "score": 0.97
+        },
+        {
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
+          "type": "guide",
+          "score": 0.93
         },
         {
           "url": "/blog/open-kitchen-cabinet-storage",
@@ -6628,14 +6699,7 @@
           "anchor": "Boise cabinets",
           "title": "Custom Cabinets in Boise, Idaho",
           "type": "guide",
-          "score": 0.85
-        },
-        {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": 0.82
+          "score": 0.81
         },
         {
           "url": "/locations/eagle",
@@ -6652,6 +6716,20 @@
           "score": 0.78
         },
         {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
+          "type": "guide",
+          "score": 0.78
+        },
+        {
+          "url": "/blog/custom-cabinet-shop-vs-big-box",
+          "anchor": "Custom Cabinet Shop vs Big Box",
+          "title": "Custom Cabinet Shop vs Big Box",
+          "type": "blog",
+          "score": 0.08
+        },
+        {
           "url": "/blog/custom-cabinet-design-process",
           "anchor": "Custom Cabinet Design Process",
           "title": "Custom Cabinet Design Process",
@@ -6664,13 +6742,6 @@
           "title": "Framed vs Frameless Cabinets: The Complete Guide",
           "type": "blog",
           "score": 0.056
-        },
-        {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
-          "type": "blog",
-          "score": 0.051
         },
         {
           "url": "/cabinets/home-office",
@@ -6702,32 +6773,32 @@
           "score": 0.85
         },
         {
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
+          "type": "guide",
+          "score": 0.78
+        },
+        {
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
+          "type": "guide",
+          "score": 0.78
+        },
+        {
           "url": "/locations/boise",
           "anchor": "Boise cabinets",
           "title": "Custom Cabinets in Boise, Idaho",
           "type": "guide",
-          "score": 0.81
+          "score": 0.77
         },
         {
           "url": "/locations/caldwell",
           "anchor": "Caldwell cabinets",
           "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": 0.78
-        },
-        {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": 0.78
-        },
-        {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
-          "type": "guide",
-          "score": 0.78
+          "score": 0.74
         },
         {
           "url": "/blog/luxury-custom-cabinet-cost-boise",
@@ -6744,11 +6815,11 @@
           "score": 0.122
         },
         {
-          "url": "/blog/custom-cabinet-shop-vs-big-box",
-          "anchor": "Custom Cabinet Shop vs Big Box",
-          "title": "Custom Cabinet Shop vs Big Box",
+          "url": "/blog/kitchen-cabinet-roi-boise",
+          "anchor": "Kitchen Cabinet ROI Boise",
+          "title": "Kitchen Cabinet ROI Boise",
           "type": "blog",
-          "score": 0.04
+          "score": 0.051
         },
         {
           "url": "/cabinets/built-ins",
@@ -6777,21 +6848,7 @@
           "anchor": "Boise cabinets",
           "title": "Custom Cabinets in Boise, Idaho",
           "type": "guide",
-          "score": 1.02
-        },
-        {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": 0.93
-        },
-        {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
-          "type": "guide",
-          "score": 0.89
+          "score": 0.98
         },
         {
           "url": "/locations/eagle",
@@ -6808,6 +6865,27 @@
           "score": 0.89
         },
         {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
+          "type": "guide",
+          "score": 0.89
+        },
+        {
+          "url": "/locations/nampa",
+          "anchor": "Nampa cabinets",
+          "title": "Custom Cabinets in Nampa, Idaho",
+          "type": "guide",
+          "score": 0.89
+        },
+        {
+          "url": "/blog/custom-cabinet-shop-vs-big-box",
+          "anchor": "Custom Cabinet Shop vs Big Box",
+          "title": "Custom Cabinet Shop vs Big Box",
+          "type": "blog",
+          "score": 0.051
+        },
+        {
           "url": "/blog/how-to-clean-kitchen-cabinets",
           "anchor": "How to Clean Kitchen Cabinets (Without Ruining the Finish)",
           "title": "How to Clean Kitchen Cabinets (Without Ruining the Finish)",
@@ -6820,13 +6898,6 @@
           "title": "Custom Cabinet Design Process",
           "type": "blog",
           "score": 0.031
-        },
-        {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
-          "type": "blog",
-          "score": 0.025
         },
         {
           "url": "/cabinets/laundry",
@@ -6858,20 +6929,6 @@
           "score": 0.81
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": 0.74
-        },
-        {
-          "url": "/locations/nampa",
-          "anchor": "Nampa cabinets",
-          "title": "Custom Cabinets in Nampa, Idaho",
-          "type": "guide",
-          "score": 0.74
-        },
-        {
           "url": "/locations/star",
           "anchor": "Star cabinets",
           "title": "Custom Cabinets in Star, Idaho",
@@ -6879,11 +6936,25 @@
           "score": 0.74
         },
         {
-          "url": "/locations/boise",
-          "anchor": "Boise cabinets",
-          "title": "Custom Cabinets in Boise, Idaho",
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
           "type": "guide",
-          "score": 0.73
+          "score": 0.7
+        },
+        {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": 0.7
+        },
+        {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
+          "type": "guide",
+          "score": 0.7
         },
         {
           "url": "/blog/kitchen-cabinet-trends",
@@ -6936,20 +7007,6 @@
           "score": 0.77
         },
         {
-          "url": "/locations/caldwell",
-          "anchor": "Caldwell cabinets",
-          "title": "Custom Cabinets in Caldwell, Idaho",
-          "type": "guide",
-          "score": 0.7
-        },
-        {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
-          "type": "guide",
-          "score": 0.7
-        },
-        {
           "url": "/locations/meridian",
           "anchor": "Meridian cabinets",
           "title": "Custom Cabinets in Meridian, Idaho",
@@ -6962,6 +7019,20 @@
           "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.7
+        },
+        {
+          "url": "/locations/star",
+          "anchor": "Star cabinets",
+          "title": "Custom Cabinets in Star, Idaho",
+          "type": "guide",
+          "score": 0.7
+        },
+        {
+          "url": "/locations/boise",
+          "anchor": "Boise cabinets",
+          "title": "Custom Cabinets in Boise, Idaho",
+          "type": "guide",
+          "score": 0.69
         },
         {
           "url": "/blog/fixed-price-vs-cost-plus",
@@ -7014,30 +7085,30 @@
           "score": 0.73
         },
         {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": 0.7
-        },
-        {
-          "url": "/locations/star",
-          "anchor": "Star cabinets",
-          "title": "Custom Cabinets in Star, Idaho",
-          "type": "guide",
-          "score": 0.7
-        },
-        {
-          "url": "/locations/boise",
-          "anchor": "Boise cabinets",
-          "title": "Custom Cabinets in Boise, Idaho",
-          "type": "guide",
-          "score": 0.69
-        },
-        {
           "url": "/locations/caldwell",
           "anchor": "Caldwell cabinets",
           "title": "Custom Cabinets in Caldwell, Idaho",
+          "type": "guide",
+          "score": 0.66
+        },
+        {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": 0.66
+        },
+        {
+          "url": "/locations/meridian",
+          "anchor": "Meridian cabinets",
+          "title": "Custom Cabinets in Meridian, Idaho",
+          "type": "guide",
+          "score": 0.66
+        },
+        {
+          "url": "/locations/middleton",
+          "anchor": "Middleton cabinets",
+          "title": "Custom Cabinets in Middleton, Idaho",
           "type": "guide",
           "score": 0.66
         },
@@ -7092,32 +7163,32 @@
           "score": 0.69
         },
         {
-          "url": "/locations/eagle",
-          "anchor": "Eagle cabinets",
-          "title": "Custom Cabinets in Eagle, Idaho",
-          "type": "guide",
-          "score": 0.66
-        },
-        {
-          "url": "/locations/meridian",
-          "anchor": "Meridian cabinets",
-          "title": "Custom Cabinets in Meridian, Idaho",
-          "type": "guide",
-          "score": 0.66
-        },
-        {
-          "url": "/locations/middleton",
-          "anchor": "Middleton cabinets",
-          "title": "Custom Cabinets in Middleton, Idaho",
-          "type": "guide",
-          "score": 0.66
-        },
-        {
           "url": "/locations/nampa",
           "anchor": "Nampa cabinets",
           "title": "Custom Cabinets in Nampa, Idaho",
           "type": "guide",
           "score": 0.66
+        },
+        {
+          "url": "/locations/boise",
+          "anchor": "Boise cabinets",
+          "title": "Custom Cabinets in Boise, Idaho",
+          "type": "guide",
+          "score": 0.65
+        },
+        {
+          "url": "/locations/caldwell",
+          "anchor": "Caldwell cabinets",
+          "title": "Custom Cabinets in Caldwell, Idaho",
+          "type": "guide",
+          "score": 0.62
+        },
+        {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": 0.62
         },
         {
           "url": "/blog/best-wood-for-kitchen-cabinets",
@@ -7134,6 +7205,13 @@
           "score": 0.038
         },
         {
+          "url": "/blog/kitchen-cabinet-roi-boise",
+          "anchor": "Kitchen Cabinet ROI Boise",
+          "title": "Kitchen Cabinet ROI Boise",
+          "type": "blog",
+          "score": 0.011
+        },
+        {
           "url": "/blog/how-deep-are-kitchen-cabinets",
           "anchor": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
           "title": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
@@ -7146,24 +7224,18 @@
           "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
           "score": 0.003
-        },
-        {
-          "url": "/blog/what-are-rta-cabinets",
-          "anchor": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
-          "title": "What Are RTA Cabinets? (Pros, Cons & Alternatives)",
-          "type": "blog",
-          "score": 0.003
         }
       ]
     }
   },
   "incoming": {
+    "/blog/cabinet-materials-labels-certifications": 5,
     "/blog/framed-vs-frameless-cabinets": 5,
     "/blog/cabinet-door-styles-guide": 6,
     "/blog/cabinet-hardware-guide": 5,
     "/blog/cabinet-finishes-colors-guide": 11,
     "/blog/stock-vs-custom-cabinets-boise": 6,
-    "/blog/cabinet-construction-quality-guide": 11,
+    "/blog/cabinet-construction-quality-guide": 12,
     "/blog/cabinet-cost-per-linear-foot": 5,
     "/blog/what-are-rta-cabinets": 5,
     "/blog/custom-kitchen-cabinet-cost": 6,
@@ -7237,11 +7309,11 @@
     "/blog/custom-vs-reserve-cabinets": 7,
     "/guides/boise-cabinet-cost-guide": 64,
     "/guides/treasure-valley-cabinet-guide": 18,
-    "/guides/boise-kitchen-cabinet-guide": 26,
-    "/guides/boise-bathroom-vanity-guide": 10,
+    "/guides/boise-kitchen-cabinet-guide": 27,
+    "/guides/boise-bathroom-vanity-guide": 11,
     "/guides/built-in-cabinet-guide": 13,
     "/guides/whole-home-cabinetry-guide": 11,
-    "/guides/choose-cabinet-company-boise": 11,
+    "/guides/choose-cabinet-company-boise": 12,
     "/guides/cabinet-project-process-guide": 11,
     "/guides/cabinet-roi-guide-boise": 11,
     "/catalog": 11,
@@ -7251,23 +7323,45 @@
     "/cabinets/mudroom": 13,
     "/cabinets/home-office": 8,
     "/cabinets/entertainment": 10,
-    "/cabinets/built-ins": 12,
-    "/cabinets/pantry": 12,
+    "/cabinets/built-ins": 13,
+    "/cabinets/pantry": 11,
     "/cabinets/closet": 9,
     "/cabinets/garage": 10,
     "/cabinets/outdoor": 15,
-    "/cabinets/wet-bar": 11,
+    "/cabinets/wet-bar": 12,
     "/cabinets/bedroom": 7,
-    "/locations/boise": 17,
+    "/locations/boise": 18,
     "/locations/meridian": 14,
-    "/locations/eagle": 13,
-    "/locations/nampa": 14,
-    "/locations/kuna": 16,
-    "/locations/star": 14,
-    "/locations/middleton": 15,
-    "/locations/caldwell": 14
+    "/locations/eagle": 14,
+    "/locations/nampa": 13,
+    "/locations/kuna": 18,
+    "/locations/star": 12,
+    "/locations/middleton": 14,
+    "/locations/caldwell": 13
   },
   "blogByCategory": {
+    "choosing-cabinet-company": [
+      {
+        "slug": "cabinet-materials-labels-certifications",
+        "title": "What's inside your cabinet boxes? Materials, labels, and certifications",
+        "publishedAt": "2026-10-16"
+      },
+      {
+        "slug": "cabinet-construction-quality-guide",
+        "title": "Cabinet Construction Quality: How to Judge a Well-Built Cabinet",
+        "publishedAt": "2026-07-11"
+      },
+      {
+        "slug": "stock-vs-custom-cabinets-boise",
+        "title": "Stock vs Custom Cabinets: Which Is Right for You?",
+        "publishedAt": "2026-07-11"
+      },
+      {
+        "slug": "custom-vs-reserve-cabinets",
+        "title": "Custom Cabinets Built to Your Specifications",
+        "publishedAt": "2026-05-15"
+      }
+    ],
     "kitchen-cabinets": [
       {
         "slug": "how-to-clean-kitchen-cabinets",
@@ -7288,28 +7382,6 @@
         "slug": "sage-green-kitchen-cabinets",
         "title": "Sage Green Kitchen Cabinets: A Designer's Guide",
         "publishedAt": "2026-07-11"
-      }
-    ],
-    "choosing-cabinet-company": [
-      {
-        "slug": "cabinet-construction-quality-guide",
-        "title": "Cabinet Construction Quality: How to Judge a Well-Built Cabinet",
-        "publishedAt": "2026-07-11"
-      },
-      {
-        "slug": "stock-vs-custom-cabinets-boise",
-        "title": "Stock vs Custom Cabinets: Which Is Right for You?",
-        "publishedAt": "2026-07-11"
-      },
-      {
-        "slug": "custom-vs-reserve-cabinets",
-        "title": "Custom Cabinets Built to Your Specifications",
-        "publishedAt": "2026-05-15"
-      },
-      {
-        "slug": "fixed-price-vs-cost-plus",
-        "title": "Fixed Price vs Cost Plus Cabinet Quotes",
-        "publishedAt": "2026-05-15"
       }
     ],
     "cabinet-costs": [

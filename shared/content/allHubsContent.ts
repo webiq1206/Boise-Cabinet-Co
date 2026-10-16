@@ -261,6 +261,7 @@ export const CONTRACTOR_PILLAR = buildPillarGuide({
     'custom-vs-reserve-cabinets',
     'stock-vs-custom-cabinets-boise',
     'cabinet-construction-quality-guide',
+    'cabinet-materials-labels-certifications',
   ],
   linkedServices: ['kitchen'],
 });
