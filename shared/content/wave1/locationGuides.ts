@@ -3,7 +3,7 @@ import { expandLocation } from '../contentFactory';
 
 const PILLAR_COST = '/guides/boise-cabinet-cost-guide';
 const PILLAR_TV = '/guides/treasure-valley-cabinet-guide';
-const PILLAR_BOISE = '/guides/boise-cabinet-guide';
+const PILLAR_BOISE = '/locations/boise';
 
 const tvSections: ContentSection[] = [
   {

@@ -1,23 +1,21 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  generateLocalBusinessSchema,
-  generateOrganizationSchema,
-  generateServiceSchema,
-} from "../lib/schema";
+import { SITE } from "../backlink-engine/config";
+import { P5_ORG_ID, generateLocalBusinessSchema, generateOrganizationSchema, generateServiceSchema } from "../lib/schema";
+import { BUSINESS_INFO } from "../lib/seo";
+import { SITE_CONFIG } from "../shared/siteConfig";
 
 const MERIDIAN_ADDRESS = {
   "@type": "PostalAddress",
+  streetAddress: "4031 W Wapoot St",
   addressLocality: "Meridian",
   addressRegion: "ID",
+  postalCode: "83646",
   addressCountry: "US",
 };
 
 function assertMeridianAddress(address: unknown) {
   assert.deepEqual(address, MERIDIAN_ADDRESS);
-  const record = address as Record<string, unknown>;
-  assert.equal(record.streetAddress, undefined);
-  assert.equal(record.postalCode, undefined);
 }
 
 test("every business postal address is the Meridian locality", () => {
@@ -45,6 +43,54 @@ test("area pages name the city in areaServed and use HomeAndConstructionBusiness
   assert.deepEqual(service.areaServed, { "@type": "City", name: "Nampa" });
   const provider = service.provider as { address: { addressLocality: string } };
   assert.equal(provider.address.addressLocality, "Meridian");
+});
+
+test("schema NAP matches repo records and does not imply a showroom name", () => {
+  assert.equal(SITE.address.street, MERIDIAN_ADDRESS.streetAddress);
+  assert.equal(SITE.address.city, MERIDIAN_ADDRESS.addressLocality);
+  assert.equal(SITE.address.region, MERIDIAN_ADDRESS.addressRegion);
+  assert.equal(SITE.address.postalCode, MERIDIAN_ADDRESS.postalCode);
+  assert.equal(SITE.address.country, MERIDIAN_ADDRESS.addressCountry);
+  assert.equal(SITE.phone, "(208) 477-1169");
+  assert.equal(SITE_CONFIG.phone, SITE.phone);
+  assert.equal(SITE_CONFIG.email, "hello@boisecabinet.co");
+  assert.equal(BUSINESS_INFO.phone, SITE.phone);
+  assert.equal(BUSINESS_INFO.email, SITE_CONFIG.email);
+  assert.deepEqual(BUSINESS_INFO.serviceArea, [
+    "Boise",
+    "Meridian",
+    "Eagle",
+    "Nampa",
+    "Kuna",
+    "Star",
+    "Middleton",
+    "Caldwell",
+  ]);
+  assert.equal(SITE_CONFIG.owner.name, "Nick");
+
+  const home = generateLocalBusinessSchema();
+  const organization = generateOrganizationSchema();
+  const areas = home.areaServed as Array<{ name: string }>;
+  assert.deepEqual(areas.map((entry) => entry.name), BUSINESS_INFO.serviceArea);
+  assert.equal(JSON.stringify(areas).includes("Garden City"), false);
+  assert.equal(home.telephone, BUSINESS_INFO.phone);
+  assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
+  assert.equal(home.parentOrganization, organization.parentOrganization);
+  const parent = home.parentOrganization as { "@id": string; url: string };
+  assert.equal(parent["@id"], "https://p5homeco.com/#organization");
+  assert.equal(parent["@id"], P5_ORG_ID);
+  assert.equal(parent.url, "https://p5homeco.com");
+
+  for (const schema of [home, organization]) {
+    const contact = schema.contactPoint as { name: string; contactType: string; telephone: string };
+    assert.equal(contact.name, "Nick");
+    assert.equal(contact.contactType, "Public representative");
+    assert.equal(contact.telephone, "(208) 477-1169");
+    const json = JSON.stringify(schema);
+    assert.equal(json.includes("Jared"), false);
+    assert.equal(json.includes("Perkins"), false);
+    assert.equal(json.includes("Garden City"), false);
+  }
 });
 
 test("area-page geo stays on the Meridian locality", () => {

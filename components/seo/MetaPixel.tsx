@@ -65,6 +65,7 @@ export function MetaPixel() {
           height="1"
           width="1"
           alt=""
+          aria-hidden="true"
           style={{ display: "none" }}
           src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
         />

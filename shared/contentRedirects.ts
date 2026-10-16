@@ -11,7 +11,7 @@ const guide = (slug: string) => `/guides/${slug}`;
 export const GUIDE_REDIRECTS: Record<string, string> = {
   '/guides/boise-remodeling-cost-guide': guide('boise-cabinet-cost-guide'),
   '/guides/treasure-valley-remodeling-guide': guide('treasure-valley-cabinet-guide'),
-  '/guides/boise-remodeling-guide': guide('boise-cabinet-guide'),
+  '/guides/boise-remodeling-guide': '/locations/boise',
   '/guides/boise-kitchen-remodeling-guide': guide('boise-kitchen-cabinet-guide'),
   '/guides/boise-bathroom-remodeling-guide': guide('boise-bathroom-vanity-guide'),
   '/guides/boise-home-addition-guide': guide('built-in-cabinet-guide'),
@@ -26,12 +26,12 @@ export const GUIDE_REDIRECTS: Record<string, string> = {
   '/guides/star-remodeling-guide': guide('treasure-valley-cabinet-guide'),
   '/guides/middleton-remodeling-guide': guide('treasure-valley-cabinet-guide'),
   '/guides/nampa-remodeling-guide': guide('treasure-valley-cabinet-guide'),
-  '/guides/north-end-remodeling-guide': guide('boise-cabinet-guide'),
-  '/guides/boise-bench-remodeling-guide': guide('boise-cabinet-guide'),
-  '/guides/harris-ranch-remodeling-guide': guide('boise-cabinet-guide'),
-  '/guides/east-boise-remodeling-guide': guide('boise-cabinet-guide'),
-  '/guides/hidden-springs-remodeling-guide': guide('boise-cabinet-guide'),
-  '/guides/eagle-foothills-remodeling-guide': guide('boise-cabinet-guide'),
+  '/guides/north-end-remodeling-guide': '/locations/boise',
+  '/guides/boise-bench-remodeling-guide': '/locations/boise',
+  '/guides/harris-ranch-remodeling-guide': '/locations/boise',
+  '/guides/east-boise-remodeling-guide': '/locations/boise',
+  '/guides/hidden-springs-remodeling-guide': '/locations/boise',
+  '/guides/eagle-foothills-remodeling-guide': '/locations/boise',
 };
 
 const blog = (slug: string) => `/blog/${slug}`;

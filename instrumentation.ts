@@ -239,26 +239,22 @@ export async function register() {
     // Submit sitemap to IndexNow on production startup.
     // The key file is already live (deployed via public/), so the
     // verification should pass immediately after server boots.
+    // Dynamic import bundles the module into the standalone server. A spawned
+    // `node scripts/submit-indexnow.mjs` is absent from that bundle and used
+    // to die with MODULE_NOT_FOUND. A failed ping must not fail the deploy.
     void (async () => {
       try {
-        // `scripts/` is not traced into the standalone bundle, so in a deployed
-        // build this spawned `node scripts/submit-indexnow.mjs` and died with
-        // MODULE_NOT_FOUND on every cold start (confirmed by running the
-        // standalone artifact locally). Skip cleanly when the file is absent
-        // instead of spawning a process that is guaranteed to fail.
-        const { existsSync } = await import("fs");
-        const script = "scripts/submit-indexnow.mjs";
-        if (!existsSync(script)) {
-          console.log("[startup] IndexNow skipped - " + script + " not present in this build");
-          return;
-        }
-        const { exec } = await import("child_process");
-        const { promisify } = await import("util");
-        const execAsync = promisify(exec);
-        const { stdout, stderr } = await execAsync(`node ${script}`);
-        if (stdout) console.log("[startup] IndexNow output:", stdout.trim());
-        if (stderr) console.error("[startup] IndexNow stderr:", stderr.trim());
+        const { default: submitIndexNow } = await import("./scripts/submit-indexnow.mjs");
+        const result = await submitIndexNow();
+        console.log(
+          `[startup] IndexNow status: HTTP ${result.status}; submitted ${result.submitted} URL(s)`,
+        );
       } catch (e) {
+        const status =
+          e && typeof e === "object" && "status" in e && e.status != null
+            ? String(e.status)
+            : "error";
+        console.error(`[startup] IndexNow status: HTTP ${status}; submitted 0 URL(s)`);
         console.error("[startup] IndexNow submission failed:", e);
       }
     })();

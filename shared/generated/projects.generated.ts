@@ -169,7 +169,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Eagle cabinet guide",
-          "href": "/guides/eagle-cabinet-guide"
+          "href": "/locations/eagle"
         }
       ]
     }

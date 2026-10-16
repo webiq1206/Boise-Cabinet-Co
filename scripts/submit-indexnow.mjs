@@ -1,3 +1,5 @@
+import { pathToFileURL } from "node:url";
+
 /**
  * IndexNow URL submission script.
  * Fetches sitemap(s), extracts all URLs, filters to the configured host,
@@ -165,7 +167,15 @@ async function main() {
   console.log(`\nDone: ${result.submitted} URL(s) submitted.`);
 }
 
-main().catch((err) => {
-  console.error("\nUnexpected error:", err.message);
-  process.exit(1);
-});
+function isDirectRun() {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  return import.meta.url === pathToFileURL(entry).href;
+}
+
+if (isDirectRun()) {
+  main().catch((err) => {
+    console.error("\nUnexpected error:", err.message);
+    process.exit(1);
+  });
+}

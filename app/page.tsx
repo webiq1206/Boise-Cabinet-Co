@@ -35,6 +35,7 @@ export default function HomePage() {
           <Image
             src={MARKETING_IMAGES.heroHome}
             alt=""
+            aria-hidden="true"
             fill
             sizes="100vw"
             className="object-cover img-brand-grade"

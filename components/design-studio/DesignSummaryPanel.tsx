@@ -152,7 +152,7 @@ export function DesignSummaryPanel({
                 <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-sm border">
                   <Image
                     src={row.imageSrc}
-                    alt=""
+                    alt={row.value ?? "Cabinet finish"}
                     fill
                     sizes="32px"
                     className="object-cover"

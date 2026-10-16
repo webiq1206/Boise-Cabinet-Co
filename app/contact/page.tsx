@@ -1,6 +1,7 @@
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { Section } from '@/components/marketing';
+import { FaqAccordion } from '@/components/marketing/FaqAccordion';
 import { Hairline } from '@/components/marketing/Hairline';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
@@ -10,9 +11,11 @@ import { StatementBandSection } from '@/components/sections/StatementBandSection
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteEmailLink } from '@/components/SiteEmailLink';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { phase1ContactAnswer } from '@/lib/phase1Answers';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
 generateBreadcrumbSchema,
+generateFAQSchema,
 generateLocalBusinessSchema,
 generateWebPageSchema,
 } from '@/lib/schema';
@@ -132,6 +135,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
 })), "/contact");
 
 export default function ContactPage() {
+  const phaseAnswer = phase1ContactAnswer();
   const schemas = [
     generateLocalBusinessSchema(),
     generateWebPageSchema({
@@ -144,6 +148,7 @@ export default function ContactPage() {
       { name: 'Home', url: '/' },
       { name: 'Contact', url: '/contact' },
     ]),
+    generateFAQSchema(phaseAnswer.faqs),
   ];
 
   return (
@@ -181,6 +186,18 @@ export default function ContactPage() {
               ))}
             </dl>
           </InteriorHero>
+
+        <Section divider>
+          <div className="container px-4 max-w-5xl">
+            <SectionHeader
+              eyebrow="Quick answer"
+              title={phaseAnswer.heading}
+              description={phaseAnswer.paragraph}
+              align="left"
+            />
+            <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix="phase1-contact" />
+          </div>
+        </Section>
 
         {/* ─── Consultation form ─── */}
         <Section id="consult" divider data-suppress-sticky-cta="">

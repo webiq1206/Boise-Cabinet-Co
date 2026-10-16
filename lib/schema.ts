@@ -6,6 +6,7 @@ import {schemaTime} from './schemaTime';
 
 import { BUSINESS_INFO, CITY_SEO_DATA, getBaseUrl } from './seo';
 import { SERVICES } from '@/shared/contentData';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 interface SchemaContext {
   '@context': string;
@@ -43,15 +44,34 @@ export const P5_PARENT_ORGANIZATION = {
 const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as const;
 
 /**
- * Service-area postal address. Locality only: Meridian, ID, US.
- * No street and no postal code.
+ * Postal address for the Meridian service-area business record.
+ * Copied from backlink-engine/config.ts. This is not a public showroom:
+ * visible pages still say we come to you and do not print the street.
  */
 function serviceAreaPostalAddress() {
   return {
     '@type': 'PostalAddress' as const,
+    streetAddress: '4031 W Wapoot St' as const,
     addressLocality: 'Meridian' as const,
     addressRegion: 'ID' as const,
+    postalCode: '83646' as const,
     addressCountry: 'US' as const,
+  };
+}
+
+/**
+ * Public contact. The recorded owner name is "Nick". No surname is stored
+ * in this repository, so none is added here.
+ */
+function publicContactPoint() {
+  return {
+    '@type': 'ContactPoint' as const,
+    name: SITE_CONFIG.owner.name,
+    contactType: 'Public representative' as const,
+    telephone: BUSINESS_INFO.phone,
+    email: BUSINESS_INFO.email,
+    areaServed: 'US-ID' as const,
+    availableLanguage: 'English' as const,
   };
 }
 
@@ -87,6 +107,8 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
     address: serviceAreaPostalAddress(),
+    parentOrganization: P5_PARENT_ORGANIZATION,
+    contactPoint: publicContactPoint(),
     geo: {
       '@type': 'GeoCoordinates',
       latitude: coordinates.lat,
@@ -166,6 +188,8 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       telephone: BUSINESS_INFO.phone,
       email: BUSINESS_INFO.email,
       address: serviceAreaPostalAddress(),
+      parentOrganization: P5_PARENT_ORGANIZATION,
+      contactPoint: publicContactPoint(),
     },
     areaServed: city
       ? {
@@ -227,13 +251,7 @@ export function generateOrganizationSchema(): SchemaContext {
     ],
     areaServed: citiesServed(),
     sameAs: BUSINESS_INFO.sameAs,
-    contactPoint: {
-      '@type': 'ContactPoint',
-      telephone: BUSINESS_INFO.phone,
-      contactType: 'Customer Service',
-      areaServed: 'US-ID',
-      availableLanguage: 'English',
-    },
+    contactPoint: publicContactPoint(),
   };
 }
 

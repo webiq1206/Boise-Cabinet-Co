@@ -87,9 +87,9 @@ export interface GbpServiceArea {
 }
 
 export const GBP_SERVICE_AREAS: GbpServiceArea[] = [
-  { name: "Boise", county: "ada", gbpLabel: "Boise, ID", guidePath: "/guides/boise-cabinet-guide" },
+  { name: "Boise", county: "ada", gbpLabel: "Boise, ID", guidePath: "/locations/boise" },
   { name: "Meridian", county: "ada", gbpLabel: "Meridian, ID", guidePath: "/guides/meridian-cabinet-guide" },
-  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/guides/eagle-cabinet-guide" },
+  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/locations/eagle" },
   { name: "Nampa", county: "canyon", gbpLabel: "Nampa, ID", guidePath: "/guides/nampa-cabinet-guide" },
   { name: "Kuna", county: "ada", gbpLabel: "Kuna, ID", guidePath: "/guides/kuna-cabinet-guide" },
   { name: "Star", county: "ada", gbpLabel: "Star, ID", guidePath: "/guides/star-cabinet-guide" },
