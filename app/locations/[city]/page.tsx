@@ -85,6 +85,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
       { name: "Home", url: "/" },
       { name: `${city.name}, Idaho`, url: locationPath(city.slug) },
     ]),
+    // City coverage is areaServed. PostalAddress stays Meridian, ID, US.
     generateLocalBusinessSchema(city.name),
     ...(faqs.length ? [generateFAQSchema(faqs)] : []),
   ];

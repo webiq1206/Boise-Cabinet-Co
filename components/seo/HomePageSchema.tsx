@@ -14,7 +14,7 @@ export function HomePageSchema() {
     <JsonLd
       data={[
         generateOrganizationSchema(),
-        // No city arg: geo resolves to the Meridian locality so geo matches addressLocality.
+        // Meridian locality on the postal address and geo. Cities are areaServed.
         generateLocalBusinessSchema(),
         generateWebSiteSchema(),
         generateFAQSchema(
