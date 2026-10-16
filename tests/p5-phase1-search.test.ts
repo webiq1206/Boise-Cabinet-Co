@@ -5,6 +5,7 @@ import { withBrandPageMetadata } from "../lib/brand-page-metadata";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
 import { PHASE1_DESCRIPTIONS, PHASE1_TITLES } from "../lib/phase1SearchCopy";
 import { CABINET_PRODUCTS } from "../shared/catalog";
+import { LLMS_TXT } from "../shared/llmsTxt";
 
 const BRAND = " | Boise Cabinet Co";
 const VANITY_NAMES = [
@@ -100,4 +101,23 @@ test("IndexNow ping is bundled on startup and logs status", () => {
   assert.equal(boot.includes("if (!dbUrl) return;"), true);
   assert.equal(boot.includes('NEXT_RUNTIME === "nodejs"'), true);
   assert.equal(boot.includes('NODE_ENV === "production"'), true);
+});
+
+test("llms files and the footer publish the public email, address, and representative", () => {
+  for (const fact of [
+    "hello@boisecabinet.co",
+    "4031 W Wapoot St, Meridian, ID 83646",
+    "Nick Perkins",
+    "no public showroom",
+  ]) {
+    assert.equal(LLMS_TXT.includes(fact), true, fact);
+  }
+  assert.equal(LLMS_TXT.includes("Jared"), false);
+  const full = readFileSync("app/llms-full.txt/route.ts", "utf8");
+  assert.equal(full.includes("LLMS_TXT.trim()"), true);
+  const footer = readFileSync("components/Footer.tsx", "utf8");
+  assert.equal(footer.includes("mailto:${SITE_CONFIG.email}"), true);
+  assert.equal(footer.includes("{SITE_CONFIG.email}"), true);
+  assert.equal(footer.includes("Nick Perkins"), false);
+  assert.equal(footer.includes("4031 W Wapoot St"), false);
 });

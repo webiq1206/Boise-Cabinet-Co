@@ -1,7 +1,6 @@
 
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
-import { SiteEmailLink } from "@/components/SiteEmailLink";
 import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
@@ -109,7 +108,12 @@ export function Footer() {
               >
                 Text {SITE_CONFIG.phone}
               </a>
-              <SiteEmailLink className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
+              <a
+                href={`mailto:${SITE_CONFIG.email}`}
+                className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+              >
+                {SITE_CONFIG.email}
+              </a>
               <address className="not-italic text-sm text-inverse-muted">
                 {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
               </address>

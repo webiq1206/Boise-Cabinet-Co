@@ -63,6 +63,7 @@ function serviceAreaPostalAddress() {
  * Visible pages keep the shorter owner name already on the site.
  */
 const PUBLIC_REPRESENTATIVE_NAME = 'Nick Perkins';
+const PUBLIC_EMAIL = 'hello@boisecabinet.co';
 
 function publicRepresentative() {
   return {
@@ -77,7 +78,7 @@ function publicContactPoint() {
     name: PUBLIC_REPRESENTATIVE_NAME,
     contactType: 'Public representative' as const,
     telephone: BUSINESS_INFO.phone,
-    email: BUSINESS_INFO.email,
+    email: PUBLIC_EMAIL,
     areaServed: 'US-ID' as const,
     availableLanguage: 'English' as const,
   };
@@ -113,7 +114,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     '@id': `${baseUrl}/#localbusiness`,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
-    email: BUSINESS_INFO.email,
+    email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),
     parentOrganization: P5_PARENT_ORGANIZATION,
     founder: publicRepresentative(),
@@ -195,7 +196,7 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       '@type': [...LOCAL_BUSINESS_TYPE],
       name: BUSINESS_INFO.name,
       telephone: BUSINESS_INFO.phone,
-      email: BUSINESS_INFO.email,
+      email: PUBLIC_EMAIL,
       address: serviceAreaPostalAddress(),
       parentOrganization: P5_PARENT_ORGANIZATION,
       founder: publicRepresentative(),
@@ -247,7 +248,7 @@ export function generateOrganizationSchema(): SchemaContext {
     description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
-    email: BUSINESS_INFO.email,
+    email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),
     slogan: "Idaho's Premier Custom Cabinet Company",
     knowsAbout: [
