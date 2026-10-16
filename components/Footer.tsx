@@ -114,6 +114,9 @@ export function Footer() {
               >
                 {SITE_CONFIG.email}
               </a>
+              <p className="text-sm text-inverse-muted">
+                Public representative: Nick Perkins · 4031 W Wapoot St, Meridian, ID 83646 · Service-area business, not a staffed storefront
+              </p>
               <address className="not-italic text-sm text-inverse-muted">
                 {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
               </address>
@@ -151,7 +154,7 @@ export function Footer() {
         </div>
 
         {/* Service areas - compact wrapped row rather than a tall vertical list. */}
-        <div className="pb-8 mb-8 border-t border-b border-inverse-foreground/10 py-6">
+        <div className="border-t border-inverse-foreground/10 py-6">
           <h2 className="font-serif font-medium text-[12px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
             Serving the Treasure Valley
           </h2>
@@ -167,6 +170,23 @@ export function Footer() {
             ))}
           </div>
         </div>
+
+        <p className="text-sm leading-relaxed text-inverse-muted border-b border-inverse-foreground/10 pb-6 mb-2">
+          Part of{" "}
+          <a href="https://p5homeco.com" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">
+            P5 Home Co
+          </a>
+          :{" "}
+          <a href="https://boiseconstruction.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Construction Co</a>
+          {" · "}
+          <a href="https://boiseremodeling.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Remodeling Co</a>
+          {" · "}
+          <a href="https://boisehandyman.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Handyman Co</a>
+          {" · "}
+          <a href="https://boisecabinet.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Cabinet Co</a>
+          {" · "}
+          Boise ADU Co (launching soon)
+        </p>
 
         {/* Utility row: legal, credentials, copyright - smaller weight than the primary groups above. */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">

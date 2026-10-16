@@ -45,8 +45,9 @@ export const SITE_CONFIG = {
   },
   senderDisplayName:
     process.env.EMAIL_SENDER_NAME ?? "Nick from Boise Cabinet Co",
-  // Service-area business: no public showroom or street address is published.
-  // Only the base city/region is shown for local SEO (NAP) consistency.
+  // Service-area business, not a staffed storefront. The street is published
+  // in the family footer line. This object stays city and region for the
+  // shorter lines already used on legal pages and in email.
   address: {
     city: "Meridian",
     state: "ID",

@@ -109,6 +109,8 @@ test("llms files and the footer publish the public email, address, and represent
     "4031 W Wapoot St, Meridian, ID 83646",
     "Nick Perkins",
     "no public showroom",
+    "Last updated: 2026-10-16",
+    "Public representative: Nick Perkins. Service-area business based at 4031 W Wapoot St, Meridian, ID 83646; no public showroom. (208) 477-1169. hello@boisecabinet.co.",
   ]) {
     assert.equal(LLMS_TXT.includes(fact), true, fact);
   }
@@ -118,6 +120,16 @@ test("llms files and the footer publish the public email, address, and represent
   const footer = readFileSync("components/Footer.tsx", "utf8");
   assert.equal(footer.includes("mailto:${SITE_CONFIG.email}"), true);
   assert.equal(footer.includes("{SITE_CONFIG.email}"), true);
-  assert.equal(footer.includes("Nick Perkins"), false);
-  assert.equal(footer.includes("4031 W Wapoot St"), false);
+  assert.equal(footer.includes("Public representative: Nick Perkins · 4031 W Wapoot St, Meridian, ID 83646 · Service-area business, not a staffed storefront"), true);
+  assert.equal(footer.includes("Part of"), true);
+  assert.equal(footer.includes("https://boiseconstruction.co"), true);
+  assert.equal(footer.includes("https://boiseremodeling.co"), true);
+  assert.equal(footer.includes("https://boisehandyman.co"), true);
+  assert.equal(footer.includes("https://boisecabinet.co"), true);
+  assert.equal(footer.includes("Boise ADU Co (launching soon)"), true);
+  assert.equal(footer.includes("https://boiseadu"), false);
+  const contact = readFileSync("app/contact/page.tsx", "utf8");
+  assert.equal(contact.includes("{SITE_CONFIG.email}"), true);
+  assert.equal(contact.includes("No public showroom."), true);
+  assert.equal(contact.includes("SiteEmailLink"), false);
 });

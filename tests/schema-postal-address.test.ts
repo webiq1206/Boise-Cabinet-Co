@@ -73,7 +73,7 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
   const areas = home.areaServed as Array<{ name: string }>;
   assert.deepEqual(areas.map((entry) => entry.name), BUSINESS_INFO.serviceArea);
   assert.equal(JSON.stringify(areas).includes("Garden City"), false);
-  assert.equal(home.telephone, BUSINESS_INFO.phone);
+  assert.equal(home.telephone, "+1-208-477-1169");
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
   assert.equal(home.parentOrganization, organization.parentOrganization);
   const parent = home.parentOrganization as { "@id": string; url: string };
@@ -88,12 +88,18 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
       telephone: string;
       email: string;
     };
-    const founder = schema.founder as { "@type": string; name: string };
+    const founder = schema.founder as { "@type": string; "@id": string; name: string; jobTitle: string; worksFor: { "@id": string } };
+    const employee = schema.employee as { "@type": string; "@id": string; name: string; jobTitle: string; worksFor: { "@id": string } };
     assert.equal(contact.name, "Nick Perkins");
-    assert.equal(founder["@type"], "Person");
-    assert.equal(founder.name, "Nick Perkins");
+    for (const person of [founder, employee]) {
+      assert.equal(person["@type"], "Person");
+      assert.equal(person["@id"], "https://p5homeco.com/#nick-perkins");
+      assert.equal(person.name, "Nick Perkins");
+      assert.equal(person.jobTitle, "Public representative");
+      assert.deepEqual(person.worksFor, { "@id": "https://p5homeco.com/#organization" });
+    }
     assert.equal(contact.contactType, "Public representative");
-    assert.equal(contact.telephone, "(208) 477-1169");
+    assert.equal(contact.telephone, "+1-208-477-1169");
     assert.equal(contact.email, "hello@boisecabinet.co");
     assert.equal(schema.email, "hello@boisecabinet.co");
     const json = JSON.stringify(schema);
@@ -107,6 +113,6 @@ test("area-page geo stays on the Meridian locality", () => {
   const area = generateLocalBusinessSchema("Boise");
   assert.deepEqual(area.geo, home.geo);
   const geo = area.geo as { latitude: number; longitude: number };
-  assert.equal(geo.latitude, 43.6121);
-  assert.equal(geo.longitude, -116.3915);
+  assert.equal(geo.latitude, 43.6515);
+  assert.equal(geo.longitude, -116.4444);
 });

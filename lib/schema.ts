@@ -4,7 +4,7 @@ import {schemaTime} from './schemaTime';
  * Creates structured data for Google rich snippets and search features
  */
 
-import { BUSINESS_INFO, CITY_SEO_DATA, getBaseUrl } from './seo';
+import { BUSINESS_INFO, getBaseUrl } from './seo';
 import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
@@ -45,7 +45,7 @@ const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as 
 /**
  * Postal address for the Meridian service-area business record.
  * Copied from backlink-engine/config.ts. This is not a public showroom:
- * visible pages still say we come to you and do not print the street.
+ * the footer prints the same street with the not-a-storefront line.
  */
 function serviceAreaPostalAddress() {
   return {
@@ -59,16 +59,29 @@ function serviceAreaPostalAddress() {
 }
 
 /**
- * JSON-LD contact and founder name. Approved for schema only.
- * Visible pages keep the shorter owner name already on the site.
+ * Shared Person node. The @id lives on p5homeco.com so Cabinet, Handyman,
+ * Construction, and P5 resolve to one Nick Perkins entity. worksFor points
+ * at the parent organization, the same @id parentOrganization uses.
+ * Visible email sender names stay "Nick".
  */
 const PUBLIC_REPRESENTATIVE_NAME = 'Nick Perkins';
 const PUBLIC_EMAIL = 'hello@boisecabinet.co';
+const P5_PERSON_ID = `${P5_ORIGIN}/#nick-perkins`;
+/** Schema telephone is E.164. Visible pages keep (208) 477-1169. */
+const SCHEMA_TELEPHONE = '+1-208-477-1169';
+/**
+ * Nominatim point for 4031 W Wapoot St, Meridian, ID 83646.
+ * Not the Meridian city centroid.
+ */
+const HQ_GEO = { latitude: 43.6515, longitude: -116.4444 } as const;
 
 function publicRepresentative() {
   return {
     '@type': 'Person' as const,
+    '@id': P5_PERSON_ID,
     name: PUBLIC_REPRESENTATIVE_NAME,
+    jobTitle: 'Public representative' as const,
+    worksFor: { '@id': P5_ORG_ID },
   };
 }
 
@@ -77,7 +90,7 @@ function publicContactPoint() {
     '@type': 'ContactPoint' as const,
     name: PUBLIC_REPRESENTATIVE_NAME,
     contactType: 'Public representative' as const,
-    telephone: BUSINESS_INFO.phone,
+    telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
     areaServed: 'US-ID' as const,
     availableLanguage: 'English' as const,
@@ -97,9 +110,6 @@ function citiesServed(city?: string) {
  * stays the Meridian service-area locality on every page.
  */
 export function generateLocalBusinessSchema(city?: string): SchemaContext {
-  // Geo matches the Meridian locality on every page, including area pages.
-  const coordinates = CITY_SEO_DATA.Meridian.coordinates;
-
   return {
     '@context': 'https://schema.org',
     '@type': [...LOCAL_BUSINESS_TYPE],
@@ -113,16 +123,17 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     },
     '@id': `${baseUrl}/#localbusiness`,
     url: baseUrl,
-    telephone: BUSINESS_INFO.phone,
+    telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),
     parentOrganization: P5_PARENT_ORGANIZATION,
     founder: publicRepresentative(),
+    employee: publicRepresentative(),
     contactPoint: publicContactPoint(),
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: coordinates.lat,
-      longitude: coordinates.lng,
+      latitude: HQ_GEO.latitude,
+      longitude: HQ_GEO.longitude,
     },
     openingHoursSpecification: Object.entries(BUSINESS_INFO.hours).map(([day, hours]) => ({
       '@type': 'OpeningHoursSpecification',
@@ -195,11 +206,12 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
     provider: {
       '@type': [...LOCAL_BUSINESS_TYPE],
       name: BUSINESS_INFO.name,
-      telephone: BUSINESS_INFO.phone,
+      telephone: SCHEMA_TELEPHONE,
       email: PUBLIC_EMAIL,
       address: serviceAreaPostalAddress(),
       parentOrganization: P5_PARENT_ORGANIZATION,
       founder: publicRepresentative(),
+      employee: publicRepresentative(),
       contactPoint: publicContactPoint(),
     },
     areaServed: city
@@ -240,6 +252,7 @@ export function generateOrganizationSchema(): SchemaContext {
     legalName: BUSINESS_INFO.legalName,
     parentOrganization: P5_PARENT_ORGANIZATION,
     founder: publicRepresentative(),
+    employee: publicRepresentative(),
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',
@@ -247,7 +260,7 @@ export function generateOrganizationSchema(): SchemaContext {
     },
     description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
     foundingDate: BUSINESS_INFO.founded,
-    telephone: BUSINESS_INFO.phone,
+    telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),
     slogan: "Idaho's Premier Custom Cabinet Company",

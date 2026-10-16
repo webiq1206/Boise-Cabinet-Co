@@ -9,7 +9,6 @@ import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { SiteEmailLink } from '@/components/SiteEmailLink';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { phase1ContactAnswer } from '@/lib/phase1Answers';
 import { buildPageMetadata } from '@/lib/page-metadata';
@@ -265,7 +264,12 @@ export default function ContactPage() {
                   label="Email us"
                   subtext="Response within one business day"
                 >
-                  <SiteEmailLink className="tap-target text-inherit hover:text-foreground/70 transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit text-xl md:text-2xl" />
+                  <a
+                    href={`mailto:${SITE_CONFIG.email}`}
+                    className="tap-target text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
+                  >
+                    {SITE_CONFIG.email}
+                  </a>
                 </ContactChannel>
               </Reveal>
               <Reveal delay={180}>

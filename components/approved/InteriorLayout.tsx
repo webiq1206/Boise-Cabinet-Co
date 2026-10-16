@@ -1,6 +1,23 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 
+/**
+ * Room and city heroes ship a full original plus 640 and 1080 derivatives.
+ * The default src is the 1080 file so the LCP request is not the multi-megabyte original.
+ * Other heroes keep their given src.
+ */
+function heroImageAttrs(src: string) {
+  const match = /^(.*)\.webp$/.exec(src);
+  const responsive = src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/');
+  if (!match || !responsive || /-\d+\.webp$/.test(src)) return { src };
+  const root = match[1];
+  return {
+    src: `${root}-1080.webp`,
+    srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
+    sizes: '(max-width: 700px) 100vw, 50vw',
+  };
+}
+
 /** Public-page layout. Application routes retain their dedicated interfaces. */
 export function InteriorPage({children,kind='detail'}:{children:ReactNode;kind?:string}) {
   return <div className={`approved-interior interior-${kind}`}>{children}</div>;
@@ -14,7 +31,7 @@ export function InteriorEstimateLink({label='Get my online estimate'}:{label?:st
 export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean}) {
   return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
-    {imageSrc&&<div className="interior-hero-image"><img src={imageSrc} alt={imageAlt} width={1400} height={1100} fetchPriority="high"/></div>}
+    {imageSrc&&<div className="interior-hero-image"><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={1400} height={1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;
 }
 
