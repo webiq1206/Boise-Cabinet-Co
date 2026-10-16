@@ -37,17 +37,43 @@ export const P5_PARENT_ORGANIZATION = {
 } as const;
 
 /**
- * Generate LocalBusiness schema for homepage and location pages
+ * LocalBusiness subtype. HomeAndConstructionBusiness is the specific type
+ * for this cabinet company.
+ */
+const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as const;
+
+/**
+ * Service-area postal address. Locality only: Meridian, ID, US.
+ * No street and no postal code.
+ */
+function serviceAreaPostalAddress() {
+  return {
+    '@type': 'PostalAddress' as const,
+    addressLocality: 'Meridian' as const,
+    addressRegion: 'ID' as const,
+    addressCountry: 'US' as const,
+  };
+}
+
+/** Cities we cover. A page city is areaServed, never a second postal address. */
+function citiesServed(city?: string) {
+  const names = [...BUSINESS_INFO.serviceArea];
+  if (city && !names.includes(city)) names.unshift(city);
+  return names.map((name) => ({ '@type': 'City' as const, name }));
+}
+
+/**
+ * Generate LocalBusiness schema for homepage and location pages.
+ * `city` is coverage for the description and areaServed. The postal address
+ * stays the Meridian service-area locality on every page.
  */
 export function generateLocalBusinessSchema(city?: string): SchemaContext {
-  const cityData = city ? CITY_SEO_DATA[city as keyof typeof CITY_SEO_DATA] : null;
-  // Default to the business's actual locality (Meridian) so geo matches addressLocality.
-  const coordinates = cityData?.coordinates || { lat: 43.6121, lng: -116.3915 };
+  // Geo matches the Meridian locality on every page, including area pages.
+  const coordinates = CITY_SEO_DATA.Meridian.coordinates;
 
   return {
     '@context': 'https://schema.org',
-    // Cabinet builder/installer, no public showroom - dropped FurnitureStore (implies retail).
-    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness', 'GeneralContractor'],
+    '@type': [...LOCAL_BUSINESS_TYPE],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,
@@ -60,13 +86,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
-    // Service-area business: no streetAddress/postalCode published.
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: BUSINESS_INFO.address.city,
-      addressRegion: 'ID',
-      addressCountry: 'US',
-    },
+    address: serviceAreaPostalAddress(),
     geo: {
       '@type': 'GeoCoordinates',
       latitude: coordinates.lat,
@@ -79,10 +99,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       closes: hours === 'Closed' ? undefined : schemaTime(hours.split(' - ')[1]),
     })).filter(spec => spec.opens),
     priceRange: '$$',
-    areaServed: BUSINESS_INFO.serviceArea.map(area => ({
-      '@type': 'City',
-      name: area,
-    })),
+    areaServed: citiesServed(city),
     ...(BUSINESS_INFO.reviewCount > 0
       ? {
           aggregateRating: {
@@ -133,7 +150,9 @@ export function generateWebSiteSchema(): SchemaContext {
 }
 
 /**
- * Generate Service schema for individual service pages
+ * Generate Service schema for individual service pages.
+ * `city` is the place covered by this service. It is areaServed only.
+ * The provider postal address is always the Meridian service-area locality.
  */
 export function generateServiceSchema(serviceName: string, serviceDescription: string, city?: string): SchemaContext {
   return {
@@ -142,24 +161,18 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
     name: serviceName,
     description: serviceDescription,
     provider: {
-      '@type': 'LocalBusiness',
+      '@type': [...LOCAL_BUSINESS_TYPE],
       name: BUSINESS_INFO.name,
       telephone: BUSINESS_INFO.phone,
       email: BUSINESS_INFO.email,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: city || BUSINESS_INFO.address.city,
-        addressRegion: 'ID',
-        addressCountry: 'US',
-      },
+      address: serviceAreaPostalAddress(),
     },
-    areaServed: city ? {
-      '@type': 'City',
-      name: city,
-    } : BUSINESS_INFO.serviceArea.map(area => ({
-      '@type': 'City',
-      name: area,
-    })),
+    areaServed: city
+      ? {
+          '@type': 'City',
+          name: city,
+        }
+      : citiesServed(),
     serviceType: serviceName,
   };
 }
@@ -200,13 +213,7 @@ export function generateOrganizationSchema(): SchemaContext {
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
-    // Service-area business: no streetAddress/postalCode published.
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: BUSINESS_INFO.address.city,
-      addressRegion: 'ID',
-      addressCountry: 'US',
-    },
+    address: serviceAreaPostalAddress(),
     slogan: "Idaho's Premier Custom Cabinet Company",
     knowsAbout: [
       'Custom kitchen cabinets',
@@ -218,10 +225,7 @@ export function generateOrganizationSchema(): SchemaContext {
       'Built-in storage and closets',
       'Treasure Valley, Idaho',
     ],
-    areaServed: BUSINESS_INFO.serviceArea.map((area) => ({
-      '@type': 'City',
-      name: area,
-    })),
+    areaServed: citiesServed(),
     sameAs: BUSINESS_INFO.sameAs,
     contactPoint: {
       '@type': 'ContactPoint',

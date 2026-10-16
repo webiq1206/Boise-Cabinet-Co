@@ -27,6 +27,7 @@ export function landingServiceSchema(
 }
 
 export function landingAreaBusinessSchema(cityName: string) {
+  // City name is areaServed inside LocalBusiness, not a city postal address.
   return generateLocalBusinessSchema(cityName);
 }
 

@@ -127,6 +127,7 @@ export default async function GuidePage(props: { params: Promise<{ slug: string 
     ? generateServiceSchema(
         `Custom Cabinets in ${locationCity}, Idaho`,
         `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed for ${locationCity} homes by Boise Cabinet Co.`,
+        // Coverage only. The provider postal address stays Meridian.
         locationCity,
       )
     : null;
