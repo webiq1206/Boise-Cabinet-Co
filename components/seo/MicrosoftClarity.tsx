@@ -47,8 +47,8 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
     else l.head.appendChild(t);
   }
   function start(){watchForms();load();}
-  if(l.readyState==="loading")l.addEventListener("DOMContentLoaded",start);
-  else start();
+  if(l.readyState==="complete")start();
+  else c.addEventListener("load",start);
   c.addEventListener("consentgranted",function(){if(l.readyState!=="loading")load();});
 })(window, document, "clarity", "script", "${CLARITY_ID}");`
 

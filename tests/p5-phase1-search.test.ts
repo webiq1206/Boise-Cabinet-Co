@@ -8,6 +8,37 @@ import { CABINET_PRODUCTS } from "../shared/catalog";
 import { LLMS_TXT } from "../shared/llmsTxt";
 
 const BRAND = " | Boise Cabinet Co";
+const C13_PATHS = new Set([
+  "/blog/bathroom-vanity-cost-boise",
+  "/blog/whole-home-cabinet-cost-boise",
+  "/blog/what-impacts-cabinet-costs-boise",
+  "/blog/how-to-budget-cabinets-boise",
+  "/blog/luxury-bathroom-vanity-guide",
+  "/blog/small-bathroom-vanity-ideas",
+  "/blog/accessible-bathroom-vanity-guide",
+  "/blog/bathroom-vanity-layout-guide",
+  "/blog/primary-suite-closet-cabinets",
+  "/blog/garage-storage-cabinet-systems",
+  "/blog/multi-room-cabinet-planning",
+  "/blog/outdoor-kitchen-cabinets-boise",
+  "/blog/outdoor-bar-cabinet-storage",
+  "/blog/premium-outdoor-cabinetry",
+  "/blog/fixed-price-vs-cost-plus",
+  "/blog/cabinet-finishes-door-styles-guide",
+  "/blog/cabinet-measurement-design-phase",
+  "/blog/cabinet-design-development",
+  "/blog/cabinet-fabrication-installation",
+  "/blog/cabinet-installation-punch-list",
+  "/blog/cabinet-upgrades-before-selling",
+  "/blog/cabinets-for-long-term-living",
+  "/guides/boise-bathroom-vanity-guide",
+  "/guides/whole-home-cabinetry-guide",
+  "/guides/choose-cabinet-company-boise",
+  "/guides/cabinet-roi-guide-boise",
+  "/blog/category/choosing-cabinet-company",
+  "/blog/category/cabinet-project-process",
+  "/blog/category/cabinet-roi",
+]);
 const VANITY_NAMES = [
   "Vanity Cabinet, 1 Door + 1 Drawer",
   "Vanity Cabinet, 2 Doors + 1 Drawer",
@@ -21,19 +52,22 @@ function words(text: string): number {
 
 test("phase-1 titles and descriptions stay in range and unique", () => {
   const titles = Object.values(PHASE1_TITLES);
-  const descriptions = Object.values(PHASE1_DESCRIPTIONS);
+  const descriptions = Object.entries(PHASE1_DESCRIPTIONS);
   assert.equal(titles.length, 32);
-  assert.equal(descriptions.length, 61);
+  assert.equal(descriptions.length, 61 + C13_PATHS.size);
   assert.equal(new Set(titles).size, titles.length);
-  assert.equal(new Set(descriptions).size, descriptions.length);
+  assert.equal(new Set(descriptions.map(([, description]) => description)).size, descriptions.length);
   for (const title of titles) {
     const rendered = title.length + BRAND.length;
     assert.ok(rendered >= 50 && rendered <= 60, `${rendered} ${title}`);
     assert.equal(title.includes("\u2014"), false);
     assert.equal(title.includes("\u2013"), false);
   }
-  for (const description of descriptions) {
-    assert.ok(description.length >= 150 && description.length <= 160, `${description.length} ${description}`);
+  for (const [path, description] of descriptions) {
+    const expanded = C13_PATHS.has(path);
+    const min = expanded ? 120 : 150;
+    const max = expanded ? 155 : 160;
+    assert.ok(description.length >= min && description.length <= max, `${description.length} ${path}`);
     assert.equal(description.includes("\u2014"), false);
     assert.equal(description.includes("\u2013"), false);
   }
@@ -132,4 +166,42 @@ test("llms files and the footer publish the public email, address, and represent
   assert.equal(contact.includes("{SITE_CONFIG.email}"), true);
   assert.equal(contact.includes("No public showroom."), true);
   assert.equal(contact.includes("SiteEmailLink"), false);
+});
+
+test("home title and H1 aim at custom cabinets Boise and keep the existing claims", () => {
+  const home = withBrandPageMetadata(
+    { title: "Home", description: "fallback", alternates: { canonical: "https://boisecabinet.co/" } },
+    "/",
+  );
+  assert.deepEqual(home.title, { absolute: "Custom Cabinets Boise: Kitchen, Vanities | Boise Cabinet Co" });
+  assert.equal(
+    home.description,
+    "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
+  );
+  const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
+  assert.equal(hero.includes("Custom cabinets Boise."), true);
+  assert.equal(hero.includes("Made for Boise."), true);
+  assert.equal(hero.includes("Premium custom cabinets, designed, built, and installed by one accountable team."), true);
+  assert.equal(hero.includes("Bonded & insured"), true);
+  assert.equal(hero.includes('href="/cabinets/kitchen"'), true);
+  assert.equal(hero.includes('href="#cabinetry"'), true);
+  assert.equal(hero.includes("Kitchen cabinets, bathroom vanities, closet systems, and built-in storage."), true);
+  assert.equal(hero.includes("Jared"), false);
+  assert.equal(hero.includes("\u2014"), false);
+  const contact = withBrandPageMetadata(
+    { title: "Contact", alternates: { canonical: "https://boisecabinet.co/contact" } },
+    "/contact",
+  );
+  assert.deepEqual(contact.title, { absolute: "Contact Our Boise Custom Cabinet Team | Boise Cabinet Co" });
+  const shell = readFileSync("components/portal/PortalShell.tsx", "utf8");
+  assert.equal(shell.includes("isAuthenticated"), true);
+  assert.equal(shell.includes('href="/api/logout"'), true);
+  const gate = readFileSync("components/portal/PortalAuthGate.tsx", "utf8");
+  assert.equal(gate.includes('href="/login'), false);
+  assert.equal(gate.includes("window.location.assign(loginHref)"), true);
+  const estimate = readFileSync("app/estimate/page.tsx", "utf8");
+  assert.equal(estimate.includes("<h1"), true);
+  assert.equal(estimate.includes('headingAs="h2"'), true);
+  const login = readFileSync("app/login/layout.tsx", "utf8");
+  assert.equal(login.includes("<h1"), true);
 });

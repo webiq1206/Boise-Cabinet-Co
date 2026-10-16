@@ -8,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <h1 className="sr-only">Welcome to Boise Cabinet Co</h1>
+      {children}
+    </>
+  );
 }

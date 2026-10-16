@@ -32,9 +32,9 @@ const COPY:Record<string,Record<string,Copy>>={
   "/blog/custom-kitchen-cabinet-cost":{title:"Custom Kitchen Cabinet Costs in Boise",description:"Explore custom kitchen cabinet costs in Boise. See how layout, cabinet construction, door style, finishes and installation shape the project budget."},
   "/cabinets/kitchen":{title:"Kitchen Cabinets in Boise, Idaho",description:"Plan kitchen cabinets for your Boise or Treasure Valley home. Explore frameless construction, door styles, finishes, layout, supply and installation."},
   "/cabinets/bathroom":{title:"Bathroom Vanities in Boise, Idaho",description:"Find bathroom vanities and cabinet storage for Boise and Treasure Valley homes. Compare sizes, finishes and layout options, then request help with your project."},
-  '/':{title:'Kitchen Cabinets & Vanities in Boise',description:'Explore kitchen cabinets, bathroom vanities and built-in storage for Boise and the Treasure Valley. Review finishes, design options and installation.'},
+  '/':{title:'Custom Cabinets Boise: Kitchen, Vanities',description:'Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.'},
   '/about':{title:'About Our Boise Cabinet Team',description:'Learn how Boise Cabinet Co helps Treasure Valley homeowners and contractors with cabinet layouts, finish selections, supply and installation planning.'},
-  '/contact':{title:'Contact Our Boise Cabinet Team',description:'Discuss cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},
+  '/contact':{title:'Contact Our Boise Custom Cabinet Team',description:'Discuss custom cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},
   '/resources':{title:'Cabinet Planning Worksheets & Guides',description:'Plan your cabinetry with budget worksheets, kitchen and bath checklists, and local permit guidance from Boise Cabinet Co in Idaho’s Treasure Valley.'}},
  p5:{
   '/':{title:'Boise Home Construction, Remodeling & Repairs',description:'Find the P5 Home Co team for new construction, remodeling, home repairs or cabinets in Boise and the Treasure Valley. Compare services and plan your project.'},
