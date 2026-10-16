@@ -6,7 +6,6 @@ import {schemaTime} from './schemaTime';
 
 import { BUSINESS_INFO, CITY_SEO_DATA, getBaseUrl } from './seo';
 import { SERVICES } from '@/shared/contentData';
-import { SITE_CONFIG } from '@/shared/siteConfig';
 
 interface SchemaContext {
   '@context': string;
@@ -60,13 +59,22 @@ function serviceAreaPostalAddress() {
 }
 
 /**
- * Public contact. The recorded owner name is "Nick". No surname is stored
- * in this repository, so none is added here.
+ * JSON-LD contact and founder name. Approved for schema only.
+ * Visible pages keep the shorter owner name already on the site.
  */
+const PUBLIC_REPRESENTATIVE_NAME = 'Nick Perkins';
+
+function publicRepresentative() {
+  return {
+    '@type': 'Person' as const,
+    name: PUBLIC_REPRESENTATIVE_NAME,
+  };
+}
+
 function publicContactPoint() {
   return {
     '@type': 'ContactPoint' as const,
-    name: SITE_CONFIG.owner.name,
+    name: PUBLIC_REPRESENTATIVE_NAME,
     contactType: 'Public representative' as const,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
@@ -108,6 +116,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     email: BUSINESS_INFO.email,
     address: serviceAreaPostalAddress(),
     parentOrganization: P5_PARENT_ORGANIZATION,
+    founder: publicRepresentative(),
     contactPoint: publicContactPoint(),
     geo: {
       '@type': 'GeoCoordinates',
@@ -189,6 +198,7 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       email: BUSINESS_INFO.email,
       address: serviceAreaPostalAddress(),
       parentOrganization: P5_PARENT_ORGANIZATION,
+      founder: publicRepresentative(),
       contactPoint: publicContactPoint(),
     },
     areaServed: city
@@ -228,6 +238,7 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     parentOrganization: P5_PARENT_ORGANIZATION,
+    founder: publicRepresentative(),
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',

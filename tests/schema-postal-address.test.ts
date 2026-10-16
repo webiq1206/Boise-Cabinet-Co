@@ -83,12 +83,14 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
 
   for (const schema of [home, organization]) {
     const contact = schema.contactPoint as { name: string; contactType: string; telephone: string };
-    assert.equal(contact.name, "Nick");
+    const founder = schema.founder as { "@type": string; name: string };
+    assert.equal(contact.name, "Nick Perkins");
+    assert.equal(founder["@type"], "Person");
+    assert.equal(founder.name, "Nick Perkins");
     assert.equal(contact.contactType, "Public representative");
     assert.equal(contact.telephone, "(208) 477-1169");
     const json = JSON.stringify(schema);
     assert.equal(json.includes("Jared"), false);
-    assert.equal(json.includes("Perkins"), false);
     assert.equal(json.includes("Garden City"), false);
   }
 });

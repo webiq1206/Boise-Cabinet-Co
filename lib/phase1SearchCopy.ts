@@ -22,7 +22,7 @@ export const PHASE1_TITLES: Record<string, string> = {
   "/blog/how-to-paint-kitchen-cabinets": "How to Paint Kitchen Cabinets That Last",
   "/blog/pantry-cabinet-ideas": "Pantry Cabinet Ideas & Storage Solutions",
   "/blog/how-to-make-oak-cabinets-look-modern": "Make Oak Cabinets Look Modern: 6 Updates",
-  "/blog/best-wood-for-kitchen-cabinets": "Best Wood: Maple, Oak, Cherry, Hickory",
+  "/blog/best-wood-for-kitchen-cabinets": "Best Wood for Kitchen Cabinets Guide",
   "/blog/two-tone-kitchen-cabinets": "Two-Tone Kitchen Cabinets: How to Choose",
   "/blog/best-kitchen-cabinet-colors": "Best Kitchen Cabinet Colors for 2026",
   "/blog/sage-green-kitchen-cabinets": "Sage Green Kitchen Cabinets: How to Style",
