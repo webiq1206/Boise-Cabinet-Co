@@ -617,7 +617,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
 
       {/* Search bar */}
       {searchOpen && (
-        <form aria-label="Search catalog" onSubmit={(event) => { event.preventDefault(); void runSearch(searchTerm); }} className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2">
+        <form aria-label="Search catalog" onSubmit={(event) => { event.preventDefault(); void runSearch(searchTerm); }} className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2" data-clarity-mask="true">
           <Search className="h-4 w-4 shrink-0 text-inverse-muted" />
           <input
             autoFocus

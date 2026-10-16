@@ -387,6 +387,7 @@ export function AssistantWidget() {
           )}
 
           <form
+            data-clarity-mask="true"
             className="flex items-end gap-2 border-t border-border px-3 py-3"
             onSubmit={(e) => {
               e.preventDefault();
