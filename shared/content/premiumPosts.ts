@@ -584,6 +584,7 @@ const cabinetConstructionContent = `
 <h2 id="box">The cabinet box: your foundation</h2>
 <p>The box (the carcass) is the structure everything else hangs on, and it is where cost-cutting hides. The best boxes use <strong>3/4-inch furniture-grade plywood</strong>, which holds screws securely, resists moisture, and won't sag under a stone countertop or a loaded shelf. Cheaper boxes use particleboard or thin MDF, which can swell if water gets in, strip out at screw points, and bow over time. In Idaho's dry climate the difference is less about swelling and more about strength and screw-holding - a plywood box simply stays square and solid longer.</p>
 <p>Also check the <strong>back panel</strong>: a full 3/4-inch (or at least substantial) back lets installers anchor firmly into wall studs and keeps the box from racking. A flimsy stapled-on back is a red flag.</p>
+<p>Which material is in the box is a different question from what the labels and seals on that material mean. <a href="/blog/cabinet-materials-labels-certifications">Cabinet materials, labels, and certifications</a> explains plywood, particleboard, MDF, and melamine, what a TSCA Title VI label means, and what KCMA certification covers.</p>
 
 <h2 id="drawers">Drawer boxes: the clearest quality tell</h2>
 <p>If you only inspect one thing, open a drawer. A quality drawer box is <strong>solid wood, joined with dovetails</strong>, riding on <strong>full-extension, soft-close undermount glides</strong> rated for real weight. Dovetail joints interlock and hold up to decades of daily open-and-close; stapled or glued particleboard drawer boxes loosen, sag, and eventually fail. Full-extension glides let you reach the very back of the drawer, and soft-close means no slamming. This single feature is the most reliable predictor of how "expensive" a cabinet feels day to day.</p>
@@ -1973,6 +1974,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
       { url: '/guides/choose-cabinet-company-boise', anchor: 'Choosing a Cabinet Company' },
       { url: '/construction', anchor: 'How we build' },
       { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/blog/cabinet-materials-labels-certifications', anchor: 'Materials, labels, and certifications' },
       { url: '/warranty', anchor: 'Warranty' },
       { url: '/cabinets' },
     ],

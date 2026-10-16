@@ -407,6 +407,12 @@ const ENTRIES = {
     topicTags: ["cabinets", "quality", "guide"],
     source: "blog",
   },
+  "cabinet-materials-labels-certifications": {
+    hero: "/images/blog/cabinet-construction-quality-guide.webp",
+    alt: "cabinet construction detail: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides",
+    topicTags: ["materials", "cabinets", "guide"],
+    source: "blog",
+  },
 
   // —— Cabinet project process (8) ——
   "cabinet-finishes-door-styles-guide": {
@@ -639,7 +645,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 77;
+const EXPECTED_BLOG = 78;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

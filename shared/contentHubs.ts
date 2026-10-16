@@ -244,6 +244,7 @@ export const CONTENT_MANIFEST: ContentManifestEntry[] = [
   cluster('custom-vs-reserve-cabinets', 'What makes our Custom Cabinets different', 'choosing-cabinet-company'),
   cluster('stock-vs-custom-cabinets-boise', 'Stock vs Custom Cabinets Boise', 'choosing-cabinet-company'),
   cluster('cabinet-construction-quality-guide', 'Cabinet Construction Quality Guide', 'choosing-cabinet-company'),
+  cluster('cabinet-materials-labels-certifications', "What's Inside Your Cabinet Boxes", 'choosing-cabinet-company'),
 
   // Hub 7, Cabinet project process
   { slug: 'cabinet-project-process-guide', title: 'Boise Cabinet Project Process Guide', ...hubPillar('cabinet-project-process'), status: PUBLISHED, replacesSlug: 'boise-cabinet-project-process-guide' },
