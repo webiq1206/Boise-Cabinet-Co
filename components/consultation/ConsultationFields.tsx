@@ -602,6 +602,7 @@ export function ConsultationFields({
         submitted={success}
       />
       <form
+        data-clarity-mask="true"
         id={formId}
         onSubmit={onSubmit}
         onFocusCapture={() => {

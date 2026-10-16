@@ -83,7 +83,7 @@ export function RoomDimensionsForm({ className }: { className?: string }) {
   }
 
   return (
-    <div className={className} data-testid="room-dimensions-form">
+    <div className={className} data-testid="room-dimensions-form" data-clarity-mask="true">
       <div className="flex items-start gap-2 rounded-md border border-accent/30 bg-accent/5 p-3">
         <Sparkles className="h-5 w-5 text-accent shrink-0 mt-0.5" />
         <div className="min-w-0 flex-1">

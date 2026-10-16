@@ -35,7 +35,7 @@ export default function SearchPage() {
             title="Search catalog"
             description="Find finishes, door styles, collections, and cabinet configurations."
           />
-          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()}>
+          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()} data-clarity-mask="true">
           <input
             aria-label="Search by name or code"
             type="search"
