@@ -5,7 +5,8 @@
  * Rendered from the root layout head so every page carries one tag.
  * The loader does not insert a second clarity.ms script when one is already
  * on the page, and it does not start the tag while a consent banner is still
- * waiting for a choice.
+ * waiting for a choice. Before the tag loads, every form is marked
+ * data-clarity-mask="true", including forms rendered by the shared estimator.
  */
 const CLARITY_ID = 'x5wv0z61ij'
 
@@ -19,6 +20,24 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
     var state=(banner.getAttribute('data-consent')||banner.getAttribute('data-state')||'').toLowerCase();
     return state!=='granted'&&state!=='accepted'&&state!=='allow';
   }
+  function maskForms(root){
+    if(!root||!root.querySelectorAll)return;
+    if(root.tagName==="FORM")root.setAttribute("data-clarity-mask","true");
+    var forms=root.querySelectorAll("form");
+    for(var n=0;n<forms.length;n++)forms[n].setAttribute("data-clarity-mask","true");
+  }
+  var watching=false;
+  function watchForms(){
+    maskForms(l);
+    if(watching||typeof MutationObserver!=="function"||!l.body)return;
+    watching=true;
+    new MutationObserver(function(records){
+      for(var i=0;i<records.length;i++){
+        var added=records[i].addedNodes;
+        for(var j=0;j<added.length;j++)maskForms(added[j]);
+      }
+    }).observe(l.body,{childList:true,subtree:true});
+  }
   function load(){
     if(tagPresent()||consentPending())return;
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -27,9 +46,10 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
     if(y&&y.parentNode)y.parentNode.insertBefore(t,y);
     else l.head.appendChild(t);
   }
-  if(l.readyState==="loading")l.addEventListener("DOMContentLoaded",load);
-  else load();
-  c.addEventListener("consentgranted",load);
+  function start(){watchForms();load();}
+  if(l.readyState==="loading")l.addEventListener("DOMContentLoaded",start);
+  else start();
+  c.addEventListener("consentgranted",function(){if(l.readyState!=="loading")load();});
 })(window, document, "clarity", "script", "${CLARITY_ID}");`
 
 export function MicrosoftClarity() {
