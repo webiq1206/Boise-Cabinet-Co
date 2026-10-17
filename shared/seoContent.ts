@@ -280,9 +280,9 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
       'Kitchen cabinets, bathroom vanities, laundry and mudroom storage, pantry systems, closets, built-ins, entertainment centers, home office cabinetry, garage storage, hardware, and professional installation.',
   },
   {
-    question: 'Are you licensed and insured?',
+    question: 'Are you a registered contractor and insured?',
     answer:
-      'Yes. Boise Cabinet Co is licensed, bonded, and insured. License details available upon request.',
+      'Yes. Boise Cabinet Co is an Idaho Registered Contractor #8381215, bonded, and insured.',
   },
   {
     question: 'How do I start a cabinet project?',

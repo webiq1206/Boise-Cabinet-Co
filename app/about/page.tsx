@@ -104,8 +104,8 @@ export default function AboutPage() {
       answer: `We are a service-area business with no public showroom. We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
     },
     {
-      question: `Is ${SITE_CONFIG.name} licensed and insured?`,
-      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
+      question: 'Are you a registered contractor and insured?',
+      answer: `Yes. ${SITE_CONFIG.name} is an Idaho Registered Contractor #8381215, bonded, and insured.`,
     },
     {
       question: `How does a cabinet project work?`,

@@ -199,6 +199,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="tap-target underline underline-offset-2 transition-colors hover:text-inverse-foreground"
                 title="Look up registration 8381215 on Idaho DOPL"
+                aria-label="Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"
               >
                 {`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}`}
               </a>

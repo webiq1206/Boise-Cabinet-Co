@@ -4,7 +4,7 @@ Root title template (`app/layout.tsx`): `%s | Boise Cabinet Co` (home uses absol
 
 | Page type | Route | Title (pre-brand) | Description | Index |
 |---|---|---|---|---|
-| Home | `/` | `Boise Cabinet Co \| Custom Cabinets in Treasure Valley` (absolute) | Custom kitchen, bath, storage cabinets for Boise/Meridian/Eagle & the Treasure Valley. Licensed & insured. Free design consultation. | index |
+| Home | `/` | `Boise Cabinet Co \| Custom Cabinets in Treasure Valley` (absolute) | Custom kitchen, bath, storage cabinets for Boise/Meridian/Eagle & the Treasure Valley. Idaho Registered Contractor & insured. Free design consultation. | index |
 | Blog post | `/blog/[slug]` | `{seoTitle\|\|title}` (brand stripped) | `{metaDescription\|\|excerpt<=157}` | index |
 | Guide / city | `/guides/[slug]` | `{seoTitle\|\|title}` | `{metaDescription\|\|excerpt<=157}` | index |
 | Room | `/cabinets/[room]` | `{room.name} Cabinets` | `{room.description[:155]}... Custom {room} cabinets from Boise Cabinet Co in the Treasure Valley.` | index |
