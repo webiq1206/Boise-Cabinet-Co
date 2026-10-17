@@ -179,7 +179,7 @@ test("home title and H1 aim at custom cabinets Boise and keep the existing claim
     "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
-  assert.equal(hero.includes("Custom cabinets Boise."), true);
+  assert.equal(hero.includes("Custom cabinets in Boise."), true);
   assert.equal(hero.includes("Made for Boise."), true);
   assert.equal(hero.includes("Premium custom cabinets, designed, built, and installed by one accountable team."), true);
   assert.equal(hero.includes("Bonded & insured"), true);

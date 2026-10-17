@@ -88,16 +88,14 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
       telephone: string;
       email: string;
     };
-    const founder = schema.founder as { "@type": string; "@id": string; name: string; jobTitle: string; worksFor: { "@id": string } };
     const employee = schema.employee as { "@type": string; "@id": string; name: string; jobTitle: string; worksFor: { "@id": string } };
     assert.equal(contact.name, "Nick Perkins");
-    for (const person of [founder, employee]) {
-      assert.equal(person["@type"], "Person");
-      assert.equal(person["@id"], "https://p5homeco.com/#nick-perkins");
-      assert.equal(person.name, "Nick Perkins");
-      assert.equal(person.jobTitle, "Public representative");
-      assert.deepEqual(person.worksFor, { "@id": "https://p5homeco.com/#organization" });
-    }
+    assert.equal("founder" in schema, false);
+    assert.equal(employee["@type"], "Person");
+    assert.equal(employee["@id"], "https://p5homeco.com/#nick-perkins");
+    assert.equal(employee.name, "Nick Perkins");
+    assert.equal(employee.jobTitle, "Public representative");
+    assert.deepEqual(employee.worksFor, { "@id": "https://p5homeco.com/#organization" });
     assert.equal(contact.contactType, "Public representative");
     assert.equal(contact.telephone, "+1-208-477-1169");
     assert.equal(contact.email, "hello@boisecabinet.co");
@@ -105,7 +103,19 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
     const json = JSON.stringify(schema);
     assert.equal(json.includes("Jared"), false);
     assert.equal(json.includes("Garden City"), false);
+    assert.equal(json.includes('"founder"'), false);
   }
+
+  const provider = generateServiceSchema("Custom Cabinets", "Built to order.").provider as {
+    founder?: unknown;
+    employee: { name: string; jobTitle: string };
+    contactPoint: { name: string; contactType: string };
+  };
+  assert.equal(provider.founder, undefined);
+  assert.equal(provider.employee.name, "Nick Perkins");
+  assert.equal(provider.employee.jobTitle, "Public representative");
+  assert.equal(provider.contactPoint.name, "Nick Perkins");
+  assert.equal(provider.contactPoint.contactType, "Public representative");
 });
 
 test("area-page geo stays on the Meridian locality", () => {

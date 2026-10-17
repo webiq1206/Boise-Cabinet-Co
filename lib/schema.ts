@@ -127,7 +127,6 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),
     parentOrganization: P5_PARENT_ORGANIZATION,
-    founder: publicRepresentative(),
     employee: publicRepresentative(),
     contactPoint: publicContactPoint(),
     geo: {
@@ -210,7 +209,6 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       email: PUBLIC_EMAIL,
       address: serviceAreaPostalAddress(),
       parentOrganization: P5_PARENT_ORGANIZATION,
-      founder: publicRepresentative(),
       employee: publicRepresentative(),
       contactPoint: publicContactPoint(),
     },
@@ -251,7 +249,6 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     parentOrganization: P5_PARENT_ORGANIZATION,
-    founder: publicRepresentative(),
     employee: publicRepresentative(),
     url: baseUrl,
     logo: {
