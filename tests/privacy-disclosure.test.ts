@@ -35,6 +35,13 @@ test("the privacy page states the approved analytics disclosures", () => {
   assert.doesNotMatch(privacy, /or send an inquiry/);
 });
 
+test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
+  assert.match(
+    privacy,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\./,
+  );
+});
+
 test("the live assistant transcript is masked", () => {
   const source = readFileSync(new URL("../components/assistant/AssistantWidget.tsx", import.meta.url), "utf8");
   assert.match(source, /<div ref=\{listRef\}[^>]*data-clarity-mask="True"/);
