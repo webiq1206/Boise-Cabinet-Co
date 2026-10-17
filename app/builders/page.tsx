@@ -145,13 +145,13 @@ export default function BuildersPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling"
+          alt="White kitchen with an island and slim brass hardware"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>
                   Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
                 </>}
-          description={"Sized to your plans and installed by our own crew, with volume pricing, consistent specs across units, and lead times quoted up front. With lean overhead, you get a number you can bid on with confidence."}
+          description={"Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."}
         >
               <Button variant="brand" asChild>
                 <Link href="/contact">

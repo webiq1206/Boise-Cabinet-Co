@@ -65,7 +65,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
                     src={MARKETING_IMAGES.construction}
-                    alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling"
+                    alt="White kitchen with an island and slim brass hardware"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

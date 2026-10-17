@@ -158,7 +158,7 @@ const siteHeroes = [
   { id: "process-about", path: "/images/marketing/cabinet-door-samples.webp", pages: ["/about"], alt: "Cabinet door samples and finish swatches laid out for a kitchen design", noLocationSuffix: true },
   { id: "process-contact", path: "/images/marketing/process-contact.webp", pages: ["/contact"], alt: "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley" },
   { id: "hero-hardware", path: "/images/marketing/hero-hardware.webp", pages: ["/hardware"], alt: "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho" },
-  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling", noLocationSuffix: true },
+  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "White kitchen with an island and slim brass hardware", noLocationSuffix: true },
   { id: "catalog-default", path: "/images/marketing/catalog-default.webp", pages: ["/catalog"], alt: "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes" },
   { id: "statement-band", path: "/images/marketing/statement-whole-home.webp", pages: ["/", "/about", "/contact"], alt: "Whole-home custom cabinet installation in an Eagle Idaho residence", decorative: true },
   { id: "og-default", path: "/images/marketing/og-default.webp", pages: ["og"], alt: "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho" },

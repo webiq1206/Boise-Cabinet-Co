@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-17T22:25:32.622Z",
+  "generatedAt": "2026-10-17T22:27:50.268Z",
   "styleSuffix": "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
   "entries": [
     {
@@ -1731,10 +1731,10 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling | Boise Cabinet Co",
+      "promptScene": "White kitchen with an island and slim brass hardware, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "White kitchen with an island and slim brass hardware | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling",
+      "caption": "White kitchen with an island and slim brass hardware",
       "noLocationSuffix": true
     },
     {
