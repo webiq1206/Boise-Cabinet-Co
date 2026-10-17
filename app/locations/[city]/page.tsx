@@ -30,7 +30,7 @@ import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { visibleTestimonials } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/publishedReviews";
 import { ArrowRight,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

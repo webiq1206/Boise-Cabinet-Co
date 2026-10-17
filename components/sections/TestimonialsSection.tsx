@@ -5,7 +5,7 @@ import { Section } from "@/components/marketing/Section";
 import { AggregateRating } from "@/components/marketing/AggregateRating";
 import { Button } from "@/components/ui/button";
 import { showTestimonials } from "@/shared/siteConfig";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/publishedReviews";
 import { CITIES, SERVICES } from "@/shared/contentData";
 
 function serviceLabel(slug: string) {
@@ -44,7 +44,7 @@ interface TestimonialsSectionProps {
  */
 export function TestimonialsSection({ limit = 4, showViewAll = true }: TestimonialsSectionProps) {
   if (!showTestimonials()) return null;
-  const items = TESTIMONIALS.slice(0, limit);
+  const items = visibleTestimonials().slice(0, limit);
   const [featured, ...rest] = items;
 
   return (

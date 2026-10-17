@@ -41,7 +41,7 @@ type ProjectType,
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
-import { visibleTestimonials } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/publishedReviews";
 import { ArrowRight,Check,MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

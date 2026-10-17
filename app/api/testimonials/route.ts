@@ -3,7 +3,7 @@ import { db, isDbAvailable } from "@/lib/db";
 import { testimonials } from "@/shared/schema";
 import { storage } from "@/server/storage";
 import { showTestimonials } from "@/shared/siteConfig";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/publishedReviews";
 
 export async function GET() {
   if (!showTestimonials()) return NextResponse.json([]);
@@ -27,5 +27,5 @@ export async function GET() {
     console.error("Error fetching testimonials from storage:", error);
   }
 
-  return NextResponse.json(TESTIMONIALS);
+  return NextResponse.json(visibleTestimonials());
 }

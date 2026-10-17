@@ -164,45 +164,9 @@ export class MemStorage implements IStorage {
 
     sampleGalleryPhotos.forEach(photo => this.galleryPhotos.set(photo.id, photo));
 
-    // Seed testimonials
-    const sampleTestimonials: Testimonial[] = [
-      {
-        id: randomUUID(),
-        customerName: 'Sarah M.',
-        serviceType: 'kitchen-remodel',
-        city: 'boise',
-        rating: '5',
-        testimonial: 'Boise Cabinet Co did an amazing job on our kitchen cabinets. On time, clear communication throughout, and the craftsmanship was stunning.',
-        createdAt: new Date(),
-      },
-      {
-        id: randomUUID(),
-        customerName: 'Mike R.',
-        serviceType: 'bathroom-remodel',
-        city: 'meridian',
-        rating: '5',
-        testimonial: 'Our master bath went from builder-grade to magazine-worthy. The team was professional and communicated throughout the entire project.',
-        createdAt: new Date(),
-      },
-      {
-        id: randomUUID(),
-        customerName: 'Jennifer K.',
-        serviceType: 'whole-home-remodel',
-        city: 'eagle',
-        rating: '5',
-        testimonial: 'We stayed in our home through a full renovation and the team made it as painless as possible. Absolutely love the result.',
-        createdAt: new Date(),
-      },
-      {
-        id: randomUUID(),
-        customerName: 'David L.',
-        serviceType: 'room-addition',
-        city: 'nampa',
-        rating: '5',
-        testimonial: 'Fantastic craftsmanship and reliable timeline. Our new master suite addition exceeded every expectation.',
-        createdAt: new Date(),
-      },
-    ];
+    // Seed reviews stay in shared/testimonialsData.ts. This module is bundled
+    // into the server, so those names are not copied here.
+    const sampleTestimonials: Testimonial[] = [];
 
     sampleTestimonials.forEach(testimonial => this.testimonials.set(testimonial.id, testimonial));
 
@@ -852,44 +816,7 @@ export class DBStorage implements IStorage {
   }
 
   private async seedTestimonials(): Promise<void> {
-    const sampleTestimonials = [
-      {
-        customerName: 'Sarah M.',
-        serviceType: 'kitchen-remodel',
-        city: 'boise',
-        rating: '5',
-        testimonial: 'Boise Cabinet Co did an amazing job on our kitchen cabinets. On time, clear communication throughout, and the craftsmanship was stunning.',
-        createdAt: new Date(),
-      },
-      {
-        customerName: 'Mike R.',
-        serviceType: 'bathroom-remodel',
-        city: 'meridian',
-        rating: '5',
-        testimonial: 'Our master bath went from builder-grade to magazine-worthy. The team was professional and communicated throughout the entire project.',
-        createdAt: new Date(),
-      },
-      {
-        customerName: 'Jennifer K.',
-        serviceType: 'whole-home-remodel',
-        city: 'eagle',
-        rating: '5',
-        testimonial: 'We stayed in our home through a full renovation and the team made it as painless as possible. Absolutely love the result.',
-        createdAt: new Date(),
-      },
-      {
-        customerName: 'David L.',
-        serviceType: 'room-addition',
-        city: 'nampa',
-        rating: '5',
-        testimonial: 'Fantastic craftsmanship and reliable timeline. Our new master suite addition exceeded every expectation.',
-        createdAt: new Date(),
-      },
-    ];
-
-    for (const testimonial of sampleTestimonials) {
-      await db.insert(testimonials).values(testimonial);
-    }
+    // Names stay in shared/testimonialsData.ts and are not written from this bundle.
   }
 
   private async syncBlogPosts(): Promise<void> {
