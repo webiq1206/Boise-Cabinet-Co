@@ -11,7 +11,7 @@ const BRAND = SITE_CONFIG.name;
 /** Homepage title (50–60 chars) and meta description (120–160 chars). */
 export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
 export const HOMEPAGE_DESCRIPTION =
-  'Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. Licensed & insured. Free design consultation.';
+  'Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. Idaho Registered Contractor & insured. Free design consultation.';
 
 interface SEOMetaData {
   title: string;
@@ -139,7 +139,7 @@ const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
 const CITY_CTA_VARIANTS: Record<string, string> = {
   Kuna: "Free design consultation",
   Boise: "Treasure Valley cabinet pros",
-  Meridian: "Licensed & insured",
+  Meridian: "Idaho Registered Contractor & insured",
   Eagle: "Clear written scope",
   Star: "Shop-built quality",
   Middleton: "Workmanship guarantee",
@@ -164,11 +164,11 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
     const serviceLC = serviceName.toLowerCase();
     const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
     const ctaVariant = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
-    return `${cityVariant} ${serviceLC} team. Licensed & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
+    return `${cityVariant} ${serviceLC} team. Idaho Registered Contractor & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
   }
   
   if (city) {
-    return `Custom cabinets and storage solutions in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`;
+    return `Custom cabinets and storage solutions in ${city}, Idaho. Idaho Registered Contractor, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
@@ -176,7 +176,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   const serviceLC = serviceName.toLowerCase();
-  return `Expert ${serviceLC} in Boise & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free consultation today!`;
+  return `Expert ${serviceLC} in Boise & Treasure Valley Idaho. Idaho Registered Contractor, insured, satisfaction guaranteed. Call ${phone} for your free consultation today!`;
 }
 
 /**
@@ -208,19 +208,19 @@ export function generateCityServiceDescription(
   const neighborhood = cityData?.neighborhoods?.[0];
 
   if (neighborhood) {
-    const withNeighborhood = `${cityVariant} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. Licensed & insured. Call ${phone}!`;
+    const withNeighborhood = `${cityVariant} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. Idaho Registered Contractor & insured. Call ${phone}!`;
     if (withNeighborhood.length <= 160) return withNeighborhood;
   }
 
   if (shortDescription) {
-    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. Licensed & insured. Call ${phone}!`;
+    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. Idaho Registered Contractor & insured. Call ${phone}!`;
     if (desc.length <= 160) return desc;
   }
 
-  const base = `${cityVariant} ${serviceLC} in ${cityName}, ID. Licensed & insured. Call ${phone} for a free quote!`;
+  const base = `${cityVariant} ${serviceLC} in ${cityName}, ID. Idaho Registered Contractor & insured. Call ${phone} for a free quote!`;
   if (base.length <= 160) return base;
 
-  return `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
+  return `${serviceLC} in ${cityName}, ID. Idaho Registered Contractor, insured pros. Call ${phone} for a free quote today!`;
 }
 
 /** Keep complete authored titles; an optional secondary label may be omitted. */
@@ -431,7 +431,7 @@ export const BUSINESS_INFO = {
   serviceRadius: '35 miles',
   licenses: [`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}`],
   certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
-  insurance: 'Fully Licensed & Insured',
+  insurance: 'Idaho Registered Contractor & Insured',
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,

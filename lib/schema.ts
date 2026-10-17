@@ -47,8 +47,13 @@ const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as 
 function contractorCredential() {
   return {
     '@type': 'EducationalOccupationalCredential',
-    credentialCategory: 'Idaho Registered Contractor',
+    credentialCategory: 'registration',
     identifier: SITE_CONFIG.trust.licenseNumber,
+    recognizedBy: {
+      '@type': 'GovernmentOrganization',
+      name: 'Idaho Division of Occupational and Professional Licenses',
+      url: 'https://dopl.idaho.gov/con/',
+    },
   };
 }
 
@@ -267,7 +272,7 @@ export function generateOrganizationSchema(): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}/images/brc-logo.png`,
     },
-    description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
+    description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Idaho Registered Contractor #8381215, insured, and committed to quality workmanship.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
