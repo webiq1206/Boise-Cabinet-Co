@@ -18,7 +18,7 @@ export default function EstimateLayout({ children }: { children: React.ReactNode
           paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
         }}
       >
-        Idaho Registered Contractor #{SITE_CONFIG.trust.licenseNumber}
+        {`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}`}
       </p>
     </>
   );
