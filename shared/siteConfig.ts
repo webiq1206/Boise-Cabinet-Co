@@ -73,8 +73,9 @@ export const SITE_CONFIG = {
    * TODO(client): set NEXT_PUBLIC_* for license, GBP, and reviews before launch.
    */
   trust: {
-    // Idaho registered contractor / business license number.
-    licenseNumber: process.env.NEXT_PUBLIC_LICENSE_NUMBER ?? "",
+    // Idaho registered contractor number. The code default is the verified
+    // registration, so the footer and schema do not depend on an env var.
+    licenseNumber: process.env.NEXT_PUBLIC_LICENSE_NUMBER || "8381215",
     // Google Business Profile URL (strongest local entity signal).
     gbpUrl: process.env.NEXT_PUBLIC_GBP_URL ?? "",
     houzzUrl: process.env.NEXT_PUBLIC_HOUZZ_URL ?? "",

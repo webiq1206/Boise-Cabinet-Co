@@ -429,10 +429,7 @@ export const BUSINESS_INFO = {
   founded: '2020',
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
-  // TODO(client): set NEXT_PUBLIC_LICENSE_NUMBER to surface the real license #.
-  licenses: SITE_CONFIG.trust.licenseNumber
-    ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
-    : ['License details available upon request'],
+  licenses: [`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}`],
   certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
   insurance: 'Fully Licensed & Insured',
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.

@@ -192,10 +192,16 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap items-center gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
-            <span>
-              {SITE_CONFIG.trust.licenseNumber
-                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
-                : "License details available upon request"}
+            <span className="whitespace-normal">
+              <a
+                href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tap-target underline underline-offset-2 transition-colors hover:text-inverse-foreground"
+                title="Look up registration 8381215 on Idaho DOPL"
+              >
+                Idaho Registered Contractor #{SITE_CONFIG.trust.licenseNumber}
+              </a>
             </span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link
