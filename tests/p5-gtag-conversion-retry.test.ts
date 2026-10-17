@@ -54,9 +54,8 @@ test("an estimator key fires both labels once and a repeat fires nothing", () =>
   assert.equal(estimatorCall[0], "event");
   assert.equal(estimatorCall[1], "conversion");
   assert.equal(transactionId(estimatorCall), key);
-  assert.equal(transactionId(leadCall), "draft-1");
-  assert.equal(store.get(`google_ads_lead:project:draft-1`), "sent");
-  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
+  assert.equal(transactionId(leadCall), key);
+  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
   assert.equal(calls.length, 2);
@@ -78,8 +77,8 @@ test("an intake key fires both labels once and a repeat fires nothing", () => {
   const estimatorCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL)!;
   const leadCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!;
   assert.equal(transactionId(estimatorCall), key);
-  assert.equal(transactionId(leadCall), "project-9");
-  assert.equal(store.get("google_ads_lead:project:project-9"), "sent");
+  assert.equal(transactionId(leadCall), key);
+  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
   assert.equal(calls.length, 2);
 
@@ -118,7 +117,7 @@ test("an estimator key waits for gtag and does not mark sent early", () => {
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
   assert.equal(store.get(`google_ads_estimator:${key}`), undefined);
-  assert.equal(store.get("google_ads_lead:project:draft-late"), undefined);
+  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
 
   mock.timers.tick(GTAG_RETRY_MS * 3);
@@ -130,8 +129,8 @@ test("an estimator key waits for gtag and does not mark sent early", () => {
   mock.timers.tick(GTAG_RETRY_MS);
   assert.deepEqual(calls.map(sendTo).sort(), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, GOOGLE_ADS_LEAD_LABEL].sort());
   assert.equal(store.get(`google_ads_estimator:${key}`), "sent");
-  assert.equal(store.get("google_ads_lead:project:draft-late"), "sent");
-  assert.equal(transactionId(calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!), "draft-late");
+  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
+  assert.equal(transactionId(calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!), key);
 
   trackGoogleAdsLeadConversion({ service: "kitchen" }, key);
   mock.timers.tick(GTAG_RETRY_MS * 4);
@@ -141,7 +140,7 @@ test("an estimator key waits for gtag and does not mark sent early", () => {
   delete (globalThis as { window?: unknown }).window;
 });
 
-test("a conversion is dropped after about five seconds without gtag", () => {
+test("a conversion is dropped after about ten seconds without gtag", () => {
   mock.timers.enable({ apis: ["setTimeout"] });
   const store: Store = new Map();
   installWindow(store);
@@ -150,7 +149,7 @@ test("a conversion is dropped after about five seconds without gtag", () => {
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
   mock.timers.tick(GTAG_RETRY_MS * (GTAG_RETRY_LIMIT + 2));
   assert.equal(store.get(`google_ads_estimator:${key}`), undefined);
-  assert.equal(store.get("google_ads_lead:project:gone"), undefined);
+  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
 
   mock.timers.reset();
   delete (globalThis as { window?: unknown }).window;
@@ -164,11 +163,11 @@ test("a throwing gtag does not escape the conversion helper", () => {
   };
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, "estimator:throws"), false);
   assert.equal(store.get("google_ads_estimator:estimator:throws"), undefined);
-  assert.equal(store.get("google_ads_lead:project:throws"), undefined);
+  assert.equal(store.get("google_ads_lead:estimator:throws"), undefined);
   delete (globalThis as { window?: unknown }).window;
 });
 
-test("intake confirm and estimate submit on the same project fire one form label", () => {
+test("each accepted finish key fires the form label once for that key", () => {
   const store: Store = new Map();
   const win = installWindow(store);
   const calls: Call[] = [];
@@ -179,53 +178,54 @@ test("intake confirm and estimate submit on the same project fire one form label
   const intakeKey = `intake:cabinet:${id}`;
   const estimatorKey = `estimator:${id}`;
 
-  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, intakeKey), true);
-  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, estimatorKey), true);
+  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, intakeKey), true);
+  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, estimatorKey), true);
 
   const formCalls = calls.filter((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL);
   const completionCalls = calls.filter((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL);
-  assert.equal(formCalls.length, 1);
-  assert.equal(transactionId(formCalls[0]), id);
+  assert.deepEqual(formCalls.map(transactionId), [intakeKey, estimatorKey]);
   assert.deepEqual(completionCalls.map(transactionId), [intakeKey, estimatorKey]);
-  assert.equal(store.get(`google_ads_lead:project:${id}`), "sent");
-  assert.equal(store.get(`google_ads_estimator:${intakeKey}`), "sent");
-  assert.equal(store.get(`google_ads_estimator:${estimatorKey}`), "sent");
+  assert.equal(store.get(`google_ads_lead:${intakeKey}`), "sent");
+  assert.equal(store.get(`google_ads_lead:${estimatorKey}`), "sent");
 
-  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, intakeKey), false);
-  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, estimatorKey), false);
-  assert.equal(calls.length, 3);
+  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, intakeKey), false);
+  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, estimatorKey), false);
+  assert.equal(calls.length, 4);
 
   delete (globalThis as { window?: unknown }).window;
 });
 
-test("a finish that did not create an accepted lead fires only the estimator label", () => {
+test("a submit replay fires only the estimator label", () => {
   const store: Store = new Map();
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
     calls.push(args);
   };
-  const id = "draft-unaccepted";
-  const key = `estimator:${id}`;
+  const key = "estimator:draft-replay";
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: false }, key), true);
   assert.equal(calls.length, 1);
   assert.equal(sendTo(calls[0]), GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL);
   assert.equal(transactionId(calls[0]), key);
   assert.equal(store.get(`google_ads_estimator:${key}`), "sent");
-  assert.equal(store.get(`google_ads_lead:project:${id}`), undefined);
   assert.equal(store.get(`google_ads_lead:${key}`), undefined);
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: false }, key), false);
   assert.equal(calls.length, 1);
 
-  const intakeKey = `intake:cabinet:${id}`;
-  assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, intakeKey), true);
-  assert.equal(calls.filter((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL).length, 1);
-  assert.equal(transactionId(calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!), id);
-  assert.equal(calls.filter((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL).length, 2);
-
   delete (globalThis as { window?: unknown }).window;
+});
+
+test("the engine calls the helper without the accepted flag", () => {
+  const source = readFileSync(new URL("../components/P5Estimator.tsx", import.meta.url), "utf8");
+  const intakeAt = source.indexOf("trackGoogleAdsLeadConversion({service:latest.answers.service},`intake:${receipt.projectId}`)");
+  const submitAt = source.indexOf("trackGoogleAdsLeadConversion({service:d.answers.service},`estimator:${d.id}`)");
+  const rejectedAt = source.lastIndexOf("if(!response.ok)throw", intakeAt);
+  assert.ok(rejectedAt !== -1 && rejectedAt < intakeAt);
+  assert.equal(source.includes("acceptedLead"), false);
+  assert.equal(source.includes("data.accepted"), false);
+  assert.ok(submitAt > intakeAt);
 });
 
 test("the shared estimator engine is unchanged", () => {

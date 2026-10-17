@@ -5,12 +5,14 @@
  * value so Google Ads can report ROAS by campaign. Values are the per-lead
  * estimates agreed with P5 on 14 Sept 2026 (form fallback in Google Ads is $50).
  * A key starting with "intake:" or "estimator:" is an estimator finish. It fires
- * "P5 Estimator Completed" once for that exact key. When the finish created an
- * accepted lead, it also fires the form label once for the shared project id
- * (the draft id in both "intake:<site>:<id>" and "estimator:<id>"). A finish
- * that did not create an accepted lead fires only the estimator label. Any
- * other key fires the form label only, once for that key. Never pass PII here:
- * no names, phones, emails or free text.
+ * "P5 Estimator Completed" once for that exact key. The form label fires once
+ * for the same key, with transaction_id equal to the key, when the finish
+ * created an accepted lead. Pass acceptedLead: false for a submit replay
+ * ({accepted:false, duplicate:true}); that fires only the estimator label.
+ * The shared engine does not pass acceptedLead. An omitted flag still sends
+ * the form label, because this helper cannot read the endpoint body. An intake
+ * HTTP 409 never reaches this helper. Any other key fires the form label only,
+ * once for that key. Never pass PII here: no names, phones, emails or free text.
  */
 export const GOOGLE_ADS_ID = "AW-18354188204";
 export const GOOGLE_ADS_LEAD_LABEL = "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
@@ -28,8 +30,9 @@ export interface LeadContext {
   /** Consultation form project type. */
   projectType?: string;
   /**
-   * Estimator finishes only. False means this finish did not create an accepted
-   * lead, so the form label is skipped. Omitted means the finish did.
+   * Estimator finishes only. True sends the form label. False is a duplicate
+   * or other non-accepted finish, so only the estimator label is sent.
+   * Omitted: the engine does not pass the endpoint's accepted flag.
    */
   acceptedLead?: boolean;
 }
@@ -77,8 +80,8 @@ export function googleAdsLeadParams(
 const sentLeadKeys = new Set<string>();
 const pendingGtagRetries = new Set<string>();
 
-/** Ten attempts, 500ms apart: about 5 seconds, matching the Remodeling inquiry retry. */
-export const GTAG_RETRY_LIMIT = 10;
+/** Twenty attempts, 500ms apart: 10 seconds. */
+export const GTAG_RETRY_LIMIT = 20;
 export const GTAG_RETRY_MS = 500;
 
 type GtagFn = (...args: unknown[]) => void;
@@ -126,18 +129,6 @@ function isEstimatorFinishKey(dedupeKey: string | undefined): dedupeKey is strin
   return !!dedupeKey && (dedupeKey.startsWith("intake:") || dedupeKey.startsWith("estimator:"));
 }
 
-/**
- * Draft id shared by intake confirm ("intake:<site>:<id>" or "intake:<id>")
- * and estimate submit ("estimator:<id>"). The form label dedupes on this id.
- */
-function projectIdentity(dedupeKey: string): string {
-  if (dedupeKey.startsWith("estimator:")) {
-    return dedupeKey.slice("estimator:".length) || dedupeKey;
-  }
-  const rest = dedupeKey.slice("intake:".length);
-  return rest.split(":").filter(Boolean).at(-1) || dedupeKey;
-}
-
 function alreadySent(storageKey: string): boolean {
   if (sentLeadKeys.has(storageKey)) return true;
   try {
@@ -159,10 +150,10 @@ function markSent(storageKey: string) {
 /**
  * Fires the Google Ads conversion for this key. Estimator finish keys
  * ("intake:" or "estimator:") send the estimator label once per key. They also
- * send the form label once per shared project id, unless acceptedLead is false.
- * Every other key sends the form label only, once per key. If gtag is not
- * ready, waits up to about 5 seconds. Returns true when at least one label
- * was sent.
+ * send the form label once per key, with transaction_id equal to the key,
+ * unless acceptedLead is false. Every other key sends the form label only.
+ * If gtag is not ready, waits up to 10 seconds. Returns true when at least
+ * one label was sent.
  */
 export function trackGoogleAdsLeadConversion(
   ctx: LeadContext = {},
@@ -182,10 +173,9 @@ export function trackGoogleAdsLeadConversion(
         });
       }
       if (ctx.acceptedLead !== false) {
-        const identity = projectIdentity(dedupeKey);
-        const leadStorage = `google_ads_lead:project:${identity}`;
+        const leadStorage = `google_ads_lead:${dedupeKey}`;
         if (!alreadySent(leadStorage)) {
-          pending.push({ storageKey: leadStorage, params: googleAdsLeadParams(ctx, identity) });
+          pending.push({ storageKey: leadStorage, params: googleAdsLeadParams(ctx, dedupeKey) });
         }
       }
     } else {
