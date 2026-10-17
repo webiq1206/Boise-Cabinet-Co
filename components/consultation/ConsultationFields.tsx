@@ -51,6 +51,7 @@ import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { consultationReferenceId } from "@/lib/consultationReferenceId";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -436,10 +437,7 @@ export function ConsultationFields({
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
-      const metaEventId =
-        typeof crypto !== "undefined" && "randomUUID" in crypto
-          ? crypto.randomUUID()
-          : `lead-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const metaEventId = consultationReferenceId();
       metaEventIdRef.current = metaEventId;
       // The full record of everything the homeowner selected and was shown.
       // Built here rather than in the wizard because the address, budget, and
@@ -546,6 +544,7 @@ export function ConsultationFields({
       <div
         className="flex flex-col items-start py-8 space-y-5"
         data-testid="consultation-success"
+        data-clarity-mask="True"
         aria-live="polite"
         role="status"
       >
