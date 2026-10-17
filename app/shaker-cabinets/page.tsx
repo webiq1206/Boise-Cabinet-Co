@@ -110,7 +110,7 @@ export default function ShakerCabinetsPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={"/images/marketing/hero-home.webp"}
-          alt="Shaker-style kitchen design inspiration with white cabinets and a wood island"
+          alt="white shaker kitchen cabinets and a wood island"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]}
           eyebrow="Door styles"
           title={<>

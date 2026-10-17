@@ -148,7 +148,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={cityProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              eyebrow="Project gallery"
               title={<>Cabinet ideas for {city.name} homes</>}
               align="left"
               className="mb-6"

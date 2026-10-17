@@ -250,7 +250,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              eyebrow="Project gallery"
               title={<>{room.name} cabinet ideas</>}
               align="left"
               className="mb-6"

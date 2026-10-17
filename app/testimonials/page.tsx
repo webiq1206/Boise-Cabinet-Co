@@ -68,7 +68,6 @@ export default function TestimonialsPage() {
         image={MARKETING_IMAGES.processHome}
         alt="cabinet finish selections laid out during a consultation"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: showTestimonials() ? 'Projects & Reviews' : 'Design ideas' }]}
-        eyebrow="Cabinet design inspiration"
         title={showTestimonials() ? <>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></> : "Design ideas"}
         description={showTestimonials()
           ? "Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
