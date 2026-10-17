@@ -4,7 +4,9 @@ import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { BUILT_INS_CABINETS_HEADLINE, KITCHEN_CABINETS_HEADLINE } from "@/lib/aboveFoldHeadlines";
 import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
@@ -62,6 +64,12 @@ const SEO_NAME: Record<string, string> = {
   "built-ins": "Built-In",
 };
 const seoName = (room: { slug: string; name: string }) => SEO_NAME[room.slug] ?? room.name;
+
+/** Full headline for the two room pages that must clear a phone's first screen. */
+const ABOVE_FOLD_HEADLINE: Record<string, string> = {
+  kitchen: KITCHEN_CABINETS_HEADLINE,
+  "built-ins": BUILT_INS_CABINETS_HEADLINE,
+};
 
 /**
  * A room's typical planning range, computed with the estimator's own
@@ -137,6 +145,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     (REVIEW_SERVICE_MATCH[room.slug] ?? []).includes(t.serviceType),
   );
 
+  const aboveFoldHeadline = ABOVE_FOLD_HEADLINE[room.slug];
+
   const schemas = [
     generateWebPageSchema({
       title: `${seoName(room)} Cabinets`,
@@ -160,7 +170,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Hero */}
-        <InteriorHero layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
+        <InteriorHero layout="split" className={aboveFoldHeadline ? "interior-hero-above-fold" : ""} imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
@@ -168,6 +178,18 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 { name: room.name },
               ]}
             />
+            {aboveFoldHeadline ? (
+              <>
+                <PageHeader
+                  align="left"
+                  className="mt-6"
+                  eyebrow="Room catalog"
+                  title={aboveFoldHeadline}
+                />
+                <AboveFoldActions />
+                <p className="ed-lede mt-8 max-w-[44ch]">{room.description}</p>
+              </>
+            ) : (
             <PageHeader
               align="left"
               className="mt-6"
@@ -180,6 +202,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               }
               description={room.description}
             />
+            )}
             <div className="flex flex-wrap gap-3 mt-4">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />

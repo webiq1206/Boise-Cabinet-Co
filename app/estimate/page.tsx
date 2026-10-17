@@ -1,7 +1,8 @@
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { EstimateCalculator } from "@/components/EstimateCalculator";
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
+import { EstimatePageFrame } from "@/components/EstimatePageFrame";
+import { ESTIMATE_HEADLINE } from "@/lib/aboveFoldHeadlines";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
@@ -30,8 +31,11 @@ export default function EstimatePage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <h1 className="sr-only">Get an Estimate</h1>
-      <EstimateCalculator headingAs="h2" viewportFit />
+      <header className="estimate-above-fold" data-site-header>
+        <h1>{ESTIMATE_HEADLINE}</h1>
+        <AboveFoldActions />
+      </header>
+      <EstimatePageFrame />
     </>
   );
 }
