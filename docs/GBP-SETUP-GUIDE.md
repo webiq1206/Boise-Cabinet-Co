@@ -130,12 +130,12 @@ You serve within roughly 35 miles of the Treasure Valley. Listing each city is b
 
 | Day | Hours |
 |---|---|
-| Monday | 7:00 AM - 6:00 PM |
-| Tuesday | 7:00 AM - 6:00 PM |
-| Wednesday | 7:00 AM - 6:00 PM |
-| Thursday | 7:00 AM - 6:00 PM |
-| Friday | 7:00 AM - 6:00 PM |
-| Saturday | 8:00 AM - 4:00 PM |
+| Monday | 9:00 AM - 6:00 PM |
+| Tuesday | 9:00 AM - 6:00 PM |
+| Wednesday | 9:00 AM - 6:00 PM |
+| Thursday | 9:00 AM - 6:00 PM |
+| Friday | 9:00 AM - 6:00 PM |
+| Saturday | 9:00 AM - 4:00 PM |
 | Sunday | Closed |
 
 Update special hours for holidays and any days your shop or office is closed.
@@ -592,7 +592,7 @@ Work through this list before you consider your profile complete.
 - [ ] Phone, website (UTM), appointment link set
 - [ ] Opening date: 2017
 - [ ] 9 service areas added
-- [ ] Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)
+- [ ] Hours set (Mon-Fri 9-6, Sat 9-4, Sun closed)
 - [ ] 744-char business description pasted
 - [ ] 11 core services with descriptions + UTM links
 - [ ] 6 door-style products with photos + UTM links
