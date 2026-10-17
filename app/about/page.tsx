@@ -252,10 +252,10 @@ export default function AboutPage() {
               className="mb-6"
             />
             <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-              We run Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
+              We built Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
               where it shows up in the finished space: skilled installers, better materials, and
               workmanship you can stand behind. For the homeowners and builders we work with, that
-              means pricing you can plan around and cabinetry chosen to hold up, on every project.
+              means pricing you can plan around and cabinetry built to hold up, on every project.
               Every dollar goes into the work, not our bills.
             </p>
           </div>

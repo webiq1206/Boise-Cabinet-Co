@@ -59,7 +59,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Confidence that outlasts the project",
     contrast: "Beyond a quick sign-off and goodbye,",
-    body: "we stand behind our workmanship with a written workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
+    body: "we stand behind our workmanship with a written guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
   },
   {
     title: "A job site that respects your home",
@@ -77,7 +77,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
     body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we install matches what you approved.",
   },
   {
-    title: "Lean overhead, so your budget goes into your cabinets",
+    title: "Lean overhead, so your budget goes into the build",
     contrast: "Instead of a vendor's big offices, fancy showrooms, and truck fleets getting built into the price and passed down the line,",
     body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled installers, better materials, and workmanship we stand behind. A price you can count on, on every project.",
   },
