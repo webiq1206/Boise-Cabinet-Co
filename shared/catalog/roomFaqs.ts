@@ -1,4 +1,5 @@
 import type { RoomCategory } from "./roomCategories";
+import { formatTypicalRoomRange } from "../typicalRoomRange";
 
 export interface RoomFaq {
   question: string;
@@ -15,8 +16,7 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
   kitchen: [
     {
       question: "How much do custom kitchen cabinets cost in Boise?",
-      answer:
-        "Most Treasure Valley kitchen cabinet packages plan from roughly $15,000 to $45,000+ installed, depending on linear footage, door style, finish tier, and interior accessories. See our Boise Cabinet Cost Guide for detailed planning bands.",
+      answer: kitchenCostAnswer(),
     },
     {
       question: "Can you design around my existing kitchen layout?",
@@ -179,6 +179,14 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
     },
   ],
 };
+
+function kitchenCostAnswer(): string {
+  const range = formatTypicalRoomRange("kitchen");
+  if (!range) {
+    throw new Error("Kitchen typical range is required for the room FAQ.");
+  }
+  return `Most Treasure Valley kitchen cabinet packages plan from roughly ${range} installed, based on a typical size and Better-tier construction, depending on linear footage, door style, finish tier, and interior accessories. See our Boise Cabinet Cost Guide for detailed planning bands.`;
+}
 
 const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {

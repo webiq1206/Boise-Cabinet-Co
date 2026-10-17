@@ -31,13 +31,7 @@ import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
-import {
-PROJECT_PRICING,
-calculateEstimate,
-formatPlanningCurrency,
-getDefaultSelectionsForProject,
-type ProjectType,
-} from "@/shared/estimateEngine";
+import { formatTypicalRoomRange } from "@/shared/typicalRoomRange";
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
@@ -62,21 +56,6 @@ const SEO_NAME: Record<string, string> = {
   "built-ins": "Built-In",
 };
 const seoName = (room: { slug: string; name: string }) => SEO_NAME[room.slug] ?? room.name;
-
-/**
- * A room's typical planning range, computed with the estimator's own
- * canonical defaults (typical size, modern-shaker door, matte/standard
- * finish, Better construction) - the same defaults `DEFAULT_SELECTIONS` uses
- * elsewhere. Only rooms with a real pricing model return a range; the other
- * five room types (closet, garage, outdoor, wet-bar, bedroom) have no
- * modeled rate, so callers must handle `null` rather than see a guessed number.
- */
-function getTypicalRoomRange(roomSlug: string): { priceLow: number; priceHigh: number } | null {
-  if (!(roomSlug in PROJECT_PRICING)) return null;
-  const project = roomSlug as ProjectType;
-  const result = calculateEstimate(getDefaultSelectionsForProject(project));
-  return result ? { priceLow: result.priceLow, priceHigh: result.priceHigh } : null;
-}
 
 /** Room slugs mapped to the project-gallery `serviceType` values that genuinely depict that room. */
 const PROJECT_SERVICE_MATCH: Record<string, string[]> = {
@@ -129,7 +108,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const roomFaqs = getRoomFaqs(room);
   const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
   const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
-  const typicalRange = getTypicalRoomRange(room.slug);
+  const typicalRange = formatTypicalRoomRange(room.slug);
   const roomProjects = PROJECTS.filter((p) =>
     (PROJECT_SERVICE_MATCH[room.slug] ?? []).includes(p.serviceType),
   ).slice(0, 3);
@@ -217,10 +196,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               {typicalRange ? (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
                   Most {room.name.toLowerCase()} projects plan from{" "}
-                  <strong className="text-foreground">
-                    {formatPlanningCurrency(typicalRange.priceLow)} to{" "}
-                    {formatPlanningCurrency(typicalRange.priceHigh)}
-                  </strong>{" "}
+                  <strong className="text-foreground">{typicalRange}</strong>{" "}
                   installed, based on a typical size and Better-tier construction. Your exact
                   range depends on linear footage, door style, and finish.
                 </p>
