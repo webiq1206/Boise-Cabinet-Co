@@ -80,9 +80,25 @@ export const SITE_CONFIG = {
   },
 } as const;
 
-/** Contact hero line. Hours come only from SITE_CONFIG.textReplyHours. */
+/** Plain-text Prefer to text sentence. Hours come only from SITE_CONFIG.textReplyHours. */
 export function preferToTextLine(phone: string = SITE_CONFIG.phone): string {
   return `Prefer to text? Text ${phone}. We reply in minutes during business hours (${SITE_CONFIG.textReplyHours}).`;
+}
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+/** Same sentence for HTML email and blog copy, with the phone as an sms: link. */
+export function preferToTextHtml(
+  phone: string = SITE_CONFIG.phone,
+  smsHref: string = SITE_CONFIG.phoneSmsHref,
+): string {
+  return `Prefer to text? Text <a href="${escapeHtmlText(smsHref)}">${escapeHtmlText(phone)}</a>. We reply in minutes during business hours (${escapeHtmlText(SITE_CONFIG.textReplyHours)}).`;
 }
 
 export function formatPhoneDisplay(tel: string = SITE_CONFIG.phoneTel): string {

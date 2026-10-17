@@ -51,6 +51,7 @@ import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -160,14 +161,19 @@ function FieldError() {
 
 function TrustRow() {
   return (
-    <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-      {TRUST_POINTS.map(({ icon: Icon, label }) => (
-        <li key={label} className="flex items-center gap-1.5">
-          <Icon className="h-3.5 w-3.5 text-accent" />
-          {label}
-        </li>
-      ))}
-    </ul>
+    <div className="space-y-2">
+      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+        {TRUST_POINTS.map(({ icon: Icon, label }) => (
+          <li key={label} className="flex items-center gap-1.5">
+            <Icon className="h-3.5 w-3.5 text-accent" />
+            {label}
+          </li>
+        ))}
+      </ul>
+      <p className="text-xs leading-relaxed text-muted-foreground">
+        <PreferToTextLine />
+      </p>
+    </div>
   );
 }
 
@@ -565,7 +571,7 @@ export function ConsultationFields({
           ))}
         <p className="text-base leading-relaxed text-muted-foreground">
           Thank you for reaching out. We sent a confirmation to your email and typically
-          respond within one business day.
+          respond within one business day. <PreferToTextLine />
         </p>
         <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
           <li>We call or text to confirm your details</li>

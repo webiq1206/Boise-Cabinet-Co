@@ -1,21 +1,96 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
-import { preferToTextLine, SITE_CONFIG } from "../shared/siteConfig";
+import { preferToTextHtml, preferToTextLine, SITE_CONFIG } from "../shared/siteConfig";
 
 const LINE =
   "Prefer to text? Text (208) 477-1169. We reply in minutes during business hours (Mon–Fri 9–6, Sat 9–4 MT).";
+const SMS_HREF = "sms:+12084771169";
+const PROMISE = /one\s+business\s+day/g;
+const FOLLOW = /preferToTextLine\(|preferToTextHtml\(|<PreferToTextLine[\s/>]/;
 
-test("the Prefer to text line uses one hours constant, including Saturday", () => {
+/** Internal staff mail. It tells the team what the visitor was already told. It is not a customer reply line. */
+const INTERNAL_ONLY = new Set(["server/services/estimatorSessionEmail.ts"]);
+
+const ROOTS = ["app", "components", "shared", "lib", "server"];
+
+function walk(dir: string, out: string[] = []): string[] {
+  for (const entry of readdirSync(dir)) {
+    if (entry === "node_modules" || entry === ".next") continue;
+    const full = path.join(dir, entry);
+    const stat = statSync(full);
+    if (stat.isDirectory()) walk(full, out);
+    else if (/\.(ts|tsx|js|mjs|html)$/.test(entry)) out.push(full);
+  }
+  return out;
+}
+
+test("the Prefer to text sentence uses one hours constant, including Saturday", () => {
   assert.equal(SITE_CONFIG.textReplyHours, "Mon–Fri 9–6, Sat 9–4 MT");
+  assert.equal(SITE_CONFIG.phone, "(208) 477-1169");
+  assert.equal(SITE_CONFIG.phoneSmsHref, SMS_HREF);
   assert.equal(preferToTextLine(), LINE);
-  assert.equal(preferToTextLine(SITE_CONFIG.phone), LINE);
-
-  const contact = readFileSync("app/contact/page.tsx", "utf8");
-  assert.equal(contact.includes("preferToTextLine()"), true);
-  assert.equal(contact.includes("Mon–Fri 9–6 MT"), false);
-  assert.equal(contact.includes("Sat 9–4"), false);
+  assert.equal(
+    preferToTextHtml(),
+    `Prefer to text? Text <a href="${SMS_HREF}">(208) 477-1169</a>. We reply in minutes during business hours (${SITE_CONFIG.textReplyHours}).`,
+  );
 
   const config = readFileSync("shared/siteConfig.ts", "utf8");
   assert.equal(config.split("Mon–Fri 9–6, Sat 9–4 MT").length, 2);
+
+  const component = readFileSync("components/contact/PreferToTextLine.tsx", "utf8");
+  assert.match(component, /href=\{SITE_CONFIG\.phoneSmsHref\}/);
+  assert.equal(component.includes("track("), false);
+  assert.equal(component.includes("Mon–Fri 9–6, Sat 9–4 MT"), false);
+});
+
+test("each customer one-business-day line stays and is followed by Prefer to text", () => {
+  const files = ROOTS.flatMap((root) => walk(root));
+  const customerFiles = files.filter((file) => {
+    const source = readFileSync(file, "utf8");
+    return source.includes("one business day") && !INTERNAL_ONLY.has(file);
+  });
+
+  assert.ok(customerFiles.length > 0, "expected customer-facing one-business-day lines");
+
+  for (const file of customerFiles) {
+    const source = readFileSync(file, "utf8");
+    const matches = [...source.matchAll(PROMISE)];
+    assert.ok(matches.length > 0, file);
+    matches.forEach((match, index) => {
+      const start = match.index ?? 0;
+      const next = matches[index + 1]?.index ?? source.length;
+      const between = source.slice(start, next);
+      assert.match(between, FOLLOW, `${file} occurrence ${index + 1} is missing the Prefer to text line`);
+    });
+  }
+
+  const contact = readFileSync("app/contact/page.tsx", "utf8");
+  assert.match(contact, /We respond within one business day\. Share your goals and we will schedule a free in-home design consultation\./);
+  assert.match(contact, /Call, email, or visit, we respond within one business day and never use high-pressure sales tactics\./);
+  assert.match(contact, /Response within one business day/);
+  assert.equal(contact.includes("link-hero-text"), false);
+
+  const home = readFileSync("app/page.tsx", "utf8");
+  assert.match(home, /We will reach out within one business day to schedule your free/);
+
+  const staff = readFileSync("server/services/estimatorSessionEmail.ts", "utf8");
+  assert.match(staff, /within one business day/);
+  assert.equal(staff.includes("Prefer to text?"), false);
+});
+
+test("published office hours stay on the existing 7-6 and 8-4 schedule", () => {
+  const contact = readFileSync("app/contact/page.tsx", "utf8");
+  assert.match(contact, /Mon – Fri 7 am – 6 pm · Sat 8 am – 4 pm/);
+
+  const seo = readFileSync("lib/seo.ts", "utf8");
+  assert.match(seo, /monday: '7:00 AM - 6:00 PM'/);
+  assert.match(seo, /saturday: '8:00 AM - 4:00 PM'/);
+  assert.match(seo, /sunday: 'Closed'/);
+
+  const gbp = readFileSync("shared/gbpConfig.ts", "utf8");
+  assert.match(gbp, /monday: "7:00 AM - 6:00 PM"/);
+  assert.match(gbp, /saturday: "8:00 AM - 4:00 PM"/);
+  assert.match(gbp, /Hours set \(Mon-Fri 7-6, Sat 8-4, Sun closed\)/);
 });

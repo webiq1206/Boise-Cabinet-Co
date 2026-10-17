@@ -1,4 +1,5 @@
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { Reveal } from "@/components/Reveal";
 import { ApprovedHome } from "@/components/approved/ApprovedHome";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -60,6 +61,9 @@ export default function HomePage() {
                 <p className="ed-lede mt-8 max-w-[40ch]">
                   We will reach out within one business day to schedule your free
                   design consultation.
+                </p>
+                <p className="ed-body mt-3">
+                  <PreferToTextLine />
                 </p>
                 <p className="ed-body mt-4">
                   You will leave with planning guidance and no obligation.

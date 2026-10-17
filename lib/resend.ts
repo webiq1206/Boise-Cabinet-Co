@@ -4,7 +4,7 @@
  */
 import { Resend } from 'resend';
 import { checkedEmailSender } from '@/lib/emailDelivery';
-import { SITE_CONFIG } from '@/shared/siteConfig';
+import { preferToTextHtml, SITE_CONFIG } from '@/shared/siteConfig';
 import {
   escapeHtml,
   wrapEmailHtml,
@@ -163,6 +163,7 @@ export async function sendQuoteConfirmationEmail(data: {
     content: `
       <p class="greeting">Hi ${escapeHtml(data.customerName)},</p>
       <p>Thank you for contacting Boise Cabinet Co! We've received your request and will be in touch within one business day to schedule your free design consultation.</p>
+      <p>${preferToTextHtml()}</p>
       <div class="highlight-box">
         <h3 style="margin: 0 0 15px 0; color: inherit;">Quote Details</h3>
         <p style="margin: 0 0 8px 0;"><strong>Reference:</strong> ${escapeHtml(data.quoteId.slice(0, 8))}</p>

@@ -5,7 +5,7 @@ import { consultationRequests, leads, submissions, leadQuotes } from "@/shared/s
 import { deriveEmailable, matchServiceArea } from "@/lib/crm/leads";
 import { notifyNewLead } from "@/server/services/leadNotifications";
 import { getUncachableResendClient } from "@/server/resend";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { preferToTextHtml, SITE_CONFIG } from "@/shared/siteConfig";
 import {
   escapeHtml,
   wrapEmailHtml,
@@ -421,6 +421,7 @@ export async function POST(request: NextRequest) {
         content: `
           <p class="greeting">Hi ${escapeHtml(data.name)},</p>
           <p>Thanks so much for reaching out. I got your request and I will personally be in touch within one business day to set up your free design visit and learn more about what you have in mind.</p>
+          <p>${preferToTextHtml()}</p>
           ${estimateDetailBlock}
           ${buildHomeownerStoryHtml()}
           <p>In the meantime, feel free to call or text me at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>, or just reply to this email with any questions at all.</p>

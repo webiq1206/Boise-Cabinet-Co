@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, ArrowLeft, AlertCircle } from "lucide-react";
@@ -107,7 +108,11 @@ export function ShareView({ shareToken }: ShareViewProps) {
       setSubmitted(true);
       toast({
         title: "Pricing request sent",
-        description: `${SITE_CONFIG.name} will contact you within one business day.`,
+        description: (
+          <>
+            {SITE_CONFIG.name} will contact you within one business day. <PreferToTextLine />
+          </>
+        ),
       });
     } catch {
       toast({ title: "Could not send request", description: "Please try again.", variant: "destructive" });

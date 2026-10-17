@@ -26,7 +26,7 @@ import {
   KNOWLEDGE_TOPIC_KEYS,
   getKnowledgeTopic,
 } from "@/shared/assistantKnowledge";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { preferToTextLine, SITE_CONFIG } from "@/shared/siteConfig";
 
 /**
  * Deterministic tool layer for the estimating assistant.
@@ -413,7 +413,7 @@ async function executeSaveLead(input: unknown, ctx: AssistantToolContext) {
   return {
     saved: true,
     whatHappensNext:
-      "The team replies within one business day to schedule the free 60-90 minute in-home visit. No spam.",
+      `The team replies within one business day to schedule the free 60-90 minute in-home visit. No spam. ${preferToTextLine()}`,
   };
 }
 
@@ -444,7 +444,7 @@ async function executeHandoff(input: unknown, ctx: AssistantToolContext) {
       return {
         ok: true,
         saved: true,
-        tellTheHomeowner: `The team has been notified and will reach out within one business day. For anything urgent they can call or text ${SITE_CONFIG.phone}.`,
+        tellTheHomeowner: `The team has been notified and will reach out within one business day. For anything urgent they can call or text ${SITE_CONFIG.phone}. ${preferToTextLine()}`,
       };
     }
     console.error(`[assistant] handoff lead save failed (${result.status})`);
@@ -452,7 +452,7 @@ async function executeHandoff(input: unknown, ctx: AssistantToolContext) {
   return {
     ok: true,
     saved: false,
-    tellTheHomeowner: `The fastest way to reach the team directly is to call or text ${SITE_CONFIG.phone}, or email ${SITE_CONFIG.email}. If they share their name, phone, and email here, the team will follow up within one business day.`,
+    tellTheHomeowner: `The fastest way to reach the team directly is to call or text ${SITE_CONFIG.phone}, or email ${SITE_CONFIG.email}. If they share their name, phone, and email here, the team will follow up within one business day. ${preferToTextLine()}`,
   };
 }
 
