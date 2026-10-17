@@ -8,6 +8,7 @@ import {intakeContact,intakeUnresolved,snapshotRouting,emptyIntakeDetails,intake
 import {intakeStore,IntakeConflict} from './intakeStore.ts';
 import {SCOPE_FIELDS} from './scope.ts';
 import {kickDriver} from './estimateDriver.ts';
+import { allowEnhancedConversions } from '../ads/enhancedConversionSuppression.ts';
 
 export async function getIntake(request:Request){try{
   protectRequest(request);const {id,key}=draftCredentials(request);const draft=await readDraft(id,key);
@@ -32,5 +33,5 @@ export async function postIntake(request:Request){try{
     contact,details,scope:{text:draft.text,answers:draft.answers,extraction:draft.extraction,uploads:draft.uploads},routing,
     unresolved:[...new Set([...routing.unresolved,...intakeUnresolved(draft,SCOPE_FIELDS)])]});
   kickDriver('intake-saved');
-  return json(receipt);
+  return json({...receipt,allowEnhancedConversions:await allowEnhancedConversions(contact)});
 }catch(error){return failed(error instanceof IntakeConflict?new DraftError(error.message,409):error);}}

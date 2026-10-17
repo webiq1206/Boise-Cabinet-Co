@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, jsonb, decimal, boolean, index, integer, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, jsonb, decimal, boolean, index, integer, uniqueIndex, primaryKey } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 export * from "./p5EstimatorSchema";
@@ -1057,3 +1057,12 @@ export const estimatorSessions = pgTable("estimator_sessions", {
 ]);
 
 export type EstimatorSession = typeof estimatorSessions.$inferSelect;
+
+/** SHA-256 hashes of emails and E.164 phones that must not be sent as Google Ads user_data. No raw contact value is stored. */
+export const adsEnhancedConversionSuppression = pgTable("ads_enhanced_conversion_suppression", {
+  kind: text("kind").notNull(),
+  hash: text("hash").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [
+  primaryKey({ columns: [table.kind, table.hash] }),
+]);

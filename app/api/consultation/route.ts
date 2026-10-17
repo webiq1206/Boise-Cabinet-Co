@@ -467,10 +467,16 @@ export async function POST(request: NextRequest) {
       fbc: request.cookies.get("_fbc")?.value,
     });
 
+    const { allowEnhancedConversions } = await import("@/lib/ads/enhancedConversionSuppression");
+    const enhancedConversionsAllowed = await allowEnhancedConversions({
+      email: data.email,
+      phone: data.phone,
+    });
     return NextResponse.json({
       success: true,
       accepted: true,
       submissionId: data.metaEventId,
+      allowEnhancedConversions: enhancedConversionsAllowed,
     });
   } catch (err) {
     console.error("[consultation] Error:", err);

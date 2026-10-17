@@ -16,6 +16,11 @@
  * conversions send email, phone, first name, last name, and ZIP through a
  * separate gtag user_data set, and only when this helper is about to fire.
  */
+import {
+  normalizedEnhancedConversionEmail,
+  normalizedEnhancedConversionPhone,
+} from "@/lib/ads/enhancedConversionContact";
+
 export const GOOGLE_ADS_ID = "AW-18354188204";
 export const GOOGLE_ADS_LEAD_LABEL = "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
 /** "P5 Estimator Completed" (7851740531). */
@@ -92,6 +97,8 @@ export type GoogleAdsUserInput = {
   phone?: string;
   name?: string;
   postalCode?: string;
+  /** When false, the conversion still fires and user_data is skipped. */
+  allowEnhancedConversions?: boolean;
 };
 
 export type GoogleAdsUserData = {
@@ -112,9 +119,8 @@ export type GoogleAdsUserData = {
  * US when an address object is sent.
  */
 export function buildGoogleAdsUserData(input: GoogleAdsUserInput): GoogleAdsUserData | null {
-  const email = input.email?.trim().toLowerCase() || undefined;
-  const digits = (input.phone ?? "").replace(/\D/g, "");
-  const phone_number = digits.length === 10 ? `+1${digits}` : undefined;
+  const email = normalizedEnhancedConversionEmail(input.email);
+  const phone_number = normalizedEnhancedConversionPhone(input.phone);
   const nameParts = (input.name ?? "").trim().split(/\s+/).filter(Boolean);
   const first_name = nameParts[0];
   const last_name = nameParts.slice(1).join(" ") || undefined;
@@ -234,6 +240,49 @@ export function gtagOrRetry(key: string, retryCount: number, again: (nextRetry: 
   }
 }
 
+let capturedEnhancedConversionAllowance: boolean | undefined;
+
+/** Remember the boolean from the latest form-submit response. */
+export function noteEnhancedConversionAllowance(allowed: boolean | undefined) {
+  capturedEnhancedConversionAllowance = allowed;
+}
+
+export function peekEnhancedConversionAllowance(): boolean | undefined {
+  return capturedEnhancedConversionAllowance;
+}
+
+function requestUrl(input: RequestInfo | URL): string {
+  if (typeof input === "string") return input;
+  if (input instanceof URL) return input.toString();
+  return input.url;
+}
+
+/** Read allowEnhancedConversions off submit responses before the engine calls gtag. */
+export function installEnhancedConversionAllowanceCapture() {
+  if (typeof window === "undefined") return;
+  const host = window as Window & { __adsEnhancedFetch?: boolean };
+  if (host.__adsEnhancedFetch) return;
+  const original = window.fetch?.bind(window);
+  if (!original) return;
+  host.__adsEnhancedFetch = true;
+  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const response = await original(input, init);
+    const url = requestUrl(input);
+    if (!/\/api\/(?:consultation|p5-estimator\/submit|p5-estimator\/intake)(?:\?|$)/.test(url)) return response;
+    try {
+      const body = (await response.clone().json()) as { allowEnhancedConversions?: unknown };
+      if (typeof body?.allowEnhancedConversions === "boolean") {
+        capturedEnhancedConversionAllowance = body.allowEnhancedConversions;
+      }
+    } catch {
+      // A non-JSON response is not a finished lead.
+    }
+    return response;
+  };
+}
+
+if (typeof window !== "undefined") installEnhancedConversionAllowanceCapture();
+
 function isEstimatorFinishKey(dedupeKey: string | undefined): dedupeKey is string {
   return !!dedupeKey && (dedupeKey.startsWith("intake:") || dedupeKey.startsWith("estimator:"));
 }
@@ -301,7 +350,8 @@ export function trackGoogleAdsLeadConversion(
     });
     if (!gtag) return false;
     const userData = rawUser ? buildGoogleAdsUserData(rawUser) : null;
-    if (userData) gtag("set", "user_data", userData);
+    const allowed = rawUser?.allowEnhancedConversions ?? peekEnhancedConversionAllowance();
+    if (userData && allowed !== false) gtag("set", "user_data", userData);
     for (const label of pending) {
       gtag("event", "conversion", label.params);
       markSent(label.storageKey);

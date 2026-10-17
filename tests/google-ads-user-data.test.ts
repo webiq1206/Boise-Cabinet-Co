@@ -253,7 +253,7 @@ test("the consultation form sends Ads user_data only after an accepted submit", 
   assert.ok(accepted !== -1 && ads > accepted);
   assert.match(success.slice(0, accepted), /const adsUser = adsUserRef\.current/);
   assert.match(success.slice(0, accepted), /adsUserRef\.current = null/);
-  assert.match(success.slice(ads), /adsUser \?\? undefined/);
+  assert.match(success.slice(ads), /allowEnhancedConversions: result\.allowEnhancedConversions !== false/);
   assert.equal(source.slice(errorStart).includes("trackGoogleAdsLeadOnce"), false);
   assert.match(source.slice(errorStart, errorStart + 180), /adsUserRef\.current = null/);
 });

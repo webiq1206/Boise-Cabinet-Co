@@ -502,6 +502,7 @@ export function ConsultationFields({
         success: boolean;
         accepted: boolean;
         submissionId?: string;
+        allowEnhancedConversions?: boolean;
       }>;
     },
     onSuccess: (result) => {
@@ -518,7 +519,9 @@ export function ConsultationFields({
           result.submissionId || metaEventIdRef.current || "",
           { projectType: String(form.getValues("projectType") ?? "") },
           0,
-          adsUser ?? undefined,
+          adsUser
+            ? { ...adsUser, allowEnhancedConversions: result.allowEnhancedConversions !== false }
+            : undefined,
         );
         // Meta conversion: the consultation request is the site's primary Lead.
         // Pass the shared event ID so this browser event dedupes with the
