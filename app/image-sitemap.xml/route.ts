@@ -51,7 +51,7 @@ export function GET() {
     if (!room.heroImage) continue;
     entries.push({
       page: `${BASE}/cabinets/${room.slug}`,
-      images: [{ loc: abs(room.heroImage), title: `Custom ${room.name.toLowerCase()} cabinets built by Boise Cabinet Co in Meridian, Idaho` }],
+      images: [{ loc: abs(room.heroImage), title: `Custom ${room.name.toLowerCase()} cabinets in Meridian, Idaho` }],
     });
   }
 
