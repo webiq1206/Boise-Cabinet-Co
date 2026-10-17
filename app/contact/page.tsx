@@ -20,7 +20,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
-import { SITE_CONFIG } from '@/shared/siteConfig';
+import { preferToTextLine, SITE_CONFIG } from '@/shared/siteConfig';
 import { CONSULT_BULLETS,HERO_STATS } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
@@ -171,9 +171,16 @@ export default function ContactPage() {
             </p>
             <a
               href={SITE_CONFIG.phoneHref}
-              className="tap-target inline-block brc-display-num tabular-nums text-2xl md:text-3xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
+              className="tap-target inline-block brc-display-num tabular-nums text-2xl md:text-3xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-4"
             >
               {BUSINESS_INFO.phone}
+            </a>
+            <a
+              href={SITE_CONFIG.phoneSmsHref}
+              className="block text-sm text-inverse-foreground/80 hover:text-inverse-foreground transition-colors mb-8"
+              data-testid="link-hero-text"
+            >
+              {preferToTextLine()}
             </a>
             <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a></div>
             <dl className="ed-hero-facts">

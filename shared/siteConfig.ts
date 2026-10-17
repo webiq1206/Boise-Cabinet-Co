@@ -34,6 +34,11 @@ export const SITE_CONFIG = {
   phoneTel: PHONE_TEL,
   phoneHref: `tel:${PHONE_E164}`,
   phoneSmsHref: `sms:${PHONE_E164}`,
+  /**
+   * Hours we reply to texts. One constant, so the contact line cannot drift.
+   * Jared confirmed Saturday. En dashes are range marks, not em dashes.
+   */
+  textReplyHours: "Mon–Fri 9–6, Sat 9–4 MT",
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
   // The owner who personally signs every outgoing email. The sender display
@@ -74,6 +79,11 @@ export const SITE_CONFIG = {
     reviewCount: numFromEnv(process.env.NEXT_PUBLIC_REVIEW_COUNT),
   },
 } as const;
+
+/** Contact hero line. Hours come only from SITE_CONFIG.textReplyHours. */
+export function preferToTextLine(phone: string = SITE_CONFIG.phone): string {
+  return `Prefer to text? Text ${phone}. We reply in minutes during business hours (${SITE_CONFIG.textReplyHours}).`;
+}
 
 export function formatPhoneDisplay(tel: string = SITE_CONFIG.phoneTel): string {
   const digits = tel.replace(/\D/g, "");
