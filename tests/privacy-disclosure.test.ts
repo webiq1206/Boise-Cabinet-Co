@@ -12,7 +12,7 @@ const privacy = readFileSync(new URL("../app/privacy-policy/page.tsx", import.me
 test("the privacy page states the approved analytics disclosures", () => {
   assert.match(
     privacy,
-    /We do not currently send your name, email, phone number, address or project description to Google; Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\./,
+    /We do not currently send your name, email, phone number, address or project description to Google; from our forms, Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\./,
   );
   assert.doesNotMatch(
     privacy,
@@ -38,18 +38,24 @@ test("the privacy page states the approved analytics disclosures", () => {
 test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
   assert.match(
     privacy,
-    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened, on which page, and the ad click identifier Google's tag saved if you arrived from one of our ads, so we can count calls and texts that come from our ads\. The tap itself doesn't send Google your name, your own phone number or what you say or write\. Google Analytics also records that you tapped Call or Text\. If your call goes through a Google forwarding number, Google connects the call and can see the calling number and call length, but not what's said\./,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened, on which page, and the ad click identifier Google's tag saved if you arrived from one of our ads, so we can count calls and texts that come from our ads\. The tap itself doesn't send Google your name, your own phone number or what you say or write\. Google Analytics also records that you tapped Call or Text\./,
   );
 });
 
-test("call forwarding disclosure matches the configured Google forwarding label", () => {
+test("the merged forwarding disclosure matches the configured Google forwarding label", () => {
   const analytics = readFileSync(new URL("../components/seo/GoogleAnalytics.tsx", import.meta.url), "utf8");
-  const configured = /phoneConversionLabel:\s*['"][^'"]+['"]/.test(analytics);
+  const configured = /phoneConversionLabel:\s*['"]YHR0CIaPz_ccEKzf-q9E['"]/.test(analytics);
   const forwarding =
+    "Calls from our site or ads may be routed through a Google forwarding number so we can measure which ads lead to calls; when that happens, Google connects the call and can see the calling number and call length, but not what's said.";
+  const standalone =
     "If your call goes through a Google forwarding number, Google connects the call and can see the calling number and call length, but not what's said.";
-  assert.equal(configured, true);
-  assert.equal(privacy.includes(forwarding), true);
-  assert.equal(privacy.split(forwarding).length - 1, 1);
+  if (configured) {
+    assert.equal(privacy.includes(forwarding), true);
+    assert.equal(privacy.split(forwarding).length - 1, 1);
+  } else {
+    assert.equal(privacy.includes(forwarding), false);
+  }
+  assert.equal(privacy.includes(standalone), false);
 });
 
 test("the consultation success screen is masked on every page that renders it", () => {
