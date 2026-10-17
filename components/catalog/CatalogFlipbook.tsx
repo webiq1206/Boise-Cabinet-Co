@@ -561,7 +561,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
               }}
               className="tap-target w-11 rounded-sm border border-white/15 bg-transparent px-1.5 py-1 text-center text-inverse-foreground [appearance:textfield] focus:border-accent focus:outline-none"
               aria-label="Go to page"
-            />
+              data-clarity-mask="True" />
             <span className="whitespace-nowrap">/ {numPages}</span>
           </div>
           <IconBtn label="Next page" onClick={nextPage}>
@@ -617,7 +617,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
 
       {/* Search bar */}
       {searchOpen && (
-        <form aria-label="Search catalog" onSubmit={(event) => { event.preventDefault(); void runSearch(searchTerm); }} className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2" data-clarity-mask="true">
+        <form aria-label="Search catalog" onSubmit={(event) => { event.preventDefault(); void runSearch(searchTerm); }} className="flex items-center gap-2 border-b border-white/10 bg-catalog-rail px-3 py-2" data-clarity-mask="True">
           <Search className="h-4 w-4 shrink-0 text-inverse-muted" />
           <input
             autoFocus
@@ -626,7 +626,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
             aria-label="Search catalog text"
             placeholder="Search the catalog (e.g. shaker, walnut, hardware)…"
             className="tap-target min-w-0 flex-1 rounded-sm border border-white/15 bg-transparent px-2 py-1.5 text-sm text-inverse-foreground placeholder:text-inverse-muted/60 focus:border-accent focus:outline-none"
-          />
+            data-clarity-mask="True" />
           <button
             type="submit"
             className="min-h-11 shrink-0 rounded-sm bg-accent px-3 py-1.5 text-xs text-accent-foreground"

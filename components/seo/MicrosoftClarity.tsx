@@ -5,8 +5,13 @@
  * Rendered from the root layout head so every page carries one tag.
  * The loader does not insert a second clarity.ms script when one is already
  * on the page, and it does not start the tag while a consent banner is still
- * waiting for a choice. Before the tag loads, every form is marked
- * data-clarity-mask="true", including forms rendered by the shared estimator.
+ * waiting for a choice. Before the tag loads, every form, input, textarea,
+ * and select is marked data-clarity-mask="True", including fields rendered
+ * by the shared estimator. Clarity treats the attribute as present for any
+ * value, and the project standard is the capital-T value "True".
+ * Text inputs are masked from that attribute. Checkbox, radio, range, and
+ * button inputs inherit masking from an ancestor, so those get the attribute
+ * on the nearest parent when no ancestor is already masked.
  */
 const CLARITY_ID = 'x5wv0z61ij'
 
@@ -20,11 +25,32 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
     var state=(banner.getAttribute('data-consent')||banner.getAttribute('data-state')||'').toLowerCase();
     return state!=='granted'&&state!=='accepted'&&state!=='allow';
   }
+  function mark(el){
+    if(!el||!el.setAttribute)return;
+    if(el.getAttribute("data-clarity-mask")!=="True")el.setAttribute("data-clarity-mask","True");
+  }
+  function ancestorMasked(el){
+    var p=el&&el.parentElement;
+    while(p){
+      if(p.getAttribute&&p.getAttribute("data-clarity-mask")==="True")return true;
+      p=p.parentElement;
+    }
+    return false;
+  }
+  function maskOne(el){
+    if(!el||!el.tagName)return;
+    mark(el);
+    var type=(el.getAttribute("type")||"").toLowerCase();
+    var inherits=el.tagName==="INPUT"&&(type==="checkbox"||type==="radio"||type==="range"||type==="button"||type==="reset"||type==="submit");
+    var parent=el.parentElement;
+    if(inherits&&parent&&!ancestorMasked(el)&&parent!==l.body&&parent!==l.documentElement)mark(parent);
+  }
   function maskForms(root){
     if(!root||!root.querySelectorAll)return;
-    if(root.tagName==="FORM")root.setAttribute("data-clarity-mask","true");
-    var forms=root.querySelectorAll("form");
-    for(var n=0;n<forms.length;n++)forms[n].setAttribute("data-clarity-mask","true");
+    var tag=root.tagName;
+    if(tag==="FORM"||tag==="INPUT"||tag==="TEXTAREA"||tag==="SELECT")maskOne(root);
+    var fields=root.querySelectorAll("form,input,textarea,select");
+    for(var n=0;n<fields.length;n++)maskOne(fields[n]);
   }
   var watching=false;
   function watchForms(){
@@ -33,10 +59,12 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
     watching=true;
     new MutationObserver(function(records){
       for(var i=0;i<records.length;i++){
-        var added=records[i].addedNodes;
+        var rec=records[i];
+        if(rec.type==="attributes"){maskForms(rec.target);continue;}
+        var added=rec.addedNodes||[];
         for(var j=0;j<added.length;j++)maskForms(added[j]);
       }
-    }).observe(l.body,{childList:true,subtree:true});
+    }).observe(l.body,{childList:true,subtree:true,attributes:true,attributeFilter:["data-clarity-mask"]});
   }
   function load(){
     if(tagPresent()||consentPending())return;

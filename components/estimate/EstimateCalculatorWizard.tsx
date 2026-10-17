@@ -453,7 +453,7 @@ function SizeSlider({
         )}
       </div>
       {/* Generous vertical touch area around the thin visual track. */}
-      <div className="py-2">
+      <div className="py-2" data-clarity-mask="True">
         <input
           type="range"
           className="brc-slider block w-full"
@@ -467,7 +467,7 @@ function SizeSlider({
           style={{ background }}
           data-unset={value == null ? "true" : undefined}
           data-testid={testId}
-        />
+          data-clarity-mask="True" />
       </div>
       <div className="flex justify-between text-[12px] text-muted-foreground">
         <span>

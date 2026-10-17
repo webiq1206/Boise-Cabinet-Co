@@ -101,7 +101,7 @@ export function RoomPlanImport({ onImport }: RoomPlanImportProps) {
           if (f) void handleFile(f);
           e.target.value = "";
         }}
-      />
+        data-clarity-mask="True" />
     </div>
   );
 }

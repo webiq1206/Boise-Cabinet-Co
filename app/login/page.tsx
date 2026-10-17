@@ -123,7 +123,7 @@ function LoginInner() {
               ) : null}
               <Form {...loginForm}>
                 <form
-                  data-clarity-mask="true"
+                  data-clarity-mask="True"
                   onSubmit={loginForm.handleSubmit((v) => loginMutation.mutate(v))}
                   className="space-y-4"
                 >
@@ -193,7 +193,7 @@ function LoginInner() {
               ) : null}
               <Form {...signupForm}>
                 <form
-                  data-clarity-mask="true"
+                  data-clarity-mask="True"
                   onSubmit={signupForm.handleSubmit((v) =>
                     signupMutation.mutate(v),
                   )}

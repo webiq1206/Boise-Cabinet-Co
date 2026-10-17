@@ -387,7 +387,7 @@ export function AssistantWidget() {
           )}
 
           <form
-            data-clarity-mask="true"
+            data-clarity-mask="True"
             className="flex items-end gap-2 border-t border-border px-3 py-3"
             onSubmit={(e) => {
               e.preventDefault();
@@ -404,7 +404,7 @@ export function AssistantWidget() {
                 void attachPhotos(e.target.files);
                 e.target.value = "";
               }}
-            />
+              data-clarity-mask="True" />
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -429,7 +429,7 @@ export function AssistantWidget() {
               aria-label="Message the estimating assistant"
               className="max-h-28 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40"
               data-testid="input-assistant-message"
-            />
+              data-clarity-mask="True" />
             <button
               type="submit"
               disabled={pending || (!input.trim() && !photos.length)}
