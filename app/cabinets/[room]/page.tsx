@@ -28,6 +28,7 @@ ROOM_CATEGORIES,
 getRoomBySlug,
 } from "@/shared/catalog";
 import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
+import { toRoomCabinetCard } from "@/shared/catalog/toRoomCabinetCard";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
@@ -123,7 +124,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     else if (t.includes("base")) roomCats.add("base");
   }
   if (roomCats.size === 0) ["base", "wall", "tall"].forEach((c) => roomCats.add(c));
-  const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
+  const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category)).map(toRoomCabinetCard);
 
   const phaseAnswer = phase1RoomAnswer(room.slug);
   const roomFaqs = getRoomFaqs(room);

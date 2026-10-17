@@ -14,15 +14,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { Finish, FinishCategory, FinishFilters, CabinetProduct, Accessory } from "@/shared/catalog";
+import type { Finish, FinishCategory, FinishFilters, Accessory } from "@/shared/catalog";
+import type { RoomCabinetCard } from "@/shared/catalog/roomCabinetCard";
 import {
   FINISHES,
   DOOR_STYLES,
-  CABINET_PRODUCTS,
   ACCESSORIES,
   formatPriceTier,
-  formatCabinetDimensions,
-  getCabinetNeedLabel,
   getMostLovedFinishes,
   getPopularDoorStyles,
   deriveColorFamily,
@@ -31,7 +29,6 @@ import {
   priceTiersPresent,
   type DoorStyle,
 } from "@/shared/catalog";
-import { getProductImages } from "@/shared/catalog/entityImages";
 import { getAccessoryImagePath } from "@/shared/catalog/catalogImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -381,10 +378,7 @@ export function DoorOptionsSelector({
 
 // ── Cabinet selector ──────────────────────────────────────────────────────────
 
-function CabinetCard({ product }: { product: CabinetProduct }) {
-  const diagram = getProductImages(product).diagram;
-  const need = getCabinetNeedLabel(product);
-  const dims = formatCabinetDimensions(product);
+function CabinetCard({ product }: { product: RoomCabinetCard }) {
   return (
     <Link
       href="/catalog"
@@ -394,7 +388,7 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
         <div className="relative aspect-[3/4] bg-muted">
           {/* Generated front-elevation box diagram; never shows the SKU code. */}
           <Image
-            src={diagram}
+            src={product.diagram}
             alt={`${product.name} front elevation`}
             fill
             sizes="(max-width: 640px) 50vw, 240px"
@@ -402,11 +396,11 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
           />
         </div>
         <div className="p-4 flex flex-col gap-1">
-          <Chip className="self-start mb-1">{need}</Chip>
+          <Chip className="self-start mb-1">{product.need}</Chip>
           <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
             {product.name}
           </p>
-          <p className="text-sm text-muted-foreground">{dims}</p>
+          <p className="text-sm text-muted-foreground">{product.dimensions}</p>
         </div>
       </MarketingCard>
     </Link>
@@ -414,15 +408,15 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
 }
 
 export interface CabinetOptionsSelectorProps {
-  cabinets?: CabinetProduct[];
-  curated?: CabinetProduct[];
+  cabinets: RoomCabinetCard[];
+  curated?: RoomCabinetCard[];
   initialFilters?: Record<string, string>;
   initialExpanded?: boolean;
   className?: string;
 }
 
 export function CabinetOptionsSelector({
-  cabinets = CABINET_PRODUCTS,
+  cabinets,
   curated,
   initialFilters,
   initialExpanded = false,
@@ -437,16 +431,16 @@ export function CabinetOptionsSelector({
   }).slice(0, 3);
   const curatedList = curated?.length ? curated : typeExamples;
 
-  const groups: OptionsFilterGroup<CabinetProduct>[] = [];
+  const groups: OptionsFilterGroup<RoomCabinetCard>[] = [];
 
   // Need-based filter (homeowner-first): "Pots & pans", "Corner storage", etc.
-  const needs = Array.from(new Set(cabinets.map((c) => getCabinetNeedLabel(c)))).sort();
+  const needs = Array.from(new Set(cabinets.map((c) => c.need))).sort();
   if (needs.length > 1) {
     groups.push({
       id: "need",
       label: "What it's for",
       options: needs.map((n) => ({ value: n, label: n })),
-      match: (it, v) => getCabinetNeedLabel(it) === v,
+      match: (it, v) => it.need === v,
     });
   }
 
@@ -473,7 +467,7 @@ export function CabinetOptionsSelector({
   }
 
   return (
-    <OptionsSelector<CabinetProduct>
+    <OptionsSelector<RoomCabinetCard>
       className={className}
       items={cabinets}
       curated={curatedList}
