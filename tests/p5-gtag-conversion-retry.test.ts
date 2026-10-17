@@ -38,7 +38,7 @@ function transactionId(call: Call): string {
   return (call[2] as { transaction_id: string }).transaction_id;
 }
 
-test("an estimator key fires both labels once and a repeat fires nothing", () => {
+test("an estimator key fires the estimator label once and a repeat fires nothing", () => {
   const store: Store = new Map();
   const win = installWindow(store);
   const calls: Call[] = [];
@@ -48,22 +48,21 @@ test("an estimator key fires both labels once and a repeat fires nothing", () =>
   const key = "estimator:draft-1";
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), true);
-  assert.deepEqual(calls.map(sendTo).sort(), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, GOOGLE_ADS_LEAD_LABEL].sort());
-  const estimatorCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL)!;
-  const leadCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!;
+  assert.deepEqual(calls.map(sendTo), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL]);
+  const estimatorCall = calls[0];
   assert.equal(estimatorCall[0], "event");
   assert.equal(estimatorCall[1], "conversion");
   assert.equal(transactionId(estimatorCall), key);
-  assert.equal(transactionId(leadCall), key);
-  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
+  assert.equal(store.get(`google_ads_estimator:${key}`), "sent");
+  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 1);
 
   delete (globalThis as { window?: unknown }).window;
 });
 
-test("an intake key fires both labels once and a repeat fires nothing", () => {
+test("an intake key fires the estimator label once and a repeat fires nothing", () => {
   const store: Store = new Map();
   const win = installWindow(store);
   const calls: Call[] = [];
@@ -73,14 +72,12 @@ test("an intake key fires both labels once and a repeat fires nothing", () => {
   const key = "intake:project-9";
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), true);
-  assert.deepEqual(calls.map(sendTo).sort(), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, GOOGLE_ADS_LEAD_LABEL].sort());
-  const estimatorCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL)!;
-  const leadCall = calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!;
-  assert.equal(transactionId(estimatorCall), key);
-  assert.equal(transactionId(leadCall), key);
-  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
+  assert.deepEqual(calls.map(sendTo), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL]);
+  assert.equal(transactionId(calls[0]), key);
+  assert.equal(store.get(`google_ads_estimator:${key}`), "sent");
+  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen" }, key), false);
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 1);
 
   delete (globalThis as { window?: unknown }).window;
 });
@@ -127,14 +124,14 @@ test("an estimator key waits for gtag and does not mark sent early", () => {
     calls.push(args);
   };
   mock.timers.tick(GTAG_RETRY_MS);
-  assert.deepEqual(calls.map(sendTo).sort(), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, GOOGLE_ADS_LEAD_LABEL].sort());
+  assert.deepEqual(calls.map(sendTo), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL]);
   assert.equal(store.get(`google_ads_estimator:${key}`), "sent");
-  assert.equal(store.get(`google_ads_lead:${key}`), "sent");
-  assert.equal(transactionId(calls.find((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL)!), key);
+  assert.equal(store.get(`google_ads_lead:${key}`), undefined);
+  assert.equal(transactionId(calls[0]), key);
 
   trackGoogleAdsLeadConversion({ service: "kitchen" }, key);
   mock.timers.tick(GTAG_RETRY_MS * 4);
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 1);
 
   mock.timers.reset();
   delete (globalThis as { window?: unknown }).window;
@@ -167,7 +164,7 @@ test("a throwing gtag does not escape the conversion helper", () => {
   delete (globalThis as { window?: unknown }).window;
 });
 
-test("each accepted finish key fires the form label once for that key", () => {
+test("estimator keys keep the estimator label even when a lead was accepted", () => {
   const store: Store = new Map();
   const win = installWindow(store);
   const calls: Call[] = [];
@@ -183,14 +180,16 @@ test("each accepted finish key fires the form label once for that key", () => {
 
   const formCalls = calls.filter((call) => sendTo(call) === GOOGLE_ADS_LEAD_LABEL);
   const completionCalls = calls.filter((call) => sendTo(call) === GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL);
-  assert.deepEqual(formCalls.map(transactionId), [intakeKey, estimatorKey]);
+  assert.deepEqual(formCalls, []);
   assert.deepEqual(completionCalls.map(transactionId), [intakeKey, estimatorKey]);
-  assert.equal(store.get(`google_ads_lead:${intakeKey}`), "sent");
-  assert.equal(store.get(`google_ads_lead:${estimatorKey}`), "sent");
+  assert.equal(store.get(`google_ads_lead:${intakeKey}`), undefined);
+  assert.equal(store.get(`google_ads_lead:${estimatorKey}`), undefined);
+  assert.equal(store.get(`google_ads_estimator:${intakeKey}`), "sent");
+  assert.equal(store.get(`google_ads_estimator:${estimatorKey}`), "sent");
 
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, intakeKey), false);
   assert.equal(trackGoogleAdsLeadConversion({ service: "kitchen", acceptedLead: true }, estimatorKey), false);
-  assert.equal(calls.length, 4);
+  assert.equal(calls.length, 2);
 
   delete (globalThis as { window?: unknown }).window;
 });

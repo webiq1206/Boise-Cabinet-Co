@@ -5,14 +5,12 @@
  * value so Google Ads can report ROAS by campaign. Values are the per-lead
  * estimates agreed with P5 on 14 Sept 2026 (form fallback in Google Ads is $50).
  * A key starting with "intake:" or "estimator:" is an estimator finish. It fires
- * "P5 Estimator Completed" once for that exact key. The form label fires once
- * for the same key, with transaction_id equal to the key, when the finish
- * created an accepted lead. Pass acceptedLead: false for a submit replay
- * ({accepted:false, duplicate:true}); that fires only the estimator label.
- * The shared engine does not pass acceptedLead. An omitted flag still sends
- * the form label, because this helper cannot read the endpoint body. An intake
- * HTTP 409 never reaches this helper. Any other key fires the form label only,
- * once for that key. Never pass PII here: no names, phones, emails or free text.
+ * "P5 Estimator Completed" once for that exact key, with transaction_id equal
+ * to the key. It does not fire the form label, so one lead is not counted twice.
+ * Any other key is a contact or consultation submit and fires the form label
+ * only, once for that key, with transaction_id equal to the key. An intake
+ * HTTP 409 never reaches this helper. Never pass PII here: no names, phones,
+ * emails or free text.
  */
 export const GOOGLE_ADS_ID = "AW-18354188204";
 export const GOOGLE_ADS_LEAD_LABEL = "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
@@ -30,9 +28,8 @@ export interface LeadContext {
   /** Consultation form project type. */
   projectType?: string;
   /**
-   * Estimator finishes only. True sends the form label. False is a duplicate
-   * or other non-accepted finish, so only the estimator label is sent.
-   * Omitted: the engine does not pass the endpoint's accepted flag.
+   * Kept so older callers still type-check. Estimator keys never send the
+   * form label, whether this flag is true, false, or omitted.
    */
   acceptedLead?: boolean;
 }
@@ -149,11 +146,10 @@ function markSent(storageKey: string) {
 
 /**
  * Fires the Google Ads conversion for this key. Estimator finish keys
- * ("intake:" or "estimator:") send the estimator label once per key. They also
- * send the form label once per key, with transaction_id equal to the key,
- * unless acceptedLead is false. Every other key sends the form label only.
- * If gtag is not ready, waits up to 10 seconds. Returns true when at least
- * one label was sent.
+ * ("intake:" or "estimator:") send only the estimator label, once per key,
+ * with transaction_id equal to the key. Every other key sends only the form
+ * label, once per key. If gtag is not ready, waits up to 10 seconds. Returns
+ * true when a label was sent.
  */
 export function trackGoogleAdsLeadConversion(
   ctx: LeadContext = {},
@@ -171,12 +167,6 @@ export function trackGoogleAdsLeadConversion(
           storageKey: estimatorStorage,
           params: { send_to: GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, transaction_id: dedupeKey },
         });
-      }
-      if (ctx.acceptedLead !== false) {
-        const leadStorage = `google_ads_lead:${dedupeKey}`;
-        if (!alreadySent(leadStorage)) {
-          pending.push({ storageKey: leadStorage, params: googleAdsLeadParams(ctx, dedupeKey) });
-        }
       }
     } else {
       const leadStorage = dedupeKey ? `google_ads_lead:${dedupeKey}` : "google_ads_lead:conversion";
