@@ -14,6 +14,17 @@ function numFromEnv(value: string | undefined): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+/**
+ * Seed testimonials and ratings stay in the repo. They render only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ */
+export function showTestimonials(
+  value: string | undefined = process.env.SHOW_TESTIMONIALS ?? process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS,
+): boolean {
+  return value === "true";
+}
+
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
 // E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
 const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;

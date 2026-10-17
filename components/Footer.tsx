@@ -5,7 +5,7 @@ import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { showTestimonials, SITE_CONFIG } from "@/shared/siteConfig";
 import Link from "next/link";
 
 const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
@@ -41,7 +41,7 @@ function buildFooterGroups(): { title: string; links: FooterLink[] }[] {
       title: "Company",
       links: [
         { label: "About", href: "/about" },
-        { label: "Projects & Reviews", href: "/testimonials" },
+        ...(showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }] : []),
         { label: "Why Choose Us", href: "/#why-choose-us" },
         { label: "How We Build", href: "/construction" },
         { label: "Warranty", href: "/warranty" },

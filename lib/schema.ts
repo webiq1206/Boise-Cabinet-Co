@@ -5,6 +5,7 @@ import {schemaTime} from './schemaTime';
  */
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
+import { showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
@@ -142,7 +143,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     })).filter(spec => spec.opens),
     priceRange: '$$',
     areaServed: citiesServed(city),
-    ...(BUSINESS_INFO.reviewCount > 0
+    ...(showTestimonials() && BUSINESS_INFO.reviewCount > 0
       ? {
           aggregateRating: {
             '@type': 'AggregateRating',
@@ -286,6 +287,13 @@ export function generateReviewSchema(reviews: Array<{
   text: string;
   date: string;
 }>): SchemaContext {
+  if (!showTestimonials()) {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: BUSINESS_INFO.name,
+    };
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
