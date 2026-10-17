@@ -9,10 +9,8 @@
  * component ever needs hand-editing to add or change a project.
  *
  * CREDIBILITY RULES (enforced by the generator, not by trust):
- * - `kind: "concept"`  -> an illustrative design rendering. Rendered as a single
- *   completed-look image with a "Design concept" label and disclosure. A
- *   before/after slider is never shown for a concept, even if a "before" image
- *   is supplied.
+ * - `kind: "concept"`  -> a single completed-look image with a descriptive alt.
+ *   A before/after slider is never shown, even if a "before" image is supplied.
  * - `kind: "verified"` -> a documented, real completed installation. A
  *   before/after slider is shown ONLY when a real `before` image exists, it is
  *   flagged `sameSpaceBeforeAfter: true`, and its aspect ratio matches the

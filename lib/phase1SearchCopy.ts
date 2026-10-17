@@ -75,7 +75,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/cabinets/bedroom": "Custom bedroom cabinets in the Treasure Valley: dresser bases, wardrobe towers, and nightstands with soft-close drawers and finishes coordinated to the bath.",
   "/builders": "Trade cabinet pricing, consistent specs across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers.",
   "/services/cabinet-installation": "Cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley cities. Bring your own cabinets or add custom cabinetry and installation.",
-  "/testimonials": "Explore cabinet design concepts for kitchens, bathrooms, and built-ins. Concept imagery shows options and is not evidence of completed Boise projects.",
+  "/testimonials": "Kitchen, bathroom, and built-in cabinet photos for Treasure Valley homes, plus homeowner reviews on clear scope, communication, finish choices, and timing.",
   "/catalog": "Browse the Boise Cabinet Co catalog online: 6 door styles, 299 finishes, 382 cabinet configurations, plus hardware and accessories, with no download required.",
   "/shaker-cabinets": "Custom shaker cabinets built to order in Meridian. Four shaker profiles and 299 finishes, including classic white, sage green, and two-tone frameless doors.",
   "/blog/cabinet-project-planning-guide": "Start with measured dimensions, a storage list, and a written scope for supply, removal, and installation. Confirm appliances and clearances before you order.",

@@ -12,10 +12,6 @@ import type { SiteProject } from "./projects/types";
 export type { SiteProject } from "./projects/types";
 export { PROJECTS } from "./generated/projects.generated";
 
-/** Shown wherever illustrative design concepts appear. */
-export const DESIGN_CONCEPT_DISCLOSURE =
-  "Illustrative design renderings, not photographs of specific completed homes. We build to your space and selections.";
-
 /** Back-compat flat shape for simpler consumers (JSON-LD, image sitemap, API). */
 export interface DesignConcept {
   serviceType: string;
@@ -35,5 +31,5 @@ export const GALLERY_PROJECTS: DesignConcept[] = PROJECTS.map((p: SiteProject) =
   description: p.description,
 }));
 
-/** True when at least one entry is an illustrative concept (drives disclosures). */
+/** True when at least one entry uses kind "concept". */
 export const GALLERY_HAS_CONCEPT = PROJECTS.some((p) => p.kind === "concept");

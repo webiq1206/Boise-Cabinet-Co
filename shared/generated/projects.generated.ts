@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-10-08";
+export const PROJECTS_GENERATED_ON = "2026-10-17";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -11,11 +11,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "kitchen-cabinets",
     "area": "Boise",
-    "title": "Modern shaker kitchen concept",
+    "title": "Modern shaker kitchen",
     "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
     "hero": {
       "src": "/images/gallery/gallery-kitchen-after.webp",
-      "alt": "Design concept: custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
+      "alt": "custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
     },
     "detail": [],
     "showBeforeAfter": false,
@@ -67,11 +67,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "bathroom-vanities",
     "area": "Meridian",
-    "title": "Double vanity suite concept",
+    "title": "Double vanity suite",
     "description": "White Shaker double vanity with central drawer storage, paired mirrors, and matte black faucets.",
     "hero": {
       "src": "/images/gallery/gallery-bathroom-after.webp",
-      "alt": "Design concept: white double bathroom vanity with central drawers, paired mirrors and black faucets"
+      "alt": "white double bathroom vanity with central drawers, paired mirrors and black faucets"
     },
     "detail": [],
     "showBeforeAfter": false,
@@ -123,11 +123,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "whole-home-cabinets",
     "area": "Eagle",
-    "title": "Whole-home finish schedule concept",
+    "title": "Whole-home finish schedule",
     "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
     "hero": {
       "src": "/images/catalog/rooms/built-ins-1080.webp",
-      "alt": "Design concept: wood-finish living-room built-ins illustrating a coordinated cabinetry palette"
+      "alt": "wood-finish living-room built-ins with a coordinated cabinetry palette"
     },
     "detail": [],
     "showBeforeAfter": false,
@@ -179,11 +179,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "built-in-storage",
     "area": "Nampa",
-    "title": "Mudroom storage concept",
+    "title": "Mudroom storage",
     "description": "Wood cabinetry, a cushioned bench, coat hooks, and open cubbies keep an entry organized.",
     "hero": {
       "src": "/images/catalog/rooms/mudroom-1080.webp",
-      "alt": "Design concept: wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
+      "alt": "wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -193,11 +193,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "bar-cabinets",
     "area": "Boise",
-    "title": "Wet bar cabinetry concept",
+    "title": "Wet bar cabinetry",
     "description": "Dark Shaker cabinets combine a compact sink, wine storage, illuminated shelving, and a beverage refrigerator.",
     "hero": {
       "src": "/images/catalog/rooms/wet-bar-1080.webp",
-      "alt": "Design concept: dark Shaker wet bar cabinets with a sink and beverage refrigerator"
+      "alt": "dark Shaker wet bar cabinets with a sink and beverage refrigerator"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -207,11 +207,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "outdoor-cabinets",
     "area": "Meridian",
-    "title": "Covered outdoor kitchen concept",
+    "title": "Covered outdoor kitchen",
     "description": "A covered cooking area with dark cabinetry, stone counters, a built-in grill, and a sink.",
     "hero": {
       "src": "/images/catalog/rooms/outdoor-1080.webp",
-      "alt": "Design concept: covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
+      "alt": "covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
     },
     "detail": [],
     "showBeforeAfter": false

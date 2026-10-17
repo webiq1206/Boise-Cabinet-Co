@@ -175,7 +175,7 @@ function customerStageIndex(kind: StepKind): number {
   }
 }
 
-const DEFAULT_OPTION_VISUAL_ALT = "Cabinet project option illustration";
+const DEFAULT_OPTION_VISUAL_ALT = "Cabinet project option";
 
 function OptionVisual({
   image,

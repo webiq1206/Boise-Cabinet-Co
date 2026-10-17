@@ -143,7 +143,7 @@ export default function ShakerCabinetsPage() {
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
                   <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-[#F7F3EC]">
-                    <Image src={getDoorStyleImages(p.slug).primary} alt={`${p.name} door profile illustration`} fill sizes="(max-width: 640px) 90vw, 40vw" className="object-contain" />
+                    <Image src={getDoorStyleImages(p.slug).primary} alt={`${p.name} door profile`} fill sizes="(max-width: 640px) 90vw, 40vw" className="object-contain" />
                   </div>
                   <h2 className="ed-h3 mb-3">{p.name}</h2>
                   <p className="text-base leading-relaxed text-muted-foreground">{p.body}</p>

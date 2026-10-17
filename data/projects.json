@@ -1,5 +1,5 @@
 {
-  "_readme": "Single source of truth for site projects (gallery, homepage feature, case studies, testimonials schema, image sitemap). Author a project here OR drop a folder at public/images/projects/<slug>/ with a project.json. Then run `npm run projects:build` (also runs in prebuild). CREDIBILITY: kind 'concept' = illustrative rendering (single image, 'Design concept' label, no before/after slider ever). kind 'verified' = real completed install; a before/after slider appears ONLY when images.before exists, images.sameSpaceBeforeAfter is true, and before/after aspect ratios match. Do not set kind 'verified' unless the photos are real photographs of that one property.",
+  "_readme": "Single source of truth for site projects (gallery, homepage feature, case studies, testimonials schema, image sitemap). Author a project here OR drop a folder at public/images/projects/<slug>/ with a project.json. Then run `npm run projects:build` (also runs in prebuild). CREDIBILITY: kind 'concept' = a single image with a descriptive alt and no before/after slider ever. kind 'verified' = real completed install; a before/after slider appears ONLY when images.before exists, images.sameSpaceBeforeAfter is true, and before/after aspect ratios match. Do not set kind 'verified' unless the photos are real photographs of that one property.",
   "_verifiedExample": {
     "slug": "example-real-kitchen",
     "kind": "verified",
@@ -21,11 +21,11 @@
       "kind": "concept",
       "serviceType": "kitchen-cabinets",
       "area": "Boise",
-      "title": "Modern shaker kitchen concept",
+      "title": "Modern shaker kitchen",
       "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
       "images": {
         "after": "/images/gallery/gallery-kitchen-after.webp",
-        "alt": "Design concept: custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
+        "alt": "custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
       },
       "scenario": {
         "scope": "Full kitchen cabinet replacement with island in a Boise Bench ranch",
@@ -51,11 +51,11 @@
       "kind": "concept",
       "serviceType": "bathroom-vanities",
       "area": "Meridian",
-      "title": "Double vanity suite concept",
+      "title": "Double vanity suite",
       "description": "White Shaker double vanity with central drawer storage, paired mirrors, and matte black faucets.",
       "images": {
         "after": "/images/gallery/gallery-bathroom-after.webp",
-        "alt": "Design concept: white double bathroom vanity with central drawers, paired mirrors and black faucets"
+        "alt": "white double bathroom vanity with central drawers, paired mirrors and black faucets"
       },
       "scenario": {
         "scope": "Builder-grade single vanity to a double vanity suite with linen tower",
@@ -81,11 +81,11 @@
       "kind": "concept",
       "serviceType": "whole-home-cabinets",
       "area": "Eagle",
-      "title": "Whole-home finish schedule concept",
+      "title": "Whole-home finish schedule",
       "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
       "images": {
         "after": "/images/catalog/rooms/built-ins-1080.webp",
-        "alt": "Design concept: wood-finish living-room built-ins illustrating a coordinated cabinetry palette"
+        "alt": "wood-finish living-room built-ins with a coordinated cabinetry palette"
       },
       "scenario": {
         "scope": "Kitchen, two baths, mudroom, and office under one finish schedule",
@@ -111,11 +111,11 @@
       "kind": "concept",
       "serviceType": "built-in-storage",
       "area": "Nampa",
-      "title": "Mudroom storage concept",
+      "title": "Mudroom storage",
       "description": "Wood cabinetry, a cushioned bench, coat hooks, and open cubbies keep an entry organized.",
       "images": {
         "after": "/images/catalog/rooms/mudroom-1080.webp",
-        "alt": "Design concept: wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
+        "alt": "wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
       }
     },
     {
@@ -123,11 +123,11 @@
       "kind": "concept",
       "serviceType": "bar-cabinets",
       "area": "Boise",
-      "title": "Wet bar cabinetry concept",
+      "title": "Wet bar cabinetry",
       "description": "Dark Shaker cabinets combine a compact sink, wine storage, illuminated shelving, and a beverage refrigerator.",
       "images": {
         "after": "/images/catalog/rooms/wet-bar-1080.webp",
-        "alt": "Design concept: dark Shaker wet bar cabinets with a sink and beverage refrigerator"
+        "alt": "dark Shaker wet bar cabinets with a sink and beverage refrigerator"
       }
     },
     {
@@ -135,11 +135,11 @@
       "kind": "concept",
       "serviceType": "outdoor-cabinets",
       "area": "Meridian",
-      "title": "Covered outdoor kitchen concept",
+      "title": "Covered outdoor kitchen",
       "description": "A covered cooking area with dark cabinetry, stone counters, a built-in grill, and a sink.",
       "images": {
         "after": "/images/catalog/rooms/outdoor-1080.webp",
-        "alt": "Design concept: covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
+        "alt": "covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
       }
     }
   ]

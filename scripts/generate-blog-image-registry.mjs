@@ -185,7 +185,7 @@ const ENTRIES = {
   },
   "how-to-budget-cabinets-boise": {
     hero: "/images/marketing/hero-home.webp",
-    alt: "Warm interior cabinetry illustrating thoughtful budgeting for a Boise cabinet project",
+    alt: "warm kitchen cabinets in a Boise home",
     topicTags: ["cost", "budget", "planning"],
     source: "services",
   },
@@ -312,7 +312,7 @@ const ENTRIES = {
   },
   "cabinet-buying-mistakes": {
     hero: cs("whole-home-remodel", "caldwell"),
-    alt: "Quality whole-home cabinetry illustrating proper specification in Caldwell",
+    alt: "whole-home cabinetry with a coordinated finish in Caldwell",
     topicTags: ["whole-home", "planning", "caldwell"],
     source: "city-service",
   },
@@ -378,7 +378,7 @@ const ENTRIES = {
   },
   "why-cabinet-quotes-vary": {
     hero: cs("bathroom-remodel", "star"),
-    alt: "Finished bathroom vanity illustrating scope differences between cabinet quotes",
+    alt: "finished bathroom vanity with a stone counter and cabinet storage",
     topicTags: ["contractor", "pricing"],
     source: "city-service",
   },
@@ -397,7 +397,7 @@ const ENTRIES = {
   },
   "fixed-price-vs-cost-plus": {
     hero: "/images/blog/how-to-compare-remodeling-estimates.webp",
-    alt: "Illustrative kitchen and bathroom scope documents arranged for comparison",
+    alt: "kitchen and bathroom scope documents arranged for comparison",
     topicTags: ["contractor", "pricing"],
     source: "gallery",
   },
@@ -424,7 +424,7 @@ const ENTRIES = {
   },
   "cabinet-measurement-design-phase": {
     hero: gal("kitchen-before"),
-    alt: "Existing oak kitchen cabinets illustrating a layout before a cabinet refresh",
+    alt: "existing oak kitchen cabinets before a cabinet refresh",
     topicTags: ["process", "design"],
     source: "gallery",
   },

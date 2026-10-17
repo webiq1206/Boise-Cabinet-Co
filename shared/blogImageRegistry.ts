@@ -179,7 +179,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'how-to-budget-cabinets-boise': {
     hero: '/images/marketing/hero-home.webp',
-    alt: 'Warm interior cabinetry illustrating thoughtful budgeting for a Boise cabinet project',
+    alt: 'warm kitchen cabinets in a Boise home',
     topicTags: ["cost","budget","planning"],
     source: 'services',
   },
@@ -293,7 +293,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'cabinet-buying-mistakes': {
     hero: '/images/city-service/whole-home-remodel__caldwell.webp',
-    alt: 'Quality whole-home cabinetry illustrating proper specification in Caldwell',
+    alt: 'whole-home cabinetry with a coordinated finish in Caldwell',
     topicTags: ["whole-home","planning","caldwell"],
     source: 'city-service',
   },
@@ -353,7 +353,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'why-cabinet-quotes-vary': {
     hero: '/images/city-service/bathroom-remodel__star.webp',
-    alt: 'Finished bathroom vanity illustrating scope differences between cabinet quotes',
+    alt: 'finished bathroom vanity with a stone counter and cabinet storage',
     topicTags: ["contractor","pricing"],
     source: 'city-service',
   },
@@ -371,7 +371,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'fixed-price-vs-cost-plus': {
     hero: '/images/blog/how-to-compare-remodeling-estimates.webp',
-    alt: 'Illustrative kitchen and bathroom scope documents arranged for comparison',
+    alt: 'kitchen and bathroom scope documents arranged for comparison',
     topicTags: ["contractor","pricing"],
     source: 'gallery',
   },
@@ -395,7 +395,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'cabinet-measurement-design-phase': {
     hero: '/images/gallery/gallery-kitchen-before.webp',
-    alt: 'Existing oak kitchen cabinets illustrating a layout before a cabinet refresh',
+    alt: 'existing oak kitchen cabinets before a cabinet refresh',
     topicTags: ["process","design"],
     source: 'gallery',
   },

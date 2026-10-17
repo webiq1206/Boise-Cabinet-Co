@@ -44,7 +44,7 @@ export function CatalogExploreStrip() {
               key={door.slug}
               name={door.name}
               imageSrc={imgs.primary}
-              imageAlt={`${door.name} door profile illustration`}
+              imageAlt={`${door.name} door profile`}
               primaryHref="/catalog"
             />
           );

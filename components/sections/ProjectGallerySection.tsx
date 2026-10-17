@@ -54,11 +54,11 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
     <Section id="gallery" divider>
       <div className="container px-4">
         <SectionHeader
-          eyebrow={allVerified ? "Our work" : "Design inspiration"}
+          eyebrow={allVerified ? "Project gallery" : "Design inspiration"}
           title={
             allVerified
               ? "Cabinet projects across the Treasure Valley"
-              : "Cabinet design concepts for Treasure Valley homes"
+              : "Cabinet designs for Treasure Valley homes"
           }
           description={
             allVerified

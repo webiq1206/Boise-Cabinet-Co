@@ -498,7 +498,7 @@ export function RoomPhotoOverlay({
           </div>
           {remodel && (
             <p className="text-sm text-muted-foreground -mt-2">
-              Uses AI to erase your current cabinets so you can see the new
+              Erases your current cabinets so you can see the new
               design on clean walls. This can take up to a minute.
             </p>
           )}

@@ -19,8 +19,9 @@ const testimonialsMetadata = buildPageMetadata({
   kind: 'about',
   path: '/testimonials',
   titleOverride: showTestimonials() ? 'Cabinet Design Ideas & Reviews' : 'Cabinet Design Ideas',
-  descriptionOverride:
-    'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
+  descriptionOverride: showTestimonials()
+    ? 'Kitchen, bathroom, and built-in cabinet photos for Treasure Valley homes, plus homeowner reviews on clear scope, communication, finish choices, and timing.'
+    : 'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
   noindex: !showTestimonials(),
 });
 
@@ -41,19 +42,14 @@ export const metadata = withBrandPageMetadata(
 export default function TestimonialsPage() {
   const galleryHasConcept = PROJECTS.some((p) => p.kind === 'concept');
   const gallerySchema = generateImageGallerySchema({
-    name: galleryHasConcept
-      ? 'Boise Cabinet Co Design Concepts'
-      : 'Boise Cabinet Co Project Gallery',
+    name: 'Boise Cabinet Co Project Gallery',
     description: galleryHasConcept
       ? 'Custom cabinet design examples for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages.'
       : 'Custom cabinet projects completed for Treasure Valley homes, kitchens, baths, built-ins, and whole-home packages.',
     url: '/testimonials',
     images: PROJECTS.map((project) => ({
       url: project.hero.src,
-      caption:
-        project.kind === 'concept'
-          ? `Design concept: ${project.description}`
-          : project.description,
+      caption: project.description,
       name: project.title,
     })),
   });
@@ -70,7 +66,7 @@ export default function TestimonialsPage() {
     <div className="flex flex-col pb-20 md:pb-0">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="Illustrative consultation scene showing cabinet finish selections"
+        alt="cabinet finish selections laid out during a consultation"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: showTestimonials() ? 'Projects & Reviews' : 'Design ideas' }]}
         eyebrow="Cabinet design inspiration"
         title={showTestimonials() ? <>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></> : "Design ideas"}
