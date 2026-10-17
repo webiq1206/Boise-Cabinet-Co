@@ -5,8 +5,8 @@ export const OSC_CONSTRUCTION = {
   "sides": "3/4\" birch plywood sides",
   "bottom": "1/2\" birch plywood bottoms",
   "drawerConstruction": "3/4\" plywood dovetail drawer boxes",
-  "hingeType": "Salice six-way adjustable soft-close hinges",
-  "drawerSlides": "Salice Futura Smove full-extension soft-close",
+  "hingeType": "Six-way adjustable soft-close hinge options",
+  "drawerSlides": "Full-extension soft-close slide options",
   "legLevelers": true,
   "adjustableDrawerFronts": true,
   "fillerConstruction": "Doweled crown, return panels and fillers",
@@ -28,8 +28,8 @@ export const OSC_CONSTRUCTION = {
       "description": "Full 3/4\" birch plywood sides"
     },
     {
-      "id": "salice-hinges",
-      "label": "Salice Soft-Close Hinges",
+      "id": "soft-close-hinges",
+      "label": "Soft-close hinge options",
       "description": "Six-way adjustable, 64mm line bore"
     },
     {
