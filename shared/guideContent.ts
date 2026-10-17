@@ -195,7 +195,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
           'Start with our Boise Cabinet Cost Guide and room-specific articles, then request a quote after layout and selections are defined.',
       },
       {
-        question: 'Do you deliver to Eagle and Hidden Springs?',
+        question: 'Do you deliver to Eagle?',
         answer:
           'Yes, we serve Eagle and many HOA communities; allow time for architectural review when exterior-visible cabinetry is involved.',
       },
@@ -312,6 +312,9 @@ export const GUIDE_PAGES: GuidePageData[] = [
       },
       {
         question: 'How much of Boise\'s housing predates 1980?',
+        // Median year structure built is 1986 (B25035). About 17% were built before 1960 (B25034). ACS 2020-2024, Boise city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1608830
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1608830
         answer:
           'A lot. Boise\'s median home was built in 1986, and the share built before 1960 is about 17%, by Census ACS 2020–2024 estimates. That\'s why so many Boise jobs involve plaster walls, soffits and out-of-square rooms, and why we measure on site and size every box to the room.',
       },

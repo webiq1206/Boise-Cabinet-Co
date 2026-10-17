@@ -108,7 +108,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Local fluency matters',
       paragraphs: [
-        'A great Treasure Valley company knows Ada and Canyon County permit triggers, HOA review habits in Eagle and Hidden Springs, and how pre-1980 Boise walls behave during installation. That local fluency shows up as schedules that hold.',
+        'A great Treasure Valley company knows Ada and Canyon County permit triggers, HOA review habits in Eagle, and how pre-1980 Boise walls behave during installation. That local fluency shows up as schedules that hold.',
         'See <a href="/guides/choose-cabinet-company-boise">how to choose a cabinet company in Boise</a> for the full evaluation framework.',
       ],
     },

@@ -34,6 +34,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Meridian, Idaho: builder-grade kitchen upgrades, pantry and mudroom storage for Paramount, Tuscany, and Century Farm homes, costs, and planning.',
     excerpt:
       'Local guide to custom cabinets in Meridian: subdivision housing stock, the most common upgrades, planning ranges, and catalog links.',
+    // Median year structure built, 2007. ACS 2020-2024 table B25035, Meridian city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1652120
     quickAnswer:
       'Meridian is home base for Boise Cabinet Co. Most of our work here upgrades the builder-grade kitchens that went into the city\'s 1990s-to-2010s subdivisions with custom islands, pantry storage and mudroom drop zones, and the typical Meridian house dates to about 2007 (Census ACS 2020–2024). We design, build and install frameless custom cabinets in every Meridian subdivision.',
     takeaways: [
@@ -70,6 +72,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Meridian cabinet projects',
         paragraphs: [
+          // Building Services address, 33 E. Broadway Ave.: https://meridiancity.org/community-development/building/
           'Inside Meridian city limits, permits come from the City of Meridian\'s Building Services at 33 E. Broadway Ave., which takes applications through its Citizen Access portal. A property outside city limits follows the county process instead, so check the jurisdiction for the actual address before applying. The city\'s own handout lists painting, papering, tiling, carpeting, cabinets, counter tops and similar finish work as exempt from permits. Replacing cabinets is one job; relocating plumbing, electrical or walls is a different scope, with its own permits, fees, inspection steps and review timing, so settle which ones apply before anything is torn out. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> lays out the order.',
         ],
       },
@@ -119,6 +122,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How new are Meridian homes?',
+        // About 40% built in 2010 or later and about 7% before 1980. ACS 2020-2024 table B25034, Meridian city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1652120
         answer:
           'Mostly 2000s and newer. Census ACS 2020–2024 estimates show about 40% of Meridian homes built in 2010 or later and only about 7% before 1980. Those are the builder-grade kitchens, often with stock heights and basic shelving, that make up most of our Meridian upgrades.',
       },
@@ -136,6 +141,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Eagle, Idaho: luxury kitchens, butler pantries, paneled appliances, and built-ins for BanBury, Eagle Foothills, and Two Rivers homes.',
     excerpt:
       'Local guide to custom cabinets in Eagle: estate-level kitchens, HOA design review, premium finishes, and planning guidance.',
+    // Owner-occupied share is about 84% of occupied units (B25003) and about 86% of housing units are 1-unit detached (B25024). ACS 2020-2024, Eagle city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25003?g=160XX00US1623410
+    // https://data.census.gov/table/ACSDT5Y2024.B25024?g=160XX00US1623410
     quickAnswer:
       'Eagle projects run bigger and more finish-driven than anywhere else in the valley: estate kitchens, butler pantries, paneled appliances and whole-home cabinet programs. Census figures (ACS 2020–2024) show Eagle is overwhelmingly owner-occupied, single-family housing. Boise Cabinet Co builds frameless custom cabinetry for those homes, including HOA communities with architectural review.',
     takeaways: [
@@ -228,6 +236,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How new is Eagle\'s housing?',
+        // Median year structure built is 2007 (B25035). About 43% were built in 2010 or later (B25034). ACS 2020-2024, Eagle city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1623410
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1623410
         answer:
           'Fairly new. Eagle\'s median home was built in 2007, and about 43% are from 2010 or later (ACS 2020–2024). Taller ceilings and open great rooms are common in that stock, which is why stacked uppers and furniture-grade end panels show up so often in our Eagle designs.',
       },

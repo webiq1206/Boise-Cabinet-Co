@@ -354,6 +354,8 @@ export const CITY_SEO_DATA: Record<string, {
     population: '30,346',
     founded: '1864',
     zipCodes: ['83616'],
+    // Shadow Valley is Boise 83714 / unincorporated Ada County. Hidden Springs
+    // is unincorporated Ada County, not a City of Eagle neighborhood.
     neighborhoods: ['Banbury', 'Legacy', 'Two Rivers'],
     landmarks: ['Eagle Island State Park', 'Heritage Park', 'Eagle Hills Golf Course'],
     climate: 'semi-arid with distinct four seasons',
@@ -374,7 +376,8 @@ export const CITY_SEO_DATA: Record<string, {
     population: '10,141',
     founded: '1909',
     zipCodes: ['83644'],
-    neighborhoods: ['Middleton Heights', 'Purple Sage', 'West Highlands Ranch', 'Falcon Valley'],
+    // Purple Sage Golf Course is in Caldwell, so Purple Sage is not a Middleton neighborhood.
+    neighborhoods: ['Middleton Heights', 'West Highlands Ranch', 'Falcon Valley'],
     landmarks: ['Boise River', 'Middleton Place Park', 'Piccadilly Park'],
     climate: 'semi-arid high desert climate with warm summers and cool winters',
     coordinates: { lat: 43.7068, lng: -116.6209 },
