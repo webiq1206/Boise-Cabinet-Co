@@ -30,7 +30,7 @@ import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/testimonialsData";
 import { ArrowRight,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // Honest empty states, never fabricated: only real projects/reviews tagged
   // to this city are shown, and each section says so plainly when there are none.
   const cityProjects = PROJECTS.filter((p) => p.area === city.name).slice(0, 3);
-  const cityReviews = TESTIMONIALS.filter((t) => t.city === city.slug);
+  const cityReviews = visibleTestimonials().filter((t) => t.city === city.slug);
   const phaseAnswer = phase1LocationAnswer(city.slug);
   const guideFaqs = guide?.faqs ?? [];
   const faqs = [...guideFaqs, ...(phaseAnswer?.faqs ?? [])];

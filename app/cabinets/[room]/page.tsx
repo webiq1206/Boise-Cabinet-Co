@@ -41,7 +41,7 @@ type ProjectType,
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/testimonialsData";
 import { ArrowRight,Check,MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -133,7 +133,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const roomProjects = PROJECTS.filter((p) =>
     (PROJECT_SERVICE_MATCH[room.slug] ?? []).includes(p.serviceType),
   ).slice(0, 3);
-  const roomReviews = TESTIMONIALS.filter((t) =>
+  const roomReviews = visibleTestimonials().filter((t) =>
     (REVIEW_SERVICE_MATCH[room.slug] ?? []).includes(t.serviceType),
   );
 

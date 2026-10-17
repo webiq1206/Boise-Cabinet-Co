@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { showTestimonials, SITE_CONFIG } from "@/shared/siteConfig";
 import { DisplayNum } from "./DisplayNum";
 
 /**
@@ -70,6 +70,8 @@ export function AggregateRating({
 }: AggregateRatingProps) {
   const { ratingValue, reviewCount, gbpUrl } = SITE_CONFIG.trust;
 
+  // Hidden unless SHOW_TESTIMONIALS is exactly "true", even if a rating env is set.
+  if (!showTestimonials()) return null;
   // Never fabricate proof: render only when real review data is configured.
   if (!ratingValue || !reviewCount) return null;
 
