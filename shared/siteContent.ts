@@ -24,7 +24,7 @@ export const HERO_STATS = [
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 
 export const DIFFERENTIATORS_INTRO =
-  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before fabrication, a job site that respects your home, and proactive updates through installation.";
+  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before ordering, a job site that respects your home, and proactive updates through installation.";
 
 export interface Differentiator {
   title: string;
@@ -39,12 +39,12 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "One team, one point of accountability",
     contrast: "Instead of coordinating a designer, a contractor, and multiple subs who may point fingers when something goes wrong,",
-    body: "you work with one cabinet team. Design, fabrication, and installation stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
+    body: "you work with one cabinet team. Design, ordering, and installation stay with one cabinet team, with the same dedicated project manager from your first visit through final walkthrough.",
   },
   {
     title: "A written plan before we swing a hammer",
     contrast: "Rather than relying on a verbal estimate that shifts once work begins,",
-    body: "you receive a clear written scope with design direction and finish selections before fabrication begins. Any change mid-project requires a written change order with your approval first.",
+    body: "you receive a clear written scope with design direction and finish selections before your cabinets are ordered. Any change mid-project requires a written change order with your approval first.",
   },
   {
     title: "Proactive communication, not radio silence",
@@ -59,7 +59,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Confidence that outlasts the project",
     contrast: "Beyond a quick sign-off and goodbye,",
-    body: "we stand behind our craftsmanship with a written workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
+    body: "we stand behind our workmanship with a written workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
   },
   {
     title: "A job site that respects your home",
@@ -72,21 +72,21 @@ export const DIFFERENTIATORS: Differentiator[] = [
     body: "your free in-home visit is focused on planning guidance and an honest range, with the same dedicated project manager throughout so you are never left wondering who to contact.",
   },
   {
-    title: "Craftsmanship you review before we close out",
+    title: "Workmanship you review before we close out",
     contrast: "Rather than rushing to the next job before you have a chance to inspect the work,",
-    body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we build matches what you approved.",
+    body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we install matches what you approved.",
   },
   {
-    title: "Lean overhead, so your budget goes into the build",
+    title: "Lean overhead, so your budget goes into your cabinets",
     contrast: "Instead of a vendor's big offices, fancy showrooms, and truck fleets getting built into the price and passed down the line,",
-    body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled craftsmen, better materials, and workmanship we stand behind. A price you can count on, on every project.",
+    body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled installers, better materials, and workmanship we stand behind. A price you can count on, on every project.",
   },
 ];
 
 export const TRUST_ITEMS = [
   "Bonded · Insured",
   "Liability Coverage",
-  "Built to Order",
+  "Sized to Fit",
   "Workmanship Guarantee",
 ];
 
@@ -217,8 +217,8 @@ export const HOW_WE_BUILD_STEPS = [
 
 export const PRINCIPLES = [
   {
-    title: "Written scope before we build",
-    desc: "Every project starts with a clear written scope so you know exactly what to expect before fabrication begins.",
+    title: "Written scope before we order",
+    desc: "Every project starts with a clear written scope so you know exactly what to expect before your cabinets are ordered.",
   },
   {
     title: "Written change orders only",
@@ -238,7 +238,7 @@ export const PRINCIPLES = [
   },
   {
     title: "Workmanship guarantee",
-    desc: "We stand behind what we build with a written workmanship guarantee, because we build things meant to last.",
+    desc: "We stand behind what we install with a written workmanship guarantee, because we install cabinets meant to last.",
   },
 ];
 

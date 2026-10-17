@@ -93,7 +93,7 @@ export default function AboutPage() {
   const ABOUT_FAQS = [
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -109,7 +109,7 @@ export default function AboutPage() {
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`,
+      answer: `Every project starts with a free design consultation, then a written scope and planning range, ordering, and professional installation, with weekly written updates so nothing drifts.`,
     },
   ];
 
@@ -149,7 +149,7 @@ export default function AboutPage() {
               design through installation.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              Our focus is clarity: written scope before fabrication, proactive project updates,
+              Our focus is clarity: written scope before ordering, proactive project updates,
               an online Design Studio to explore finishes and layouts, and a client portal to track
               every milestone. Every detail, every decision, handled with intention.
             </p>
@@ -176,8 +176,8 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 overflow-hidden">
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
-                src={SITE_IMAGES.processAbout}
-                alt="image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                src="/images/marketing/hero-design-studio.webp"
+                alt="Cabinet door samples, finish swatches, and a kitchen layout rendering"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
@@ -215,7 +215,7 @@ export default function AboutPage() {
                       <em className="brc-accent text-accent">one team</em>
                     </>
                   }
-                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
+                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, ordering, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
@@ -252,10 +252,10 @@ export default function AboutPage() {
               className="mb-6"
             />
             <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-              We built Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
-              where it shows up in the finished space: skilled craftsmen, better materials, and
+              We run Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
+              where it shows up in the finished space: skilled installers, better materials, and
               workmanship you can stand behind. For the homeowners and builders we work with, that
-              means pricing you can plan around and cabinetry built to hold up, on every project.
+              means pricing you can plan around and cabinetry chosen to hold up, on every project.
               Every dollar goes into the work, not our bills.
             </p>
           </div>
