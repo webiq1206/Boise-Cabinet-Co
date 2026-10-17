@@ -200,7 +200,7 @@ export function Footer() {
                 className="tap-target underline underline-offset-2 transition-colors hover:text-inverse-foreground"
                 title="Look up registration 8381215 on Idaho DOPL"
               >
-                Idaho Registered Contractor #{SITE_CONFIG.trust.licenseNumber}
+                {`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}`}
               </a>
             </span>
             {/* Required parent-company disclosure. This brand is a DBA of
