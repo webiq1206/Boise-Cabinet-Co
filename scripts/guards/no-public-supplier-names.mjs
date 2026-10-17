@@ -88,6 +88,15 @@ async function imageMetadata(file) {
   return parts.join("\n");
 }
 
+async function imageText(file) {
+  try {
+    return await imageMetadata(file);
+  } catch {
+    // Sharp cannot decode every icon container. Printable runs still catch a name in the file.
+    return printableRuns(fs.readFileSync(file));
+  }
+}
+
 function scanPaths(files) {
   for (const file of files) record(file, rel(file));
 }
@@ -100,11 +109,7 @@ async function scanStatic(files) {
       continue;
     }
     if (IMAGE_EXT.has(ext)) {
-      try {
-        record(file, await imageMetadata(file));
-      } catch (error) {
-        hits.push(`${rel(file)}: unreadable image metadata (${error instanceof Error ? error.message : String(error)})`);
-      }
+      record(file, await imageText(file));
       continue;
     }
     record(file, printableRuns(fs.readFileSync(file)));
@@ -123,11 +128,7 @@ async function scanPublic(files) {
       continue;
     }
     if (IMAGE_EXT.has(ext)) {
-      try {
-        record(file, await imageMetadata(file));
-      } catch (error) {
-        hits.push(`${rel(file)}: unreadable image metadata (${error instanceof Error ? error.message : String(error)})`);
-      }
+      record(file, await imageText(file));
       continue;
     }
     if (TEXT_EXT.has(ext) || ext === "") {

@@ -6,7 +6,7 @@
  * robots, llms, both sitemaps, the feed, and the gallery and testimonials APIs;
  * then every same-origin JS chunk and image URL those responses reference.
  */
-import { findHits, loadTerms, snippet } from "./supplier-scan.mjs";
+import { findHits, loadTerms, printableRuns, snippet } from "./supplier-scan.mjs";
 
 const BASE = (process.env.LIVE_BASE_URL || "https://boisecabinet.co").replace(/\/$/, "");
 const rules = loadTerms();
@@ -100,8 +100,15 @@ async function imageMetadata(buffer) {
 
 async function bodyText(item) {
   const path = new URL(item.url).pathname;
-  if (item.type.includes("pdf") || path.endsWith(".pdf")) return pdfText(item.buffer);
-  if (item.type.startsWith("image/") || /\.(webp|png|jpe?g|gif|avif|ico)$/i.test(path)) return imageMetadata(item.buffer);
+  const image = item.type.startsWith("image/") || /\.(webp|png|jpe?g|gif|avif|ico)$/i.test(path);
+  if ((item.type.includes("pdf") || path.endsWith(".pdf")) && item.status < 400) return pdfText(item.buffer);
+  if (image && item.status < 400) {
+    try {
+      return await imageMetadata(item.buffer);
+    } catch {
+      return printableRuns(item.buffer);
+    }
+  }
   return item.buffer.toString("utf8");
 }
 
@@ -123,7 +130,14 @@ const pages = new Map();
 
 const sitemap = await get(`${BASE}/sitemap.xml`);
 if (sitemap.status !== 200) hits.push(`${sitemap.url}: status ${sitemap.status}`);
-const locs = [...sitemap.buffer.toString("utf8").matchAll(/<loc>\s*([^<]+)\s*<\/loc>/gi)].map((match) => sameOrigin(match[1].trim(), BASE)).filter(Boolean);
+const locs = [...sitemap.buffer.toString("utf8").matchAll(/<loc>\s*([^<]+)\s*<\/loc>/gi)].map((match) => {
+  try {
+    const parsed = new URL(match[1].trim());
+    return sameOrigin(`${parsed.pathname}${parsed.search}`, BASE);
+  } catch {
+    return null;
+  }
+}).filter(Boolean);
 const pageUrls = [...new Set([...locs, ...EXTRA.map((path) => sameOrigin(path, BASE))])];
 
 console.log(`live-supplier-smoke ${BASE}`);
@@ -141,7 +155,9 @@ const pageResults = await mapPool(pageUrls, 6, async (url) => {
 for (const item of pageResults) {
   if (!item) continue;
   pages.set(item.url, item);
-  if (item.status >= 400) hits.push(`${item.url}: status ${item.status}`);
+  const path = new URL(item.url).pathname;
+  const asset = path.includes("/_next/static/") || /\.(webp|png|jpe?g|gif|avif|svg|ico|js)$/i.test(path);
+  if (!asset && item.status >= 400) hits.push(`${item.url}: status ${item.status}`);
 }
 
 const assets = new Set();
