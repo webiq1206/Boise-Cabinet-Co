@@ -1,14 +1,23 @@
 /**
  * Google Ads conversion helpers shared by every lead path on this site.
  *
- * One Google Ads conversion action ("P5 Raw Form Submitted") receives every
- * accepted lead, with a per-lead value so Google Ads can report ROAS by
- * campaign. Values are the per-lead estimates agreed with P5 on 14 Sept 2026
- * (form fallback in Google Ads is $50). Never pass PII here: no names, phones,
- * emails or free text - only a service/project category and an opaque id.
+ * "P5 Raw Form Submitted" is the accepted-lead conversion, with a per-lead
+ * value so Google Ads can report ROAS by campaign. Values are the per-lead
+ * estimates agreed with P5 on 14 Sept 2026 (form fallback in Google Ads is $50).
+ * A key starting with "intake:" or "estimator:" is an estimator finish. It fires
+ * "P5 Estimator Completed" once for that exact key. The form label fires once
+ * for the same key, with transaction_id equal to the key, when the finish
+ * created an accepted lead. Pass acceptedLead: false for a submit replay
+ * ({accepted:false, duplicate:true}); that fires only the estimator label.
+ * The shared engine does not pass acceptedLead. An omitted flag still sends
+ * the form label, because this helper cannot read the endpoint body. An intake
+ * HTTP 409 never reaches this helper. Any other key fires the form label only,
+ * once for that key. Never pass PII here: no names, phones, emails or free text.
  */
 export const GOOGLE_ADS_ID = "AW-18354188204";
 export const GOOGLE_ADS_LEAD_LABEL = "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
+/** "P5 Estimator Completed" (7851740531). */
+export const GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL = "AW-18354188204/cEzmCPOagKAdEKzf-q9E";
 /** "P5 Website Call (60s+)": swaps the visible number for a Google forwarding number. */
 export const GOOGLE_ADS_WEBSITE_CALL_LABEL = "AW-18354188204/YHR0CIaPz_ccEKzf-q9E";
 export const GOOGLE_ADS_PHONE_DISPLAY = "(208) 477-1169";
@@ -20,6 +29,12 @@ export interface LeadContext {
   service?: string;
   /** Consultation form project type. */
   projectType?: string;
+  /**
+   * Estimator finishes only. True sends the form label. False is a duplicate
+   * or other non-accepted finish, so only the estimator label is sent.
+   * Omitted: the engine does not pass the endpoint's accepted flag.
+   */
+  acceptedLead?: boolean;
 }
 
 export type GoogleAdsLeadParams = {
@@ -63,32 +78,123 @@ export function googleAdsLeadParams(
 }
 
 const sentLeadKeys = new Set<string>();
+const pendingGtagRetries = new Set<string>();
+
+/** Twenty attempts, 500ms apart: 10 seconds. */
+export const GTAG_RETRY_LIMIT = 20;
+export const GTAG_RETRY_MS = 500;
+
+type GtagFn = (...args: unknown[]) => void;
+
+export function readGtag(): GtagFn | null {
+  if (typeof window === "undefined") return null;
+  const gtag = (window as unknown as { gtag?: GtagFn }).gtag;
+  return typeof gtag === "function" ? gtag : null;
+}
 
 /**
- * Fires the Google Ads lead conversion once per dedupe key (per page load and,
- * where storage allows, per browser session). Returns true when it was sent.
+ * Returns gtag when it is already loaded. Otherwise schedules one retry chain
+ * for this key and returns null. The sent marker must not be written by the caller
+ * until this returns a function. A second call with the same key does not start
+ * another timer. Storage and timer failures are ignored.
  */
-export function trackGoogleAdsLeadConversion(ctx: LeadContext = {}, dedupeKey?: string): boolean {
+export function gtagOrRetry(key: string, retryCount: number, again: (nextRetry: number) => void): GtagFn | null {
+  try {
+    const gtag = readGtag();
+    if (gtag) {
+      pendingGtagRetries.delete(key);
+      return gtag;
+    }
+    if (retryCount >= GTAG_RETRY_LIMIT) {
+      pendingGtagRetries.delete(key);
+      return null;
+    }
+    if (retryCount === 0 && pendingGtagRetries.has(key)) return null;
+    pendingGtagRetries.add(key);
+    window.setTimeout(() => {
+      try {
+        pendingGtagRetries.delete(key);
+        again(retryCount + 1);
+      } catch {
+        pendingGtagRetries.delete(key);
+      }
+    }, GTAG_RETRY_MS);
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function isEstimatorFinishKey(dedupeKey: string | undefined): dedupeKey is string {
+  return !!dedupeKey && (dedupeKey.startsWith("intake:") || dedupeKey.startsWith("estimator:"));
+}
+
+function alreadySent(storageKey: string): boolean {
+  if (sentLeadKeys.has(storageKey)) return true;
+  try {
+    return window.sessionStorage.getItem(storageKey) === "sent";
+  } catch {
+    return false;
+  }
+}
+
+function markSent(storageKey: string) {
+  sentLeadKeys.add(storageKey);
+  try {
+    window.sessionStorage.setItem(storageKey, "sent");
+  } catch {
+    // Ignore; the in-memory guard covers this page load.
+  }
+}
+
+/**
+ * Fires the Google Ads conversion for this key. Estimator finish keys
+ * ("intake:" or "estimator:") send the estimator label once per key. They also
+ * send the form label once per key, with transaction_id equal to the key,
+ * unless acceptedLead is false. Every other key sends the form label only.
+ * If gtag is not ready, waits up to 10 seconds. Returns true when at least
+ * one label was sent.
+ */
+export function trackGoogleAdsLeadConversion(
+  ctx: LeadContext = {},
+  dedupeKey?: string,
+  retryCount = 0,
+): boolean {
   if (typeof window === "undefined") return false;
-  const storageKey = dedupeKey ? `google_ads_lead:${dedupeKey}` : undefined;
-  if (storageKey) {
-    if (sentLeadKeys.has(storageKey)) return false;
-    try {
-      if (window.sessionStorage.getItem(storageKey) === "sent") return false;
-    } catch {
-      // Storage can be unavailable under strict privacy settings; the in-memory guard still applies.
+  try {
+    const retryKey = dedupeKey ?? "google_ads_lead:conversion";
+    const pending: { storageKey: string; params: Record<string, unknown> }[] = [];
+    if (isEstimatorFinishKey(dedupeKey)) {
+      const estimatorStorage = `google_ads_estimator:${dedupeKey}`;
+      if (!alreadySent(estimatorStorage)) {
+        pending.push({
+          storageKey: estimatorStorage,
+          params: { send_to: GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, transaction_id: dedupeKey },
+        });
+      }
+      if (ctx.acceptedLead !== false) {
+        const leadStorage = `google_ads_lead:${dedupeKey}`;
+        if (!alreadySent(leadStorage)) {
+          pending.push({ storageKey: leadStorage, params: googleAdsLeadParams(ctx, dedupeKey) });
+        }
+      }
+    } else {
+      const leadStorage = dedupeKey ? `google_ads_lead:${dedupeKey}` : "google_ads_lead:conversion";
+      if (!alreadySent(leadStorage)) {
+        pending.push({ storageKey: leadStorage, params: googleAdsLeadParams(ctx, dedupeKey) });
+      }
     }
-  }
-  const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-  if (typeof gtag !== "function") return false;
-  if (storageKey) {
-    sentLeadKeys.add(storageKey);
-    try {
-      window.sessionStorage.setItem(storageKey, "sent");
-    } catch {
-      // Ignore; in-memory guard is enough for this page load.
+    if (!pending.length) return false;
+    const gtag = gtagOrRetry(retryKey, retryCount, (next) => {
+      trackGoogleAdsLeadConversion(ctx, dedupeKey, next);
+    });
+    if (!gtag) return false;
+    for (const label of pending) {
+      gtag("event", "conversion", label.params);
+      markSent(label.storageKey);
     }
+    return true;
+  } catch {
+    return false;
   }
-  gtag("event", "conversion", googleAdsLeadParams(ctx, dedupeKey));
-  return true;
 }

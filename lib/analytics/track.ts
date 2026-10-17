@@ -8,11 +8,9 @@
  * document contents. Pass identifiers and categories only (e.g. a project
  * type, a step name, a boolean), never free-text user input.
  */
-import { googleAdsLeadParams, type LeadContext } from "@/lib/googleAdsConversion";
+import { trackGoogleAdsLeadConversion, type LeadContext } from "@/lib/googleAdsConversion";
 
 export type TrackParams = Record<string, string | number | boolean | undefined>;
-
-const sentGoogleAdsLeadIds = new Set<string>();
 
 export function track(eventName: string, params?: TrackParams): void {
   if (typeof window === "undefined") return;
@@ -29,34 +27,15 @@ export function track(eventName: string, params?: TrackParams): void {
 
 /**
  * Sends the verified Google Ads "P5 Raw Form Submitted" conversion once for a
- * server-accepted consultation. The opaque submission id is used only for
- * browser-side deduplication and is never included in analytics parameters.
+ * server-accepted consultation. This does not fire the estimator-completed
+ * label. The opaque submission id is the dedupe key and is not a name, email,
+ * or phone number.
  */
 export function trackGoogleAdsLeadOnce(
   submissionId: string,
   context: LeadContext = {},
+  retryCount = 0,
 ): boolean {
-  if (typeof window === "undefined" || !submissionId) return false;
-
-  const storageKey = `google_ads_lead:${submissionId}`;
-  if (sentGoogleAdsLeadIds.has(submissionId)) return false;
-  try {
-    if (window.sessionStorage.getItem(storageKey) === "sent") return false;
-  } catch {
-    // Storage can be unavailable under strict browser privacy settings.
-  }
-
-  const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-  if (typeof gtag !== "function") return false;
-
-  sentGoogleAdsLeadIds.add(submissionId);
-  try {
-    window.sessionStorage.setItem(storageKey, "sent");
-  } catch {
-    // The in-memory guard still prevents duplicate callbacks in this page load.
-  }
-  // Value is the per-lead estimate for the campaign that brought the visitor
-  // (see lib/googleAdsConversion.ts); no PII is included.
-  gtag("event", "conversion", googleAdsLeadParams(context, submissionId));
-  return true;
+  if (!submissionId) return false;
+  return trackGoogleAdsLeadConversion(context, submissionId, retryCount);
 }
