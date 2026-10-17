@@ -8,7 +8,7 @@
  * document contents. Pass identifiers and categories only (e.g. a project
  * type, a step name, a boolean), never free-text user input.
  */
-import { googleAdsLeadParams, type LeadContext } from "@/lib/googleAdsConversion";
+import { googleAdsLeadParams, gtagOrRetry, type LeadContext } from "@/lib/googleAdsConversion";
 
 export type TrackParams = Record<string, string | number | boolean | undefined>;
 
@@ -35,6 +35,7 @@ export function track(eventName: string, params?: TrackParams): void {
 export function trackGoogleAdsLeadOnce(
   submissionId: string,
   context: LeadContext = {},
+  retryCount = 0,
 ): boolean {
   if (typeof window === "undefined" || !submissionId) return false;
 
@@ -46,8 +47,10 @@ export function trackGoogleAdsLeadOnce(
     // Storage can be unavailable under strict browser privacy settings.
   }
 
-  const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-  if (typeof gtag !== "function") return false;
+  const gtag = gtagOrRetry(`form:${submissionId}`, retryCount, (next) => {
+    trackGoogleAdsLeadOnce(submissionId, context, next);
+  });
+  if (!gtag) return false;
 
   sentGoogleAdsLeadIds.add(submissionId);
   try {

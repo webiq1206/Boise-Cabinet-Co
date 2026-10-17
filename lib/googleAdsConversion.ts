@@ -63,14 +63,59 @@ export function googleAdsLeadParams(
 }
 
 const sentLeadKeys = new Set<string>();
+const pendingGtagRetries = new Set<string>();
+
+/** Ten attempts, 500ms apart: about 5 seconds, matching the Remodeling inquiry retry. */
+export const GTAG_RETRY_LIMIT = 10;
+export const GTAG_RETRY_MS = 500;
+
+type GtagFn = (...args: unknown[]) => void;
+
+export function readGtag(): GtagFn | null {
+  if (typeof window === "undefined") return null;
+  const gtag = (window as unknown as { gtag?: GtagFn }).gtag;
+  return typeof gtag === "function" ? gtag : null;
+}
+
+/**
+ * Returns gtag when it is already loaded. Otherwise schedules one retry chain
+ * for this key and returns null. The sent marker must not be written by the caller
+ * until this returns a function. A second call with the same key does not start
+ * another timer.
+ */
+export function gtagOrRetry(key: string, retryCount: number, again: (nextRetry: number) => void): GtagFn | null {
+  const gtag = readGtag();
+  if (gtag) {
+    pendingGtagRetries.delete(key);
+    return gtag;
+  }
+  if (retryCount >= GTAG_RETRY_LIMIT) {
+    pendingGtagRetries.delete(key);
+    return null;
+  }
+  if (retryCount === 0 && pendingGtagRetries.has(key)) return null;
+  pendingGtagRetries.add(key);
+  window.setTimeout(() => {
+    pendingGtagRetries.delete(key);
+    again(retryCount + 1);
+  }, GTAG_RETRY_MS);
+  return null;
+}
 
 /**
  * Fires the Google Ads lead conversion once per dedupe key (per page load and,
- * where storage allows, per browser session). Returns true when it was sent.
+ * where storage allows, per browser session). If gtag is not ready yet, waits
+ * up to about 5 seconds and fires once. Returns true when it was sent.
  */
-export function trackGoogleAdsLeadConversion(ctx: LeadContext = {}, dedupeKey?: string): boolean {
+export function trackGoogleAdsLeadConversion(
+  ctx: LeadContext = {},
+  dedupeKey?: string,
+  retryCount = 0,
+): boolean {
   if (typeof window === "undefined") return false;
   const storageKey = dedupeKey ? `google_ads_lead:${dedupeKey}` : undefined;
+  const retryKey = storageKey ?? "google_ads_lead:conversion";
+  if (!storageKey && sentLeadKeys.has(retryKey)) return false;
   if (storageKey) {
     if (sentLeadKeys.has(storageKey)) return false;
     try {
@@ -79,8 +124,10 @@ export function trackGoogleAdsLeadConversion(ctx: LeadContext = {}, dedupeKey?: 
       // Storage can be unavailable under strict privacy settings; the in-memory guard still applies.
     }
   }
-  const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-  if (typeof gtag !== "function") return false;
+  const gtag = gtagOrRetry(retryKey, retryCount, (next) => {
+    trackGoogleAdsLeadConversion(ctx, dedupeKey, next);
+  });
+  if (!gtag) return false;
   if (storageKey) {
     sentLeadKeys.add(storageKey);
     try {
@@ -88,6 +135,8 @@ export function trackGoogleAdsLeadConversion(ctx: LeadContext = {}, dedupeKey?: 
     } catch {
       // Ignore; in-memory guard is enough for this page load.
     }
+  } else {
+    sentLeadKeys.add(retryKey);
   }
   gtag("event", "conversion", googleAdsLeadParams(ctx, dedupeKey));
   return true;
