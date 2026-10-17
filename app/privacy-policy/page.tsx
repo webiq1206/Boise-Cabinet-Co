@@ -56,10 +56,10 @@ export default function PrivacyPolicyPage() {
           <div className="max-w-3xl mx-auto mb-6">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Privacy Policy" }]} />
           </div>
-          <InteriorDocument heading={<h1>Privacy Policy for Boise Cabinet Co Services</h1>} contents={[{"id":"document-section-1","label":"Introduction"},{"id":"document-section-2","label":"Information We Collect"},{"id":"document-section-3","label":"How We Use Your Information"},{"id":"document-section-4","label":"Information Sharing"},{"id":"document-section-5","label":"Data Security"},{"id":"document-section-6","label":"Your Rights"},{"id":"document-section-7","label":"Contact Us"}]}>
+          <InteriorDocument heading={<h1>Privacy Policy for Boise Cabinet Co Services</h1>} contents={[{"id":"document-section-1","label":"Introduction"},{"id":"document-section-2","label":"Information We Collect"},{"id":"document-section-3","label":"How We Use Your Information"},{"id":"document-section-4","label":"Information Sharing"},{"id":"document-section-5","label":"Data Security"},{"id":"document-section-6","label":"Your Rights"},{"id":"document-section-8","label":"Advertising and measurement"},{"id":"document-section-7","label":"Contact Us"}]}>
 
             <p className="lead text-muted-foreground">
-              Last updated: January 2024
+              Last updated: October 17, 2026
             </p>
 
             <h2 id="document-section-1">Introduction</h2>
@@ -110,6 +110,17 @@ export default function PrivacyPolicyPage() {
               <li>Request deletion of your information</li>
               <li>Opt-out of marketing communications</li>
             </ul>
+
+            <h2 id="document-section-8">Advertising and measurement</h2>
+            <p>
+              We use Google Analytics and Google Ads tags to measure visits and ads. We do not currently send your name, email, phone number or project details to Google. Google's tag also adds visitors to remarketing lists, and Google may use this data to show you relevant ads on other websites (remarketing). You can opt out of Google Analytics with the{" "}
+              <a href="https://tools.google.com/dlpage/gaoptout" className="text-primary hover:underline">Google Analytics Opt-out Browser Add-on</a>
+              , and you can control the ads Google shows you in{" "}
+              <a href="https://adssettings.google.com/" className="text-primary hover:underline">Google Ads Settings</a>.
+            </p>
+            <p>
+              We also use the Meta Pixel and Meta's Conversions API to measure visits and inquiries from our Facebook and Instagram ads. When you submit an inquiry, we may send Meta a Lead event with its event id, event time, page address, and content name "Consultation request", plus a hashed email, a hashed phone number, a hashed first name, a hashed last name, a hashed ZIP code, your IP address, your browser user agent, and the Meta cookies fbp and fbc, so it can match the inquiry to an ad. Meta processes this under its own privacy policy (<a href="https://www.facebook.com/privacy/policy" className="text-primary hover:underline">https://www.facebook.com/privacy/policy</a>).
+            </p>
 
             <h2 id="document-section-7">Contact Us</h2>
             <p>
