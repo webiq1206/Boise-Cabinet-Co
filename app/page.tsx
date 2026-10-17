@@ -1,6 +1,7 @@
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
 import { ApprovedHome } from "@/components/approved/ApprovedHome";
+import { HomeTestimonials } from "@/components/sections/HomeTestimonials";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Section } from "@/components/marketing/Section";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
@@ -17,7 +18,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0 bg-background">
       <HomePageSchema />
-      <ApprovedHome />
+      <ApprovedHome reviews={<HomeTestimonials />} />
       <h2 data-speakable="summary" className="sr-only">
         Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle,
         Nampa, Kuna, Star, Middleton, and Caldwell across Idaho&apos;s Treasure Valley.

@@ -63,6 +63,7 @@ test("seed review text and rating schema stay out of public output while the fla
     "server/storage.ts",
     "tests/hide-seed-testimonials.test.ts",
     "e2e/hide-seed-testimonials.spec.ts",
+    "scripts/verify-no-seed-reviews-client.mjs",
   ]);
   const hits: string[] = [];
   for (const file of walk(".")) {
@@ -97,9 +98,23 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.equal(page.includes("Explore cabinet design concepts for Treasure Valley homes."), false);
   const nav = readFileSync("shared/cabinetNav.ts", "utf8");
   const footer = readFileSync("components/Footer.tsx", "utf8");
+  const navigation = readFileSync("components/Navigation.tsx", "utf8");
+  const home = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
+  const layout = readFileSync("app/layout.tsx", "utf8");
   const gallery = readFileSync("components/sections/ProjectGallerySection.tsx", "utf8");
-  assert.equal(nav.includes('showTestimonials() ? [{ label: "Projects & reviews", href: "/testimonials" }]'), true);
-  assert.equal(footer.includes('showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }]'), true);
+  const redirects = readFileSync("next.config.js", "utf8");
+  const imageSitemap = readFileSync("app/image-sitemap.xml/route.ts", "utf8");
+  assert.equal(nav.includes("Projects & reviews"), false);
+  assert.equal(footer.includes("Projects & Reviews"), false);
+  assert.equal(navigation.includes("Projects & reviews"), false);
+  assert.equal(home.includes("TestimonialsSection"), false);
+  assert.equal(home.includes("testimonialsData"), false);
+  assert.equal(readFileSync("app/page.tsx", "utf8").includes("<HomeTestimonials />"), true);
+  assert.equal(layout.includes('process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true"'), true);
+  assert.equal(redirects.includes("'/projects': '/cabinets'"), true);
+  assert.equal(redirects.includes("'/projects': '/testimonials'"), false);
+  assert.equal(imageSitemap.includes("cabinets in Meridian, Idaho"), true);
+  assert.equal(imageSitemap.includes("cabinets built by Boise Cabinet Co in Meridian, Idaho"), false);
   assert.equal(gallery.includes("showViewAll && showTestimonials()"), true);
   assert.equal(gallery.includes(">See more design ideas<"), true);
   assert.equal(gallery.includes("See more projects and reviews"), false);

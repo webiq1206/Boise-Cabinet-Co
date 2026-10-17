@@ -5,7 +5,7 @@ import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
-import { showTestimonials, SITE_CONFIG } from "@/shared/siteConfig";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 import Link from "next/link";
 
 const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
@@ -15,7 +15,7 @@ interface FooterLink {
   href: string;
 }
 
-function buildFooterGroups(): { title: string; links: FooterLink[] }[] {
+function buildFooterGroups(reviewLink: FooterLink | null): { title: string; links: FooterLink[] }[] {
   const topHubLinks: FooterLink[] = CONTENT_HUBS.filter(
     (h) => h.priorityTier <= 2 && PUBLISHED_GUIDE_SLUGS.has(h.pillarSlug),
   )
@@ -41,7 +41,7 @@ function buildFooterGroups(): { title: string; links: FooterLink[] }[] {
       title: "Company",
       links: [
         { label: "About", href: "/about" },
-        ...(showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }] : []),
+        ...(reviewLink ? [reviewLink] : []),
         { label: "Why Choose Us", href: "/#why-choose-us" },
         { label: "How We Build", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
@@ -80,9 +80,9 @@ function GroupLinks({ links }: { links: FooterLink[] }) {
   );
 }
 
-export function Footer() {
+export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }) {
   const currentYear = new Date().getFullYear();
-  const groups = buildFooterGroups();
+  const groups = buildFooterGroups(reviewLink);
   const sortedCities = [...CITIES].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
