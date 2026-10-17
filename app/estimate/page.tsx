@@ -30,7 +30,8 @@ export default function EstimatePage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <EstimateCalculator headingAs="h1" viewportFit />
+      <h1 className="sr-only">Get an Estimate</h1>
+      <EstimateCalculator headingAs="h2" viewportFit />
     </>
   );
 }

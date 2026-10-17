@@ -5,7 +5,7 @@ export const CITIES_LIST =
 
 export const PILLAR_COST = '/guides/boise-cabinet-cost-guide';
 export const PILLAR_TV = '/guides/treasure-valley-cabinet-guide';
-export const PILLAR_BOISE = '/guides/boise-cabinet-guide';
+export const PILLAR_BOISE = '/locations/boise';
 
 export function svc(path: string, label?: string): string {
   return `<a href="${path}">${label ?? path.split('/').pop()?.replace(/-/g, ' ') ?? path}</a>`;

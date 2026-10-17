@@ -1,6 +1,6 @@
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
-import { guidePath } from '@/shared/contentHubs';
+import { indexableGuidePath } from '@/shared/contentHubs';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 /**
@@ -32,7 +32,7 @@ export function GET() {
   const items = [
     ...GUIDE_PAGES.map((g) => ({
       title: g.title,
-      url: `${BASE}${guidePath(g.slug)}`,
+      url: `${BASE}${indexableGuidePath(g)}`,
       desc: plain(g.quickAnswer || g.metaDescription || g.excerpt),
       date: g.publishedAt,
       cat: 'Guide',

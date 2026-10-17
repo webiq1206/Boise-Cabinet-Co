@@ -10,6 +10,7 @@ import {
   MessageSquare,
   Menu,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import { usePortalNav } from "@/components/portal/PortalNavProvider";
 import { useAdminLeadCounts } from "@/hooks/useAdminLeadCounts";
 import {
@@ -134,6 +135,7 @@ function MoreSheet({
   moreActive: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -164,13 +166,15 @@ function MoreSheet({
               onNavigate={() => setOpen(false)}
             />
           ))}
-          <Link
-            href="/api/logout"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm text-muted-foreground hover:bg-muted min-h-[44px] mt-2 border-t pt-4"
-          >
-            Sign out
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              href="/api/logout"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm text-muted-foreground hover:bg-muted min-h-[44px] mt-2 border-t pt-4"
+            >
+              Sign out
+            </Link>
+          ) : null}
         </nav>
       </SheetContent>
     </Sheet>

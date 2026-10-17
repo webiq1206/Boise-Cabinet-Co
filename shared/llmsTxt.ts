@@ -9,6 +9,10 @@ export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
+Last updated: 2026-10-16
+
+Public representative: Nick Perkins. Service-area business based at 4031 W Wapoot St, Meridian, ID 83646; no public showroom. (208) 477-1169. hello@boisecabinet.co.
+
 Full content export for LLMs (every guide answer, article answer, and the complete FAQ corpus in one file): [llms-full.txt](https://boisecabinet.co/llms-full.txt)
 
 ## Business facts
@@ -16,11 +20,13 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 - Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
 - Founded: 2020
 - Based in Meridian, Idaho (service-area business; consultations happen in your home)
+- Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware
 - Warranty: written workmanship guarantee
 - Free in-home design consultation
 - Also serve builders, general contractors, and multi-family developers with volume pricing
+- Public representative: Nick Perkins
 - Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
 
@@ -83,6 +89,8 @@ Planning ranges only; firm quotes require approved drawings.
 
 - [Website](https://boisecabinet.co)
 - [Contact page](https://boisecabinet.co/contact)
+- Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
+- Public representative: Nick Perkins
 - Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
 `;

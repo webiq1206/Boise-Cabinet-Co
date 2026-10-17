@@ -40,6 +40,11 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
       answer:
         "Yes. Vanity boxes use moisture-resistant construction and finishes suited to daily steam and splashing, with soft-close hardware rated for bathroom conditions.",
     },
+    {
+      question: "Which vanity cabinets are in the catalog?",
+      answer:
+        "The catalog includes Vanity Cabinet, 1 Door + 1 Drawer; Vanity Cabinet, 2 Doors + 1 Drawer; Vanity Cabinet, 1 Door + 2 Drawers; and Vanity Cabinet, 2 Doors + 2 Drawers.",
+    },
   ],
   laundry: [
     {

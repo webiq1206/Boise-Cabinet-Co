@@ -149,7 +149,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     ],
     relatedLinks: [
       { url: '/guides/treasure-valley-cabinet-guide' },
-      { url: '/guides/boise-cabinet-guide' },
+      { url: '/locations/boise' },
       { url: '/blog/category/cabinet-costs' },
       { url: '/cabinets' },
       { url: '/estimate' },
@@ -246,7 +246,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       },
     ],
     relatedLinks: [
-      { url: '/guides/boise-cabinet-guide' },
+      { url: '/locations/boise' },
       { url: '/guides/boise-cabinet-cost-guide' },
       { url: '/cabinets' },
       { url: '/estimate' },

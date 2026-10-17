@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {ESTIMATOR_BRAND as brand} from './p5/brand.ts';
+import {phase1Description,phase1Title} from './phase1SearchCopy';
 
 /** Branded sharing previews are the owner's preference. Product/article schema
  * retains its real subject image. Neither favicon nor preview display is guaranteed. */
@@ -31,9 +32,9 @@ const COPY:Record<string,Record<string,Copy>>={
   "/blog/custom-kitchen-cabinet-cost":{title:"Custom Kitchen Cabinet Costs in Boise",description:"Explore custom kitchen cabinet costs in Boise. See how layout, cabinet construction, door style, finishes and installation shape the project budget."},
   "/cabinets/kitchen":{title:"Kitchen Cabinets in Boise, Idaho",description:"Plan kitchen cabinets for your Boise or Treasure Valley home. Explore frameless construction, door styles, finishes, layout, supply and installation."},
   "/cabinets/bathroom":{title:"Bathroom Vanities in Boise, Idaho",description:"Find bathroom vanities and cabinet storage for Boise and Treasure Valley homes. Compare sizes, finishes and layout options, then request help with your project."},
-  '/':{title:'Kitchen Cabinets & Vanities in Boise',description:'Explore kitchen cabinets, bathroom vanities and built-in storage for Boise and the Treasure Valley. Review finishes, design options and installation.'},
+  '/':{title:'Custom Cabinets Boise: Kitchen, Vanities',description:'Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.'},
   '/about':{title:'About Our Boise Cabinet Team',description:'Learn how Boise Cabinet Co helps Treasure Valley homeowners and contractors with cabinet layouts, finish selections, supply and installation planning.'},
-  '/contact':{title:'Contact Our Boise Cabinet Team',description:'Discuss cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},
+  '/contact':{title:'Contact Our Boise Custom Cabinet Team',description:'Discuss custom cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},
   '/resources':{title:'Cabinet Planning Worksheets & Guides',description:'Plan your cabinetry with budget worksheets, kitchen and bath checklists, and local permit guidance from Boise Cabinet Co in Idaho’s Treasure Valley.'}},
  p5:{
   '/':{title:'Boise Home Construction, Remodeling & Repairs',description:'Find the P5 Home Co team for new construction, remodeling, home repairs or cabinets in Boise and the Treasure Valley. Compare services and plan your project.'},
@@ -51,10 +52,13 @@ function pagePath(meta:Metadata,hint?:string):string{
  return hint&&!hint.includes('[')&&hint!=='__layout__'?(hint.replace(/\/$/,'')||'/'):'';
 }
 export function withBrandPageMetadata(meta:Metadata,routeHint?:string):Metadata{
- const override=routeHint==='__layout__'?undefined:COPY[brand.id]?.[pagePath(meta,routeHint)];
- const original=titleText(meta);
+ const path=routeHint==='__layout__'?'':pagePath(meta,routeHint);
+ const override=routeHint==='__layout__'?undefined:COPY[brand.id]?.[path];
+ const phaseTitle=path?phase1Title(path):undefined;
+ const phaseDescription=path?phase1Description(path):undefined;
+ const original=phaseTitle||titleText(meta);
  const title=override?`${override.title} | ${brand.name}`:original.includes(brand.name)?original:`${original} | ${brand.name}`;
- const description=override?.description||meta.description||undefined;
+ const description=override?.description||phaseDescription||meta.description||undefined;
  const image={url:BRAND_PAGE_IMAGE,width:1200,height:630,alt:`${brand.name} brand seal`};
  const icons=routeHint==='__layout__'?{
   ...(typeof meta.icons==='object'&&!Array.isArray(meta.icons)&&!(meta.icons instanceof URL)?meta.icons:{}),
@@ -63,6 +67,8 @@ export function withBrandPageMetadata(meta:Metadata,routeHint?:string):Metadata{
  }:meta.icons;
  return {
   ...meta,
+  ...(phaseTitle&&!override?{title:phaseTitle}:{}),
+  ...(phaseDescription&&!override?{description:phaseDescription}:{}),
   ...(override?{title:{absolute:title},description}:{}),
   ...(icons?{icons}:{}),
   openGraph:{...meta.openGraph,title,description,siteName:brand.name,images:[image]},

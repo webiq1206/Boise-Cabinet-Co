@@ -9,6 +9,7 @@ import { LogOut } from "lucide-react";
 import { AdminNav } from "./AdminNav";
 import { CustomerNav } from "./CustomerNav";
 import { PortalMobileNav } from "./PortalMobileNav";
+import { useAuth } from "@/hooks/useAuth";
 import { PORTAL_VARIANT_LABEL } from "./portalNavConfig";
 
 interface PortalShellProps {
@@ -27,6 +28,7 @@ export function PortalShell({
   headerActions,
 }: PortalShellProps) {
   const portalLabel = PORTAL_VARIANT_LABEL[variant];
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -57,11 +59,13 @@ export function PortalShell({
               {headerActions}
               {variant === "admin" && <AdminCommandPalette />}
               <NotificationsBell />
-              <Button variant="ghost" size="icon" className="hidden md:inline-flex" asChild>
-                <a href="/api/logout" aria-label="Logout">
-                  <LogOut className="h-4 w-4" />
-                </a>
-              </Button>
+              {isAuthenticated ? (
+                <Button variant="ghost" size="icon" className="hidden md:inline-flex" asChild>
+                  <a href="/api/logout" aria-label="Logout">
+                    <LogOut className="h-4 w-4" />
+                  </a>
+                </Button>
+              ) : null}
             </div>
           </div>
         </header>

@@ -13,6 +13,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { phase1RoomAnswer } from '@/lib/phase1Answers';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import {
 generateBreadcrumbSchema,
@@ -124,7 +125,9 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   if (roomCats.size === 0) ["base", "wall", "tall"].forEach((c) => roomCats.add(c));
   const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
-  const faqs = getRoomFaqs(room);
+  const phaseAnswer = phase1RoomAnswer(room.slug);
+  const roomFaqs = getRoomFaqs(room);
+  const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
   const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
   const typicalRange = getTypicalRoomRange(room.slug);
   const roomProjects = PROJECTS.filter((p) =>
@@ -183,6 +186,20 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               </CtaButton>
             </div>
           </InteriorHero>
+
+        {phaseAnswer && (
+          <Section divider>
+            <div className="ed-shell">
+              <SectionHeader
+                eyebrow="Quick answer"
+                title={phaseAnswer.heading}
+                description={phaseAnswer.paragraph}
+                align="left"
+              />
+              <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix={`phase1-${room.slug}`} />
+            </div>
+          </Section>
+        )}
 
         {/* Cost and timeline expectation */}
         <Section variant="greige" divider>
@@ -374,7 +391,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 />
               </div>
               <div>
-                <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${room.slug}`} />
+                <FaqAccordion faqs={roomFaqs} initialCount={6} idPrefix={`faq-${room.slug}`} />
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PortalAccountPage() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, isAuthenticated } = useAuth();
 
   return (
     <PortalShell variant="customer" title="Account">
@@ -104,9 +104,11 @@ export default function PortalAccountPage() {
               You sign in with a secure link sent to your email. Contact us if you need to
               update your login address.
             </p>
-            <Button variant="outline" asChild>
-              <a href="/api/logout">Sign out</a>
-            </Button>
+            {isAuthenticated ? (
+              <Button variant="outline" asChild>
+                <a href="/api/logout">Sign out</a>
+              </Button>
+            ) : null}
           </CardContent>
         </Card>
       </div>

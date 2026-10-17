@@ -10,6 +10,7 @@ import { CtaButton } from "@/components/modals/CtaButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { phase1LocationAnswer } from '@/lib/phase1Answers';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
 generateBreadcrumbSchema,
@@ -73,7 +74,9 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // to this city are shown, and each section says so plainly when there are none.
   const cityProjects = PROJECTS.filter((p) => p.area === city.name).slice(0, 3);
   const cityReviews = TESTIMONIALS.filter((t) => t.city === city.slug);
-  const faqs = guide?.faqs ?? [];
+  const phaseAnswer = phase1LocationAnswer(city.slug);
+  const guideFaqs = guide?.faqs ?? [];
+  const faqs = [...guideFaqs, ...(phaseAnswer?.faqs ?? [])];
 
   const schemas = [
     generateWebPageSchema({
@@ -85,7 +88,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
       { name: "Home", url: "/" },
       { name: `${city.name}, Idaho`, url: locationPath(city.slug) },
     ]),
-    // City coverage is areaServed. PostalAddress stays Meridian, ID, US.
+    // City coverage is areaServed. PostalAddress stays the Meridian service-area record.
     generateLocalBusinessSchema(city.name),
     ...(faqs.length ? [generateFAQSchema(faqs)] : []),
   ];
@@ -125,6 +128,20 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               </Button>
             </div>
           </InteriorHero>
+
+        {phaseAnswer && (
+          <Section divider>
+            <div className="ed-shell">
+              <SectionHeader
+                eyebrow="Quick answer"
+                title={phaseAnswer.heading}
+                description={phaseAnswer.paragraph}
+                align="left"
+              />
+              <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix={`phase1-${city.slug}`} />
+            </div>
+          </Section>
+        )}
 
         {/* Local project proof */}
         {cityProjects.length > 0 && (
@@ -257,7 +274,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         )}
 
         {/* FAQs */}
-        {faqs.length > 0 && (
+        {guideFaqs.length > 0 && (
           <Section variant="greige" divider>
             <div className="ed-shell">
               <div className="ed-split ed-split-narrow">
@@ -270,7 +287,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   />
                 </div>
                 <div>
-                  <FaqAccordion faqs={faqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+                  <FaqAccordion faqs={guideFaqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
                 </div>
               </div>
             </div>

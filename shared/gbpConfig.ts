@@ -87,14 +87,14 @@ export interface GbpServiceArea {
 }
 
 export const GBP_SERVICE_AREAS: GbpServiceArea[] = [
-  { name: "Boise", county: "ada", gbpLabel: "Boise, ID", guidePath: "/guides/boise-cabinet-guide" },
-  { name: "Meridian", county: "ada", gbpLabel: "Meridian, ID", guidePath: "/guides/meridian-cabinet-guide" },
-  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/guides/eagle-cabinet-guide" },
-  { name: "Nampa", county: "canyon", gbpLabel: "Nampa, ID", guidePath: "/guides/nampa-cabinet-guide" },
-  { name: "Kuna", county: "ada", gbpLabel: "Kuna, ID", guidePath: "/guides/kuna-cabinet-guide" },
-  { name: "Star", county: "ada", gbpLabel: "Star, ID", guidePath: "/guides/star-cabinet-guide" },
-  { name: "Middleton", county: "canyon", gbpLabel: "Middleton, ID", guidePath: "/guides/middleton-cabinet-guide" },
-  { name: "Caldwell", county: "canyon", gbpLabel: "Caldwell, ID", guidePath: "/guides/caldwell-cabinet-guide" },
+  { name: "Boise", county: "ada", gbpLabel: "Boise, ID", guidePath: "/locations/boise" },
+  { name: "Meridian", county: "ada", gbpLabel: "Meridian, ID", guidePath: "/locations/meridian" },
+  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/locations/eagle" },
+  { name: "Nampa", county: "canyon", gbpLabel: "Nampa, ID", guidePath: "/locations/nampa" },
+  { name: "Kuna", county: "ada", gbpLabel: "Kuna, ID", guidePath: "/locations/kuna" },
+  { name: "Star", county: "ada", gbpLabel: "Star, ID", guidePath: "/locations/star" },
+  { name: "Middleton", county: "canyon", gbpLabel: "Middleton, ID", guidePath: "/locations/middleton" },
+  { name: "Caldwell", county: "canyon", gbpLabel: "Caldwell, ID", guidePath: "/locations/caldwell" },
   { name: "Garden City", county: "ada", gbpLabel: "Garden City, ID", guidePath: "/guides/treasure-valley-cabinet-guide" },
 ];
 

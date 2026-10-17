@@ -47,8 +47,15 @@ export function PortalAuthGate({
               <p className="text-muted-foreground text-sm">
                 Sign in to access your {role === "customer" ? "project portal" : "dashboard"}.
               </p>
-              <Button variant="brand" asChild className="w-full">
-                <a href={loginHref}>Sign in</a>
+              <Button
+                variant="brand"
+                type="button"
+                className="w-full"
+                onClick={() => {
+                  window.location.assign(loginHref);
+                }}
+              >
+                Sign in
               </Button>
             </CardContent>
           </Card>

@@ -40,7 +40,13 @@ function SelectionThumbnail({ row }: { row: SelectionDisplayRow }) {
         row.category === "Finish" ? "h-14 w-14 border border-border" : "h-14 w-20",
       )}
     >
-      <Image src={row.imageSrc} alt="" fill sizes="80px" className="object-cover" />
+      <Image
+        src={row.imageSrc}
+        alt={row.category === "Finish" ? row.value : `${row.category}: ${row.value}`}
+        fill
+        sizes="80px"
+        className="object-cover"
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { DOOR_STYLES } from '@/shared/catalog';
-import { guidePath } from '@/shared/contentHubs';
+import { indexableGuidePath } from '@/shared/contentHubs';
 
 /**
  * /llms-full.txt - the complete, machine-readable knowledge export.
@@ -73,7 +73,7 @@ function buildLlmsFull(): string {
   out.push('## Guides\n');
   for (const g of GUIDE_PAGES) {
     out.push(`### ${g.title}`);
-    out.push(`URL: ${BASE}${guidePath(g.slug)}`);
+    out.push(`URL: ${BASE}${indexableGuidePath(g)}`);
     if (g.quickAnswer) out.push(`Answer: ${plain(g.quickAnswer)}`);
     if (g.keyTakeaways?.length) {
       out.push('Key takeaways:');
@@ -111,7 +111,7 @@ function buildLlmsFull(): string {
       out.push('');
     }
   };
-  for (const g of GUIDE_PAGES) pushFaqs(g.faqs, `${BASE}${guidePath(g.slug)}`);
+  for (const g of GUIDE_PAGES) pushFaqs(g.faqs, `${BASE}${indexableGuidePath(g)}`);
   for (const p of BLOG_POSTS) pushFaqs(p.faqs, `${BASE}/blog/${p.slug}`);
 
   out.push('---');

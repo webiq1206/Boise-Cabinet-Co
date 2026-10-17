@@ -307,6 +307,17 @@ export function guidePath(slug: string): string {
   return `/guides/${slug}`;
 }
 
+/** City cabinet guides 308 to /locations/[city]. Link the destination directly. */
+export function indexableGuidePath(guide: {
+  slug: string;
+  guideType?: string;
+  linkedCities?: string[];
+}): string {
+  const city = guide.guideType === 'location' ? guide.linkedCities?.[0] : undefined;
+  if (city) return `/locations/${city}`;
+  return guidePath(guide.slug);
+}
+
 export function blogPath(slug: string): string {
   return `/blog/${slug}`;
 }
