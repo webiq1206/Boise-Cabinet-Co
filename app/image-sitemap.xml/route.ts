@@ -4,6 +4,7 @@ import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
+import { showTestimonials } from '@/shared/siteConfig';
 
 /**
  * /image-sitemap.xml - Google Image sitemap extension.
@@ -54,18 +55,20 @@ export function GET() {
     });
   }
 
-  // Project imagery (design concepts are labeled as such; verified projects are
-  // described as completed work).
-  entries.push({
-    page: `${BASE}/testimonials`,
-    images: PROJECTS.map((project) => ({
-      loc: abs(project.hero.src),
-      title:
-        project.kind === 'concept'
-          ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
-          : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
-    })),
-  });
+  // Project imagery stays off the image sitemap while reviews are hidden.
+  // The page is noindex in that state, so listing it here would keep the URL public.
+  if (showTestimonials()) {
+    entries.push({
+      page: `${BASE}/testimonials`,
+      images: PROJECTS.map((project) => ({
+        loc: abs(project.hero.src),
+        title:
+          project.kind === 'concept'
+            ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
+            : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
+      })),
+    });
+  }
 
   // Article imagery, mapped to the article it illustrates.
   for (const post of BLOG_POSTS) {

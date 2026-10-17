@@ -5,6 +5,8 @@
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
+import { showTestimonials } from "./siteConfig";
+
 export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
@@ -81,8 +83,7 @@ Planning ranges only; firm quotes require approved drawings.
 ## Trust and company
 
 - [About the company and team](https://boisecabinet.co/about)
-- [Projects and reviews](https://boisecabinet.co/testimonials)
-- [Warranty details](https://boisecabinet.co/warranty)
+${showTestimonials() ? "- [Projects and reviews](https://boisecabinet.co/testimonials)\n" : ""}- [Warranty details](https://boisecabinet.co/warranty)
 - [Contact page](https://boisecabinet.co/contact)
 
 ## Contact

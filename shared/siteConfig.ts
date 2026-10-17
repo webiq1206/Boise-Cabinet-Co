@@ -15,14 +15,14 @@ function numFromEnv(value: string | undefined): number {
 }
 
 /**
- * Seed testimonials and ratings stay in the repo. They render only when this
- * value is exactly "true". Unset, empty, or any other string stays hidden.
- * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ * Seed testimonials and rating claims stay in the repo.
+ * Public pages, schema, navigation, and sitemaps hide them while this is false.
+ * Flip this constant to true to publish them again. Environment variables cannot turn it on.
  */
-export function showTestimonials(
-  value: string | undefined = process.env.SHOW_TESTIMONIALS ?? process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS,
-): boolean {
-  return value === "true";
+export const SHOW_TESTIMONIALS = false;
+
+export function showTestimonials(): boolean {
+  return SHOW_TESTIMONIALS;
 }
 
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;

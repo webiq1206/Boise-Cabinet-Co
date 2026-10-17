@@ -70,7 +70,7 @@ export function AggregateRating({
 }: AggregateRatingProps) {
   const { ratingValue, reviewCount, gbpUrl } = SITE_CONFIG.trust;
 
-  // Hidden unless SHOW_TESTIMONIALS is exactly "true", even if a rating env is set.
+  // Hidden while SHOW_TESTIMONIALS is false, even if a rating env is set.
   if (!showTestimonials()) return null;
   // Never fabricate proof: render only when real review data is configured.
   if (!ratingValue || !reviewCount) return null;

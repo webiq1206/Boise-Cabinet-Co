@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PROJECTS } from "@/shared/galleryData";
+import { showTestimonials } from "@/shared/siteConfig";
 
 export function FeaturedProjectSection() {
   const project = PROJECTS[0];
@@ -80,7 +81,7 @@ export function FeaturedProjectSection() {
       <div className="ed-shell py-10">
         <Reveal delay={120}>
           <Button variant="brandOutline" asChild>
-            <Link href="/testimonials">View projects and reviews</Link>
+            <Link href="/testimonials">{showTestimonials() ? "View projects and reviews" : "View design ideas"}</Link>
           </Button>
         </Reveal>
       </div>
