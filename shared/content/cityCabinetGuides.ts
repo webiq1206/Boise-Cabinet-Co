@@ -256,6 +256,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Nampa, Idaho: kitchen upgrades for older bungalows and newer subdivisions, bathroom vanities, Canyon County permits, costs, and planning.',
     excerpt:
       'Local guide to custom cabinets in Nampa: mixed housing stock from historic bungalows to new builds, Canyon County permitting, and planning ranges.',
+    // About a quarter of housing units were built before 1980. ACS 2020-2024 table B25034, Nampa city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1656260
     quickAnswer:
       'Nampa has historic bungalows near downtown and subdivisions that keep spreading, so cabinet work here runs from clever small-kitchen layouts to full builder-grade replacements. Roughly a quarter of Nampa homes predate 1980, by Census ACS 2020–2024 estimates. We design, build and install custom cabinets across Nampa and the rest of Canyon County.',
     takeaways: [
@@ -336,6 +338,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How old are Nampa homes?',
+        // Median year structure built is 2000 (B25035). About 15% were built before 1960 and about 22% in 2010 or later (B25034). ACS 2020-2024, Nampa city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1656260
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1656260
         answer:
           'All ages. Nampa\'s median home dates to 2000, with about 15% built before 1960 and about 22% built in 2010 or later (ACS 2020–2024). That spread is why one Nampa week can include a bungalow galley kitchen and a builder-grade island replacement.',
       },
@@ -353,6 +358,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Kuna, Idaho: builder-grade kitchen upgrades, family storage, mudroom and garage systems for fast-growing Kuna subdivisions.',
     excerpt:
       'Local guide to custom cabinets in Kuna: newer family homes, the most common storage upgrades, Ada County permits, and planning ranges.',
+    // About three in four housing units were built in 2000 or later. ACS 2020-2024 table B25034, Kuna city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1644290
     quickAnswer:
       'Kuna has been one of Idaho\'s fastest-growing cities, and its houses show it: about three in four were built in 2000 or later, a Census ACS 2020–2024 estimate, most with builder-grade cabinet packages. Kitchen upgrades, pantry walls, and mudroom and garage storage are what Kuna families ask us for most. Boise Cabinet Co builds and installs custom frameless cabinets all over Kuna.',
     takeaways: [
@@ -438,6 +445,10 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How new are Kuna\'s homes?',
+        // Median year structure built is 2008 (B25035). About 43% were built in 2010 or later and about 15% in 2020 or later (B25034). About 92% are 1-unit detached (B25024). ACS 2020-2024, Kuna city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1644290
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1644290
+        // https://data.census.gov/table/ACSDT5Y2024.B25024?g=160XX00US1644290
         answer:
           'Very. Kuna\'s median home was built in 2008; about 43% date from 2010 or later and about 15% from 2020 or later (ACS 2020–2024). About 92% are single-family detached houses, which is why builder-package kitchens and garage storage dominate our Kuna work.',
       },
@@ -455,6 +466,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Star, Idaho: kitchens, pantries, and built-ins for new construction and acreage homes along the Highway 44 corridor.',
     excerpt:
       'Local guide to custom cabinets in Star: new construction and acreage properties, popular projects, Ada County permits, and planning ranges.',
+    // More than half of housing units were built in 2010 or later. ACS 2020-2024 table B25034, Star city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1676870
     quickAnswer:
       'Star mixes brand-new subdivisions with acreage and estate properties along Highway 44, and more than half its homes were built in 2010 or later (Census ACS 2020–2024). Projects run from a first kitchen upgrade to oversized pantries and shop storage, all of them custom frameless cabinets that we design, build and install ourselves across Star.',
     takeaways: [
@@ -556,6 +569,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Caldwell, Idaho: kitchen upgrades for historic homes near downtown and the College of Idaho, new-build storage, and Canyon County permits.',
     excerpt:
       'Local guide to custom cabinets in Caldwell: historic housing near Indian Creek, newer subdivisions, Canyon County permitting, and planning ranges.',
+    // About one in seven housing units was built before 1960. ACS 2020-2024 table B25034, Caldwell city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1612250
     quickAnswer:
       'Caldwell pairs a revitalized downtown along Indian Creek and the historic neighborhoods around the College of Idaho with fast-growing subdivisions. Cabinet projects range from careful upgrades in century-old houses to builder-grade replacements in new ones, and roughly one Caldwell home in seven predates 1960 (Census ACS 2020–2024). Boise Cabinet Co serves all of Caldwell and Canyon County.',
     takeaways: [
@@ -634,6 +649,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How old is Caldwell\'s housing?',
+        // Median year structure built is 2003 (B25035). Close to three in ten were built before 1980 (B25034). ACS 2020-2024, Caldwell city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1612250
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1612250
         answer:
           'Mixed. Caldwell\'s median home dates to 2003, yet close to three in ten were built before 1980, going by Census ACS 2020–2024 numbers. Older houses near downtown and newer subdivisions on the south and east sides call for very different cabinet plans, and we scope each one on site.',
       },
@@ -651,6 +669,8 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Custom cabinets in Middleton, Idaho: kitchens, pantries, mudrooms, and shop storage for small-town and acreage properties in Canyon County.',
     excerpt:
       'Local guide to custom cabinets in Middleton: small-town and acreage housing, popular storage projects, Canyon County permits, and planning ranges.',
+    // About 90% of occupied housing units are owner-occupied. ACS 2020-2024 table B25003, Middleton city:
+    // https://data.census.gov/table/ACSDT5Y2024.B25003?g=160XX00US1652660
     quickAnswer:
       'Middleton is growing along the Highway 44 corridor without losing its small-town, acreage feel, and about 90% of its homes are owner-occupied (Census ACS 2020–2024). Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and shop storage. Our team designs, builds and installs custom frameless cabinets in Middleton and across Canyon County.',
     takeaways: [
@@ -736,6 +756,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       },
       {
         question: 'How new are Middleton homes?',
+        // Median year structure built is 2009 (B25035). Nearly half were built in 2010 or later (B25034). ACS 2020-2024, Middleton city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1652660
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1652660
         answer:
           'Newer than most. The median Middleton home dates to 2009 in Census ACS 2020–2024 estimates, and nearly half were built from 2010 on. Plenty of those kitchens still have their first builder cabinets, which is where most Middleton projects start.',
       },
