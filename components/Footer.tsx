@@ -194,8 +194,8 @@ export function Footer() {
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>
               {SITE_CONFIG.trust.licenseNumber
-                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
-                : "License details available upon request"}
+                ? `Idaho contractor registration #${SITE_CONFIG.trust.licenseNumber}`
+                : "Idaho contractor registration information is available upon request"}
             </span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link

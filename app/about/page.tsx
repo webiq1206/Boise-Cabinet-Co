@@ -220,8 +220,8 @@ export default function AboutPage() {
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
                   {SITE_CONFIG.trust.licenseNumber
-                    ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
-                    : 'Idaho contractor license information is available upon request. '}
+                    ? `Idaho contractor registration #${SITE_CONFIG.trust.licenseNumber}. `
+                    : 'Idaho contractor registration information is available upon request. '}
                   We are bonded and insured for residential cabinet design and installation across
                   the Treasure Valley.
                 </p>
