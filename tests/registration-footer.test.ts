@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { generateLocalBusinessSchema, generateServiceSchema } from "../lib/schema.ts";
+import { generateLocalBusinessSchema, generateOrganizationSchema, generateServiceSchema } from "../lib/schema.ts";
 import { getAllSiteUrls } from "../lib/siteUrls.ts";
-import { SITE_CONFIG } from "../shared/siteConfig.ts";
+import { showFoundingYear, SITE_CONFIG } from "../shared/siteConfig.ts";
 
 test("license number defaults to 8381215 and schema uses hasCredential", () => {
   assert.equal(SITE_CONFIG.trust.licenseNumber, process.env.NEXT_PUBLIC_LICENSE_NUMBER || "8381215");
@@ -84,4 +84,29 @@ test("brand license claims use Idaho registration wording", () => {
   const about = readFileSync("app/about/page.tsx", "utf8");
   assert.match(about, /Are you a registered contractor and insured\?/);
   assert.match(about, /Idaho Registered Contractor #8381215, bonded, and insured/);
+  assert.equal(about.includes("contractor license"), false);
+  assert.equal(about.includes("available upon request"), false);
+});
+
+test("home JSON-LD uses registration wording and hides foundingDate unless the flag is on", () => {
+  assert.equal(showFoundingYear(), false);
+  assert.equal(showFoundingYear("true"), true);
+  const home = generateOrganizationSchema() as { description: string; foundingDate?: string; hasCredential: { identifier: string } };
+  assert.match(home.description, /Idaho Registered Contractor #8381215, bonded, and insured, and committed to craftsmanship\./);
+  assert.equal(home.description.includes("since 2020"), false);
+  assert.equal(home.foundingDate, undefined);
+  assert.equal(home.hasCredential.identifier, "8381215");
+  const local = generateLocalBusinessSchema() as { foundingDate?: string };
+  assert.equal(local.foundingDate, undefined);
+  process.env.SHOW_FOUNDING_YEAR = "true";
+  const shown = generateOrganizationSchema() as { description: string; foundingDate?: string };
+  assert.equal(shown.foundingDate, "2020");
+  assert.match(shown.description, /since 2020/);
+  delete process.env.SHOW_FOUNDING_YEAR;
+});
+
+test("estimate scope meta uses registration wording", () => {
+  const scope = readFileSync("app/estimate/scope/page.tsx", "utf8");
+  assert.match(scope, /Idaho Registered Contractor #8381215, bonded & insured\./);
+  assert.equal(scope.includes("Licensed & insured"), false);
 });

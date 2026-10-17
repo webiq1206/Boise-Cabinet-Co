@@ -36,6 +36,16 @@ export function showLifetimeWarranty(
   return value === "true";
 }
 
+/**
+ * foundingDate 2020 stays in source. Home JSON-LD includes it only when this
+ * value is exactly "true". Unset, empty, or any other string stays off.
+ */
+export function showFoundingYear(
+  value: string | undefined = process.env.SHOW_FOUNDING_YEAR ?? process.env.NEXT_PUBLIC_SHOW_FOUNDING_YEAR,
+): boolean {
+  return value === "true";
+}
+
 /** Keep the lifetime sentence in source. Publish it only while the flag is on. */
 export function lifetimeWording(shown: string, hidden: string): string {
   return showLifetimeWarranty() ? shown : hidden;

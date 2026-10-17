@@ -219,11 +219,8 @@ export default function AboutPage() {
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                  {SITE_CONFIG.trust.licenseNumber
-                    ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
-                    : 'Idaho contractor license information is available upon request. '}
-                  We are bonded and insured for residential cabinet design and installation across
-                  the Treasure Valley.
+                  {`Idaho Registered Contractor #${SITE_CONFIG.trust.licenseNumber}, bonded, and insured. `}
+                  We handle residential cabinet design and installation across the Treasure Valley.
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3">
                   {TRUST_ITEMS.map((item) => (
