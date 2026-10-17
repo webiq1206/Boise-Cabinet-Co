@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { COLLECTIONS } from "@/shared/catalog/collections";
 import { CTA_EXPLORE_COLLECTIONS } from "@/shared/ctaCopy";
+import { lifetimeWording } from "@/shared/siteConfig";
 
 export function CollectionsBandSection() {
   return (
@@ -19,7 +20,10 @@ export function CollectionsBandSection() {
               <em className="brc-accent text-accent">built your way</em>
             </>
           }
-          description="One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet."
+          description={lifetimeWording(
+            "One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet.",
+            "One custom line, built to order for your space, with the same frameless construction on every cabinet.",
+          )}
         />
 
         <div className="grid gap-6 max-w-sm mx-auto">

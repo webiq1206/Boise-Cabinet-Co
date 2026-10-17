@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { SITE_CONFIG, lifetimeWording } from "@/shared/siteConfig";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -35,7 +35,10 @@ const STANDARDS = [
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract.",
+    body: lifetimeWording(
+      "Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract.",
+      "Treasure Valley installation by our crew, not outsourced day labor.",
+    ),
   },
   {
     title: "Written scope before build",

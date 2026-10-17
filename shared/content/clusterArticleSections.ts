@@ -1,3 +1,4 @@
+import { lifetimeWording } from '@/shared/siteConfig';
 import { CITIES_LIST, PILLAR_COST, type ContentSection } from './wave1/snippets';
 import { COMPANY_TOPIC_SECTIONS } from './clusterTopicSectionsCompany';
 import { ROOM_TOPIC_SECTIONS } from './clusterTopicSectionsRooms';
@@ -100,7 +101,10 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Why soft-close hardware is worth it',
       paragraphs: [
         'Every cabinet we build uses soft-close hinges and full-extension soft-close drawer slides as standard, not an upgrade. Six-way adjustable hinges let our installers dial in door reveals precisely on site, and full-extension slides let you reach the very back of a deep drawer instead of losing that space.',
-        'This is the feature clients notice first at the final walkthrough. It also protects the finish: doors and drawers that never slam keep their edges and alignment far longer, which matters under our <a href="/warranty">lifetime workmanship warranty</a>.',
+        lifetimeWording(
+          'This is the feature clients notice first at the final walkthrough. It also protects the finish: doors and drawers that never slam keep their edges and alignment far longer, which matters under our <a href="/warranty">lifetime workmanship warranty</a>.',
+          'This is the feature clients notice first at the final walkthrough. It also protects the finish: doors and drawers that never slam keep their edges and alignment far longer.',
+        ),
       ],
     },
     {

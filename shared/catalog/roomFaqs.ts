@@ -1,4 +1,5 @@
 import type { RoomCategory } from "./roomCategories";
+import { lifetimeWording } from "@/shared/siteConfig";
 
 export interface RoomFaq {
   question: string;
@@ -194,7 +195,10 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: "Is installation included?",
     answer:
-      "Yes. Our quotes cover fabrication, delivery, and professional installation by our own team, backed by a limited lifetime workmanship warranty.",
+      lifetimeWording(
+        "Yes. Our quotes cover fabrication, delivery, and professional installation by our own team, backed by a limited lifetime workmanship warranty.",
+        "Yes. Our quotes cover fabrication, delivery, and professional installation by our own team.",
+      ),
   },
 ];
 

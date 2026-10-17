@@ -3,7 +3,7 @@
  * services, products, Q&A, and UTM-tagged links. Consumed by docs generators
  * and verification scripts under scripts/gbp/.
  */
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { SITE_CONFIG, lifetimeWording } from "@/shared/siteConfig";
 import { DOOR_STYLES } from "@/shared/catalog/generated/doorStyles";
 
 const SITE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
@@ -76,8 +76,10 @@ export const GBP_PROFILE = {
   },
 } as const;
 
-export const GBP_BUSINESS_DESCRIPTION =
-  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+export const GBP_BUSINESS_DESCRIPTION = lifetimeWording(
+  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.",
+  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.",
+);
 
 export interface GbpServiceArea {
   name: string;
@@ -182,7 +184,10 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Cabinet installation",
     description:
-      "Professional installation by our own team, with final walkthrough and lifetime workmanship warranty.",
+      lifetimeWording(
+        "Professional installation by our own team, with final walkthrough and lifetime workmanship warranty.",
+        "Professional installation by our own team, with final walkthrough.",
+      ),
     path: "/construction",
     campaign: "service-installation",
     priority: "core",
@@ -316,7 +321,10 @@ export const GBP_QA_SEEDS: GbpQaPair[] = [
   {
     question: "What makes Boise Cabinet Co different from other cabinet companies?",
     answer:
-      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+      lifetimeWording(
+        "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+        "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+      ),
   },
   {
     question: "What kind of cabinets do you build?",
@@ -341,7 +349,10 @@ export const GBP_QA_SEEDS: GbpQaPair[] = [
   {
     question: "What warranty do you provide?",
     answer:
-      "Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.",
+      lifetimeWording(
+        "Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.",
+        "Warranty details and service requests are accessible anytime through your client portal.",
+      ),
   },
   {
     question: "What does the free design consultation include?",

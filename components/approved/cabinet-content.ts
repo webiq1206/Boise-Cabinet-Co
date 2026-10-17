@@ -1,8 +1,13 @@
+import { lifetimeWording } from "@/shared/siteConfig";
+
 // Business copy restored from boisecabinet.co, reviewed September 24, 2026.
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
-    "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
+    lifetimeWording(
+      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    )
   ],
   [
     "What kind of cabinets do you build?",
@@ -26,7 +31,10 @@ export const faqs = [
   ],
   [
     "What warranty do you provide?",
-    "Our limited lifetime warranty covers defects in materials and workmanship for the original homeowner under normal use. Conditions and exclusions apply. Review the full warranty for coverage details, including the 180-day limit for door warping."
+    lifetimeWording(
+      "Our limited lifetime warranty covers defects in materials and workmanship for the original homeowner under normal use. Conditions and exclusions apply. Review the full warranty for coverage details, including the 180-day limit for door warping.",
+      "Conditions and exclusions apply. Review the full warranty for coverage details.",
+    )
   ],
   [
     "What does the free design consultation include?",

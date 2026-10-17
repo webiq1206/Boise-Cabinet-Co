@@ -1,5 +1,6 @@
-import { SITE_CONFIG } from "./siteConfig";
+import { SITE_CONFIG, lifetimeWording } from "./siteConfig";
 import { CATALOG_CONTENT } from "./catalog";
+import { publishedWarrantyHeadline, publishedWarrantySummary } from "./publishedWarranty";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { CITIES } from "./contentData";
 import { HOW_WE_BUILD_STEPS } from "./siteContent";
@@ -104,10 +105,13 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
   },
   {
     key: "warranty",
-    summary: "The limited lifetime warranty and what it covers",
+    summary: lifetimeWording(
+      "The limited lifetime warranty and what it covers",
+      "The warranty and what it covers",
+    ),
     content: [
-      `${CATALOG_CONTENT.warrantyHeadline}.`,
-      CATALOG_CONTENT.warrantySummary,
+      `${publishedWarrantyHeadline()}.`,
+      publishedWarrantySummary(),
       `Full details: ${SITE_CONFIG.siteUrl}/warranty`,
     ].join("\n"),
   },

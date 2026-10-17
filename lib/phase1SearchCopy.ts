@@ -1,3 +1,5 @@
+import { lifetimeWording } from "@/shared/siteConfig";
+
 /**
  * Phase-1 search title and description rewrites.
  * Titles are the text before the layout suffix " | Boise Cabinet Co".
@@ -92,7 +94,10 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/blog/why-cabinet-quotes-vary": "Cabinet quotes vary when scope does not match, including fillers, hardware, delivery, or installation. Compare the same cabinet schedule before price.",
   "/blog/cabinet-consultation-process": "A cabinet consultation covers room measurements, how you use the space, and door, finish, and hardware choices. Keep every change in writing before the order.",
   "/blog/custom-cabinet-shop-vs-big-box": "A custom shop builds to your dimensions and finish. Big-box lines start from stock sizes. Compare construction, samples, and who installs before you sign.",
-  "/blog/cabinet-warranty-guide": "A real cabinet warranty names workmanship, materials, and hardware in writing. Boise Cabinet Co publishes limited lifetime coverage for the original homeowner.",
+  "/blog/cabinet-warranty-guide": lifetimeWording(
+    "A real cabinet warranty names workmanship, materials, and hardware in writing. Boise Cabinet Co publishes limited lifetime coverage for the original homeowner.",
+    "A real cabinet warranty names workmanship, materials, and hardware in writing.",
+  ),
   "/blog/kitchen-cabinet-roi-boise": "Kitchen cabinet ROI in Boise depends on local comps, finish level, and how long you stay. Neutral finishes photograph more cleanly than personal ones.",
   "/blog/bathroom-vanity-roi-boise": "Bathroom vanity ROI in Boise depends on local comps, finish level, and how long you will stay. Compare the full vanity scope before you expect a return.",
   "/blog/built-in-storage-roi": "Built-in storage ROI depends on local comps, finish level, and how long you stay. Proportioned built-ins can read as a feature when the layout still fits.",

@@ -25,6 +25,22 @@ export function showTestimonials(
   return value === "true";
 }
 
+/**
+ * Lifetime-warranty sentences stay in source. They render only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ */
+export function showLifetimeWarranty(
+  value: string | undefined = process.env.SHOW_LIFETIME_WARRANTY ?? process.env.NEXT_PUBLIC_SHOW_LIFETIME_WARRANTY,
+): boolean {
+  return value === "true";
+}
+
+/** Keep the lifetime sentence in source. Publish it only while the flag is on. */
+export function lifetimeWording(shown: string, hidden: string): string {
+  return showLifetimeWarranty() ? shown : hidden;
+}
+
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
 // E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
 const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;

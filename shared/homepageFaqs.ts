@@ -1,4 +1,5 @@
 import { CATALOG_CONTENT } from "@/shared/catalog";
+import { lifetimeWording } from "@/shared/siteConfig";
 
 export interface HomepageFaq {
   q: string;
@@ -8,7 +9,10 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    a: lifetimeWording(
+      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    ),
   },
   {
     q: "What kind of cabinets do you build?",
@@ -32,7 +36,10 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What warranty do you provide?",
-    a: "Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.",
+    a: lifetimeWording(
+      "Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.",
+      "Warranty details and service requests are accessible anytime through your client portal.",
+    ),
   },
   {
     q: "What does the free design consultation include?",

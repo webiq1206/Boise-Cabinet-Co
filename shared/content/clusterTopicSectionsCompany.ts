@@ -1,4 +1,5 @@
 import type { ContentSection } from './wave1/snippets';
+import { lifetimeWording } from '@/shared/siteConfig';
 
 /**
  * Slug-specific topic depth for choosing-a-company, project-process, and
@@ -469,7 +470,10 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Our coverage',
       paragraphs: [
-        'Boise Cabinet Co cabinets carry a limited lifetime warranty to the original homeowner on workmanship and materials, with service requests handled through your client portal. The full terms live on our <a href="/warranty">warranty page</a>, published, not produced on request.',
+        lifetimeWording(
+          'Boise Cabinet Co cabinets carry a limited lifetime warranty to the original homeowner on workmanship and materials, with service requests handled through your client portal. The full terms live on our <a href="/warranty">warranty page</a>, published, not produced on request.',
+          'Service requests are handled through your client portal. The full terms live on our <a href="/warranty">warranty page</a>, published, not produced on request.',
+        ),
       ],
     },
     {
@@ -621,7 +625,10 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Durability as the long-term strategy',
       paragraphs: [
-        'Twenty-year cabinets mean plywood boxes, premium slides rated for decades of cycles, and finishes that handle Idaho\'s humidity swings, the construction tier where quality differences actually compound. Our <a href="/construction">construction standards</a> and <a href="/warranty">lifetime warranty</a> are built for exactly this owner.',
+        lifetimeWording(
+          'Twenty-year cabinets mean plywood boxes, premium slides rated for decades of cycles, and finishes that handle Idaho\'s humidity swings, the construction tier where quality differences actually compound. Our <a href="/construction">construction standards</a> and <a href="/warranty">lifetime warranty</a> are built for exactly this owner.',
+          'Twenty-year cabinets mean plywood boxes, premium slides rated for decades of cycles, and finishes that handle Idaho\'s humidity swings, the construction tier where quality differences actually compound. Our <a href="/construction">construction standards</a> and <a href="/warranty">warranty</a> are built for exactly this owner.',
+        ),
       ],
     },
   ],

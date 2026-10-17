@@ -7,6 +7,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { lifetimeWording } from "@/shared/siteConfig";
 
 export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
@@ -211,7 +212,10 @@ export const HOW_WE_BUILD_STEPS = [
   {
     number: "05",
     title: "Delivery, install & warranty",
-    desc: "Professional installation, final walkthrough, and lifetime warranty support through your portal.",
+    desc: lifetimeWording(
+      "Professional installation, final walkthrough, and lifetime warranty support through your portal.",
+      "Professional installation, final walkthrough, and support through your portal.",
+    ),
   },
 ];
 

@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { emailTemplates, sequences, sequenceSteps } from "@/shared/schema";
 import { eq } from "drizzle-orm";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { SITE_CONFIG, lifetimeWording } from "@/shared/siteConfig";
 
 // Seeds managed email templates and the on-brand sequences. Idempotent:
 // templates are refreshed only while seedManaged stays true (an operator edit
@@ -46,7 +46,11 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Your {projectType} estimate from Boise Cabinet Co",
     openingLine: "Thanks for reaching out about your {projectType} in {city}.",
     mainMessage:
-      "We put together a planning range of {planningRange} based on what you shared. This is a starting point, not a final quote. The next step is a free in-home design visit where we confirm measurements, finishes, and an exact written scope before any work begins.\n\nWe build frameless cabinetry to order with soft-close hardware, backed by a limited lifetime workmanship warranty.",
+      "We put together a planning range of {planningRange} based on what you shared. This is a starting point, not a final quote. The next step is a free in-home design visit where we confirm measurements, finishes, and an exact written scope before any work begins.\n\n" +
+      lifetimeWording(
+        "We build frameless cabinetry to order with soft-close hardware, backed by a limited lifetime workmanship warranty.",
+        "We build frameless cabinetry to order with soft-close hardware.",
+      ),
     closingLine: "Reply to this email or call us and we will get your design visit on the calendar.",
     ctaLabel: "Book your free design visit",
     ctaUrl: `${SITE}/consultation`,
@@ -189,7 +193,12 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Your {projectType}, planned with confidence",
     openingLine: "Thanks for considering Boise Cabinet Co for your {projectType} in {city}.",
     mainMessage:
-      "Here is how we work. We start with a free in-home design visit, confirm finishes and measurements, and give you a written scope and exact price before any fabrication begins. Everything is built to order with soft-close hardware and backed by a limited lifetime workmanship warranty.\n\nYour planning range is {planningRange}, and we will refine it together at your visit.",
+      "Here is how we work. We start with a free in-home design visit, confirm finishes and measurements, and give you a written scope and exact price before any fabrication begins. " +
+      lifetimeWording(
+        "Everything is built to order with soft-close hardware and backed by a limited lifetime workmanship warranty.",
+        "Everything is built to order with soft-close hardware.",
+      ) +
+      "\n\nYour planning range is {planningRange}, and we will refine it together at your visit.",
     closingLine: "Reply with a couple of times that work and we will take it from there.",
     ctaLabel: "Book your design visit",
     ctaUrl: `${SITE}/consultation`,
