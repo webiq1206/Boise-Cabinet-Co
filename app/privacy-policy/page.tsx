@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
           <InteriorDocument heading={<h1>Privacy Policy for Boise Cabinet Co Services</h1>} contents={[{"id":"document-section-1","label":"Introduction"},{"id":"document-section-2","label":"Information We Collect"},{"id":"document-section-3","label":"How We Use Your Information"},{"id":"document-section-4","label":"Information Sharing"},{"id":"document-section-5","label":"Data Security"},{"id":"document-section-6","label":"Your Rights"},{"id":"document-section-7","label":"Contact Us"}]}>
 
             <p className="lead text-muted-foreground">
-              Last updated: January 2024
+              Last updated: October 17, 2026
             </p>
 
             <h2 id="document-section-1">Introduction</h2>
@@ -75,6 +75,9 @@ export default function PrivacyPolicyPage() {
               <li><strong>Payment Information:</strong> Payment details processed securely through our payment providers.</li>
               <li><strong>Usage Data:</strong> Information about how you use our website, including pages visited and features used.</li>
             </ul>
+            <p>
+              This website uses Google Analytics 4 and Google Ads. Google Analytics 4 measures how visitors use the site, including pages visited. Google Ads conversion tracking records an accepted request, a finished estimator, and calls to the site phone number. An accepted-request conversion can include a conversion label, a currency, a value, and an opaque transaction id. An estimator conversion includes a conversion label and an opaque transaction id. These events do not include your name, email address, phone number, or project details.
+            </p>
 
             <h2 id="document-section-3">How We Use Your Information</h2>
             <p>We use the information we collect to:</p>
