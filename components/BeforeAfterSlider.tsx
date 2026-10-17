@@ -160,7 +160,7 @@ export function BeforeAfterSlider({
           style={{ left: `clamp(24px, ${pos}%, calc(100% - 24px))` }}
           type="button"
           role="slider"
-          aria-label="Compare the two photos"
+          aria-label="Compare before and after"
           aria-orientation="horizontal"
           aria-describedby={instructionsId}
           aria-valuemin={0}
