@@ -33,7 +33,7 @@ export function prepareSubmission(opp: Opportunity): SubmissionPrep {
       postalCode: SITE.address.postalCode,
       country: SITE.address.country,
       primaryCategory: "Custom Cabinets",
-      categories: "Cabinet Maker, Kitchen Remodeler, Cabinetry",
+      categories: "Kitchen Remodeler, Cabinetry",
       serviceArea: SITE.serviceArea.join(", "),
     },
     steps: [

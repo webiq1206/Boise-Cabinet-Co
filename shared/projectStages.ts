@@ -54,7 +54,7 @@ export const STAGE_DEFINITIONS: Record<ProjectStage, TimelineStageDefinition> = 
   design_review: {
     id: "design_review",
     label: "Design Review",
-    description: "Review and approve your design before we build.",
+    description: "Review and approve your design before we place your order.",
     customerAction: "Approve your design",
   },
   approved: {
@@ -65,13 +65,13 @@ export const STAGE_DEFINITIONS: Record<ProjectStage, TimelineStageDefinition> = 
   },
   fabrication: {
     id: "fabrication",
-    label: "Fabrication",
-    description: "Your cabinets are built to order in our partner facility.",
+    label: "On Order",
+    description: "Your cabinets are on order with the manufacturer.",
   },
   quality_check: {
     id: "quality_check",
     label: "Quality Check",
-    description: "Every cabinet is inspected before it leaves the shop.",
+    description: "Delivery is scheduled once your order is ready.",
   },
   shipping: {
     id: "shipping",
@@ -102,7 +102,7 @@ export const STAGE_DEFINITIONS: Record<ProjectStage, TimelineStageDefinition> = 
   warranty: {
     id: "warranty",
     label: "Warranty",
-    description: "Lifetime warranty support for your cabinetry.",
+    description: "Warranty support for your cabinetry.",
   },
 };
 

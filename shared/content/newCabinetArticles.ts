@@ -18,7 +18,7 @@ const tier1Articles = [
       'Our Custom Cabinets are built to your exact sizes, dimensions, details, and finish specifications, so they fit odd ceiling lines, tight clearances, and the look you want in Treasure Valley kitchens.',
     takeaways: [
       'Custom fits odd ceiling lines and tight clearances.',
-      'Choose from hundreds of finishes and six door styles.',
+      'Choose from hundreds of finishes and Shaker, slab and more door styles.',
       'Compare warranty and install scope, not door photos alone.',
     ],
     tags: ['custom', 'cabinets', 'compare'],

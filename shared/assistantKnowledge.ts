@@ -65,7 +65,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     key: "services",
     summary: "Rooms and cabinet projects offered, with typical size ranges",
     content: [
-      "Fully custom frameless (Euro) cabinets, built to order, for every room:",
+      "Custom cabinets sized to fit, with frameless options, for every room:",
       SERVICE_LIST,
       "",
       faqBlock((q) => q.includes("closet, laundry") || q.includes("install cabinets or supply")),
@@ -104,7 +104,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
   },
   {
     key: "warranty",
-    summary: "The limited lifetime warranty and what it covers",
+    summary: "The manufacturer warranty passed through and what it covers",
     content: [
       `${CATALOG_CONTENT.warrantyHeadline}.`,
       CATALOG_CONTENT.warrantySummary,

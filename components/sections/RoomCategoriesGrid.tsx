@@ -38,8 +38,7 @@ export function RoomCategoriesGrid() {
           </Reveal>
           <Reveal delay={60}>
             <p className="ed-body">
-              From kitchen and bath to mudroom, closet and garage, every cabinet is
-              made to order with your choice of door style, finish and hardware.
+              From kitchen and bath to mudroom, closet and garage, custom cabinets are sized to fit your space, with your choice of door style, finish and hardware.
             </p>
           </Reveal>
         </div>

@@ -5,13 +5,13 @@ export const OSC_CONSTRUCTION = {
   "sides": "3/4\" birch plywood sides",
   "bottom": "1/2\" birch plywood bottoms",
   "drawerConstruction": "3/4\" plywood dovetail drawer boxes",
-  "hingeType": "Salice six-way adjustable soft-close hinges",
-  "drawerSlides": "Salice Futura Smove full-extension soft-close",
+  "hingeType": "Six-way adjustable soft-close hinge options",
+  "drawerSlides": "Full-extension soft-close slide options",
   "legLevelers": true,
   "adjustableDrawerFronts": true,
   "fillerConstruction": "Doweled crown, return panels and fillers",
   "endPanels": "3/4\" finished end panels field applied",
-  "warranty": "Limited lifetime for original homeowner",
+  "warranty": "Manufacturer warranty passed through",
   "facilities": [
     "Mesa, Arizona",
     "Colorado Springs, Colorado"
@@ -29,7 +29,7 @@ export const OSC_CONSTRUCTION = {
     },
     {
       "id": "salice-hinges",
-      "label": "Salice Soft-Close Hinges",
+      "label": "Soft-close hinge options",
       "description": "Six-way adjustable, 64mm line bore"
     },
     {

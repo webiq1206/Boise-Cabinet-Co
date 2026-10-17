@@ -8,7 +8,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     "slug": "custom",
     "name": "Custom Cabinets",
     "tagline": "Built to order for your Treasure Valley home",
-    "description": "Full custom frameless cabinetry built to order for your space.",
+    "description": "Custom cabinetry with frameless options, sized to your space.",
     "features": [
       "Any finish",
       "Full size range",

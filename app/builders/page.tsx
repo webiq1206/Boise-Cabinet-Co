@@ -68,7 +68,7 @@ const TERMS = [
   },
   {
     label: "Construction",
-    value: "Frameless, furniture-grade boxes built to order, with a written workmanship guarantee.",
+    value: "Cabinet box options, including frameless, sized to your plans, with a written workmanship guarantee.",
   },
   {
     label: "Install",
@@ -208,7 +208,7 @@ export default function BuildersPage() {
 
         <Section variant="greige" divider>
           <SplitSection header={<SectionHeader
-              eyebrow="What we build"
+              eyebrow="What we supply and install"
               title={<>Project types</>}
               className="mb-0"
             />}>

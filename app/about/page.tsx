@@ -105,7 +105,7 @@ export default function AboutPage() {
     },
     {
       question: `Is ${SITE_CONFIG.name} licensed and insured?`,
-      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
+      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and pass manufacturer warranties through to you.`,
     },
     {
       question: `How does a cabinet project work?`,

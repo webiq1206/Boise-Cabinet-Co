@@ -136,9 +136,9 @@ You do not have a public showroom. Customers visit their homes for consultations
 
 Do not use General contractor or Home improvement store as your primary category.
 
-### Step 7: Add secondary categories
+### Step 7: Add a secondary category
 
-Add all four of these:
+Add this one:
 
 ${GBP_PROFILE.secondaryCategories.map((c, i) => `${i + 1}. ${c}`).join("\n")}
 

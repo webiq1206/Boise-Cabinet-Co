@@ -34,7 +34,7 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
       },
       {
         question: `How many finishes and door styles are available for ${city} projects?`,
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: `Which cities does Boise Cabinet Co serve, including ${city}?`,
@@ -51,19 +51,19 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
 const LOCATIONS: Record<string, Phase1Answer> = {
   kuna: cityAnswer(
     "Kuna",
-    "Boise Cabinet Co designs custom cabinets for Kuna homes with frameless (European-style) boxes and soft-close hardware. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and six door styles. Service covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Boise Cabinet Co designs custom cabinets for Kuna homes with frameless and soft-close options. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. Service covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
   ),
   middleton: cityAnswer(
     "Middleton",
-    "Custom cabinets in Middleton start with frameless (European-style) boxes and soft-close hardware from Boise Cabinet Co, founded in 2020. Homeowners get a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and six door styles. The service area is Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Custom cabinets in Middleton start with frameless and soft-close options from Boise Cabinet Co, founded in 2020. Homeowners get a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. The service area is Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
   ),
   meridian: cityAnswer(
     "Meridian",
-    "Meridian cabinet projects from Boise Cabinet Co use frameless (European-style) boxes and soft-close hardware. The company, founded in 2020, includes a free in-home design consultation and a written workmanship guarantee. Choose from hundreds of finishes and six door styles. Coverage includes Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Meridian cabinet projects from Boise Cabinet Co use frameless (European-style) boxes and soft-close hardware. The company, founded in 2020, includes a free in-home design consultation and a written workmanship guarantee. Choose from hundreds of finishes and Shaker, slab and more door styles. Coverage includes Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
   ),
   boise: cityAnswer(
     "Boise",
-    "Boise homeowners can order custom cabinets with frameless (European-style) boxes and soft-close hardware from Boise Cabinet Co, founded in 2020. Every project includes a free in-home design consultation and a written workmanship guarantee, plus hundreds of finishes and six door styles. The company serves Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Boise homeowners can order custom cabinets with frameless and soft-close options from Boise Cabinet Co, founded in 2020. Every project includes a free in-home design consultation and a written workmanship guarantee, plus hundreds of finishes and Shaker, slab and more door styles. The company serves Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
   ),
 };
 
@@ -71,11 +71,11 @@ const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
     heading: "What are kitchen cabinets from Boise Cabinet Co?",
     paragraph:
-      "Kitchen cabinets from Boise Cabinet Co are built with frameless (European-style) boxes and soft-close hardware. Founded in 2020, the shop includes a free in-home design consultation and a written workmanship guarantee. Hundreds of finishes and six door styles are available across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+      "Kitchen cabinets from Boise Cabinet Co offer frameless and soft-close options. Founded in 2020, Boise Cabinet Co includes a free in-home design consultation and a written workmanship guarantee. Hundreds of finishes and Shaker, slab and more door styles are available across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. (full text, rev 4b; supersedes M11)dwell.",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",
-        answer: "Kitchen cabinets use frameless (European-style) boxes and soft-close hardware.",
+        answer: "Kitchen cabinets offer frameless and soft-close options.",
       },
       {
         question: "Is the kitchen design consultation free?",
@@ -83,7 +83,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many kitchen finishes and door styles are available?",
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: "Where are kitchen cabinets installed?",
@@ -98,11 +98,11 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      "Home office cabinets from Boise Cabinet Co use frameless (European-style) boxes and soft-close hardware. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and six door styles. Installation covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+      "Home office cabinets from Boise Cabinet Co offer frameless and soft-close options. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. Installation covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
     faqs: [
       {
         question: "What construction do home office cabinets use?",
-        answer: "Home office cabinets use frameless (European-style) boxes and soft-close hardware.",
+        answer: "Home office cabinets offer frameless and soft-close options.",
       },
       {
         question: "Is a home office design consultation free?",
@@ -110,7 +110,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many finishes and door styles can a home office use?",
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: "Where are home office cabinets installed?",
@@ -135,11 +135,11 @@ const CONTACT: Phase1Answer = {
     },
     {
       question: "What cabinet construction should I expect?",
-      answer: "Cabinets use frameless (European-style) boxes and soft-close hardware.",
+      answer: "Cabinets offer frameless and soft-close options.",
     },
     {
       question: "How many finishes and door styles are available?",
-      answer: "Hundreds of finishes and six door styles.",
+      answer: "Hundreds of finishes and Shaker, slab and more door styles.",
     },
     {
       question: "Which cities does Boise Cabinet Co serve?",

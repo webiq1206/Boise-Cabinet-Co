@@ -115,7 +115,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Soft-Close Concealed Hinge",
     category: "hinge",
     description:
-      "110-degree concealed hinge with integrated soft-close damper. Included standard on all Boise Cabinet Co collections except where handleless push-to-open is specified.",
+      "110-degree concealed hinge with integrated soft-close damper. Available as an option on Boise Cabinet Co collections.",
     finish: "stainless",
     compatibleCollectionIds: ["custom"],
     isSoftClose: true,
@@ -137,7 +137,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Soft-Close Full-Extension Slide",
     category: "slide",
     description:
-      "Full-extension undermount slide with soft-close on every drawer box. Standard on every drawer box.",
+      "Full-extension undermount slide with soft-close. Available as an option.",
     finish: "stainless",
     compatibleCollectionIds: ["custom"],
     isSoftClose: true,
@@ -148,7 +148,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Heavy-Duty Soft-Close Slide",
     category: "slide",
     description:
-      "Heavy-duty soft-close slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Standard on designated wide drawers.",
+      "Heavy-duty soft-close slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Available as an option for wide drawers.",
     finish: "stainless",
     compatibleCollectionIds: ["custom"],
     isSoftClose: true,

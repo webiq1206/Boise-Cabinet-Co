@@ -27,15 +27,15 @@ const STANDARDS = [
   },
   {
     title: "Drawer boxes & slides",
-    body: "Dovetail hardwood or plywood drawer boxes sized to your layout. Soft-close slides are standard on our Custom Cabinets.",
+    body: "Drawer boxes sized to your layout. Soft-close slide options are available.",
   },
   {
     title: "Soft-close hinges",
-    body: "Our Custom Cabinets include soft-close hinges on doors and soft-close drawer slides as standard.",
+    body: "Our Custom Cabinets offer soft-close hinge and drawer-slide options.",
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract.",
+    body: "Treasure Valley installation by our crew, not outsourced day labor. Manufacturer warranties are passed through to you, documented in your contract.",
   },
   {
     title: "Written scope before build",
@@ -64,7 +64,7 @@ export default function ConstructionPage() {
     ]),
     generateServiceSchema(
       "Custom Cabinet Construction & Installation",
-      "Frameless cabinet boxes, dovetail drawers, soft-close hardware, and professional installation, built and installed by Boise Cabinet Co across the Treasure Valley, Idaho.",
+      "Cabinet boxes with frameless and soft-close options, and professional installation, designed and installed by Boise Cabinet Co across the Treasure Valley, Idaho.",
     ),
   ];
 

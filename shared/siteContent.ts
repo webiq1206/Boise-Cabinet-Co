@@ -18,7 +18,7 @@ export const HERO_SUBHEAD =
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "Lifetime", label: "Warranty" },
+  { num: "Bonded", label: "& insured" },
 ] as const;
 
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
@@ -108,7 +108,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "Founder & Owner",
     role: "Founder & Owner",
-    bio: "Founded Boise Cabinet Co in 2020 to bring frameless, built-to-order cabinetry and clear, accountable project management to Treasure Valley homeowners.",
+    bio: "Founded Boise Cabinet Co in 2020 to bring custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
     isPlaceholder: true,
   },
   {
@@ -139,7 +139,7 @@ export const PROMISE_ITEMS = [
   {
     num: "03",
     title: "Schedule you can plan around",
-    body: "We build realistic timelines into your project from day one and update you when anything changes, before it becomes a surprise.",
+    body: "We plan realistic timelines into your project from day one and update you when anything changes, before it becomes a surprise.",
   },
   {
     num: "04",
@@ -162,7 +162,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Quality craftsmanship",
-    body: "Skilled trades, careful finishes, and a final walkthrough on every project we build.",
+    body: "Skilled trades, careful finishes, and a final walkthrough on every project we install.",
     icon: Hammer,
   },
   {
@@ -177,7 +177,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Staying on schedule",
-    body: "Realistic timelines built into your project plan with design, fabrication, and installation milestones you can follow.",
+    body: "Realistic timelines built into your project plan with design, ordering, and installation milestones you can follow.",
     icon: CalendarClock,
   },
   {
@@ -206,12 +206,12 @@ export const HOW_WE_BUILD_STEPS = [
   {
     number: "04",
     title: "Fabrication & quality check",
-    desc: "Your cabinets are built to order with frameless Euro construction and inspected before shipping.",
+    desc: "Your cabinets are ordered to your approved layout, with frameless construction options.",
   },
   {
     number: "05",
     title: "Delivery, install & warranty",
-    desc: "Professional installation, final walkthrough, and lifetime warranty support through your portal.",
+    desc: "Professional installation, final walkthrough, and warranty support through your portal.",
   },
 ];
 
@@ -280,9 +280,9 @@ export const LEADERSHIP_COPY = {
   label: "Our commitment",
   headline: "Custom cabinets should feel clear, not chaotic.",
   paragraphs: [
-    "Boise Cabinet Co was built on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
+    "Boise Cabinet Co was founded on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
-    "That means one accountable team, written scope before we build, weekly updates while we work, and a team that picks up the phone when you have a question.",
+    "That means one accountable team, written scope before we order, weekly updates while we work, and a team that picks up the phone when you have a question.",
   ],
   closing: "That is not a marketing promise. Every detail and every decision is handled with intention.",
 };

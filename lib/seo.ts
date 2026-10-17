@@ -433,7 +433,7 @@ export const BUSINESS_INFO = {
   licenses: SITE_CONFIG.trust.licenseNumber
     ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
     : ['License details available upon request'],
-  certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
+  certifications: ['Custom Cabinetry', 'Bonded & Insured'],
   insurance: 'Fully Licensed & Insured',
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
   rating: SITE_CONFIG.trust.ratingValue,

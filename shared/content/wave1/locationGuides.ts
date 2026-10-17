@@ -109,7 +109,7 @@ const boiseSections: ContentSection[] = [
     h2: 'Harris Ranch and East Boise',
     paragraphs: [
       'Harris Ranch, Barber Valley, and East Boise infill bring larger kitchens, butler pantries, and mudroom lockers. Many homes are under 25 years old, so projects are upgrade-driven: taller uppers, working islands with seating, and <a href="/cabinets/mudroom">mudroom systems</a> where garage traffic enters.',
-      'Harris Ranch HOAs may review exterior-visible work such as outdoor kitchens; interior cabinetry is normally exempt. We build review time into the plan when it applies.',
+      'Harris Ranch HOAs may review exterior-visible work such as outdoor kitchens; interior cabinetry is normally exempt. We plan review time in when it applies.',
     ],
   },
   {

@@ -554,7 +554,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Selections without overwhelm',
       paragraphs: [
-        'Six door styles and 299 finishes sound overwhelming until they are sequenced: door profile first, finish family second, exact finish from physical samples at home third, hardware last. Use the <a href="/catalog">catalog</a> to shortlist before your appointment.',
+        'Shaker, slab and more door styles and hundreds of finishes sound overwhelming until they are sequenced: door profile first, finish family second, exact finish from physical samples at home third, hardware last. Use the <a href="/catalog">catalog</a> to shortlist before your appointment.',
       ],
     },
     {

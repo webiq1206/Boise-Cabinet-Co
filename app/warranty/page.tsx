@@ -23,7 +23,6 @@ const COVERED = [
   "Cabinet boxes against defects in materials and workmanship",
   "Doors and drawer fronts against manufacturing defects",
   "Hardware we supply: hinges and drawer slides under normal use",
-  "Coverage for the lifetime of original home ownership",
 ];
 
 const CONDITIONS = [
@@ -44,7 +43,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
-    "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.",
+    "{company}'s cabinet warranty: manufacturer warranties passed through, what's covered, and how to file a claim in the Treasure Valley.",
   ),
 )), "/warranty");
 
@@ -52,7 +51,7 @@ export default function WarrantyPage() {
   const schemas = [
     generateWebPageSchema({
       title: "Warranty",
-      description: `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`,
+      description: `Cabinet warranty details from ${SITE_CONFIG.name}: manufacturer warranties passed through.`,
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
@@ -70,10 +69,7 @@ export default function WarrantyPage() {
           alt="cabinet hardware and finished door fronts"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
-          title={<>
-                  {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
-                  <em className="brc-accent text-accent">warranty</em>
-                </>}
+          title={<>Cabinet <em className="brc-accent text-accent">warranty</em></>}
           description={CATALOG_CONTENT.warrantySummary}
         >
               <Button variant="brand" asChild>

@@ -19,7 +19,7 @@ export function CollectionsBandSection() {
               <em className="brc-accent text-accent">built your way</em>
             </>
           }
-          description="One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet."
+          description="One custom line, sized to your space, with frameless construction options."
         />
 
         <div className="grid gap-6 max-w-sm mx-auto">

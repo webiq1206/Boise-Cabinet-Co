@@ -194,7 +194,7 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: "Is installation included?",
     answer:
-      "Yes. Our quotes cover fabrication, delivery, and professional installation by our own team, backed by a limited lifetime workmanship warranty.",
+      "Yes. Our quotes cover the cabinets, delivery, and professional installation by our own team.",
   },
 ];
 

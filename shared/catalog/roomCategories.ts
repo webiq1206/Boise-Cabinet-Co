@@ -139,7 +139,7 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     slug: "bedroom",
     name: "Bedroom",
     description:
-      "Dresser bases, wardrobe towers, and nightstand cabinets that complement primary and guest suites. Soft-close drawers and coordinated finishes tie bedroom storage to en-suite bath selections.",
+      "Dresser bases, wardrobe towers, and nightstand cabinets that complement primary and guest suites. Soft-close drawer options and coordinated finishes tie bedroom storage to en-suite bath selections.",
     heroImage: "/images/catalog/rooms/bedroom.webp",
     defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "tall"],

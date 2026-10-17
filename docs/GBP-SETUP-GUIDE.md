@@ -53,7 +53,7 @@ Type exactly:
 
 Rules:
 - Do not add keywords (wrong example: "Boise Cabinet Co | Custom Kitchen Cabinets Boise")
-- Must match your LLC: Boise Cabinet Co LLC
+- Use the DBA, not the LLC. The registered entity is P5 Home Co LLC, but the business name field takes the name customers search for.
 - Must match your website branding
 
 ### Step 5: Choose your business type
@@ -67,18 +67,15 @@ You do not have a public showroom. Customers visit their homes for consultations
 
 ### Step 6: Set your primary category
 
-**Cabinet maker**
+**Kitchen remodeler**
 
 Do not use General contractor or Home improvement store as your primary category.
 
-### Step 7: Add secondary categories
+### Step 7: Add a secondary category
 
-Add all four of these:
+Add this one:
 
-1. Cabinet store
-2. Kitchen remodeler
-3. Bathroom remodeler
-4. Carpenter
+1. Bathroom remodeler
 
 ### Step 8: Enter your phone number
 
@@ -98,7 +95,7 @@ This is the Book button on your profile. It should go to your consultation reque
 
 ### Step 11: Enter your opening date
 
-**2017**
+**2020**
 
 ---
 
@@ -163,7 +160,7 @@ Cash, Credit Card, Check, Financing
 
 Google allows up to 750 characters. Copy this entire paragraph into your profile description:
 
-Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2017, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
+Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
 
 Do not put your phone number or website URL inside the description. Google has separate fields for those.
 
@@ -180,7 +177,7 @@ Go to Edit profile → Services. For each service below, click Add a custom serv
 **Service 1: Custom kitchen cabinets**
 
 Description:
-Built-to-order frameless kitchen cabinets: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes.
+Kitchen cabinets sized to fit, with frameless options: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes.
 
 Link: https://boisecabinet.co/cabinets/kitchen
 
@@ -234,7 +231,7 @@ Link: https://boisecabinet.co/cabinets/laundry
 **Service 7: Built-ins & entertainment centers**
 
 Description:
-Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork built to order.
+Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork sized to fit.
 
 Link: https://boisecabinet.co/cabinets/built-ins
 
@@ -261,7 +258,7 @@ Link: https://boisecabinet.co/cabinets/outdoor
 **Service 10: Cabinet installation**
 
 Description:
-Professional installation by our own team, with final walkthrough and lifetime workmanship warranty.
+Professional installation by our own team, with a final walkthrough.
 
 Link: https://boisecabinet.co/construction
 
@@ -299,7 +296,7 @@ Go to Edit profile → Products → Add product. Each product needs a name, desc
 **Product 1: Slab cabinet doors**
 
 Description:
-Minimal, streamlined flat panel doors. Pairs beautifully with woodgrain or bold solid colors. Available across all 299 finishes.
+Minimal, streamlined flat panel doors. Pairs beautifully with woodgrain or bold solid colors. Available across hundreds of finishes.
 
 Link: https://boisecabinet.co/door-styles/slab
 
@@ -355,8 +352,8 @@ Link: https://boisecabinet.co/door-styles/beta-shaker
 | Product | Description | Link |
 |---|---|---|
 | Custom Cabinet Collection | Built-to-order frameless cabinets in any size, 1/4" increments, 4-8 week lead time. | https://boisecabinet.co/collections/custom |
-| Cabinet Finish Library (299 options) | Browse matte, gloss, and woodgrain finishes for your custom cabinets. | https://boisecabinet.co/finishes |
-| Cabinet Hardware (Salice) | Soft-close hinges and Futura Smove drawer slides, standard on every cabinet. | https://boisecabinet.co/hardware |
+| Cabinet Finish Library (hundreds of options) | Browse matte, gloss, and woodgrain finishes for your custom cabinets. | https://boisecabinet.co/finishes |
+| Cabinet Hardware | Soft-close hinge and drawer-slide options. | https://boisecabinet.co/hardware |
 | Smart Storage Accessories | Roll-out trays, trash pull-outs, lazy susans, blind corner pull-outs. | https://boisecabinet.co/accessories |
 
 ---
@@ -401,14 +398,14 @@ Have a friend post each question below as a customer. Then answer as the busines
 **Question 1:** What makes Boise Cabinet Co different from other cabinet companies?
 
 **Answer:**
-We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.
+We combine a full product catalog (hundreds of finishes and Shaker, slab and more door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless construction options, with manufacturer warranties passed through. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.
 
 ---
 
 **Question 2:** What kind of cabinets do you build?
 
 **Answer:**
-We build fully custom frameless cabinets, made to order for your space. You choose from 299 finishes and six door styles, and every cabinet uses the same quality frameless construction.
+We design and install fully custom cabinets, sized to fit your space. You choose from hundreds of finishes and Shaker, slab and more door styles, with frameless options.
 
 ---
 
@@ -429,21 +426,21 @@ We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Mi
 **Question 5:** Do you install cabinets or supply only?
 
 **Answer:**
-We offer full-service design, fabrication, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.
+We offer full-service design, ordering, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.
 
 ---
 
 **Question 6:** What warranty do you provide?
 
 **Answer:**
-Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.
+Boise Cabinet Co passes manufacturer warranties through to you. Warranty details and service requests are accessible anytime through your client portal.
 
 ---
 
 **Question 7:** What does the free design consultation include?
 
 **Answer:**
-A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure — you leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact
+A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure - you leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact
 
 ---
 
@@ -477,7 +474,7 @@ Make sure both pages use the same business name, phone, and website before linki
 
 Turn on Chat in your Google profile. Set this automated welcome message:
 
-Hi! Thanks for reaching out to Boise Cabinet Co. We design, build, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact
+Hi! Thanks for reaching out to Boise Cabinet Co. We design, source, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact
 
 Respond to messages within 24 hours (same business day is ideal).
 
@@ -587,10 +584,10 @@ Work through this list before you consider your profile complete.
 
 - [ ] Business name exact: Boise Cabinet Co
 - [ ] SAB enabled, address hidden
-- [ ] Primary category: Cabinet maker
-- [ ] 4 secondary categories added
+- [ ] Primary category: Kitchen remodeler
+- [ ] 1 secondary category added
 - [ ] Phone, website (UTM), appointment link set
-- [ ] Opening date: 2017
+- [ ] Opening date: 2020
 - [ ] 9 service areas added
 - [ ] Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)
 - [ ] 744-char business description pasted

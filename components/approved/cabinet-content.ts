@@ -2,11 +2,11 @@
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
-    "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
+    "We combine a full product catalog (hundreds of finishes and Shaker, slab and more door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless construction options, with manufacturer warranties passed through. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
   ],
   [
     "What kind of cabinets do you build?",
-    "We build fully custom frameless cabinets, made to order for your space. You choose from 299 finishes and six door styles, and every cabinet uses the same quality frameless construction."
+    "We design and install fully custom cabinets, sized to fit your space. You choose from hundreds of finishes and Shaker, slab and more door styles, with frameless options."
   ],
   [
     "How long does a custom cabinet project take?",
@@ -26,7 +26,7 @@ export const faqs = [
   ],
   [
     "What warranty do you provide?",
-    "Our limited lifetime warranty covers defects in materials and workmanship for the original homeowner under normal use. Conditions and exclusions apply. Review the full warranty for coverage details, including the 180-day limit for door warping."
+    "Manufacturer warranties are passed through to you. Conditions and exclusions apply. Review the full warranty for coverage details homeowner under normal use. Conditions and exclusions apply. Review the full warranty for coverage details, including the 180-day limit for door warping."
   ],
   [
     "What does the free design consultation include?",
@@ -38,7 +38,7 @@ export const faqs = [
   ],
   [
     "What door styles and finishes are available?",
-    "Six door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, and Beta Shaker. Finishes span matte solids, high-gloss, and woodgrain textures, 299 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio."
+    "Shaker, slab and more door styles. Finishes span matte solids, high-gloss, and woodgrain textures, hundreds of options in total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio."
   ],
   [
     "Do you offer closet, laundry, and mudroom cabinets?",
@@ -68,7 +68,7 @@ export const steps = [
   },
   {
     "title": "Fabrication & quality check",
-    "desc": "Your cabinets are made to order with frameless Euro construction. We check the cabinetry and finishes before shipping.",
+    "desc": "Your cabinets are ordered to your approved layout, with frameless construction options.",
     "tag": "04 / BUILD"
   },
   {
