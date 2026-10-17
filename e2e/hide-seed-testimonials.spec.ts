@@ -39,6 +39,8 @@ test("live routes render no seed reviews, stars, counts, or review schema", asyn
     if (path === "/testimonials") {
       expect(html.toLowerCase(), path).toContain("noindex");
       expect(html, path).toContain("They are not photographs of completed client projects.");
+      expect(html, path).toContain("Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes.");
+      expect(html, path).not.toContain("Explore cabinet design concepts for Treasure Valley homes.");
     }
   }
 });

@@ -78,7 +78,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
         {showViewAll && (
           <div className="mt-8 text-center">
             <Button variant="brandOutline" asChild>
-              <Link href="/testimonials">See more projects and reviews</Link>
+              <Link href="/testimonials">See more design ideas</Link>
             </Button>
           </div>
         )}
