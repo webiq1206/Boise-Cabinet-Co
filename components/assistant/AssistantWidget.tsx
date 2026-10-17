@@ -332,7 +332,7 @@ export function AssistantWidget() {
             </button>
           </div>
 
-          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4" data-clarity-mask="True">
             {messages.map((m, i) => (
               <div
                 key={i}

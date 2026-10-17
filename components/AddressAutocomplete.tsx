@@ -181,6 +181,7 @@ export function AddressAutocomplete({
             role="listbox"
             aria-label="Address suggestions"
             data-testid="address-suggestions"
+            data-clarity-mask="True"
           >
             {suggestions.map((s) => (
               <li key={s.placeId} role="option" aria-selected={false}>

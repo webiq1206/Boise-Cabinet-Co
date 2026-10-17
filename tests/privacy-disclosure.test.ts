@@ -12,7 +12,7 @@ const privacy = readFileSync(new URL("../app/privacy-policy/page.tsx", import.me
 test("the privacy page states the approved analytics disclosures", () => {
   assert.match(
     privacy,
-    /We do not currently send your name, email, phone number, address or project description to Google; Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator or send an inquiry\./,
+    /We do not currently send your name, email, phone number, address or project description to Google; Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\./,
   );
   assert.match(
     privacy,
@@ -32,6 +32,12 @@ test("the privacy page states the approved analytics disclosures", () => {
     /hashed email, a hashed phone number, a hashed first name, a hashed last name, a hashed ZIP code/,
   );
   assert.doesNotMatch(privacy, /advanced matching/i);
+  assert.doesNotMatch(privacy, /or send an inquiry/);
+});
+
+test("the live assistant transcript is masked", () => {
+  const source = readFileSync(new URL("../components/assistant/AssistantWidget.tsx", import.meta.url), "utf8");
+  assert.match(source, /<div ref=\{listRef\}[^>]*data-clarity-mask="True"/);
 });
 
 function nativeTags(text: string): string[] {
@@ -157,12 +163,56 @@ test("clarity masks every form field before the tag loads", () => {
     }
   }
 
-  function matches(el: El, selector: string) {
-    if (selector.includes("src*=")) {
+  function matchSimple(el: El, part: string) {
+    if (part.includes("src*=")) {
       const src = el.attrs.src || el.src || "";
       return el.tagName === "SCRIPT" && src.includes("clarity.ms/tag/");
     }
-    return selector.split(",").map((part) => part.trim().toUpperCase()).includes(el.tagName);
+    const attr = part.match(/^\[([^=\]]+)(?:="([^"]*)")?\]$/);
+    if (attr) {
+      if (attr[2] === undefined) return el.getAttribute(attr[1]) !== null;
+      return el.getAttribute(attr[1]) === attr[2];
+    }
+    if (/^[a-z]+$/i.test(part)) return el.tagName === part.toUpperCase();
+    return false;
+  }
+  function splitOutsideQuotes(value: string, separator: string) {
+    const parts: string[] = [];
+    let current = "";
+    let quote: string | null = null;
+    for (const char of value) {
+      if (quote) {
+        current += char;
+        if (char === quote) quote = null;
+        continue;
+      }
+      if (char === '"' || char === "'") {
+        quote = char;
+        current += char;
+        continue;
+      }
+      if (char === separator) {
+        if (current.trim()) parts.push(current);
+        current = "";
+        continue;
+      }
+      current += char;
+    }
+    if (current.trim()) parts.push(current);
+    return parts;
+  }
+  function matches(el: El, selector: string) {
+    return splitOutsideQuotes(selector, ",").some((group) => {
+      const parts = splitOutsideQuotes(group, " ").filter(Boolean);
+      if (!parts.length || !matchSimple(el, parts[parts.length - 1])) return false;
+      let node: El | null = el.parentElement;
+      for (let index = parts.length - 2; index >= 0; index -= 1) {
+        while (node && !matchSimple(node, parts[index])) node = node.parentElement;
+        if (!node) return false;
+        node = node.parentElement;
+      }
+      return true;
+    });
   }
 
   const doc = new El("HTML");
@@ -188,12 +238,29 @@ test("clarity masks every form field before the tag loads", () => {
   text.setAttribute("type", "text");
   const area = new El("TEXTAREA");
   const select = new El("SELECT");
+  const thread = new El("DIV");
+  thread.setAttribute("data-p5-thread", "");
+  const userEcho = new El("DIV");
+  userEcho.setAttribute("data-role", "user");
+  const captured = new El("DD");
+  const overview = new El("SECTION");
+  overview.setAttribute("aria-label", "Project overview");
+  const suggestions = new El("UL");
+  suggestions.setAttribute("aria-label", "Address suggestions");
+  const emailed = new El("DIV");
+  emailed.setAttribute("data-testid", "p5-wait-choice");
+  thread.appendChild(userEcho);
+  thread.appendChild(captured);
+  thread.appendChild(overview);
+  thread.appendChild(suggestions);
+  thread.appendChild(emailed);
   body.appendChild(form);
   body.appendChild(loose);
   body.appendChild(rangeWrap);
   body.appendChild(text);
   body.appendChild(area);
   body.appendChild(select);
+  body.appendChild(thread);
 
   let scriptEl: El | null = null;
   const documentFake = {
@@ -233,7 +300,7 @@ test("clarity masks every form field before the tag loads", () => {
     globalThis.MutationObserver = PreviousObserver;
   }
 
-  for (const field of [form, nestedBox, looseBox, range, text, area, select]) {
+  for (const field of [form, nestedBox, looseBox, range, text, area, select, thread, userEcho, captured, overview, suggestions, emailed]) {
     assert.equal(field.getAttribute("data-clarity-mask"), "True", field.tagName);
   }
   assert.equal(loose.getAttribute("data-clarity-mask"), "True");
@@ -254,4 +321,13 @@ test("clarity masks every form field before the tag loads", () => {
 
   const layout = readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8");
   assert.match(layout, /<MicrosoftClarity \/>/);
+  assert.match(script, /function load\(\)\{\s*watchForms\(\);/);
+
+  const lateEcho = new El("DIV");
+  lateEcho.setAttribute("data-role", "user");
+  const lateList = new El("UL");
+  lateList.setAttribute("aria-label", "Address suggestions");
+  observer.cb([{ type: "childList", addedNodes: [lateEcho, lateList] }]);
+  assert.equal(lateEcho.getAttribute("data-clarity-mask"), "True");
+  assert.equal(lateList.getAttribute("data-clarity-mask"), "True");
 });
