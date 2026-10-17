@@ -60,6 +60,7 @@ test("seed review text and rating schema stay out of public output while the fla
     "shared/testimonialsData.ts",
     "server/storage.ts",
     "tests/hide-seed-testimonials.test.ts",
+    "e2e/hide-seed-testimonials.spec.ts",
   ]);
   const hits: string[] = [];
   for (const file of walk(".")) {
@@ -89,4 +90,9 @@ test("seed review text and rating schema stay out of public output while the fla
   const page = readFileSync("app/testimonials/page.tsx", "utf8");
   assert.equal(page.includes("Concept imagery illustrates design options and is not evidence of completed Boise projects."), true);
   assert.equal(page.includes("They are not photographs of completed client projects."), true);
+  assert.equal(page.includes("noindex: !showTestimonials()"), true);
+  const nav = readFileSync("shared/cabinetNav.ts", "utf8");
+  const footer = readFileSync("components/Footer.tsx", "utf8");
+  assert.equal(nav.includes('showTestimonials() ? [{ label: "Projects & reviews", href: "/testimonials" }]'), true);
+  assert.equal(footer.includes('showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }]'), true);
 });

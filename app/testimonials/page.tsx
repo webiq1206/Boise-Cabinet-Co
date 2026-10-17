@@ -15,13 +15,28 @@ import { PROJECTS } from '@/shared/galleryData';
 import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { ArrowRight } from 'lucide-react';
 
-export const metadata = withBrandPageMetadata((buildPageMetadata({
+const testimonialsMetadata = buildPageMetadata({
   kind: 'about',
   path: '/testimonials',
   titleOverride: showTestimonials() ? 'Cabinet Design Ideas & Reviews' : 'Cabinet Design Ideas',
   descriptionOverride:
     'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
-})), "/testimonials");
+  noindex: !showTestimonials(),
+});
+
+export const metadata = withBrandPageMetadata(
+  showTestimonials()
+    ? testimonialsMetadata
+    : {
+        ...testimonialsMetadata,
+        robots: {
+          index: false,
+          follow: true,
+          googleBot: { index: false, follow: true },
+        },
+      },
+  "/testimonials",
+);
 
 export default function TestimonialsPage() {
   const galleryHasConcept = PROJECTS.some((p) => p.kind === 'concept');
