@@ -38,6 +38,11 @@ const TARGETS = [
 
 const VARIANT_RE = /-\d+\.webp$/;
 const isBaseWebp = (name) => name.endsWith(".webp") && !VARIANT_RE.test(name);
+/** Full-size files are soft. Keep Ada's shipped -768 and -1280 files; do not resize the base. */
+const PREBUILT_VARIANTS = new Set([
+  "cabinet-door-samples.webp",
+  "kitchen-wood-island.webp",
+]);
 
 const manifest = {};
 let generated = 0;
@@ -57,10 +62,12 @@ async function processDir(dirRel, widths) {
       continue;
     }
     const available = [];
+    const prebuilt = PREBUILT_VARIANTS.has(name);
     for (const w of widths) {
       if (maxW && w > maxW) continue;
       const destAbs = path.join(absDir, `${base}-${w}.webp`);
       if (!fs.existsSync(destAbs)) {
+        if (prebuilt) continue;
         try {
           await sharp(absFile).resize(w).webp({ quality: QUALITY }).toFile(destAbs);
           generated += 1;

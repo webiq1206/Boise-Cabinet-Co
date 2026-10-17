@@ -8,6 +8,7 @@ import {
   HOMEPAGE_DIFFERENTIATOR_INDICES,
 } from "@/shared/siteContent";
 import { CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 interface WhyChooseUsSectionProps {
   /** When set, show only the first N homepage-curated differentiators. */
@@ -63,8 +64,8 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
               <figure className="mt-10 hidden lg:block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
-                    src="/images/marketing/hero-construction.webp"
-                    alt="cabinet workshop with a CNC router shaping a cabinet door"
+                    src={MARKETING_IMAGES.construction}
+                    alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

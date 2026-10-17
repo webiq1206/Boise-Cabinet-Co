@@ -155,10 +155,10 @@ const siteHeroes = [
   { id: "hero-contact", path: "/images/marketing/hero-contact.webp", pages: ["/contact"], alt: "Custom bathroom vanity cabinets installed in a Meridian Idaho home" },
   { id: "hero-design-studio", path: "/images/marketing/hero-design-studio.webp", pages: ["/design-studio"], alt: "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen" },
   { id: "process-home", path: "/images/marketing/process-home.webp", pages: ["/"], alt: "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners" },
-  { id: "process-about", path: "/images/marketing/process-about.webp", pages: ["/about"], alt: "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop" },
+  { id: "process-about", path: "/images/marketing/cabinet-door-samples.webp", pages: ["/about"], alt: "Cabinet door samples and finish swatches laid out for a kitchen design", noLocationSuffix: true },
   { id: "process-contact", path: "/images/marketing/process-contact.webp", pages: ["/contact"], alt: "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley" },
   { id: "hero-hardware", path: "/images/marketing/hero-hardware.webp", pages: ["/hardware"], alt: "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho" },
-  { id: "hero-construction", path: "/images/marketing/hero-construction.webp", pages: ["/construction"], alt: "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop" },
+  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling", noLocationSuffix: true },
   { id: "catalog-default", path: "/images/marketing/catalog-default.webp", pages: ["/catalog"], alt: "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes" },
   { id: "statement-band", path: "/images/marketing/statement-whole-home.webp", pages: ["/", "/about", "/contact"], alt: "Whole-home custom cabinet installation in an Eagle Idaho residence", decorative: true },
   { id: "og-default", path: "/images/marketing/og-default.webp", pages: ["og"], alt: "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho" },
@@ -175,6 +175,7 @@ for (const h of siteHeroes) {
     alt: h.alt,
     title: "Boise Cabinet Co Custom Cabinets",
     caption: h.alt,
+    noLocationSuffix: h.noLocationSuffix,
     phase: 2,
     priority: h.id.startsWith("hero") ? "critical" : "high",
   });
@@ -323,17 +324,17 @@ const LOCALE_TOKENS = [
   "Treasure Valley", "Idaho", "Boise", "Meridian", "Eagle", "Nampa",
   "Kuna", "Star", "Middleton", "Caldwell", "Ada County", "Canyon County",
 ];
-function ensureSeoAlt(alt, decorative) {
+function ensureSeoAlt(alt, decorative, noLocationSuffix) {
   let a = (alt || "").trim();
   if (decorative) return a;
   const sansBrand = a.split(BRAND).join(" ");
   const hasLocale = LOCALE_TOKENS.some((t) => sansBrand.includes(t));
-  if (!hasLocale) a = `${a} in the Treasure Valley, Idaho`;
+  if (!hasLocale && !noLocationSuffix) a = `${a} in the Treasure Valley, Idaho`;
   if (!a.includes(BRAND)) a = `${a} | ${BRAND}`;
   return a;
 }
 for (const e of entries) {
-  e.alt = ensureSeoAlt(e.alt, e.decorative);
+  e.alt = ensureSeoAlt(e.alt, e.decorative, e.noLocationSuffix);
 }
 
 const manifest = {

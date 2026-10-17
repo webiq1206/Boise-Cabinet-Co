@@ -177,7 +177,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                alt="Cabinet door samples and finish swatches laid out for a kitchen design"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
