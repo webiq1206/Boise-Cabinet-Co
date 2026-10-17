@@ -12,7 +12,9 @@
  * The shared engine does not pass acceptedLead. An omitted flag still sends
  * the form label, because this helper cannot read the endpoint body. An intake
  * HTTP 409 never reaches this helper. Any other key fires the form label only,
- * once for that key. Never pass PII here: no names, phones, emails or free text.
+ * once for that key. Conversion event params stay free of free text. Enhanced
+ * conversions send email, phone, first name, last name, and ZIP through a
+ * separate gtag user_data set, and only when this helper is about to fire.
  */
 export const GOOGLE_ADS_ID = "AW-18354188204";
 export const GOOGLE_ADS_LEAD_LABEL = "AW-18354188204/LE2vCPXstO8cEKzf-q9E";
@@ -83,6 +85,113 @@ const pendingGtagRetries = new Set<string>();
 /** Twenty attempts, 500ms apart: 10 seconds. */
 export const GTAG_RETRY_LIMIT = 20;
 export const GTAG_RETRY_MS = 500;
+
+/** Raw contact fields from a lead form. Street address and project text are not accepted. */
+export type GoogleAdsUserInput = {
+  email?: string;
+  phone?: string;
+  name?: string;
+  postalCode?: string;
+};
+
+export type GoogleAdsUserData = {
+  email?: string;
+  phone_number?: string;
+  address?: {
+    first_name?: string;
+    last_name?: string;
+    postal_code?: string;
+    country: "US";
+  };
+};
+
+/**
+ * Trim and lowercase email. A phone is E.164 +1XXXXXXXXXX only when it has
+ * exactly 10 digits; any other length is omitted. Name splits on whitespace
+ * into first and last. ZIP is included only as 5 digits or ZIP+4. Country is
+ * US when an address object is sent.
+ */
+export function buildGoogleAdsUserData(input: GoogleAdsUserInput): GoogleAdsUserData | null {
+  const email = input.email?.trim().toLowerCase() || undefined;
+  const digits = (input.phone ?? "").replace(/\D/g, "");
+  const phone_number = digits.length === 10 ? `+1${digits}` : undefined;
+  const nameParts = (input.name ?? "").trim().split(/\s+/).filter(Boolean);
+  const first_name = nameParts[0];
+  const last_name = nameParts.slice(1).join(" ") || undefined;
+  const postal = (input.postalCode ?? "").trim();
+  const postal_code = /^\d{5}(?:-\d{4})?$/.test(postal) ? postal : undefined;
+  const address =
+    first_name || postal_code
+      ? {
+          ...(first_name ? { first_name } : {}),
+          ...(last_name ? { last_name } : {}),
+          ...(postal_code ? { postal_code } : {}),
+          country: "US" as const,
+        }
+      : undefined;
+  const data: GoogleAdsUserData = {};
+  if (email) data.email = email;
+  if (phone_number) data.phone_number = phone_number;
+  if (address) data.address = address;
+  return email || phone_number || address ? data : null;
+}
+
+const DRAFT_STORAGE_PREFIX = "p5-project-draft-v2";
+
+function storedDraftContact(dedupeKey: string | undefined): GoogleAdsUserInput | undefined {
+  if (!dedupeKey || typeof window === "undefined") return undefined;
+  const estimatorId = dedupeKey.startsWith("estimator:") ? dedupeKey.slice("estimator:".length) : "";
+  const intakeProjectId = dedupeKey.startsWith("intake:") ? dedupeKey.slice("intake:".length) : "";
+  if (!estimatorId && !intakeProjectId) return undefined;
+  let storage: Storage;
+  try {
+    storage = window.localStorage;
+  } catch {
+    return undefined;
+  }
+  if (!storage) return undefined;
+  const fromContact = (value: unknown): GoogleAdsUserInput | undefined => {
+    if (!value || typeof value !== "object") return undefined;
+    const draft = value as {
+      id?: unknown;
+      intake?: { projectId?: unknown };
+      contact?: { name?: unknown; email?: unknown; phone?: unknown };
+    };
+    const idMatch = estimatorId && draft.id === estimatorId;
+    const intakeMatch = intakeProjectId && draft.intake?.projectId === intakeProjectId;
+    if (!idMatch && !intakeMatch) return undefined;
+    const contact = draft.contact;
+    if (!contact) return undefined;
+    return {
+      ...(typeof contact.email === "string" ? { email: contact.email } : {}),
+      ...(typeof contact.phone === "string" ? { phone: contact.phone } : {}),
+      ...(typeof contact.name === "string" ? { name: contact.name } : {}),
+    };
+  };
+  try {
+    const recovery: unknown[] = [];
+    for (let index = 0; index < storage.length; index += 1) {
+      const key = storage.key(index);
+      if (!key?.startsWith(DRAFT_STORAGE_PREFIX)) continue;
+      const parsed = JSON.parse(storage.getItem(key) || "null") as unknown;
+      if (key.endsWith(":recovery-v1")) {
+        if (Array.isArray(parsed)) {
+          for (const item of parsed) recovery.push((item as { draft?: unknown } | null)?.draft);
+        }
+        continue;
+      }
+      const active = fromContact(parsed);
+      if (active) return active;
+    }
+    for (const draft of recovery) {
+      const archived = fromContact(draft);
+      if (archived) return archived;
+    }
+  } catch {
+    return undefined;
+  }
+  return undefined;
+}
 
 type GtagFn = (...args: unknown[]) => void;
 
@@ -159,10 +268,12 @@ export function trackGoogleAdsLeadConversion(
   ctx: LeadContext = {},
   dedupeKey?: string,
   retryCount = 0,
+  user?: GoogleAdsUserInput,
 ): boolean {
   if (typeof window === "undefined") return false;
   try {
     const retryKey = dedupeKey ?? "google_ads_lead:conversion";
+    const rawUser = user ?? storedDraftContact(dedupeKey);
     const pending: { storageKey: string; params: Record<string, unknown> }[] = [];
     if (isEstimatorFinishKey(dedupeKey)) {
       const estimatorStorage = `google_ads_estimator:${dedupeKey}`;
@@ -186,9 +297,11 @@ export function trackGoogleAdsLeadConversion(
     }
     if (!pending.length) return false;
     const gtag = gtagOrRetry(retryKey, retryCount, (next) => {
-      trackGoogleAdsLeadConversion(ctx, dedupeKey, next);
+      trackGoogleAdsLeadConversion(ctx, dedupeKey, next, rawUser);
     });
     if (!gtag) return false;
+    const userData = rawUser ? buildGoogleAdsUserData(rawUser) : null;
+    if (userData) gtag("set", "user_data", userData);
     for (const label of pending) {
       gtag("event", "conversion", label.params);
       markSent(label.storageKey);

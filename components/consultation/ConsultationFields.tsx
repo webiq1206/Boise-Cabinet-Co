@@ -50,7 +50,7 @@ import {
 import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
-import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { track, trackGoogleAdsLeadOnce, type GoogleAdsUserInput } from "@/lib/analytics/track";
 import { consultationReferenceId } from "@/lib/consultationReferenceId";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
@@ -432,11 +432,19 @@ export function ConsultationFields({
   // Shared ID so the browser Lead (pixel) and the server Lead (Conversions API)
   // deduplicate into one conversion.
   const metaEventIdRef = useRef<string | null>(null);
+  // Held only until the server accepts the lead, then passed to Google Ads.
+  const adsUserRef = useRef<GoogleAdsUserInput | null>(null);
   // Fires "form_started" once, on the visitor's first focus into any field.
   const formStartedRef = useRef(false);
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
+      adsUserRef.current = {
+        email: data.email,
+        phone: data.phone,
+        name: data.name,
+        postalCode: data.zip,
+      };
       const metaEventId = consultationReferenceId();
       metaEventIdRef.current = metaEventId;
       // The full record of everything the homeowner selected and was shown.
@@ -497,6 +505,8 @@ export function ConsultationFields({
       }>;
     },
     onSuccess: (result) => {
+      const adsUser = adsUserRef.current;
+      adsUserRef.current = null;
       setSuccess(true);
       markEstimatorCompleted("consultation");
       sessionStorage.removeItem("brc_estimate");
@@ -507,6 +517,8 @@ export function ConsultationFields({
         trackGoogleAdsLeadOnce(
           result.submissionId || metaEventIdRef.current || "",
           { projectType: String(form.getValues("projectType") ?? "") },
+          0,
+          adsUser ?? undefined,
         );
         // Meta conversion: the consultation request is the site's primary Lead.
         // Pass the shared event ID so this browser event dedupes with the
@@ -517,6 +529,7 @@ export function ConsultationFields({
       window.setTimeout(() => closeModal(), 4000);
     },
     onError: () => {
+      adsUserRef.current = null;
       track("form_error", { form: "consultation" });
     },
   });

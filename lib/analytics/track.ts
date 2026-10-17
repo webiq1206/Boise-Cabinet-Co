@@ -8,7 +8,13 @@
  * document contents. Pass identifiers and categories only (e.g. a project
  * type, a step name, a boolean), never free-text user input.
  */
-import { trackGoogleAdsLeadConversion, type LeadContext } from "@/lib/googleAdsConversion";
+import {
+  trackGoogleAdsLeadConversion,
+  type GoogleAdsUserInput,
+  type LeadContext,
+} from "@/lib/googleAdsConversion";
+
+export type { GoogleAdsUserInput };
 
 export type TrackParams = Record<string, string | number | boolean | undefined>;
 
@@ -29,13 +35,15 @@ export function track(eventName: string, params?: TrackParams): void {
  * Sends the verified Google Ads "P5 Raw Form Submitted" conversion once for a
  * server-accepted consultation. This does not fire the estimator-completed
  * label. The opaque submission id is the dedupe key and is not a name, email,
- * or phone number.
+ * or phone number. Optional user data is for the Ads enhanced-conversion set
+ * only and is not sent as a GA4 parameter.
  */
 export function trackGoogleAdsLeadOnce(
   submissionId: string,
   context: LeadContext = {},
   retryCount = 0,
+  user?: GoogleAdsUserInput,
 ): boolean {
   if (!submissionId) return false;
-  return trackGoogleAdsLeadConversion(context, submissionId, retryCount);
+  return trackGoogleAdsLeadConversion(context, submissionId, retryCount, user);
 }

@@ -12,8 +12,9 @@ const privacy = readFileSync(new URL("../app/privacy-policy/page.tsx", import.me
 test("the privacy page states the approved analytics disclosures", () => {
   assert.match(
     privacy,
-    /We do not currently send your name, email, phone number, address or project description to Google; Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\./,
+    /When you successfully submit a form or finish the estimator with your contact details, our site passes whichever of these you provide \(your email address, phone number, first name, last name and ZIP code\) to Google's advertising tag, which converts them into a scrambled code \(a SHA-256 hash\) before sending them to Google, which matches that code against its own records to tell us which of our ads lead to inquiries\. We do not send your street address or your project description to Google\. Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\./,
   );
+  assert.doesNotMatch(privacy, /We do not currently send your name, email, phone number, address or project description to Google/);
   assert.match(
     privacy,
     /Calls from our site or ads may be routed through a Google forwarding number so we can measure which ads lead to calls\./,
