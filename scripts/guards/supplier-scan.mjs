@@ -29,7 +29,8 @@ export function loadTerms() {
     terms: terms.map((term) => new RegExp(term, "gi")),
     termSources: terms,
     allowlist,
-    seedNames: loadSeedNames(),
+    // Seed review names are guarded on the reviews follow-up. This scan is supplier terms.
+    seedNames: [],
   };
 }
 
