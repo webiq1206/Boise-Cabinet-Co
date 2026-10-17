@@ -61,12 +61,12 @@ test("one tel click and one sms click each send one conversion and one GA4 event
     browser.click("tel:+12084771169");
     browser.click("sms:+12084771169");
     const sent = conversions(browser.calls);
-    assert.deepEqual(sent.map((call) => (call[2] as { send_to: string }).send_to), [
-      GOOGLE_ADS_TEL_CLICK_LABEL,
-      GOOGLE_ADS_SMS_CLICK_LABEL,
+    assert.deepEqual(sent.map((call) => call[2]), [
+      { send_to: GOOGLE_ADS_TEL_CLICK_LABEL },
+      { send_to: GOOGLE_ADS_SMS_CLICK_LABEL },
     ]);
-    assert.equal(browser.calls.filter((call) => call[1] === "phone_clicked").length, 1);
-    assert.equal(browser.calls.filter((call) => call[1] === "text_clicked").length, 1);
+    assert.deepEqual(browser.calls.filter((call) => call[1] === "phone_clicked"), [["event", "phone_clicked", undefined]]);
+    assert.deepEqual(browser.calls.filter((call) => call[1] === "text_clicked"), [["event", "text_clicked", undefined]]);
     assert.equal(browser.calls.length, 4);
   } finally {
     release();

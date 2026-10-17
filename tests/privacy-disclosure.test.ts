@@ -38,7 +38,7 @@ test("the privacy page states the approved analytics disclosures", () => {
 test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
   assert.match(
     privacy,
-    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\./,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened and on which page, so we can count calls and texts that come from our ads\. We don't send Google your name, phone number or the content of your call or message\./,
   );
 });
 
