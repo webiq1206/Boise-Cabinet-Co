@@ -35,7 +35,7 @@ export default function SearchPage() {
             title="Search catalog"
             description="Find finishes, door styles, collections, and cabinet configurations."
           />
-          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()} data-clarity-mask="true">
+          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()} data-clarity-mask="True">
           <input
             aria-label="Search by name or code"
             type="search"
@@ -43,7 +43,7 @@ export default function SearchPage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name or code…"
             className="w-full mt-6 rounded-md border border-input bg-background px-4 py-3 text-sm"
-          />
+            data-clarity-mask="True" />
           <div className="flex flex-wrap gap-2 mt-4">
             {(["matte", "gloss", "woodgrain"] as FinishCategory[]).map((c) => (
               <button

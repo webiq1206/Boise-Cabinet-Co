@@ -207,7 +207,7 @@ export function ImportDialog({ open, onClose }: { open: boolean; onClose: () => 
                   accept=".csv,.xlsx,.xls"
                   className="hidden"
                   onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
-                />
+                  data-clarity-mask="True" />
               </label>
             </div>
 

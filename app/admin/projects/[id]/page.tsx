@@ -351,7 +351,7 @@ export default function AdminProjectDetailPage() {
                 const file = e.target.files?.[0];
                 if (file) uploadDocMutation.mutate(file);
               }}
-            />
+              data-clarity-mask="True" />
             <Button
               size="sm"
               variant="outline"

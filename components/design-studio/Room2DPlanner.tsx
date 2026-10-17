@@ -852,7 +852,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
                 setAppliance(e.target.value as ApplianceType | "none")
               }
               data-testid="select-appliance"
-            >
+              data-clarity-mask="True">
               <option value="none">No appliance</option>
               {applianceOptions.map((opt) => (
                 <option key={opt} value={opt}>
