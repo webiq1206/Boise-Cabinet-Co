@@ -42,6 +42,7 @@ import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
 import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { CallTextActions } from "@/components/marketing/CallTextActions";
 import { ArrowRight,Check,MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,6 +63,18 @@ const SEO_NAME: Record<string, string> = {
   "built-ins": "Built-In",
 };
 const seoName = (room: { slug: string; name: string }) => SEO_NAME[room.slug] ?? room.name;
+
+/** Priya rev 2. These two rooms use the approved headline and subhead verbatim. */
+const HERO_COPY: Record<string, { title: string; subhead: string }> = {
+  kitchen: {
+    title: "Kitchen cabinets in Boise, designed and installed",
+    subhead: "Six door styles, hundreds of finishes, soft-close hardware. Free in-home design consultation.",
+  },
+  "built-ins": {
+    title: "Custom built-ins designed to fit your home",
+    subhead: "Window seats, bookcases and benches, sized for out-of-plumb walls and uneven floors.",
+  },
+};
 
 /**
  * A room's typical planning range, computed with the estimator's own
@@ -139,8 +152,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
 
   const schemas = [
     generateWebPageSchema({
-      title: `${seoName(room)} Cabinets`,
-      description: room.description,
+      title: HERO_COPY[room.slug]?.title ?? `${seoName(room)} Cabinets`,
+      description: HERO_COPY[room.slug]?.subhead ?? room.description,
       url: `/cabinets/${room.slug}`,
     }),
     generateBreadcrumbSchema([
@@ -172,14 +185,15 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               align="left"
               className="mt-6"
               eyebrow="Room catalog"
-              title={
+              title={HERO_COPY[room.slug]?.title ?? (
                 <>
                   {seoName(room)}{" "}
                   <em className="brc-accent text-accent">cabinets</em>
                 </>
-              }
-              description={room.description}
+              )}
+              description={HERO_COPY[room.slug]?.subhead ?? room.description}
             />
+            {HERO_COPY[room.slug] && <CallTextActions />}
             <div className="flex flex-wrap gap-3 mt-4">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />

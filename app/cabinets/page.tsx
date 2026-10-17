@@ -9,8 +9,8 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { getCollectionBySlug,ROOM_CATEGORIES } from "@/shared/catalog";
-import { SITE_CONFIG } from "@/shared/siteConfig";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { CallTextActions } from "@/components/marketing/CallTextActions";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -25,8 +25,8 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
 export default function CabinetsHubPage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Cabinet Catalog",
-      description: `Custom cabinets by room from ${SITE_CONFIG.name}.`,
+      title: "Custom kitchen cabinets in Boise and beyond",
+      description: "Kitchens, baths, closets and built-ins. Free in-home design consultation.",
       url: "/cabinets",
     }),
     generateBreadcrumbSchema([
@@ -47,11 +47,10 @@ export default function CabinetsHubPage() {
           alt="display of cabinet finish samples and door styles"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
-          title={<>Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em></>}
-          description={catalogDescription(
-            "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
-          )}
+          title="Custom kitchen cabinets in Boise and beyond"
+          description="Kitchens, baths, closets and built-ins. Free in-home design consultation."
         >
+          <CallTextActions />
           <Button variant="brand" asChild>
             <Link href="/estimate">
               Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />

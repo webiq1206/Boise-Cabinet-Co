@@ -192,11 +192,7 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap items-center gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
-            <span>
-              {SITE_CONFIG.trust.licenseNumber
-                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
-                : "License details available upon request"}
-            </span>
+            <span>Idaho Registered Contractor #8381215</span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link
                 gives that claim somewhere to resolve - for a reader deciding

@@ -1,7 +1,7 @@
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EstimateCalculator } from "@/components/EstimateCalculator";
+import { CallTextActions } from "@/components/marketing/CallTextActions";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
@@ -16,9 +16,8 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
 export default function EstimatePage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Get an Estimate",
-      description:
-        "A short guided flow that turns your room, size, and style into a cabinet planning range.",
+      title: "Start your cabinet quote in a few minutes",
+      description: "Share your scope, photos or plans. We'll look it over and prepare your estimate.",
       url: "/estimate",
     }),
     generateBreadcrumbSchema([
@@ -30,7 +29,19 @@ export default function EstimatePage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <h1 className="sr-only">Get an Estimate</h1>
+      <header
+        data-site-header=""
+        data-estimator-reach=""
+        className="fixed inset-x-0 top-0 z-[100] border-b border-white/10 bg-inverse px-4 py-3 text-inverse-foreground"
+      >
+        <h1 className="text-lg font-medium leading-tight">Start your cabinet quote in a few minutes</h1>
+        <p className="mt-1 text-sm leading-snug text-inverse-foreground/85">
+          Share your scope, photos or plans. We&apos;ll look it over and prepare your estimate.
+        </p>
+        <div className="mt-2">
+          <CallTextActions />
+        </div>
+      </header>
       <EstimateCalculator headingAs="h2" viewportFit />
     </>
   );

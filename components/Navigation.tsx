@@ -35,9 +35,48 @@ function Logo() {
   );
 }
 
+function ReachActions({ className }: { className?: string }) {
+  return (
+    <div data-mobile-call-text="" className={cn("flex w-full", className)}>
+      <a
+        href={SITE_CONFIG.phoneHref}
+        data-testid="link-call"
+        aria-label={`Call ${SITE_CONFIG.phone}`}
+        className="flex min-h-12 flex-1 items-center justify-center gap-2 text-sm font-medium"
+      >
+        <Phone className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+        Call now
+      </a>
+      <a
+        href={SITE_CONFIG.phoneSmsHref}
+        data-testid="link-text"
+        aria-label={`Text ${SITE_CONFIG.phone}`}
+        className="flex min-h-12 flex-1 items-center justify-center gap-2 border-l border-current/15 text-sm font-medium"
+      >
+        <MessageSquare className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+        Text us
+      </a>
+    </div>
+  );
+}
+
+/** Estimator routes hide the marketing header. Keep call and text above the fold. */
+function EstimatorReachBar() {
+  return (
+    <header
+      data-estimator-reach=""
+      className="fixed inset-x-0 top-0 z-[100] border-b border-white/10 bg-inverse text-inverse-foreground"
+    >
+      <ReachActions />
+    </header>
+  );
+}
+
 export function Navigation() {
   const pathname=usePathname();
-  return isEstimatorPath(pathname)?null:<MarketingNavigation />;
+  // /estimate renders its own fixed headline, call, and text header.
+  if (pathname === "/estimate") return null;
+  return isEstimatorPath(pathname)?<EstimatorReachBar />:<MarketingNavigation />;
 }
 
 function MarketingNavigation() {
@@ -268,6 +307,7 @@ function MarketingNavigation() {
             </Button>
           </div>
         </nav>
+        <ReachActions className="min-[1180px]:hidden border-t border-white/15" />
       </header>
 
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
