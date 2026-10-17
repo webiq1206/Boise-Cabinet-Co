@@ -41,6 +41,7 @@ const isBaseWebp = (name) => name.endsWith(".webp") && !VARIANT_RE.test(name);
 /** Full-size files are soft. Keep Ada's shipped -768 and -1280 files; do not resize the base. */
 const PREBUILT_VARIANTS = new Set([
   "cabinet-door-samples.webp",
+  "kitchen-wood-island.webp",
 ]);
 
 const manifest = {};

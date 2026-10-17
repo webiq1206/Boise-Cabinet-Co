@@ -15,7 +15,6 @@ generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -144,7 +143,7 @@ export default function BuildersPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
-          image={MARKETING_IMAGES.construction}
+          image="/images/marketing/hero-construction.webp"
           alt="cabinet boxes being prepared in a woodworking shop"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"

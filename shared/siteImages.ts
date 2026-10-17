@@ -11,7 +11,7 @@ export const MARKETING_IMAGES = {
   processAbout: "/images/marketing/cabinet-door-samples.webp",
   processContact: "/images/marketing/process-home-branded.webp",
   hardware: "/images/marketing/hero-hardware.webp",
-  construction: "/images/marketing/hero-construction.webp",
+  construction: "/images/marketing/kitchen-wood-island.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",
   statementBand: "/images/marketing/statement-whole-home.webp",
   ogDefault: "/images/marketing/og-default.webp",
