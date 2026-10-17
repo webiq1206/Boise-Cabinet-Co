@@ -171,7 +171,7 @@ const additionExtra: ContentSection[] = [
   {
     h2: 'Foundation and site work',
     paragraphs: [
-      'Soils, setbacks, and utility locations in Eagle and Hidden Springs affect foundation type. Rock and drainage add site cost in Foothills lots.',
+      'Soils, setbacks, and utility locations in Eagle affect foundation type. Rock and drainage add site cost in Foothills lots.',
     ],
   },
   {
@@ -210,7 +210,7 @@ const luxuryExtra: ContentSection[] = [
   {
     h2: 'HOA and design review',
     paragraphs: [
-      'Harris Ranch, Hidden Springs, and Eagle Foothills HOAs add calendar time; budget holding costs if carrying two homes.',
+      'Harris Ranch and Eagle Foothills HOAs add calendar time; budget holding costs if carrying two homes.',
     ],
   },
   {

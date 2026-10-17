@@ -100,7 +100,7 @@ export default function AdaCanyonPermitFlowPage() {
           <div className="mt-12 prose-measure text-sm text-muted-foreground space-y-4">
             <p>
               <strong className="text-foreground">Note:</strong> HOAs in Eagle, Harris Ranch,
-              Hidden Springs, and similar communities may require architectural review in addition
+              and similar communities may require architectural review in addition
               to county permits.
             </p>
             <p>

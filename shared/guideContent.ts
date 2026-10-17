@@ -195,7 +195,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
           'Start with our Boise Cabinet Cost Guide and room-specific articles, then request a quote after layout and selections are defined.',
       },
       {
-        question: 'Do you deliver to Eagle and Hidden Springs?',
+        question: 'Do you deliver to Eagle?',
         answer:
           'Yes, we serve Eagle and many HOA communities; allow time for architectural review when exterior-visible cabinetry is involved.',
       },
@@ -279,7 +279,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most kitchen cabinet packages plan from roughly $15,000–$45,000+ depending on linear footage and collection, see our cabinet cost guide for detail.',
+          'Plan on roughly $15,000–$45,000+ for most Boise kitchen cabinet packages. Linear footage and the collection you pick move the number, and the cabinet cost guide breaks it down further.',
       },
       {
         question: 'What Boise neighborhoods do you serve?',
@@ -309,6 +309,14 @@ export const GUIDE_PAGES: GuidePageData[] = [
         question: 'Where can I see door styles and finishes?',
         answer:
           'Browse online, use the design studio, or view samples during your in-home consultation.',
+      },
+      {
+        question: 'How much of Boise\'s housing predates 1980?',
+        // Median year structure built is 1986 (B25035). About 17% were built before 1960 (B25034). ACS 2020-2024, Boise city:
+        // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1608830
+        // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1608830
+        answer:
+          'A lot. Boise\'s median home was built in 1986, and the share built before 1960 is about 17%, by Census ACS 2020–2024 estimates. That\'s why so many Boise jobs involve plaster walls, soffits and out-of-square rooms, and why we measure on site and size every box to the room.',
       },
     ],
     linkedCities: ['boise'],
