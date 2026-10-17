@@ -1,7 +1,12 @@
 import type { PdfBlock } from '@/lib/pdf/drawResourcePdf';
 import { SITE_CONFIG } from './siteConfig';
+import { formatDollars, getBestLargeKitchenRange, getTypicalRoomRange } from './typicalRoomRange';
 
 const FOOTER = `${SITE_CONFIG.name} | ${SITE_CONFIG.siteUrl} | Planning resource - not a contract or quote`;
+
+const typicalKitchen = getTypicalRoomRange("kitchen");
+const bestLargeKitchen = getBestLargeKitchenRange();
+if (!typicalKitchen) throw new Error("Kitchen typical range is required for the budget worksheet.");
 
 export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
   {
@@ -27,7 +32,8 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
     type: 'table',
     headers: ['Project', 'Low planning', 'High planning', 'Your target'],
     rows: [
-      ['Kitchen cabinets', '$15,000', '$65,000+', '___________'],
+      ['Kitchen cabinets (typical Better)', formatDollars(typicalKitchen.priceLow), formatDollars(typicalKitchen.priceHigh), '___________'],
+      ['Kitchen cabinets (Best, large)', formatDollars(bestLargeKitchen.priceLow), formatDollars(bestLargeKitchen.priceHigh), '___________'],
       ['Bath vanity', '$2,500', '$18,000', '___________'],
       ['Built-ins / pantry', '$4,000', '$25,000', '___________'],
       ['Whole-home program', '$40,000', '$150,000+', '___________'],

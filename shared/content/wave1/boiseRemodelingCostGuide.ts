@@ -1,4 +1,5 @@
 import { buildSectionsHtml, CITIES_LIST, PILLAR_BOISE, PILLAR_TV, type ContentSection } from './snippets';
+import { typicalKitchenInstalledLabel, typicalKitchenMidpointDollars } from '../../typicalRoomRange';
 
 const sections: ContentSection[] = [
   {
@@ -18,7 +19,7 @@ const sections: ContentSection[] = [
       className: 'cost-table',
       headers: ['Project type', 'Typical planning range', 'Typical timeline'],
       rows: [
-        ['Kitchen cabinets (full)', '$15,000 – $45,000+', '6 – 14 weeks'],
+        ['Kitchen cabinets (full)', typicalKitchenInstalledLabel(), '6 – 14 weeks'],
         ['Bathroom vanity (guest)', '$4,000 – $12,000', '3 – 6 weeks'],
         ['Bathroom vanity (master)', '$8,000 – $25,000+', '4 – 10 weeks'],
         ['Whole-home cabinet package', '$40,000 – $120,000+', '8 – 20 weeks'],
@@ -44,7 +45,7 @@ const sections: ContentSection[] = [
       className: 'cost-table',
       headers: ['Project type', 'Midpoint installed (2026)', 'Per linear foot note'],
       rows: [
-        ['Kitchen cabinets (full)', '~$28,000', '$450–$900/LF for base + wall runs'],
+        ['Kitchen cabinets (full)', `~${typicalKitchenMidpointDollars()}`, '$450–$900/LF for base + wall runs'],
         ['Bathroom vanity (guest)', '~$6,500', 'Per vanity, not LF'],
         ['Bathroom vanity (master)', '~$14,000', 'Double vanity + tower common'],
         ['Whole-home cabinet package', '~$72,000', 'Coordinated finish program'],
@@ -230,7 +231,7 @@ const sections: ContentSection[] = [
 export const BOISE_REMODELING_COST_GUIDE_HTML = buildSectionsHtml(sections);
 
 export const BOISE_REMODELING_COST_QUICK_ANSWER =
-  'Treasure Valley custom cabinets in 2026 typically range from about $4,000 for a small vanity refresh to $120,000+ for whole-home packages, with most full kitchens between $15,000 and $45,000 and master vanities from $8,000 to $25,000+. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times, not national averages.';
+  `Treasure Valley custom cabinets in 2026 typically range from about $4,000 for a small vanity refresh to $120,000+ for whole-home packages, with most full kitchens at ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction and master vanities from $8,000 to $25,000+. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times, not national averages.`;
 
 export const BOISE_REMODELING_COST_TAKEAWAYS = [
   'Use planning ranges by room type, not a single $/LF number for every cabinet project.',

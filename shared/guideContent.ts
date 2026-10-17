@@ -15,6 +15,7 @@ import { ALL_HUB_PILLARS } from './content/allHubsContent';
 import { CITY_CABINET_GUIDES } from './content/cityCabinetGuides';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
+import { bestLargeKitchenWithInputsPhrase, typicalKitchenInstalledLabel } from './typicalRoomRange';
 
 export type GuideType = 'hub-pillar' | 'location' | 'neighborhood' | 'master';
 
@@ -46,7 +47,7 @@ const costPillarFaqs = [
   {
     question: 'How much do custom kitchen cabinets cost in Boise?',
     answer:
-      'Most Treasure Valley kitchen cabinet packages plan from roughly $15,000–$45,000+ for value cabinet lines and higher for fully custom layouts, depending on linear footage, door style, and interior accessories.',
+      `Most Treasure Valley kitchen cabinet packages plan from roughly ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction. ${bestLargeKitchenWithInputsPhrase()}. Linear footage, door style, and interior accessories still move the number.`,
   },
   {
     question: 'What affects custom cabinet pricing the most?',
@@ -279,7 +280,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Plan on roughly $15,000–$45,000+ for most Boise kitchen cabinet packages. Linear footage and the collection you pick move the number, and the cabinet cost guide breaks it down further.',
+          `Plan on roughly ${typicalKitchenInstalledLabel()} for most Boise kitchen cabinet packages, based on a typical size and Better-tier construction. Linear footage and the collection you pick move the number, and the cabinet cost guide breaks it down further.`,
       },
       {
         question: 'What Boise neighborhoods do you serve?',

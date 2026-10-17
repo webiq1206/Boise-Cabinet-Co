@@ -1,5 +1,6 @@
 import { buildSectionsHtml, PILLAR_COST, PILLAR_TV, type ContentSection } from './wave1/snippets';
 import type { GuidePageData } from '../guideContent';
+import { bestLargeKitchenWithInputsPhrase, typicalKitchenInstalledLabel } from '../typicalRoomRange';
 
 /**
  * City location guides for the seven Treasure Valley cities beyond Boise.
@@ -79,7 +80,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Meridian cabinet costs and planning',
         paragraphs: [
-          `Being local doesn't change Meridian material or labor rates; they're the same across the valley. Kitchen packages here commonly plan from about $15,000 to $45,000 and up, with linear footage, door style and accessories deciding where you land, which works out to roughly $450 to $900 per linear foot on our planning figures. Every band is in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Looking through door styles and finishes in the <a href="/catalog">catalog</a> before the consultation makes selections go faster.`,
+          `Being local doesn't change Meridian material or labor rates; they're the same across the valley. Kitchen packages here commonly plan from about ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, with linear footage, door style and accessories deciding where you land. Separate planning figures still cite roughly $450 to $900 per linear foot. Every band is in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Looking through door styles and finishes in the <a href="/catalog">catalog</a> before the consultation makes selections go faster.`,
         ],
       },
       {
@@ -98,7 +99,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Meridian?',
         answer:
-          'Meridian prices are Treasure Valley prices. Most kitchen cabinet packages here fall somewhere from about $15,000 to $45,000+, and the spread comes from linear footage, door style and accessories.',
+          `Meridian prices are Treasure Valley prices. Most kitchen cabinet packages here plan from about ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, and the spread comes from linear footage, door style and accessories.`,
       },
       {
         question: 'Can you upgrade builder-grade cabinets in Paramount or Tuscany?',
@@ -212,7 +213,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do luxury kitchen cabinets cost in Eagle?',
         answer:
-          'Eagle kitchens often exceed the valley-typical $15,000 to $45,000 band because of scale and finish tier. Paneled appliances, stacked uppers, and premium finishes drive the difference more than location.',
+          `Eagle kitchens often exceed the valley-typical ${typicalKitchenInstalledLabel()} band because of scale and finish tier. ${bestLargeKitchenWithInputsPhrase()}. Paneled appliances, stacked uppers, and premium finishes drive the difference more than location.`,
       },
       {
         question: 'Do Eagle HOAs review cabinet projects?',
@@ -312,7 +313,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Nampa?',
         answer:
-          'Nampa pays Treasure Valley rates. A typical kitchen package plans at about $15,000 to $45,000+, and what sets it is linear footage, door style and accessories, not zip code.',
+          `Nampa pays Treasure Valley rates. A typical kitchen package plans at about ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, and what sets it is linear footage, door style and accessories, not zip code.`,
       },
       {
         question: 'Can you fit cabinets in an older Nampa bungalow kitchen?',
@@ -414,7 +415,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Kuna?',
         answer:
-          'The same as anywhere in the valley. For most Kuna kitchens, a cabinet package plans in the $15,000 to $45,000+ range, set by linear footage, door style and accessories.',
+          `The same as anywhere in the valley. For most Kuna kitchens, a cabinet package plans at ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, set by linear footage, door style and accessories.`,
       },
       {
         question: 'Can you upgrade builder-grade cabinets in a newer Kuna home?',
@@ -515,7 +516,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Star?',
         answer:
-          'Close to the valley norm. Most Star kitchen packages plan around $15,000 to $45,000+; size, door style and accessories make the difference.',
+          `Close to the valley norm. Most Star kitchen packages plan around ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction; size, door style and accessories make the difference.`,
       },
       {
         question: 'Can you build a large walk-in pantry for an acreage home?',
@@ -610,7 +611,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Caldwell?',
         answer:
-          'Treasure Valley rates apply here too. A typical Caldwell kitchen package plans from roughly $15,000 to $45,000+, and linear footage, door style and accessories set the figure.',
+          `Treasure Valley rates apply here too. A typical Caldwell kitchen package plans from roughly ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, and linear footage, door style and accessories set the figure.`,
       },
       {
         question: 'Can you work in older Caldwell homes with plaster walls?',
@@ -712,7 +713,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Middleton?',
         answer:
-          'About what it costs elsewhere in the Treasure Valley. Most Middleton kitchen packages plan at roughly $15,000 to $45,000+, driven by size, door style and accessories.',
+          `About what it costs elsewhere in the Treasure Valley. Most Middleton kitchen packages plan at roughly ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, driven by size, door style and accessories.`,
       },
       {
         question: 'Do you build shop and outbuilding cabinets in Middleton?',

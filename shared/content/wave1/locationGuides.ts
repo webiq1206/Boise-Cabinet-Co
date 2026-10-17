@@ -1,5 +1,6 @@
 import { buildSectionsHtml, CITIES_LIST, type ContentSection } from './snippets';
 import { expandLocation } from '../contentFactory';
+import { typicalKitchenInstalledLabel } from '../../typicalRoomRange';
 
 const PILLAR_COST = '/guides/boise-cabinet-cost-guide';
 const PILLAR_TV = '/guides/treasure-valley-cabinet-guide';
@@ -121,7 +122,7 @@ const boiseSections: ContentSection[] = [
   {
     h2: 'Costs and catalog in Boise',
     paragraphs: [
-      'Kitchen cabinet packages often plan from roughly $15,000–$45,000+; vanities vary with width and finish tier.',
+      `Kitchen cabinet packages often plan from roughly ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction; vanities vary with width and finish tier.`,
       `<a href="${PILLAR_COST}">Cost guide</a> · <a href="/cabinets/kitchen">Kitchen catalog</a> · <a href="/cabinets/bathroom">Bath catalog</a> · <a href="${PILLAR_TV}">Treasure Valley hub</a>.`,
     ],
   },

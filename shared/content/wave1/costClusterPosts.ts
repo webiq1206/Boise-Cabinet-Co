@@ -1,4 +1,5 @@
 import { buildSectionsHtml, CITIES_LIST, PILLAR_COST, type ContentSection } from './snippets';
+import { bestLargeKitchenWithInputsPhrase, typicalKitchenInstalledLabel } from '../../typicalRoomRange';
 
 function clusterSections(topic: string, extra: ContentSection[]): ContentSection[] {
   const intro: ContentSection[] = [
@@ -18,7 +19,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'What is a typical kitchen cabinets budget in Boise?',
     paragraphs: [
-      'Most full kitchen cabinets we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes, doors, counters, backsplash, can land lower if plumbing and gas stay put.',
+      `Most full kitchen cabinets we plan in Ada County fall in the typical Better-tier range of ${typicalKitchenInstalledLabel()}. ${bestLargeKitchenWithInputsPhrase()}, with layout changes at the upper end. Cosmetic refreshes, doors, counters, and backsplash can land lower if plumbing and gas stay put.`,
       'Meridian and Eagle kitchens often include larger islands, walk-in pantries, and panel-ready appliances. Kuna and Star homes may have builder-grade layouts worth reconfiguring for open concept living.',
     ],
   },
@@ -324,7 +325,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'kitchen-cabinet-cost-boise': {
     html: buildSectionsHtml(clusterSections('kitchen cabinet cost', kitchenExtra)),
     quickAnswer:
-      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed, driven by line, layout complexity, finishes, and interior accessories. Countertops and appliances are usually budgeted separately.',
+      `Kitchen cabinets in Boise and the Treasure Valley typically plan from about ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, driven by layout complexity, finishes, and interior accessories. Countertops and appliances are usually budgeted separately.`,
     takeaways: [
       'Cabinet line and box material are the largest cost swing.',
       'Interior organizers and hardware add up quickly.',

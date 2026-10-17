@@ -2,6 +2,8 @@
 // Served through an app route (not public/) because static public/ files are
 // not served by the standalone production deploy; app routes are.
 //
+import { typicalKitchenInstalledLabel, typicalKitchenMidpointDollars } from "./typicalRoomRange";
+
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
@@ -9,7 +11,7 @@ export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
-Last updated: 2026-10-16
+Last updated: 2026-10-17
 
 Public representative: Nick Perkins. Service-area business based at 4031 W Wapoot St, Meridian, ID 83646; no public showroom. (208) 477-1169. hello@boisecabinet.co.
 
@@ -34,7 +36,7 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 
 Planning ranges only; firm quotes require approved drawings.
 
-- Full kitchen cabinets: about $28,000 midpoint ($15,000 to $45,000+ typical, $450 to $900 per linear foot)
+- Full kitchen cabinets: about ${typicalKitchenMidpointDollars()} midpoint (${typicalKitchenInstalledLabel()} typical, $450 to $900 per linear foot on separate planning figures)
 - Guest bathroom vanity: about $6,500 midpoint
 - Master bathroom vanity: about $14,000 midpoint
 - Whole-home cabinet program: about $72,000 midpoint

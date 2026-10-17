@@ -1,3 +1,5 @@
+import { bestLargeKitchenWithInputsPhrase, typicalKitchenInstalledLabel } from "../typicalRoomRange";
+
 /** Hub-specific FAQs for cabinet planning guides. */
 
 export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; answer: string }> {
@@ -6,7 +8,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most Treasure Valley kitchen cabinet projects plan between roughly $15,000 and $65,000+ for cabinetry alone, depending on line, door style, interior accessories, and linear footage. Full kitchen programs with countertops and installation run higher.',
+          `Most Treasure Valley kitchen cabinet projects plan from roughly ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, depending on door style, interior accessories, and linear footage. ${bestLargeKitchenWithInputsPhrase()}. Full kitchen programs with countertops run higher.`,
       },
       {
         question: 'How long does a kitchen cabinet project take?',

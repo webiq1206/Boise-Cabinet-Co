@@ -1,4 +1,5 @@
 import type { BlogPostData } from '../blogContent';
+import { typicalKitchenInstalledLabel } from '../typicalRoomRange';
 import { getExpandedClusterHtml, COST_CLUSTER_CONTENT } from './wave1/costClusterPosts';
 import { guidePath } from '../contentHubs';
 
@@ -92,7 +93,7 @@ export const WAVE1_COST_CLUSTERS: BlogPostData[] = [
     'Kitchen Cabinet Cost Boise (2026 Planning Ranges)',
     'Kitchen Cabinet Cost Boise | Treasure Valley',
     'Kitchen cabinet cost in Boise, Meridian, and Eagle: lines, finishes, installation, and budgeting from a local custom cabinet team.',
-    'Kitchen cabinets in Boise typically range from about $15,000 to $45,000+ installed depending on line, layout, and finishes.',
+    `Kitchen cabinets in Boise typically plan from about ${typicalKitchenInstalledLabel()} for a typical size and Better-tier construction, depending on layout and finishes.`,
     ['kitchen', 'cost', 'cabinets', 'boise'],
   ),
   makeCostCluster(
