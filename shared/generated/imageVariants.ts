@@ -1298,7 +1298,6 @@ export const IMAGE_VARIANTS: Record<string, number[]> = {
   "/images/marketing/hero-design-studio.webp": [768, 1280],
   "/images/marketing/hero-hardware.webp": [768, 1280],
   "/images/marketing/hero-home.webp": [768, 1280],
-  "/images/marketing/kitchen-wood-island.webp": [768, 1280],
   "/images/marketing/og-default.webp": [768, 1280],
   "/images/marketing/process-about-branded.webp": [768, 1280],
   "/images/marketing/process-about.webp": [768, 1280],

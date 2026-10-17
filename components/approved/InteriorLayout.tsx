@@ -9,7 +9,6 @@ import type { ReactNode } from 'react';
 /** Ada's full-size files are soft. Normal widths must use the sharp variants. */
 const SHARP_VARIANT_SRCS = new Set([
   '/images/marketing/cabinet-door-samples.webp',
-  '/images/marketing/kitchen-wood-island.webp',
 ]);
 
 function heroImageAttrs(src: string) {

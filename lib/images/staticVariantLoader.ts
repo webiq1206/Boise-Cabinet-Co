@@ -27,8 +27,7 @@ export default function staticVariantLoader({ src, width }: LoaderArgs): string 
   // Ada's marketing bases are soft, so those also stay on the largest sharp variant.
   const keepLargest =
     src.startsWith("/images/catalog/rooms/") ||
-    src === "/images/marketing/cabinet-door-samples.webp" ||
-    src === "/images/marketing/kitchen-wood-island.webp";
+    src === "/images/marketing/cabinet-door-samples.webp";
   const pick = requested ?? (keepLargest ? widths[widths.length - 1] : undefined);
   if (!pick) return src;
 

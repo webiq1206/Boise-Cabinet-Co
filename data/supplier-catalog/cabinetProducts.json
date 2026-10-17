@@ -5,7 +5,7 @@
     "oscCode": "B-1D-1BD-0S",
     "name": "B 1D 1BD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-0S.",
+    "description": "Base cabinet configuration B-1D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -33,7 +33,7 @@
     "oscCode": "B-1D-1BD-1PART",
     "name": "B 1D 1BD 1PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-1PART.",
+    "description": "Base cabinet configuration B-1D-1BD-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -62,7 +62,7 @@
     "oscCode": "B-1D-1BD-1ROT",
     "name": "B 1D 1BD 1ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-1ROT.",
+    "description": "Base cabinet configuration B-1D-1BD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -91,7 +91,7 @@
     "oscCode": "B-1D-1BD-1S",
     "name": "B 1D 1BD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-1S.",
+    "description": "Base cabinet configuration B-1D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -120,7 +120,7 @@
     "oscCode": "B-1D-1BD-2PART",
     "name": "B 1D 1BD 2PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-2PART.",
+    "description": "Base cabinet configuration B-1D-1BD-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -149,7 +149,7 @@
     "oscCode": "B-1D-1BD-2ROT",
     "name": "B 1D 1BD 2ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-2ROT.",
+    "description": "Base cabinet configuration B-1D-1BD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -178,7 +178,7 @@
     "oscCode": "B-1D-1BD-3PART",
     "name": "B 1D 1BD 3PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1BD-3PART.",
+    "description": "Base cabinet configuration B-1D-1BD-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -207,7 +207,7 @@
     "oscCode": "B-1D-1TD-1PART",
     "name": "B 1D 1TD 1PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-1PART.",
+    "description": "Base cabinet configuration B-1D-1TD-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -237,7 +237,7 @@
     "oscCode": "B-1D-1TD-1ROT",
     "name": "B 1D 1TD 1ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-1ROT.",
+    "description": "Base cabinet configuration B-1D-1TD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -267,7 +267,7 @@
     "oscCode": "B-1D-1TD-1S",
     "name": "B 1D 1TD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-1S.",
+    "description": "Base cabinet configuration B-1D-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -297,7 +297,7 @@
     "oscCode": "B-1D-1TD-2PART",
     "name": "B 1D 1TD 2PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-2PART.",
+    "description": "Base cabinet configuration B-1D-1TD-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -327,7 +327,7 @@
     "oscCode": "B-1D-1TD-2ROT",
     "name": "B 1D 1TD 2ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-2ROT.",
+    "description": "Base cabinet configuration B-1D-1TD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -357,7 +357,7 @@
     "oscCode": "B-1D-1TD-3PART",
     "name": "B 1D 1TD 3PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-1D-1TD-3PART.",
+    "description": "Base cabinet configuration B-1D-1TD-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -387,7 +387,7 @@
     "oscCode": "B-2D-1BD-0S",
     "name": "B 2D 1BD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-0S.",
+    "description": "Base cabinet configuration B-2D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -415,7 +415,7 @@
     "oscCode": "B-2D-1BD-1PART",
     "name": "B 2D 1BD 1PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-1PART.",
+    "description": "Base cabinet configuration B-2D-1BD-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -444,7 +444,7 @@
     "oscCode": "B-2D-1BD-1ROT",
     "name": "B 2D 1BD 1ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-1ROT.",
+    "description": "Base cabinet configuration B-2D-1BD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -473,7 +473,7 @@
     "oscCode": "B-2D-1BD-1S",
     "name": "B 2D 1BD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-1S.",
+    "description": "Base cabinet configuration B-2D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -502,7 +502,7 @@
     "oscCode": "B-2D-1BD-2PART",
     "name": "B 2D 1BD 2PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-2PART.",
+    "description": "Base cabinet configuration B-2D-1BD-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -531,7 +531,7 @@
     "oscCode": "B-2D-1BD-2ROT",
     "name": "B 2D 1BD 2ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-2ROT.",
+    "description": "Base cabinet configuration B-2D-1BD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -560,7 +560,7 @@
     "oscCode": "B-2D-1BD-3PART",
     "name": "B 2D 1BD 3PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1BD-3PART.",
+    "description": "Base cabinet configuration B-2D-1BD-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -589,7 +589,7 @@
     "oscCode": "B-2D-1TD-1PART",
     "name": "B 2D 1TD 1PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-1PART.",
+    "description": "Base cabinet configuration B-2D-1TD-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -619,7 +619,7 @@
     "oscCode": "B-2D-1TD-1ROT",
     "name": "B 2D 1TD 1ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-1ROT.",
+    "description": "Base cabinet configuration B-2D-1TD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -649,7 +649,7 @@
     "oscCode": "B-2D-1TD-1S",
     "name": "B 2D 1TD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-1S.",
+    "description": "Base cabinet configuration B-2D-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -679,7 +679,7 @@
     "oscCode": "B-2D-1TD-2PART",
     "name": "B 2D 1TD 2PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-2PART.",
+    "description": "Base cabinet configuration B-2D-1TD-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -709,7 +709,7 @@
     "oscCode": "B-2D-1TD-2ROT",
     "name": "B 2D 1TD 2ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-2ROT.",
+    "description": "Base cabinet configuration B-2D-1TD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -739,7 +739,7 @@
     "oscCode": "B-2D-1TD-3PART",
     "name": "B 2D 1TD 3PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-1TD-3PART.",
+    "description": "Base cabinet configuration B-2D-1TD-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -769,7 +769,7 @@
     "oscCode": "B-2D-2TD-1PART",
     "name": "B 2D 2TD 1PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-1PART.",
+    "description": "Base cabinet configuration B-2D-2TD-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -799,7 +799,7 @@
     "oscCode": "B-2D-2TD-1ROT",
     "name": "B 2D 2TD 1ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-1ROT.",
+    "description": "Base cabinet configuration B-2D-2TD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -829,7 +829,7 @@
     "oscCode": "B-2D-2TD-1S",
     "name": "B 2D 2TD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-1S.",
+    "description": "Base cabinet configuration B-2D-2TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -859,7 +859,7 @@
     "oscCode": "B-2D-2TD-2PART",
     "name": "B 2D 2TD 2PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-2PART.",
+    "description": "Base cabinet configuration B-2D-2TD-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -889,7 +889,7 @@
     "oscCode": "B-2D-2TD-2ROT",
     "name": "B 2D 2TD 2ROT",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-2ROT.",
+    "description": "Base cabinet configuration B-2D-2TD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -919,7 +919,7 @@
     "oscCode": "B-2D-2TD-3PART",
     "name": "B 2D 2TD 3PART",
     "category": "base",
-    "description": "One Source base cabinet configuration B-2D-2TD-3PART.",
+    "description": "Base cabinet configuration B-2D-2TD-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -949,7 +949,7 @@
     "oscCode": "BA-OPEN",
     "name": "BA OPEN",
     "category": "base",
-    "description": "One Source base cabinet configuration BA-OPEN.",
+    "description": "Base cabinet configuration BA-OPEN.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -975,7 +975,7 @@
     "oscCode": "BBCL-1TD-0S",
     "name": "BBCL 1TD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCL-1TD-0S.",
+    "description": "Base cabinet configuration BBCL-1TD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1003,7 +1003,7 @@
     "oscCode": "BBCL-1TD-1S",
     "name": "BBCL 1TD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCL-1TD-1S.",
+    "description": "Base cabinet configuration BBCL-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1032,7 +1032,7 @@
     "oscCode": "BBCL-FHD-0S",
     "name": "BBCL FHD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCL-FHD-0S.",
+    "description": "Base cabinet configuration BBCL-FHD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1058,7 +1058,7 @@
     "oscCode": "BBCL-FHD-1S",
     "name": "BBCL FHD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCL-FHD-1S.",
+    "description": "Base cabinet configuration BBCL-FHD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1086,7 +1086,7 @@
     "oscCode": "BBCL-FHD-2S",
     "name": "BBCL FHD 2S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCL-FHD-2S.",
+    "description": "Base cabinet configuration BBCL-FHD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1114,7 +1114,7 @@
     "oscCode": "BBCR-1TD-0S",
     "name": "BBCR 1TD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCR-1TD-0S.",
+    "description": "Base cabinet configuration BBCR-1TD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1142,7 +1142,7 @@
     "oscCode": "BBCR-1TD-1S",
     "name": "BBCR 1TD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCR-1TD-1S.",
+    "description": "Base cabinet configuration BBCR-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1171,7 +1171,7 @@
     "oscCode": "BBCR-FHD-0S",
     "name": "BBCR FHD 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCR-FHD-0S.",
+    "description": "Base cabinet configuration BBCR-FHD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1197,7 +1197,7 @@
     "oscCode": "BBCR-FHD-1S",
     "name": "BBCR FHD 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCR-FHD-1S.",
+    "description": "Base cabinet configuration BBCR-FHD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1225,7 +1225,7 @@
     "oscCode": "BBCR-FHD-2S",
     "name": "BBCR FHD 2S",
     "category": "base",
-    "description": "One Source base cabinet configuration BBCR-FHD-2S.",
+    "description": "Base cabinet configuration BBCR-FHD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1253,7 +1253,7 @@
     "oscCode": "BC45-0S",
     "name": "BC45 0S",
     "category": "base",
-    "description": "One Source base cabinet configuration BC45-0S.",
+    "description": "Base cabinet configuration BC45-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1279,7 +1279,7 @@
     "oscCode": "BC45-1S",
     "name": "BC45 1S",
     "category": "base",
-    "description": "One Source base cabinet configuration BC45-1S.",
+    "description": "Base cabinet configuration BC45-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1307,7 +1307,7 @@
     "oscCode": "BC45-LS",
     "name": "BC45 LS",
     "category": "base",
-    "description": "One Source base cabinet configuration BC45-LS.",
+    "description": "Base cabinet configuration BC45-LS.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1333,7 +1333,7 @@
     "oscCode": "BDF-L",
     "name": "BDF L",
     "category": "base",
-    "description": "One Source base cabinet configuration BDF-L.",
+    "description": "Base cabinet configuration BDF-L.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1359,7 +1359,7 @@
     "oscCode": "BDF-R",
     "name": "BDF R",
     "category": "base",
-    "description": "One Source base cabinet configuration BDF-R.",
+    "description": "Base cabinet configuration BDF-R.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1385,7 +1385,7 @@
     "oscCode": "BFH-1D-0S",
     "name": "BFH 1D 0S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-0S.",
+    "description": "Tall cabinet configuration BFH-1D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1413,7 +1413,7 @@
     "oscCode": "BFH-1D-1PART",
     "name": "BFH 1D 1PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-1PART.",
+    "description": "Tall cabinet configuration BFH-1D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1442,7 +1442,7 @@
     "oscCode": "BFH-1D-1ROT",
     "name": "BFH 1D 1ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-1ROT.",
+    "description": "Tall cabinet configuration BFH-1D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1471,7 +1471,7 @@
     "oscCode": "BFH-1D-1S",
     "name": "BFH 1D 1S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-1S.",
+    "description": "Tall cabinet configuration BFH-1D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1500,7 +1500,7 @@
     "oscCode": "BFH-1D-2PART",
     "name": "BFH 1D 2PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-2PART.",
+    "description": "Tall cabinet configuration BFH-1D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1529,7 +1529,7 @@
     "oscCode": "BFH-1D-2ROT",
     "name": "BFH 1D 2ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-2ROT.",
+    "description": "Tall cabinet configuration BFH-1D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1558,7 +1558,7 @@
     "oscCode": "BFH-1D-2S",
     "name": "BFH 1D 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-2S.",
+    "description": "Tall cabinet configuration BFH-1D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1587,7 +1587,7 @@
     "oscCode": "BFH-1D-3PART",
     "name": "BFH 1D 3PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-3PART.",
+    "description": "Tall cabinet configuration BFH-1D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1616,7 +1616,7 @@
     "oscCode": "BFH-1D-3ROT",
     "name": "BFH 1D 3ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-3ROT.",
+    "description": "Tall cabinet configuration BFH-1D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1645,7 +1645,7 @@
     "oscCode": "BFH-1D-3S",
     "name": "BFH 1D 3S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-1D-3S.",
+    "description": "Tall cabinet configuration BFH-1D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1674,7 +1674,7 @@
     "oscCode": "BFH-2D-0S",
     "name": "BFH 2D 0S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-0S.",
+    "description": "Tall cabinet configuration BFH-2D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1702,7 +1702,7 @@
     "oscCode": "BFH-2D-1PART",
     "name": "BFH 2D 1PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-1PART.",
+    "description": "Tall cabinet configuration BFH-2D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1731,7 +1731,7 @@
     "oscCode": "BFH-2D-1ROT",
     "name": "BFH 2D 1ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-1ROT.",
+    "description": "Tall cabinet configuration BFH-2D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1760,7 +1760,7 @@
     "oscCode": "BFH-2D-1S",
     "name": "BFH 2D 1S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-1S.",
+    "description": "Tall cabinet configuration BFH-2D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1789,7 +1789,7 @@
     "oscCode": "BFH-2D-2PART",
     "name": "BFH 2D 2PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-2PART.",
+    "description": "Tall cabinet configuration BFH-2D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1818,7 +1818,7 @@
     "oscCode": "BFH-2D-2ROT",
     "name": "BFH 2D 2ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-2ROT.",
+    "description": "Tall cabinet configuration BFH-2D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1847,7 +1847,7 @@
     "oscCode": "BFH-2D-2S",
     "name": "BFH 2D 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-2S.",
+    "description": "Tall cabinet configuration BFH-2D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1876,7 +1876,7 @@
     "oscCode": "BFH-2D-3PART",
     "name": "BFH 2D 3PART",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-3PART.",
+    "description": "Tall cabinet configuration BFH-2D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1905,7 +1905,7 @@
     "oscCode": "BFH-2D-3ROT",
     "name": "BFH 2D 3ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-3ROT.",
+    "description": "Tall cabinet configuration BFH-2D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1934,7 +1934,7 @@
     "oscCode": "BFH-2D-3S",
     "name": "BFH 2D 3S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration BFH-2D-3S.",
+    "description": "Tall cabinet configuration BFH-2D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1963,7 +1963,7 @@
     "oscCode": "BIR-1D-1TD",
     "name": "BIR 1D 1TD",
     "category": "base",
-    "description": "One Source base cabinet configuration BIR-1D-1TD.",
+    "description": "Base cabinet configuration BIR-1D-1TD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -1992,7 +1992,7 @@
     "oscCode": "BIRFH-1D",
     "name": "BIRFH 1D",
     "category": "base",
-    "description": "One Source base cabinet configuration BIRFH-1D.",
+    "description": "Base cabinet configuration BIRFH-1D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2020,7 +2020,7 @@
     "oscCode": "EPIC",
     "name": "EPIC",
     "category": "end-panel",
-    "description": "One Source end-panel cabinet configuration EPIC.",
+    "description": "End-panel cabinet configuration EPIC.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2046,7 +2046,7 @@
     "oscCode": "FILLER",
     "name": "FILLER",
     "category": "filler",
-    "description": "One Source filler cabinet configuration FILLER.",
+    "description": "Filler cabinet configuration FILLER.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2072,7 +2072,7 @@
     "oscCode": "FILLERS",
     "name": "FILLERS",
     "category": "filler",
-    "description": "One Source filler cabinet configuration FILLERS.",
+    "description": "Filler cabinet configuration FILLERS.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2098,7 +2098,7 @@
     "oscCode": "FLB-1D-1BD-0S",
     "name": "FLB 1D 1BD 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-0S.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2126,7 +2126,7 @@
     "oscCode": "FLB-1D-1BD-1ROT",
     "name": "FLB 1D 1BD 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1BD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2155,7 +2155,7 @@
     "oscCode": "FLB-1D-1BD-1S",
     "name": "FLB 1D 1BD 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-1S.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2184,7 +2184,7 @@
     "oscCode": "FLB-1D-1BD-2ROT",
     "name": "FLB 1D 1BD 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1BD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2213,7 +2213,7 @@
     "oscCode": "FLB-1D-1TD-0S",
     "name": "FLB 1D 1TD 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-0S.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1TD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2242,7 +2242,7 @@
     "oscCode": "FLB-1D-1TD-1ROT",
     "name": "FLB 1D 1TD 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1TD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2272,7 +2272,7 @@
     "oscCode": "FLB-1D-1TD-1S",
     "name": "FLB 1D 1TD 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-1S.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2302,7 +2302,7 @@
     "oscCode": "FLB-1D-1TD-2ROT",
     "name": "FLB 1D 1TD 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-1D-1TD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2332,7 +2332,7 @@
     "oscCode": "FLB-2D-1BD-0S",
     "name": "FLB 2D 1BD 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-0S.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2360,7 +2360,7 @@
     "oscCode": "FLB-2D-1BD-1ROT",
     "name": "FLB 2D 1BD 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1BD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2389,7 +2389,7 @@
     "oscCode": "FLB-2D-1BD-1S",
     "name": "FLB 2D 1BD 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-1S.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2418,7 +2418,7 @@
     "oscCode": "FLB-2D-1BD-2ROT",
     "name": "FLB 2D 1BD 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1BD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2447,7 +2447,7 @@
     "oscCode": "FLB-2D-1TD-0S",
     "name": "FLB 2D 1TD 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-0S.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1TD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2476,7 +2476,7 @@
     "oscCode": "FLB-2D-1TD-1ROT",
     "name": "FLB 2D 1TD 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1TD-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2506,7 +2506,7 @@
     "oscCode": "FLB-2D-1TD-1S",
     "name": "FLB 2D 1TD 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-1S.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1TD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2536,7 +2536,7 @@
     "oscCode": "FLB-2D-1TD-2ROT",
     "name": "FLB 2D 1TD 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLB-2D-1TD-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2566,7 +2566,7 @@
     "oscCode": "FLDB2",
     "name": "FLDB2",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLDB2.",
+    "description": "Floating-shelf cabinet configuration FLDB2.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2592,7 +2592,7 @@
     "oscCode": "FLDB2-1FF",
     "name": "FLDB2 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLDB2-1FF.",
+    "description": "Floating-shelf cabinet configuration FLDB2-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2618,7 +2618,7 @@
     "oscCode": "FLDB3",
     "name": "FLDB3",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLDB3.",
+    "description": "Floating-shelf cabinet configuration FLDB3.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2644,7 +2644,7 @@
     "oscCode": "FLDB3-1FF",
     "name": "FLDB3 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLDB3-1FF.",
+    "description": "Floating-shelf cabinet configuration FLDB3-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2670,7 +2670,7 @@
     "oscCode": "FLFH-1D-0S",
     "name": "FLFH 1D 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-0S.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2698,7 +2698,7 @@
     "oscCode": "FLFH-1D-1ROT",
     "name": "FLFH 1D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2727,7 +2727,7 @@
     "oscCode": "FLFH-1D-1S",
     "name": "FLFH 1D 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-1S.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2756,7 +2756,7 @@
     "oscCode": "FLFH-1D-2",
     "name": "FLFH 1D 2",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-2.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-2.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2784,7 +2784,7 @@
     "oscCode": "FLFH-1D-2S",
     "name": "FLFH 1D 2S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-2S.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2813,7 +2813,7 @@
     "oscCode": "FLFH-1D-3ROT",
     "name": "FLFH 1D 3ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-1D-3ROT.",
+    "description": "Floating-shelf cabinet configuration FLFH-1D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2842,7 +2842,7 @@
     "oscCode": "FLFH-2D-0S",
     "name": "FLFH 2D 0S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-0S.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2870,7 +2870,7 @@
     "oscCode": "FLFH-2D-1ROT",
     "name": "FLFH 2D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2899,7 +2899,7 @@
     "oscCode": "FLFH-2D-1S",
     "name": "FLFH 2D 1S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-1S.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2928,7 +2928,7 @@
     "oscCode": "FLFH-2D-2",
     "name": "FLFH 2D 2",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-2.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-2.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2956,7 +2956,7 @@
     "oscCode": "FLFH-2D-2S",
     "name": "FLFH 2D 2S",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-2S.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -2985,7 +2985,7 @@
     "oscCode": "FLFH-2D-3ROT",
     "name": "FLFH 2D 3ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLFH-2D-3ROT.",
+    "description": "Floating-shelf cabinet configuration FLFH-2D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3014,7 +3014,7 @@
     "oscCode": "FLS3L",
     "name": "FLS3L",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLS3L.",
+    "description": "Floating-shelf cabinet configuration FLS3L.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3040,7 +3040,7 @@
     "oscCode": "FLS3OE",
     "name": "FLS3OE",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLS3OE.",
+    "description": "Floating-shelf cabinet configuration FLS3OE.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3066,7 +3066,7 @@
     "oscCode": "FLS3R",
     "name": "FLS3R",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLS3R.",
+    "description": "Floating-shelf cabinet configuration FLS3R.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3092,7 +3092,7 @@
     "oscCode": "FLSB-1D-1FF",
     "name": "FLSB 1D 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF.",
+    "description": "Floating-shelf cabinet configuration FLSB-1D-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3120,7 +3120,7 @@
     "oscCode": "FLSB-1D-1FF-1ROT",
     "name": "FLSB 1D 1FF 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLSB-1D-1FF-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3149,7 +3149,7 @@
     "oscCode": "FLSB-1D-1FF-2ROT",
     "name": "FLSB 1D 1FF 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLSB-1D-1FF-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3178,7 +3178,7 @@
     "oscCode": "FLSB-2D-1FF",
     "name": "FLSB 2D 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF.",
+    "description": "Floating-shelf cabinet configuration FLSB-2D-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3206,7 +3206,7 @@
     "oscCode": "FLSB-2D-1FF-1ROT",
     "name": "FLSB 2D 1FF 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLSB-2D-1FF-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3235,7 +3235,7 @@
     "oscCode": "FLSB-2D-1FF-2ROT",
     "name": "FLSB 2D 1FF 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLSB-2D-1FF-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3264,7 +3264,7 @@
     "oscCode": "FLSBFH-1D",
     "name": "FLSBFH 1D",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-1D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3292,7 +3292,7 @@
     "oscCode": "FLSBFH-1D-1ROT",
     "name": "FLSBFH 1D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-1D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3321,7 +3321,7 @@
     "oscCode": "FLSBFH-1D-2ROT",
     "name": "FLSBFH 1D 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-1D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3350,7 +3350,7 @@
     "oscCode": "FLSBFH-2D",
     "name": "FLSBFH 2D",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-2D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3378,7 +3378,7 @@
     "oscCode": "FLSBFH-2D-1ROT",
     "name": "FLSBFH 2D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D-1ROT.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-2D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3407,7 +3407,7 @@
     "oscCode": "FLSBFH-2D-2ROT",
     "name": "FLSBFH 2D 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D-2ROT.",
+    "description": "Floating-shelf cabinet configuration FLSBFH-2D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3436,7 +3436,7 @@
     "oscCode": "HOODS",
     "name": "HOODS",
     "category": "hood",
-    "description": "One Source hood cabinet configuration HOODS.",
+    "description": "Hood cabinet configuration HOODS.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3462,7 +3462,7 @@
     "oscCode": "LS3612L",
     "name": "LS3612L",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration LS3612L.",
+    "description": "Floating-shelf cabinet configuration LS3612L.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3488,7 +3488,7 @@
     "oscCode": "LS3612R",
     "name": "LS3612R",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration LS3612R.",
+    "description": "Floating-shelf cabinet configuration LS3612R.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3514,7 +3514,7 @@
     "oscCode": "SB-1D-1FF",
     "name": "SB 1D 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF.",
+    "description": "Floating-shelf cabinet configuration SB-1D-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3542,7 +3542,7 @@
     "oscCode": "SB-1D-1FF-1ROT",
     "name": "SB 1D 1FF 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF-1ROT.",
+    "description": "Floating-shelf cabinet configuration SB-1D-1FF-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3571,7 +3571,7 @@
     "oscCode": "SB-1D-1FF-2ROT",
     "name": "SB 1D 1FF 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF-2ROT.",
+    "description": "Floating-shelf cabinet configuration SB-1D-1FF-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3600,7 +3600,7 @@
     "oscCode": "SB-2D-1FF",
     "name": "SB 2D 1FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF.",
+    "description": "Floating-shelf cabinet configuration SB-2D-1FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3628,7 +3628,7 @@
     "oscCode": "SB-2D-1FF-1ROT",
     "name": "SB 2D 1FF 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF-1ROT.",
+    "description": "Floating-shelf cabinet configuration SB-2D-1FF-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3657,7 +3657,7 @@
     "oscCode": "SB-2D-1FF-2ROT",
     "name": "SB 2D 1FF 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF-2ROT.",
+    "description": "Floating-shelf cabinet configuration SB-2D-1FF-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3686,7 +3686,7 @@
     "oscCode": "SB-2D-2FF",
     "name": "SB 2D 2FF",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF.",
+    "description": "Floating-shelf cabinet configuration SB-2D-2FF.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3714,7 +3714,7 @@
     "oscCode": "SB-2D-2FF-1ROT",
     "name": "SB 2D 2FF 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF-1ROT.",
+    "description": "Floating-shelf cabinet configuration SB-2D-2FF-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3743,7 +3743,7 @@
     "oscCode": "SB-2D-2FF-2ROT",
     "name": "SB 2D 2FF 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF-2ROT.",
+    "description": "Floating-shelf cabinet configuration SB-2D-2FF-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3772,7 +3772,7 @@
     "oscCode": "SBFH-1D",
     "name": "SBFH 1D",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-1D.",
+    "description": "Floating-shelf cabinet configuration SBFH-1D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3800,7 +3800,7 @@
     "oscCode": "SBFH-1D-1ROT",
     "name": "SBFH 1D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-1D-1ROT.",
+    "description": "Floating-shelf cabinet configuration SBFH-1D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3829,7 +3829,7 @@
     "oscCode": "SBFH-1D-2ROT",
     "name": "SBFH 1D 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-1D-2ROT.",
+    "description": "Floating-shelf cabinet configuration SBFH-1D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3858,7 +3858,7 @@
     "oscCode": "SBFH-2D",
     "name": "SBFH 2D",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-2D.",
+    "description": "Floating-shelf cabinet configuration SBFH-2D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3886,7 +3886,7 @@
     "oscCode": "SBFH-2D-1ROT",
     "name": "SBFH 2D 1ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-2D-1ROT.",
+    "description": "Floating-shelf cabinet configuration SBFH-2D-1ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3915,7 +3915,7 @@
     "oscCode": "SBFH-2D-2ROT",
     "name": "SBFH 2D 2ROT",
     "category": "floating-shelf",
-    "description": "One Source floating-shelf cabinet configuration SBFH-2D-2ROT.",
+    "description": "Floating-shelf cabinet configuration SBFH-2D-2ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3944,7 +3944,7 @@
     "oscCode": "TA-1D",
     "name": "TA 1D",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TA-1D.",
+    "description": "Tall cabinet configuration TA-1D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -3972,7 +3972,7 @@
     "oscCode": "TA-2D",
     "name": "TA 2D",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TA-2D.",
+    "description": "Tall cabinet configuration TA-2D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4000,7 +4000,7 @@
     "oscCode": "TA-3D",
     "name": "TA 3D",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TA-3D.",
+    "description": "Tall cabinet configuration TA-3D.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4028,7 +4028,7 @@
     "oscCode": "TB15-FHD",
     "name": "TB15 FHD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB15-FHD.",
+    "description": "Tall cabinet configuration TB15-FHD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4054,7 +4054,7 @@
     "oscCode": "TB15-TD",
     "name": "TB15 TD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB15-TD.",
+    "description": "Tall cabinet configuration TB15-TD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4080,7 +4080,7 @@
     "oscCode": "TB18-FHD",
     "name": "TB18 FHD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB18-FHD.",
+    "description": "Tall cabinet configuration TB18-FHD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4106,7 +4106,7 @@
     "oscCode": "TB18-TD",
     "name": "TB18 TD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB18-TD.",
+    "description": "Tall cabinet configuration TB18-TD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4132,7 +4132,7 @@
     "oscCode": "TB21-FHD",
     "name": "TB21 FHD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB21-FHD.",
+    "description": "Tall cabinet configuration TB21-FHD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4158,7 +4158,7 @@
     "oscCode": "TB21-TD",
     "name": "TB21 TD",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TB21-TD.",
+    "description": "Tall cabinet configuration TB21-TD.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4184,7 +4184,7 @@
     "oscCode": "TBFH-1D-0S",
     "name": "TBFH 1D 0S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-0S.",
+    "description": "Tall cabinet configuration TBFH-1D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4212,7 +4212,7 @@
     "oscCode": "TBFH-1D-1ROT-2S",
     "name": "TBFH 1D 1ROT 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-1ROT-2S.",
+    "description": "Tall cabinet configuration TBFH-1D-1ROT-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4242,7 +4242,7 @@
     "oscCode": "TBFH-1D-1S",
     "name": "TBFH 1D 1S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-1S.",
+    "description": "Tall cabinet configuration TBFH-1D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4271,7 +4271,7 @@
     "oscCode": "TBFH-1D-2ROT-2S",
     "name": "TBFH 1D 2ROT 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-2ROT-2S.",
+    "description": "Tall cabinet configuration TBFH-1D-2ROT-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4301,7 +4301,7 @@
     "oscCode": "TBFH-1D-2S",
     "name": "TBFH 1D 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-2S.",
+    "description": "Tall cabinet configuration TBFH-1D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4330,7 +4330,7 @@
     "oscCode": "TBFH-1D-3ROT",
     "name": "TBFH 1D 3ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-3ROT.",
+    "description": "Tall cabinet configuration TBFH-1D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4359,7 +4359,7 @@
     "oscCode": "TBFH-1D-3S",
     "name": "TBFH 1D 3S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-3S.",
+    "description": "Tall cabinet configuration TBFH-1D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4388,7 +4388,7 @@
     "oscCode": "TBFH-1D-4ROT",
     "name": "TBFH 1D 4ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-1D-4ROT.",
+    "description": "Tall cabinet configuration TBFH-1D-4ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4417,7 +4417,7 @@
     "oscCode": "TBFH-2D-0S",
     "name": "TBFH 2D 0S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-0S.",
+    "description": "Tall cabinet configuration TBFH-2D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4445,7 +4445,7 @@
     "oscCode": "TBFH-2D-1ROT-2S",
     "name": "TBFH 2D 1ROT 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-1ROT-2S.",
+    "description": "Tall cabinet configuration TBFH-2D-1ROT-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4475,7 +4475,7 @@
     "oscCode": "TBFH-2D-1S",
     "name": "TBFH 2D 1S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-1S.",
+    "description": "Tall cabinet configuration TBFH-2D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4504,7 +4504,7 @@
     "oscCode": "TBFH-2D-2ROT-2S",
     "name": "TBFH 2D 2ROT 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-2ROT-2S.",
+    "description": "Tall cabinet configuration TBFH-2D-2ROT-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4534,7 +4534,7 @@
     "oscCode": "TBFH-2D-2S",
     "name": "TBFH 2D 2S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-2S.",
+    "description": "Tall cabinet configuration TBFH-2D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4563,7 +4563,7 @@
     "oscCode": "TBFH-2D-3ROT",
     "name": "TBFH 2D 3ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-3ROT.",
+    "description": "Tall cabinet configuration TBFH-2D-3ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4592,7 +4592,7 @@
     "oscCode": "TBFH-2D-3S",
     "name": "TBFH 2D 3S",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-3S.",
+    "description": "Tall cabinet configuration TBFH-2D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4621,7 +4621,7 @@
     "oscCode": "TBFH-2D-4ROT",
     "name": "TBFH 2D 4ROT",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TBFH-2D-4ROT.",
+    "description": "Tall cabinet configuration TBFH-2D-4ROT.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4650,7 +4650,7 @@
     "oscCode": "TDF-L",
     "name": "TDF L",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TDF-L.",
+    "description": "Tall cabinet configuration TDF-L.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4676,7 +4676,7 @@
     "oscCode": "TDF-R",
     "name": "TDF R",
     "category": "tall",
-    "description": "One Source tall cabinet configuration TDF-R.",
+    "description": "Tall cabinet configuration TDF-R.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4702,7 +4702,7 @@
     "oscCode": "VT-1D-1BD-0S",
     "name": "VT 1D 1BD 0S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-1BD-0S.",
+    "description": "Vanity cabinet configuration VT-1D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4730,7 +4730,7 @@
     "oscCode": "VT-1D-1BD-1S",
     "name": "VT 1D 1BD 1S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-1BD-1S.",
+    "description": "Vanity cabinet configuration VT-1D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4759,7 +4759,7 @@
     "oscCode": "VT-1D-1BD-2S",
     "name": "VT 1D 1BD 2S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-1BD-2S.",
+    "description": "Vanity cabinet configuration VT-1D-1BD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4788,7 +4788,7 @@
     "oscCode": "VT-1D-1BD-3S",
     "name": "VT 1D 1BD 3S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-1BD-3S.",
+    "description": "Vanity cabinet configuration VT-1D-1BD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4817,7 +4817,7 @@
     "oscCode": "VT-1D-2BD-0S",
     "name": "VT 1D 2BD 0S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-2BD-0S.",
+    "description": "Vanity cabinet configuration VT-1D-2BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4845,7 +4845,7 @@
     "oscCode": "VT-1D-2BD-1S",
     "name": "VT 1D 2BD 1S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-2BD-1S.",
+    "description": "Vanity cabinet configuration VT-1D-2BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4874,7 +4874,7 @@
     "oscCode": "VT-1D-2BD-2S",
     "name": "VT 1D 2BD 2S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-2BD-2S.",
+    "description": "Vanity cabinet configuration VT-1D-2BD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4903,7 +4903,7 @@
     "oscCode": "VT-1D-2BD-3S",
     "name": "VT 1D 2BD 3S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-1D-2BD-3S.",
+    "description": "Vanity cabinet configuration VT-1D-2BD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4932,7 +4932,7 @@
     "oscCode": "VT-2D-1BD-0S",
     "name": "VT 2D 1BD 0S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-1BD-0S.",
+    "description": "Vanity cabinet configuration VT-2D-1BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4960,7 +4960,7 @@
     "oscCode": "VT-2D-1BD-1S",
     "name": "VT 2D 1BD 1S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-1BD-1S.",
+    "description": "Vanity cabinet configuration VT-2D-1BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -4989,7 +4989,7 @@
     "oscCode": "VT-2D-1BD-2S",
     "name": "VT 2D 1BD 2S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-1BD-2S.",
+    "description": "Vanity cabinet configuration VT-2D-1BD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5018,7 +5018,7 @@
     "oscCode": "VT-2D-1BD-3S",
     "name": "VT 2D 1BD 3S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-1BD-3S.",
+    "description": "Vanity cabinet configuration VT-2D-1BD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5047,7 +5047,7 @@
     "oscCode": "VT-2D-2BD-0S",
     "name": "VT 2D 2BD 0S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-2BD-0S.",
+    "description": "Vanity cabinet configuration VT-2D-2BD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5075,7 +5075,7 @@
     "oscCode": "VT-2D-2BD-1S",
     "name": "VT 2D 2BD 1S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-2BD-1S.",
+    "description": "Vanity cabinet configuration VT-2D-2BD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5104,7 +5104,7 @@
     "oscCode": "VT-2D-2BD-2S",
     "name": "VT 2D 2BD 2S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-2BD-2S.",
+    "description": "Vanity cabinet configuration VT-2D-2BD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5133,7 +5133,7 @@
     "oscCode": "VT-2D-2BD-3S",
     "name": "VT 2D 2BD 3S",
     "category": "vanity",
-    "description": "One Source vanity cabinet configuration VT-2D-2BD-3S.",
+    "description": "Vanity cabinet configuration VT-2D-2BD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5162,7 +5162,7 @@
     "oscCode": "W-1D-0S",
     "name": "W 1D 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-0S.",
+    "description": "Wall cabinet configuration W-1D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5190,7 +5190,7 @@
     "oscCode": "W-1D-1PART",
     "name": "W 1D 1PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-1PART.",
+    "description": "Wall cabinet configuration W-1D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5219,7 +5219,7 @@
     "oscCode": "W-1D-1S",
     "name": "W 1D 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-1S.",
+    "description": "Wall cabinet configuration W-1D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5248,7 +5248,7 @@
     "oscCode": "W-1D-2PART",
     "name": "W 1D 2PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-2PART.",
+    "description": "Wall cabinet configuration W-1D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5277,7 +5277,7 @@
     "oscCode": "W-1D-2S",
     "name": "W 1D 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-2S.",
+    "description": "Wall cabinet configuration W-1D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5306,7 +5306,7 @@
     "oscCode": "W-1D-3PART",
     "name": "W 1D 3PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-3PART.",
+    "description": "Wall cabinet configuration W-1D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5335,7 +5335,7 @@
     "oscCode": "W-1D-3S",
     "name": "W 1D 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-3S.",
+    "description": "Wall cabinet configuration W-1D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5364,7 +5364,7 @@
     "oscCode": "W-1D-4S",
     "name": "W 1D 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-1D-4S.",
+    "description": "Wall cabinet configuration W-1D-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5393,7 +5393,7 @@
     "oscCode": "W-2D-0S",
     "name": "W 2D 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-0S.",
+    "description": "Wall cabinet configuration W-2D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5421,7 +5421,7 @@
     "oscCode": "W-2D-1PART",
     "name": "W 2D 1PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-1PART.",
+    "description": "Wall cabinet configuration W-2D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5450,7 +5450,7 @@
     "oscCode": "W-2D-1S",
     "name": "W 2D 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-1S.",
+    "description": "Wall cabinet configuration W-2D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5479,7 +5479,7 @@
     "oscCode": "W-2D-2PART",
     "name": "W 2D 2PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-2PART.",
+    "description": "Wall cabinet configuration W-2D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5508,7 +5508,7 @@
     "oscCode": "W-2D-2S",
     "name": "W 2D 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-2S.",
+    "description": "Wall cabinet configuration W-2D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5537,7 +5537,7 @@
     "oscCode": "W-2D-3PART",
     "name": "W 2D 3PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-3PART.",
+    "description": "Wall cabinet configuration W-2D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5566,7 +5566,7 @@
     "oscCode": "W-2D-3S",
     "name": "W 2D 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-3S.",
+    "description": "Wall cabinet configuration W-2D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5595,7 +5595,7 @@
     "oscCode": "W-2D-4S",
     "name": "W 2D 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration W-2D-4S.",
+    "description": "Wall cabinet configuration W-2D-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5624,7 +5624,7 @@
     "oscCode": "WBCL-0S",
     "name": "WBCL 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCL-0S.",
+    "description": "Wall cabinet configuration WBCL-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5650,7 +5650,7 @@
     "oscCode": "WBCL-1S",
     "name": "WBCL 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCL-1S.",
+    "description": "Wall cabinet configuration WBCL-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5678,7 +5678,7 @@
     "oscCode": "WBCL-2S",
     "name": "WBCL 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCL-2S.",
+    "description": "Wall cabinet configuration WBCL-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5706,7 +5706,7 @@
     "oscCode": "WBCL-3S",
     "name": "WBCL 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCL-3S.",
+    "description": "Wall cabinet configuration WBCL-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5734,7 +5734,7 @@
     "oscCode": "WBCL-4S",
     "name": "WBCL 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCL-4S.",
+    "description": "Wall cabinet configuration WBCL-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5762,7 +5762,7 @@
     "oscCode": "WBCLDD-0S",
     "name": "WBCLDD 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCLDD-0S.",
+    "description": "Wall cabinet configuration WBCLDD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5788,7 +5788,7 @@
     "oscCode": "WBCLDD-1S",
     "name": "WBCLDD 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCLDD-1S.",
+    "description": "Wall cabinet configuration WBCLDD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5816,7 +5816,7 @@
     "oscCode": "WBCLDD-2S",
     "name": "WBCLDD 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCLDD-2S.",
+    "description": "Wall cabinet configuration WBCLDD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5844,7 +5844,7 @@
     "oscCode": "WBCLDD-3S",
     "name": "WBCLDD 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCLDD-3S.",
+    "description": "Wall cabinet configuration WBCLDD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5872,7 +5872,7 @@
     "oscCode": "WBCLDD-4S",
     "name": "WBCLDD 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCLDD-4S.",
+    "description": "Wall cabinet configuration WBCLDD-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5900,7 +5900,7 @@
     "oscCode": "WBCR-0S",
     "name": "WBCR 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCR-0S.",
+    "description": "Wall cabinet configuration WBCR-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5926,7 +5926,7 @@
     "oscCode": "WBCR-1S",
     "name": "WBCR 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCR-1S.",
+    "description": "Wall cabinet configuration WBCR-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5954,7 +5954,7 @@
     "oscCode": "WBCR-2S",
     "name": "WBCR 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCR-2S.",
+    "description": "Wall cabinet configuration WBCR-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -5982,7 +5982,7 @@
     "oscCode": "WBCR-3S",
     "name": "WBCR 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCR-3S.",
+    "description": "Wall cabinet configuration WBCR-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6010,7 +6010,7 @@
     "oscCode": "WBCR-4S",
     "name": "WBCR 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCR-4S.",
+    "description": "Wall cabinet configuration WBCR-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6038,7 +6038,7 @@
     "oscCode": "WBCRDD-0S",
     "name": "WBCRDD 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCRDD-0S.",
+    "description": "Wall cabinet configuration WBCRDD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6064,7 +6064,7 @@
     "oscCode": "WBCRDD-1S",
     "name": "WBCRDD 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCRDD-1S.",
+    "description": "Wall cabinet configuration WBCRDD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6092,7 +6092,7 @@
     "oscCode": "WBCRDD-2S",
     "name": "WBCRDD 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCRDD-2S.",
+    "description": "Wall cabinet configuration WBCRDD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6120,7 +6120,7 @@
     "oscCode": "WBCRDD-3S",
     "name": "WBCRDD 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCRDD-3S.",
+    "description": "Wall cabinet configuration WBCRDD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6148,7 +6148,7 @@
     "oscCode": "WBCRDD-4S",
     "name": "WBCRDD 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WBCRDD-4S.",
+    "description": "Wall cabinet configuration WBCRDD-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6176,7 +6176,7 @@
     "oscCode": "WC90L-0S",
     "name": "WC90L 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90L-0S.",
+    "description": "Wall cabinet configuration WC90L-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6202,7 +6202,7 @@
     "oscCode": "WC90L-1S",
     "name": "WC90L 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90L-1S.",
+    "description": "Wall cabinet configuration WC90L-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6230,7 +6230,7 @@
     "oscCode": "WC90L-2S",
     "name": "WC90L 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90L-2S.",
+    "description": "Wall cabinet configuration WC90L-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6258,7 +6258,7 @@
     "oscCode": "WC90L-3S",
     "name": "WC90L 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90L-3S.",
+    "description": "Wall cabinet configuration WC90L-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6286,7 +6286,7 @@
     "oscCode": "WC90L-4S",
     "name": "WC90L 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90L-4S.",
+    "description": "Wall cabinet configuration WC90L-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6314,7 +6314,7 @@
     "oscCode": "WC90LDD-0S",
     "name": "WC90LDD 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90LDD-0S.",
+    "description": "Wall cabinet configuration WC90LDD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6340,7 +6340,7 @@
     "oscCode": "WC90LDD-1S",
     "name": "WC90LDD 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90LDD-1S.",
+    "description": "Wall cabinet configuration WC90LDD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6368,7 +6368,7 @@
     "oscCode": "WC90LDD-2S",
     "name": "WC90LDD 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90LDD-2S.",
+    "description": "Wall cabinet configuration WC90LDD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6396,7 +6396,7 @@
     "oscCode": "WC90LDD-3S",
     "name": "WC90LDD 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90LDD-3S.",
+    "description": "Wall cabinet configuration WC90LDD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6424,7 +6424,7 @@
     "oscCode": "WC90LDD-4S",
     "name": "WC90LDD 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90LDD-4S.",
+    "description": "Wall cabinet configuration WC90LDD-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6452,7 +6452,7 @@
     "oscCode": "WC90R-0S",
     "name": "WC90R 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90R-0S.",
+    "description": "Wall cabinet configuration WC90R-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6478,7 +6478,7 @@
     "oscCode": "WC90R-1S",
     "name": "WC90R 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90R-1S.",
+    "description": "Wall cabinet configuration WC90R-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6506,7 +6506,7 @@
     "oscCode": "WC90R-2S",
     "name": "WC90R 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90R-2S.",
+    "description": "Wall cabinet configuration WC90R-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6534,7 +6534,7 @@
     "oscCode": "WC90R-3S",
     "name": "WC90R 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90R-3S.",
+    "description": "Wall cabinet configuration WC90R-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6562,7 +6562,7 @@
     "oscCode": "WC90R-4S",
     "name": "WC90R 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90R-4S.",
+    "description": "Wall cabinet configuration WC90R-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6590,7 +6590,7 @@
     "oscCode": "WC90RDD-0S",
     "name": "WC90RDD 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90RDD-0S.",
+    "description": "Wall cabinet configuration WC90RDD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6616,7 +6616,7 @@
     "oscCode": "WC90RDD-1S",
     "name": "WC90RDD 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90RDD-1S.",
+    "description": "Wall cabinet configuration WC90RDD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6644,7 +6644,7 @@
     "oscCode": "WC90RDD-2S",
     "name": "WC90RDD 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90RDD-2S.",
+    "description": "Wall cabinet configuration WC90RDD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6672,7 +6672,7 @@
     "oscCode": "WC90RDD-3S",
     "name": "WC90RDD 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90RDD-3S.",
+    "description": "Wall cabinet configuration WC90RDD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6700,7 +6700,7 @@
     "oscCode": "WC90RDD-4S",
     "name": "WC90RDD 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WC90RDD-4S.",
+    "description": "Wall cabinet configuration WC90RDD-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6728,7 +6728,7 @@
     "oscCode": "WDC-0S",
     "name": "WDC 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDC-0S.",
+    "description": "Wall cabinet configuration WDC-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6754,7 +6754,7 @@
     "oscCode": "WDC-1S",
     "name": "WDC 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDC-1S.",
+    "description": "Wall cabinet configuration WDC-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6782,7 +6782,7 @@
     "oscCode": "WDC-2S",
     "name": "WDC 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDC-2S.",
+    "description": "Wall cabinet configuration WDC-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6810,7 +6810,7 @@
     "oscCode": "WDC-3S",
     "name": "WDC 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDC-3S.",
+    "description": "Wall cabinet configuration WDC-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6838,7 +6838,7 @@
     "oscCode": "WDC-4S",
     "name": "WDC 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDC-4S.",
+    "description": "Wall cabinet configuration WDC-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6866,7 +6866,7 @@
     "oscCode": "WDCDD-0S",
     "name": "WDCDD 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDCDD-0S.",
+    "description": "Wall cabinet configuration WDCDD-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6892,7 +6892,7 @@
     "oscCode": "WDCDD-1S",
     "name": "WDCDD 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDCDD-1S.",
+    "description": "Wall cabinet configuration WDCDD-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6920,7 +6920,7 @@
     "oscCode": "WDCDD-2S",
     "name": "WDCDD 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDCDD-2S.",
+    "description": "Wall cabinet configuration WDCDD-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6948,7 +6948,7 @@
     "oscCode": "WDCDD-3S",
     "name": "WDCDD 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDCDD-3S.",
+    "description": "Wall cabinet configuration WDCDD-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -6976,7 +6976,7 @@
     "oscCode": "WDCDD-4S",
     "name": "WDCDD 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDCDD-4S.",
+    "description": "Wall cabinet configuration WDCDD-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7004,7 +7004,7 @@
     "oscCode": "WDD-1D-0S",
     "name": "WDD 1D 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-0S.",
+    "description": "Wall cabinet configuration WDD-1D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7032,7 +7032,7 @@
     "oscCode": "WDD-1D-1PART",
     "name": "WDD 1D 1PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-1PART.",
+    "description": "Wall cabinet configuration WDD-1D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7061,7 +7061,7 @@
     "oscCode": "WDD-1D-1S",
     "name": "WDD 1D 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-1S.",
+    "description": "Wall cabinet configuration WDD-1D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7090,7 +7090,7 @@
     "oscCode": "WDD-1D-2PART",
     "name": "WDD 1D 2PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-2PART.",
+    "description": "Wall cabinet configuration WDD-1D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7119,7 +7119,7 @@
     "oscCode": "WDD-1D-2S",
     "name": "WDD 1D 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-2S.",
+    "description": "Wall cabinet configuration WDD-1D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7148,7 +7148,7 @@
     "oscCode": "WDD-1D-3PART",
     "name": "WDD 1D 3PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-3PART.",
+    "description": "Wall cabinet configuration WDD-1D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7177,7 +7177,7 @@
     "oscCode": "WDD-1D-3S",
     "name": "WDD 1D 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-3S.",
+    "description": "Wall cabinet configuration WDD-1D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7206,7 +7206,7 @@
     "oscCode": "WDD-1D-4S",
     "name": "WDD 1D 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-1D-4S.",
+    "description": "Wall cabinet configuration WDD-1D-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7235,7 +7235,7 @@
     "oscCode": "WDD-2D-0S",
     "name": "WDD 2D 0S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-0S.",
+    "description": "Wall cabinet configuration WDD-2D-0S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7263,7 +7263,7 @@
     "oscCode": "WDD-2D-1PART",
     "name": "WDD 2D 1PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-1PART.",
+    "description": "Wall cabinet configuration WDD-2D-1PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7292,7 +7292,7 @@
     "oscCode": "WDD-2D-1S",
     "name": "WDD 2D 1S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-1S.",
+    "description": "Wall cabinet configuration WDD-2D-1S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7321,7 +7321,7 @@
     "oscCode": "WDD-2D-2PART",
     "name": "WDD 2D 2PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-2PART.",
+    "description": "Wall cabinet configuration WDD-2D-2PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7350,7 +7350,7 @@
     "oscCode": "WDD-2D-2S",
     "name": "WDD 2D 2S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-2S.",
+    "description": "Wall cabinet configuration WDD-2D-2S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7379,7 +7379,7 @@
     "oscCode": "WDD-2D-3PART",
     "name": "WDD 2D 3PART",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-3PART.",
+    "description": "Wall cabinet configuration WDD-2D-3PART.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7408,7 +7408,7 @@
     "oscCode": "WDD-2D-3S",
     "name": "WDD 2D 3S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-3S.",
+    "description": "Wall cabinet configuration WDD-2D-3S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7437,7 +7437,7 @@
     "oscCode": "WDD-2D-4S",
     "name": "WDD 2D 4S",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDD-2D-4S.",
+    "description": "Wall cabinet configuration WDD-2D-4S.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7466,7 +7466,7 @@
     "oscCode": "WDF-L",
     "name": "WDF L",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDF-L.",
+    "description": "Wall cabinet configuration WDF-L.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,
@@ -7492,7 +7492,7 @@
     "oscCode": "WDF-R",
     "name": "WDF R",
     "category": "wall",
-    "description": "One Source wall cabinet configuration WDF-R.",
+    "description": "Wall cabinet configuration WDF-R.",
     "widthRange": {
       "minInches": 9,
       "maxInches": 48,

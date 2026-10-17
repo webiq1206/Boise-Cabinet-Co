@@ -16,14 +16,14 @@ export const PANEL_BRANDS = [
   },
   {
     "id": "lummia",
-    "name": "Tafisa Lummia",
+    "name": "TFL panel (matte line)",
     "series": [
       "Lummia Perfect Matt"
     ]
   },
   {
     "id": "karisma",
-    "name": "Tafisa Karisma",
+    "name": "TFL panel (textured line)",
     "series": [
       "Karisma"
     ]
