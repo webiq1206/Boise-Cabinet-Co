@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PROJECTS } from "@/shared/galleryData";
 import type { SiteProject } from "@/shared/projects/types";
+import { showTestimonials } from "@/shared/siteConfig";
 
 function ProjectCard({ project }: { project: SiteProject }) {
   return (
@@ -75,10 +76,10 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
             </Reveal>
           ))}
         </div>
-        {showViewAll && (
+        {showViewAll && showTestimonials() && (
           <div className="mt-8 text-center">
             <Button variant="brandOutline" asChild>
-              <Link href="/testimonials">See more projects and reviews</Link>
+              <Link href="/testimonials">See more design ideas</Link>
             </Button>
           </div>
         )}
