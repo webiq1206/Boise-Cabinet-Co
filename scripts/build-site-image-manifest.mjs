@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
 const STYLE_SUFFIX =
-  "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks";
+  "Photorealistic architectural interior, natural window light, no people, no text, no watermarks";
 
 const ROOMS = [
   { slug: "kitchen", name: "Kitchen", door: "shaker", finish: "snowcap", collection: "custom" },

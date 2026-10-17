@@ -82,7 +82,7 @@ export default function ConstructionPage() {
                   <em className="brc-accent text-accent">construction</em>
                 </>}
           description={catalogDescription(
-                "{company} cabinets are engineered and built in Meridian, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
+                "{company} cabinets use materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
         >
               <Button variant="brand" asChild>

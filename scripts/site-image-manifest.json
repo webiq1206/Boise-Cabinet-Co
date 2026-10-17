@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-17T23:36:51.207Z",
-  "styleSuffix": "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+  "generatedAt": "2026-10-17T23:45:29.201Z",
+  "styleSuffix": "Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
   "entries": [
     {
       "id": "img-0001",
@@ -24,7 +24,7 @@
       "doorStyleId": "shaker",
       "finishId": "white-oak",
       "supplierColorName": "white-oak",
-      "promptScene": "Custom Cabinets custom cabinet collection, a ready-to-assemble cabinet line, shaker doors, white-oak finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom Cabinets custom cabinet collection, a ready-to-assemble cabinet line, shaker doors, white-oak finish, frameless kitchen with island, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom Cabinets custom cabinets by Boise Cabinet Co, Custom Cabinets line, with frameless options in the Treasure Valley, Idaho",
       "title": "Custom Cabinets Cabinet Collection | Boise Cabinet Co",
       "caption": "Custom Cabinets cabinets featuring thermally fused laminate (TFL) panels and Treasure Valley installation."
@@ -50,7 +50,7 @@
       "doorStyleId": "thin-shaker",
       "finishId": "pebble",
       "supplierColorName": "pebble",
-      "promptScene": "Reserve custom cabinet collection, a ready-to-assemble cabinet line, thin shaker doors, pebble finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Reserve custom cabinet collection, a ready-to-assemble cabinet line, thin shaker doors, pebble finish, frameless kitchen with island, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Reserve custom cabinets by Boise Cabinet Co, Reserve line, with frameless options in the Treasure Valley, Idaho",
       "title": "Reserve Cabinet Collection | Boise Cabinet Co",
       "caption": "Reserve cabinets featuring thermally fused laminate (TFL) panels and Treasure Valley installation."
@@ -77,7 +77,7 @@
       "collectionId": "custom",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Kitchen with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, snowcap finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, snowcap finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom kitchen cabinets with shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Kitchen Custom Cabinets | Boise Cabinet Co",
       "caption": "Kitchen cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -104,7 +104,7 @@
       "collectionId": "custom",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, glacier finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, glacier finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom bathroom cabinets with thin shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Bathroom Custom Cabinets | Boise Cabinet Co",
       "caption": "Bathroom cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -131,7 +131,7 @@
       "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "fog",
-      "promptScene": "Laundry with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, fog finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Laundry with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, fog finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom laundry cabinets with slab cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Laundry Custom Cabinets | Boise Cabinet Co",
       "caption": "Laundry cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -158,7 +158,7 @@
       "collectionId": "reserve",
       "doorStyleId": "thin-shaker",
       "finishId": "riverstone",
-      "promptScene": "Mudroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, riverstone finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Mudroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, riverstone finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom mudroom cabinets with thin shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Mudroom Custom Cabinets | Boise Cabinet Co",
       "caption": "Mudroom cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -185,7 +185,7 @@
       "collectionId": "custom",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Home Office with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, white-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Home Office with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, white-oak finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom home office cabinets with shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Home Office Custom Cabinets | Boise Cabinet Co",
       "caption": "Home Office cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -212,7 +212,7 @@
       "collectionId": "reserve",
       "doorStyleId": "slab",
       "finishId": "basalt",
-      "promptScene": "Entertainment with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, basalt finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Entertainment with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, basalt finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom entertainment cabinets with slab cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Entertainment Custom Cabinets | Boise Cabinet Co",
       "caption": "Entertainment cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -239,7 +239,7 @@
       "collectionId": "custom",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Built-Ins with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, natural-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Built-Ins with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, natural-walnut finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-ins cabinets with shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Built-Ins Custom Cabinets | Boise Cabinet Co",
       "caption": "Built-Ins cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -266,7 +266,7 @@
       "collectionId": "custom",
       "doorStyleId": "shaker",
       "finishId": "linen",
-      "promptScene": "Pantry with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, linen finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Pantry with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, linen finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom pantry cabinets with shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Pantry Custom Cabinets | Boise Cabinet Co",
       "caption": "Pantry cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -293,7 +293,7 @@
       "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, white-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, white-oak finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom closet cabinets with slab cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Closet Custom Cabinets | Boise Cabinet Co",
       "caption": "Closet cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -320,7 +320,7 @@
       "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "slate",
-      "promptScene": "Garage with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, slate finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Garage with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, slate finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom garage cabinets with slab cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Garage Custom Cabinets | Boise Cabinet Co",
       "caption": "Garage cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -347,7 +347,7 @@
       "collectionId": "reserve",
       "doorStyleId": "slab",
       "finishId": "cedar",
-      "promptScene": "Outdoor Kitchen with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, cedar finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Outdoor Kitchen with custom frameless cabinets, a ready-to-assemble cabinet line, slab doors, cedar finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom outdoor kitchen cabinets with slab cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Outdoor Kitchen Custom Cabinets | Boise Cabinet Co",
       "caption": "Outdoor Kitchen cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -374,7 +374,7 @@
       "collectionId": "reserve",
       "doorStyleId": "shaker",
       "finishId": "espresso-walnut",
-      "promptScene": "Wet Bar with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, espresso-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Wet Bar with custom frameless cabinets, a ready-to-assemble cabinet line, shaker doors, espresso-walnut finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom wet bar cabinets with shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Wet Bar Custom Cabinets | Boise Cabinet Co",
       "caption": "Wet Bar cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -401,7 +401,7 @@
       "collectionId": "custom",
       "doorStyleId": "thin-shaker",
       "finishId": "blonde-oak",
-      "promptScene": "Bedroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, blonde-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bedroom with custom frameless cabinets, a ready-to-assemble cabinet line, thin shaker doors, blonde-oak finish, Idaho home interior, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom bedroom cabinets with thin shaker cabinet doors in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Bedroom Custom Cabinets | Boise Cabinet Co",
       "caption": "Bedroom cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels."
@@ -426,7 +426,7 @@
       ],
       "placement": "swatch",
       "finishId": "snowcap",
-      "promptScene": "Macro close-up of cabinet door surface showing snowcap finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing snowcap finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "snowcap cabinet finish swatch, snowcap panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "snowcap Cabinet Finish",
       "caption": "snowcap panel finish available through Boise Cabinet Co."
@@ -451,7 +451,7 @@
       ],
       "placement": "swatch",
       "finishId": "glacier",
-      "promptScene": "Macro close-up of cabinet door surface showing glacier finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing glacier finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "glacier cabinet finish swatch, glacier panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "glacier Cabinet Finish",
       "caption": "glacier panel finish available through Boise Cabinet Co."
@@ -476,7 +476,7 @@
       ],
       "placement": "swatch",
       "finishId": "dune",
-      "promptScene": "Macro close-up of cabinet door surface showing dune finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing dune finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "dune cabinet finish swatch, dune panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "dune Cabinet Finish",
       "caption": "dune panel finish available through Boise Cabinet Co."
@@ -501,7 +501,7 @@
       ],
       "placement": "swatch",
       "finishId": "sagebrush",
-      "promptScene": "Macro close-up of cabinet door surface showing sagebrush finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing sagebrush finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "sagebrush cabinet finish swatch, sagebrush panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "sagebrush Cabinet Finish",
       "caption": "sagebrush panel finish available through Boise Cabinet Co."
@@ -526,7 +526,7 @@
       ],
       "placement": "swatch",
       "finishId": "slate",
-      "promptScene": "Macro close-up of cabinet door surface showing slate finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing slate finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "slate cabinet finish swatch, slate panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "slate Cabinet Finish",
       "caption": "slate panel finish available through Boise Cabinet Co."
@@ -551,7 +551,7 @@
       ],
       "placement": "swatch",
       "finishId": "midnight",
-      "promptScene": "Macro close-up of cabinet door surface showing midnight finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing midnight finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "midnight cabinet finish swatch, midnight panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "midnight Cabinet Finish",
       "caption": "midnight panel finish available through Boise Cabinet Co."
@@ -576,7 +576,7 @@
       ],
       "placement": "swatch",
       "finishId": "clay",
-      "promptScene": "Macro close-up of cabinet door surface showing clay finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing clay finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "clay cabinet finish swatch, clay panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "clay Cabinet Finish",
       "caption": "clay panel finish available through Boise Cabinet Co."
@@ -601,7 +601,7 @@
       ],
       "placement": "swatch",
       "finishId": "fog",
-      "promptScene": "Macro close-up of cabinet door surface showing fog finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing fog finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "fog cabinet finish swatch, fog panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "fog Cabinet Finish",
       "caption": "fog panel finish available through Boise Cabinet Co."
@@ -626,7 +626,7 @@
       ],
       "placement": "swatch",
       "finishId": "linen",
-      "promptScene": "Macro close-up of cabinet door surface showing linen finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing linen finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "linen cabinet finish swatch, linen panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "linen Cabinet Finish",
       "caption": "linen panel finish available through Boise Cabinet Co."
@@ -651,7 +651,7 @@
       ],
       "placement": "swatch",
       "finishId": "riverstone",
-      "promptScene": "Macro close-up of cabinet door surface showing riverstone finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing riverstone finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "riverstone cabinet finish swatch, riverstone panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "riverstone Cabinet Finish",
       "caption": "riverstone panel finish available through Boise Cabinet Co."
@@ -676,7 +676,7 @@
       ],
       "placement": "swatch",
       "finishId": "basalt",
-      "promptScene": "Macro close-up of cabinet door surface showing basalt finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing basalt finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "basalt cabinet finish swatch, basalt panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "basalt Cabinet Finish",
       "caption": "basalt panel finish available through Boise Cabinet Co."
@@ -701,7 +701,7 @@
       ],
       "placement": "swatch",
       "finishId": "mist",
-      "promptScene": "Macro close-up of cabinet door surface showing mist finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing mist finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "mist cabinet finish swatch, mist panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "mist Cabinet Finish",
       "caption": "mist panel finish available through Boise Cabinet Co."
@@ -726,7 +726,7 @@
       ],
       "placement": "swatch",
       "finishId": "terracotta",
-      "promptScene": "Macro close-up of cabinet door surface showing terracotta finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing terracotta finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "terracotta cabinet finish swatch, terracotta panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "terracotta Cabinet Finish",
       "caption": "terracotta panel finish available through Boise Cabinet Co."
@@ -751,7 +751,7 @@
       ],
       "placement": "swatch",
       "finishId": "fern",
-      "promptScene": "Macro close-up of cabinet door surface showing fern finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing fern finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "fern cabinet finish swatch, fern panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "fern Cabinet Finish",
       "caption": "fern panel finish available through Boise Cabinet Co."
@@ -776,7 +776,7 @@
       ],
       "placement": "swatch",
       "finishId": "pebble",
-      "promptScene": "Macro close-up of cabinet door surface showing pebble finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing pebble finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "pebble cabinet finish swatch, pebble panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pebble Cabinet Finish",
       "caption": "pebble panel finish available through Boise Cabinet Co."
@@ -801,7 +801,7 @@
       ],
       "placement": "swatch",
       "finishId": "porcelain",
-      "promptScene": "Macro close-up of cabinet door surface showing porcelain finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing porcelain finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "porcelain cabinet finish swatch, porcelain panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "porcelain Cabinet Finish",
       "caption": "porcelain panel finish available through Boise Cabinet Co."
@@ -826,7 +826,7 @@
       ],
       "placement": "swatch",
       "finishId": "ivory",
-      "promptScene": "Macro close-up of cabinet door surface showing ivory finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing ivory finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "ivory cabinet finish swatch, ivory panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "ivory Cabinet Finish",
       "caption": "ivory panel finish available through Boise Cabinet Co."
@@ -851,7 +851,7 @@
       ],
       "placement": "swatch",
       "finishId": "pearl",
-      "promptScene": "Macro close-up of cabinet door surface showing pearl finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing pearl finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "pearl cabinet finish swatch, pearl panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pearl Cabinet Finish",
       "caption": "pearl panel finish available through Boise Cabinet Co."
@@ -876,7 +876,7 @@
       ],
       "placement": "swatch",
       "finishId": "graphite",
-      "promptScene": "Macro close-up of cabinet door surface showing graphite finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing graphite finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "graphite cabinet finish swatch, graphite panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "graphite Cabinet Finish",
       "caption": "graphite panel finish available through Boise Cabinet Co."
@@ -901,7 +901,7 @@
       ],
       "placement": "swatch",
       "finishId": "obsidian",
-      "promptScene": "Macro close-up of cabinet door surface showing obsidian finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing obsidian finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "obsidian cabinet finish swatch, obsidian panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "obsidian Cabinet Finish",
       "caption": "obsidian panel finish available through Boise Cabinet Co."
@@ -926,7 +926,7 @@
       ],
       "placement": "swatch",
       "finishId": "seafoam",
-      "promptScene": "Macro close-up of cabinet door surface showing seafoam finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing seafoam finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "seafoam cabinet finish swatch, seafoam panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "seafoam Cabinet Finish",
       "caption": "seafoam panel finish available through Boise Cabinet Co."
@@ -951,7 +951,7 @@
       ],
       "placement": "swatch",
       "finishId": "blush",
-      "promptScene": "Macro close-up of cabinet door surface showing blush finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing blush finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "blush cabinet finish swatch, blush panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "blush Cabinet Finish",
       "caption": "blush panel finish available through Boise Cabinet Co."
@@ -976,7 +976,7 @@
       ],
       "placement": "swatch",
       "finishId": "cobalt",
-      "promptScene": "Macro close-up of cabinet door surface showing cobalt finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing cobalt finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "cobalt cabinet finish swatch, cobalt panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "cobalt Cabinet Finish",
       "caption": "cobalt panel finish available through Boise Cabinet Co."
@@ -1001,7 +1001,7 @@
       ],
       "placement": "swatch",
       "finishId": "champagne",
-      "promptScene": "Macro close-up of cabinet door surface showing champagne finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing champagne finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "champagne cabinet finish swatch, champagne panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "champagne Cabinet Finish",
       "caption": "champagne panel finish available through Boise Cabinet Co."
@@ -1026,7 +1026,7 @@
       ],
       "placement": "swatch",
       "finishId": "storm",
-      "promptScene": "Macro close-up of cabinet door surface showing storm finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing storm finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "storm cabinet finish swatch, storm panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "storm Cabinet Finish",
       "caption": "storm panel finish available through Boise Cabinet Co."
@@ -1051,7 +1051,7 @@
       ],
       "placement": "swatch",
       "finishId": "alabaster",
-      "promptScene": "Macro close-up of cabinet door surface showing alabaster finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing alabaster finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "alabaster cabinet finish swatch, alabaster panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "alabaster Cabinet Finish",
       "caption": "alabaster panel finish available through Boise Cabinet Co."
@@ -1076,7 +1076,7 @@
       ],
       "placement": "swatch",
       "finishId": "crimson",
-      "promptScene": "Macro close-up of cabinet door surface showing crimson finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing crimson finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "crimson cabinet finish swatch, crimson panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "crimson Cabinet Finish",
       "caption": "crimson panel finish available through Boise Cabinet Co."
@@ -1101,7 +1101,7 @@
       ],
       "placement": "swatch",
       "finishId": "white-oak",
-      "promptScene": "Macro close-up of cabinet door surface showing white oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing white oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "white oak cabinet finish swatch, white oak panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "white oak Cabinet Finish",
       "caption": "white oak panel finish available through Boise Cabinet Co."
@@ -1126,7 +1126,7 @@
       ],
       "placement": "swatch",
       "finishId": "natural-walnut",
-      "promptScene": "Macro close-up of cabinet door surface showing natural walnut finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing natural walnut finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "natural walnut cabinet finish swatch, natural walnut panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "natural walnut Cabinet Finish",
       "caption": "natural walnut panel finish available through Boise Cabinet Co."
@@ -1151,7 +1151,7 @@
       ],
       "placement": "swatch",
       "finishId": "espresso-walnut",
-      "promptScene": "Macro close-up of cabinet door surface showing espresso walnut finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing espresso walnut finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "espresso walnut cabinet finish swatch, espresso walnut panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "espresso walnut Cabinet Finish",
       "caption": "espresso walnut panel finish available through Boise Cabinet Co."
@@ -1176,7 +1176,7 @@
       ],
       "placement": "swatch",
       "finishId": "honey-maple",
-      "promptScene": "Macro close-up of cabinet door surface showing honey maple finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing honey maple finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "honey maple cabinet finish swatch, honey maple panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "honey maple Cabinet Finish",
       "caption": "honey maple panel finish available through Boise Cabinet Co."
@@ -1201,7 +1201,7 @@
       ],
       "placement": "swatch",
       "finishId": "driftwood",
-      "promptScene": "Macro close-up of cabinet door surface showing driftwood finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing driftwood finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "driftwood cabinet finish swatch, driftwood panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "driftwood Cabinet Finish",
       "caption": "driftwood panel finish available through Boise Cabinet Co."
@@ -1226,7 +1226,7 @@
       ],
       "placement": "swatch",
       "finishId": "charcoal-oak",
-      "promptScene": "Macro close-up of cabinet door surface showing charcoal oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing charcoal oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "charcoal oak cabinet finish swatch, charcoal oak panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "charcoal oak Cabinet Finish",
       "caption": "charcoal oak panel finish available through Boise Cabinet Co."
@@ -1251,7 +1251,7 @@
       ],
       "placement": "swatch",
       "finishId": "hickory",
-      "promptScene": "Macro close-up of cabinet door surface showing hickory finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing hickory finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "hickory cabinet finish swatch, hickory panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "hickory Cabinet Finish",
       "caption": "hickory panel finish available through Boise Cabinet Co."
@@ -1276,7 +1276,7 @@
       ],
       "placement": "swatch",
       "finishId": "cherry",
-      "promptScene": "Macro close-up of cabinet door surface showing cherry finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing cherry finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "cherry cabinet finish swatch, cherry panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "cherry Cabinet Finish",
       "caption": "cherry panel finish available through Boise Cabinet Co."
@@ -1301,7 +1301,7 @@
       ],
       "placement": "swatch",
       "finishId": "ash",
-      "promptScene": "Macro close-up of cabinet door surface showing ash finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing ash finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "ash cabinet finish swatch, ash panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "ash Cabinet Finish",
       "caption": "ash panel finish available through Boise Cabinet Co."
@@ -1326,7 +1326,7 @@
       ],
       "placement": "swatch",
       "finishId": "teak",
-      "promptScene": "Macro close-up of cabinet door surface showing teak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing teak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "teak cabinet finish swatch, teak panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "teak Cabinet Finish",
       "caption": "teak panel finish available through Boise Cabinet Co."
@@ -1351,7 +1351,7 @@
       ],
       "placement": "swatch",
       "finishId": "reclaimed-barn",
-      "promptScene": "Macro close-up of cabinet door surface showing reclaimed barn finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing reclaimed barn finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "reclaimed barn cabinet finish swatch, reclaimed barn panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "reclaimed barn Cabinet Finish",
       "caption": "reclaimed barn panel finish available through Boise Cabinet Co."
@@ -1376,7 +1376,7 @@
       ],
       "placement": "swatch",
       "finishId": "ebony",
-      "promptScene": "Macro close-up of cabinet door surface showing ebony finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing ebony finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "ebony cabinet finish swatch, ebony panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "ebony Cabinet Finish",
       "caption": "ebony panel finish available through Boise Cabinet Co."
@@ -1401,7 +1401,7 @@
       ],
       "placement": "swatch",
       "finishId": "blonde-oak",
-      "promptScene": "Macro close-up of cabinet door surface showing blonde oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing blonde oak finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "blonde oak cabinet finish swatch, blonde oak panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "blonde oak Cabinet Finish",
       "caption": "blonde oak panel finish available through Boise Cabinet Co."
@@ -1426,7 +1426,7 @@
       ],
       "placement": "swatch",
       "finishId": "pecan",
-      "promptScene": "Macro close-up of cabinet door surface showing pecan finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing pecan finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "pecan cabinet finish swatch, pecan panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pecan Cabinet Finish",
       "caption": "pecan panel finish available through Boise Cabinet Co."
@@ -1451,7 +1451,7 @@
       ],
       "placement": "swatch",
       "finishId": "cedar",
-      "promptScene": "Macro close-up of cabinet door surface showing cedar finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Macro close-up of cabinet door surface showing cedar finish texture, a ready-to-assemble cabinet line, flat even lighting, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "cedar cabinet finish swatch, cedar panel finish for Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "cedar Cabinet Finish",
       "caption": "cedar panel finish available through Boise Cabinet Co."
@@ -1475,7 +1475,7 @@
       "placement": "profile",
       "doorStyleId": "slab",
       "finishId": "snowcap",
-      "promptScene": "Close-up of a slab cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Close-up of a slab cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "slab cabinet door profile, Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "slab Door Style",
       "caption": "slab door style from our cabinet catalog, available through Boise Cabinet Co."
@@ -1499,7 +1499,7 @@
       "placement": "profile",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Close-up of a shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Close-up of a shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "shaker cabinet door profile, Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "shaker Door Style",
       "caption": "shaker door style from our cabinet catalog, available through Boise Cabinet Co."
@@ -1523,7 +1523,7 @@
       "placement": "profile",
       "doorStyleId": "thin-shaker",
       "finishId": "snowcap",
-      "promptScene": "Close-up of a thin shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Close-up of a thin shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "thin shaker cabinet door profile, Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "thin shaker Door Style",
       "caption": "thin shaker door style from our cabinet catalog, available through Boise Cabinet Co."
@@ -1546,7 +1546,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
@@ -1569,7 +1569,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners in the Treasure Valley, Idaho",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners"
@@ -1592,7 +1592,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Custom bathroom vanity cabinets installed in a Meridian Idaho home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom bathroom vanity cabinets installed in a Meridian Idaho home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom bathroom vanity cabinets installed in a Meridian Idaho home | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Custom bathroom vanity cabinets installed in a Meridian Idaho home"
@@ -1615,7 +1615,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen in the Treasure Valley, Idaho",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen"
@@ -1638,7 +1638,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners"
@@ -1661,7 +1661,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Cabinet door samples and finish swatches laid out for a kitchen design, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet door samples and finish swatches laid out for a kitchen design, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet door samples and finish swatches laid out for a kitchen design | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Cabinet door samples and finish swatches laid out for a kitchen design"
@@ -1684,7 +1684,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley"
@@ -1707,7 +1707,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho"
@@ -1730,7 +1730,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": ""
@@ -1753,7 +1753,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes"
@@ -1778,7 +1778,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Whole-home custom cabinet installation in an Eagle Idaho residence, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home custom cabinet installation in an Eagle Idaho residence, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home custom cabinet installation in an Eagle Idaho residence | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Whole-home custom cabinet installation in an Eagle Idaho residence"
@@ -1801,7 +1801,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho"
@@ -1823,7 +1823,7 @@
         "/areas/boise"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Boise Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Boise Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Boise, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Boise Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Boise and the Treasure Valley."
@@ -1845,7 +1845,7 @@
         "/areas/meridian"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Meridian Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Meridian Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Meridian, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Meridian Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Meridian and the Treasure Valley."
@@ -1867,7 +1867,7 @@
         "/areas/eagle"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Eagle Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Eagle Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Eagle, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Eagle Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Eagle and the Treasure Valley."
@@ -1889,7 +1889,7 @@
         "/areas/nampa"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Nampa Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Nampa Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Nampa, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Nampa Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Nampa and the Treasure Valley."
@@ -1911,7 +1911,7 @@
         "/areas/kuna"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Kuna Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Kuna Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Kuna, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Kuna Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Kuna and the Treasure Valley."
@@ -1933,7 +1933,7 @@
         "/areas/star"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Star Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Star Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Star, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Star Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Star and the Treasure Valley."
@@ -1955,7 +1955,7 @@
         "/areas/middleton"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Middleton Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Middleton Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Middleton, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Middleton Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Middleton and the Treasure Valley."
@@ -1977,7 +1977,7 @@
         "/areas/caldwell"
       ],
       "placement": "hero",
-      "promptScene": "Custom kitchen cabinets in a Caldwell Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom kitchen cabinets in a Caldwell Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom cabinets installed in Caldwell, Idaho by Boise Cabinet Co",
       "title": "Custom Cabinets Caldwell Idaho",
       "caption": "Boise Cabinet Co custom cabinet projects serving Caldwell and the Treasure Valley."
@@ -2000,7 +2000,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Boise Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Boise Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Boise, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Boise ID",
       "caption": "Custom kitchen cabinets for Boise homeowners by Boise Cabinet Co."
@@ -2023,7 +2023,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Meridian Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Meridian Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Meridian, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Meridian ID",
       "caption": "Custom kitchen cabinets for Meridian homeowners by Boise Cabinet Co."
@@ -2046,7 +2046,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Eagle Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Eagle Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Eagle, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Eagle ID",
       "caption": "Custom kitchen cabinets for Eagle homeowners by Boise Cabinet Co."
@@ -2069,7 +2069,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Nampa Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Nampa Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Nampa, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Nampa ID",
       "caption": "Custom kitchen cabinets for Nampa homeowners by Boise Cabinet Co."
@@ -2092,7 +2092,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Kuna Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Kuna Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Kuna, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Kuna ID",
       "caption": "Custom kitchen cabinets for Kuna homeowners by Boise Cabinet Co."
@@ -2115,7 +2115,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Star Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Star Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Star, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Star ID",
       "caption": "Custom kitchen cabinets for Star homeowners by Boise Cabinet Co."
@@ -2138,7 +2138,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Middleton Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Middleton Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Middleton, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Middleton ID",
       "caption": "Custom kitchen cabinets for Middleton homeowners by Boise Cabinet Co."
@@ -2161,7 +2161,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Caldwell Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Caldwell Idaho, shaker cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Caldwell, Idaho, Boise Cabinet Co cabinets",
       "title": "Kitchen cabinets Caldwell ID",
       "caption": "Custom kitchen cabinets for Caldwell homeowners by Boise Cabinet Co."
@@ -2184,7 +2184,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Boise Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Boise Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Boise, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Boise ID",
       "caption": "Custom bathroom vanity cabinets for Boise homeowners by Boise Cabinet Co."
@@ -2207,7 +2207,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Meridian Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Meridian Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Meridian, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Meridian ID",
       "caption": "Custom bathroom vanity cabinets for Meridian homeowners by Boise Cabinet Co."
@@ -2230,7 +2230,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Eagle Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Eagle Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Eagle, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Eagle ID",
       "caption": "Custom bathroom vanity cabinets for Eagle homeowners by Boise Cabinet Co."
@@ -2253,7 +2253,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Nampa Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Nampa Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Nampa, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Nampa ID",
       "caption": "Custom bathroom vanity cabinets for Nampa homeowners by Boise Cabinet Co."
@@ -2276,7 +2276,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Kuna Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Kuna Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Kuna, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Kuna ID",
       "caption": "Custom bathroom vanity cabinets for Kuna homeowners by Boise Cabinet Co."
@@ -2299,7 +2299,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Star Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Star Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Star, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Star ID",
       "caption": "Custom bathroom vanity cabinets for Star homeowners by Boise Cabinet Co."
@@ -2322,7 +2322,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Middleton Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Middleton Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Middleton, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Middleton ID",
       "caption": "Custom bathroom vanity cabinets for Middleton homeowners by Boise Cabinet Co."
@@ -2345,7 +2345,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets in Caldwell Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets in Caldwell Idaho, thin shaker cabinet doors, glacier finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets in Caldwell, Idaho, Boise Cabinet Co cabinets",
       "title": "Bathroom vanity cabinets Caldwell ID",
       "caption": "Custom bathroom vanity cabinets for Caldwell homeowners by Boise Cabinet Co."
@@ -2368,7 +2368,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Boise Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Boise Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Boise, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Boise ID",
       "caption": "Custom custom built-in cabinets for Boise homeowners by Boise Cabinet Co."
@@ -2391,7 +2391,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Meridian Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Meridian Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Meridian, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Meridian ID",
       "caption": "Custom custom built-in cabinets for Meridian homeowners by Boise Cabinet Co."
@@ -2414,7 +2414,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Eagle Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Eagle Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Eagle, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Eagle ID",
       "caption": "Custom custom built-in cabinets for Eagle homeowners by Boise Cabinet Co."
@@ -2437,7 +2437,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Nampa Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Nampa Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Nampa, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Nampa ID",
       "caption": "Custom custom built-in cabinets for Nampa homeowners by Boise Cabinet Co."
@@ -2460,7 +2460,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Kuna Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Kuna Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Kuna, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Kuna ID",
       "caption": "Custom custom built-in cabinets for Kuna homeowners by Boise Cabinet Co."
@@ -2483,7 +2483,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Star Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Star Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Star, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Star ID",
       "caption": "Custom custom built-in cabinets for Star homeowners by Boise Cabinet Co."
@@ -2506,7 +2506,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Middleton Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Middleton Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Middleton, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Middleton ID",
       "caption": "Custom custom built-in cabinets for Middleton homeowners by Boise Cabinet Co."
@@ -2529,7 +2529,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Caldwell Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Caldwell Idaho, shaker cabinet doors, natural-walnut finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Caldwell, Idaho, Boise Cabinet Co cabinets",
       "title": "Custom built-in cabinets Caldwell ID",
       "caption": "Custom custom built-in cabinets for Caldwell homeowners by Boise Cabinet Co."
@@ -2552,7 +2552,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Boise Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Boise Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Boise, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Boise ID",
       "caption": "Custom closet cabinet systems for Boise homeowners by Boise Cabinet Co."
@@ -2575,7 +2575,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Meridian Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Meridian Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Meridian, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Meridian ID",
       "caption": "Custom closet cabinet systems for Meridian homeowners by Boise Cabinet Co."
@@ -2598,7 +2598,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Eagle Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Eagle Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Eagle, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Eagle ID",
       "caption": "Custom closet cabinet systems for Eagle homeowners by Boise Cabinet Co."
@@ -2621,7 +2621,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Nampa Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Nampa Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Nampa, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Nampa ID",
       "caption": "Custom closet cabinet systems for Nampa homeowners by Boise Cabinet Co."
@@ -2644,7 +2644,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Kuna Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Kuna Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Kuna, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Kuna ID",
       "caption": "Custom closet cabinet systems for Kuna homeowners by Boise Cabinet Co."
@@ -2667,7 +2667,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Star Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Star Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Star, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Star ID",
       "caption": "Custom closet cabinet systems for Star homeowners by Boise Cabinet Co."
@@ -2690,7 +2690,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Middleton Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Middleton Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Middleton, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Middleton ID",
       "caption": "Custom closet cabinet systems for Middleton homeowners by Boise Cabinet Co."
@@ -2713,7 +2713,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems in Caldwell Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems in Caldwell Idaho, slab cabinet doors, white-oak finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems in Caldwell, Idaho, Boise Cabinet Co cabinets",
       "title": "Closet cabinet systems Caldwell ID",
       "caption": "Custom closet cabinet systems for Caldwell homeowners by Boise Cabinet Co."
@@ -2736,7 +2736,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Boise Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Boise Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Boise, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Boise ID",
       "caption": "Custom whole-home cabinet packages for Boise homeowners by Boise Cabinet Co."
@@ -2759,7 +2759,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Meridian Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Meridian Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Meridian, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Meridian ID",
       "caption": "Custom whole-home cabinet packages for Meridian homeowners by Boise Cabinet Co."
@@ -2782,7 +2782,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Eagle Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Eagle Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Eagle, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Eagle ID",
       "caption": "Custom whole-home cabinet packages for Eagle homeowners by Boise Cabinet Co."
@@ -2805,7 +2805,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Nampa Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Nampa Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Nampa, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Nampa ID",
       "caption": "Custom whole-home cabinet packages for Nampa homeowners by Boise Cabinet Co."
@@ -2828,7 +2828,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Kuna Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Kuna Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Kuna, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Kuna ID",
       "caption": "Custom whole-home cabinet packages for Kuna homeowners by Boise Cabinet Co."
@@ -2851,7 +2851,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Star Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Star Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Star, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Star ID",
       "caption": "Custom whole-home cabinet packages for Star homeowners by Boise Cabinet Co."
@@ -2874,7 +2874,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Middleton Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Middleton Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Middleton, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Middleton ID",
       "caption": "Custom whole-home cabinet packages for Middleton homeowners by Boise Cabinet Co."
@@ -2897,7 +2897,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Caldwell Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Caldwell Idaho, shaker cabinet doors, snowcap finish, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Caldwell, Idaho, Boise Cabinet Co cabinets",
       "title": "Whole-home cabinet packages Caldwell ID",
       "caption": "Custom whole-home cabinet packages for Caldwell homeowners by Boise Cabinet Co."
@@ -2920,7 +2920,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets, custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets, custom cabinets, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets by Boise Cabinet Co using thermally fused laminate (TFL) panels in the Treasure Valley, Idaho",
       "title": "Kitchen cabinets",
       "caption": "Kitchen cabinets throughout the Treasure Valley."
@@ -2943,7 +2943,7 @@
       "placement": "hero",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
-      "promptScene": "Bathroom vanity cabinets, custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinets, custom cabinets, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Bathroom vanity cabinets by Boise Cabinet Co using thermally fused laminate (TFL) panels in the Treasure Valley, Idaho",
       "title": "Bathroom vanity cabinets",
       "caption": "Bathroom vanity cabinets throughout the Treasure Valley."
@@ -2966,7 +2966,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets, custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets, custom cabinets, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets by Boise Cabinet Co using thermally fused laminate (TFL) panels in the Treasure Valley, Idaho",
       "title": "Custom built-in cabinets",
       "caption": "Custom built-in cabinets throughout the Treasure Valley."
@@ -2989,7 +2989,7 @@
       "placement": "hero",
       "doorStyleId": "slab",
       "finishId": "white-oak",
-      "promptScene": "Closet cabinet systems, custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Closet cabinet systems, custom cabinets, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Closet cabinet systems by Boise Cabinet Co using thermally fused laminate (TFL) panels in the Treasure Valley, Idaho",
       "title": "Closet cabinet systems",
       "caption": "Closet cabinet systems throughout the Treasure Valley."
@@ -3012,7 +3012,7 @@
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages, custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages, custom cabinets, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages by Boise Cabinet Co using thermally fused laminate (TFL) panels in the Treasure Valley, Idaho",
       "title": "Whole-home cabinet packages",
       "caption": "Whole-home cabinet packages throughout the Treasure Valley."
@@ -3034,7 +3034,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Kitchen cabinet transformation before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinet transformation before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Kitchen cabinet transformation — before",
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
@@ -3056,7 +3056,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Kitchen cabinet transformation after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinet transformation after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Kitchen cabinet transformation — after",
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
@@ -3078,7 +3078,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Bathroom vanity cabinet renovation before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinet renovation before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Bathroom vanity cabinet renovation — before",
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
@@ -3100,7 +3100,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Bathroom vanity cabinet renovation after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Bathroom vanity cabinet renovation after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Bathroom vanity cabinet renovation — after",
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
@@ -3122,7 +3122,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Whole-home custom cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home custom cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Whole-home custom cabinets — before",
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
@@ -3144,7 +3144,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Whole-home custom cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home custom cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Whole-home custom cabinets — after",
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
@@ -3166,7 +3166,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Built-in cabinet addition before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Built-in cabinet addition before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Built-in cabinet addition — before",
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
@@ -3188,7 +3188,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Built-in cabinet addition after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Built-in cabinet addition after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Built-in cabinet addition — after",
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
@@ -3210,7 +3210,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Basement wet bar cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Basement wet bar cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Basement wet bar cabinets — before",
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
@@ -3232,7 +3232,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Basement wet bar cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Basement wet bar cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Basement wet bar cabinets — after",
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
@@ -3254,7 +3254,7 @@
         "/testimonials"
       ],
       "placement": "gallery-before",
-      "promptScene": "Outdoor kitchen cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Outdoor kitchen cabinets before photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Before: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Outdoor kitchen cabinets — before",
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
@@ -3276,7 +3276,7 @@
         "/testimonials"
       ],
       "placement": "gallery-after",
-      "promptScene": "Outdoor kitchen cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Outdoor kitchen cabinets after photo, custom cabinets focus, Treasure Valley home, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "After: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",
       "title": "Outdoor kitchen cabinets — after",
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
@@ -3297,7 +3297,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet bar pull 128 black hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet bar pull 128 black hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet bar pull 128 black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "bar pull 128 black"
     },
@@ -3317,7 +3317,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet bar pull 160 nickel hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet bar pull 160 nickel hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet bar pull 160 nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "bar pull 160 nickel"
     },
@@ -3337,7 +3337,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet cup pull gold hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet cup pull gold hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet cup pull gold hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "cup pull gold"
     },
@@ -3357,7 +3357,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet finger edge pull hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet finger edge pull hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet finger edge pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "finger edge pull"
     },
@@ -3377,7 +3377,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet j channel pull hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet j channel pull hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet j channel pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "j channel pull"
     },
@@ -3397,7 +3397,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet knob round nickel hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet knob round nickel hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet knob round nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "knob round nickel"
     },
@@ -3417,7 +3417,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet knob square black hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet knob square black hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet knob square black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "knob square black"
     },
@@ -3437,7 +3437,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet glass knob chrome hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet glass knob chrome hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet glass knob chrome hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "glass knob chrome"
     },
@@ -3457,7 +3457,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet hinge soft close hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet hinge soft close hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet hinge soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "hinge soft close"
     },
@@ -3477,7 +3477,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet push to open hinge hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet push to open hinge hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet push to open hinge hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "push to open hinge"
     },
@@ -3497,7 +3497,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet slide soft close hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet slide soft close hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet slide soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "slide soft close"
     },
@@ -3517,7 +3517,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet slide heavy duty hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet slide heavy duty hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet slide heavy duty hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "slide heavy duty"
     },
@@ -3537,7 +3537,7 @@
         "/hardware"
       ],
       "placement": "product",
-      "promptScene": "Cabinet outdoor bar pull stainless hardware on a shaker door, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet outdoor bar pull stainless hardware on a shaker door, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet outdoor bar pull stainless hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "outdoor bar pull stainless"
     },
@@ -3557,7 +3557,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet pull out shelf interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet pull out shelf interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet pull out shelf interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pull out shelf"
     },
@@ -3577,7 +3577,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet pull out pantry interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet pull out pantry interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet pull out pantry interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pull out pantry"
     },
@@ -3597,7 +3597,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet lazy susan interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet lazy susan interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet lazy susan interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "lazy susan"
     },
@@ -3617,7 +3617,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet blind corner pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet blind corner pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet blind corner pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "blind corner pullout"
     },
@@ -3637,7 +3637,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet spice rack pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet spice rack pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet spice rack pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "spice rack pullout"
     },
@@ -3657,7 +3657,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet utensil divider interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet utensil divider interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet utensil divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "utensil divider"
     },
@@ -3677,7 +3677,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet peg board drawer interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet peg board drawer interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet peg board drawer interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "peg board drawer"
     },
@@ -3697,7 +3697,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet trash pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet trash pullout interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet trash pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "trash pullout"
     },
@@ -3717,7 +3717,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet cutting board insert interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet cutting board insert interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet cutting board insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "cutting board insert"
     },
@@ -3737,7 +3737,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet mixer lift interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet mixer lift interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet mixer lift interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "mixer lift"
     },
@@ -3757,7 +3757,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet tip out tray interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet tip out tray interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet tip out tray interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "tip out tray"
     },
@@ -3777,7 +3777,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet vertical divider interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet vertical divider interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet vertical divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "vertical divider"
     },
@@ -3797,7 +3797,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet drawer organizer kit interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet drawer organizer kit interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet drawer organizer kit interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "drawer organizer kit"
     },
@@ -3817,7 +3817,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet led strip channel interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet led strip channel interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet led strip channel interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "led strip channel"
     },
@@ -3837,7 +3837,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet pull out hamper interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet pull out hamper interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet pull out hamper interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "pull out hamper"
     },
@@ -3857,7 +3857,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet wine rack insert interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet wine rack insert interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet wine rack insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "wine rack insert"
     },
@@ -3877,7 +3877,7 @@
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet appliance garage interior accessory installed in a kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Cabinet appliance garage interior accessory installed in a kitchen, product photography, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet appliance garage interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "appliance garage"
     }

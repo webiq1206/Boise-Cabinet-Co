@@ -1,0 +1,16 @@
+{
+  "terms": [
+    "one[\\s_-]?source",
+    "onesource",
+    "tafisa",
+    "salice",
+    "futura",
+    "smove",
+    "\\bosc\\b"
+  ],
+  "allowlist": [
+    "one source paragraph",
+    "one sourceReview",
+    "at least one source file"
+  ]
+}

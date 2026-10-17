@@ -28,7 +28,7 @@ export const OSC_CONSTRUCTION = {
       "description": "Full 3/4\" birch plywood sides"
     },
     {
-      "id": "salice-hinges",
+      "id": "soft-close-hinges",
       "label": "Soft-close hinge options",
       "description": "Six-way adjustable, 64mm line bore"
     },
