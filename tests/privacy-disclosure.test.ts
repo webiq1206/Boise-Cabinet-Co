@@ -38,7 +38,7 @@ test("the privacy page states the approved analytics disclosures", () => {
 test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
   assert.match(
     privacy,
-    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened and on which page, so we can count calls and texts that come from our ads\. We don't send Google your name, phone number or the content of your call or message\./,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened, on which page, and the ad click identifier Google's tag saved if you arrived from one of our ads, so we can count calls and texts that come from our ads\. The tap itself doesn't send Google your name, phone number or what you say or write\. Google Analytics also records that you tapped Call or Text\. If your call goes through a Google forwarding number, Google connects the call and can see the calling number and call length, but not what's said\./,
   );
 });
 
