@@ -137,6 +137,12 @@ const boiseSections: ContentSection[] = [
     paragraphs: [],
   },
   {
+    h2: 'Do Boise cabinet projects need a permit?',
+    paragraphs: [
+      'Usually not for the cabinets themselves. The City of Boise\'s residential permit brochure says the building code exempts interior work such as painting, floor covering, cabinets, counter tops and wall coverings. A permit comes into play when the work opens walls down to the studs, adds a wall or partition (bearing or not), or relocates sinks and other plumbing fixtures. Property inside city limits goes through the city; confirm the jurisdiction for the actual address first. <a href="https://www.cityofboise.org/departments/planning-and-development-services/building/building-permits/">Boise\'s building permit pages</a> have the details, and our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows where permits fit in the schedule.',
+    ],
+  },
+  {
     h2: 'Next steps in Boise',
     paragraphs: [
       '<a href="/contact">Consultation</a> · <a href="/estimate">Get an estimate</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley hub</a>.',
@@ -154,7 +160,7 @@ export const TV_QUICK_ANSWER =
   'The Treasure Valley covers Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell. Boise Cabinet Co builds and installs custom cabinets valley-wide, start with our catalog and cost guide for your room.';
 
 export const BOISE_QUICK_ANSWER =
-  'Boise spans North End, Bench, Harris Ranch, and East Boise, each with different layout and storage needs. Browse kitchen and bath catalog pages and our cabinet cost guide before your consultation.';
+  'Boise spans the North End, the Bench, Harris Ranch and East Boise, and each one asks something different of a cabinet layout. It also has the oldest housing we work in, with roughly two in five homes dating from before 1980 according to Census ACS 2020–2024 estimates. Before your consultation, browse the kitchen and bath catalog pages and our cabinet cost guide.';
 
 export const TV_TAKEAWAYS = [
   'Eight cities across Ada and Canyon Counties.',

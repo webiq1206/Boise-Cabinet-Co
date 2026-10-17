@@ -279,7 +279,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most kitchen cabinet packages plan from roughly $15,000–$45,000+ depending on linear footage and collection, see our cabinet cost guide for detail.',
+          'Plan on roughly $15,000–$45,000+ for most Boise kitchen cabinet packages. Linear footage and the collection you pick move the number, and the cabinet cost guide breaks it down further.',
       },
       {
         question: 'What Boise neighborhoods do you serve?',
@@ -309,6 +309,11 @@ export const GUIDE_PAGES: GuidePageData[] = [
         question: 'Where can I see door styles and finishes?',
         answer:
           'Browse online, use the design studio, or view samples during your in-home consultation.',
+      },
+      {
+        question: 'How much of Boise\'s housing predates 1980?',
+        answer:
+          'A lot. Boise\'s median home was built in 1986, and the share built before 1960 is about 17%, by Census ACS 2020–2024 estimates. That\'s why so many Boise jobs involve plaster walls, soffits and out-of-square rooms, and why we measure on site and size every box to the room.',
       },
     ],
     linkedCities: ['boise'],

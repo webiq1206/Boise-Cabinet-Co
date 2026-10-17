@@ -1,6 +1,5 @@
 import { buildSectionsHtml, PILLAR_COST, PILLAR_TV, type ContentSection } from './wave1/snippets';
 import type { GuidePageData } from '../guideContent';
-import {permitGuidanceHtml} from '../../lib/permitGuidance';
 
 /**
  * City location guides for the seven Treasure Valley cities beyond Boise.
@@ -24,20 +23,6 @@ interface CityGuideSpec {
   primaryKeyword: string;
 }
 
-const NEXT_STEPS: ContentSection = {
-  h2: 'Next steps',
-  paragraphs: [
-    '<a href="/contact">Schedule a free design consultation</a> · <a href="/cabinets">Browse cabinets by room</a> · <a href="/guides/boise-cabinet-cost-guide">Cabinet cost guide</a>.',
-  ],
-};
-
-function countySection(cityName: string, _county: 'ada' | 'canyon'): ContentSection {
-  return {h2:`Permits for ${cityName} cabinet projects`,paragraphs:[
-    permitGuidanceHtml(cityName),
-    'Replacing cabinets and relocating plumbing, electrical or walls are different scopes. Confirm which permits apply before demolition. See the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for the planning sequence.',
-  ]};
-}
-
 const CITY_GUIDE_SPECS: CityGuideSpec[] = [
   {
     slug: 'meridian-cabinet-guide',
@@ -50,7 +35,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Meridian: subdivision housing stock, the most common upgrades, planning ranges, and catalog links.',
     quickAnswer:
-      'Meridian is our home base. Most Meridian projects upgrade 1990s to 2010s builder-grade kitchens with custom islands, pantry storage, and mudroom drop zones. Boise Cabinet Co designs, builds, and installs frameless custom cabinets across every Meridian subdivision.',
+      'Meridian is home base for Boise Cabinet Co. Most of our work here upgrades the builder-grade kitchens that went into the city\'s 1990s-to-2010s subdivisions with custom islands, pantry storage and mudroom drop zones, and the typical Meridian house dates to about 2007 (Census ACS 2020–2024). We design, build and install frameless custom cabinets in every Meridian subdivision.',
     takeaways: [
       'Builder-grade kitchen upgrades are the most common Meridian project.',
       'Mudroom lockers and pantry systems suit garage-entry floor plans.',
@@ -60,8 +45,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          'Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We build frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city.',
-          `Start with the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> for valley-wide context, then use this page for Meridian specifics.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We build frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -83,15 +67,24 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'Rear-entry garages and family-room-adjacent kitchens make storage near the entry the second most requested project after kitchens.',
         ],
       },
-      countySection('Meridian', 'ada'),
+      {
+        h2: 'Permits for Meridian cabinet projects',
+        paragraphs: [
+          'Inside Meridian city limits, permits come from the City of Meridian\'s Building Services at 33 E. Broadway Ave., which takes applications through its Citizen Access portal. A property outside city limits follows the county process instead, so check the jurisdiction for the actual address before applying. The city\'s own handout lists painting, papering, tiling, carpeting, cabinets, counter tops and similar finish work as exempt from permits. Replacing cabinets is one job; relocating plumbing, electrical or walls is a different scope, with its own permits, fees, inspection steps and review timing, so settle which ones apply before anything is torn out. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> lays out the order.',
+        ],
+      },
       {
         h2: 'Meridian cabinet costs and planning',
         paragraphs: [
-          `Material and labor rates match the rest of the valley. Kitchen packages commonly plan from roughly $15,000 to $45,000+ depending on linear footage, door style, and accessories. Full bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Compare door styles and finishes in the <a href="/catalog">catalog</a> before your consultation to speed up selections.',
+          `Being local doesn't change Meridian material or labor rates; they're the same across the valley. Kitchen packages here commonly plan from about $15,000 to $45,000 and up, with linear footage, door style and accessories deciding where you land, which works out to roughly $450 to $900 per linear foot on our planning figures. Every band is in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Looking through door styles and finishes in the <a href="/catalog">catalog</a> before the consultation makes selections go faster.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'From here you can <a href="/contact">book a free design consultation</a>, <a href="/cabinets">look through cabinets room by room</a>, or open the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
@@ -102,7 +95,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How much do kitchen cabinets cost in Meridian?',
         answer:
-          'Meridian rates match the rest of the Treasure Valley: most kitchen cabinet packages plan from roughly $15,000 to $45,000+ depending on linear footage, door style, and accessories.',
+          'Meridian prices are Treasure Valley prices. Most kitchen cabinet packages here fall somewhere from about $15,000 to $45,000+, and the spread comes from linear footage, door style and accessories.',
       },
       {
         question: 'Can you upgrade builder-grade cabinets in Paramount or Tuscany?',
@@ -117,12 +110,17 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Meridian cabinet project take?',
         answer:
-          'Typically 4 to 8 weeks from approved design to installation. Being based in Meridian, delivery and install scheduling here is usually the fastest in our service area.',
+          'Usually 4 to 8 weeks after design approval. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
       },
       {
         question: 'Do you build mudroom and pantry storage in Meridian?',
         answer:
           'Yes. Mudroom lockers, drop zones, and pantry walls are the second most requested Meridian project after kitchens, especially in garage-entry floor plans.',
+      },
+      {
+        question: 'How new are Meridian homes?',
+        answer:
+          'Mostly 2000s and newer. Census ACS 2020–2024 estimates show about 40% of Meridian homes built in 2010 or later and only about 7% before 1980. Those are the builder-grade kitchens, often with stock heights and basic shelving, that make up most of our Meridian upgrades.',
       },
     ],
     tags: ['meridian', 'ada county', 'cabinets', 'idaho'],
@@ -139,10 +137,10 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Eagle: estate-level kitchens, HOA design review, premium finishes, and planning guidance.',
     quickAnswer:
-      'Eagle projects trend larger and more finish-driven than anywhere else in the valley: estate kitchens, butler pantries, paneled appliances, and whole-home cabinet programs. Boise Cabinet Co builds frameless custom cabinetry for Eagle homes, including HOA communities with architectural review.',
+      'Eagle projects run bigger and more finish-driven than anywhere else in the valley: estate kitchens, butler pantries, paneled appliances and whole-home cabinet programs. Census figures (ACS 2020–2024) show Eagle is overwhelmingly owner-occupied, single-family housing. Boise Cabinet Co builds frameless custom cabinetry for those homes, including HOA communities with architectural review.',
     takeaways: [
       'Eagle kitchens favor premium finishes, paneled appliances, and butler pantries.',
-      'HOA communities like Hidden Springs and the Foothills add review time; plan early.',
+      'HOA communities like the Foothills add review time; plan early.',
       'Whole-home cabinet programs keep finishes cohesive across large floor plans.',
     ],
     sections: [
@@ -156,7 +154,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Eagle housing: estates, foothills, and executive subdivisions',
         paragraphs: [
-          'BanBury, Legacy, Two Rivers, Eagle Foothills, and Hidden Springs span custom estates to executive subdivisions. Ten-foot ceilings, oversized islands, and open great rooms are common, which means taller uppers, stacked cabinets, and furniture-grade end panels.',
+          'BanBury, Legacy, Two Rivers, and Eagle Foothills span custom estates to executive subdivisions. Ten-foot ceilings, oversized islands, and open great rooms are common, which means taller uppers, stacked cabinets, and furniture-grade end panels.',
           'Hillside and view lots in the Foothills often pair kitchens with wet bars and entertainment walls designed as one coordinated finish package.',
         ],
       },
@@ -175,23 +173,33 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'HOA design review in Eagle communities',
         paragraphs: [
-          'Hidden Springs, the Foothills, and several BanBury-area HOAs review exterior-visible work. Interior cabinetry is normally exempt, but outdoor kitchens and garage-facing cabinetry can trigger review. We build review time into the schedule from day one.',
+          'The Foothills and several BanBury-area HOAs review exterior-visible work. Interior cabinetry is normally exempt, but outdoor kitchens and garage-facing cabinetry can trigger review. We build review time into the schedule from day one.',
         ],
       },
-      countySection('Eagle', 'ada'),
+      {
+        h2: 'Permits for Eagle cabinet projects',
+        paragraphs: [
+          'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions is 6 weeks, assuming no revisions, so a cabinet job that grows into moving walls needs that time in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
+        ],
+      },
       {
         h2: 'Eagle cabinet costs and planning',
         paragraphs: [
           `Eagle budgets skew higher because of finish level and scale, not labor rates. Luxury kitchens commonly exceed the valley-typical band; planning detail lives in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> and our luxury cost article on the <a href="/blog/luxury-custom-cabinet-cost-boise">blog</a>.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'Choose a starting point: a <a href="/contact">free design consultation</a>, the <a href="/cabinets">room-by-room cabinet pages</a>, or the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Eagle?',
         answer:
-          'Yes. We design, build, and install frameless custom cabinets across Eagle, including BanBury, Legacy, Two Rivers, Eagle Foothills, and Hidden Springs.',
+          'Yes. Frameless custom cabinets for Eagle homes are something we design, build, and install across the city, including BanBury, Legacy, Two Rivers, and Eagle Foothills.',
       },
       {
         question: 'How much do luxury kitchen cabinets cost in Eagle?',
@@ -201,7 +209,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do Eagle HOAs review cabinet projects?',
         answer:
-          'Interior cabinetry is normally exempt, but outdoor kitchens and exterior-visible work in communities like Hidden Springs and the Foothills can trigger architectural review. We plan for it from day one.',
+          'Interior cabinetry is normally exempt, but outdoor kitchens and exterior-visible work in communities like the Foothills can trigger architectural review. We plan for it from day one.',
       },
       {
         question: 'Can you match cabinets across a whole Eagle home?',
@@ -216,7 +224,12 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does an Eagle cabinet project take?',
         answer:
-          'Plan 4 to 8 weeks from approved design to installation for most projects; large whole-home programs and HOA review can extend the calendar.',
+          'For most Eagle work, count on 4 to 8 weeks after you approve the design. Big whole-home programs and HOA review can push that out.',
+      },
+      {
+        question: 'How new is Eagle\'s housing?',
+        answer:
+          'Fairly new. Eagle\'s median home was built in 2007, and about 43% are from 2010 or later (ACS 2020–2024). Taller ceilings and open great rooms are common in that stock, which is why stacked uppers and furniture-grade end panels show up so often in our Eagle designs.',
       },
     ],
     tags: ['eagle', 'ada county', 'luxury cabinets', 'idaho'],
@@ -233,7 +246,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Nampa: mixed housing stock from historic bungalows to new builds, Canyon County permitting, and planning ranges.',
     quickAnswer:
-      'Nampa mixes historic bungalows near downtown with fast-growing subdivisions, so cabinet projects range from creative small-kitchen layouts to full builder-grade replacements. Boise Cabinet Co designs, builds, and installs custom cabinets throughout Nampa and Canyon County.',
+      'Nampa has historic bungalows near downtown and subdivisions that keep spreading, so cabinet work here runs from clever small-kitchen layouts to full builder-grade replacements. Roughly a quarter of Nampa homes predate 1980, by Census ACS 2020–2024 estimates. We design, build and install custom cabinets across Nampa and the rest of Canyon County.',
     takeaways: [
       'Older Nampa bungalows reward custom widths and tall storage in compact kitchens.',
       'Newer subdivisions follow the builder-grade upgrade path common across the valley.',
@@ -260,26 +273,35 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'South and west Nampa grew quickly through the 2000s and 2010s with builder-grade packages. Upgrades follow the valley pattern: taller uppers, working islands, pantry walls, and <a href="/cabinets/laundry">laundry</a> or <a href="/cabinets/garage">garage storage</a> as a second phase.',
         ],
       },
-      countySection('Nampa', 'canyon'),
+      {
+        h2: 'Permits for Nampa cabinet projects',
+        paragraphs: [
+          'If the property is inside Nampa city limits, the city\'s building department is where permits start (<a href="https://www.cityofnampa.us/428/Residential-Permit-Applications">official Nampa permit guidance</a>); outside city limits the county process applies, so confirm the jurisdiction first. Nampa\'s residential FAQ lists cabinets and counter tops, along with painting, floor covering and wall coverings, as exempt interior work, which makes a cabinet swap a different scope from a layout change. You\'ll need a permit once the project strips drywall to the framing, puts up a new wall of any kind, or moves a sink, tub, shower or toilet. Which building and trade permits apply, and what they cost and require, depends on the work and the address, so pin it down before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> walks through the steps.',
+        ],
+      },
       {
         h2: 'Nampa cabinet costs and planning',
         paragraphs: [
-          `Labor and material rates match the rest of the valley; finish tier and linear footage drive your number. Planning bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Value-focused projects often pair a mid-tier matte finish with drawer-base upgrades where they matter most. Compare options in the <a href="/catalog">catalog</a>.',
+          `Nampa labor and material rates are the same as the rest of the valley; your number comes from finish tier and linear footage. The <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> has the planning ranges. On value-focused jobs, a mid-tier matte finish paired with drawer-base upgrades where they count goes a long way. Compare options in the <a href="/catalog">catalog</a>.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'When you\'re ready, <a href="/contact">book a free design consultation</a>, <a href="/cabinets">shop cabinets by room</a>, or check the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Nampa?',
         answer:
-          'Yes. We design, build, and install custom cabinets throughout Nampa, from historic homes near downtown to new subdivisions in south and west Nampa.',
+          'Yes. We design, build, and install custom cabinets all over Nampa, in historic homes near downtown and in the newer subdivisions of south and west Nampa.',
       },
       {
         question: 'How much do kitchen cabinets cost in Nampa?',
         answer:
-          'Nampa rates match the rest of the Treasure Valley: most kitchen packages plan from roughly $15,000 to $45,000+ based on linear footage, door style, and accessories, not zip code.',
+          'Nampa pays Treasure Valley rates. A typical kitchen package plans at about $15,000 to $45,000+, and what sets it is linear footage, door style and accessories, not zip code.',
       },
       {
         question: 'Can you fit cabinets in an older Nampa bungalow kitchen?',
@@ -289,7 +311,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do Nampa cabinet projects need Canyon County permits?',
         answer:
-          'Cabinet-only replacements usually do not. Work that moves plumbing or electrical routes through Canyon County review, which has different portals and cadence than Ada County. We handle it.',
+          'Cabinet-only replacements usually don\'t. Moving plumbing or electrical sends the work to permit review, which the City of Nampa handles for in-town addresses and Canyon County handles elsewhere, and Canyon County\'s portals and cadence differ from Ada County\'s. We take care of it.',
       },
       {
         question: 'Do you charge more to deliver and install in Nampa?',
@@ -300,6 +322,11 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         question: 'What Nampa cabinet projects are most common?',
         answer:
           'Kitchen replacements lead, followed by bathroom vanities, pantry storage, and laundry or garage systems in newer subdivisions.',
+      },
+      {
+        question: 'How old are Nampa homes?',
+        answer:
+          'All ages. Nampa\'s median home dates to 2000, with about 15% built before 1960 and about 22% built in 2010 or later (ACS 2020–2024). That spread is why one Nampa week can include a bungalow galley kitchen and a builder-grade island replacement.',
       },
     ],
     tags: ['nampa', 'canyon county', 'cabinets', 'idaho'],
@@ -316,7 +343,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Kuna: newer family homes, the most common storage upgrades, Ada County permits, and planning ranges.',
     quickAnswer:
-      'Kuna is one of the fastest-growing cities in Idaho, dominated by newer family homes with builder-grade cabinet packages. The most common projects are kitchen upgrades, pantry walls, and mudroom and garage storage. Boise Cabinet Co builds and installs custom frameless cabinets throughout Kuna.',
+      'Kuna has been one of Idaho\'s fastest-growing cities, and its houses show it: about three in four were built in 2000 or later, a Census ACS 2020–2024 estimate, most with builder-grade cabinet packages. Kitchen upgrades, pantry walls, and mudroom and garage storage are what Kuna families ask us for most. Boise Cabinet Co builds and installs custom frameless cabinets all over Kuna.',
     takeaways: [
       'Most Kuna homes are newer builds with stock cabinet packages ready for upgrades.',
       'Family storage, mudrooms, pantries, and garages, is the signature Kuna request.',
@@ -326,8 +353,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Kuna',
         paragraphs: [
-          'Kuna has grown faster than almost anywhere in the valley, and most of its housing stock is under 20 years old. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a>, and <a href="/cabinets/garage">garage storage</a> for Kuna families.',
-          `Start with the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> for valley-wide planning.`,
+          `Kuna has grown faster than almost anywhere in the valley, and most of its housing stock is under 20 years old. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a>, and <a href="/cabinets/garage">garage storage</a> for Kuna families. Planning that applies everywhere in the valley sits on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
       {
@@ -349,25 +375,35 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'Young-family floor plans make hardworking storage the priority; see the <a href="/cabinets">full room catalog</a> for ideas.',
         ],
       },
-      countySection('Kuna', 'ada'),
+      {
+        h2: 'Permits for Kuna cabinet projects',
+        paragraphs: [
+          'Kuna has its own Building Department at 751 W. 4th St., which handles permits for property inside city limits; land outside them follows the county process, so check which one covers your address before you apply. A straight cabinet swap and a project that relocates plumbing, electrical or walls are different scopes. If a sink moves, for example, Kuna\'s fee schedule charges $65 for a plumbing permit on an existing home, with $10 added per extra fixture, and residential building submittals carry a $70 fee. The specific permits, costs, inspections and timelines hinge on the scope, so confirm them with the city before demolition. Our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> covers the sequence.',
+        ],
+      },
       {
         h2: 'Kuna cabinet costs and planning',
         paragraphs: [
-          `Rates match the rest of the valley. Most Kuna kitchen upgrades land in the value-to-mid band; full planning ranges live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
+          `Kuna pays the same rates as the rest of the valley, and most kitchen upgrades here fall in the value-to-mid band. The <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> has the full planning ranges.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'Ready to move? <a href="/contact">Schedule your free design consultation</a>, <a href="/cabinets">see cabinets organized by room</a>, or read the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Kuna?',
         answer:
-          'Yes. We design, build, and install frameless custom cabinets across Kuna, with kitchen upgrades and family storage as the most common projects.',
+          'Yes. Frameless custom cabinets go into Kuna homes all the time; we design, build, and install them, mostly for kitchen upgrades and family storage.',
       },
       {
         question: 'How much do kitchen cabinets cost in Kuna?',
         answer:
-          'Kuna pricing matches the valley: most kitchen packages plan from roughly $15,000 to $45,000+ depending on linear footage, door style, and accessories.',
+          'The same as anywhere in the valley. For most Kuna kitchens, a cabinet package plans in the $15,000 to $45,000+ range, set by linear footage, door style and accessories.',
       },
       {
         question: 'Can you upgrade builder-grade cabinets in a newer Kuna home?',
@@ -382,12 +418,17 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do Kuna cabinet projects need permits?',
         answer:
-          'Cabinet-only replacements rarely do. Plumbing, electrical, or structural changes route through Ada County review; we flag triggers during design.',
+          'Cabinet-only replacements rarely do. Plumbing, electrical or structural changes need permit review, by the City of Kuna for addresses in town and by Ada County beyond city limits, and we point out those triggers during design.',
       },
       {
         question: 'How long does a Kuna cabinet project take?',
         answer:
-          'Plan 4 to 8 weeks from approved design to installed cabinets, depending on scope and finish selection.',
+          'Expect 4 to 8 weeks between design approval and installed cabinets; scope and finish selection decide where in that window you fall.',
+      },
+      {
+        question: 'How new are Kuna\'s homes?',
+        answer:
+          'Very. Kuna\'s median home was built in 2008; about 43% date from 2010 or later and about 15% from 2020 or later (ACS 2020–2024). About 92% are single-family detached houses, which is why builder-package kitchens and garage storage dominate our Kuna work.',
       },
     ],
     tags: ['kuna', 'ada county', 'cabinets', 'idaho'],
@@ -404,7 +445,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Star: new construction and acreage properties, popular projects, Ada County permits, and planning ranges.',
     quickAnswer:
-      'Star blends brand-new subdivisions with acreage and estate properties along the Highway 44 corridor. Cabinet projects range from first-upgrade kitchens to large pantries and shop storage. Boise Cabinet Co designs, builds, and installs custom frameless cabinets throughout Star.',
+      'Star mixes brand-new subdivisions with acreage and estate properties along Highway 44, and more than half its homes were built in 2010 or later (Census ACS 2020–2024). Projects run from a first kitchen upgrade to oversized pantries and shop storage, all of them custom frameless cabinets that we design, build and install ourselves across Star.',
     takeaways: [
       'Star mixes new subdivisions with acreage and estate homes.',
       'Large pantries, mudrooms, and shop or garage storage suit Star lot sizes.',
@@ -414,15 +455,13 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Star',
         paragraphs: [
-          'Star has transformed from a small farm town into one of the valley\'s fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties.',
-          `For valley-wide planning, start at the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
+          `Star has transformed from a small farm town into one of the valley's fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties. If you're planning across the whole valley, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> is the better starting point.`,
         ],
       },
       {
         h2: 'Star housing: new builds and acreage properties',
         paragraphs: [
-          'Newer Star subdivisions follow the familiar builder-grade pattern, ready for taller uppers, drawer bases, and pantry walls. Acreage and estate homes bring different requests: oversized kitchens for entertaining, big walk-in pantries for bulk storage, and durable cabinetry for shops and outbuildings.',
-          'Households that buy in bulk or process garden harvests ask for deep pantry runs and second-prep zones more often in Star than anywhere else we serve.',
+          'Newer Star subdivisions follow the familiar builder-grade pattern, ready for taller uppers, drawer bases, and pantry walls. Acreage and estate homes bring different requests: oversized kitchens for entertaining, big walk-in pantries for bulk storage, and durable cabinetry for shops and outbuildings. Households that buy in bulk or put up garden harvests ask us for deep pantry runs and a second prep zone, and that request comes up in Star more than in any other city we serve.',
         ],
       },
       {
@@ -437,25 +476,35 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'Browse the <a href="/cabinets">room catalog</a> to see how these systems are configured.',
         ],
       },
-      countySection('Star', 'ada'),
+      {
+        h2: 'Permits for Star cabinet projects',
+        paragraphs: [
+          'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists small residential projects at about 2 to 4 weeks of review, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
+        ],
+      },
       {
         h2: 'Star cabinet costs and planning',
         paragraphs: [
-          `Star pricing follows valley rates; lot location does not change cabinet cost. Planning bands by room live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
+          `Cabinet pricing in Star follows valley rates, and being on acreage or in a subdivision doesn't change it. The <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> lists planning bands room by room.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          '<a href="/contact">Set up a free design consultation</a>, <a href="/cabinets">browse the catalog room by room</a>, or start with the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Star?',
         answer:
-          'Yes. We design, build, and install frameless custom cabinets across Star, from new subdivisions to acreage and estate properties along Highway 44.',
+          'Yes. Across Star, from new subdivisions to acreage and estate properties along Highway 44, we take frameless custom cabinets from design through build and installation.',
       },
       {
         question: 'How much do kitchen cabinets cost in Star?',
         answer:
-          'Star pricing matches the rest of the valley: most kitchen packages plan from roughly $15,000 to $45,000+ depending on size, door style, and accessories.',
+          'Close to the valley norm. Most Star kitchen packages plan around $15,000 to $45,000+; size, door style and accessories make the difference.',
       },
       {
         question: 'Can you build a large walk-in pantry for an acreage home?',
@@ -470,12 +519,17 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do Star cabinet projects need permits?',
         answer:
-          'Cabinet-only work rarely does. Plumbing, electrical, or structural changes route through Ada County review; we flag any triggers during design.',
+          'Usually not for cabinet-only work. Plumbing, electrical or structural changes go through permit review, handled by Star\'s own building department in town and by Ada County outside it, and we flag any triggers while designing.',
       },
       {
         question: 'How long does a Star cabinet project take?',
         answer:
-          'Plan 4 to 8 weeks from approved design to installation. Star is inside our standard delivery area.',
+          'From approved design to installation, plan on 4 to 8 weeks. Star sits inside our standard delivery area.',
+      },
+      {
+        question: 'Which county is Star in?',
+        answer:
+          'Mostly Ada. By Census TIGER boundaries, about 83 percent of Star\'s land area is in Ada County with the remainder in Canyon, so a Star address can fall in either. Inside city limits, permits still go through the City of Star either way.',
       },
     ],
     tags: ['star', 'ada county', 'cabinets', 'idaho'],
@@ -492,7 +546,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Caldwell: historic housing near Indian Creek, newer subdivisions, Canyon County permitting, and planning ranges.',
     quickAnswer:
-      'Caldwell pairs a revitalized Indian Creek downtown and historic College of Idaho neighborhoods with fast-growing subdivisions. Cabinet projects span careful upgrades in century-old homes to builder-grade replacements in new builds. Boise Cabinet Co serves all of Caldwell and Canyon County.',
+      'Caldwell pairs a revitalized downtown along Indian Creek and the historic neighborhoods around the College of Idaho with fast-growing subdivisions. Cabinet projects range from careful upgrades in century-old houses to builder-grade replacements in new ones, and roughly one Caldwell home in seven predates 1960 (Census ACS 2020–2024). Boise Cabinet Co serves all of Caldwell and Canyon County.',
     takeaways: [
       'Historic Caldwell homes need custom sizing for plaster walls and odd layouts.',
       'Newer subdivisions follow the standard builder-grade upgrade path.',
@@ -502,8 +556,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Caldwell',
         paragraphs: [
-          'Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it.',
-          `Start with the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> for valley-wide context.`,
+          `Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it. If you're comparing cities, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> has the valley-wide view.`,
         ],
       },
       {
@@ -518,31 +571,40 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'Growth on the south and east sides mirrors the valley pattern: builder-grade kitchens ready for taller uppers, drawer bases, working islands, and pantry walls. <a href="/cabinets/laundry">Laundry</a> and <a href="/cabinets/mudroom">mudroom</a> storage typically follow as a second phase.',
         ],
       },
-      countySection('Caldwell', 'canyon'),
+      {
+        h2: 'Permits for Caldwell cabinet projects',
+        paragraphs: [
+          'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review typically takes 5 to 7 working days. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
+        ],
+      },
       {
         h2: 'Caldwell cabinet costs and planning',
         paragraphs: [
-          `Caldwell pricing matches valley rates; travel inside our service area is never an upcharge. Planning bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Shortlist looks in the <a href="/catalog">catalog</a> before your in-home consultation.',
+          `Caldwell pricing is valley pricing, and travel inside our service area never adds an upcharge. You'll find planning bands in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Shortlist looks in the <a href="/catalog">catalog</a> ahead of your in-home consultation.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'Two clicks from here: <a href="/contact">a free design consultation</a>, <a href="/cabinets">cabinets sorted by room</a>, or the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Caldwell?',
         answer:
-          'Yes. We design, build, and install custom cabinets throughout Caldwell, from historic homes near downtown and the College of Idaho to new subdivisions.',
+          'Yes. Throughout Caldwell, from historic homes near downtown and the College of Idaho to new subdivisions, we design, build, and install custom cabinets.',
       },
       {
         question: 'How much do kitchen cabinets cost in Caldwell?',
         answer:
-          'Caldwell rates match the rest of the Treasure Valley: most kitchen packages plan from roughly $15,000 to $45,000+ based on linear footage, door style, and accessories.',
+          'Treasure Valley rates apply here too. A typical Caldwell kitchen package plans from roughly $15,000 to $45,000+, and linear footage, door style and accessories set the figure.',
       },
       {
         question: 'Can you work in older Caldwell homes with plaster walls?',
         answer:
-          'Yes. Built-to-order boxes and scribe-fit fillers are designed for out-of-plumb walls and settling floors common in early-1900s Caldwell homes.',
+          'Yes. Our scribe-fit fillers and built-to-order boxes are made for the out-of-plumb walls and settling floors that early-1900s Caldwell houses tend to have.',
       },
       {
         question: 'Do Caldwell projects use Canyon County permits?',
@@ -559,6 +621,11 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         answer:
           'Kitchen replacements lead, followed by vanities and pantry storage in newer subdivisions, and storage-recovery projects in historic homes.',
       },
+      {
+        question: 'How old is Caldwell\'s housing?',
+        answer:
+          'Mixed. Caldwell\'s median home dates to 2003, yet close to three in ten were built before 1980, going by Census ACS 2020–2024 numbers. Older houses near downtown and newer subdivisions on the south and east sides call for very different cabinet plans, and we scope each one on site.',
+      },
     ],
     tags: ['caldwell', 'canyon county', 'cabinets', 'idaho'],
     primaryKeyword: 'custom cabinets Caldwell',
@@ -574,7 +641,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Middleton: small-town and acreage housing, popular storage projects, Canyon County permits, and planning ranges.',
     quickAnswer:
-      'Middleton keeps a small-town, acreage character while growing along the Highway 44 corridor. Cabinet projects favor hardworking kitchens, big pantries, mudrooms, and shop storage. Boise Cabinet Co designs, builds, and installs custom frameless cabinets throughout Middleton and Canyon County.',
+      'Middleton is growing along the Highway 44 corridor without losing its small-town, acreage feel, and about 90% of its homes are owner-occupied (Census ACS 2020–2024). Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and shop storage. Our team designs, builds and installs custom frameless cabinets in Middleton and across Canyon County.',
     takeaways: [
       'Middleton favors practical, hardworking cabinetry: pantries, mudrooms, and shop storage.',
       'Acreage properties drive demand for garage and outbuilding cabinet systems.',
@@ -584,8 +651,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Middleton',
         paragraphs: [
-          'Middleton sits between Star and Caldwell on the Highway 44 corridor and keeps more acreage and small-town character than its neighbors. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/garage">garage storage</a> for Middleton homes.',
-          `For valley-wide planning, start at the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
+          `Middleton sits between Star and Caldwell on the Highway 44 corridor and keeps more acreage and small-town character than its neighbors. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/garage">garage storage</a> for Middleton homes. Advice that applies valley-wide lives on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
       {
@@ -607,25 +673,35 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'See the <a href="/cabinets">full room catalog</a> and our <a href="/construction">construction standards</a> for what goes into every box.',
         ],
       },
-      countySection('Middleton', 'canyon'),
+      {
+        h2: 'Permits for Middleton cabinet projects',
+        paragraphs: [
+          'Within Middleton city limits, permits come from the city\'s Building Department, which runs applications through an online Citizenserve portal (<a href="https://middleton.id.gov/">official Middleton permit guidance</a>). If you\'re not sure a parcel is in town, the city points to the county assessor\'s online map; unincorporated land follows the county process. Under section 4-1-1 of Middleton\'s code, a cabinet replacement that leaves plumbing and electrical alone is exempt. Relocating plumbing, electrical or walls is a separate scope that can need building and trade permits, and the code also requires a demolition permit when part of a structure is torn out. Confirm fees, inspections and review times for the actual address before demolition, and see the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for the sequence.',
+        ],
+      },
       {
         h2: 'Middleton cabinet costs and planning',
         paragraphs: [
-          `Middleton pricing matches the valley; our service area covers it at standard rates. Planning bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
+          `Middleton is priced like the rest of the valley, and it's inside our service area at standard rates. For planning bands, see the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
         ],
       },
-      NEXT_STEPS,
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'Next, <a href="/contact">request a free design consultation</a>, <a href="/cabinets">explore cabinets by room</a>, or review the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
     ],
     faqs: [
       {
         question: 'Do you build custom cabinets in Middleton?',
         answer:
-          'Yes. We design, build, and install frameless custom cabinets throughout Middleton, from in-town homes to acreage properties.',
+          'Yes. From in-town houses to acreage properties, we handle Middleton cabinet projects start to finish: frameless custom boxes we design, build, and install.',
       },
       {
         question: 'How much do kitchen cabinets cost in Middleton?',
         answer:
-          'Middleton rates match the rest of the Treasure Valley: most kitchen packages plan from roughly $15,000 to $45,000+ depending on size, door style, and accessories.',
+          'About what it costs elsewhere in the Treasure Valley. Most Middleton kitchen packages plan at roughly $15,000 to $45,000+, driven by size, door style and accessories.',
       },
       {
         question: 'Do you build shop and outbuilding cabinets in Middleton?',
@@ -635,7 +711,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do Middleton projects need Canyon County permits?',
         answer:
-          'Cabinet-only replacements usually do not. Work involving plumbing, electrical, or structural changes routes through Canyon County review, which we handle.',
+          'Cabinet-only replacements usually don\'t need one. Plumbing, electrical or structural changes need review, from Middleton\'s Building Department in town or from Canyon County on unincorporated land, and we handle it.',
       },
       {
         question: 'Is Middleton inside your standard service area?',
@@ -645,7 +721,12 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Middleton cabinet project take?',
         answer:
-          'Plan 4 to 8 weeks from approved design to installed cabinets, depending on scope and finish selections.',
+          'Allow 4 to 8 weeks between an approved design and installation in Middleton, depending on scope and finish selections.',
+      },
+      {
+        question: 'How new are Middleton homes?',
+        answer:
+          'Newer than most. The median Middleton home dates to 2009 in Census ACS 2020–2024 estimates, and nearly half were built from 2010 on. Plenty of those kitchens still have their first builder cabinets, which is where most Middleton projects start.',
       },
     ],
     tags: ['middleton', 'canyon county', 'cabinets', 'idaho'],
