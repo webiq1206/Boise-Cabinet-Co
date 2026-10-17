@@ -276,7 +276,7 @@ export default function ContactPage() {
                   label="Email us"
                   subtext={
                     <>
-                      Response within one business day <PreferToTextLine />
+                      Response within one business day <PreferToTextLine className="mt-1 block" />
                     </>
                   }
                 >
