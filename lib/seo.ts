@@ -5,13 +5,15 @@
  */
 
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showLegacyLicenseWording } from '@/shared/trustFlags';
 
 const BRAND = SITE_CONFIG.name;
 
 /** Homepage title (50–60 chars) and meta description (120–160 chars). */
 export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
-export const HOMEPAGE_DESCRIPTION =
-  'Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. Licensed & insured. Free design consultation.';
+export const HOMEPAGE_DESCRIPTION = publishTrustText(
+  'Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. Licensed & insured. Free design consultation.',
+);
 
 interface SEOMetaData {
   title: string;
@@ -430,11 +432,13 @@ export const BUSINESS_INFO = {
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
   // TODO(client): set NEXT_PUBLIC_LICENSE_NUMBER to surface the real license #.
-  licenses: SITE_CONFIG.trust.licenseNumber
-    ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
-    : ['License details available upon request'],
+  licenses: showLegacyLicenseWording()
+    ? (SITE_CONFIG.trust.licenseNumber
+      ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
+      : ['License details available upon request'])
+    : [IDAHO_REGISTERED_CONTRACTOR],
   certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
-  insurance: 'Fully Licensed & Insured',
+  insurance: publishTrustText('Fully Licensed & Insured'),
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,

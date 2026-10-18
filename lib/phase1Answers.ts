@@ -1,3 +1,5 @@
+import { publishDeep } from "@/shared/trustFlags";
+
 /**
  * Additive answer blocks for phase-1 pages.
  * Facts are limited to frameless (European-style) boxes, soft-close hardware,
@@ -153,15 +155,17 @@ const CONTACT: Phase1Answer = {
 };
 
 export function phase1LocationAnswer(slug: string): Phase1Answer | undefined {
-  return LOCATIONS[slug];
+  const answer = LOCATIONS[slug];
+  return answer ? publishDeep(answer) : undefined;
 }
 
 export function phase1RoomAnswer(slug: string): Phase1Answer | undefined {
-  return ROOMS[slug];
+  const answer = ROOMS[slug];
+  return answer ? publishDeep(answer) : undefined;
 }
 
 export function phase1ContactAnswer(): Phase1Answer {
-  return CONTACT;
+  return publishDeep(CONTACT);
 }
 
-export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT];
+export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map((answer) => publishDeep(answer));

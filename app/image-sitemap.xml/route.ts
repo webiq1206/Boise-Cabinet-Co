@@ -4,6 +4,7 @@ import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
+import { showTestimonials } from '@/shared/trustFlags';
 
 /**
  * /image-sitemap.xml - Google Image sitemap extension.
@@ -56,7 +57,7 @@ export function GET() {
 
   // Project imagery (design concepts are labeled as such; verified projects are
   // described as completed work).
-  entries.push({
+  if (showTestimonials()) entries.push({
     page: `${BASE}/testimonials`,
     images: PROJECTS.map((project) => ({
       loc: abs(project.hero.src),

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { publishTrustText } from "@/shared/trustFlags";
 import { cn } from "@/lib/utils";
 import {
 COLLECTIONS,
@@ -276,7 +277,7 @@ export default function ComparePage() {
           <div className="ed-shell">
             <SectionHeader
               eyebrow={FINISH_TIER_COMPARISON.title}
-              title={<>299 finishes</>}
+              title={<>{publishTrustText("299 finishes")}</>}
               description={FINISH_TIER_COMPARISON.description}
               className="mb-8"
             />

@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from "./siteConfig";
+import { publishDeep, publishTrustText } from "./trustFlags";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { CITIES } from "./contentData";
@@ -145,10 +146,11 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
 export const KNOWLEDGE_TOPIC_KEYS = KNOWLEDGE_TOPICS.map((t) => t.key);
 
 export function getKnowledgeTopic(key: string): KnowledgeTopic | null {
-  return KNOWLEDGE_TOPICS.find((t) => t.key === key) ?? null;
+  const topic = KNOWLEDGE_TOPICS.find((t) => t.key === key) ?? null;
+  return topic ? publishDeep(topic) : null;
 }
 
 /** Compact topic index embedded in the assistant's system prompt. */
 export function knowledgeTopicIndex(): string {
-  return KNOWLEDGE_TOPICS.map((t) => `- ${t.key}: ${t.summary}`).join("\n");
+  return publishTrustText(KNOWLEDGE_TOPICS.map((t) => `- ${t.key}: ${t.summary}`).join("\n"));
 }

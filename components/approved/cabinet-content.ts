@@ -1,5 +1,7 @@
+import { publishDeep } from "@/shared/trustFlags";
+
 // Business copy restored from boisecabinet.co, reviewed September 24, 2026.
-export const faqs = [
+const faqsSource = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
     "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
@@ -50,7 +52,9 @@ export const faqs = [
   ]
 ];
 
-export const steps = [
+export const faqs = publishDeep(faqsSource);
+
+const stepsSource = [
   {
     "title": "Free design consultation",
     "desc": "We walk your space, discuss your goals, and explore collections and finishes. Your 60–90 minute in-home visit includes planning guidance with no obligation.",
@@ -78,7 +82,9 @@ export const steps = [
   }
 ];
 
-export const differentiators = [
+export const steps = publishDeep(stepsSource);
+
+const differentiatorsSource = [
   [
     "One team, one point of accountability",
     "Design, fabrication, and installation stay with one cabinet team. Your dedicated project manager stays with you from the first visit through the final walkthrough."
@@ -96,6 +102,8 @@ export const differentiators = [
     "We handle Ada and Canyon County permit requirements for the agreed scope and build realistic schedules into your project plan."
   ]
 ];
+
+export const differentiators = publishDeep(differentiatorsSource);
 
 export const additionalRooms = [
   [

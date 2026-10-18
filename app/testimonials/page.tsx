@@ -12,12 +12,13 @@ import { generateImageGallerySchema,generateLocalBusinessSchema } from '@/lib/sc
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { PROJECTS } from '@/shared/galleryData';
 import { MARKETING_IMAGES } from '@/shared/siteImages';
+import { showTestimonials } from '@/shared/trustFlags';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
   path: '/testimonials',
-  titleOverride: 'Cabinet Design Ideas & Reviews',
+  titleOverride: showTestimonials() ? 'Cabinet Design Ideas & Reviews' : 'Cabinet Design Ideas for Treasure Valley',
   descriptionOverride:
     'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
 })), "/testimonials");
@@ -55,10 +56,10 @@ export default function TestimonialsPage() {
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
         alt="Illustrative consultation scene showing cabinet finish selections"
-        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Projects & Reviews' }]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: showTestimonials() ? 'Projects & Reviews' : 'Design ideas' }]}
         eyebrow="Cabinet design inspiration"
-        title={<>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></>}
-        description="Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
+        title={showTestimonials() ? <>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></> : <>Cabinet design ideas</>}
+        description={showTestimonials() ? "Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication." : "Explore cabinet design concepts for Treasure Valley homes. Concept imagery illustrates design options and is not evidence of completed Boise projects."}
       >
         <CtaButton variant="brand">
           {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />

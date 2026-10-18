@@ -7,24 +7,32 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { publishDeep, publishTrustText, showFinishCounts, showLifetimeWarranty } from "@/shared/trustFlags";
 
-export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
+export const SITE_TAGLINE = publishTrustText("Idaho's premier custom cabinet company");
 
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
   "Design, build, and install premium custom cabinets from first sketch to final walkthrough.";
 
-export const HERO_STATS = [
+const HERO_STATS_SOURCE = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
   { num: "Lifetime", label: "Warranty" },
 ] as const;
 
+export const HERO_STATS = HERO_STATS_SOURCE.filter((stat) => {
+  if (!showFinishCounts() && stat.num === "299") return false;
+  if (!showLifetimeWarranty() && stat.num === "Lifetime") return false;
+  return true;
+});
+
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 
-export const DIFFERENTIATORS_INTRO =
-  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before fabrication, a job site that respects your home, and proactive updates through installation.";
+export const DIFFERENTIATORS_INTRO = publishTrustText(
+  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before fabrication, a job site that respects your home, and proactive updates through installation.",
+);
 
 export interface Differentiator {
   title: string;
@@ -35,7 +43,7 @@ export interface Differentiator {
 /** Top differentiators for homepage; full list on About. */
 export const HOMEPAGE_DIFFERENTIATOR_INDICES = [8, 0, 1, 2, 3] as const;
 
-export const DIFFERENTIATORS: Differentiator[] = [
+const DIFFERENTIATOR_SOURCE: Differentiator[] = [
   {
     title: "One team, one point of accountability",
     contrast: "Instead of coordinating a designer, a contractor, and multiple subs who may point fingers when something goes wrong,",
@@ -83,12 +91,14 @@ export const DIFFERENTIATORS: Differentiator[] = [
   },
 ];
 
-export const TRUST_ITEMS = [
+export const DIFFERENTIATORS = publishDeep(DIFFERENTIATOR_SOURCE);
+
+export const TRUST_ITEMS = publishDeep([
   "Bonded · Insured",
   "Liability Coverage",
   "Built to Order",
   "Workmanship Guarantee",
-];
+]);
 
 export interface TeamMember {
   name: string;
@@ -104,7 +114,7 @@ export interface TeamMember {
  * members before launch. Set `isPlaceholder: false` once confirmed. Person
  * schema is emitted only for confirmed (non-placeholder) members.
  */
-export const TEAM: TeamMember[] = [
+const TEAM_SOURCE: TeamMember[] = [
   {
     name: "Founder & Owner",
     role: "Founder & Owner",
@@ -125,7 +135,9 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
-export const PROMISE_ITEMS = [
+export const TEAM = publishDeep(TEAM_SOURCE);
+
+const PROMISE_ITEMS_SOURCE = [
   {
     num: "01",
     title: "Clear budget guidance",
@@ -148,6 +160,8 @@ export const PROMISE_ITEMS = [
   },
 ];
 
+export const PROMISE_ITEMS = publishDeep(PROMISE_ITEMS_SOURCE);
+
 export interface ClientPriority {
   title: string;
   body: string;
@@ -157,7 +171,7 @@ export interface ClientPriority {
 export const CLIENT_PRIORITIES: ClientPriority[] = [
   {
     title: "Trust and credibility",
-    body: "Licensed, bonded, and insured with permits handled in-house and a written scope before work begins.",
+    body: publishTrustText("Licensed, bonded, and insured with permits handled in-house and a written scope before work begins."),
     icon: ShieldCheck,
   },
   {
@@ -187,7 +201,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
 ];
 
-export const HOW_WE_BUILD_STEPS = [
+const HOW_WE_BUILD_STEPS_SOURCE = [
   {
     number: "01",
     title: "Free design consultation",
@@ -215,7 +229,9 @@ export const HOW_WE_BUILD_STEPS = [
   },
 ];
 
-export const PRINCIPLES = [
+export const HOW_WE_BUILD_STEPS = publishDeep(HOW_WE_BUILD_STEPS_SOURCE);
+
+const PRINCIPLES_SOURCE = [
   {
     title: "Written scope before we build",
     desc: "Every project starts with a clear written scope so you know exactly what to expect before fabrication begins.",
@@ -242,14 +258,16 @@ export const PRINCIPLES = [
   },
 ];
 
-export const STANDARD_INCLUSIONS = [
+export const PRINCIPLES = publishDeep(PRINCIPLES_SOURCE);
+
+export const STANDARD_INCLUSIONS = publishDeep([
   "All permits pulled in-house",
   "Dedicated project manager",
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
   "Written workmanship guarantee",
   "Manufacturer warranties passed through",
-];
+]);
 
 export const OPTIONAL_ENHANCEMENTS = {
   title: "3D renderings and visualizations",

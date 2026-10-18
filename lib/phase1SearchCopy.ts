@@ -1,3 +1,5 @@
+import { publishTrustText } from "@/shared/trustFlags";
+
 /**
  * Phase-1 search title and description rewrites.
  * Titles are the text before the layout suffix " | Boise Cabinet Co".
@@ -138,5 +140,6 @@ export function phase1Title(path: string): string | undefined {
 }
 
 export function phase1Description(path: string): string | undefined {
-  return PHASE1_DESCRIPTIONS[path];
+  const value = PHASE1_DESCRIPTIONS[path];
+  return value ? publishTrustText(value) : undefined;
 }

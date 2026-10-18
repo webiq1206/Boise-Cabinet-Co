@@ -5,6 +5,7 @@ import { Section } from "@/components/marketing/Section";
 import { AggregateRating } from "@/components/marketing/AggregateRating";
 import { Button } from "@/components/ui/button";
 import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { showTestimonials } from "@/shared/trustFlags";
 import { CITIES, SERVICES } from "@/shared/contentData";
 
 function serviceLabel(slug: string) {
@@ -42,6 +43,7 @@ interface TestimonialsSectionProps {
  * scale beside the heading, and the remaining reviews in a hairline matrix.
  */
 export function TestimonialsSection({ limit = 4, showViewAll = true }: TestimonialsSectionProps) {
+  if (!showTestimonials()) return null;
   const items = TESTIMONIALS.slice(0, limit);
   const [featured, ...rest] = items;
 

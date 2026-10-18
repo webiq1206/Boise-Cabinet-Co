@@ -1,4 +1,5 @@
 import type { RoomCategory } from "./roomCategories";
+import { publishDeep } from "@/shared/trustFlags";
 
 export interface RoomFaq {
   question: string;
@@ -200,5 +201,5 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
 
 export function getRoomFaqs(room: RoomCategory): RoomFaq[] {
   const specific = ROOM_SPECIFIC_FAQS[room.slug] ?? [];
-  return [...specific, ...SHARED_FAQS(room.name)];
+  return publishDeep([...specific, ...SHARED_FAQS(room.name)]);
 }

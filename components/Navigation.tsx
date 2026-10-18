@@ -19,6 +19,7 @@ import { track } from "@/lib/analytics/track";
 import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
 import { cn } from "@/lib/utils";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
+import { showTestimonials } from "@/shared/trustFlags";
 import { CTA_ESTIMATE,CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ChevronDown,Menu,MessageSquare,Phone,Search,X } from "lucide-react";
@@ -218,7 +219,7 @@ function MarketingNavigation() {
                               </Link>
                             </NavigationMenuLink>
                           </li>
-                          {item.children.map((child) => (
+                          {item.children.filter((child) => showTestimonials() || child.href !== "/testimonials").map((child) => (
                             <li key={child.href}>
                               <NavigationMenuLink asChild>
                                 <Link
@@ -373,7 +374,7 @@ function MarketingNavigation() {
                         >
                           All {item.label}
                         </Link>
-                        {item.children.map((child) => (
+                        {item.children.filter((child) => showTestimonials() || child.href !== "/testimonials").map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}

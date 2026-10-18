@@ -16,6 +16,7 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import { getDoorStyleImages } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { publishDeep, publishTrustText } from "@/shared/trustFlags";
 import { ArrowRight,Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +25,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/shaker-cabinets",
   "Shaker Cabinets",
   catalogDescription(
-    "Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction.",
+    publishTrustText("Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction."),
   ),
 )), "/shaker-cabinets");
 
@@ -90,7 +91,7 @@ export default function ShakerCabinetsPage() {
     generateWebPageSchema({
       title: "Shaker Cabinets",
       description:
-        "Custom shaker cabinets in four profiles and 299 finishes, built to order by Boise Cabinet Co in Meridian, Idaho.",
+        publishTrustText("Custom shaker cabinets in four profiles and 299 finishes, built to order by Boise Cabinet Co in Meridian, Idaho."),
       url: "/shaker-cabinets",
     }),
     generateBreadcrumbSchema([
@@ -99,9 +100,9 @@ export default function ShakerCabinetsPage() {
     ]),
     generateServiceSchema(
       "Custom Shaker Cabinets",
-      "Built-to-order shaker cabinetry in modern, thin, alpha, and beta profiles with frameless construction and 299 finishes, designed and installed across the Treasure Valley by Boise Cabinet Co.",
+      publishTrustText("Built-to-order shaker cabinetry in modern, thin, alpha, and beta profiles with frameless construction and 299 finishes, designed and installed across the Treasure Valley by Boise Cabinet Co."),
     ),
-    generateFAQSchema(FAQS),
+    generateFAQSchema(publishDeep(FAQS)),
   ];
 
   return (
@@ -116,7 +117,7 @@ export default function ShakerCabinetsPage() {
           title={<>
                   Custom shaker <em className="brc-accent text-accent">cabinets</em>
                 </>}
-          description={"Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop."}
+          description={publishTrustText("Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop.")}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
@@ -180,7 +181,7 @@ export default function ShakerCabinetsPage() {
                 two-tone kitchen
               </Link>{" "}
               (a contrasting island or lower cabinets) is an easy way to add depth. Every profile is
-              available across our 299 finishes in matte, gloss, and woodgrain.
+              available across {publishTrustText("our 299 finishes")} in matte, gloss, and woodgrain.
             </p>
             <Button variant="brandOutline" asChild>
               <Link href="/catalog">
@@ -197,9 +198,9 @@ export default function ShakerCabinetsPage() {
                 "Frameless construction for more interior space and a clean, full-overlay look",
                 "Furniture-grade plywood boxes, not particle board",
                 "Dovetail drawers and soft-close hardware standard",
-                "Built to order and sized to your layout in Meridian, Idaho",
+                publishTrustText("Built to order and sized to your layout in Meridian, Idaho"),
                 "Installed by our own Treasure Valley crew",
-                "Backed by a written workmanship guarantee",
+                publishTrustText("Backed by a written workmanship guarantee"),
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">
                   <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
@@ -220,7 +221,7 @@ export default function ShakerCabinetsPage() {
         <Section divider>
           <SplitSection header={<SectionHeader eyebrow="Shaker FAQ" title={<>Common shaker questions</>} className="mb-0" />}>
             <div className="divide-y divide-border border-t border-border">
-              {FAQS.map((f) => (
+              {publishDeep(FAQS).map((f) => (
                 <div key={f.question} className="py-6">
                   <h3 className="ed-h4 mb-2">{f.question}</h3>
                   <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>

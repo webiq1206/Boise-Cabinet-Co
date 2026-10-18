@@ -1,11 +1,12 @@
 import { CATALOG_CONTENT } from "@/shared/catalog";
+import { publishDeep } from "@/shared/trustFlags";
 
 export interface HomepageFaq {
   q: string;
   a: string;
 }
 
-export const HOMEPAGE_FAQS: HomepageFaq[] = [
+const HOMEPAGE_FAQ_SOURCE: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
     a: "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
@@ -55,3 +56,5 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
     a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your Design Studio session or consultation, we provide a detailed written proposal with line-item scope. Deposits are collected through your client portal with secure online payment.",
   },
 ];
+
+export const HOMEPAGE_FAQS: HomepageFaq[] = publishDeep(HOMEPAGE_FAQ_SOURCE);

@@ -2,16 +2,46 @@
  * Marketing image paths. Prefer WebP where generated; PNG fallbacks remain for legacy assets.
  */
 
+/** Kept in the repo. These files are not rendered. */
+export const UNRENDERED_TRUST_IMAGES = {
+  heroAbout: {
+    path: "/images/marketing/hero-about-branded.webp",
+    alt: "consultation with Boise Cabinet Co branded designers reviewing cabinet plans",
+  },
+  processAbout: {
+    path: "/images/marketing/process-about-branded.webp",
+    alt: "image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box",
+  },
+  construction: {
+    path: "/images/marketing/hero-construction.webp",
+    alt: "cabinet workshop with a CNC router shaping a cabinet door",
+  },
+  buildersShop: {
+    path: "/images/marketing/hero-construction.webp",
+    alt: "cabinet boxes being prepared in a woodworking shop",
+  },
+  constructionHero: {
+    path: "/images/marketing/hero-construction.webp",
+    alt: "CNC cabinet door machining and inspection",
+  },
+} as const;
+
+export const NEUTRAL_KITCHEN_IMAGE = "/images/marketing/hero-home.webp";
+export const NEUTRAL_KITCHEN_ALT =
+  "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home";
+
+const NEUTRAL_KITCHEN = NEUTRAL_KITCHEN_IMAGE;
+
 export const MARKETING_IMAGES = {
-  heroHome: "/images/marketing/hero-home.webp",
-  heroAbout: "/images/marketing/hero-about-branded.webp",
+  heroHome: NEUTRAL_KITCHEN,
+  heroAbout: NEUTRAL_KITCHEN,
   heroContact: "/images/marketing/hero-contact.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
   processHome: "/images/marketing/process-home-branded.webp",
-  processAbout: "/images/marketing/process-about-branded.webp",
+  processAbout: "/images/marketing/statement-whole-home.webp",
   processContact: "/images/marketing/process-home-branded.webp",
   hardware: "/images/marketing/hero-hardware.webp",
-  construction: "/images/marketing/hero-construction.webp",
+  construction: NEUTRAL_KITCHEN,
   catalogDefault: "/images/marketing/catalog-default.webp",
   statementBand: "/images/marketing/statement-whole-home.webp",
   ogDefault: "/images/marketing/og-default.webp",

@@ -42,6 +42,7 @@ import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
 import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { publishTrustText, showTestimonials } from "@/shared/trustFlags";
 import { CallTextActions } from "@/components/marketing/CallTextActions";
 import { ArrowRight,Check,MapPin } from "lucide-react";
 import Image from "next/image";
@@ -153,7 +154,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const schemas = [
     generateWebPageSchema({
       title: HERO_COPY[room.slug]?.title ?? `${seoName(room)} Cabinets`,
-      description: HERO_COPY[room.slug]?.subhead ?? room.description,
+      description: publishTrustText(HERO_COPY[room.slug]?.subhead ?? room.description),
       url: `/cabinets/${room.slug}`,
     }),
     generateBreadcrumbSchema([
@@ -163,7 +164,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     ]),
     generateServiceSchema(
       `Custom ${seoName(room)} Cabinets`,
-      `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
+      publishTrustText(`${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`),
     ),
     generateFAQSchema(faqs),
   ];
@@ -191,7 +192,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   <em className="brc-accent text-accent">cabinets</em>
                 </>
               )}
-              description={HERO_COPY[room.slug]?.subhead ?? room.description}
+              description={publishTrustText(HERO_COPY[room.slug]?.subhead ?? room.description)}
             />
             {HERO_COPY[room.slug] && <CallTextActions />}
             <div className="flex flex-wrap gap-3 mt-4">
@@ -361,7 +362,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         <ProcessSection />
 
         {/* Reviews */}
-        {roomReviews.length > 0 && (
+        {showTestimonials() && roomReviews.length > 0 && (
         <Section divider>
           <div className="ed-shell">
             <div className="ed-split ed-split-narrow">

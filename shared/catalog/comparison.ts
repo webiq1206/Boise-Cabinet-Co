@@ -7,6 +7,7 @@
 
 import type { PriceTier } from "./collections";
 import { CATALOG_CONTENT } from "./generated/content";
+import { publishTrustText } from "@/shared/trustFlags";
 
 export type ComparisonValue = boolean | string | number;
 
@@ -122,7 +123,7 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       id: "warranty",
       label: "Warranty",
       values: {
-        custom: CATALOG_CONTENT.warrantyHeadline,
+        custom: publishTrustText(CATALOG_CONTENT.warrantyHeadline),
       },
     },
   ],

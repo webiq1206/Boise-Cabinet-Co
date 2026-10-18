@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DOOR_STYLES, FINISHES, deriveColorFamily } from "@/shared/catalog";
 import { CatalogVisualCard } from "@/components/catalog/visual";
 import { getDoorStyleImages, getFinishImages } from "@/shared/catalog/entityImages";
+import { publishTrustText } from "@/shared/trustFlags";
 
 const FEATURED_DOOR_SLUGS = [
   "modern-shaker",
@@ -32,7 +33,7 @@ export function CatalogExploreStrip() {
           Explore door styles &amp; finishes
         </h3>
         <p className="text-sm text-muted-foreground mt-2">
-          Six door profiles and 299 finishes - browse the full library or open Design Studio.
+          {publishTrustText("Six door profiles and 299 finishes - browse the full library or open Design Studio.")}
         </p>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">

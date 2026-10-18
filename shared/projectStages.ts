@@ -1,6 +1,7 @@
 /**
  * Customer-facing project timeline stages for Boise Cabinet Co.
  */
+import { publishTrustText } from "@/shared/trustFlags";
 
 export type ProjectStage =
   | "consultation"
@@ -102,7 +103,7 @@ export const STAGE_DEFINITIONS: Record<ProjectStage, TimelineStageDefinition> = 
   warranty: {
     id: "warranty",
     label: "Warranty",
-    description: "Lifetime warranty support for your cabinetry.",
+    description: publishTrustText("Lifetime warranty support for your cabinetry."),
   },
 };
 

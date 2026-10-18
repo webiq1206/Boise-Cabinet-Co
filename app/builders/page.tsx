@@ -15,6 +15,7 @@ generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { publishDeep, publishTrustText } from "@/shared/trustFlags";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
@@ -25,11 +26,11 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
-    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order in Meridian, Idaho.",
+    publishTrustText("Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order in Meridian, Idaho."),
 })), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */
-const REASONS = [
+const REASONS = publishDeep([
   {
     title: "Lead times that protect your schedule",
     body: "Our cabinets are historically ready in just a couple of weeks, typically far shorter than the larger shops. We confirm your production and install dates in writing so you can sequence the other trades around a date you trust.",
@@ -46,10 +47,10 @@ const REASONS = [
     title: "One local shop, one point of contact",
     body: "Design, fabrication, and installation run out of our Meridian shop under a single project contact. No cross-country freight, no backorder roulette, and no finger-pointing between vendors.",
   },
-];
+]);
 
 /** The commercial terms builders ask about, stated plainly. */
-const TERMS = [
+const TERMS = publishDeep([
   {
     label: "Lead time",
     value: "Historically a couple of weeks; confirmed in writing per project before we start.",
@@ -74,7 +75,7 @@ const TERMS = [
     label: "Install",
     value: "Delivered and installed by our own Treasure Valley crew, coordinated to your jobsite schedule.",
   },
-];
+]);
 
 const PROJECT_TYPES = [
   "Custom & spec homes",
@@ -87,7 +88,7 @@ const PROJECT_TYPES = [
   "Model & short-term rentals",
 ];
 
-const FAQS = [
+const FAQS = publishDeep([
   {
     question: "Do you offer builder or trade pricing?",
     answer:
@@ -118,7 +119,7 @@ const FAQS = [
     answer:
       "We build to order in our Meridian shop, then deliver and install with our own Treasure Valley crew, coordinated to your jobsite schedule.",
   },
-];
+]);
 
 export default function BuildersPage() {
   const schemas = [
@@ -134,7 +135,7 @@ export default function BuildersPage() {
     ]),
     generateServiceSchema(
       "Builder & Trade Cabinetry Program",
-      "Volume-priced custom cabinetry for builders, general contractors, and multi-family developers across the Treasure Valley, built to order in Meridian, Idaho with fast lead times and consistent specs across units.",
+      publishTrustText("Volume-priced custom cabinetry for builders, general contractors, and multi-family developers across the Treasure Valley, built to order in Meridian, Idaho with fast lead times and consistent specs across units."),
     ),
     generateFAQSchema(FAQS),
   ];
@@ -145,13 +146,13 @@ export default function BuildersPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="cabinet boxes being prepared in a woodworking shop"
+          alt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>
                   Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
                 </>}
-          description={"Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."}
+          description={publishTrustText("Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on.")}
         >
               <Button variant="brand" asChild>
                 <Link href="/contact">

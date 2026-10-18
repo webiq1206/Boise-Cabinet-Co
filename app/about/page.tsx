@@ -25,6 +25,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText } from '@/shared/trustFlags';
 import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
@@ -33,8 +34,9 @@ import Link from 'next/link';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
-const SPEAKABLE_SUMMARY =
-  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 299 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.';
+const SPEAKABLE_SUMMARY = publishTrustText(
+  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 299 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.',
+);
 
 function HeroBreadcrumbs() {
   const items = [
@@ -93,7 +95,7 @@ export default function AboutPage() {
   const ABOUT_FAQS = [
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      answer: publishTrustText(`${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`),
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -104,12 +106,12 @@ export default function AboutPage() {
       answer: `We are a service-area business with no public showroom. We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
     },
     {
-      question: `Is ${SITE_CONFIG.name} licensed and insured?`,
-      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
+      question: publishTrustText(`Is ${SITE_CONFIG.name} licensed and insured?`),
+      answer: publishTrustText(`Yes. We are bonded and insured for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner. ${IDAHO_REGISTERED_CONTRACTOR}.`),
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`,
+      answer: publishTrustText(`Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`),
     },
   ];
 
@@ -117,8 +119,9 @@ export default function AboutPage() {
     generateOrganizationSchema(),
     generateWebPageSchema({
       title: `About ${SITE_CONFIG.name}`,
-      description:
+      description: publishTrustText(
         'Idaho premier custom cabinet company serving the Treasure Valley. Design Studio, client portal, and white-glove installation.',
+      ),
       url: '/about',
     }),
     generateBreadcrumbSchema([
@@ -134,7 +137,7 @@ export default function AboutPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Approved editorial hero */}
-        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}>
+        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -145,8 +148,7 @@ export default function AboutPage() {
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              We are Idaho&apos;s premier custom cabinet company, serving the Treasure Valley from
-              design through installation.
+              {publishTrustText("We are Idaho's premier custom cabinet company, serving the Treasure Valley from design through installation.")}
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
               Our focus is clarity: written scope before fabrication, proactive project updates,
@@ -177,7 +179,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                alt="Whole-home custom cabinet installation in an Eagle Idaho residence"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

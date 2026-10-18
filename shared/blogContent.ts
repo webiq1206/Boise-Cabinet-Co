@@ -1,6 +1,7 @@
 // Blog Content for Boise Cabinet Co
 
 import { ALL_BLOG_POSTS } from './content/allBlogPosts';
+import { publishDeep } from './trustFlags';
 
 export interface BlogPostData {
   slug: string;
@@ -29,7 +30,7 @@ export interface BlogPostData {
   keyTakeaways?: string[];
 }
 
-export const BLOG_POSTS: BlogPostData[] = ALL_BLOG_POSTS;
+export const BLOG_POSTS: BlogPostData[] = publishDeep(ALL_BLOG_POSTS);
 
 export function getBlogPostBySlug(slug: string): BlogPostData | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);

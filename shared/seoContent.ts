@@ -1,5 +1,6 @@
 import type { ServiceData, CityData } from './contentData';
 import { getCountyLabel } from './contentData';
+import { publishDeep, publishTrustText } from './trustFlags';
 
 export interface FAQItem {
   question: string;
@@ -19,7 +20,7 @@ export interface ServiceSEOContent {
   faqs: FAQItem[];
 }
 
-export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
+const SERVICE_SEO_CONTENT_SOURCE: Record<string, ServiceSEOContent> = {
   'kitchen-remodel': {
     slug: 'kitchen-remodel',
     name: 'Kitchen Cabinets',
@@ -241,6 +242,8 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
   },
 };
 
+export const SERVICE_SEO_CONTENT = publishDeep(SERVICE_SEO_CONTENT_SOURCE);
+
 export function getAreaIntro(city: CityData): string {
   const county = getCountyLabel(city.county);
   return `Boise Cabinet Co provides custom kitchen cabinets, bathroom vanities, built-ins, and storage solutions for homeowners in ${city.name}, Idaho and throughout ${county}. You work with one accountable team from design through installation.`;
@@ -255,7 +258,7 @@ export function getCityServiceIntro(
   const fact = localFact
     ? ` ${localFact}`
     : ` We understand ${county} requirements and typical ${city.name} home styles.`;
-  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers ${service.name.toLowerCase()} with clear written scope, proactive updates, and a written workmanship guarantee. Schedule a free design consultation or use our project estimator for a planning range.`;
+  return publishTrustText(`Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers ${service.name.toLowerCase()} with clear written scope, proactive updates, and a written workmanship guarantee. Schedule a free design consultation or use our project estimator for a planning range.`);
 }
 
 export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): FAQItem[] {
@@ -273,7 +276,7 @@ export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): 
   ];
 }
 
-export const AREA_PAGE_FAQS: FAQItem[] = [
+const AREA_PAGE_FAQS_SOURCE: FAQItem[] = [
   {
     question: 'What cabinet products and services do you offer?',
     answer:
@@ -291,7 +294,9 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   },
 ];
 
-export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
+export const AREA_PAGE_FAQS = publishDeep(AREA_PAGE_FAQS_SOURCE);
+
+const HOMEPAGE_FAQS_FOR_SCHEMA_SOURCE: FAQItem[] = [
   {
     question: 'How are you different from other cabinet companies in the Treasure Valley?',
     answer:
@@ -311,3 +316,5 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
     answer: 'We provide a written workmanship guarantee on our installation labor.',
   },
 ];
+
+export const HOMEPAGE_FAQS_FOR_SCHEMA = publishDeep(HOMEPAGE_FAQS_FOR_SCHEMA_SOURCE);

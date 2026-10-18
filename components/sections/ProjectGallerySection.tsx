@@ -7,6 +7,7 @@ import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PROJECTS } from "@/shared/galleryData";
+import { showTestimonials } from "@/shared/trustFlags";
 import type { SiteProject } from "@/shared/projects/types";
 
 function ProjectCard({ project }: { project: SiteProject }) {
@@ -75,7 +76,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
             </Reveal>
           ))}
         </div>
-        {showViewAll && (
+        {showTestimonials() && showViewAll && (
           <div className="mt-8 text-center">
             <Button variant="brandOutline" asChild>
               <Link href="/testimonials">See more projects and reviews</Link>

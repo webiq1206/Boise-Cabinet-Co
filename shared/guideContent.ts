@@ -15,6 +15,7 @@ import { ALL_HUB_PILLARS } from './content/allHubsContent';
 import { CITY_CABINET_GUIDES } from './content/cityCabinetGuides';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
+import { publishDeep } from './trustFlags';
 
 export type GuideType = 'hub-pillar' | 'location' | 'neighborhood' | 'master';
 
@@ -120,7 +121,7 @@ const costPillarFaqs = [
   },
 ];
 
-export const GUIDE_PAGES: GuidePageData[] = [
+const GUIDE_PAGE_SOURCE: GuidePageData[] = [
   {
     slug: 'boise-cabinet-cost-guide',
     title: 'Boise Cabinet Cost Guide (2026 Planning Ranges)',
@@ -333,6 +334,8 @@ export const GUIDE_PAGES: GuidePageData[] = [
   ...CITY_CABINET_GUIDES,
   ...ALL_HUB_PILLARS,
 ];
+
+export const GUIDE_PAGES: GuidePageData[] = publishDeep(GUIDE_PAGE_SOURCE);
 
 export function getGuideBySlug(slug: string): GuidePageData | undefined {
   return GUIDE_PAGES.find((g) => g.slug === slug);

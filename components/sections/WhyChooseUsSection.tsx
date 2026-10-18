@@ -63,8 +63,9 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
               <figure className="mt-10 hidden lg:block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
-                    src="/images/marketing/hero-construction.webp"
-                    alt="cabinet workshop with a CNC router shaping a cabinet door"
+                    src="/images/marketing/hero-home.webp"
+                    alt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
+                    // Retired shop scene stays in UNRENDERED_TRUST_IMAGES.construction.
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

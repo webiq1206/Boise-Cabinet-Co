@@ -12,6 +12,7 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { publishTrustText } from "@/shared/trustFlags";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -23,7 +24,7 @@ const STANDARDS = [
   },
   {
     title: "Precision door machining",
-    body: "Doors are CNC-routed and hand-finished in our Meridian shop. Hinge boring, overlay, and reveal tolerances are verified against your approved shop drawings before assembly.",
+    body: publishTrustText("Doors are CNC-routed and hand-finished in our Meridian shop. Hinge boring, overlay, and reveal tolerances are verified against your approved shop drawings before assembly."),
   },
   {
     title: "Drawer boxes & slides",
@@ -35,7 +36,7 @@ const STANDARDS = [
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract.",
+    body: publishTrustText("Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract."),
   },
   {
     title: "Written scope before build",
@@ -47,7 +48,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/construction",
   "Frameless Cabinet Construction",
   catalogDescription(
-    "How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
+    publishTrustText("How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley."),
   ),
 )), "/construction");
 
@@ -74,7 +75,7 @@ export default function ConstructionPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="CNC cabinet door machining and inspection"
+          alt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>

@@ -5,6 +5,7 @@
  */
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { DOOR_STYLES } from "@/shared/catalog/generated/doorStyles";
+import { publishDeep, publishTrustText } from "@/shared/trustFlags";
 
 const SITE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
 
@@ -68,16 +69,18 @@ export const GBP_PROFILE = {
     facebook: "https://www.facebook.com/boisecabinetco",
     instagram: "https://www.instagram.com/boisecabinetco",
   },
-  messagingWelcome:
+  messagingWelcome: publishTrustText(
     "Hi! Thanks for reaching out to Boise Cabinet Co. We design, build, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact",
+  ),
   attributes: {
     onlineEstimates: true,
     onsiteServices: true,
   },
 } as const;
 
-export const GBP_BUSINESS_DESCRIPTION =
-  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+export const GBP_BUSINESS_DESCRIPTION = publishTrustText(
+  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.",
+);
 
 export interface GbpServiceArea {
   name: string;
@@ -106,7 +109,7 @@ export interface GbpService {
   priority: "core" | "bonus";
 }
 
-export const GBP_SERVICES: GbpService[] = [
+const GBP_SERVICES_SOURCE: GbpService[] = [
   {
     name: "Custom kitchen cabinets",
     description:
@@ -237,7 +240,9 @@ export const GBP_SERVICES: GbpService[] = [
   },
 ];
 
-const DOOR_PRODUCT_DESCRIPTIONS: Record<string, string> = {
+export const GBP_SERVICES = publishDeep(GBP_SERVICES_SOURCE);
+
+const DOOR_PRODUCT_DESCRIPTIONS: Record<string, string> = publishDeep({
   slab: "Minimal, streamlined flat panel doors. Pairs beautifully with woodgrain or bold solid colors. Available across all 299 finishes.",
   "three-piece":
     "Horizontal center panel showcases natural woodgrain depth. Ideal for warm, organic kitchen and bath designs.",
@@ -249,7 +254,7 @@ const DOOR_PRODUCT_DESCRIPTIONS: Record<string, string> = {
     "Bold shaker variant with defined frame proportions. Adds architectural character without overwhelming the room.",
   "beta-shaker":
     "Premium shaker option with the deepest frame detail in our lineup. Ideal for statement kitchens and primary baths.",
-};
+});
 
 export interface GbpProduct {
   name: string;
@@ -269,7 +274,7 @@ export const GBP_DOOR_PRODUCTS: GbpProduct[] = DOOR_STYLES.map((d) => ({
   priority: "core" as const,
 }));
 
-export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
+const GBP_BONUS_PRODUCTS_SOURCE: GbpProduct[] = [
   {
     name: "Custom Cabinet Collection",
     description:
@@ -306,13 +311,15 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
   },
 ];
 
+export const GBP_BONUS_PRODUCTS = publishDeep(GBP_BONUS_PRODUCTS_SOURCE);
+
 export interface GbpQaPair {
   question: string;
   answer: string;
 }
 
 /** GBP-safe Q&A (consultation answer omits showroom; matches SAB model). */
-export const GBP_QA_SEEDS: GbpQaPair[] = [
+const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "What makes Boise Cabinet Co different from other cabinet companies?",
     answer:
@@ -354,6 +361,8 @@ export const GBP_QA_SEEDS: GbpQaPair[] = [
       "Pricing depends on your door style, finish selections, linear footage, and accessories. After your Design Studio session or consultation, we provide a detailed written proposal with line-item scope. Deposits are collected through your client portal with secure online payment.",
   },
 ];
+
+export const GBP_QA_SEEDS = publishDeep(GBP_QA_SEEDS_SOURCE);
 
 export const GBP_LEGACY_AUDIT_SEARCHES = [
   {

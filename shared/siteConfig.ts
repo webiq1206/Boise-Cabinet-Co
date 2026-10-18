@@ -3,6 +3,8 @@
  * Override via env for staging; replace placeholder values before launch.
  */
 
+import { publishTrustText } from "@/shared/trustFlags";
+
 // Business phone (NAP). Override via env NEXT_PUBLIC_PHONE / NEXT_PUBLIC_PHONE_TEL.
 const DEFAULT_PHONE = "(208) 477-1169";
 const DEFAULT_PHONE_TEL = "2084771169";
@@ -29,7 +31,7 @@ export const SITE_CONFIG = {
    * records, so the two are deliberately different values.
    */
   legalName: "P5 Home Co LLC",
-  tagline: "Idaho's premier custom cabinet company",
+  tagline: publishTrustText("Idaho's premier custom cabinet company"),
   phone: process.env.NEXT_PUBLIC_PHONE ?? DEFAULT_PHONE,
   phoneTel: PHONE_TEL,
   phoneHref: `tel:${PHONE_E164}`,

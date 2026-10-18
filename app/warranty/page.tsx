@@ -11,6 +11,7 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { CATALOG_CONTENT } from "@/shared/catalog";
+import { publishTrustText, showLifetimeWarranty } from "@/shared/trustFlags";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
@@ -24,7 +25,7 @@ const COVERED = [
   "Doors and drawer fronts against manufacturing defects",
   "Hardware we supply: hinges and drawer slides under normal use",
   "Coverage for the lifetime of original home ownership",
-];
+].map((item) => publishTrustText(item));
 
 const CONDITIONS = [
   "Coverage applies to the original homeowner at the installation address",
@@ -44,7 +45,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
-    "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.",
+    publishTrustText("{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley."),
   ),
 )), "/warranty");
 
@@ -52,7 +53,7 @@ export default function WarrantyPage() {
   const schemas = [
     generateWebPageSchema({
       title: "Warranty",
-      description: `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`,
+      description: `${publishTrustText(CATALOG_CONTENT.warrantyHeadline)} from ${SITE_CONFIG.name}.`,
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
@@ -70,11 +71,11 @@ export default function WarrantyPage() {
           alt="cabinet hardware and finished door fronts"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
-          title={<>
+          title={showLifetimeWarranty() ? <>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </>}
-          description={CATALOG_CONTENT.warrantySummary}
+                </> : <>Warranty terms</>}
+          description={publishTrustText(CATALOG_CONTENT.warrantySummary)}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">

@@ -2,10 +2,12 @@
 // Served through an app route (not public/) because static public/ files are
 // not served by the standalone production deploy; app routes are.
 //
+import { publishTrustText } from "@/shared/trustFlags";
+
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
-export const LLMS_TXT = `# Boise Cabinet Co
+export const LLMS_TXT = publishTrustText(`# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
@@ -93,4 +95,4 @@ Planning ranges only; firm quotes require approved drawings.
 - Public representative: Nick Perkins
 - Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
-`;
+`);
