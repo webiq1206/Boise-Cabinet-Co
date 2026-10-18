@@ -150,7 +150,7 @@ export default function BuildersPage() {
           title={<>
                   Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
                 </>}
-          description={"Sized to your plans and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. With lean overhead, you get a number you can bid on with confidence."}
+          description={"Sized to your plans and installed by our own crew, with volume pricing, consistent specs across units, and lead times quoted up front. With lean overhead, you get a number you can bid on with confidence."}
         >
               <Button variant="brand" asChild>
                 <Link href="/contact">

@@ -126,14 +126,14 @@ export function generatePageTitle(params: ServiceSEOParams): string {
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
-  Kuna: "Kuna's trusted custom cabinet",
+  Kuna: "Kuna",
   Boise: "Boise's custom cabinet",
-  Meridian: "Meridian's trusted",
+  Meridian: "Meridian",
   Eagle: "Eagle's preferred",
   Star: "Star's reliable",
   Middleton: "Middleton's expert",
-  Nampa: "Nampa's trusted",
-  Caldwell: "Caldwell's trusted",
+  Nampa: "Nampa",
+  Caldwell: "Caldwell",
 };
 
 const CITY_CTA_VARIANTS: Record<string, string> = {
@@ -161,11 +161,11 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   
   if (city && serviceName) {
     const serviceLC = serviceName.toLowerCase();
-    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
+    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || city;
     const ctaVariant =
       CITY_CTA_VARIANTS[city] ||
       (showUnprovenSatisfactionGuarantee() ? "Satisfaction guaranteed" : "Free design consultation");
-    return `${cityVariant} ${serviceLC} team. ${IDAHO_REGISTERED_CONTRACTOR} & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
+    return `${cityVariant} ${serviceLC}, installed. ${IDAHO_REGISTERED_CONTRACTOR} & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
   }
   
   if (city) {
@@ -205,17 +205,17 @@ export function generateCityServiceDescription(
 ): string {
   const phone = SITE_CONFIG.phone;
   const serviceLC = serviceName.toLowerCase();
-  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || "Local";
   const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
   const neighborhood = cityData?.neighborhoods?.[0];
 
   if (neighborhood) {
-    const withNeighborhood = `${cityVariant} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
+    const withNeighborhood = `${cityVariant} ${serviceLC}, installed. Serving ${neighborhood} & all ${cityName}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
     if (withNeighborhood.length <= 160) return withNeighborhood;
   }
 
   if (shortDescription) {
-    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
+    const desc = `${cityVariant} ${serviceLC}, installed. ${shortDescription}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
     if (desc.length <= 160) return desc;
   }
 

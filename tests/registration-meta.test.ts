@@ -56,8 +56,11 @@ test("satisfaction guaranteed stays in source and publishes only with the flag",
   assert.equal(starOff.includes("Satisfaction guaranteed"), false);
   assert.equal(starOff.includes("Shop-built"), false);
   const meridian = generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city: "Meridian" });
-  assert.equal(meridian.includes("Free design consultation"), true);
-  assert.equal(meridian.split(NUMBERED).length - 1, 1);
+  assert.equal(
+    meridian,
+    `Meridian kitchen cabinets, installed. ${NUMBERED} & insured. Free design consultation. Call (208) 477-1169 for a free consultation!`,
+  );
+  assert.equal(meridian.length, 156);
   const prior = process.env.SHOW_UNPROVEN_SATISFACTION_GUARANTEE;
   process.env.SHOW_UNPROVEN_SATISFACTION_GUARANTEE = "true";
   try {

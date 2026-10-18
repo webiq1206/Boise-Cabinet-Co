@@ -24,7 +24,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/shaker-cabinets",
   "Shaker Cabinets",
   catalogDescription(
-    "Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction.",
+    "Custom shaker cabinets from {company}, sized to your layout and installed across the Treasure Valley. Four shaker profiles in finishes including classic white shaker, sage green, and two-tone, with frameless options.",
   ),
 )), "/shaker-cabinets");
 
