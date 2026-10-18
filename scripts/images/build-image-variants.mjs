@@ -44,6 +44,7 @@ const RETIRED = new Set([
   "images/marketing/hero-contact.webp",
   "images/marketing/hero-hardware.webp",
   "images/marketing/statement-whole-home.webp",
+  "images/marketing/drawers-black-pulls-oak.webp",
   "images/catalog/rooms/kitchen.webp",
 ]);
 

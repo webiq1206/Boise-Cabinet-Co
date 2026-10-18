@@ -34,6 +34,18 @@ const HASHES: Record<string, string> = {
     "363de8179d4fcc139db1f406036061b18cb14e00a754725774296a6b86bc6204",
   "public/images/marketing/drawers-black-pulls-oak-768.webp":
     "d4ebbccad58b3cdb49ba68137ab271434a5900be6b715d2a3d10f25e0fc21857",
+  "public/images/marketing/warranty-hardware.webp":
+    "f00d6dfb550c61dfb5b2a63266cbdd3e4df548187e5bbc2fff570bdaa7e9aa92",
+  "public/images/marketing/warranty-hardware-1280.webp":
+    "686b3f8bbcab299fdd1f401c3749a47ca6b267adb84b28b2d0d761c3f2785b8e",
+  "public/images/marketing/warranty-hardware-768.webp":
+    "732cd7422e2b59633b99c9dd1535c401101af2b002424575c1fdd913f3826eac",
+  "public/images/marketing/kitchen-farmhouse-shaker.webp":
+    "86387dadfd06891c74713b391f673c9119b9fe25130346910d17988f083153d9",
+  "public/images/marketing/kitchen-farmhouse-shaker-1280.webp":
+    "03dd49ad9819e27ef811613a5e5966cbeddf104eba76416d5a9b0414063ffcf0",
+  "public/images/marketing/kitchen-farmhouse-shaker-768.webp":
+    "67cf1357879dc8cbbb087a4dbfc1209d89557da1b93769452dbf8db79b06e3a4",
   "public/images/catalog/rooms/kitchen-walnut-mountain.webp":
     "3dbf3b9d80a90fc78fd00d348909d4a83ddac7ec432b8bb5b3ea302d1af5cc2d",
   "public/images/catalog/rooms/kitchen-walnut-mountain-1080.webp":
@@ -65,7 +77,11 @@ test("Sam r1 files match the checked sha256 values", () => {
 test("imageVariants lists the new widths and drops the retired keys", () => {
   assert.deepEqual(IMAGE_VARIANTS["/images/marketing/great-room-oak-built-ins.webp"], [768, 1280]);
   assert.deepEqual(IMAGE_VARIANTS["/images/marketing/bath-white-oak-vanity.webp"], [768, 1280]);
-  assert.deepEqual(IMAGE_VARIANTS["/images/marketing/drawers-black-pulls-oak.webp"], [768, 1280]);
+  assert.equal(IMAGE_VARIANTS["/images/marketing/drawers-black-pulls-oak.webp"], undefined);
+  assert.deepEqual(IMAGE_VARIANTS["/images/marketing/warranty-hardware.webp"], [768, 1280]);
+  assert.deepEqual(IMAGE_VARIANTS["/images/marketing/kitchen-farmhouse-shaker.webp"], [768, 1280]);
+  assert.deepEqual(IMAGE_VARIANTS["/images/catalog/hardware/hinge-soft-close.webp"], [160, 320, 640]);
+  assert.deepEqual(IMAGE_VARIANTS["/images/catalog/hardware/push-to-open-hinge.webp"], [160, 320, 640]);
   assert.deepEqual(IMAGE_VARIANTS["/images/catalog/rooms/kitchen-walnut-mountain.webp"], [320, 640, 1080]);
   assert.equal(IMAGE_VARIANTS["/images/marketing/og-catalog-kitchen.jpg"], undefined);
   for (const retired of RETIRED) {
@@ -78,7 +94,8 @@ test("serving maps point at the new files and keep the design studio hero", () =
   assert.equal(SITE_IMAGES.statementBand, MARKETING_IMAGES.statementBand);
   assert.equal(MARKETING_IMAGES.heroContact, "/images/marketing/bath-white-oak-vanity.webp");
   assert.equal(SITE_IMAGES.contactHero, MARKETING_IMAGES.heroContact);
-  assert.equal(MARKETING_IMAGES.hardware, "/images/marketing/drawers-black-pulls-oak.webp");
+  assert.equal(MARKETING_IMAGES.hardware, "/images/marketing/warranty-hardware.webp");
+  assert.equal(MARKETING_IMAGES.cabinetsHero, "/images/marketing/kitchen-farmhouse-shaker.webp");
   assert.equal(MARKETING_IMAGES.designStudio, "/images/marketing/hero-design-studio.webp");
   assert.equal(SERVICE_BACKGROUNDS["kitchen-remodel"], "/images/catalog/rooms/kitchen-walnut-mountain.webp");
   assert.equal(getServiceImageSet("kitchen-remodel").hero, "/images/catalog/rooms/kitchen-walnut-mountain.webp");
@@ -99,7 +116,10 @@ test("retired files stay on disk", () => {
     "public/images/marketing/statement-whole-home.webp",
     "public/images/marketing/hero-contact.webp",
     "public/images/marketing/hero-hardware.webp",
+    "public/images/marketing/drawers-black-pulls-oak.webp",
     "public/images/catalog/rooms/kitchen.webp",
+    "public/images/catalog/hardware/hinge-soft-close.webp",
+    "public/images/catalog/hardware/push-to-open-hinge.webp",
   ]) {
     assert.equal(fs.existsSync(path.join(root, rel)), true, rel);
   }
@@ -111,6 +131,15 @@ test("heroes srcset the variant widths", () => {
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-320\.webp 320w/);
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-640\.webp 640w/);
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-1080\.webp 1080w/);
+
+  const hardware = heroImageAttrs("/images/marketing/warranty-hardware.webp");
+  assert.match(hardware.srcSet ?? "", /warranty-hardware-768\.webp 768w/);
+  assert.match(hardware.srcSet ?? "", /warranty-hardware-1280\.webp 1280w/);
+  assert.match(hardware.srcSet ?? "", /warranty-hardware\.webp 1536w/);
+
+  const cabinets = heroImageAttrs("/images/marketing/kitchen-farmhouse-shaker.webp");
+  assert.match(cabinets.srcSet ?? "", /kitchen-farmhouse-shaker-768\.webp 768w/);
+  assert.match(cabinets.srcSet ?? "", /kitchen-farmhouse-shaker-1280\.webp 1280w/);
 
   const marketing = heroImageAttrs("/images/marketing/bath-white-oak-vanity.webp");
   assert.equal(marketing.src, "/images/marketing/bath-white-oak-vanity.webp");

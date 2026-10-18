@@ -1700,15 +1700,15 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/drawers-black-pulls-oak.webp",
+      "outputPath": "/images/marketing/warranty-hardware.webp",
       "pages": [
-        "/hardware"
+        "/warranty"
       ],
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "White oak Shaker drawers and a white painted door with matte black bar pulls, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "White oak Shaker drawers and a white painted door with matte black bar pulls in the Treasure Valley, Idaho | Boise Cabinet Co",
+      "promptScene": "Oak drawers with round brass knobs above walnut doors with black knobs, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Oak drawers with round brass knobs above walnut doors with black knobs",
       "title": "Boise Cabinet Co Custom Cabinets",
       "caption": ""
     },
@@ -3881,6 +3881,26 @@
       "promptScene": "Cabinet appliance garage interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet appliance garage interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",
       "title": "appliance garage"
+    },
+    {
+      "id": "img-0168",
+      "status": "pending",
+      "phase": 2,
+      "priority": "critical",
+      "width": 1536,
+      "height": 1024,
+      "formats": [
+        "webp"
+      ],
+      "outputPath": "/images/marketing/kitchen-farmhouse-shaker.webp",
+      "pages": [
+        "/cabinets"
+      ],
+      "placement": "hero",
+      "promptScene": "Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall, Photorealistic architectural interior, natural window light, no people, no text, no watermarks",
+      "alt": "Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": ""
     }
   ]
 }

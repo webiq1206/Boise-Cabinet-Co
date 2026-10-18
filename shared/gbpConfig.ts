@@ -293,7 +293,7 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
       "Soft-close hinges and Futura Smove drawer slides, standard on every cabinet.",
     path: "/hardware",
     campaign: "product-hardware",
-    imagePath: "/images/marketing/drawers-black-pulls-oak.webp",
+    imagePath: "/images/marketing/warranty-hardware.webp",
     priority: "bonus",
   },
   {

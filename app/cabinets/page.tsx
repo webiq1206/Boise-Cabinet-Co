@@ -43,8 +43,8 @@ export default function CabinetsHubPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
-          image={MARKETING_IMAGES.designStudio}
-          alt="display of cabinet finish samples and door styles"
+          image={MARKETING_IMAGES.cabinetsHero}
+          alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={<>Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em></>}

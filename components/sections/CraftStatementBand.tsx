@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const ALT =
-  "White oak Shaker drawers and a white painted door with matte black bar pulls";
+  "Oak drawers with round brass knobs above walnut doors with black knobs";
 
 /**
  * Full-bleed cabinet-detail band with an overlaid statement. Breaks the lower,
