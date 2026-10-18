@@ -65,9 +65,9 @@ export default function CabinetInstallationPage() {
         <InteriorHero layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Finished custom cabinetry in a Treasure Valley home">
             <nav aria-label="Breadcrumb" className="mb-16 text-sm text-inverse-muted">
               <Link href="/" className="tap-target hover:text-inverse-foreground">Home</Link>
-              <span className="mx-2 opacity-50">/</span>
+              <span className="mx-2 opacity-70">/</span>
               <Link href="/cabinets" className="tap-target hover:text-inverse-foreground">Cabinets</Link>
-              <span className="mx-2 opacity-50">/</span>
+              <span className="mx-2 opacity-70">/</span>
               <span className="text-inverse-foreground">Cabinet installation</span>
             </nav>
             <div className="max-w-3xl fade-up">
