@@ -158,7 +158,7 @@ const siteHeroes = [
   { id: "process-about", path: "/images/marketing/process-about.webp", pages: ["/about"], alt: "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop" },
   { id: "process-contact", path: "/images/marketing/process-contact.webp", pages: ["/contact"], alt: "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley" },
   { id: "hero-hardware", path: "/images/marketing/hero-hardware.webp", pages: ["/hardware"], alt: "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho" },
-  { id: "hero-construction", path: "/images/marketing/hero-construction.webp", pages: ["/construction"], alt: "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop" },
+  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/about", "/builders", "/construction"], alt: "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling", caption: "", lockedAlt: true, width: 1536, height: 1024 },
   { id: "catalog-default", path: "/images/marketing/catalog-default.webp", pages: ["/catalog"], alt: "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes" },
   { id: "statement-band", path: "/images/marketing/statement-whole-home.webp", pages: ["/", "/about", "/contact"], alt: "Whole-home custom cabinet installation in an Eagle Idaho residence", decorative: true },
   { id: "og-default", path: "/images/marketing/og-default.webp", pages: ["og"], alt: "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho" },
@@ -174,7 +174,10 @@ for (const h of siteHeroes) {
     promptScene: h.alt + ", " + STYLE_SUFFIX,
     alt: h.alt,
     title: "Boise Cabinet Co Custom Cabinets",
-    caption: h.alt,
+    caption: h.caption ?? h.alt,
+    ...(h.lockedAlt ? { lockedAlt: true } : {}),
+    ...(h.width ? { width: h.width } : {}),
+    ...(h.height ? { height: h.height } : {}),
     phase: 2,
     priority: h.id.startsWith("hero") ? "critical" : "high",
   });
@@ -323,9 +326,9 @@ const LOCALE_TOKENS = [
   "Treasure Valley", "Idaho", "Boise", "Meridian", "Eagle", "Nampa",
   "Kuna", "Star", "Middleton", "Caldwell", "Ada County", "Canyon County",
 ];
-function ensureSeoAlt(alt, decorative) {
+function ensureSeoAlt(alt, decorative, lockedAlt) {
   let a = (alt || "").trim();
-  if (decorative) return a;
+  if (decorative || lockedAlt) return a;
   const sansBrand = a.split(BRAND).join(" ");
   const hasLocale = LOCALE_TOKENS.some((t) => sansBrand.includes(t));
   if (!hasLocale) a = `${a} in the Treasure Valley, Idaho`;
@@ -333,7 +336,7 @@ function ensureSeoAlt(alt, decorative) {
   return a;
 }
 for (const e of entries) {
-  e.alt = ensureSeoAlt(e.alt, e.decorative);
+  e.alt = ensureSeoAlt(e.alt, e.decorative, e.lockedAlt);
 }
 
 const manifest = {

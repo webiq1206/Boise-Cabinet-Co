@@ -1717,23 +1717,26 @@
       "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
+      "width": 1536,
       "height": 1024,
       "formats": [
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/hero-construction.webp",
+      "outputPath": "/images/marketing/kitchen-wood-island.webp",
       "pages": [
+        "/about",
+        "/builders",
         "/construction"
       ],
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop",
+      "promptScene": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling",
+      "lockedAlt": true,
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop"
+      "caption": ""
     },
     {
       "id": "img-0070",

@@ -16,7 +16,7 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { publishDeep, publishTrustText } from "@/shared/trustFlags";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { KITCHEN_WOOD_ISLAND_ALT, MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -146,7 +146,7 @@ export default function BuildersPage() {
       <div className="flex flex-col pb-20 md:pb-0">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
+          alt={KITCHEN_WOOD_ISLAND_ALT}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>

@@ -20,7 +20,6 @@ const COPIES = [
   ["images/process-about.png", "images/marketing/process-about.webp"],
   ["images/process-contact.png", "images/marketing/process-contact.webp"],
   ["images/hardware-hero.png", "images/marketing/hero-hardware.webp"],
-  ["images/construction-hero.png", "images/marketing/hero-construction.webp"],
   ["images/catalog-default.png", "images/marketing/catalog-default.webp"],
   ["images/gallery/gallery-whole-home-after.png", "images/marketing/statement-whole-home.webp"],
   ["images/hero-remodel-interior.png", "images/marketing/og-default.webp"],

@@ -27,7 +27,7 @@ import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText } from '@/shared/trustFlags';
 import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
-import { SITE_IMAGES } from '@/shared/siteImages';
+import { ABOUT_DESIGN_SAMPLES_ALT, ABOUT_INSTALL_PROGRESS_ALT, SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -137,7 +137,7 @@ export default function AboutPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Approved editorial hero */}
-        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home">
+        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={ABOUT_DESIGN_SAMPLES_ALT}>
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -179,24 +179,15 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="Whole-home custom cabinet installation in an Eagle Idaho residence"
+                alt={ABOUT_INSTALL_PROGRESS_ALT}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
               />
-              <div className="absolute bottom-0 left-0 p-8 md:p-12">
-                <div className="ed-eyebrow">How we work</div>
-                <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
-                  One team from
-                  <br />
-                  design to installation
-                </p>
-              </div>
             </div>
 
             <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
@@ -213,11 +204,11 @@ export default function AboutPage() {
                   eyebrow="Our model"
                   title={
                     <>
-                      Cabinet design,{' '}
-                      <em className="brc-accent text-accent">one team</em>
+                      Cabinet design{' '}
+                      <em className="brc-accent text-accent">through installation</em>
                     </>
                   }
-                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
+                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-ins do not drift between vendors."
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">

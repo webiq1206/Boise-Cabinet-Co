@@ -1,6 +1,11 @@
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { getBaseUrl } from '@/lib/seo';
-import { MARKETING_IMAGES } from '@/shared/siteImages';
+import {
+  ABOUT_DESIGN_SAMPLES_ALT,
+  ABOUT_INSTALL_PROGRESS_ALT,
+  KITCHEN_WOOD_ISLAND_ALT,
+  MARKETING_IMAGES,
+} from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
@@ -44,6 +49,23 @@ export function GET() {
       { loc: abs(MARKETING_IMAGES.hardware), title: 'Satin nickel bar pulls on custom painted cabinet drawers by Boise Cabinet Co' },
       { loc: abs(MARKETING_IMAGES.designStudio), title: 'Cabinet door samples, finish swatches, and a kitchen layout rendering during a design consultation' },
     ],
+  });
+
+  entries.push({
+    page: `${BASE}/about`,
+    images: [
+      { loc: abs(MARKETING_IMAGES.heroAbout), title: ABOUT_DESIGN_SAMPLES_ALT },
+      { loc: abs(MARKETING_IMAGES.processAbout), title: ABOUT_INSTALL_PROGRESS_ALT },
+      { loc: abs(MARKETING_IMAGES.construction), title: KITCHEN_WOOD_ISLAND_ALT },
+    ],
+  });
+  entries.push({
+    page: `${BASE}/builders`,
+    images: [{ loc: abs(MARKETING_IMAGES.construction), title: KITCHEN_WOOD_ISLAND_ALT }],
+  });
+  entries.push({
+    page: `${BASE}/construction`,
+    images: [{ loc: abs(MARKETING_IMAGES.construction), title: KITCHEN_WOOD_ISLAND_ALT }],
   });
 
   // One canonical image per room landing page.

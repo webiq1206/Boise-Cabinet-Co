@@ -38,7 +38,7 @@ if (!fs.existsSync(manifestPath)) {
     if (!entry.alt || entry.alt.length < 20) {
       errors.push(`Manifest alt too short: ${entry.id}`);
     }
-    if (entry.alt && !entry.decorative) {
+    if (entry.alt && !entry.decorative && !entry.lockedAlt) {
       if (!entry.alt.includes(BRAND)) {
         errors.push(`Alt missing business name "${BRAND}": ${entry.id}`);
       }

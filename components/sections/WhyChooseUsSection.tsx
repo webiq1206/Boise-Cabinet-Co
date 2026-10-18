@@ -8,6 +8,7 @@ import {
   HOMEPAGE_DIFFERENTIATOR_INDICES,
 } from "@/shared/siteContent";
 import { CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { KITCHEN_WOOD_ISLAND_ALT, MARKETING_IMAGES } from "@/shared/siteImages";
 
 interface WhyChooseUsSectionProps {
   /** When set, show only the first N homepage-curated differentiators. */
@@ -63,9 +64,8 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
               <figure className="mt-10 hidden lg:block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
-                    src="/images/marketing/hero-home.webp"
-                    alt="Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home"
-                    // Retired shop scene stays in UNRENDERED_TRUST_IMAGES.construction.
+                    src={MARKETING_IMAGES.construction}
+                    alt={KITCHEN_WOOD_ISLAND_ALT}
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"

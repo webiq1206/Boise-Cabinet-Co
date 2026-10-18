@@ -55,7 +55,7 @@ const GALLERY_AFTER = [
 ];
 
 const WORK_TEAM = [
-  { src: "images/marketing/hero-construction.webp", dest: "cabinet-installation-treasure-valley-idaho.webp" },
+  { src: "images/marketing/kitchen-wood-island.webp", dest: "cabinet-installation-treasure-valley-idaho.webp" },
   { src: "images/marketing/hero-about.webp", dest: "custom-cabinet-team-boise-idaho.webp" },
   { src: "images/marketing/process-about.webp", dest: "cabinet-design-process-boise-idaho.webp" },
 ];
