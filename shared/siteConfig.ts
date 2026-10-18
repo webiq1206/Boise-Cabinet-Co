@@ -25,6 +25,22 @@ export function showTestimonials(
   return value === "true";
 }
 
+/**
+ * A 2020 years-in-business claim stays in source. It renders only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ */
+export function showFoundingYear(
+  value: string | undefined = process.env.SHOW_FOUNDING_YEAR ?? process.env.NEXT_PUBLIC_SHOW_FOUNDING_YEAR,
+): boolean {
+  return value === "true";
+}
+
+/** Keep both wordings. Publish the year claim only while the flag is on. */
+export function foundingYearCopy(shown: string, hidden: string): string {
+  return showFoundingYear() ? shown : hidden;
+}
+
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
 // E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
 const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;

@@ -1,3 +1,5 @@
+import { showFoundingYear } from "@/shared/siteConfig";
+
 /**
  * Additive answer blocks for phase-1 pages.
  * Facts are limited to frameless (European-style) boxes, soft-close hardware,
@@ -152,16 +154,46 @@ const CONTACT: Phase1Answer = {
   ],
 };
 
+function publishFoundingText(text: string): string {
+  if (showFoundingYear()) return text;
+  return text
+    .replaceAll("Yes. Boise Cabinet Co was founded in 2020 and provides", "Yes. Boise Cabinet Co provides")
+    .replaceAll("Boise Cabinet Co was founded in 2020 and provides", "Boise Cabinet Co provides")
+    .replaceAll(
+      "When was Boise Cabinet Co founded, and is workmanship in writing?",
+      "Is workmanship covered in writing?",
+    )
+    .replaceAll("Founded in 2020, the shop includes", "The shop includes")
+    .replaceAll("Founded in 2020, the company offers", "The company offers")
+    .replaceAll("The company, founded in 2020, includes", "The company includes")
+    .replaceAll("Contact Boise Cabinet Co, founded in 2020, for", "Contact Boise Cabinet Co for")
+    .replaceAll("from Boise Cabinet Co, founded in 2020.", "from Boise Cabinet Co.");
+}
+
+function publishBlock(block: Phase1Answer): Phase1Answer {
+  return {
+    ...block,
+    paragraph: publishFoundingText(block.paragraph),
+    faqs: block.faqs.map((faq) => ({
+      ...faq,
+      question: publishFoundingText(faq.question),
+      answer: publishFoundingText(faq.answer),
+    })),
+  };
+}
+
 export function phase1LocationAnswer(slug: string): Phase1Answer | undefined {
-  return LOCATIONS[slug];
+  const answer = LOCATIONS[slug];
+  return answer ? publishBlock(answer) : undefined;
 }
 
 export function phase1RoomAnswer(slug: string): Phase1Answer | undefined {
-  return ROOMS[slug];
+  const answer = ROOMS[slug];
+  return answer ? publishBlock(answer) : undefined;
 }
 
 export function phase1ContactAnswer(): Phase1Answer {
-  return CONTACT;
+  return publishBlock(CONTACT);
 }
 
-export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT];
+export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(publishBlock);

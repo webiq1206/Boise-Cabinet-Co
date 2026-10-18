@@ -15,6 +15,7 @@ injectHeadingIds,
 import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
+import { showFoundingYear } from '@/shared/siteConfig';
 import { getResourcesForGuide } from '@/shared/guideResources';
 import {
 ArrowRight,
@@ -89,7 +90,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 <span className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {guide.author}
-                  {guide.author === 'Boise Cabinet Co' && (
+                  {guide.author === 'Boise Cabinet Co' && showFoundingYear() && (
                     <span className="text-muted-foreground">
                       · Treasure Valley cabinet designers since 2020
                     </span>
