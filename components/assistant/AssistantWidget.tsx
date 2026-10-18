@@ -47,7 +47,8 @@ function isSuppressedRoute(pathname: string | null): boolean {
     pathname.startsWith("/admin") ||
     pathname.startsWith("/portal") ||
     pathname.startsWith("/design-studio") ||
-    pathname.startsWith("/estimate")
+    pathname.startsWith("/estimate") ||
+    pathname === "/kitchen-cabinets"
   );
 }
 
