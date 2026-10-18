@@ -25,7 +25,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText } from '@/shared/trustFlags';
+import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showFoundingYear, showLegacyLicenseWording } from '@/shared/trustFlags';
 import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
 import { ABOUT_DESIGN_SAMPLES_ALT, ABOUT_INSTALL_PROGRESS_ALT, SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
@@ -194,8 +194,8 @@ export default function AboutPage() {
               <Reveal>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
-                  alt="Boise Cabinet Co seal"
+                  src={showFoundingYear() ? "/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg" : "/brand/svg/icon/boise-cabinet-co-icon-bone.svg"}
+                  alt={showFoundingYear() ? "Boise Cabinet Co seal" : "Boise Cabinet Co"}
                   width={64}
                   height={64}
                   className="mb-7 h-16 w-16 rounded-full"
@@ -212,9 +212,27 @@ export default function AboutPage() {
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                  {SITE_CONFIG.trust.licenseNumber
-                    ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
-                    : 'Idaho contractor license information is available upon request. '}
+                  {showLegacyLicenseWording() ? (
+                    SITE_CONFIG.trust.licenseNumber
+                      ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
+                      : 'Idaho contractor license information is available upon request. '
+                  ) : (
+                    <>
+                      {IDAHO_REGISTERED_CONTRACTOR}
+                      {" · "}
+                      <a
+                        href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Look up registration 8381215 on Idaho DOPL"
+                        aria-label="Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"
+                        className="underline underline-offset-2"
+                      >
+                        Verify with Idaho DOPL
+                      </a>
+                      {". "}
+                    </>
+                  )}
                   We are bonded and insured for residential cabinet design and installation across
                   the Treasure Valley.
                 </p>

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowRight, Phone } from "lucide-react";
 import { DisplayNum } from "@/components/marketing";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { showFoundingYear } from "@/shared/trustFlags";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404)",
@@ -22,8 +23,8 @@ export default function NotFound() {
         <div className="mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
-            alt="Boise Cabinet Co seal"
+            src={showFoundingYear() ? "/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg" : "/brand/svg/icon/boise-cabinet-co-icon-bone.svg"}
+            alt={showFoundingYear() ? "Boise Cabinet Co seal" : "Boise Cabinet Co"}
             width={88}
             height={88}
             className="mx-auto mb-6 h-20 w-20 rounded-full"

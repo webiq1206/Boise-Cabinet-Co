@@ -5,7 +5,7 @@
  */
 
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showLegacyLicenseWording } from '@/shared/trustFlags';
+import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showLegacyLicenseWording, showUnprovenSatisfactionGuarantee } from '@/shared/trustFlags';
 
 const BRAND = SITE_CONFIG.name;
 
@@ -149,6 +149,20 @@ const CITY_CTA_VARIANTS: Record<string, string> = {
   Caldwell: "Professional installation",
 };
 
+function publishedCityVariant(city: string, unmapped: "name" | "local"): string {
+  const source = CITY_DESCRIPTION_VARIANTS[city];
+  if (!source) return unmapped === "local" ? "Local" : city;
+  return publishTrustText(source);
+}
+
+function publishedCta(city: string): string {
+  const source = CITY_CTA_VARIANTS[city];
+  if (!source || city === "Star" || source === "Licensed & insured") {
+    return showUnprovenSatisfactionGuarantee() ? "Satisfaction guaranteed" : "Free design consultation";
+  }
+  return publishTrustText(source);
+}
+
 /**
  * Generate SEO-optimized meta description
  * 150-160 characters with phone number, CTA, and unique value prop
@@ -164,13 +178,17 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   
   if (city && serviceName) {
     const serviceLC = serviceName.toLowerCase();
-    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
-    const ctaVariant = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
-    return `${cityVariant} ${serviceLC} team. Licensed & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
+    const rawCity = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
+    const rawCta = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
+    const legacy = `${rawCity} ${serviceLC} team. Licensed & insured. ${rawCta}. Call ${phone} for a free consultation!`;
+    if (showLegacyLicenseWording()) return publishTrustText(legacy);
+    const cityVariant = publishedCityVariant(city, "name");
+    const ctaVariant = publishedCta(city);
+    return publishTrustText(`${cityVariant} ${serviceLC}, installed. ${IDAHO_REGISTERED_CONTRACTOR} & insured. ${ctaVariant}. Call ${phone} for a free consultation!`);
   }
   
   if (city) {
-    return `Custom cabinets and storage solutions in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`;
+    return publishTrustText(`Custom cabinets and storage solutions in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`);
   }
   
   if (!serviceName) {
@@ -178,7 +196,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   const serviceLC = serviceName.toLowerCase();
-  return `Expert ${serviceLC} in Boise & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free consultation today!`;
+  return publishTrustText(`Expert ${serviceLC} in Boise & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free consultation today!`);
 }
 
 /**
@@ -205,24 +223,38 @@ export function generateCityServiceDescription(
 ): string {
   const phone = SITE_CONFIG.phone;
   const serviceLC = serviceName.toLowerCase();
-  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const rawCity = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const cityVariant = publishedCityVariant(cityName, "local");
   const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
   const neighborhood = cityData?.neighborhoods?.[0];
+  const credential = showLegacyLicenseWording() ? "Licensed & insured" : `${IDAHO_REGISTERED_CONTRACTOR} & insured`;
 
   if (neighborhood) {
-    const withNeighborhood = `${cityVariant} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. Licensed & insured. Call ${phone}!`;
+    const legacy = `${rawCity} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. Licensed & insured. Call ${phone}!`;
+    const withNeighborhood = showLegacyLicenseWording()
+      ? publishTrustText(legacy)
+      : publishTrustText(`${cityVariant} ${serviceLC}, installed. Serving ${neighborhood} & all ${cityName}. ${credential}. Call ${phone}!`);
     if (withNeighborhood.length <= 160) return withNeighborhood;
   }
 
   if (shortDescription) {
-    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. Licensed & insured. Call ${phone}!`;
+    const legacy = `${rawCity} ${serviceLC}. ${shortDescription}. Licensed & insured. Call ${phone}!`;
+    const desc = showLegacyLicenseWording()
+      ? publishTrustText(legacy)
+      : publishTrustText(`${cityVariant} ${serviceLC}, installed. ${shortDescription}. ${credential}. Call ${phone}!`);
     if (desc.length <= 160) return desc;
   }
 
-  const base = `${cityVariant} ${serviceLC} in ${cityName}, ID. Licensed & insured. Call ${phone} for a free quote!`;
+  const legacyBase = `${rawCity} ${serviceLC} in ${cityName}, ID. Licensed & insured. Call ${phone} for a free quote!`;
+  const base = showLegacyLicenseWording()
+    ? publishTrustText(legacyBase)
+    : publishTrustText(`${cityVariant} ${serviceLC} in ${cityName}, ID. ${credential}. Call ${phone} for a free quote!`);
   if (base.length <= 160) return base;
 
-  return `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
+  const legacyShort = `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
+  return publishTrustText(showLegacyLicenseWording()
+    ? legacyShort
+    : `${serviceLC} in ${cityName}, ID. ${credential}. Call ${phone} for a free quote today!`);
 }
 
 /** Keep complete authored titles; an optional secondary label may be omitted. */

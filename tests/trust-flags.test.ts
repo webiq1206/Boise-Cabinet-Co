@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { generateMetaDescription } from "../lib/seo";
 import { phase1Description } from "../lib/phase1SearchCopy";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
 import { generateOrganizationSchema } from "../lib/schema";
@@ -18,6 +19,8 @@ import {
   showLifetimeWarranty,
   showPremierClaim,
   showTestimonials,
+  showUnprovenSatisfactionGuarantee,
+  showUnprovenTopRated,
 } from "../shared/trustFlags";
 
 const FORBIDDEN = [
@@ -34,6 +37,10 @@ const FORBIDDEN = [
   /"foundingDate"/,
   /CNC-routed/,
   /written workmanship guarantee/i,
+  /satisfaction guaranteed/i,
+  /satisfaction guarantee/i,
+  /top-rated/i,
+  /top rated/i,
 ];
 
 test("trust flags default to hidden and keep the registration wording", () => {
@@ -44,6 +51,8 @@ test("trust flags default to hidden and keep the registration wording", () => {
   assert.equal(showPremierClaim(), false);
   assert.equal(showTestimonials(), false);
   assert.equal(showLegacyLicenseWording(), false);
+  assert.equal(showUnprovenTopRated(), false);
+  assert.equal(showUnprovenSatisfactionGuarantee(), false);
   assert.equal(IDAHO_REGISTERED_CONTRACTOR, "Idaho Registered Contractor #8381215");
   assert.equal(HERO_STATS.some((stat) => stat.num === "299" || stat.num === "Lifetime"), false);
   assert.equal(/premier/i.test(SITE_TAGLINE), false);
@@ -61,6 +70,10 @@ test("published cabinet claims omit the unproven phrases", () => {
     phase1Description("/catalog") ?? "",
     phase1Description("/shaker-cabinets") ?? "",
     phase1Description("/builders") ?? "",
+    generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city: "Meridian" }),
+    generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets" }),
+    generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city: "Star" }),
+    generateMetaDescription({ serviceName: "", serviceSlug: "", city: "Boise" }),
   ];
   for (const text of blobs) {
     for (const pattern of FORBIDDEN) {
@@ -69,6 +82,10 @@ test("published cabinet claims omit the unproven phrases", () => {
   }
   const org = JSON.stringify(generateOrganizationSchema());
   assert.equal(org.includes(IDAHO_REGISTERED_CONTRACTOR), true);
+  const meridian = generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city: "Meridian" });
+  assert.equal(meridian.includes(IDAHO_REGISTERED_CONTRACTOR), true);
+  assert.equal(meridian.includes("trusted"), false);
+  assert.equal(meridian.includes("Shop-built"), false);
   assert.equal(bathroom.includes("installed") || bathroom.includes("installation"), true);
   assert.equal(GBP_BUSINESS_DESCRIPTION.length <= 750, true);
 });

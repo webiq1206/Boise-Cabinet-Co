@@ -43,6 +43,14 @@ export function showLegacyLicenseWording(): boolean {
   return on(process.env.NEXT_PUBLIC_SHOW_LEGACY_LICENSE_WORDING) || on(process.env.SHOW_LEGACY_LICENSE_WORDING);
 }
 
+export function showUnprovenTopRated(): boolean {
+  return on(process.env.NEXT_PUBLIC_SHOW_UNPROVEN_TOP_RATED) || on(process.env.SHOW_UNPROVEN_TOP_RATED);
+}
+
+export function showUnprovenSatisfactionGuarantee(): boolean {
+  return on(process.env.NEXT_PUBLIC_SHOW_UNPROVEN_SATISFACTION_GUARANTEE) || on(process.env.SHOW_UNPROVEN_SATISFACTION_GUARANTEE);
+}
+
 function replaceAll(text: string, pairs: Array<[string, string]>): string {
   let next = text;
   for (const [from, to] of pairs) next = next.split(from).join(to);
@@ -52,11 +60,26 @@ function replaceAll(text: string, pairs: Array<[string, string]>): string {
 /** Keep the source sentence. Return the wording that is allowed to publish. */
 export function publishTrustText(text: string): string {
   let next = text;
+  next = replaceAll(next, [
+    [
+      "Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction.",
+      "Custom shaker cabinets from {company}, sized to your layout and installed across the Treasure Valley. Four shaker profiles in finishes including classic white shaker, sage green, and two-tone, with frameless options.",
+    ],
+    ["Kuna's trusted custom cabinet", "Kuna"],
+    ["Meridian's trusted", "Meridian"],
+    ["Nampa's trusted", "Nampa"],
+    ["Caldwell's trusted", "Caldwell"],
+  ]);
   if (!showLegacyLicenseWording()) {
     next = replaceAll(next, [
       [LEGACY_LICENSED_ORG, `${IDAHO_REGISTERED_CONTRACTOR}, insured, and committed to craftsmanship.`],
       ["Fully Licensed & Insured", `${IDAHO_REGISTERED_CONTRACTOR}, insured`],
-      ["Licensed & insured.", `${IDAHO_REGISTERED_CONTRACTOR}, insured.`],
+      ["Licensed, insured, satisfaction guaranteed.", showUnprovenSatisfactionGuarantee()
+        ? `${IDAHO_REGISTERED_CONTRACTOR}, insured, satisfaction guaranteed.`
+        : `${IDAHO_REGISTERED_CONTRACTOR}, insured.`],
+      ["Licensed, insured, locally owned.", `${IDAHO_REGISTERED_CONTRACTOR}, insured, locally owned.`],
+      ["Licensed & insured pros.", `${IDAHO_REGISTERED_CONTRACTOR} & insured.`],
+      ["Licensed & insured.", `${IDAHO_REGISTERED_CONTRACTOR} & insured.`],
       ["Yes. Boise Cabinet Co is licensed, bonded, and insured. License details available upon request.", `Yes. Boise Cabinet Co is ${IDAHO_REGISTERED_CONTRACTOR}, bonded, and insured.`],
       ["Licensed, bonded, and insured", `${IDAHO_REGISTERED_CONTRACTOR}, bonded, and insured`],
       ["Idaho contractor license information is available upon request.", `${IDAHO_REGISTERED_CONTRACTOR}.`],
@@ -196,6 +219,32 @@ export function publishTrustText(text: string): string {
       ["before fabrication", "before ordering"],
       ["Fabrication & quality check", "Quality check"],
       ["Design, fabrication, delivery", "Design, ordering, delivery"],
+    ]);
+  }
+  if (!showUnprovenTopRated()) {
+    next = replaceAll(next, [
+      [", top-rated", ""],
+      [", top rated", ""],
+      ["top-rated", ""],
+      ["top rated", ""],
+      ["Top-rated", ""],
+      ["Top rated", ""],
+    ]);
+  }
+  if (!showUnprovenSatisfactionGuarantee()) {
+    next = replaceAll(next, [
+      [", satisfaction guaranteed", ""],
+      [" & satisfaction guaranteed", ""],
+      ["satisfaction guaranteed", ""],
+      ["Satisfaction guaranteed", ""],
+      ["satisfaction guarantee", ""],
+      ["Satisfaction guarantee", ""],
+    ]);
+  }
+  if (!showFoundingYear()) {
+    next = replaceAll(next, [
+      ["5+ years", ""],
+      ["five or more years", ""],
     ]);
   }
   if (!showTestimonials()) {

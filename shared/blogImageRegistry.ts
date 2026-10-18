@@ -395,7 +395,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'cabinet-measurement-design-phase': {
     hero: '/images/gallery/gallery-kitchen-before.webp',
-    alt: 'Existing oak kitchen cabinets illustrating a layout before a cabinet refresh',
+    alt: 'Oak kitchen cabinets in a traditional layout',
     topicTags: ["process","design"],
     source: 'gallery',
   },
