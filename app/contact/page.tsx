@@ -7,6 +7,7 @@ import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
+import { HowP5Works } from '@/components/sections/HowP5Works';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
@@ -195,6 +196,12 @@ export default function ContactPage() {
               align="left"
             />
             <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix="phase1-contact" />
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-5xl">
+            <HowP5Works showLeadTime />
           </div>
         </Section>
 

@@ -228,11 +228,17 @@ test("Priya rev 2 headlines and the contractor line", () => {
   assert.match(flags, /export const IDAHO_REGISTERED_CONTRACTOR = "Idaho Registered Contractor #8381215"/);
   assert.match(flags, /export const DOPL_LICENSE_SEARCH_URL = "https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"/);
   assert.match(registration, /\{IDAHO_REGISTERED_CONTRACTOR\}/);
-  assert.match(registration, /rel="noopener"/);
-  assert.equal(registration.includes("noreferrer"), false);
+  assert.match(registration, /rel="noopener noreferrer"/);
+  assert.match(registration, /export const DOPL_LINK_TITLE = "Look up registration 8381215 on Idaho DOPL"/);
+  assert.match(registration, /title=\{DOPL_LINK_TITLE\}/);
+  assert.match(
+    registration,
+    /export const DOPL_LINK_ARIA_LABEL =\n  "Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"/,
+  );
+  assert.match(registration, /aria-label=\{DOPL_LINK_ARIA_LABEL\}/);
+  assert.match(registration, />\s*Verify with Idaho DOPL\s*</);
   assert.equal(footer.includes("License details available upon request"), false);
-  assert.equal(footer.includes("Verify with Idaho DOPL"), false);
-  assert.equal(about.includes("Verify with Idaho DOPL"), false);
+  assert.equal(registration.includes("Verify with Idaho DOPL"), true);
   assert.match(about, /<RegistrationLink/);
   assert.match(about, /linkifyRegistration\(faq\.answer/);
   for (const file of [kitchen, hub, estimate, readFileSync("components/marketing/CallTextActions.tsx", "utf8")]) {

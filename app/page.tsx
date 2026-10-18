@@ -9,6 +9,7 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { publishTrustText } from "@/shared/trustFlags";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { HowP5Works } from "@/components/sections/HowP5Works";
 import { Check } from "lucide-react";
 import Image from "next/image";
 
@@ -22,6 +23,11 @@ export default function HomePage() {
       <h2 data-speakable="summary" className="sr-only">
         {publishTrustText("Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell across Idaho's Treasure Valley. We design, build, and install frameless custom kitchen cabinets, bathroom vanities, and built-in storage, with 299 finishes, six door styles, a free design consultation, and a lifetime workmanship warranty.")}
       </h2>
+      <Section divider>
+        <div className="container px-4 max-w-5xl">
+          <HowP5Works showLeadTime />
+        </div>
+      </Section>
       <Section
         id="consult"
         divider

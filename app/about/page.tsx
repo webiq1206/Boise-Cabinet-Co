@@ -27,6 +27,7 @@ import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { linkifyRegistration, RegistrationLink } from '@/components/RegistrationLink';
 import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showFoundingYear, showLegacyLicenseWording } from '@/shared/trustFlags';
+import { HowP5Works } from '@/components/sections/HowP5Works';
 import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
 import { ABOUT_DESIGN_SAMPLES_ALT, ABOUT_INSTALL_PROGRESS_ALT, SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
@@ -234,6 +235,9 @@ export default function AboutPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-10">
+                  <HowP5Works showLeadTime />
+                </div>
               </Reveal>
             </div>
           </div>

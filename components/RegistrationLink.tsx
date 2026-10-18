@@ -1,27 +1,32 @@
-import { Fragment, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { DOPL_LICENSE_SEARCH_URL, IDAHO_REGISTERED_CONTRACTOR } from "@/shared/trustFlags";
 
+export const DOPL_LINK_TITLE = "Look up registration 8381215 on Idaho DOPL";
+export const DOPL_LINK_ARIA_LABEL =
+  "Verify with Idaho DOPL: look up registration 8381215, opens in a new tab";
+
+/** Footer and the about credential line. The number stays plain text. */
 export function RegistrationLink({ className }: { className?: string }) {
   return (
-    <a
-      href={DOPL_LICENSE_SEARCH_URL}
-      target="_blank"
-      rel="noopener"
-      className={className}
-    >
+    <span>
       {IDAHO_REGISTERED_CONTRACTOR}
-    </a>
+      {" · "}
+      <a
+        href={DOPL_LICENSE_SEARCH_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={DOPL_LINK_TITLE}
+        aria-label={DOPL_LINK_ARIA_LABEL}
+        className={className}
+      >
+        Verify with Idaho DOPL
+      </a>
+    </span>
   );
 }
 
-/** Turn the registration phrase into the DOPL search link. Other text stays plain. */
+/** FAQ, meta, and schema keep the registration phrase as plain text. */
 export function linkifyRegistration(text: string, className?: string): ReactNode {
-  if (!text.includes(IDAHO_REGISTERED_CONTRACTOR)) return text;
-  const parts = text.split(IDAHO_REGISTERED_CONTRACTOR);
-  return parts.map((part, index) => (
-    <Fragment key={index}>
-      {part}
-      {index < parts.length - 1 ? <RegistrationLink className={className} /> : null}
-    </Fragment>
-  ));
+  void className;
+  return text;
 }

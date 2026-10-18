@@ -100,6 +100,19 @@ export const TRUST_ITEMS = publishDeep([
   "Workmanship Guarantee",
 ]);
 
+export const HOW_P5_WORKS_TITLE = "How P5 works";
+export const HOW_P5_WORKS = [
+  "Own install crew",
+  "Bonded & insured",
+  "Manufacturer warranties passed through",
+  "Install dates confirmed in writing",
+  "Written update every week",
+  "Free in-home consultation, no pressure",
+  "Public representative: Nick Perkins",
+] as const;
+export const CABINET_LEAD_TIME_LINE =
+  "Lead time: typically 4\u20138 weeks, often faster for ready-to-assemble lines";
+
 export interface TeamMember {
   name: string;
   role: string;

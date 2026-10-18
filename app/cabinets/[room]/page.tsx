@@ -9,6 +9,7 @@ import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CtaButton } from "@/components/modals/CtaButton";
+import { HowP5Works } from "@/components/sections/HowP5Works";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
@@ -319,6 +320,12 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 ))}
               </ul>
             </div>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="ed-shell">
+            <HowP5Works showLeadTime />
           </div>
         </Section>
 
