@@ -5,6 +5,10 @@
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
+import { showFoundingYear } from "@/shared/siteConfig";
+
+const FOUNDING_FACT = showFoundingYear() ? "- Founded: 2020\n" : "";
+
 export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
@@ -18,8 +22,7 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 ## Business facts
 
 - Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
-- Founded: 2020
-- Based in Meridian, Idaho (service-area business; consultations happen in your home)
+${FOUNDING_FACT}- Based in Meridian, Idaho (service-area business; consultations happen in your home)
 - Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware

@@ -3,7 +3,9 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
 import { generateLocalBusinessSchema, generateOrganizationSchema } from "../lib/schema";
+import { LLMS_TXT } from "../shared/llmsTxt";
 import { foundingYearCopy, showFoundingYear } from "../shared/siteConfig";
+import { TRUST_ITEMS } from "../shared/siteContent";
 
 test("founding year stays hidden unless the flag is exactly true", () => {
   assert.equal(showFoundingYear(undefined), false);
@@ -26,6 +28,13 @@ test("published answers and schema omit the 2020 years-in-business claim", () =>
   assert.equal(published.includes("2020"), false);
   assert.equal(published.includes("founded"), false);
   assert.equal(published.includes("Founded"), false);
+  assert.equal(LLMS_TXT.includes("Founded: 2020"), false);
+  assert.equal(LLMS_TXT.includes("2020"), false);
+});
+
+test("the trust strip adds no founding badges", () => {
+  const founding = TRUST_ITEMS.filter((item) => /est\.|founded|since \d{4}|\d+\+? years/i.test(item));
+  assert.deepEqual(founding, []);
 });
 
 test("the 2020 wording stays in source", () => {
@@ -35,6 +44,7 @@ test("the 2020 wording stays in source", () => {
     "lib/phase1Answers.ts",
     "app/about/page.tsx",
     "components/marketing/GuidePageLayout.tsx",
+    "shared/llmsTxt.ts",
   ];
   const combined = files.map((file) => readFileSync(file, "utf8")).join("\n");
   for (const phrase of [
@@ -43,6 +53,7 @@ test("the 2020 wording stays in source", () => {
     "Founded in 2020",
     "founded in 2020",
     "Treasure Valley cabinet designers since 2020",
+    "Founded: 2020",
   ]) {
     assert.equal(combined.includes(phrase), true, phrase);
   }

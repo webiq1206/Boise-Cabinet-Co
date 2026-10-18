@@ -1,4 +1,4 @@
-# Boise Cabinet Co — Google Business Profile Setup Guide
+# Boise Cabinet Co: Google Business Profile Setup Guide
 
 Your complete, step-by-step guide to creating and optimizing your Google Business Profile. Work through each section in order. Copy the text exactly as written so your profile matches your website and all other listings.
 
@@ -10,9 +10,9 @@ Your complete, step-by-step guide to creating and optimizing your Google Busines
 
 Search Google Maps and Google for each of these before creating anything new:
 
-1. **Boise Remodeling Co** — This is your old business name. If you find it, claim the listing and update it, or request removal. The old phone number was (208) 352-2011. Your correct number is (208) 477-1169.
-2. **Boise Cabinet Co** — If a profile already exists, claim it. If not, you will create a new one.
-3. **Boise Cabinet Inc** in Garden City — This is a **different company** with phone (208) 323-0010. Never claim or merge their listing.
+1. **Boise Remodeling Co.** This is your old business name. If you find it, claim the listing and update it, or request removal. The old phone number was (208) 352-2011. Your correct number is (208) 477-1169.
+2. **Boise Cabinet Co.** If a profile already exists, claim it. If not, you will create a new one.
+3. **Boise Cabinet Inc** in Garden City. This is a **different company** with phone (208) 323-0010. Never claim or merge their listing.
 
 Also search Yelp and YellowPages for "Boise Remodeling Co" and correct anything you find.
 
@@ -60,10 +60,10 @@ Rules:
 
 You do not have a public showroom. Customers visit their homes for consultations.
 
-1. When asked "Do you have a location customers can visit?" — select **No**
+1. When asked "Do you have a location customers can visit?": select **No**
 2. Choose **Service-area business**
 3. **Hide your street address** from the public profile
-4. Keep Meridian, ID on file internally for verification only — do not show it publicly on the profile
+4. Keep Meridian, ID on file internally for verification only. Do not show it publicly on the profile
 
 ### Step 6: Set your primary category
 
@@ -98,7 +98,7 @@ This is the Book button on your profile. It should go to your consultation reque
 
 ### Step 11: Enter your opening date
 
-**2017**
+**leave blank until documented**
 
 ---
 
@@ -163,7 +163,7 @@ Cash, Credit Card, Check, Financing
 
 Google allows up to 750 characters. Copy this entire paragraph into your profile description:
 
-Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2017, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
+Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. We offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
 
 Do not put your phone number or website URL inside the description. Google has separate fields for those.
 
@@ -443,7 +443,7 @@ Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the origin
 **Question 7:** What does the free design consultation include?
 
 **Answer:**
-A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure — you leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact
+A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure. You leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact
 
 ---
 
@@ -456,9 +456,9 @@ Pricing depends on your door style, finish selections, linear footage, and acces
 
 ### Bonus questions to add after launch
 
-- Do you offer closet, laundry, and mudroom cabinets? (Yes — link to https://boisecabinet.co/cabinets)
-- Can I design my cabinets online before committing? (Yes — link to https://boisecabinet.co/design-studio)
-- What door styles and finishes are available? (Six styles, 299 finishes — link to https://boisecabinet.co/finishes)
+- Do you offer closet, laundry, and mudroom cabinets? (Yes. Link to https://boisecabinet.co/cabinets)
+- Can I design my cabinets online before committing? (Yes. Link to https://boisecabinet.co/design-studio)
+- What door styles and finishes are available? (Six styles, 299 finishes. Link to https://boisecabinet.co/finishes)
 
 ---
 
@@ -498,7 +498,7 @@ Google will verify your business by postcard, phone, email, or video. Use your M
 1. Search "Boise Cabinet Co" in Google Maps
 2. Check that your name, phone, hours, and service areas look correct
 3. Confirm your street address is hidden
-4. Save your public Google profile link — you will need it for citations and review requests
+4. Save your public Google profile link. You will need it for citations and review requests
 
 ---
 
@@ -537,19 +537,19 @@ Set the button to **Book** and link to https://boisecabinet.co/contact
 
 Post once per week. Rotate through these four types:
 
-**Week A — Project showcase**
+**Week A: Project showcase**
 Photo of a completed kitchen or bath. Name the city. Button: Book → https://boisecabinet.co/contact
 
 Rotate cities: Boise → Meridian → Eagle → Nampa → Kuna → Star → Middleton → Caldwell
 
-**Week B — Helpful guide**
+**Week B: Helpful guide**
 Example: "Planning a kitchen remodel in Boise? Our cost guide covers timelines and what to expect."
 Link to: https://boisecabinet.co/guides/boise-cabinet-cost-guide
 
-**Week C — Product highlight**
+**Week C: Product highlight**
 Feature a door style or finish with a photo. Link to the matching page on boisecabinet.co
 
-**Week D — Seasonal tip**
+**Week D: Seasonal tip**
 Examples: spring kitchen planning, holiday pantry organization, outdoor kitchen season in Idaho.
 Button: Book → https://boisecabinet.co/contact
 
@@ -590,10 +590,10 @@ Work through this list before you consider your profile complete.
 - [ ] Primary category: Cabinet maker
 - [ ] 4 secondary categories added
 - [ ] Phone, website (UTM), appointment link set
-- [ ] Opening date: 2017
+- [ ] Opening date: leave blank until documented
 - [ ] 9 service areas added
 - [ ] Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)
-- [ ] 744-char business description pasted
+- [ ] 727-char business description pasted
 - [ ] 11 core services with descriptions + UTM links
 - [ ] 6 door-style products with photos + UTM links
 - [ ] 20+ photos uploaded with SEO filenames
