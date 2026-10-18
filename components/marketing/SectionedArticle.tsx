@@ -13,7 +13,7 @@ interface SectionedArticleProps {
 
 export function SectionedArticle({
   html,
-  defaultOpenCount = 3,
+  defaultOpenCount = 99,
   testId = 'article-content',
 }: SectionedArticleProps) {
   // A focusable region makes wide comparisons usable with keyboard and touch.

@@ -1,7 +1,5 @@
 import { Section } from "@/components/marketing/Section";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
-import { Button } from "@/components/ui/button";
-import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { HOMEPAGE_FAQS } from "@/shared/homepageFaqs";
 
 export { HOMEPAGE_FAQS };
@@ -29,11 +27,6 @@ export function FAQSection() {
                 matter
               </em>
             </h2>
-            <div className="mt-10">
-              <Button variant="brand" asChild>
-                <a href="#calculator">{CTA_ESTIMATE}</a>
-              </Button>
-            </div>
           </div>
 
           <div>
