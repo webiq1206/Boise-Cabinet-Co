@@ -155,7 +155,7 @@ export function KitchenCabinetsQuoteForm() {
         <Input
           id="kc-project"
           name="project"
-          placeholder="e.g. full kitchen, new island, replace upper cabinets"
+          placeholder="e.g. full kitchen, bathroom vanity, built-in shelving"
           value={project}
           onChange={(event) => setProject(event.target.value)}
           required

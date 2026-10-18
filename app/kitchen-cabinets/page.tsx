@@ -1,16 +1,38 @@
+import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
+import { BadgeCheck, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 
-const TITLE = "Boise Kitchen Cabinets, Installed Fast | Boise Cabinet Co";
+const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Kitchen cabinets sourced and installed by our own crew. Bonded and insured, Idaho Registered Contractor #8381215. Call or text (208) 477-1169 for a free estimate.";
+  "Kitchen cabinets, bathroom vanities and built-ins, sourced and installed by our own crew. Bonded and insured, Idaho Registered Contractor #8381215. Call or text (208) 477-1169 for a free estimate.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
 const WEEKS = "4\u20138 weeks";
+
+const HERO_IMAGE = "/images/approved/hero-p5-v2.webp";
+const TILES = [
+  {
+    src: "/images/approved/kitchen.webp",
+    label: "Kitchen cabinets",
+    alt: "Kitchen with cream cabinetry, a wood island, and a stone counter",
+  },
+  {
+    src: "/images/approved/bathroom.webp",
+    label: "Bathroom vanities",
+    alt: "Bathroom vanity with light wood cabinets and a stone counter",
+  },
+  {
+    src: "/images/catalog/rooms/built-ins.webp",
+    label: "Built-ins",
+    alt: "Built-in cabinets and open shelves along a living room wall",
+  },
+] as const;
 
 const FAQS = [
   {
@@ -23,15 +45,27 @@ const FAQS = [
       "Homeowners across Ada and Canyon counties, including Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell and Garden City.",
   },
   {
-    question: "How much do kitchen cabinets cost?",
+    question: "What do you install?",
     answer:
-      "It depends on the size of your kitchen and the cabinet line you choose. The estimate is free, so call, text or send the form and we'll give you a real number.",
+      "Kitchen cabinets, bathroom vanities and built-ins. We source the cabinets and our own crew installs them. We don't refinish or reface existing cabinets.",
+  },
+  {
+    question: "How much do new cabinets cost?",
+    answer:
+      "It depends on the size of the space and the cabinet line you choose. The estimate is free, so call, text or send the form and we'll give you a real number.",
   },
   {
     question: "Are you registered and insured?",
     answer: "Yes. We're an Idaho Registered Contractor #8381215, and we're bonded and insured.",
   },
 ];
+
+const TRUST = [
+  { icon: ShieldCheck, label: "Bonded & insured" },
+  { icon: BadgeCheck, label: "Idaho Registered Contractor #8381215" },
+  { icon: Clock, label: `Typically ${WEEKS}` },
+  { icon: Sparkles, label: "Free estimate" },
+] as const;
 
 export const metadata: Metadata = withBrandPageMetadata(
   {
@@ -48,15 +82,29 @@ export const metadata: Metadata = withBrandPageMetadata(
   "/kitchen-cabinets",
 );
 
-function CallTextButtons() {
+function CallTextButtons({ onDark = false }: { onDark?: boolean }) {
   const linkClass =
-    "inline-flex min-h-14 items-center justify-center rounded-md px-6 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+    "inline-flex min-h-14 w-full items-center justify-center rounded-md px-5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto sm:min-w-[220px]";
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <a href={TEL_HREF} className={`${linkClass} bg-primary text-primary-foreground`}>
+      <a
+        href={TEL_HREF}
+        className={
+          onDark
+            ? `${linkClass} bg-[#fbfaf6] text-[#2c302f] focus-visible:ring-[#fbfaf6]`
+            : `${linkClass} bg-primary text-primary-foreground focus-visible:ring-ring`
+        }
+      >
         Call (208) 477-1169
       </a>
-      <a href={SMS_HREF} className={`${linkClass} border border-foreground/80 text-foreground`}>
+      <a
+        href={SMS_HREF}
+        className={
+          onDark
+            ? `${linkClass} border border-[#fbfaf6] text-[#fbfaf6] focus-visible:ring-[#fbfaf6]`
+            : `${linkClass} border border-foreground/80 text-foreground focus-visible:ring-ring`
+        }
+      >
         Text (208) 477-1169
       </a>
     </div>
@@ -65,26 +113,81 @@ function CallTextButtons() {
 
 export default function KitchenCabinetsPage() {
   return (
-    <div className="bg-background text-foreground">
+    <div className="kc-landing bg-background text-foreground">
+      <style>{`
+        .approved-shell:has(.kc-landing) > .flex > header { display: none !important; }
+        .approved-shell .kc-hero,
+        .approved-shell .kc-hero h1,
+        .approved-shell .kc-hero p { color: #fbfaf6; }
+        .approved-shell .kc-hero h1 { font-size: clamp(32px, 8.4vw, 64px); line-height: 1.05; }
+      `}</style>
       <JsonLd
         data={[
           generateWebPageSchema({ title: TITLE, description: DESCRIPTION, url: "/kitchen-cabinets" }),
           generateFAQSchema(FAQS),
         ]}
       />
-      <article className="mx-auto max-w-3xl px-6 py-10 pb-28 md:pb-16">
-        <header className="space-y-5">
-          <h1 className="font-serif text-4xl leading-tight text-foreground md:text-5xl">
-            Boise Kitchen Cabinets, Installed Fast
-          </h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Kitchen cabinets sourced and installed by our own crew, typically in {WEEKS} and often faster for ready-to-assemble lines.
-          </p>
-          <CallTextButtons />
-          <p className="text-sm text-muted-foreground">{HOURS}</p>
-        </header>
 
-        <section id="quick-quote" className="mt-12 scroll-mt-24 space-y-5">
+      <header data-approved-navigation className="z-[100] w-full">
+        <nav className="flex items-center">
+          <ApprovedBrand />
+        </nav>
+      </header>
+
+      <section className="kc-hero relative flex min-h-[calc(100svh-70px)] items-end overflow-hidden">
+        <Image
+          src={HERO_IMAGE}
+          alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[62%_center]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1f1e]/95 via-[#1c1f1e]/72 to-[#1c1f1e]/30" aria-hidden="true" />
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-24 pt-8 sm:px-8 sm:pb-16 sm:pt-16">
+          <h1 className="max-w-[12ch] font-serif">
+            Boise Cabinets for Kitchens, Baths &amp; Built-Ins
+          </h1>
+          <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
+            Kitchen cabinets, bathroom vanities and built-ins, sourced and installed by our own crew, typically in {WEEKS} and often faster for ready-to-assemble lines.
+          </p>
+          <div className="mt-5">
+            <CallTextButtons onDark />
+          </div>
+          <p className="mt-3 text-sm leading-snug">{HOURS}</p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {TRUST.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#fbfaf6]/35 bg-[#1c1f1e]/55 px-3 py-1.5 text-[13px] leading-tight text-[#fbfaf6]"
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-5xl gap-4 px-5 py-8 sm:grid-cols-3 sm:px-8" aria-label="Cabinet types">
+        {TILES.map((tile) => (
+          <figure key={tile.label} className="overflow-hidden">
+            <div className="relative aspect-[4/3]">
+              <Image
+                src={tile.src}
+                alt={tile.alt}
+                fill
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="pt-2 text-sm font-medium text-foreground">{tile.label}</figcaption>
+          </figure>
+        ))}
+      </section>
+
+      <article className="mx-auto max-w-3xl px-6 pb-28 md:pb-16">
+        <section id="quick-quote" className="scroll-mt-28 space-y-5">
           <h2 className="font-serif text-3xl text-foreground">Get a free estimate</h2>
           <KitchenCabinetsQuoteForm />
         </section>
@@ -108,7 +211,7 @@ export default function KitchenCabinetsPage() {
           <h2 className="font-serif text-3xl text-foreground">How it works</h2>
           <ol className="list-decimal space-y-4 pl-5 text-base leading-relaxed">
             <li>
-              <strong>Reach out.</strong> Call, text or send the quick form with a few details about your kitchen.
+              <strong>Reach out.</strong> Call, text or send the quick form with a few details about your project.
             </li>
             <li>
               <strong>Get your free estimate.</strong> We go over layout, styles and finishes with you and give you a clear quote.
@@ -130,7 +233,7 @@ export default function KitchenCabinetsPage() {
         </section>
 
         <section className="mt-14 space-y-5" data-suppress-sticky-cta="">
-          <h2 className="font-serif text-3xl text-foreground">Ready for new kitchen cabinets?</h2>
+          <h2 className="font-serif text-3xl text-foreground">Ready for new cabinets?</h2>
           <p className="leading-relaxed text-muted-foreground">
             Call or text for a free estimate, Mon{"\u2013"}Fri 9 AM{"\u2013"}6 PM, Sat 9 AM{"\u2013"}4 PM (Mountain).
           </p>
