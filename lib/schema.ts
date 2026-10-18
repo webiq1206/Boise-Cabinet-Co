@@ -5,7 +5,7 @@ import {schemaTime} from './schemaTime';
  */
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
-import { foundingYearCopy, showFoundingYear, showTestimonials } from '@/shared/siteConfig';
+import { foundingYearCopy, IDAHO_REGISTERED_CONTRACTOR, showFoundingYear, showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
@@ -257,8 +257,8 @@ export function generateOrganizationSchema(): SchemaContext {
       url: `${baseUrl}/images/brc-logo.png`,
     },
     description: foundingYearCopy(
-      'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
-      'Custom cabinet company serving the Treasure Valley. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
+      `Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. ${IDAHO_REGISTERED_CONTRACTOR}, insured, and committed to quality workmanship.`,
+      `Custom cabinet company serving the Treasure Valley. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. ${IDAHO_REGISTERED_CONTRACTOR}, insured, and committed to quality workmanship.`,
     ),
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     telephone: SCHEMA_TELEPHONE,

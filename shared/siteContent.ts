@@ -7,7 +7,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { foundingYearCopy } from "@/shared/siteConfig";
+import { foundingYearCopy, IDAHO_REGISTERED_CONTRACTOR } from "@/shared/siteConfig";
 
 export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
@@ -161,7 +161,7 @@ export interface ClientPriority {
 export const CLIENT_PRIORITIES: ClientPriority[] = [
   {
     title: "Trust and credibility",
-    body: "Licensed, bonded, and insured with permits handled in-house and a written scope before work begins.",
+    body: `${IDAHO_REGISTERED_CONTRACTOR}, bonded and insured, with permits handled in-house and a written scope before work begins.`,
     icon: ShieldCheck,
   },
   {

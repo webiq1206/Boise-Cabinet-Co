@@ -37,6 +37,20 @@ export function showFoundingYear(
   return value === "true";
 }
 
+/** Verified Idaho registration. The number stays in the published phrase. */
+export const IDAHO_REGISTERED_CONTRACTOR = "Idaho Registered Contractor #8381215";
+
+/**
+ * "satisfaction guaranteed" stays in source. It publishes only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ */
+export function showUnprovenSatisfactionGuarantee(
+  value: string | undefined = process.env.SHOW_UNPROVEN_SATISFACTION_GUARANTEE ?? process.env.NEXT_PUBLIC_SHOW_UNPROVEN_SATISFACTION_GUARANTEE,
+): boolean {
+  return value === "true";
+}
+
 /** Keep both wordings. Publish the year claim only while the flag is on. */
 export function foundingYearCopy(shown: string, hidden: string): string {
   return showFoundingYear() ? shown : hidden;
