@@ -1,4 +1,7 @@
 // Single source of truth for /llms.txt, served via app/llms.txt/route.ts.
+import { showFoundingYear } from "@/shared/siteConfig";
+
+const FOUNDED_LINE = "- Founded: 2020";
 // Served through an app route (not public/) because static public/ files are
 // not served by the standalone production deploy; app routes are.
 //
@@ -18,8 +21,7 @@ Full content export for LLMs (every guide answer, article answer, and the comple
 ## Business facts
 
 - Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
-- Founded: 2020
-- Based in Meridian, Idaho (service-area business; consultations happen in your home)
+${showFoundingYear() ? `${FOUNDED_LINE}\n` : ""}- Based in Meridian, Idaho (service-area business; consultations happen in your home)
 - Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware

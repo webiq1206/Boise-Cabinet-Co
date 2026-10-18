@@ -1,9 +1,9 @@
-# Boise Cabinet Co — Brand Kit
+# Boise Cabinet Co: Brand Kit
 
-Custom Cabinetry · Boise & the Treasure Valley, Idaho · Est. 2020
+Custom Cabinetry · Boise & the Treasure Valley, Idaho
 
 Part of the Boise trades brand system. The system-wide rules live in
-[`../../BRAND-SYSTEM.md`](../../BRAND-SYSTEM.md) — **this file covers only what is specific to Boise Cabinet Co.**
+[`../../BRAND-SYSTEM.md`](../../BRAND-SYSTEM.md). **This file covers only what is specific to Boise Cabinet Co.**
 
 ---
 
@@ -11,12 +11,12 @@ Part of the Boise trades brand system. The system-wide rules live in
 
 | | |
 |---|---|
-| **Accent color** | `#7AAAAA` — Teal |
+| **Accent color** | `#7AAAAA`, Teal |
 | **Seal arc** | `CUSTOM CABINETRY` |
 | **Seal centre** | `BOISE` / *Cabinet* / `CO` |
 | **Wordmark** | `BOISE CABINET` *Co.* |
 
-Everything else — charcoal, bone, both typefaces, the ring geometry, spacing, minimum sizes — is shared
+Everything else (charcoal, bone, both typefaces, the ring geometry, spacing, minimum sizes) is shared
 across all five companies.
 
 ### Accent contrast

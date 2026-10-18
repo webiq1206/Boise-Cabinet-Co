@@ -5,7 +5,7 @@ import {schemaTime} from './schemaTime';
  */
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
-import { showTestimonials } from '@/shared/siteConfig';
+import { foundingYearCopy, showFoundingYear, showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
@@ -154,7 +154,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
           },
         }
       : {}),
-    foundingDate: BUSINESS_INFO.founded,
+    ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     slogan: 'Idaho\'s Premier Custom Cabinet Company',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
     currenciesAccepted: 'USD',
@@ -256,8 +256,11 @@ export function generateOrganizationSchema(): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}/images/brc-logo.png`,
     },
-    description: 'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
-    foundingDate: BUSINESS_INFO.founded,
+    description: foundingYearCopy(
+      'Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
+      'Custom cabinet company serving the Treasure Valley. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
+    ),
+    ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
     address: serviceAreaPostalAddress(),

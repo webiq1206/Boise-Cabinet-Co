@@ -4,7 +4,10 @@
  * a written workmanship guarantee, a free in-home design consultation,
  * founded 2020, the eight-city service area, and hundreds of finishes
  * and six door styles. Existing page claims stay in place.
+ * The 2020 sentences stay in this file. Published answers omit them unless
+ * SHOW_FOUNDING_YEAR is exactly "true".
  */
+import { showFoundingYear } from "@/shared/siteConfig";
 
 export interface Phase1Faq {
   question: string;
@@ -152,16 +155,46 @@ const CONTACT: Phase1Answer = {
   ],
 };
 
+function publishFoundingText(text: string): string {
+  if (showFoundingYear()) return text;
+  return text
+    .replaceAll("Yes. Boise Cabinet Co was founded in 2020 and provides", "Yes. Boise Cabinet Co provides")
+    .replaceAll("Boise Cabinet Co was founded in 2020 and provides", "Boise Cabinet Co provides")
+    .replaceAll(
+      "When was Boise Cabinet Co founded, and is workmanship in writing?",
+      "Is workmanship covered in writing?",
+    )
+    .replaceAll("Founded in 2020, the company offers", "The company offers")
+    .replaceAll("Founded in 2020, Boise Cabinet Co includes", "Boise Cabinet Co includes")
+    .replaceAll("The company, founded in 2020, includes", "The company includes")
+    .replaceAll("Contact Boise Cabinet Co, founded in 2020, for", "Contact Boise Cabinet Co for")
+    .replaceAll("from Boise Cabinet Co, founded in 2020.", "from Boise Cabinet Co.");
+}
+
+function publishBlock(block: Phase1Answer): Phase1Answer {
+  return {
+    ...block,
+    paragraph: publishFoundingText(block.paragraph),
+    faqs: block.faqs.map((faq) => ({
+      ...faq,
+      question: publishFoundingText(faq.question),
+      answer: publishFoundingText(faq.answer),
+    })),
+  };
+}
+
 export function phase1LocationAnswer(slug: string): Phase1Answer | undefined {
-  return LOCATIONS[slug];
+  const block = LOCATIONS[slug];
+  return block ? publishBlock(block) : undefined;
 }
 
 export function phase1RoomAnswer(slug: string): Phase1Answer | undefined {
-  return ROOMS[slug];
+  const block = ROOMS[slug];
+  return block ? publishBlock(block) : undefined;
 }
 
 export function phase1ContactAnswer(): Phase1Answer {
-  return CONTACT;
+  return publishBlock(CONTACT);
 }
 
-export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT];
+export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(publishBlock);

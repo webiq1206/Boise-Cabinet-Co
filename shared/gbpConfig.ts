@@ -3,7 +3,7 @@
  * services, products, Q&A, and UTM-tagged links. Consumed by docs generators
  * and verification scripts under scripts/gbp/.
  */
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { foundingYearCopy, showFoundingYear, SITE_CONFIG } from "@/shared/siteConfig";
 import { DOOR_STYLES } from "@/shared/catalog/generated/doorStyles";
 
 const SITE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
@@ -73,8 +73,18 @@ export const GBP_PROFILE = {
   },
 } as const;
 
-export const GBP_BUSINESS_DESCRIPTION =
+const GBP_BUSINESS_DESCRIPTION_WITH_YEAR =
   "Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+
+const GBP_BUSINESS_DESCRIPTION_WITHOUT_YEAR =
+  "Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. We offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+
+export const publishFoundingYear = showFoundingYear();
+
+export const GBP_BUSINESS_DESCRIPTION = foundingYearCopy(
+  GBP_BUSINESS_DESCRIPTION_WITH_YEAR,
+  GBP_BUSINESS_DESCRIPTION_WITHOUT_YEAR,
+);
 
 export interface GbpServiceArea {
   name: string;
@@ -377,7 +387,7 @@ ${GBP_PROFILE.email}
 ${SITE}
 Meridian, ID (service-area; no street address published)`;
 
-export const GBP_COMPLETENESS_CHECKLIST = [
+const GBP_COMPLETENESS_CHECKLIST_SOURCE = [
   "Business name exact: Boise Cabinet Co",
   "SAB enabled, address hidden",
   "Primary category: Kitchen remodeler",
@@ -402,3 +412,11 @@ export const GBP_COMPLETENESS_CHECKLIST = [
   "First Google Post published",
   "Review request process documented for install crew",
 ] as const;
+
+export const GBP_COMPLETENESS_CHECKLIST = publishFoundingYear
+  ? [...GBP_COMPLETENESS_CHECKLIST_SOURCE]
+  : GBP_COMPLETENESS_CHECKLIST_SOURCE.flatMap((item) => {
+      if (item === "Opening date: 2020") return [];
+      if (item === "744-char business description pasted") return ["Business description pasted"];
+      return [item];
+    });

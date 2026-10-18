@@ -18,6 +18,7 @@ const {
   GBP_BONUS_PRODUCTS,
   GBP_QA_SEEDS,
   GBP_COMPLETENESS_CHECKLIST,
+  publishFoundingYear,
 } = await import("../../shared/gbpConfig.ts");
 
 const site = "https://boisecabinet.co";
@@ -157,13 +158,14 @@ Use this exact number on your website, Google profile, invoices, and every other
 **${page("/contact")}**
 
 This is the Book button on your profile. It should go to your consultation request page.
+${publishFoundingYear ? `
 
 ### Step 11: Enter your opening date
 
 **${GBP_PROFILE.openingDate}**
 
 ---
-
+` : ""}
 ## Section 2: Service Areas
 
 ### Step 12: Add all nine service areas

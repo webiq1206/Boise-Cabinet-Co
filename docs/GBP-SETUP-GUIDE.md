@@ -93,12 +93,6 @@ Use this exact number on your website, Google profile, invoices, and every other
 
 This is the Book button on your profile. It should go to your consultation request page.
 
-### Step 11: Enter your opening date
-
-**2020**
-
----
-
 ## Section 2: Service Areas
 
 ### Step 12: Add all nine service areas
@@ -160,7 +154,7 @@ Cash, Credit Card, Check, Financing
 
 Google allows up to 750 characters. Copy this entire paragraph into your profile description:
 
-Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
+Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. We offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
 
 Do not put your phone number or website URL inside the description. Google has separate fields for those.
 
@@ -587,10 +581,9 @@ Work through this list before you consider your profile complete.
 - [ ] Primary category: Kitchen remodeler
 - [ ] 1 secondary category added
 - [ ] Phone, website (UTM), appointment link set
-- [ ] Opening date: 2020
 - [ ] 9 service areas added
 - [ ] Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)
-- [ ] 744-char business description pasted
+- [ ] Business description pasted
 - [ ] 11 core services with descriptions + UTM links
 - [ ] 6 door-style products with photos + UTM links
 - [ ] 20+ photos uploaded with SEO filenames

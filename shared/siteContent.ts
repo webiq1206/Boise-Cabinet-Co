@@ -7,6 +7,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { foundingYearCopy } from "@/shared/siteConfig";
 
 export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
@@ -108,7 +109,10 @@ export const TEAM: TeamMember[] = [
   {
     name: "Founder & Owner",
     role: "Founder & Owner",
-    bio: "Founded Boise Cabinet Co in 2020 to bring custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
+    bio: foundingYearCopy(
+      "Founded Boise Cabinet Co in 2020 to bring custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
+      "Brings custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
+    ),
     isPlaceholder: true,
   },
   {
