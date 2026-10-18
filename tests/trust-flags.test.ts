@@ -3,13 +3,14 @@ import test from "node:test";
 import { generateMetaDescription } from "../lib/seo";
 import { phase1Description } from "../lib/phase1SearchCopy";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
-import { generateOrganizationSchema } from "../lib/schema";
+import { generateLocalBusinessSchema, generateOrganizationSchema } from "../lib/schema";
 import { GBP_BUSINESS_DESCRIPTION } from "../shared/gbpConfig";
 import { LLMS_TXT } from "../shared/llmsTxt";
 import { HERO_STATS, SITE_TAGLINE } from "../shared/siteContent";
 import { getRoomFaqs } from "../shared/catalog/roomFaqs";
 import { ROOM_BY_SLUG } from "../shared/catalog/roomCategories";
 import {
+  DOPL_LICENSE_SEARCH_URL,
   IDAHO_REGISTERED_CONTRACTOR,
   publishTrustText,
   showBuildClaims,
@@ -54,6 +55,7 @@ test("trust flags default to hidden and keep the registration wording", () => {
   assert.equal(showUnprovenTopRated(), false);
   assert.equal(showUnprovenSatisfactionGuarantee(), false);
   assert.equal(IDAHO_REGISTERED_CONTRACTOR, "Idaho Registered Contractor #8381215");
+  assert.equal(DOPL_LICENSE_SEARCH_URL, "https://edopl.idaho.gov/OnlineServices/?link=PubSearch");
   assert.equal(HERO_STATS.some((stat) => stat.num === "299" || stat.num === "Lifetime"), false);
   assert.equal(/premier/i.test(SITE_TAGLINE), false);
 });
@@ -82,6 +84,11 @@ test("published cabinet claims omit the unproven phrases", () => {
   }
   const org = JSON.stringify(generateOrganizationSchema());
   assert.equal(org.includes(IDAHO_REGISTERED_CONTRACTOR), true);
+  assert.equal(org.includes(DOPL_LICENSE_SEARCH_URL), false);
+  const local = JSON.stringify(generateLocalBusinessSchema());
+  assert.match(local, /"identifier":"8381215"/);
+  assert.equal(local.includes(DOPL_LICENSE_SEARCH_URL), false);
+  assert.equal(local.includes("<a "), false);
   const meridian = generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city: "Meridian" });
   assert.equal(meridian.includes(IDAHO_REGISTERED_CONTRACTOR), true);
   assert.equal(meridian.includes("trusted"), false);

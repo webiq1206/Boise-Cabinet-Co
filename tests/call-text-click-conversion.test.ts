@@ -221,8 +221,20 @@ test("Priya rev 2 headlines and the contractor line", () => {
   assert.match(hub, /Custom kitchen cabinets in Boise and beyond/);
   assert.match(hub, /Kitchens, baths, closets and built-ins\. Free in-home design consultation\./);
   assert.match(estimate, /Start your cabinet quote in a few minutes/);
-  assert.match(footer, /Idaho Registered Contractor #8381215/);
+  const registration = readFileSync("components/RegistrationLink.tsx", "utf8");
+  const flags = readFileSync("shared/trustFlags.ts", "utf8");
+  const about = readFileSync("app/about/page.tsx", "utf8");
+  assert.match(footer, /<RegistrationLink/);
+  assert.match(flags, /export const IDAHO_REGISTERED_CONTRACTOR = "Idaho Registered Contractor #8381215"/);
+  assert.match(flags, /export const DOPL_LICENSE_SEARCH_URL = "https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"/);
+  assert.match(registration, /\{IDAHO_REGISTERED_CONTRACTOR\}/);
+  assert.match(registration, /rel="noopener"/);
+  assert.equal(registration.includes("noreferrer"), false);
   assert.equal(footer.includes("License details available upon request"), false);
+  assert.equal(footer.includes("Verify with Idaho DOPL"), false);
+  assert.equal(about.includes("Verify with Idaho DOPL"), false);
+  assert.match(about, /<RegistrationLink/);
+  assert.match(about, /linkifyRegistration\(faq\.answer/);
   for (const file of [kitchen, hub, estimate, readFileSync("components/marketing/CallTextActions.tsx", "utf8")]) {
     assert.equal(/cabinet makers|built to order|\bmade\b/i.test(file), false);
   }

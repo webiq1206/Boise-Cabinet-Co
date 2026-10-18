@@ -16,6 +16,7 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import { getDoorStyleImages } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { linkifyRegistration } from "@/components/RegistrationLink";
 import { publishDeep, publishTrustText } from "@/shared/trustFlags";
 import { ArrowRight,Check } from "lucide-react";
 import Image from "next/image";
@@ -224,7 +225,7 @@ export default function ShakerCabinetsPage() {
               {publishDeep(FAQS).map((f) => (
                 <div key={f.question} className="py-6">
                   <h3 className="ed-h4 mb-2">{f.question}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{linkifyRegistration(f.answer, "underline underline-offset-2")}</p>
                 </div>
               ))}
             </div>

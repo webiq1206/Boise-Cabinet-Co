@@ -22,6 +22,7 @@ guidePath,
 isCategoryHubIndexable,
 } from '@/shared/contentHubs';
 import { getResourcesForBlog } from '@/shared/guideResources';
+import { linkifyRegistration } from '@/components/RegistrationLink';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { ArrowLeft,ArrowRight,BookOpen,Calendar,Tag,User } from 'lucide-react';
 import Link from 'next/link';
@@ -153,7 +154,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
                           {faq.question}
                         </AccordionTrigger>
                         <AccordionContent className="text-base leading-relaxed pb-6 text-muted-foreground">
-                          {faq.answer}
+                          {linkifyRegistration(faq.answer, "underline underline-offset-2")}
                         </AccordionContent>
                       </AccordionItem>
                     ))}

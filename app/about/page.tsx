@@ -25,6 +25,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import { linkifyRegistration, RegistrationLink } from '@/components/RegistrationLink';
 import { IDAHO_REGISTERED_CONTRACTOR, publishTrustText, showFoundingYear, showLegacyLicenseWording } from '@/shared/trustFlags';
 import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
 import { ABOUT_DESIGN_SAMPLES_ALT, ABOUT_INSTALL_PROGRESS_ALT, SITE_IMAGES } from '@/shared/siteImages';
@@ -218,18 +219,7 @@ export default function AboutPage() {
                       : 'Idaho contractor license information is available upon request. '
                   ) : (
                     <>
-                      {IDAHO_REGISTERED_CONTRACTOR}
-                      {" · "}
-                      <a
-                        href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="Look up registration 8381215 on Idaho DOPL"
-                        aria-label="Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"
-                        className="underline underline-offset-2"
-                      >
-                        Verify with Idaho DOPL
-                      </a>
+                      <RegistrationLink className="underline underline-offset-2" />
                       {". "}
                     </>
                   )}
@@ -369,7 +359,7 @@ export default function AboutPage() {
                 <AccordionItem key={i} value={`about-faq-${i}`}>
                   <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
+                    {linkifyRegistration(faq.answer, "underline underline-offset-2")}
                   </AccordionContent>
                 </AccordionItem>
               ))}

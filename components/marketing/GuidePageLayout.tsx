@@ -13,6 +13,7 @@ extractHeadingsFromHtml,
 injectHeadingIds,
 } from '@/lib/content-utils';
 import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
+import { linkifyRegistration } from '@/components/RegistrationLink';
 import { showFoundingYear } from '@/shared/trustFlags';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
@@ -169,7 +170,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                           {faq.question}
                         </AccordionTrigger>
                         <AccordionContent className="text-base leading-relaxed pb-6 text-muted-foreground">
-                          {faq.answer}
+                          {linkifyRegistration(faq.answer, "underline underline-offset-2")}
                         </AccordionContent>
                       </AccordionItem>
                     ))}

@@ -5,6 +5,13 @@
  */
 export const IDAHO_REGISTERED_CONTRACTOR = "Idaho Registered Contractor #8381215";
 
+/**
+ * Official "Search for a License or Registration" button on https://dopl.idaho.gov/
+ * and the Contractors Board public-search link on https://dopl.idaho.gov/con/.
+ * GET returns 200. https://dopl.idaho.gov/license-search/ redirects and does not.
+ */
+export const DOPL_LICENSE_SEARCH_URL = "https://edopl.idaho.gov/OnlineServices/?link=PubSearch";
+
 const LEGACY_LICENSED_ORG = "Licensed, insured, and committed to craftsmanship.";
 
 function on(value: string | undefined): boolean {

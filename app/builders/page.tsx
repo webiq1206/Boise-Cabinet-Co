@@ -15,6 +15,7 @@ generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { linkifyRegistration } from "@/components/RegistrationLink";
 import { publishDeep, publishTrustText } from "@/shared/trustFlags";
 import { KITCHEN_WOOD_ISLAND_ALT, MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
@@ -234,7 +235,7 @@ export default function BuildersPage() {
               {FAQS.map((f) => (
                 <div key={f.question} className="py-6">
                   <h3 className="ed-h4 mb-2">{f.question}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
+                  <p className="text-base leading-relaxed text-muted-foreground">{linkifyRegistration(f.answer, "underline underline-offset-2")}</p>
                 </div>
               ))}
             </div>

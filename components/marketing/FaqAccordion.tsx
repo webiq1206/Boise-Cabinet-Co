@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { linkifyRegistration } from "@/components/RegistrationLink";
 import { Button } from "@/components/ui/button";
 
 export interface FaqItem {
@@ -48,7 +49,7 @@ export function FaqAccordion({
         {visible.map((faq, i) => (
           <AccordionItem key={faq.question} value={`${idPrefix}-${i}`} className={itemClassName}>
             <AccordionTrigger className={triggerClassName}>{faq.question}</AccordionTrigger>
-            <AccordionContent className={contentClassName}>{faq.answer}</AccordionContent>
+            <AccordionContent className={contentClassName}>{linkifyRegistration(faq.answer, "underline underline-offset-2")}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

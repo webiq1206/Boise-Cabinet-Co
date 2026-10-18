@@ -7,6 +7,7 @@ import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { showTestimonials } from "@/shared/trustFlags";
+import { RegistrationLink } from "@/components/RegistrationLink";
 import Link from "next/link";
 
 const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
@@ -194,18 +195,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>
-              Idaho Registered Contractor #8381215
-              {" · "}
-              <a
-                href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Look up registration 8381215 on Idaho DOPL"
-                aria-label="Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"
-                className="underline underline-offset-2 transition-colors hover:text-inverse-foreground"
-              >
-                Verify with Idaho DOPL
-              </a>
+              <RegistrationLink className="underline underline-offset-2 transition-colors hover:text-inverse-foreground" />
             </span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link
