@@ -1,21 +1,40 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { IMAGE_VARIANTS } from '@/shared/generated/imageVariants';
 
 /**
- * Room and city heroes ship a full original plus 640 and 1080 derivatives.
- * The default src is the 1080 file so the LCP request is not the multi-megabyte original.
- * Other heroes keep their given src.
+ * Room and city heroes ship a full original plus width derivatives.
+ * The default room src is the 1080 file so the LCP request is not the original.
+ * Marketing heroes use the 768 and 1280 files listed in IMAGE_VARIANTS.
  */
-function heroImageAttrs(src: string) {
+export function heroImageAttrs(src: string) {
   const match = /^(.*)\.webp$/.exec(src);
-  const responsive = src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/');
-  if (!match || !responsive || /-\d+\.webp$/.test(src)) return { src };
+  if (!match || /-\d+\.webp$/.test(src)) return { src };
   const root = match[1];
-  return {
-    src: `${root}-1080.webp`,
-    srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
-    sizes: '(max-width: 700px) 100vw, 50vw',
-  };
+  const responsive = src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/');
+  if (responsive) {
+    const widths = IMAGE_VARIANTS[src];
+    if (widths?.length) {
+      const srcSet = [...widths.map((w) => `${root}-${w}.webp ${w}w`), `${src} 1600w`].join(', ');
+      const preferred = widths.includes(1080) ? `${root}-1080.webp` : src;
+      return { src: preferred, srcSet, sizes: '(max-width: 700px) 100vw, 50vw' };
+    }
+    return {
+      src: `${root}-1080.webp`,
+      srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
+      sizes: '(max-width: 700px) 100vw, 50vw',
+    };
+  }
+  if (src.startsWith('/images/marketing/')) {
+    const widths = IMAGE_VARIANTS[src];
+    if (!widths?.length) return { src };
+    return {
+      src,
+      srcSet: [...widths.map((w) => `${root}-${w}.webp ${w}w`), `${src} 1536w`].join(', '),
+      sizes: '(max-width: 768px) 100vw, 50vw',
+    };
+  }
+  return { src };
 }
 
 /** Public-page layout. Application routes retain their dedicated interfaces. */

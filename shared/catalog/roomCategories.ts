@@ -8,6 +8,8 @@ export interface RoomCategory {
   name: string;
   description: string;
   heroImage: string;
+  /** Neutral description of the photograph. Falls back to the room name. */
+  imageAlt?: string;
   defaultCollectionId: string;
   /** Typical cabinet types used in this room */
   typicalCabinetTypes: string[];
@@ -20,7 +22,8 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     name: "Kitchen",
     description:
       "The heart of Treasure Valley homes deserves cabinets built for daily cooking, entertaining, and Idaho's dry-climate swings. From galley layouts in Boise Bench bungalows to sprawling islands in Eagle estates, we design base runs, uppers, pantries, and appliance panels as one coordinated system.",
-    heroImage: "/images/catalog/rooms/kitchen.webp",
+    heroImage: "/images/catalog/rooms/kitchen-walnut-mountain.webp",
+    imageAlt: "Kitchen with walnut cabinets, a stone range wall and a grey-topped island",
     defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "tall", "island-base"],
   },

@@ -66,7 +66,7 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/catalog/rooms/kitchen.webp",
+      "outputPath": "/images/catalog/rooms/kitchen-walnut-mountain.webp",
       "pages": [
         "/",
         "/cabinets",
@@ -77,10 +77,10 @@
       "collectionId": "custom",
       "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Kitchen with custom frameless cabinets, One Source shaker doors, snowcap finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom kitchen cabinets with One Source shaker doors in Treasure Valley Idaho | Boise Cabinet Co",
+      "promptScene": "Kitchen with walnut cabinets, a stone range wall and a grey-topped island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Kitchen with walnut cabinets, a stone range wall and a grey-topped island in the Treasure Valley, Idaho | Boise Cabinet Co",
       "title": "Kitchen Custom Cabinets | Boise Cabinet Co",
-      "caption": "Kitchen cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
+      "caption": ""
     },
     {
       "id": "img-0004",
@@ -1585,17 +1585,17 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/hero-contact.webp",
+      "outputPath": "/images/marketing/bath-white-oak-vanity.webp",
       "pages": [
         "/contact"
       ],
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Custom bathroom vanity cabinets installed in a Meridian Idaho home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom bathroom vanity cabinets installed in a Meridian Idaho home | Boise Cabinet Co",
+      "promptScene": "Bathroom with a white oak double vanity, a limestone countertop and black fixtures, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Bathroom with a white oak double vanity, a limestone countertop and black fixtures in the Treasure Valley, Idaho | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Custom bathroom vanity cabinets installed in a Meridian Idaho home"
+      "caption": ""
     },
     {
       "id": "img-0064",
@@ -1700,17 +1700,17 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/hero-hardware.webp",
+      "outputPath": "/images/marketing/drawers-black-pulls-oak.webp",
       "pages": [
         "/hardware"
       ],
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho",
+      "promptScene": "White oak Shaker drawers and a white painted door with matte black bar pulls, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "White oak Shaker drawers and a white painted door with matte black bar pulls in the Treasure Valley, Idaho | Boise Cabinet Co",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho"
+      "caption": ""
     },
     {
       "id": "img-0069",
@@ -1769,19 +1769,20 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/statement-whole-home.webp",
+      "outputPath": "/images/marketing/great-room-oak-built-ins.webp",
       "pages": [
         "/",
         "/about",
         "/contact"
       ],
       "placement": "hero",
+      "decorative": true,
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Whole-home custom cabinet installation in an Eagle Idaho residence, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Whole-home custom cabinet installation in an Eagle Idaho residence | Boise Cabinet Co",
+      "promptScene": "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Whole-home custom cabinet installation in an Eagle Idaho residence"
+      "caption": ""
     },
     {
       "id": "img-0072",

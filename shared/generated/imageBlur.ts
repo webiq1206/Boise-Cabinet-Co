@@ -846,7 +846,6 @@ export const IMAGE_BLUR: Record<string, string> = {
   "/images/catalog/rooms/entertainment.webp": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAQCdASoQAAsAAwBSJQBWACG8VGZrUAD+C7fw8jeuHgpIsG6Hr4nsontA1atxlMc+NAKxVYhUgxDmBs8zYrFoUZZLXnI/gDSyprCsdSpATUoWP1fJIAAA",
   "/images/catalog/rooms/garage.webp": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAQCdASoQAAsAAwBSJZwAApqNqtkAAP62v1+PK6W+M1KcwMJU51OGSh9/tqVb8UmbXe8MIHRkY1wfUJbTB0zf8Mj3HUbLUsV1/S/NdBV7NiIsWvXZAAAA",
   "/images/catalog/rooms/home-office.webp": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAwAgCdASoQAAsAAwBSJZACdAD2OVicYxYWAAD9wWzoYcKOJ5TCw4gBqh+qxEfDWQrjbWcwuKXvkXjzHH04FibnAK1e07savpmXsVhjKfnFd2Cnkl5J2UAwIAA=",
-  "/images/catalog/rooms/kitchen.webp": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAsAAwBSJQBOgBb2sbEHgAD88BcxOz+S+rlRsSz8SI4bo2LmDAVtmWV8P0eFQdFM6MGvOJi2Knlxfp+4EZHQfVNls4kAAAA=",
   "/images/catalog/rooms/laundry.webp": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoQAAsAAwBSJQBOgBoeTVDFiAD1mU6GNx9hadrQnvbwZPAuZimLG1Q2jUeuVU34Xnrl1w6upl0QZBlUX741T6CnomwG6CRGHtbZ32EAAAA=",
   "/images/catalog/rooms/mudroom.webp": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoQAAsAAwBSJYwCdAEXuCCoUFIAAP7nr3AtbbCOCcQeeVBUSgAbmhAcs6i//PaQcXF0MjxAebGvWJdSy9LpbYpsseoT7B/Hg6iq6MRhfGxAAA==",
   "/images/catalog/rooms/outdoor.webp": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQAgCdASoQAAsAAwBSJaACdAYwTk9ZjbBM+QAA/rVp6tHRXRFF2Vu3MjGbw91Ue1NHGHvbYNLRwQ0LYjUTh1jC515zLyiLR3mtny8/5eteKqGGmUnV/UHZHClWzZsTGpEQ1bvvV5UiPuiBuE2OcugAAAA=",

@@ -424,7 +424,7 @@ const ENTRIES = {
   },
   "cabinet-measurement-design-phase": {
     hero: gal("kitchen-before"),
-    alt: "Existing oak kitchen cabinets illustrating a layout before a cabinet refresh",
+    alt: "Oak kitchen cabinets in a traditional layout",
     topicTags: ["process", "design"],
     source: "gallery",
   },
@@ -633,7 +633,7 @@ const ENTRIES = {
 
 const HUB_HEROES = {
   "cabinet-costs": "/images/blog/custom-kitchen-cabinet-cost.webp",
-  "kitchen-cabinets": cat("kitchen"),
+  "kitchen-cabinets": "/images/catalog/rooms/kitchen-walnut-mountain.webp",
   "bathroom-vanities": cat("bathroom"),
   "built-ins-storage": cat("built-ins"),
   "whole-home-cabinetry": svc("whole-home-remodel"),

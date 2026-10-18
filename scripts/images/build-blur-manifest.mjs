@@ -44,6 +44,7 @@ async function processDir(dirRel) {
   if (!fs.existsSync(absDir)) return;
   for (const name of fs.readdirSync(absDir)) {
     if (!isBaseWebp(name)) continue;
+    if (dirRel === "images/catalog/rooms" && name === "kitchen.webp") continue;
     const absFile = path.join(absDir, name);
     try {
       const buf = await sharp(absFile)

@@ -7,7 +7,7 @@ export interface ServiceBackgroundConfig {
 const DEFAULT_BACKGROUND = SITE_IMAGES.hero;
 
 export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
-  "kitchen-remodel": "/images/catalog/rooms/kitchen.webp",
+  "kitchen-remodel": "/images/catalog/rooms/kitchen-walnut-mountain.webp",
   "bathroom-remodel": "/images/catalog/rooms/bathroom.webp",
   "whole-home-remodel": "/images/catalog/collections/reserve.webp",
   "room-addition": "/images/catalog/rooms/built-ins.webp",
@@ -41,7 +41,7 @@ export interface LandingImageSet {
  */
 const SERVICE_IMAGE_SETS: Record<string, LandingImageSet> = {
   "kitchen-remodel": {
-    hero: "/images/catalog/rooms/kitchen.webp",
+    hero: "/images/catalog/rooms/kitchen-walnut-mountain.webp",
     breather: GALLERY_IMAGES.kitchen.after,
     process: GALLERY_IMAGES.kitchen.before,
   },

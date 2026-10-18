@@ -328,7 +328,7 @@ export const PROJECT_LABELS: Record<
 > = {
   kitchen: {
     label: "Kitchen", sub: "Bases, uppers, pantries, islands", icon: "ChefHat",
-    image: "/images/catalog/rooms/kitchen.webp",
+    image: "/images/catalog/rooms/kitchen-walnut-mountain.webp",
   },
   bathroom: {
     label: "Bathroom", sub: "Vanities, towers, linen storage", icon: "Bath",

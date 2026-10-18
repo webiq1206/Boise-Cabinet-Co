@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const ALT =
-  "Close-up of satin nickel bar pulls on custom painted cabinet drawers built by Boise Cabinet Co";
+  "White oak Shaker drawers and a white painted door with matte black bar pulls";
 
 /**
  * Full-bleed cabinet-detail band with an overlaid statement. Breaks the lower,

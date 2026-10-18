@@ -395,7 +395,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'cabinet-measurement-design-phase': {
     hero: '/images/gallery/gallery-kitchen-before.webp',
-    alt: 'Existing oak kitchen cabinets illustrating a layout before a cabinet refresh',
+    alt: 'Oak kitchen cabinets in a traditional layout',
     topicTags: ["process","design"],
     source: 'gallery',
   },
@@ -589,7 +589,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
 
 export const HUB_HERO_IMAGES: Record<string, string> = {
   'cabinet-costs': '/images/blog/custom-kitchen-cabinet-cost.webp',
-  'kitchen-cabinets': '/images/catalog/rooms/kitchen.webp',
+  'kitchen-cabinets': '/images/catalog/rooms/kitchen-walnut-mountain.webp',
   'bathroom-vanities': '/images/catalog/rooms/bathroom.webp',
   'built-ins-storage': '/images/catalog/rooms/built-ins.webp',
   'whole-home-cabinetry': '/images/services/whole-home-remodel.webp',
