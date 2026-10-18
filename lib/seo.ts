@@ -11,7 +11,7 @@ const BRAND = SITE_CONFIG.name;
 /** Homepage title (50–60 chars) and meta description (120–160 chars). */
 export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
 export const HOMEPAGE_DESCRIPTION =
-  `Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Free design consultation.`;
+  `Kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Free design consultation.`;
 
 interface SEOMetaData {
   title: string;
@@ -139,9 +139,8 @@ const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
 const CITY_CTA_VARIANTS: Record<string, string> = {
   Kuna: "Free design consultation",
   Boise: "Treasure Valley cabinet pros",
-  Meridian: `${IDAHO_REGISTERED_CONTRACTOR} & insured`,
+  Meridian: "Free design consultation",
   Eagle: "Clear written scope",
-  Star: "Shop-built quality",
   Middleton: "Workmanship guarantee",
   Nampa: "Ada & Canyon County service",
   Caldwell: "Professional installation",
@@ -163,7 +162,9 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   if (city && serviceName) {
     const serviceLC = serviceName.toLowerCase();
     const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
-    const ctaVariant = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
+    const ctaVariant =
+      CITY_CTA_VARIANTS[city] ||
+      (showUnprovenSatisfactionGuarantee() ? "Satisfaction guaranteed" : "Free design consultation");
     return `${cityVariant} ${serviceLC} team. ${IDAHO_REGISTERED_CONTRACTOR} & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
   }
   
