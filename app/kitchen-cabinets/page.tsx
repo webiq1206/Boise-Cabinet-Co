@@ -218,7 +218,7 @@ export default function KitchenCabinetsPage() {
               <strong>Reach out.</strong> Call, text or send the quick form with a few details about your project.
             </li>
             <li>
-              <strong>Get your free estimate.</strong> We go over layout, styles and finishes with you and give you a clear quote.
+              <strong>Get your free estimate.</strong> We go over layout, door styles like shaker and slab, and finishes with you, and give you a clear quote.
             </li>
             <li>
               <strong>We install.</strong> Our crew installs your new cabinets, typically within {WEEKS} and often faster for ready-to-assemble lines.
