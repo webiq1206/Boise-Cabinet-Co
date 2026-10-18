@@ -2,11 +2,13 @@ name: E2E
 
 on:
   pull_request:
+    types: [opened, synchronize, labeled, reopened]
     branches: [main]
   workflow_dispatch:
 
 jobs:
   playwright:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'full-ci')
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_DESIGN_STUDIO_ENABLED: "true"
