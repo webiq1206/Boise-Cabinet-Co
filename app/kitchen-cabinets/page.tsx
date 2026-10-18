@@ -119,7 +119,11 @@ export default function KitchenCabinetsPage() {
         .approved-shell .kc-hero,
         .approved-shell .kc-hero h1,
         .approved-shell .kc-hero p { color: #fbfaf6; }
-        .approved-shell .kc-hero h1 { font-size: clamp(32px, 8.4vw, 64px); line-height: 1.05; }
+        .approved-shell .kc-hero h1 { font-size: clamp(30px, 7.6vw, 60px); line-height: 1.05; }
+        @media (max-width: 767px) {
+          .approved-shell .kc-hero { min-height: calc(100svh - 148px); }
+          .approved-shell .kc-hero h1 { font-size: 30px; }
+        }
       `}</style>
       <JsonLd
         data={[
@@ -134,7 +138,7 @@ export default function KitchenCabinetsPage() {
         </nav>
       </header>
 
-      <section className="kc-hero relative flex min-h-[calc(100svh-70px)] items-end overflow-hidden">
+      <section className="kc-hero relative flex min-h-[calc(100svh-84px)] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
           alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details"
@@ -143,9 +147,9 @@ export default function KitchenCabinetsPage() {
           sizes="100vw"
           className="object-cover object-[62%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1f1e]/95 via-[#1c1f1e]/72 to-[#1c1f1e]/30" aria-hidden="true" />
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-24 pt-8 sm:px-8 sm:pb-16 sm:pt-16">
-          <h1 className="max-w-[12ch] font-serif">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1f1e]/92 via-[#1c1f1e]/55 to-[#1c1f1e]/20" aria-hidden="true" />
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
+          <h1 className="max-w-[16ch] font-serif">
             Boise Cabinets for Kitchens, Baths &amp; Built-Ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
