@@ -3,17 +3,16 @@ import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinets
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
-import { BadgeCheck, Clock, ShieldCheck, Sparkles } from "lucide-react";
+import { Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Kitchen cabinets, bathroom vanities and built-ins, sourced and installed by our own crew. Bonded and insured, Idaho Registered Contractor #8381215. Call or text (208) 477-1169 for a free estimate.";
+  "Kitchen cabinets, bathroom vanities and built-ins installed as fast as 3 weeks. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
-const WEEKS = "4\u20138 weeks";
 
 const HERO_IMAGE = "/images/approved/hero-p5-v2.webp";
 const TILES = [
@@ -37,7 +36,7 @@ const TILES = [
 const FAQS = [
   {
     question: "How long does it take?",
-    answer: `Typically ${WEEKS} from order to install, and often faster for ready-to-assemble lines. We'll give you a timeline with your estimate.`,
+    answer: "As fast as 3 weeks from order to install, depending on the cabinet line. We'll give you a timeline with your estimate.",
   },
   {
     question: "What areas do you serve?",
@@ -47,7 +46,7 @@ const FAQS = [
   {
     question: "What do you install?",
     answer:
-      "Kitchen cabinets, bathroom vanities and built-ins. We source the cabinets and our own crew installs them. We don't refinish or reface existing cabinets.",
+      "Kitchen cabinets, bathroom vanities and built-ins. We don't refinish or reface existing cabinets.",
   },
   {
     question: "How much do new cabinets cost?",
@@ -55,15 +54,14 @@ const FAQS = [
       "It depends on the size of the space and the cabinet line you choose. The estimate is free, so call, text or send the form and we'll give you a real number.",
   },
   {
-    question: "Are you registered and insured?",
-    answer: "Yes. We're an Idaho Registered Contractor #8381215, and we're bonded and insured.",
+    question: "Are you insured?",
+    answer: "Yes. We're bonded and insured.",
   },
 ];
 
 const TRUST = [
   { icon: ShieldCheck, label: "Bonded & insured" },
-  { icon: BadgeCheck, label: "Idaho Registered Contractor #8381215" },
-  { icon: Clock, label: `Typically ${WEEKS}` },
+  { icon: Clock, label: "As fast as 3 weeks" },
   { icon: Sparkles, label: "Free estimate" },
 ] as const;
 
@@ -153,7 +151,7 @@ export default function KitchenCabinetsPage() {
             Boise Cabinets for Kitchens, Baths &amp; Built-Ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
-            Kitchen cabinets, bathroom vanities and built-ins, sourced and installed by our own crew, typically in {WEEKS} and often faster for ready-to-assemble lines.
+            Kitchen cabinets, bathroom vanities and built-ins installed as fast as 3 weeks.
           </p>
           <div className="mt-5">
             <CallTextButtons onDark />
@@ -200,13 +198,13 @@ export default function KitchenCabinetsPage() {
           <h2 className="font-serif text-3xl text-foreground">Why Boise Cabinet Co</h2>
           <ul className="space-y-4 text-base leading-relaxed">
             <li>
-              <strong>Our own install crew.</strong> Your cabinets are sourced and installed by our own crew, with trade partners where needed.
+              <strong>Free estimate.</strong> Call, text or send the form and we&apos;ll give you a real number.
             </li>
             <li>
-              <strong>Bonded, insured and registered.</strong> Idaho Registered Contractor #8381215.
+              <strong>Bonded and insured.</strong>
             </li>
             <li>
-              <strong>Typically {WEEKS}.</strong> That&apos;s our usual lead time, and it&apos;s often faster for ready-to-assemble lines.
+              <strong>As fast as 3 weeks.</strong> We&apos;ll give you a timeline with your estimate.
             </li>
           </ul>
         </section>
@@ -221,7 +219,7 @@ export default function KitchenCabinetsPage() {
               <strong>Get your free estimate.</strong> We go over layout, door styles like shaker and slab, and finishes with you, and give you a clear quote.
             </li>
             <li>
-              <strong>We install.</strong> Our crew installs your new cabinets, typically within {WEEKS} and often faster for ready-to-assemble lines.
+              <strong>We install.</strong> Your new cabinets go in as fast as 3 weeks.
             </li>
           </ol>
         </section>

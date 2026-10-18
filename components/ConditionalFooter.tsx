@@ -9,7 +9,6 @@ function FunnelFooter() {
   return (
     <footer className="border-t border-border bg-background px-6 py-8 pb-24 text-sm text-muted-foreground md:pb-8">
       <div className="mx-auto flex max-w-3xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p>Idaho Registered Contractor #8381215</p>
         <p className="flex gap-4">
           <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">
             Privacy
