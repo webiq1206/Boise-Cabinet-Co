@@ -71,7 +71,7 @@ export default function ConstructionPage() {
   return (
     <InteriorPage kind="construction"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
           alt="CNC cabinet door machining and inspection"

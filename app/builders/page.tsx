@@ -142,7 +142,7 @@ export default function BuildersPage() {
   return (
     <InteriorPage kind="builders"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
           alt="cabinet boxes being prepared in a woodworking shop"

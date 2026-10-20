@@ -226,7 +226,7 @@ export default function ComparePage() {
   return (
     <InteriorPage kind="compare"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={"/images/catalog/collections/custom.webp"}
           alt="custom cabinetry with coordinated sizes and finishes"

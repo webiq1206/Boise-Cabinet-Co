@@ -158,7 +158,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   return (
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Hero */}
         <InteriorHero layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
             <Breadcrumbs
@@ -257,7 +257,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             />
               <div className="ed-cards-3 gap-6">
                 {roomProjects.map((project) => (
-                  <MarketingCard key={project.slug} className="overflow-hidden p-0">
+                  <MarketingCard key={project.slug} padding="none" className="overflow-hidden">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}
