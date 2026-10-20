@@ -86,7 +86,7 @@ export function Footer() {
   const sortedCities = [...CITIES].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <footer className="bg-inverse text-inverse-foreground pb-[calc(96px+env(safe-area-inset-bottom))] xl:pb-0">
+    <footer className="site-footer bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_repeat(3,1fr)] gap-10 lg:gap-0 mb-10 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-8 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           {/* Brand & contact - always visible, never collapsed, above the accordions on mobile. */}
@@ -95,7 +95,9 @@ export function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <ApprovedBrand />
             </Link>
-            <div className="space-y-2 mb-6">
+            {/* A column, so the Call and Text links never share a line on touch
+                devices, where tap targets become inline-flex. (BCC-05) */}
+            <div className="mb-6 flex flex-col items-start gap-2">
               <a
                 href={SITE_CONFIG.phoneHref}
                 className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"

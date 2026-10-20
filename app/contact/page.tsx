@@ -153,7 +153,7 @@ export default function ContactPage() {
   return (
     <InteriorPage kind="contact"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Approved editorial hero */}
         <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="bathroom design with custom wood vanity cabinets">
             <HeroBreadcrumbs />

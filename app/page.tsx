@@ -16,7 +16,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home",
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col pb-20 md:pb-0 bg-background">
+    <div className="flex flex-col bg-background">
       <HomePageSchema />
       <ApprovedHome />
       <h2 data-speakable="summary" className="sr-only">

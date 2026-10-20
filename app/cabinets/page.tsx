@@ -41,7 +41,7 @@ export default function CabinetsHubPage() {
   return (
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.designStudio}
           alt="display of cabinet finish samples and door styles"

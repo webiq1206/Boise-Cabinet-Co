@@ -248,12 +248,15 @@ function MarketingNavigation() {
             <a
               href={SITE_CONFIG.phoneHref}
               className="flex items-center gap-2 text-[13px] font-medium transition-colors whitespace-nowrap text-muted-foreground hover:text-foreground"
+              aria-label={`Call ${SITE_CONFIG.phone}`}
+              data-header-phone=""
             >
               <span className="relative flex h-2 w-2">
                 <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              {SITE_CONFIG.phone}
+              <Phone className="header-phone-icon hidden h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+              <span className="header-phone-number">{SITE_CONFIG.phone}</span>
             </a>
             <Button
               variant="brand"
@@ -304,7 +307,7 @@ function MarketingNavigation() {
               <Link
                 href="/search"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-muted-foreground"
+                className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-foreground"
               >
                 <Search className="h-5 w-5" />
                 Search
@@ -323,8 +326,8 @@ function MarketingNavigation() {
                       className={cn(
                         "flex w-full items-center justify-between px-6 py-5 text-xl font-medium",
                         navItemActive(item.href, item.children)
-                          ? "text-foreground"
-                          : "text-muted-foreground",
+                          ? "text-accent"
+                          : "text-foreground",
                       )}
                     >
                       {item.label}
@@ -378,8 +381,8 @@ function MarketingNavigation() {
                     className={cn(
                       "block px-6 py-5 text-xl font-medium",
                       navItemActive(item.href)
-                        ? "text-foreground"
-                        : "text-muted-foreground",
+                        ? "text-accent"
+                        : "text-foreground",
                     )}
                   >
                     {item.label}

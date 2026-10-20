@@ -132,7 +132,7 @@ export default function AboutPage() {
   return (
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Approved editorial hero */}
         <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}>
             <HeroBreadcrumbs />

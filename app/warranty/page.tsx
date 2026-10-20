@@ -64,7 +64,7 @@ export default function WarrantyPage() {
   return (
     <InteriorPage kind="warranty"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
           alt="cabinet hardware and finished door fronts"
