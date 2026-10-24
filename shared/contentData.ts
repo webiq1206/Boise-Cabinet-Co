@@ -45,7 +45,7 @@ export const SERVICES: ServiceData[] = [
   {
     slug: 'adu',
     name: 'Closet & Garage Storage',
-    shortDescription: 'Closet systems, garage storage, and organizational solutions built to last.',
+    shortDescription: 'Closet systems, garage storage, and organizational solutions made to last.',
     url: '/cabinets/closet',
   },
 ];

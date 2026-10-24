@@ -31,6 +31,7 @@ getRoomBySlug,
 } from "@/shared/catalog";
 import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
+import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
 import {
@@ -44,7 +45,7 @@ import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
 import { visibleTestimonials } from "@/shared/testimonialsData";
-import { ArrowRight,Check,MapPin } from "lucide-react";
+import { ArrowRight,Check,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -127,8 +128,9 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   if (roomCats.size === 0) ["base", "wall", "tall"].forEach((c) => roomCats.add(c));
   const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
-  const phaseAnswer = phase1RoomAnswer(room.slug);
-  const roomFaqs = getRoomFaqs(room);
+  const roomCopy = bot05Room(room.slug);
+  const phaseAnswer = roomCopy ? undefined : phase1RoomAnswer(room.slug);
+  const roomFaqs = roomCopy?.faqs ?? getRoomFaqs(room);
   const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
   const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
   const typicalRange = getTypicalRoomRange(room.slug);
@@ -141,8 +143,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
 
   const schemas = [
     generateWebPageSchema({
-      title: `${seoName(room)} Cabinets`,
-      description: room.description,
+      title: roomCopy?.title ?? `${seoName(room)} Cabinets`,
+      description: roomCopy?.description ?? room.description,
       url: `/cabinets/${room.slug}`,
     }),
     generateBreadcrumbSchema([
@@ -151,8 +153,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
       { name: room.name, url: `/cabinets/${room.slug}` },
     ]),
     generateServiceSchema(
-      `Custom ${seoName(room)} Cabinets`,
-      `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
+      roomCopy?.title ?? `Custom ${seoName(room)} Cabinets`,
+      roomCopy
+        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} sources and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
+        : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
     ),
     generateFAQSchema(faqs),
   ];
@@ -175,20 +179,40 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               className="mt-6"
               eyebrow="Room catalog"
               title={
-                <>
-                  {seoName(room)}{" "}
-                  <em className="brc-accent text-accent">cabinets</em>
-                </>
+                roomCopy ? (
+                  <>
+                    {roomCopy.h1Lead}{" "}
+                    <em className="brc-accent text-accent">{roomCopy.h1Accent}</em>
+                  </>
+                ) : (
+                  <>
+                    {seoName(room)}{" "}
+                    <em className="brc-accent text-accent">cabinets</em>
+                  </>
+                )
               }
-              description={room.description}
+              description={roomCopy?.firstSentence ?? room.description}
             />
+            {roomCopy ? (
+              <>
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{roomCopy.aboveFold}</p>
+                <p className="mt-3 text-sm text-foreground/80">{roomCopy.trustLine}</p>
+              </>
+            ) : null}
             {room.slug === "built-ins" ? <>
               <p className="mt-4">Tell Boise Cabinet Co which room you are working on and what you need to store.</p>
               <LandingContactActions formId="built-in-inquiry" formLabel="Send Your Built-In Ideas" />
             </> :             <div className="flex flex-wrap gap-3 mt-4">
-              <CtaButton variant="brand">
-                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+              <CtaButton variant="brand" intent={roomCopy ? "visit" : "estimate"}>
+                {roomCopy ? roomCopy.ctaLabel : CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
+              {roomCopy ? (
+                <Button variant="brandOutline" asChild>
+                  <a href={SITE_CONFIG.phoneHref}>
+                    <Phone className="h-4 w-4" /> {SITE_CONFIG.phone}
+                  </a>
+                </Button>
+              ) : null}
             </div>}
           </InteriorHero>
         {room.slug === "built-ins" && <section id="built-in-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
@@ -224,7 +248,12 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             />
             </div>
             <MarketingCard className="p-6">
-              {typicalRange ? (
+              {roomCopy ? (
+                <>
+                  <p className="text-base text-foreground/90 leading-relaxed mb-3">{roomCopy.pricingNote}</p>
+                  <p className="text-sm text-muted-foreground mb-4">{LEAD_TIME_LINE}</p>
+                </>
+              ) : typicalRange ? (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
                   Most {room.name.toLowerCase()} projects plan from{" "}
                   <strong className="text-foreground">
@@ -240,10 +269,12 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   material choices, so we do not publish a generic starting price for this room.
                 </p>
               )}
+              {roomCopy ? null : (
               <p className="text-sm text-muted-foreground mb-4">
                 Most projects move into production {CATALOG_CONTENT.leadTime} after your
                 selections and project details are finalized.
               </p>
+              )}
               <Button variant="brandOutline" asChild>
                 <Link href="/estimate">
                   Request a {room.name.toLowerCase()} estimate{" "}
@@ -256,7 +287,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         </Section>
 
         {/* Project proof */}
-        {roomProjects.length > 0 && (
+        {!roomCopy && roomProjects.length > 0 && (
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
@@ -332,8 +363,16 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           <div className="ed-shell">
             <SectionHeader
               eyebrow="Cabinets for this room"
-              title={<>What we build for {room.name.toLowerCase()}</>}
-              description={`${SITE_CONFIG.name} sizes these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`}
+              title={
+                roomCopy
+                  ? <>What we source and install for this {room.name.toLowerCase()}</>
+                  : <>What we build for {room.name.toLowerCase()}</>
+              }
+              description={
+                roomCopy
+                  ? `${SITE_CONFIG.name} sources these cabinets and installs them in ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+                  : `${SITE_CONFIG.name} sizes these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+              }
               align="left"
               className="mb-6"
             />
@@ -354,7 +393,41 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         </Section>
 
         {/* Process */}
-        <ProcessSection />
+        {roomCopy?.sections?.map((section) => (
+          <Section key={section.heading} divider>
+            <div className="ed-shell max-w-3xl">
+              <h2 className="ed-h2-sm">{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </Section>
+        ))}
+
+        <ProcessSection
+          steps={roomCopy?.steps}
+          heading={roomCopy?.processHeading}
+          note={roomCopy?.processNote}
+        />
+
+        {roomCopy?.links?.length ? (
+          <Section divider>
+            <div className="ed-shell">
+              <h2 className="ed-h2-sm">Related cabinet pages</h2>
+              <ul className="mt-4 flex flex-wrap gap-3">
+                {roomCopy.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm underline underline-offset-2 hover:text-accent">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        ) : null}
 
         {/* Reviews */}
         {roomReviews.length > 0 && (
