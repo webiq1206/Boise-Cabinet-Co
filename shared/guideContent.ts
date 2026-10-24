@@ -291,9 +291,9 @@ export const GUIDE_PAGES: GuidePageData[] = [
           'Yes, tall pantry cabinets, pull-out bases, and custom widths help maximize storage in compact North End and Bench layouts.',
       },
       {
-        question: 'Do you build bathroom vanities for Boise homes?',
+        question: 'Do you install bathroom vanities in Boise homes?',
         answer:
-          'Yes, single and double vanities, linen towers, and drawer interiors sized for your bath layout.',
+          'Yes. We source and install single and double vanities, linen towers, and drawer interiors sized for your bath layout.',
       },
       {
         question: 'How do I budget cabinets in Boise?',
@@ -316,7 +316,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
         // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1608830
         // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1608830
         answer:
-          'A lot. Boise\'s median home was built in 1986, and the share built before 1960 is about 17%, by Census ACS 2020–2024 estimates. That\'s why so many Boise jobs involve plaster walls, soffits and out-of-square rooms, and why we measure on site and size every box to the room.',
+          'A lot. Boise\'s median home was built in 1986, and the share built before 1960 is about 17%, by Census ACS 2020–2024 estimates. That\'s why so many Boise jobs involve plaster walls, soffits and out-of-square rooms, and why we measure on site and source cabinets sized to the room.',
       },
     ],
     linkedCities: ['boise'],
