@@ -1,0 +1,97 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { GUIDE_PAGES } from "../shared/guideContent";
+import {
+  BOT05_LOCATIONS,
+  BOT05_ROOMS,
+  BUILD_CABINETS_ANSWER,
+  DEPOSIT_TO_LOCK_ORDER,
+} from "../shared/content/bot05PageCopy";
+
+const FORBIDDEN = [
+  /\u2014/,
+  new RegExp("&" + "mdash;|" + "&" + "#8212;", "i"),
+  /lock production/i,
+  /Fabrication claims on older page copy/i,
+  /lifetime/i,
+  /\blicensed\b/i,
+  /founded in 2020/i,
+  /\bwe build\b/i,
+  /\bbuilds and installs\b/i,
+  /\bdesign, builds?\b/i,
+  /build every box/i,
+  /\bfabrication\b/i,
+];
+
+function walk(value: unknown, found: string[]) {
+  if (typeof value === "string") {
+    for (const pattern of FORBIDDEN) {
+      if (pattern.test(value)) found.push(`${pattern}: ${value}`);
+    }
+    if (/\bfabricat/i.test(value) && !/do not fabricate|does not mean we fabricate/i.test(value)) {
+      found.push(`fabrication claim: ${value}`);
+    }
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item) => walk(item, found));
+    return;
+  }
+  if (value && typeof value === "object") {
+    Object.values(value).forEach((item) => walk(item, found));
+  }
+}
+
+test("BOT-05 customer build answer is exact and deposit wording is locked", () => {
+  assert.equal(BUILD_CABINETS_ANSWER, "No. We source and install.");
+  for (const copy of Object.values(BOT05_ROOMS)) {
+    const answer = copy.faqs.find((faq) => faq.question === "Do you build cabinets?")?.answer;
+    assert.equal(answer, "No. We source and install.");
+  }
+  assert.equal(
+    BOT05_LOCATIONS.boise.faqs?.find((faq) => faq.question === "Do you build cabinets?")?.answer,
+    "No. We source and install.",
+  );
+  const steps = [
+    ...(BOT05_LOCATIONS.boise.steps ?? []),
+    ...BOT05_ROOMS.kitchen.steps,
+    ...BOT05_ROOMS.pantry.steps,
+  ].map((step) => step.desc).join(" ");
+  assert.match(steps, new RegExp(DEPOSIT_TO_LOCK_ORDER));
+  assert.equal(steps.includes("lock production"), false);
+});
+
+test("BOT-05 page copy and touched city guides stay inside source-and-install claims", () => {
+  const hits: string[] = [];
+  walk(BOT05_LOCATIONS, hits);
+  walk(BOT05_ROOMS, hits);
+  for (const slug of ["boise", "meridian", "middleton", "kuna"]) {
+    const guide = GUIDE_PAGES.find((page) => page.guideType === "location" && page.linkedCities?.includes(slug));
+    assert.ok(guide, slug);
+    walk(
+      {
+        content: guide?.content,
+        quickAnswer: guide?.quickAnswer,
+        faqs: guide?.faqs,
+        excerpt: guide?.excerpt,
+      },
+      hits,
+    );
+  }
+  assert.deepEqual(hits, []);
+});
+
+test("BOT-05 meta descriptions sit in the click range", () => {
+  const descriptions = [
+    BOT05_LOCATIONS.boise.description,
+    BOT05_LOCATIONS.meridian.description,
+    BOT05_LOCATIONS.middleton.description,
+    BOT05_LOCATIONS.kuna.description,
+    BOT05_ROOMS.kitchen.description,
+    BOT05_ROOMS.pantry.description,
+  ];
+  for (const description of descriptions) {
+    assert.ok(description);
+    assert.ok(description.length >= 150 && description.length <= 160, `${description.length} ${description}`);
+  }
+});

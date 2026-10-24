@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
-import { HERO_EYEBROW, HERO_SUBHEAD, HERO_STATS, TRUST_ITEMS } from "@/shared/siteContent";
+import { HERO_EYEBROW, HERO_SUBHEAD, publicHeroStats, TRUST_ITEMS } from "@/shared/siteContent";
 import { SITE_IMAGES } from "@/shared/siteImages";
 import { CTA_BROWSE_CABINETS, CTA_ESTIMATE } from "@/shared/ctaCopy";
 
@@ -71,7 +71,7 @@ export function HeroSection() {
               />
 
               <dl className="ed-hero-facts">
-                {HERO_STATS.map((stat) => (
+                {publicHeroStats().map((stat) => (
                   <div key={stat.num} className="flex flex-col">
                     <dt className="order-2">{stat.label}</dt>
                     <dd className="order-1">{stat.num}</dd>

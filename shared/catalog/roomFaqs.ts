@@ -1,3 +1,4 @@
+import { publicQa } from "@/shared/claims";
 import type { RoomCategory } from "./roomCategories";
 
 export interface RoomFaq {
@@ -200,5 +201,5 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
 
 export function getRoomFaqs(room: RoomCategory): RoomFaq[] {
   const specific = ROOM_SPECIFIC_FAQS[room.slug] ?? [];
-  return [...specific, ...SHARED_FAQS(room.name)];
+  return publicQa([...specific, ...SHARED_FAQS(room.name)]);
 }

@@ -40,7 +40,7 @@ export default function AccessoriesPage() {
   return (
     <InteriorPage kind="accessories"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={getAccessoryImagePath("partition")}
           alt="Vertical cabinet dividers organize cutting boards and baking sheets"

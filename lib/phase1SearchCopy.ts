@@ -1,3 +1,5 @@
+import { publicText } from "@/shared/claims";
+
 /**
  * Phase-1 search title and description rewrites.
  * Titles are the text before the layout suffix " | Boise Cabinet Co".
@@ -67,7 +69,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/cabinets/home-office": "Custom home office cabinets in the Treasure Valley: built-in desks, file drawers, and shelving that hide cables and printers while keeping the workspace calm.",
   "/cabinets/entertainment": "Custom entertainment cabinets in the Treasure Valley: media centers, fireplace surrounds, and bars with wire management and ventilation clearances for AV gear.",
   "/cabinets/built-ins": "Custom built-in cabinets in the Treasure Valley: window seats, bookcases, benches, and millwork sized for out-of-plumb walls in older Treasure Valley homes.",
-  "/cabinets/pantry": "Custom pantry cabinets in the Treasure Valley: walk-in and reach-in pantries with adjustable shelves, appliance garages, bulk storage, and pull-out systems.",
+  "/cabinets/pantry": "Kitchen pantry cabinets near me for walk-in and tall storage. Source and install pantry solutions across Boise and the Treasure Valley. Free design consult.",
   "/cabinets/closet": "Custom closet cabinets in the Treasure Valley: reach-in and walk-in systems with double-hang sections, shoe towers, and jewelry drawers for primary suites.",
   "/cabinets/garage": "Custom garage cabinets in the Treasure Valley: overhead storage, tool cabinets, and slatwall-compatible units with durable finishes and plywood boxes.",
   "/cabinets/outdoor": "Custom outdoor kitchen cabinets in the Treasure Valley for covered patios, with marine-grade plywood boxes, stainless hardware, and cedar or teak finishes.",
@@ -138,5 +140,6 @@ export function phase1Title(path: string): string | undefined {
 }
 
 export function phase1Description(path: string): string | undefined {
-  return PHASE1_DESCRIPTIONS[path];
+  const description = PHASE1_DESCRIPTIONS[path];
+  return description ? publicText(description) : undefined;
 }

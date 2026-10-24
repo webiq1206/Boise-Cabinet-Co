@@ -5,7 +5,8 @@ import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
-import { SITE_CONFIG } from "@/shared/siteConfig";
+import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from "@/shared/claims";
+import { showTestimonials, SITE_CONFIG } from "@/shared/siteConfig";
 import Link from "next/link";
 
 const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
@@ -41,7 +42,7 @@ function buildFooterGroups(): { title: string; links: FooterLink[] }[] {
       title: "Company",
       links: [
         { label: "About", href: "/about" },
-        { label: "Projects & Reviews", href: "/testimonials" },
+        ...(showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }] : []),
         { label: "Why Choose Us", href: "/#why-choose-us" },
         { label: "How We Build", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
@@ -86,7 +87,7 @@ export function Footer() {
   const sortedCities = [...CITIES].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <footer className="bg-inverse text-inverse-foreground pb-[calc(96px+env(safe-area-inset-bottom))] xl:pb-0">
+    <footer className="site-footer bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_repeat(3,1fr)] gap-10 lg:gap-0 mb-10 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-8 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           {/* Brand & contact - always visible, never collapsed, above the accordions on mobile. */}
@@ -95,7 +96,9 @@ export function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <ApprovedBrand />
             </Link>
-            <div className="space-y-2 mb-6">
+            {/* A column, so the Call and Text links never share a line on touch
+                devices, where tap targets become inline-flex. (BCC-05) */}
+            <div className="mb-6 flex flex-col items-start gap-2">
               <a
                 href={SITE_CONFIG.phoneHref}
                 className="tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
@@ -123,6 +126,7 @@ export function Footer() {
               <p className="text-sm text-inverse-muted">
                 Serving Boise &amp; the Treasure Valley
               </p>
+              <p className="text-sm text-inverse-muted">{PUBLIC_HOURS_LINE}</p>
             </div>
             <FooterCTAs />
           </div>
@@ -192,11 +196,7 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap items-center gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
-            <span>
-              {SITE_CONFIG.trust.licenseNumber
-                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
-                : "License details available upon request"}
-            </span>
+            <span>{IDAHO_REGISTERED_CONTRACTOR}</span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link
                 gives that claim somewhere to resolve - for a reader deciding

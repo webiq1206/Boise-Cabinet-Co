@@ -1,4 +1,6 @@
+import {isolateFixtureRequests, openGuidedRequest} from './guided-fixture';
 import {expect,test} from '@playwright/test';
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));
 // Explicit Send confirms the visible review; duplicate confirmation checkboxes stay absent.
 const SCOPE_REVIEW_LABEL='I checked the whole project type, supporting work and exclusions against this description.';
 const INTAKE_CONFIRM_LABEL='These details reflect my project. I understand the team will review them before preparing an estimate.';
@@ -32,7 +34,7 @@ test('typed scope reaches review and a saved request without repeating known det
   }
   return send({});
  });
- await page.goto('/estimate');const est=page.locator('[data-p5-estimator]');
+ await page.goto('/estimate');await openGuidedRequest(page);const est=page.locator('[data-p5-estimator]');
  await est.getByLabel('Tell us about your project',{exact:true}).fill('Install 20 linear feet of paint-grade Shaker base cabinets in the kitchen. No upper cabinets.');
  await est.getByRole('button',{name:'Send message',exact:true}).click();
  // Only the optional location and timing questions may follow a fully described scope; a

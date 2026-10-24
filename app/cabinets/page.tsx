@@ -43,7 +43,7 @@ export default function CabinetsHubPage() {
   return (
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           className="interior-hero-above-fold"
           image={MARKETING_IMAGES.designStudio}
@@ -74,8 +74,9 @@ export default function CabinetsHubPage() {
             object rather than a wall of boxes. */}
         <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=>{
           const cardRoot = room.heroImage.replace(/\.webp$/, "");
-          return <Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={`${cardRoot}-640.webp`} srcSet={`${cardRoot}-640.webp 640w, ${cardRoot}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 400px" alt={`${room.name} cabinetry`} width={640} height={480} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p><p className="interior-price">Suggested line: {getCollectionBySlug(room.defaultCollectionId)?.name ?? 'Custom Cabinets'}</p></Link>;
+          return <Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={`${cardRoot}-640.webp`} srcSet={`${cardRoot}-640.webp 640w, ${cardRoot}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 400px" alt={`${room.name} cabinetry`} width={640} height={480} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>;
         })}</section>
+
         <CatalogClosingCTA />
       </div>
     </></InteriorPage>

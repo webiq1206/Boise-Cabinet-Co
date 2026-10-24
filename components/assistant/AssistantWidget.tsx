@@ -47,7 +47,8 @@ function isSuppressedRoute(pathname: string | null): boolean {
     pathname.startsWith("/admin") ||
     pathname.startsWith("/portal") ||
     pathname.startsWith("/design-studio") ||
-    pathname.startsWith("/estimate")
+    pathname.startsWith("/estimate") ||
+    pathname === "/kitchen-cabinets"
   );
 }
 
@@ -131,6 +132,11 @@ export function AssistantWidget() {
   const formInView = useFormInView(pathname, true);
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const openFromBar = () => setOpen(true);
+    window.addEventListener("p5:assistant-open", openFromBar);
+    return () => window.removeEventListener("p5:assistant-open", openFromBar);
+  }, []);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
@@ -318,7 +324,7 @@ export function AssistantWidget() {
         <button
           type="button"
           onClick={handleOpen}
-          className="fixed bottom-[calc(96px+env(safe-area-inset-bottom))] right-4 z-[90] flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] xl:bottom-6 xl:right-6"
+          className="fixed bottom-[calc(96px+env(safe-area-inset-bottom))] right-4 z-[90] hidden min-[1180px]:flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] xl:bottom-6 xl:right-6"
           data-testid="button-assistant-open"
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />

@@ -21,9 +21,11 @@ test("each first-screen page has one swappable headline and the existing wording
   assert.equal(headlines.match(/export const /g)?.length, 4);
 
   assert.match(read("app/cabinets/page.tsx"), /title=\{CABINETS_HUB_HEADLINE\}/);
-  assert.match(read("app/cabinets/[room]/page.tsx"), /kitchen: KITCHEN_CABINETS_HEADLINE/);
-  assert.match(read("app/cabinets/[room]/page.tsx"), /"built-ins": BUILT_INS_CABINETS_HEADLINE/);
-  assert.match(read("app/estimate/page.tsx"), /<h1>\{ESTIMATE_HEADLINE\}<\/h1>/);
+  assert.match(read("app/cabinets/[room]/page.tsx"), /roomCopy.h1Lead/);
+  assert.match(read("app/cabinets/[room]/page.tsx"), /roomCopy.h1Accent/);
+  assert.match(read("app/estimate/page.tsx"), /Get an Estimate<\/h1>/);
+  assert.match(read("app/estimate/page.tsx"), /KitchenCabinetsQuoteForm/);
+  assert.match(read("app/estimate/page.tsx"), /Prefer the guided project flow/);
 });
 
 test("call and text links are the site E.164 phone, rendered on each first-screen page", () => {

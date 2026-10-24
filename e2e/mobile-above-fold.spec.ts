@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 test.describe.configure({ timeout: 120_000 });
 
 const PAGES = [
-  { path: "/cabinets/kitchen", headline: "Kitchen cabinets" },
+  { path: "/cabinets/kitchen", headline: "Kitchen cabinets near me" },
   { path: "/cabinets/built-ins", headline: "Built-In cabinets" },
   { path: "/cabinets", headline: "Cabinets by room" },
   { path: "/estimate", headline: "Get an Estimate" },
@@ -16,7 +16,7 @@ async function assertAboveFold(page: Page, width: number, height: number, headli
   const html = await response!.text();
   expect(html).toContain("tel:+12084771169");
   expect(html).toContain("sms:+12084771169");
-  expect(html).toContain(headline);
+  expect(html.replace(/<[^>]*>/g, "").replace(/\s+/g," ")).toContain(headline);
 
   const h1 = page.getByRole("heading", { level: 1, name: headline });
   const call = page.locator("[data-above-fold-actions] a[href='tel:+12084771169']");
@@ -43,19 +43,9 @@ async function assertAboveFold(page: Page, width: number, height: number, headli
   }
 
   if (path === "/estimate") {
-    const header = page.locator(".estimate-above-fold");
-    expect((await header.boundingBox())!.height).toBeLessThanOrEqual(220);
-    await expect(page.locator("[data-p5-estimator]")).toBeVisible({ timeout: 30_000 });
-    await expect.poll(async () => {
-      return page.evaluate(() => {
-        const bar = document.querySelector(".estimate-above-fold");
-        const frame = document.querySelector("[data-p5-estimator]");
-        if (!bar || !frame) return -1;
-        const bottom = bar.getBoundingClientRect().bottom;
-        const top = parseFloat(getComputedStyle(frame).top);
-        return top + 1 >= bottom ? 1 : 0;
-      });
-    }, { timeout: 45_000 }).toBe(1);
+    await expect(page.locator("#estimate-request")).toBeVisible();
+    await expect(page.getByText("Prefer the guided project flow?")).toBeVisible();
+
   }
 }
 
