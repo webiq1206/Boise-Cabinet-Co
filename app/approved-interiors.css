@@ -738,3 +738,64 @@
 .approved-interior .interior-page-heading p {
   font-family: var(--font-manrope), Arial, sans-serif;
 }
+
+/* Phone links that have to stay on the first screen. The photograph stays
+   after the copy and is height-capped so it cannot push the headline down. */
+.above-fold-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 0;
+}
+.above-fold-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 88px;
+  padding: 10px 18px;
+  background: #2c302f;
+  color: #fbfaf6 !important;
+  font: 500 15px/1 var(--font-manrope), Arial, sans-serif;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.above-fold-actions a:focus-visible {
+  outline: 3px solid var(--approved-accent, #7aaaaa);
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .approved-interior .interior-hero-above-fold {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 0;
+  }
+  .approved-interior .interior-hero-above-fold .interior-hero-copy {
+    order: 1;
+    align-self: stretch;
+    padding: 8px 6% 4px;
+  }
+  .approved-interior .interior-hero-above-fold .interior-hero-image {
+    order: 2;
+    min-height: 0;
+    height: 112px;
+    max-height: 16vh;
+  }
+  .approved-interior .interior-hero-above-fold .interior-hero-copy h1 {
+    font-size: 32px;
+    line-height: 1.08;
+    max-width: none;
+    margin: 4px 0 8px;
+  }
+  .approved-interior .interior-hero-above-fold .interior-hero-copy :is(.ed-eyebrow, .interior-eyebrow) {
+    margin-top: 6px;
+  }
+  .approved-interior .interior-hero-above-fold .interior-page-heading {
+    margin-top: 8px;
+  }
+  .approved-interior .interior-hero-above-fold .above-fold-actions a {
+    flex: 1 1 0;
+  }
+}
+

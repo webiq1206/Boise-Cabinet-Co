@@ -1,7 +1,9 @@
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { CinematicHero } from "@/components/marketing/CinematicHero";
+import { CABINETS_HUB_HEADLINE } from "@/lib/aboveFoldHeadlines";
 import { Section } from "@/components/marketing/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
@@ -43,11 +45,13 @@ export default function CabinetsHubPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
+          className="interior-hero-above-fold"
           image={MARKETING_IMAGES.designStudio}
           alt="display of cabinet finish samples and door styles"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
-          title={<>Cabinets by <em className="not-italic" style={{ color: "var(--ed-accent)" }}>room</em></>}
+          title={CABINETS_HUB_HEADLINE}
+          actions={<AboveFoldActions />}
           description={catalogDescription(
             "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
           )}
@@ -68,7 +72,11 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={room.heroImage} alt={`${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=>{
+          const cardRoot = room.heroImage.replace(/\.webp$/, "");
+          return <Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={`${cardRoot}-640.webp`} srcSet={`${cardRoot}-640.webp 640w, ${cardRoot}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 400px" alt={`${room.name} cabinetry`} width={640} height={480} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>;
+        })}</section>
+
         <CatalogClosingCTA />
       </div>
     </></InteriorPage>

@@ -13,6 +13,9 @@ interface CinematicHeroProps {
   eyebrow?: string;
   title: React.ReactNode;
   description?: React.ReactNode;
+  /** Links that must sit directly under the headline, before the description. */
+  actions?: React.ReactNode;
+  className?: string;
   /** CTAs and anything else that sits under the description. */
   children?: React.ReactNode;
 }
@@ -21,9 +24,9 @@ interface CinematicHeroProps {
  * The approved family detail hero: paper-toned copy beside a large photograph.
  * The established component name and props remain compatible with catalog pages.
  */
-export function CinematicHero({ image, alt, breadcrumbs, eyebrow, title, description, children }: CinematicHeroProps) {
+export function CinematicHero({ image, alt, breadcrumbs, eyebrow, title, description, actions, className, children }: CinematicHeroProps) {
   return (
-    <InteriorHero imageSrc={image} imageAlt={alt} layout="split">
+    <InteriorHero imageSrc={image} imageAlt={alt} layout="split" className={className}>
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1.5 text-sm text-inverse-muted">
             {breadcrumbs.map((item, index) => {
@@ -43,6 +46,7 @@ export function CinematicHero({ image, alt, breadcrumbs, eyebrow, title, descrip
         </nav>
         {eyebrow && <p className="ed-eyebrow mt-8" style={{ color: "rgb(255 255 255 / 0.72)" }}>{eyebrow}</p>}
         <h1 className="ed-display ed-statement-display text-inverse-foreground">{title}</h1>
+        {actions}
         {description && <p className="ed-lede mt-8 max-w-[44ch] text-inverse-foreground/85">{description}</p>}
         {children && <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 [&>*]:w-full sm:[&>*]:w-auto">{children}</div>}
       </InteriorHero>

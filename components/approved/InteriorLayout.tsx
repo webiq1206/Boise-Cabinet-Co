@@ -8,14 +8,25 @@ import type { ReactNode } from 'react';
  */
 function heroImageAttrs(src: string) {
   const match = /^(.*)\.webp$/.exec(src);
-  const responsive = src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/');
-  if (!match || !responsive || /-\d+\.webp$/.test(src)) return { src };
+  if (!match || /-\d+\.webp$/.test(src)) return { src };
   const root = match[1];
-  return {
-    src: `${root}-1080.webp`,
-    srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
-    sizes: '(max-width: 700px) 100vw, 50vw',
-  };
+  if (src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/')) {
+    return {
+      src: `${root}-1080.webp`,
+      srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
+      sizes: '(max-width: 700px) 100vw, 50vw',
+    };
+  }
+  // Marketing heroes already have these two derivatives. A phone otherwise
+  // downloads the full original for a short first-screen photograph.
+  if (src.startsWith('/images/marketing/')) {
+    return {
+      src: `${root}-1280.webp`,
+      srcSet: `${root}-768.webp 768w, ${root}-1280.webp 1280w`,
+      sizes: '(max-width: 700px) 100vw, 50vw',
+    };
+  }
+  return { src };
 }
 
 /** Public-page layout. Application routes retain their dedicated interfaces. */
@@ -28,8 +39,8 @@ export function InteriorEstimateLink({label='Get my online estimate'}:{label?:st
 }
 
 /** The approved split-detail and editorial-introduction compositions. */
-export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean}) {
-  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}`}>
+export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className=''}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string}) {
+  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${className?` ${className}`:''}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
     {imageSrc&&<div className="interior-hero-image"><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={1400} height={1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;
