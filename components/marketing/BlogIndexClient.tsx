@@ -84,7 +84,7 @@ export function BlogIndexClient() {
   const rest = normalizedQuery ? filtered : filtered.slice(1);
 
   return (
-    <div className="flex flex-col pb-20 md:pb-0">
+    <div className="flex flex-col ">
       <Section spacing="sm" divider>
         <div className="container px-4">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog" }]} />

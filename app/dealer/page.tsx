@@ -19,7 +19,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
 
 export default function DealerPortalPage() {
   return (
-    <div className="flex flex-col pb-20">
+    <div className="flex flex-col">
       <Section spacing="sm" className="pt-8">
         <div className="container px-4 max-w-5xl">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Dealer Portal" }]} />

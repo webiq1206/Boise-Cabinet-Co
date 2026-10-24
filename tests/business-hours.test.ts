@@ -49,7 +49,7 @@ test("contact page hours match LocalBusiness openingHoursSpecification", () => {
     sunday: "Closed",
   });
   assert.equal(
-    GBP_COMPLETENESS_CHECKLIST.includes("Hours set (Mon-Fri 9-6, Sat 9-4, Sun closed)"),
+    GBP_COMPLETENESS_CHECKLIST.includes("Hours set (Mon-Fri 9 AM-6 PM, Sat 9 AM-4 PM, Sun closed)"),
     true,
   );
 });

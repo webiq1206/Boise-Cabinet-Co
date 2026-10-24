@@ -96,7 +96,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   return (
     <InteriorPage kind="locations"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Local hero */}
         <InteriorHero layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
@@ -155,7 +155,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             />
               <div className="ed-cards-3 gap-6">
                 {cityProjects.map((project) => (
-                  <MarketingCard key={project.slug} className="overflow-hidden p-0">
+                  <MarketingCard key={project.slug} padding="none" className="overflow-hidden">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}

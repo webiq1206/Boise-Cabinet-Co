@@ -35,7 +35,7 @@ test("license number defaults to 8381215 and schema uses hasCredential", () => {
 
 test("sitemap pages get a visible registration line, and estimate stays plain text", () => {
   const footer = readFileSync("components/Footer.tsx", "utf8");
-  assert.match(footer, /\{`Idaho Registered Contractor #\$\{SITE_CONFIG\.trust\.licenseNumber\}`\}/);
+  assert.match(footer, /\{IDAHO_REGISTERED_CONTRACTOR\}/);
   assert.match(footer, /https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch/);
   assert.match(footer, /target="_blank"/);
   assert.match(footer, /rel="noopener noreferrer"/);
@@ -80,8 +80,8 @@ test("brand license claims use Idaho registration wording", () => {
   }
   const faqs = readFileSync("shared/seoContent.ts", "utf8");
   assert.match(faqs, /Are you a registered contractor and insured\?/);
-  assert.match(faqs, /an Idaho Registered Contractor #8381215, bonded, and insured/);
+  assert.match(faqs, /Idaho Registered Contractor #8381215, bonded and insured/);
   const about = readFileSync("app/about/page.tsx", "utf8");
-  assert.match(about, /Are you a registered contractor and insured\?/);
-  assert.match(about, /Idaho Registered Contractor #8381215, bonded, and insured/);
+  assert.match(about, /Is \$\{SITE_CONFIG.name\} a registered contractor and insured\?/);
+  assert.match(about, /\$\{REGISTERED_BONDED_INSURED\}/);
 });
