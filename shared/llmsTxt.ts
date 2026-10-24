@@ -8,6 +8,7 @@ const FOUNDED_LINE = "- Founded: 2020";
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
+
 export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.

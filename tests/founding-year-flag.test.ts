@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { TRUST_ITEMS } from "../shared/siteContent";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
 import { generateLocalBusinessSchema, generateOrganizationSchema } from "../lib/schema";
 import { GBP_BUSINESS_DESCRIPTION, GBP_COMPLETENESS_CHECKLIST } from "../shared/gbpConfig";
@@ -30,6 +31,8 @@ test("published pages and schema omit the 2020 years-in-business claim", () => {
   ).join("\n");
   assert.equal(published.includes("2020"), false);
   assert.equal(published.includes("founded"), false);
+  assert.equal(published.includes("Founded"), false);
+  assert.equal(LLMS_TXT.includes("2020"), false);
 });
 
 test("the 2020 wording stays in source", () => {
@@ -59,6 +62,13 @@ test("the 2020 wording stays in source", () => {
   ]) {
     assert.equal(combined.includes(phrase), true, phrase);
   }
-  assert.equal(readFileSync("public/brand/BRAND.md", "utf8").includes("2020"), false);
-  assert.equal(readFileSync("public/brand/brand-kit.html", "utf8").includes("2020"), false);
+  assert.equal(readFileSync("docs/brand/BRAND.md", "utf8").includes("2020"), false);
+  assert.equal(readFileSync("docs/brand/brand-kit.html", "utf8").includes("2020"), false);
+});
+
+test("the trust strip adds no founding badges", () => {
+  const founding = TRUST_ITEMS.filter((item) => /est\.|founded|since \d{4}|\d+\+? years/i.test(item));
+  assert.deepEqual(founding, []);
+  assert.equal(readFileSync("lib/seo.ts", "utf8").includes("founded: '2020'"), true);
+  assert.equal(readFileSync("components/marketing/GuidePageLayout.tsx", "utf8").includes("showFoundingYear()"), true);
 });

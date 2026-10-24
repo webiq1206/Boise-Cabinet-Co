@@ -9,7 +9,7 @@
 | Houzz / Yelp / BBB | **Missing** | [DATA] Claim + link (competitors are all on Houzz). |
 | Testimonials | **Weak** | Initials only, no dates/source -> add full first name + last initial + city + date + "via Google". |
 | Contractor license # | **Missing** | [DATA] Publish Idaho RCE # (`NEXT_PUBLIC_LICENSE_NUMBER`). |
-| Bonded / insured | **Weak** | Stated as text; name the carrier/bond. |
+| Bonded / insured | **Unproven** | Leave blank until documented. |
 | Certifications (NKBA, mfr) | **Missing** | Pursue + display. |
 | Awards / press | **Missing** | Pursue Houzz/Best-of badges. |
 | Portfolio / gallery | **Weak** | Real photos (stock/AI today). |
@@ -21,4 +21,4 @@
 | No-pressure messaging | **Strong** | Differentiator - keep prominent. |
 | Org/LocalBusiness logo + linked entity | **FIXED** | logo + `@id` added this pass. |
 
-**Where trust signals should appear but don't:** an above-the-fold trust bar (rating + reviews + "Since 2017" + bonded/insured) sitewide; a Google-reviews block + named founder on the homepage; per-service and city-page trust modules (local reviews + local project proof).
+**Where trust signals should appear but don't:** an above-the-fold trust bar (rating + reviews) sitewide. Leave the founding year and bonded blank until documented. A Google-reviews block and a named founder on the homepage, plus per-service and city-page trust modules (local reviews + local project proof), are still open.

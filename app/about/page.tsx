@@ -24,7 +24,7 @@ generateOrganizationSchema,
 generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
-import { foundingYearCopy, SITE_CONFIG } from '@/shared/siteConfig';
+import { SITE_CONFIG, foundingYearCopy, showFoundingYear } from '@/shared/siteConfig';
 import { publicQa,publicText,REGISTERED_BONDED_INSURED } from '@/shared/claims';
 import { PRINCIPLES,TEAM,TRUST_ITEMS,publicHeroStats } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
@@ -205,8 +205,8 @@ export default function AboutPage() {
               <Reveal>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
-                  alt="Boise Cabinet Co seal"
+                  src={showFoundingYear() ? "/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg" : "/brand/svg/icon/boise-cabinet-co-icon-bone.svg"}
+                  alt={showFoundingYear() ? "Boise Cabinet Co seal" : "Boise Cabinet Co"}
                   width={64}
                   height={64}
                   className="mb-7 h-16 w-16 rounded-full"

@@ -1,4 +1,4 @@
-import { publicQa, publicText } from "@/shared/claims";
+import { publicQa, publicText, showFoundingYear } from "@/shared/claims";
 
 /**
  * Additive answer blocks for phase-1 pages.
