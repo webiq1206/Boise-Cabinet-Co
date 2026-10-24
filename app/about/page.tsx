@@ -94,7 +94,7 @@ export default function AboutPage() {
   const ABOUT_FAQS = publicQa([
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -106,11 +106,11 @@ export default function AboutPage() {
     },
     {
       question: `Is ${SITE_CONFIG.name} a registered contractor and insured?`,
-      answer: `Yes. ${REGISTERED_BONDED_INSURED} for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
+      answer: `Yes. ${REGISTERED_BONDED_INSURED} for residential cabinet design and installation, and we stand behind our workmanship with a written workmanship guarantee.`,
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`,
+      answer: `Every project starts with a free design consultation, then a written scope and planning range, sourcing, and professional installation, with weekly written updates so nothing drifts.`,
     },
   ]);
 
@@ -150,7 +150,7 @@ export default function AboutPage() {
               design through installation.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              Our focus is clarity: written scope before fabrication, proactive project updates,
+              Our focus is clarity: written scope before order, proactive project updates,
               an online Design Studio to explore finishes and layouts, and a client portal to track
               every milestone. Every detail, every decision, handled with intention.
             </p>
@@ -216,7 +216,7 @@ export default function AboutPage() {
                       <em className="brc-accent text-accent">one team</em>
                     </>
                   }
-                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
+                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, sourcing, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
