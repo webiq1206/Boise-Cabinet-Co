@@ -1,4 +1,6 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));
 
 test.describe("Consultation form", () => {
   test("shows validation for invalid phone and succeeds with valid submission", async ({
@@ -7,11 +9,14 @@ test.describe("Consultation form", () => {
     // Test form behavior against an explicit synthetic delivery receipt.
     // Production persistence/delivery requires separately configured services.
     let submissions = 0;
+    const attempts: string[] = [];
     await page.route('**/api/consultation', async route => {
       const body = route.request().postDataJSON();
       expect(body.phone.replace(/\D/g, '').length).toBeGreaterThanOrEqual(10);
       submissions++;
-      await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({success:true,accepted:true,submissionId:'synthetic-consultation'})});
+      attempts.push(route.request().postData()!);
+      if (submissions === 1) return route.fulfill({json:{accepted:true,submissionId:'synthetic-consultation'}});
+      await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({accepted:true,persisted:true,requestId:'consultation:synthetic-consultation',submissionId:'synthetic-consultation',notificationStatus:'unconfirmed'})});
     });
     await page.goto("/contact#consult");
 
@@ -31,9 +36,15 @@ test.describe("Consultation form", () => {
     await page.getByTestId("input-phone").fill("(208) 555-0101");
     await page.getByTestId("button-submit-consultation").click();
 
+    await expect(page.getByText(/We could not confirm that your request was saved/)).toBeVisible();
+    await expect(page.getByTestId("consultation-success")).toHaveCount(0);
+    await expect(page.getByTestId("input-name")).toHaveValue("Playwright Test");
+    expect(submissions).toBe(1);
+    await page.getByTestId("button-submit-consultation").click();
     await expect(page.getByTestId("consultation-success")).toBeVisible({
       timeout: 15000,
     });
-    expect(submissions).toBe(1);
+    expect(submissions).toBe(2);
+    expect(attempts[1]).toBe(attempts[0]);
   });
 });

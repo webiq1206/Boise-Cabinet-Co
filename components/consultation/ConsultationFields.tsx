@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ConsultationAttempt } from "@/lib/consultationAttempt";
+import { consultationSessionKey, clearConsultationSessionKey } from "@/lib/consultationRetrySession";
+import { requireConsultationReceipt } from "@/lib/consultationReceipt";
 import { EstimatorRecovery } from "@/components/estimate/recovery/EstimatorRecovery";
 import { markEstimatorCompleted } from "@/lib/estimatorSession";
 import { useForm, useFormContext } from "react-hook-form";
@@ -432,13 +435,16 @@ export function ConsultationFields({
   // Shared ID so the browser Lead (pixel) and the server Lead (Conversions API)
   // deduplicate into one conversion.
   const metaEventIdRef = useRef<string | null>(null);
+  const attemptRef = useRef<ConsultationAttempt | null>(null);
+  if (!attemptRef.current) attemptRef.current = new ConsultationAttempt(
+    () => consultationSessionKey(consultationReferenceId), clearConsultationSessionKey,
+  );
   // Fires "form_started" once, on the visitor's first focus into any field.
   const formStartedRef = useRef(false);
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
-      const metaEventId = consultationReferenceId();
-      metaEventIdRef.current = metaEventId;
+      const attempt = attemptRef.current!;
       // The full record of everything the homeowner selected and was shown.
       // Built here rather than in the wizard because the address, budget, and
       // notes below only exist once they submit.
@@ -452,7 +458,9 @@ export function ConsultationFields({
           })
         : null;
 
-      const payload = {
+      const submission = attempt.begin(
+        { data, propertyProfile, estimate, combinedEstimate, estimateRooms },
+        (metaEventId) => ({
         ...data,
         propertyProfile,
         metaEventId,
@@ -460,13 +468,16 @@ export function ConsultationFields({
           ? buildCombinedConsultationPayload(combinedEstimate)
           : buildConsultationEstimatePayload(estimate),
         estimateRecord,
-      };
+      }));
+      metaEventIdRef.current = submission.id;
+      try {
       const res = await fetch("/api/consultation", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json", "Idempotency-Key": submission.id },
+        body: submission.body,
       });
       if (!res.ok) {
+        if (res.status === 400) attempt.confirmed(); // API validation happens before persistence.
         const err = (await res.json().catch(() => ({}))) as {
           message?: string;
           errors?: { fieldErrors?: Record<string, string[]> };
@@ -490,18 +501,17 @@ export function ConsultationFields({
         }
         throw new Error(err.message || "Something went wrong. Please try again.");
       }
-      return res.json() as Promise<{
-        success: boolean;
-        accepted: boolean;
-        submissionId?: string;
-      }>;
+      const receipt = requireConsultationReceipt(await res.json());
+      attempt.confirmed();
+      return receipt;
+      } finally { attempt.finish(); }
     },
     onSuccess: (result) => {
       setSuccess(true);
       markEstimatorCompleted("consultation");
-      sessionStorage.removeItem("brc_estimate");
-      clearWizardState();
-      if (result.accepted) {
+      try { sessionStorage.removeItem("brc_estimate"); } catch { /* Receipt remains valid without browser storage. */ }
+      try { clearWizardState(); } catch { /* A saved request remains accepted when optional cleanup fails. */ }
+      if (result.accepted && !result.replayed) {
         trackEstimatorEvent("estimator_lead_submitted");
         track("form_completed", { form: "consultation" });
         trackGoogleAdsLeadOnce(
@@ -552,7 +562,7 @@ export function ConsultationFields({
           <CheckCircle2 className="h-5 w-5 text-accent" />
         </div>
         <h3 className="font-serif text-2xl text-foreground">
-          We&apos;ll be in touch shortly.
+          Your request has been received.
         </h3>
         {/* The reveal: the real planning range, shown only now that contact
             details are in. Every surface before this point carried a mask. */}
@@ -563,13 +573,12 @@ export function ConsultationFields({
             estimate && <EstimateSummaryCard estimate={estimate} />
           ))}
         <p className="text-base leading-relaxed text-muted-foreground">
-          Thank you for reaching out. We sent a confirmation to your email and typically
-          respond within one business day.
+          Your request is saved for our team to review. Email delivery and follow-up are not confirmed on this page.
         </p>
         <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
-          <li>We call or text to confirm your details</li>
-          <li>We schedule your free in-home design visit</li>
-          <li>You get a planning range and next steps at your home</li>
+          <li>Our team reviews your project details</li>
+          <li>We discuss the scope and any information needed for a quote</li>
+          <li>Pricing and scheduling are confirmed separately; this request does not book installation</li>
         </ol>
         <p className="text-sm text-muted-foreground">
           Need us sooner?{" "}
@@ -582,13 +591,18 @@ export function ConsultationFields({
   }
 
   const onSubmit = form.handleSubmit((data) => {
-    if (mutation.isPending) return;
+    if (mutation.isPending || attemptRef.current?.busy) return;
     const enriched = { ...data, zip: data.zip || extractZipFromAddress(data.address) };
     mutation.mutate(enriched);
   });
 
   return (
     <Form {...form}>
+      <p className="text-sm text-muted-foreground mb-4">
+        Send your project details for our team to review before preparing a quote. This request does not book installation.
+        Keep this page open until receipt is confirmed. Retry unchanged details here after an uncertain response;
+        if you refresh or leave without confirmation, call or text us before sending another request.
+      </p>
       <EstimatorRecovery
         flow="consultation"
         currentStep={form.formState.isDirty ? "filling" : "form"}

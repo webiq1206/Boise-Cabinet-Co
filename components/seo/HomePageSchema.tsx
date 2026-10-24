@@ -6,6 +6,7 @@ import {
   generateWebSiteSchema,
   generateSpeakableSchema,
 } from '@/lib/schema';
+import { publicQa } from '@/shared/claims';
 import { HOMEPAGE_FAQS } from '@/shared/homepageFaqs';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
@@ -18,7 +19,7 @@ export function HomePageSchema() {
         generateLocalBusinessSchema(),
         generateWebSiteSchema(),
         generateFAQSchema(
-          HOMEPAGE_FAQS.map((f) => ({ question: f.q, answer: f.a })),
+          publicQa(HOMEPAGE_FAQS).map((f) => ({ question: f.q, answer: f.a })),
         ),
         generateSpeakableSchema({
           path: '/',

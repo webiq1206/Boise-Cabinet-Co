@@ -25,7 +25,7 @@ export default function SearchPage() {
   );
 
   return (
-    <InteriorPage kind="search"><div className="flex flex-col pb-20 md:pb-0">
+    <InteriorPage kind="search"><div className="flex flex-col ">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4 max-w-2xl">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Search" }]} />

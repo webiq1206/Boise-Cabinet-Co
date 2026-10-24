@@ -3,6 +3,7 @@
  * services, products, Q&A, and UTM-tagged links. Consumed by docs generators
  * and verification scripts under scripts/gbp/.
  */
+import { publicQa, publicText, showFoundingYear } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { DOOR_STYLES } from "@/shared/catalog/generated/doorStyles";
 
@@ -55,12 +56,12 @@ export const GBP_PROFILE = {
     "Carpenter",
   ],
   hours: {
-    monday: "7:00 AM - 6:00 PM",
-    tuesday: "7:00 AM - 6:00 PM",
-    wednesday: "7:00 AM - 6:00 PM",
-    thursday: "7:00 AM - 6:00 PM",
-    friday: "7:00 AM - 6:00 PM",
-    saturday: "8:00 AM - 4:00 PM",
+    monday: "9:00 AM - 6:00 PM",
+    tuesday: "9:00 AM - 6:00 PM",
+    wednesday: "9:00 AM - 6:00 PM",
+    thursday: "9:00 AM - 6:00 PM",
+    friday: "9:00 AM - 6:00 PM",
+    saturday: "9:00 AM - 4:00 PM",
     sunday: "Closed",
   },
   paymentMethods: ["Cash", "Credit Card", "Check", "Financing"],
@@ -76,8 +77,10 @@ export const GBP_PROFILE = {
   },
 } as const;
 
-export const GBP_BUSINESS_DESCRIPTION =
+const GBP_BUSINESS_DESCRIPTION_SOURCE =
   "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+
+export const GBP_BUSINESS_DESCRIPTION = publicText(GBP_BUSINESS_DESCRIPTION_SOURCE);
 
 export interface GbpServiceArea {
   name: string;
@@ -182,7 +185,7 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Cabinet installation",
     description:
-      "Professional installation by our own team, with final walkthrough and lifetime workmanship warranty.",
+      publicText("Professional installation by our own team, with final walkthrough and lifetime workmanship warranty."),
     path: "/construction",
     campaign: "service-installation",
     priority: "core",
@@ -312,7 +315,7 @@ export interface GbpQaPair {
 }
 
 /** GBP-safe Q&A (consultation answer omits showroom; matches SAB model). */
-export const GBP_QA_SEEDS: GbpQaPair[] = [
+const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "What makes Boise Cabinet Co different from other cabinet companies?",
     answer:
@@ -355,6 +358,8 @@ export const GBP_QA_SEEDS: GbpQaPair[] = [
   },
 ];
 
+export const GBP_QA_SEEDS: GbpQaPair[] = publicQa(GBP_QA_SEEDS_SOURCE);
+
 export const GBP_LEGACY_AUDIT_SEARCHES = [
   {
     term: "Boise Remodeling Co",
@@ -380,7 +385,7 @@ ${GBP_PROFILE.email}
 ${SITE}
 Meridian, ID (service-area; no street address published)`;
 
-export const GBP_COMPLETENESS_CHECKLIST = [
+const GBP_COMPLETENESS_CHECKLIST_SOURCE = [
   "Business name exact: Boise Cabinet Co",
   "SAB enabled, address hidden",
   "Primary category: Cabinet maker",
@@ -388,7 +393,7 @@ export const GBP_COMPLETENESS_CHECKLIST = [
   "Phone, website (UTM), appointment link set",
   "Opening date: 2020",
   "9 service areas added",
-  "Hours set (Mon-Fri 7-6, Sat 8-4, Sun closed)",
+  "Hours set (Mon-Fri 9 AM-6 PM, Sat 9 AM-4 PM, Sun closed)",
   "744-char business description pasted",
   "11 core services with descriptions + UTM links",
   "6 door-style products with photos + UTM links",
@@ -405,3 +410,7 @@ export const GBP_COMPLETENESS_CHECKLIST = [
   "First Google Post published",
   "Review request process documented for install crew",
 ] as const;
+
+export const GBP_COMPLETENESS_CHECKLIST = GBP_COMPLETENESS_CHECKLIST_SOURCE.filter(
+  (item) => showFoundingYear() || !/\b2020\b/.test(item),
+);
