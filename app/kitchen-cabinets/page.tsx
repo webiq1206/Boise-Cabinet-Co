@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Planning a kitchen update? Talk with Boise Cabinet Co about your space, cabinet needs and project goals. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
+  "Kitchen cabinets, bathroom vanities and built-ins. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
@@ -38,7 +38,8 @@ const TILES = [
 const FAQS = [
   {
     question: "How long does it take?",
-    answer: "Timing depends on your project scope and cabinet selections. Our team will review availability and discuss the schedule with you.",
+    answer:
+      "As fast as 3 weeks from order to install on many projects. We'll give you a timeline with your estimate.",
   },
   {
     question: "What areas do you serve?",
@@ -56,7 +57,7 @@ const FAQS = [
       "It depends on the size of the space and the cabinet line you choose. The estimate is free, so call, text or send the form and we'll give you a real number.",
   },
   {
-    question: "Are you insured?",
+    question: "Are you bonded and insured?",
     answer: "Yes. We're bonded and insured.",
   },
 ];
@@ -153,7 +154,7 @@ export default function KitchenCabinetsPage() {
             Boise Cabinets for Kitchens, Baths &amp; Built-Ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
-            Planning a kitchen update? Talk with Boise Cabinet Co about your space, cabinet needs and project goals.
+            Kitchen cabinets, bathroom vanities and built-ins, installed as fast as 3 weeks.
           </p>
           <div className="mt-5">
             <LandingContactActions onDark formId="quick-quote" formLabel="Request a Cabinet Estimate" />
@@ -203,13 +204,13 @@ export default function KitchenCabinetsPage() {
           <h2 className="font-serif text-3xl text-foreground">Why Boise Cabinet Co</h2>
           <ul className="space-y-4 text-base leading-relaxed">
             <li>
-              <strong>Free estimate.</strong> Call, text or send the form and we&apos;ll give you a real number.
+              <strong>Kitchens, baths and built-ins.</strong> Kitchen cabinets, bathroom vanities and built-ins for Ada and Canyon County homes.
             </li>
             <li>
-              <strong>Bonded and insured.</strong>
+              <strong>Bonded and insured.</strong> We&apos;re bonded and insured for every install.
             </li>
             <li>
-              <strong>Plan the next step.</strong> We review scope, selections and scheduling with you.
+              <strong>As fast as 3 weeks.</strong> Many projects install as fast as 3 weeks. We&apos;ll give you a timeline with your estimate.
             </li>
           </ul>
         </section>
@@ -224,7 +225,7 @@ export default function KitchenCabinetsPage() {
               <strong>Get your free estimate.</strong> We go over layout, door styles like shaker and slab, and finishes with you, and give you a clear quote.
             </li>
             <li>
-              <strong>We install.</strong> Your new cabinets go in as fast as 3 weeks.
+              <strong>We install.</strong> We install your new cabinets, as fast as 3 weeks.
             </li>
           </ol>
         </section>
