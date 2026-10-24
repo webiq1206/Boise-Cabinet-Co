@@ -118,3 +118,19 @@ test('hidden evidence is rejected rather than newly included in archive', async 
   const f = await fixture(t); await writeFile(path.join(f.dir, '.env'), 'synthetic-not-a-secret');
   await assert.rejects(prepareEvidence(f), /Unsafe/);
 });
+
+test('document archive requires every report and preserves complete bytes', async t => {
+  const root = await mkdtemp(path.join(tmpdir(), 'cabinet-document-evidence-'));
+  t.after(() => rm(root, {recursive: true, force: true}));
+  const dir = path.join(root, 'document-adapter-verification'); await mkdir(dir);
+  const names = ['tested-commit.txt', 'adapter-integration.log', 'estimator-tests.log', 'build.log'];
+  for (const name of names) await writeFile(path.join(dir, name), 'complete '+name+'\n');
+  const result = await prepareEvidence({group:'document', root});
+  assert.equal(result.valid, true); assert.equal(result.files.length, 4);
+  for (const name of names) assert.equal(execFileSync('tar', ['-xOzf', result.archive, './document-adapter-verification/'+name]).toString(), 'complete '+name+'\n');
+  await writeFile(path.join(dir, 'build.log'), '');
+  const incomplete = await prepareEvidence({group:'document', root});
+  assert.equal(incomplete.valid, false);
+  assert.deepEqual(incomplete.missingOrEmpty, ['document-adapter-verification/build.log']);
+  assert.equal(await readFile(path.join(dir, 'adapter-integration.log'), 'utf8'), 'complete adapter-integration.log\n');
+});
