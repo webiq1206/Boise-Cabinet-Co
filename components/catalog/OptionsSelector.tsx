@@ -323,7 +323,7 @@ function DoorCard({ style }: { style: DoorStyle }) {
       className="block h-full group"
       data-testid={`link-door-${style.slug}`}
     >
-      <MarketingCard className="h-full flex flex-col p-0 overflow-hidden brc-lift transition-colors">
+      <MarketingCard padding="none" className="h-full flex flex-col overflow-hidden brc-lift transition-colors">
         <DoorStyleHero slug={style.slug} name={style.name} className="rounded-none" />
         <div className="p-6 flex flex-col flex-1">
           <div className="flex flex-wrap gap-1.5 mb-3">
@@ -336,10 +336,10 @@ function DoorCard({ style }: { style: DoorStyle }) {
           <h2 className="text-lg font-serif tracking-tight mb-2 group-hover:text-primary transition-colors">
             {style.name}
           </h2>
-          <p className="text-base text-muted-foreground flex-1 line-clamp-4 leading-relaxed">
+          <p className="text-base text-muted-foreground line-clamp-4 leading-relaxed">
             {style.description}
           </p>
-          <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
+          <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
             View details →
           </span>
         </div>

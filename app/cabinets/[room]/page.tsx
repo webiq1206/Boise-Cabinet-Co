@@ -1,3 +1,5 @@
+import { LandingContactActions } from "@/components/marketing/LandingContactActions";
+import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
@@ -158,7 +160,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   return (
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Hero */}
         <InteriorHero layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
             <Breadcrumbs
@@ -180,12 +182,20 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               }
               description={room.description}
             />
-            <div className="flex flex-wrap gap-3 mt-4">
+            {room.slug === "built-ins" ? <>
+              <p className="mt-4">Tell Boise Cabinet Co which room you are working on and what you need to store.</p>
+              <LandingContactActions formId="built-in-inquiry" formLabel="Send Your Built-In Ideas" />
+            </> :             <div className="flex flex-wrap gap-3 mt-4">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
-            </div>
+            </div>}
           </InteriorHero>
+        {room.slug === "built-ins" && <section id="built-in-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
+          <h2 className="text-2xl font-serif">Your room, your storage goals</h2>
+          <p className="my-4">Share your ideas for team review. Dimensions and photos can follow; they are not required to get in touch.</p>
+          <KitchenCabinetsQuoteForm context="built-ins" projectPrompt="Which room, and what would you like to store?" submitLabel="Send Built-In Request" />
+        </section>}
 
         {phaseAnswer && (
           <Section divider>
@@ -236,7 +246,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               </p>
               <Button variant="brandOutline" asChild>
                 <Link href="/estimate">
-                  Get a {room.name.toLowerCase()} planning range{" "}
+                  Request a {room.name.toLowerCase()} estimate{" "}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -257,7 +267,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             />
               <div className="ed-cards-3 gap-6">
                 {roomProjects.map((project) => (
-                  <MarketingCard key={project.slug} className="overflow-hidden p-0">
+                  <MarketingCard key={project.slug} padding="none" className="overflow-hidden">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}
@@ -436,8 +446,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
             <p className="text-inverse-muted mb-4">
-              Tell us about your layout and finishes to get a planning estimate, then schedule a
-              consultation.
+              Share your layout and finishes for team review. We may need more information or a
+              site visit before preparing your estimate.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>

@@ -25,7 +25,7 @@ export default function SearchPage() {
   );
 
   return (
-    <InteriorPage kind="search"><div className="flex flex-col pb-20 md:pb-0">
+    <InteriorPage kind="search"><div className="flex flex-col ">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4 max-w-2xl">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Search" }]} />
@@ -42,7 +42,7 @@ export default function SearchPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name or code…"
-            className="w-full mt-6 rounded-md border border-input bg-background px-4 py-3 text-sm"
+            className="w-full mt-6 rounded-md border border-input bg-background px-4 py-3 text-base"
             data-clarity-mask="True" />
           <div className="flex flex-wrap gap-2 mt-4">
             {(["matte", "gloss", "woodgrain"] as FinishCategory[]).map((c) => (

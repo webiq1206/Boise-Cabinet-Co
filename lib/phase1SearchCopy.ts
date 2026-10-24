@@ -1,3 +1,5 @@
+import { publicText } from "@/shared/claims";
+
 /**
  * Phase-1 search title and description rewrites.
  * Titles are the text before the layout suffix " | Boise Cabinet Co".
@@ -138,5 +140,6 @@ export function phase1Title(path: string): string | undefined {
 }
 
 export function phase1Description(path: string): string | undefined {
-  return PHASE1_DESCRIPTIONS[path];
+  const description = PHASE1_DESCRIPTIONS[path];
+  return description ? publicText(description) : undefined;
 }

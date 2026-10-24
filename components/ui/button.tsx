@@ -25,13 +25,13 @@ const buttonVariants = cva(
         // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
         ghost: "border border-transparent",
         brand:
-          "rounded-none bg-primary text-primary-foreground border border-primary-border min-h-[58px] px-8 text-[11px] font-bold uppercase tracking-[0.16em] gap-5",
+          "rounded-none bg-primary text-primary-foreground border border-primary-border min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5",
         brandOutline:
-          "rounded-none border border-foreground/80 bg-transparent text-foreground min-h-[58px] px-8 text-[11px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-foreground hover:text-background",
+          "rounded-none border border-foreground/80 bg-transparent text-foreground min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-foreground hover:text-background",
         /** The hero's secondary CTA: same 58px uppercase format as `brand` so the
             pair reads as a pair, with inverse colours for use over photography. */
         heroOutline:
-          "rounded-none border border-inverse-foreground/70 bg-inverse-foreground/[0.08] text-inverse-foreground backdrop-blur-sm min-h-[58px] px-8 text-[11px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-inverse-foreground hover:text-inverse",
+          "rounded-none border border-inverse-foreground/70 bg-inverse-foreground/[0.08] text-inverse-foreground backdrop-blur-sm min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-inverse-foreground hover:text-inverse",
       },
       // Heights are set as "min" heights, because sometimes Ai will place large amount of content
       // inside buttons. With a min-height they will look appropriate with small amounts of content,

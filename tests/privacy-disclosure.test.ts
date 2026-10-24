@@ -35,6 +35,27 @@ test("the privacy page states the approved analytics disclosures", () => {
   assert.doesNotMatch(privacy, /or send an inquiry/);
 });
 
+test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
+  assert.match(
+    privacy,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\./,
+  );
+});
+
+test("the consultation success screen is masked on every page that renders it", () => {
+  const source = readFileSync(new URL("../components/consultation/ConsultationFields.tsx", import.meta.url), "utf8");
+  const successAt = source.indexOf('data-testid="consultation-success"');
+  assert.ok(successAt !== -1);
+  const opening = source.slice(Math.max(0, successAt - 180), successAt + 80);
+  assert.match(opening, /data-clarity-mask="True"/);
+  assert.match(source, /consultationReferenceId\(\)/);
+  assert.doesNotMatch(source, /lead-\$\{Date\.now\(\)/);
+  for (const page of ["app/page.tsx", "app/contact/page.tsx", "app/services/cabinet-installation/page.tsx"]) {
+    const pageSource = readFileSync(new URL(`../${page}`, import.meta.url), "utf8");
+    assert.match(pageSource, /<ConsultationForm\s*\/>/, page);
+  }
+});
+
 test("the live assistant transcript is masked", () => {
   const source = readFileSync(new URL("../components/assistant/AssistantWidget.tsx", import.meta.url), "utf8");
   assert.match(source, /<div ref=\{listRef\}[^>]*data-clarity-mask="True"/);

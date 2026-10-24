@@ -41,7 +41,7 @@ export default function CabinetsHubPage() {
   return (
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.designStudio}
           alt="display of cabinet finish samples and door styles"
@@ -68,7 +68,7 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={room.heroImage} alt={`${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p><p className="interior-price">Suggested line: {getCollectionBySlug(room.defaultCollectionId)?.name ?? 'Custom Cabinets'}</p></Link>)}</section>
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={room.heroImage} alt={`${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
         <CatalogClosingCTA />
       </div>
     </></InteriorPage>

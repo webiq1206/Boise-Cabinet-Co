@@ -1,3 +1,5 @@
+import { LandingContactActions } from "@/components/marketing/LandingContactActions";
+import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -32,7 +34,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
 const REASONS = [
   {
     title: "Lead times that protect your schedule",
-    body: "Our cabinets are historically ready in just a couple of weeks, typically far shorter than the larger shops. We confirm your production and install dates in writing so you can sequence the other trades around a date you trust.",
+    body: "Timing depends on the cabinet line and project scope. Our team confirms availability and proposed production and installation dates for your project.",
   },
   {
     title: "Volume pricing, scaled to the project",
@@ -52,7 +54,7 @@ const REASONS = [
 const TERMS = [
   {
     label: "Lead time",
-    value: "Historically a couple of weeks; confirmed in writing per project before we start.",
+    value: "Timing depends on the cabinet line and project scope; availability is confirmed by our team.",
   },
   {
     label: "Pricing",
@@ -101,7 +103,7 @@ const FAQS = [
   {
     question: "How fast can you turn a project?",
     answer:
-      "Lead times vary by size, but our cabinets are historically ready in just a couple of weeks, typically far shorter than the larger shops. We confirm your dates in writing before we start.",
+      "Lead times depend on the cabinet line and project scope. Our team confirms availability and proposed dates before work is scheduled.",
   },
   {
     question: "Can you keep specs consistent across many units?",
@@ -142,7 +144,7 @@ export default function BuildersPage() {
   return (
     <InteriorPage kind="builders"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
           alt="cabinet boxes being prepared in a woodworking shop"
@@ -151,17 +153,15 @@ export default function BuildersPage() {
           title={<>
                   Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
                 </>}
-          description={"Built to order in Meridian and installed by our own crew, with volume pricing, consistent specs across units, and lead times measured in weeks, not months. When your money goes to the work instead of a supplier's overhead, you get a number you can build a bid on."}
+          description="Discuss your cabinet scope, project location and target schedule with Boise Cabinet Co. Start with a call, text or project request."
         >
-              <Button variant="brand" asChild>
-                <Link href="/contact">
-                  Request builder pricing <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="brandOutline" asChild>
-                <a href={SITE_CONFIG.phoneHref}>Call {SITE_CONFIG.phone}</a>
-              </Button>
+          <LandingContactActions formId="builder-inquiry" formLabel="Send Project Details" />
         </CinematicHero>
+        <section id="builder-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
+          <h2 className="text-2xl font-serif">Tell us about your cabinet project</h2>
+          <p className="my-4">Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
+          <KitchenCabinetsQuoteForm context="builder-contractor" projectPrompt="Company, location and cabinet scope" submitLabel="Send Builder Project Request" />
+        </section>
 
         <Section variant="greige" divider>
           <div className="ed-shell">
@@ -253,7 +253,7 @@ export default function BuildersPage() {
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>
-                  <Link href="/contact">
+                  <Link href="#builder-inquiry">
                     Request builder pricing <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
