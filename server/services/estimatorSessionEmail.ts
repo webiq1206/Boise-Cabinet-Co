@@ -83,6 +83,10 @@ function sessionFacts(session: EstimatorSession): string {
   </table>`;
 }
 
+/**
+ * Staff summary for an abandoned session. The sweep does not send this while
+ * ABANDONMENT_EMAILS_ENABLED is false in estimatorSessions.ts.
+ */
 export function buildAbandonmentEmail(session: EstimatorSession): { subject: string; html: string } {
   const anonymous = !session.contactPhone && !session.contactEmail;
   const subject = `[Partial] ${anonymous ? "Anonymous" : "Identified"} ${flowLabel(session.flow)} drop-off at ${session.currentStep ?? "unknown step"} (${session.completionPercent}%)`;
