@@ -21,7 +21,7 @@ generateWebPageSchema,
 import { BUSINESS_INFO } from '@/lib/seo';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CONSULT_BULLETS,HERO_STATS } from '@/shared/siteContent';
+import { CONSULT_BULLETS,publicHeroStats } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
 import Image from 'next/image';
@@ -177,7 +177,7 @@ export default function ContactPage() {
             </a>
             <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a></div>
             <dl className="ed-hero-facts">
-              {HERO_STATS.map((stat) => (
+              {publicHeroStats().map((stat) => (
                 <div key={stat.label}>
                   <dt>{stat.label}</dt>
                   <dd>{stat.num}</dd>

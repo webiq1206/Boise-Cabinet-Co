@@ -5,6 +5,7 @@ import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
+import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from "@/shared/claims";
 import { showTestimonials, SITE_CONFIG } from "@/shared/siteConfig";
 import Link from "next/link";
 
@@ -125,6 +126,7 @@ export function Footer() {
               <p className="text-sm text-inverse-muted">
                 Serving Boise &amp; the Treasure Valley
               </p>
+              <p className="text-sm text-inverse-muted">{PUBLIC_HOURS_LINE}</p>
             </div>
             <FooterCTAs />
           </div>
@@ -194,11 +196,7 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap items-center gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
-            <span>
-              {SITE_CONFIG.trust.licenseNumber
-                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
-                : "License details available upon request"}
-            </span>
+            <span>{IDAHO_REGISTERED_CONTRACTOR}</span>
             {/* Required parent-company disclosure. This brand is a DBA of
                 P5 Home Co LLC, not a separate company, and the branded link
                 gives that claim somewhere to resolve - for a reader deciding

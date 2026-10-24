@@ -1,3 +1,4 @@
+import { publicHtml } from '@/shared/claims';
 import { labelTableCells } from '@/lib/tableLabels';
 import {
   splitHtmlByH2,
@@ -18,7 +19,7 @@ export function SectionedArticle({
   testId = 'article-content',
 }: SectionedArticleProps) {
   // A focusable region makes wide comparisons usable with keyboard and touch.
-  html = labelTableCells(html).replace(/<table\b/gi, '<div role="region" aria-label="Scrollable comparison table" tabindex="0" class="article-table-scroll"><table')
+  html = labelTableCells(publicHtml(html)).replace(/<table\b/gi, '<div role="region" aria-label="Scrollable comparison table" tabindex="0" class="article-table-scroll"><table')
     .replace(/<\/table>/gi, '</table></div>');
   const sections = splitHtmlByH2(html);
 
