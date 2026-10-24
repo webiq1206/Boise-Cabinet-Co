@@ -5,16 +5,19 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { requireConsultationReceipt } from "@/lib/consultationReceipt";
 import { consultationReferenceId } from "@/lib/consultationReferenceId";
+import { clearConsultationSessionKey, consultationSessionKey } from "@/lib/consultationRetrySession";
 import { PHONE_VALIDATION_MESSAGE, phoneHasEnoughDigits } from "@/shared/phoneValidation";
 
 const TEL_HREF = "tel:+12084771169";
+function focusErrorSummary(node: HTMLParagraphElement | null) { node?.focus(); }
 
 function emailLooksValid(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-export function KitchenCabinetsQuoteForm() {
+export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Request My Free Estimate"}:{context?:"built-ins"|"builder-contractor"|"cabinet-project";projectPrompt?:string;submitLabel?:string} = {}) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +25,11 @@ export function KitchenCabinetsQuoteForm() {
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [receipt, setReceipt] = useState("");
+  const [unconfirmed, setUnconfirmed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const lock = useRef(false);
+  const requestRef = useRef<{ id: string; body: string } | null>(null);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,48 +55,82 @@ export function KitchenCabinetsQuoteForm() {
       return;
     }
 
+    if (!requestRef.current) {
+      const id = consultationSessionKey(consultationReferenceId);
+      if (!id) { setError("We could not prepare a safe request reference. Please call or text us."); return; }
+      requestRef.current = { id, body: JSON.stringify({
+        name: trimmedName, phone: trimmedPhone, email: trimmedEmail,
+        projectType: context ? `${context}: ${trimmedProject}` : trimmedProject,
+        message: trimmedProject, companyWebsite, metaEventId: id, source: "consultation",
+      }) };
+    }
+    // Freeze this inquiry across an uncertain response. Retrying uses the same key and body.
+    const submission = requestRef.current;
+    const currentBody = JSON.stringify({
+      name: trimmedName, phone: trimmedPhone, email: trimmedEmail,
+      projectType: context ? `${context}: ${trimmedProject}` : trimmedProject,
+      message: trimmedProject, companyWebsite, metaEventId: submission.id, source: "consultation",
+    });
+    if (currentBody !== submission.body) {
+      setError("Your earlier request is still unconfirmed. Restore the original details to retry, or call or text us before sending changed details.");
+      return;
+    }
+    const metaEventId = submission.id;
     lock.current = true;
+    setSubmitting(true);
     setError("");
-    const metaEventId = consultationReferenceId();
     try {
       const res = await fetch("/api/consultation", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: trimmedName,
-          phone: trimmedPhone,
-          email: trimmedEmail,
-          projectType: trimmedProject,
-          message: trimmedProject,
-          companyWebsite,
-          metaEventId,
-          source: "consultation",
-        }),
+        headers: { "Content-Type": "application/json", "Idempotency-Key": submission.id },
+        body: submission.body,
       });
       const body = (await res.json().catch(() => ({}))) as {
         message?: string;
         accepted?: boolean;
         submissionId?: string;
+        requestId?: string;
       };
       if (!res.ok) {
         lock.current = false;
+        // Validation rejects before persistence, so the visitor can correct the form.
+        if (res.status === 400) {
+          clearConsultationSessionKey(submission.id);
+          requestRef.current = null;
+        }
+        if (res.status === 409) setUnconfirmed(true);
         setError(body.message || "Something went wrong. Please call or text us.");
         return;
       }
-      if (body.accepted) {
-        trackGoogleAdsLeadOnce(body.submissionId || metaEventId, { projectType: "kitchen" });
+      let saved;
+      try { saved = requireConsultationReceipt(body); } catch {
+        setUnconfirmed(true);
+        setError("We could not confirm receipt. Please call or text us before submitting again.");
+        return;
       }
+      if (!saved.accepted) {
+        setUnconfirmed(true);
+        setError("We could not confirm receipt. Please call or text us before submitting again.");
+        return;
+      }
+      if (body.accepted) {
+        clearConsultationSessionKey(submission.id);
+        if (!saved.replayed) trackGoogleAdsLeadOnce(body.submissionId || metaEventId, { projectType: context ?? "kitchen" });
+      }
+      setReceipt(body.requestId || body.submissionId || "");
       setDone(true);
     } catch {
       lock.current = false;
-      setError("Something went wrong. Please call or text us.");
+      setError("We could not confirm receipt. Retry here with the same details, or call or text us. Keep this page open; after a refresh, contact us before sending again if receipt is still uncertain.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
   if (done) {
     return (
       <p className="text-base leading-relaxed text-foreground" role="status" aria-live="polite">
-        Thanks, we got it. We&apos;ll call or text you during business hours. Need us sooner?{" "}
+        Your request has been received.{receipt ? ` Your reference is ${receipt}.` : ""} Prefer to speak with us?{" "}
         <a href={TEL_HREF} className="underline underline-offset-2">
           Call (208) 477-1169
         </a>
@@ -99,7 +140,7 @@ export function KitchenCabinetsQuoteForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4" data-clarity-mask="True" noValidate>
+    <form onSubmit={onSubmit} className="space-y-4" data-clarity-mask="True" aria-busy={submitting} noValidate>
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor="kc-company">Company website</label>
         <input
@@ -120,6 +161,7 @@ export function KitchenCabinetsQuoteForm() {
           placeholder="Your name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
@@ -134,6 +176,7 @@ export function KitchenCabinetsQuoteForm() {
           placeholder="Best number for a call or text"
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
+          disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
@@ -147,6 +190,7 @@ export function KitchenCabinetsQuoteForm() {
           placeholder="Your email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
@@ -155,23 +199,28 @@ export function KitchenCabinetsQuoteForm() {
         <Input
           id="kc-project"
           name="project"
-          placeholder="e.g. full kitchen, bathroom vanity, built-in shelving"
+          placeholder={projectPrompt ?? "e.g. full kitchen, bathroom vanity, built-in shelving"}
           value={project}
           onChange={(event) => setProject(event.target.value)}
+          disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
       {error ? (
-        <p className="text-sm text-destructive" role="alert">
-          {error}
+        <p ref={focusErrorSummary} tabIndex={-1} className="text-sm text-destructive" role="alert">
+          {error}{" "}<a href={TEL_HREF} className="underline">Call Us</a>{" or "}<a href="sms:+12084771169" className="underline">Text Us</a>
         </p>
       ) : null}
       <button
         type="submit"
+        disabled={submitting || unconfirmed}
         className="inline-flex min-h-14 w-full items-center justify-center rounded-md bg-primary px-6 text-base font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
-        Get My Free Estimate
+        {submitting ? "Sending request…" : submitLabel}
       </button>
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        Keep this page open until your request is confirmed. If receipt is uncertain, retry here or call or text us. If you already sent a request and then refreshed or left this page without confirmation, contact us before sending again. When browser storage is available, we retain only a random request reference for this tab session, not your entered details.
+      </p>
       <p className="text-sm leading-relaxed text-muted-foreground">
         We&apos;ll use your name, phone number, email and project details only to call or text you about your estimate. We don&apos;t sell your information. See our{" "}
         <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">

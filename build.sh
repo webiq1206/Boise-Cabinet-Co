@@ -54,5 +54,7 @@ fi
 #   .cache      : Playwright browsers + bun/npm tooling caches (~1GB+).
 # Both regenerate on demand, so removing them here is safe. Also drop the small
 # catalog-verification scratch files left in the repo root.
-rm -rf .next/cache .cache
+if ! rm -rf .next/cache .cache; then
+  echo "[build] Cache cleanup was incomplete; continuing because these caches are regenerable." >&2
+fi
 rm -f .tmp-osc-*.txt

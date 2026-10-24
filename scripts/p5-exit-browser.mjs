@@ -26,7 +26,8 @@ async function setup(width,mode='saved') {
   if(mode==='failure'&&requests.length===1)return route.fulfill({status:503,json:{ok:false}});
   return route.fulfill({json:{ok:true,notified:mode!=='pending'}});
  });
- await page.goto(base+'/estimate');
+ // Dedicated full-screen guided route retains the close/navigation contract.
+ await page.goto(base+'/estimate/scope');
  await page.getByRole('button',{name:'Close the estimator. Your progress is saved.',exact:true}).waitFor();
  await page.getByText('Loading your project...', {exact:true}).waitFor({state:'hidden'});
  return {context,page,requests,exit:page.getByRole('button',{name:'Close the estimator. Your progress is saved.',exact:true}),offer:page.getByRole('dialog',{name:'Prefer to talk about your project?'})};
