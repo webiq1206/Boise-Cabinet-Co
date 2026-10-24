@@ -1,3 +1,4 @@
+import { showFoundingYear } from "./claims";
 /**
  * Central site configuration, NAP, URLs, and contact strings.
  * Override via env for staging; replace placeholder values before launch.
@@ -30,11 +31,7 @@ export function showTestimonials(
  * value is exactly "true". Unset, empty, or any other string stays hidden.
  * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
  */
-export function showFoundingYear(
-  value: string | undefined = process.env.SHOW_FOUNDING_YEAR ?? process.env.NEXT_PUBLIC_SHOW_FOUNDING_YEAR,
-): boolean {
-  return value === "true";
-}
+export { showFoundingYear } from "./claims";
 
 /** Keep both wordings. Publish the year claim only while the flag is on. */
 export function foundingYearCopy(shown: string, hidden: string): string {

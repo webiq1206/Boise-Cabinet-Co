@@ -37,7 +37,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     // Median year structure built, 2007. ACS 2020-2024 table B25035, Meridian city:
     // https://data.census.gov/table/ACSDT5Y2024.B25035?g=160XX00US1652120
     quickAnswer:
-      'Meridian is home base for Boise Cabinet Co. Most of our work here upgrades the builder-grade kitchens that went into the city\'s 1990s-to-2010s subdivisions with custom islands, pantry storage and mudroom drop zones, and the typical Meridian house dates to about 2007 (Census ACS 2020–2024). We design, build and install frameless custom cabinets in every Meridian subdivision.',
+      'Custom cabinetry in Meridian, ID starts with a free in-home design consultation, then sourced cabinet packages and professional installation. Most of our work here upgrades the builder-grade kitchens that went into the city\'s 1990s-to-2010s subdivisions with custom islands, pantry storage and mudroom drop zones, and the typical Meridian house dates to about 2007 (Census ACS 2020–2024). Boise Cabinet Co sources and installs frameless cabinets in every Meridian subdivision.',
     takeaways: [
       'Builder-grade kitchen upgrades are the most common Meridian project.',
       'Mudroom lockers and pantry systems suit garage-entry floor plans.',
@@ -47,7 +47,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We build frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -91,9 +91,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build custom cabinets in Meridian?',
+        question: 'Do you build cabinets?',
         answer:
-          'Yes. Meridian is our home base. We design, build, and install frameless custom kitchen cabinets, vanities, pantries, mudroom lockers, and built-ins across every Meridian subdivision.',
+          'No. We source and install.',
       },
       {
         question: 'How much do kitchen cabinets cost in Meridian?',
@@ -113,12 +113,12 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Meridian cabinet project take?',
         answer:
-          'Usually 4 to 8 weeks after design approval. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
+          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
       },
       {
-        question: 'Do you build mudroom and pantry storage in Meridian?',
+        question: 'Do you install mudroom and pantry storage in Meridian?',
         answer:
-          'Yes. Mudroom lockers, drop zones, and pantry walls are the second most requested Meridian project after kitchens, especially in garage-entry floor plans.',
+          'Yes. We source and install mudroom lockers, drop zones, and pantry walls. They are a common Meridian request after kitchens, especially in garage-entry floor plans.',
       },
       {
         question: 'How new are Meridian homes?',
@@ -354,7 +354,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Kuna: newer family homes, the most common storage upgrades, Ada County permits, and planning ranges.',
     quickAnswer:
-      'Kuna has been one of Idaho\'s fastest-growing cities, and its houses show it: about three in four were built in 2000 or later, a Census ACS 2020–2024 estimate, most with builder-grade cabinet packages. Kitchen upgrades, pantry walls, and mudroom and garage storage are what Kuna families ask us for most. Boise Cabinet Co builds and installs custom frameless cabinets all over Kuna.',
+      'Kitchen cabinets and a kitchen pantry in Kuna are available from Boise Cabinet Co. We source the cabinets and install them, including upgrades on newer homes with builder-grade packages. Kuna has been one of Idaho\'s fastest-growing cities, and its houses show it: about three in four were built in 2000 or later, a Census ACS 2020–2024 estimate. Kitchen upgrades, pantry walls, and mudroom and garage storage are what Kuna families ask us for most.',
     takeaways: [
       'Most Kuna homes are newer builds with stock cabinet packages ready for upgrades.',
       'Family storage, mudrooms, pantries, and garages, is the signature Kuna request.',
@@ -364,7 +364,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Kuna',
         paragraphs: [
-          `Kuna has grown faster than almost anywhere in the valley, and most of its housing stock is under 20 years old. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a>, and <a href="/cabinets/garage">garage storage</a> for Kuna families. Planning that applies everywhere in the valley sits on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
+          `Kuna has grown faster than almost anywhere in the valley, and most of its housing stock is under 20 years old. Kitchen cabinets and a kitchen pantry in Kuna are available here: we source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a>, and <a href="/cabinets/garage">garage storage</a>. Planning that applies everywhere in the valley sits on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
       {
@@ -407,9 +407,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build custom cabinets in Kuna?',
+        question: 'Do you build cabinets?',
         answer:
-          'Yes. Frameless custom cabinets go into Kuna homes all the time; we design, build, and install them, mostly for kitchen upgrades and family storage.',
+          'No. We source and install.',
       },
       {
         question: 'How much do kitchen cabinets cost in Kuna?',
@@ -434,7 +434,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Kuna cabinet project take?',
         answer:
-          'Expect 4 to 8 weeks between design approval and installed cabinets; scope and finish selection decide where in that window you fall.',
+          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selection decide where in that window you fall.',
       },
       {
         question: 'How new are Kuna\'s homes?',
@@ -652,7 +652,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     excerpt:
       'Local guide to custom cabinets in Middleton: small-town and acreage housing, popular storage projects, Canyon County permits, and planning ranges.',
     quickAnswer:
-      'Middleton is growing along the Highway 44 corridor without losing its small-town, acreage feel, and about 90% of its homes are owner-occupied (Census ACS 2020–2024). Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and shop storage. Our team designs, builds and installs custom frameless cabinets in Middleton and across Canyon County.',
+      'Custom cabinets in Middleton, ID start with a free in-home design consultation. We source cabinetry and install it for kitchens, pantries, and storage. Middleton is growing along the Highway 44 corridor without losing its small-town, acreage feel, and about 90% of its homes are owner-occupied (Census ACS 2020–2024). Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and shop storage.',
     takeaways: [
       'Middleton favors practical, hardworking cabinetry: pantries, mudrooms, and shop storage.',
       'Acreage properties drive demand for garage and outbuilding cabinet systems.',
@@ -662,7 +662,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Middleton',
         paragraphs: [
-          `Middleton sits between Star and Caldwell on the Highway 44 corridor and keeps more acreage and small-town character than its neighbors. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/garage">garage storage</a> for Middleton homes. Advice that applies valley-wide lives on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
+          `Middleton sits between Star and Caldwell on the Highway 44 corridor and keeps more acreage and small-town character than its neighbors. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/garage">garage storage</a> for Middleton homes. Advice that applies valley-wide lives on the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
       {
@@ -681,7 +681,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           '<a href="/cabinets/garage">Garage and shop storage systems</a>',
         ],
         paragraphs: [
-          'See the <a href="/cabinets">full room catalog</a> and our <a href="/construction">construction standards</a> for what goes into every box.',
+          'See the <a href="/cabinets">full room catalog</a> for door styles and finishes available on the packages we source and install.',
         ],
       },
       {
@@ -705,9 +705,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build custom cabinets in Middleton?',
+        question: 'Do you build cabinets?',
         answer:
-          'Yes. From in-town houses to acreage properties, we handle Middleton cabinet projects start to finish: frameless custom boxes we design, build, and install.',
+          'No. We source and install.',
       },
       {
         question: 'How much do kitchen cabinets cost in Middleton?',
@@ -715,9 +715,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'About what it costs elsewhere in the Treasure Valley. Most Middleton kitchen packages plan at roughly $15,000 to $45,000+, driven by size, door style and accessories.',
       },
       {
-        question: 'Do you build shop and outbuilding cabinets in Middleton?',
+        question: 'Do you install shop and outbuilding cabinets in Middleton?',
         answer:
-          'Yes. Durable garage, shop, and outbuilding storage systems are a common request on Middleton acreage properties.',
+          'Yes. We source and install durable garage, shop, and outbuilding storage. That is a common request on Middleton acreage properties.',
       },
       {
         question: 'Do Middleton projects need Canyon County permits?',
@@ -732,7 +732,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Middleton cabinet project take?',
         answer:
-          'Allow 4 to 8 weeks between an approved design and installation in Middleton, depending on scope and finish selections.',
+          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selections decide the schedule.',
       },
       {
         question: 'How new are Middleton homes?',
