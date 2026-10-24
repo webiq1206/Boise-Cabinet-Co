@@ -7,34 +7,30 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { REGISTERED_BONDED_INSURED, showLifetimeWarranty } from "@/shared/claims";
+import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
 
 export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "Design, build, and install premium custom cabinets from first sketch to final walkthrough.";
+  "Design, source, and install premium custom cabinets from first sketch to final walkthrough.";
 
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "Lifetime", label: "Warranty" },
+  { num: "Parts", label: "Manufacturer warranties passed through on parts we supply" },
 ] as const;
 
-/** Lifetime stat stays in HERO_STATS. It renders only when the warranty flag is on. */
+/** Hero facts. Coverage length is not stated. */
 export function publicHeroStats() {
-  return HERO_STATS.map((stat) =>
-    stat.num === "Lifetime" && !showLifetimeWarranty()
-      ? { num: "Parts", label: "Manufacturer warranties passed through on parts we supply" }
-      : stat,
-  );
+  return HERO_STATS;
 }
 
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 
 export const DIFFERENTIATORS_INTRO =
-  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before fabrication, a job site that respects your home, and proactive updates through installation.";
+  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before order, a job site that respects your home, and proactive updates through installation.";
 
 export interface Differentiator {
   title: string;
@@ -49,12 +45,12 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "One team, one point of accountability",
     contrast: "Instead of coordinating a designer, a contractor, and multiple subs who may point fingers when something goes wrong,",
-    body: "you work with one cabinet team. Design, fabrication, and installation stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
+    body: "you work with one cabinet team. Design, sourcing, and installation stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
   },
   {
     title: "A written plan before we swing a hammer",
     contrast: "Rather than relying on a verbal estimate that shifts once work begins,",
-    body: "you receive a clear written scope with design direction and finish selections before fabrication begins. Any change mid-project requires a written change order with your approval first.",
+    body: "you receive a clear written scope with design direction and finish selections before the order begins. Any change mid-project requires a written change order with your approval first.",
   },
   {
     title: "Proactive communication, not radio silence",
@@ -84,7 +80,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Craftsmanship you review before we close out",
     contrast: "Rather than rushing to the next job before you have a chance to inspect the work,",
-    body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we build matches what you approved.",
+    body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we install matches what you approved.",
   },
   {
     title: "Lean overhead, so your budget goes into the build",
@@ -149,7 +145,7 @@ export const PROMISE_ITEMS = [
   {
     num: "03",
     title: "Schedule you can plan around",
-    body: "We build realistic timelines into your project from day one and update you when anything changes, before it becomes a surprise.",
+    body: "We set realistic timelines for your project from day one and update you when anything changes, before it becomes a surprise.",
   },
   {
     num: "04",
@@ -172,7 +168,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Quality craftsmanship",
-    body: "Skilled trades, careful finishes, and a final walkthrough on every project we build.",
+    body: "Skilled trades, careful finishes, and a final walkthrough on every project we install.",
     icon: Hammer,
   },
   {
@@ -187,7 +183,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Staying on schedule",
-    body: "Realistic timelines built into your project plan with design, fabrication, and installation milestones you can follow.",
+    body: "Realistic timelines built into your project plan with design, sourcing, and installation milestones you can follow.",
     icon: CalendarClock,
   },
   {
@@ -215,20 +211,20 @@ export const HOW_WE_BUILD_STEPS = [
   },
   {
     number: "04",
-    title: "Fabrication & quality check",
-    desc: "Your cabinets are built to order with frameless Euro construction and inspected before shipping.",
+    title: "Order & quality check",
+    desc: "Your cabinets are made to order with frameless Euro construction and inspected before shipping.",
   },
   {
     number: "05",
     title: "Delivery, install & warranty",
-    desc: "Professional installation, final walkthrough, and lifetime warranty support through your portal.",
+    desc: "Professional installation, final walkthrough, and workmanship guarantee support through your portal.",
   },
 ];
 
 export const PRINCIPLES = [
   {
-    title: "Written scope before we build",
-    desc: "Every project starts with a clear written scope so you know exactly what to expect before fabrication begins.",
+    title: "Written scope before order",
+    desc: "Every project starts with a clear written scope so you know exactly what to expect before the order begins.",
   },
   {
     title: "Written change orders only",
@@ -248,7 +244,7 @@ export const PRINCIPLES = [
   },
   {
     title: "Workmanship guarantee",
-    desc: "We stand behind what we build with a written workmanship guarantee, because we build things meant to last.",
+    desc: "We stand behind our workmanship with a written workmanship guarantee, because we install cabinetry meant to last.",
   },
 ];
 
@@ -292,7 +288,7 @@ export const LEADERSHIP_COPY = {
   paragraphs: [
     "Boise Cabinet Co was built on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
-    "That means one accountable team, written scope before we build, weekly updates while we work, and a team that picks up the phone when you have a question.",
+    "That means one accountable team, written scope before order, weekly updates while we work, and a team that picks up the phone when you have a question.",
   ],
   closing: "That is not a marketing promise. Every detail and every decision is handled with intention.",
 };
