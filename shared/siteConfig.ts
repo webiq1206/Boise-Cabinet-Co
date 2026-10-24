@@ -1,3 +1,4 @@
+import { showFoundingYear } from "./claims";
 /**
  * Central site configuration, NAP, URLs, and contact strings.
  * Override via env for staging; replace placeholder values before launch.
@@ -23,6 +24,22 @@ export function showTestimonials(
   value: string | undefined = process.env.SHOW_TESTIMONIALS ?? process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS,
 ): boolean {
   return value === "true";
+}
+
+/**
+ * A 2020 years-in-business claim stays in source. It renders only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ * Idaho SOS shows P5 Home Co. LLC filed 09/25/2025, so nothing backs 2020.
+ */
+export { showFoundingYear } from "./claims";
+
+/** Verified Idaho registration. The number stays in the published phrase. */
+export { IDAHO_REGISTERED_CONTRACTOR } from "./claims";
+
+/** Keep both wordings. Publish the year claim only while the flag is on. */
+export function foundingYearCopy(shown: string, hidden: string): string {
+  return showFoundingYear() ? shown : hidden;
 }
 
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;

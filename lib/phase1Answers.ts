@@ -6,7 +6,10 @@ import { publicQa, publicText } from "@/shared/claims";
  * a written workmanship guarantee, a free in-home design consultation,
  * founded 2020, the eight-city service area, and hundreds of finishes
  * and six door styles. Existing page claims stay in place.
+ * The 2020 sentences stay in this file. Published answers omit them unless
+ * SHOW_FOUNDING_YEAR is exactly "true".
  */
+import { showFoundingYear } from "@/shared/siteConfig";
 
 export interface Phase1Faq {
   question: string;
@@ -36,7 +39,7 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
       },
       {
         question: `How many finishes and door styles are available for ${city} projects?`,
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: `Which cities does Boise Cabinet Co serve, including ${city}?`,
@@ -77,7 +80,7 @@ const ROOMS: Record<string, Phase1Answer> = {
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",
-        answer: "Kitchen cabinets use frameless (European-style) boxes and soft-close hardware.",
+        answer: "Kitchen cabinets offer frameless and soft-close options.",
       },
       {
         question: "Is the kitchen design consultation free?",
@@ -85,7 +88,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many kitchen finishes and door styles are available?",
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: "Where are kitchen cabinets installed?",
@@ -100,11 +103,11 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      "Home office cabinets from Boise Cabinet Co use frameless (European-style) boxes and soft-close hardware. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and six door styles. Installation covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+      "Home office cabinets from Boise Cabinet Co offer frameless and soft-close options. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. Installation covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
     faqs: [
       {
         question: "What construction do home office cabinets use?",
-        answer: "Home office cabinets use frameless (European-style) boxes and soft-close hardware.",
+        answer: "Home office cabinets offer frameless and soft-close options.",
       },
       {
         question: "Is a home office design consultation free?",
@@ -112,7 +115,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many finishes and door styles can a home office use?",
-        answer: "Hundreds of finishes and six door styles.",
+        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
       },
       {
         question: "Where are home office cabinets installed?",
@@ -137,11 +140,11 @@ const CONTACT: Phase1Answer = {
     },
     {
       question: "What cabinet construction should I expect?",
-      answer: "Cabinets use frameless (European-style) boxes and soft-close hardware.",
+      answer: "Cabinets offer frameless and soft-close options.",
     },
     {
       question: "How many finishes and door styles are available?",
-      answer: "Hundreds of finishes and six door styles.",
+      answer: "Hundreds of finishes and Shaker, slab and more door styles.",
     },
     {
       question: "Which cities does Boise Cabinet Co serve?",
@@ -158,7 +161,7 @@ function presentPhase1(answer: Phase1Answer): Phase1Answer {
   return {
     ...answer,
     paragraph: publicText(answer.paragraph),
-    faqs: publicQa(answer.faqs),
+    faqs: publicQa(answer.faqs.map(faq => ({ ...faq, question: !showFoundingYear() && faq.question === "When was Boise Cabinet Co founded, and is workmanship in writing?" ? "Is workmanship covered in writing?" : faq.question }))),
   };
 }
 
@@ -176,4 +179,4 @@ export function phase1ContactAnswer(): Phase1Answer {
   return presentPhase1(CONTACT);
 }
 
-export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT];
+export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(presentPhase1);

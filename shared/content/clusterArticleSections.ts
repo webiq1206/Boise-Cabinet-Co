@@ -99,8 +99,8 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Why soft-close hardware is worth it',
       paragraphs: [
-        'Every cabinet we build uses soft-close hinges and full-extension soft-close drawer slides as standard, not an upgrade. Six-way adjustable hinges let our installers dial in door reveals precisely on site, and full-extension slides let you reach the very back of a deep drawer instead of losing that space.',
-        'This is the feature clients notice first at the final walkthrough. It also protects the finish: doors and drawers that never slam keep their edges and alignment far longer, which matters under our <a href="/warranty">lifetime workmanship warranty</a>.',
+        'We offer soft-close hinge and full-extension soft-close drawer-slide options. Six-way adjustable hinges let our installers dial in door reveals precisely on site, and full-extension slides let you reach the very back of a deep drawer instead of losing that space.',
+        'This is the feature clients notice first at the final walkthrough. It also protects the finish: doors and drawers that never slam keep their edges and alignment far longer, which matters under our <a href="/warranty">warranty</a>.',
       ],
     },
     {
@@ -115,7 +115,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Matte, gloss, or woodgrain: what is the difference?',
       paragraphs: [
-        'We offer 299 finishes across three families. Matte finishes hide fingerprints and everyday smudges, which makes them the most forgiving choice for busy family kitchens. Gloss finishes bounce light around and can make a small Boise galley feel larger and brighter, but they show prints and need more wiping. Woodgrain finishes bring warmth and texture and read well in transitional and craftsman homes.',
+        'We offer hundreds of finishes across three families. Matte finishes hide fingerprints and everyday smudges, which makes them the most forgiving choice for busy family kitchens. Gloss finishes bounce light around and can make a small Boise galley feel larger and brighter, but they show prints and need more wiping. Woodgrain finishes bring warmth and texture and read well in transitional and craftsman homes.',
         'See swatches and color families on the <a href="/catalog">finishes in the catalog</a> page, then request sample doors before you sign off.',
       ],
     },
@@ -142,7 +142,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
   ],
   'cabinet-door-styles-guide': [
     {
-      h2: 'Which door styles do we build?',
+      h2: 'Which door styles do we offer?',
       paragraphs: [
         'Our lineup covers a slab (flat, frameless-modern), a three-piece, and a family of Shaker profiles, Modern, Thin, Alpha, and Beta Shaker, that range from crisp and contemporary to more traditional. Slab doors suit modern and mid-century homes and newer builds; Shaker profiles are the most versatile and sit comfortably in craftsman, transitional, and farmhouse kitchens across the valley.',
         'Compare profiles and see which finishes pair with each on the <a href="/catalog">catalog</a> page.',
@@ -158,7 +158,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Framed or frameless construction?',
       paragraphs: [
-        'We build frameless (full-access) cabinets, which give you wider drawers and doors and easier reach into the box than traditional framed construction. The door style you choose sits on top of that frameless box, so you get a modern, efficient interior with whatever door look fits your home.',
+        'We offer frameless (full-access) options, which give you wider drawers and doors and easier reach into the box than traditional framed construction. The door style you choose sits on top of that frameless box, so you get a modern, efficient interior with whatever door look fits your home.',
         'Drawer fronts follow the door: slab boxes get slab drawer fronts, while Shaker doors can pair with a matching five-piece or a simpler slab drawer front depending on the look you want.',
       ],
     },

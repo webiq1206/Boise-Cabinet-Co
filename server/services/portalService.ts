@@ -160,7 +160,7 @@ function formatStatus(stage: ProjectStage): string {
     design: "Design",
     design_review: "Design Review",
     approved: "Approved",
-    fabrication: "In Fabrication",
+    fabrication: "On Order",
     quality_check: "Quality Check",
     shipping: "Shipping",
     delivery: "Delivery",
@@ -178,7 +178,7 @@ function buildAttentionItems(projectId: string, stage: ProjectStage): PortalAtte
     items.push({
       id: "approve-design",
       title: "Approve your cabinet design",
-      description: "Review layout, door style, and finish selections before we begin fabrication.",
+      description: "Review layout, door style, and finish selections before your cabinets are ordered.",
       priority: "high",
       href: `/portal/projects/${projectId}/design`,
       actionLabel: "Review",

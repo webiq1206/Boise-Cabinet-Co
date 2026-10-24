@@ -24,7 +24,6 @@ const COVERED = [
   "Cabinet boxes against defects in materials and workmanship",
   "Doors and drawer fronts against manufacturing defects",
   "Hardware we supply: hinges and drawer slides under normal use",
-  "Coverage for the lifetime of original home ownership",
 ];
 
 const CONDITIONS = [

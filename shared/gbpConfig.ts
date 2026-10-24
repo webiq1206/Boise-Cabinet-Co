@@ -48,12 +48,9 @@ export const GBP_PROFILE = {
   websiteUrl: gbpUrl("/", "profile"),
   appointmentUrl: gbpUrl("/contact", "appointment"),
   estimateUrl: gbpUrl("/estimate", "estimate"),
-  primaryCategory: "Cabinet maker",
+  primaryCategory: "Kitchen remodeler",
   secondaryCategories: [
-    "Cabinet store",
-    "Kitchen remodeler",
     "Bathroom remodeler",
-    "Carpenter",
   ],
   hours: {
     monday: "9:00 AM - 6:00 PM",
@@ -70,7 +67,7 @@ export const GBP_PROFILE = {
     instagram: "https://www.instagram.com/boisecabinetco",
   },
   messagingWelcome:
-    "Hi! Thanks for reaching out to Boise Cabinet Co. We design, build, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact",
+    "Hi! Thanks for reaching out to Boise Cabinet Co. We design, source, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact",
   attributes: {
     onlineEstimates: true,
     onsiteServices: true,
@@ -113,7 +110,7 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Custom kitchen cabinets",
     description:
-      "Built-to-order frameless kitchen cabinets: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes.",
+      "Kitchen cabinets sized to fit, with frameless options: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes.",
     path: "/cabinets/kitchen",
     campaign: "service-kitchen",
     priority: "core",
@@ -161,7 +158,7 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Built-ins & entertainment centers",
     description:
-      "Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork built to order.",
+      "Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork sized to fit.",
     path: "/cabinets/built-ins",
     campaign: "service-built-ins",
     priority: "core",
@@ -241,7 +238,7 @@ export const GBP_SERVICES: GbpService[] = [
 ];
 
 const DOOR_PRODUCT_DESCRIPTIONS: Record<string, string> = {
-  slab: "Minimal, streamlined flat panel doors. Pairs beautifully with woodgrain or bold solid colors. Available across all 299 finishes.",
+  slab: "Minimal, streamlined flat panel doors. Pairs beautifully with woodgrain or bold solid colors. Available across hundreds of finishes.",
   "three-piece":
     "Horizontal center panel showcases natural woodgrain depth. Ideal for warm, organic kitchen and bath designs.",
   "modern-shaker":
@@ -283,7 +280,7 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
     priority: "bonus",
   },
   {
-    name: "Cabinet Finish Library (299 options)",
+    name: "Cabinet Finish Library (hundreds of options)",
     description: "Browse matte, gloss, and woodgrain finishes for your custom cabinets.",
     path: "/finishes",
     campaign: "product-finishes",
@@ -291,9 +288,9 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
     priority: "bonus",
   },
   {
-    name: "Cabinet Hardware (Salice)",
+    name: "Cabinet Hardware",
     description:
-      "Soft-close hinges and Futura Smove drawer slides, standard on every cabinet.",
+      "Soft-close hinge and drawer-slide options.",
     path: "/hardware",
     campaign: "product-hardware",
     imagePath: "/images/marketing/hero-hardware.webp",
@@ -319,12 +316,12 @@ const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "What makes Boise Cabinet Co different from other cabinet companies?",
     answer:
-      "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+      "We combine a full product catalog (hundreds of finishes and Shaker, slab and more door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless construction options, with manufacturer warranties passed through. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
   },
   {
     question: "What kind of cabinets do you build?",
     answer:
-      "We build fully custom frameless cabinets, made to order for your space. You choose from 299 finishes and six door styles, and every cabinet uses the same quality frameless construction.",
+      "We design and install fully custom cabinets, sized to fit your space. You choose from hundreds of finishes and Shaker, slab and more door styles, with frameless options.",
   },
   {
     question: "How long does a custom cabinet project take?",
@@ -339,12 +336,12 @@ const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "Do you install cabinets or supply only?",
     answer:
-      "We offer full-service design, fabrication, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.",
+      "We offer full-service design, ordering, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.",
   },
   {
     question: "What warranty do you provide?",
     answer:
-      "Every Boise Cabinet Co cabinet carries a limited lifetime warranty to the original homeowner on workmanship and materials. Warranty details and service requests are accessible anytime through your client portal.",
+      "Boise Cabinet Co passes manufacturer warranties through to you. Warranty details and service requests are accessible anytime through your client portal.",
   },
   {
     question: "What does the free design consultation include?",
@@ -388,8 +385,8 @@ Meridian, ID (service-area; no street address published)`;
 const GBP_COMPLETENESS_CHECKLIST_SOURCE = [
   "Business name exact: Boise Cabinet Co",
   "SAB enabled, address hidden",
-  "Primary category: Cabinet maker",
-  "4 secondary categories added",
+  "Primary category: Kitchen remodeler",
+  "1 secondary category added",
   "Phone, website (UTM), appointment link set",
   "Opening date: 2020",
   "9 service areas added",

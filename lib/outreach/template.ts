@@ -36,7 +36,7 @@ export const OUTREACH_TEMPLATE_OPTIONS: {
   {
     key: "branded",
     label: "Branded intro",
-    description: "A warmer, more structured introduction to the cabinet shop.",
+    description: "A warmer, more structured introduction to the cabinet company.",
   },
 ];
 

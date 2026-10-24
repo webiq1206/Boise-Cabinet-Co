@@ -20,7 +20,7 @@ const testimonialsMetadata = buildPageMetadata({
   path: '/testimonials',
   titleOverride: showTestimonials() ? 'Cabinet Design Ideas & Reviews' : 'Cabinet Design Ideas',
   descriptionOverride:
-    'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
+    'Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with us.',
   noindex: !showTestimonials(),
 });
 

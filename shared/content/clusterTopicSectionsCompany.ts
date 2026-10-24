@@ -222,7 +222,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What a local custom shop changes',
       paragraphs: [
-        'Built-to-order sizing uses every inch, one team owns measure-build-install accountability, and finish options expand from a dozen to hundreds, compare our <a href="/catalog">299 finishes</a> and six door styles. Warranty service comes from people who will still be in Meridian next decade.',
+        'Built-to-order sizing uses every inch, one team owns measure-build-install accountability, and finish options expand from a dozen to hundreds, compare our <a href="/catalog">299 finishes</a> ["and six door styles" → "and Shaker, slab and more door styles"]. Warranty service comes from people who will still be in Meridian next decade.',
       ],
     },
     {
@@ -299,7 +299,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Boise housing makes the choice sharper',
       paragraphs: [
-        'Much of Boise\'s charm housing predates square walls. Stock boxes in a 1955 Bench ranch mean visible gaps or hours of installer improvisation; built-to-order boxes are dimensioned from field measurements instead.',
+        'Much of Boise\'s charm housing predates square walls. Stock boxes in a 1955 Bench ranch mean visible gaps or hours of installer improvisation; sized-to-fit boxes are dimensioned from field measurements instead.',
         'Newer Meridian and Kuna subdivisions are friendlier to stock sizing, which is where the budget math gets a genuine comparison.',
       ],
     },
@@ -340,7 +340,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'Finish warrantied against peeling, not just "factory applied"',
       ],
       paragraphs: [
-        'Our <a href="/construction">construction standards page</a> documents what we build into every box, use it as your checklist against any competing quote.',
+        'Our <a href="/construction">construction standards page</a> documents what goes into every box, use it as your checklist against any competing quote.',
       ],
     },
     {
@@ -354,7 +354,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Sequence the decision',
       paragraphs: [
-        'Choose in this order: door profile, finish family (matte, gloss, woodgrain), exact finish from physical samples in your home, hardware last. Sequencing prevents the showroom overwhelm of facing 299 finishes at once.',
+        'Choose in this order: door profile, finish family (matte, gloss, woodgrain), exact finish from physical samples in your home, hardware last. Sequencing prevents the showroom overwhelm of facing hundreds of finishes at once.',
         'Start the shortlist online with the <a href="/catalog">catalog</a>, then confirm with samples in your actual light.',
       ],
     },
@@ -621,7 +621,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Durability as the long-term strategy',
       paragraphs: [
-        'Twenty-year cabinets mean plywood boxes, premium slides rated for decades of cycles, and finishes that handle Idaho\'s humidity swings, the construction tier where quality differences actually compound. Our <a href="/construction">construction standards</a> and <a href="/warranty">lifetime warranty</a> are built for exactly this owner.',
+        'Twenty-year cabinets mean plywood boxes, premium slides rated for decades of cycles, and finishes that handle Idaho\'s humidity swings, the construction tier where quality differences actually compound. Our <a href="/construction">construction standards</a> and <a href="/warranty">warranty</a> fit exactly this owner.',
       ],
     },
   ],

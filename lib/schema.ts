@@ -282,10 +282,10 @@ export function generateOrganizationSchema(): SchemaContext {
     knowsAbout: [
       'Custom kitchen cabinets',
       'Bathroom vanities',
-      'Frameless Euro cabinet construction',
+      'Frameless cabinet construction options',
       'Cabinet door styles',
       'Cabinet finishes',
-      'Soft-close cabinet hardware',
+      'Soft-close hardware options',
       'Built-in storage and closets',
       'Treasure Valley, Idaho',
     ],

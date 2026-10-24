@@ -1,3 +1,4 @@
+import { foundingYearCopy } from "@/shared/siteConfig";
 import {
   ShieldCheck,
   MessageSquare,
@@ -114,7 +115,10 @@ export const TEAM: TeamMember[] = [
   {
     name: "Founder & Owner",
     role: "Founder & Owner",
-    bio: "Founded Boise Cabinet Co in 2020 to bring frameless, built-to-order cabinetry and clear, accountable project management to Treasure Valley homeowners.",
+    bio: foundingYearCopy(
+      "Founded Boise Cabinet Co in 2020 to bring custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
+      "Brings custom cabinetry, sized to fit, and clear, accountable project management to Treasure Valley homeowners.",
+    ),
     isPlaceholder: true,
   },
   {
@@ -286,7 +290,7 @@ export const LEADERSHIP_COPY = {
   label: "Our commitment",
   headline: "Custom cabinets should feel clear, not chaotic.",
   paragraphs: [
-    "Boise Cabinet Co was built on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
+    "Boise Cabinet Co was founded on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
     "That means one accountable team, written scope before order, weekly updates while we work, and a team that picks up the phone when you have a question.",
   ],

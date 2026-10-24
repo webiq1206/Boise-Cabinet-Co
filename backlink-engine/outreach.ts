@@ -74,7 +74,7 @@ ${SIGNOFF}`;
 
 Hi,
 
-I'm reaching out from ${site}, a custom cabinet maker in the Treasure Valley. ${o.recommendedPlay}. Could you let me know the best way to proceed?
+I'm reaching out from ${site}, a custom cabinet company in the Treasure Valley. ${o.recommendedPlay}. Could you let me know the best way to proceed?
 
 ${SIGNOFF}`;
   }

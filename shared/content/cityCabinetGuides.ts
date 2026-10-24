@@ -181,7 +181,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'HOA design review in Eagle communities',
         paragraphs: [
-          'The Foothills and several BanBury-area HOAs review exterior-visible work. Interior cabinetry is normally exempt, but outdoor kitchens and garage-facing cabinetry can trigger review. We build review time into the schedule from day one.',
+          'The Foothills and several BanBury-area HOAs review exterior-visible work. Interior cabinetry is normally exempt, but outdoor kitchens and garage-facing cabinetry can trigger review. We plan review time into the schedule from day one.',
         ],
       },
       {
@@ -207,7 +207,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do you build custom cabinets in Eagle?',
         answer:
-          'Yes. Frameless custom cabinets for Eagle homes are something we design, build, and install across the city, including BanBury, Legacy, Two Rivers, and Eagle Foothills.',
+          'Yes. Custom cabinets for Eagle homes are something we design, source, and install across the city, including BanBury, Legacy, Two Rivers, and Eagle Foothills.',
       },
       {
         question: 'How much do luxury kitchen cabinets cost in Eagle?',

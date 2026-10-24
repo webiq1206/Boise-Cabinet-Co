@@ -1,15 +1,15 @@
 /** AUTO-GENERATED */
 export const OSC_HARDWARE_SPEC = {
   "hinge": {
-    "brand": "Salice",
+    "brand": "",
     "description": "Six-way adjustable soft-close hinges",
     "lineBoreMm": 64,
     "adjustmentAxes": 6,
     "softClose": true
   },
   "drawerSlide": {
-    "brand": "Salice",
-    "model": "Futura Smove",
+    "brand": "",
+    "model": "",
     "extension": "full-extension",
     "softClose": true
   },

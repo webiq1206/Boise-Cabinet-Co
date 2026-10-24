@@ -6,8 +6,22 @@ import type { ReactNode } from 'react';
  * The default src is the 1080 file so the LCP request is not the multi-megabyte original.
  * Other heroes keep their given src.
  */
+/** Ada's full-size files are soft. Normal widths must use the sharp variants. */
+const SHARP_VARIANT_SRCS = new Set([
+  '/images/marketing/cabinet-door-samples.webp',
+  '/images/marketing/kitchen-wood-island.webp',
+]);
+
 function heroImageAttrs(src: string) {
   const match = /^(.*)\.webp$/.exec(src);
+  if (match && SHARP_VARIANT_SRCS.has(src)) {
+    const root = match[1];
+    return {
+      src: `${root}-1280.webp`,
+      srcSet: `${root}-768.webp 768w, ${root}-1280.webp 1280w`,
+      sizes: '(max-width: 768px) 100vw, 50vw',
+    };
+  }
   if (!match || /-\d+\.webp$/.test(src)) return { src };
   const root = match[1];
   if (src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/')) {

@@ -17,7 +17,6 @@ generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -70,7 +69,7 @@ const TERMS = [
   },
   {
     label: "Construction",
-    value: "Frameless, furniture-grade boxes built to order, with a written workmanship guarantee.",
+    value: "Cabinet box options, including frameless, sized to your plans, with a written workmanship guarantee.",
   },
   {
     label: "Install",
@@ -146,7 +145,7 @@ export default function BuildersPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
-          image={MARKETING_IMAGES.construction}
+          image="/images/marketing/hero-construction.webp"
           alt="cabinet boxes being prepared in a woodworking shop"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
@@ -208,7 +207,7 @@ export default function BuildersPage() {
 
         <Section variant="greige" divider>
           <SplitSection header={<SectionHeader
-              eyebrow="What we build"
+              eyebrow="What we supply and install"
               title={<>Project types</>}
               className="mb-0"
             />}>

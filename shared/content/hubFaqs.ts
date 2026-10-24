@@ -31,7 +31,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'What makes your Custom Cabinets different?',
         answer:
-          'Custom Cabinets are built to your exact dimensions, details, and finish specifications, with hundreds of finishes and six door styles to choose from.',
+          'Custom Cabinets are built to your exact dimensions, details, and finish specifications, with hundreds of finishes and Shaker, slab and more door styles to choose from.',
       },
       {
         question: 'When should I order kitchen cabinets?',
@@ -373,7 +373,7 @@ export function getLocationFaqs(
     {
       question: 'How long do local cabinet projects take?',
       answer:
-        'Timelines follow design, selections, and fabrication lead times, often several weeks from order to installation completion.',
+        'Timelines follow design, selections, and manufacturer lead times, often several weeks from order to installation completion.',
     },
     {
       question: 'Do you offer design and installation in my neighborhood?',

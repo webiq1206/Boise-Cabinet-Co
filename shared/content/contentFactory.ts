@@ -128,7 +128,7 @@ function buildClusterFaqs(
   const fallback = [
     {
       question: 'Do you serve Ada and Canyon County?',
-      answer: `Yes, we design, build, and install custom cabinets across ${CITIES_LIST}.`,
+      answer: `Yes, we design, source, and install custom cabinets across ${CITIES_LIST}.`,
     },
     {
       question: 'How do I get a planning range?',

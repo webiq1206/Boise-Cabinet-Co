@@ -254,9 +254,7 @@ export default function ComparePage() {
             />
             <ComparisonMatrixTable matrix={COLLECTION_COMPARISON} />
             <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto">
-              Every {SITE_CONFIG.name} collection includes professional installation and soft-close
-              hinges on doors. Details above reflect standard inclusions, ask about upgrades during
-              your consultation.
+              Every {SITE_CONFIG.name} collection includes professional installation and soft-close options. Details above reflect standard inclusions, ask about upgrades during your consultation.
             </p>
           </div>
         </Section>

@@ -88,7 +88,7 @@ const framedVsFramelessContent = `
   <li>☐ You are on the tightest possible budget with stock cabinets → <strong>framed</strong></li>
 </ul>
 <div class="summary-block">
-  <p><strong>Our take:</strong> For new custom kitchens in Boise, Meridian, and across the Treasure Valley, we build frameless because homeowners consistently value the extra space and modern lines, without giving up durability. See how we engineer our boxes on the <a href="/construction">construction page</a>.</p>
+  <p><strong>Our take:</strong> For new custom kitchens in Boise, Meridian, and across the Treasure Valley, we offer frameless options because homeowners consistently value the extra space a durability. See how we engineer our boxes on the <a href="/construction">construction page</a>.</p>
 </div>
 
 <h2 id="storage-math">The storage math: what 10–15% really means</h2>
@@ -132,7 +132,7 @@ const framedVsFramelessContent = `
 </ol>
 <p>Want a shortcut? Try our <a href="/catalog">style finder</a> to narrow door styles and finishes, then send your favorites along with your <a href="/estimate">estimate request</a>.</p>
 
-<h2 id="how-we-build">How we build frameless cabinets in the Treasure Valley</h2>
+<h2 id="how-we-build">How we design and install cabinets in the Treasure Valley</h2>
 <p>${AUTHOR} designs, builds, and installs frameless custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins throughout Boise, Meridian, Eagle, and Nampa. Every project starts with a free in-home design consultation and a written scope before fabrication, so what you approve is what we build. Explore <a href="/catalog">door styles</a>, <a href="/catalog">finishes in the catalog</a>, and <a href="/catalog">hardware</a> to see how the frameless look comes together, then browse the full <a href="/cabinets">cabinet catalog</a>.</p>
 <p>Ready to price your project? <a href="/estimate">Get a preliminary planning range</a> or <a href="/contact">schedule your free consultation</a> and we will reach out within one business day. ${preferToTextHtml()}</p>
 `;
@@ -634,7 +634,7 @@ const cabinetConstructionContent = `
 <p>A company's warranty tells you how much it trusts its own construction. A meaningful workmanship warranty - one that covers the build, not just a token period - signals that the maker expects the cabinets to hold up. Read what is actually covered and for how long, and ask who you call if a hinge or drawer needs attention in a few years. At <a href="/warranty">${AUTHOR}</a> we back our cabinets with a written workmanship guarantee because we build them to earn it. A vague or missing warranty, by contrast, is worth asking hard questions about before you sign.</p>
 
 <h2 id="why-it-matters">Why construction beats cosmetics</h2>
-<p>It is easy to fall for a beautiful door and a trendy color, but the finish is the part you can most easily change or refresh later. The box, drawers, and hardware are not - they are the bones. A gorgeous door on a flimsy box is a kitchen that looks great in year one and feels tired by year seven. Reverse the priorities: buy the best construction you can, then choose the door and finish you love. That is how a kitchen stays satisfying for the long haul, and it is the standard we hold on every cabinet we build.</p>
+<p>It is easy to fall for a beautiful door and a trendy color, but the finish is the part you can most easily change or refresh later. The box, drawers, and hardware are not - they are the bones. A gorgeous door on a flimsy box is a kitchen that looks great in year one and feels tired by year seven. Reverse the priorities: buy the best construction you can, then choose the door and finish you love. That is how a kitchen stays satisfying for the long haul, and it is what we look for in every cabinet we offer.</p>
 
 <div class="summary-block">
   <p><strong>Pro tip:</strong> When two quotes are far apart in price, the gap almost always lives in construction you can't see. Ask both companies to put box material, drawer-box construction, and hinge brand in writing - then you are comparing apples to apples.</p>
@@ -1748,9 +1748,9 @@ export const PREMIUM_POSTS: BlogPostData[] = [
           'Frameless cabinets are also called European cabinets, Euro-style cabinets, or full-access cabinets, because the entire box opening is usable without a face frame in the way.',
       },
       {
-        question: 'Does Boise Cabinet Co build framed or frameless cabinets?',
+        question: 'Does Boise Cabinet Co offer framed or frameless cabinets?',
         answer:
-          'We build frameless custom cabinets for kitchens, bathrooms, and built-ins across Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley, because homeowners consistently value the added space and modern lines. Schedule a free in-home consultation to plan your project.',
+          'We design and install custom cabinets, with frameless options, for kitchens, bathrooms, and built-ins across Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley, because homeowners consistently value the added space and modern lines. Schedule a free in-home consultation to plan your project.',
       },
     ],
     quickAnswer:
@@ -1762,7 +1762,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     ],
     relatedLinks: [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
-      { url: '/construction', anchor: 'How we build' },
+      { url: '/construction', anchor: 'Our cabinet specs' },
       { url: '/catalog', anchor: 'Door styles' },
       { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
       { url: '/cabinets' },
@@ -1852,7 +1852,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
       { url: '/catalog', anchor: 'Hardware' },
       { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
-      { url: '/construction', anchor: 'How we build' },
+      { url: '/construction', anchor: 'Our cabinet specs' },
       { url: '/cabinets' },
     ],
     primaryKeyword: 'cabinet hardware guide',
@@ -1973,7 +1973,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     ],
     relatedLinks: [
       { url: '/guides/choose-cabinet-company-boise', anchor: 'Choosing a Cabinet Company' },
-      { url: '/construction', anchor: 'How we build' },
+      { url: '/construction', anchor: 'Our cabinet specs' },
       { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
       { url: '/blog/cabinet-materials-labels-certifications', anchor: 'Materials, labels, and certifications' },
       { url: '/warranty', anchor: 'Warranty' },

@@ -301,7 +301,7 @@ export async function buildCatalogPdfBlocks(
   });
   blocks.push({
     type: "paragraph",
-    text: "Product availability, lead times, and pricing change over time and are confirmed in writing during your design consultation. Cabinet configurations and accessories are built to order. This catalog is a planning reference, not a contract or quote.",
+    text: "Product availability, lead times, and pricing change over time and are confirmed in writing during your design consultation. Cabinet configurations and accessories are ordered to your specifications. This catalog is a planning reference, not a contract or quote.",
   });
 
   // ── Plan your project (contact + CTA back matter) ────────────────────────────

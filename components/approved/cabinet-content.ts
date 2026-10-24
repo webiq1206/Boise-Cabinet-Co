@@ -38,7 +38,7 @@ export const faqs = [
   ],
   [
     "What door styles and finishes are available?",
-    "Six door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, and Beta Shaker. Finishes span matte solids, high-gloss, and woodgrain textures, 299 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio."
+    "Shaker, slab and more door styles. Finishes span matte solids, high-gloss, and woodgrain textures, hundreds of options in total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio."
   ],
   [
     "Do you offer closet, laundry, and mudroom cabinets?",

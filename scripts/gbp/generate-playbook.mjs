@@ -18,6 +18,7 @@ const {
   GBP_BONUS_PRODUCTS,
   GBP_QA_SEEDS,
   GBP_COMPLETENESS_CHECKLIST,
+  publishFoundingYear,
 } = await import("../../shared/gbpConfig.ts");
 
 const site = "https://boisecabinet.co";
@@ -136,9 +137,9 @@ You do not have a public showroom. Customers visit their homes for consultations
 
 Do not use General contractor or Home improvement store as your primary category.
 
-### Step 7: Add secondary categories
+### Step 7: Add a secondary category
 
-Add all four of these:
+Add this one:
 
 ${GBP_PROFILE.secondaryCategories.map((c, i) => `${i + 1}. ${c}`).join("\n")}
 
@@ -157,13 +158,14 @@ Use this exact number on your website, Google profile, invoices, and every other
 **${page("/contact")}**
 
 This is the Book button on your profile. It should go to your consultation request page.
+${publishFoundingYear ? `
 
 ### Step 11: Enter your opening date
 
 **${GBP_PROFILE.openingDate}**
 
 ---
-
+` : ""}
 ## Section 2: Service Areas
 
 ### Step 12: Add all nine service areas
