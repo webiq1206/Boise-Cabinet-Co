@@ -145,6 +145,7 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
         <label htmlFor="kc-company">Company website</label>
         <input
           id="kc-company"
+          data-clarity-mask="True"
           name="companyWebsite"
           tabIndex={-1}
           autoComplete="off"

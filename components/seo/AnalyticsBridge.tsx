@@ -2,22 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "@/lib/analytics/track";
-
-/** Google Ads click conversions. send_to only; the call-forwarding label stays in GoogleAnalytics. */
-const TEL_TAP_SEND_TO = "AW-18354188204/ng9fCPiOhaAdEKzf-q9E";
-const SMS_TAP_SEND_TO = "AW-18354188204/lTxsCOqahaAdEKzf-q9E";
-
-function fireTapConversion(sendTo: string) {
-  try {
-    (window as unknown as { gtag: (command: string, name: string, params: { send_to: string }) => void }).gtag(
-      "event",
-      "conversion",
-      { send_to: sendTo },
-    );
-  } catch {
-    // gtag is absent outside production, or it threw. The tap still goes through.
-  }
-}
+import { bindDelegatedContactClicks } from "@/lib/callTextClickConversion";
 
 /**
  * The design-studio and estimator flows already dispatch
@@ -46,25 +31,10 @@ export function AnalyticsBridge() {
     };
   }, []);
 
-  // Delegated click tracking for every tel:/sms:/mailto: link sitewide - one
-  // listener instruments Call/Text/Email everywhere (nav, footer, hero,
-  // location and room pages, etc.) instead of instrumenting each call site.
-  useEffect(() => {
-    function onClick(e: MouseEvent) {
-      const link = (e.target as HTMLElement)?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!link) return;
-      const href = link.getAttribute("href") || "";
-      if (href.startsWith("tel:")) {
-        track("phone_clicked");
-        fireTapConversion(TEL_TAP_SEND_TO);
-      } else if (href.startsWith("sms:")) {
-        track("text_clicked");
-        fireTapConversion(SMS_TAP_SEND_TO);
-      } else if (href.startsWith("mailto:")) track("email_clicked");
-    }
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
-  }, []);
+  // One delegated listener for every tel:/sms:/mailto: link. GA4 events stay
+  // phone_clicked, text_clicked, and email_clicked. The same listener sends
+  // the Ads click conversion when the tag bootstrap would allow it.
+  useEffect(() => bindDelegatedContactClicks(), []);
 
   return null;
 }

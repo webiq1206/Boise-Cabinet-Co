@@ -31,7 +31,8 @@ test("Google Ads transaction ids are random draft or consultation ids, not lead 
   const drafts = readFileSync(new URL("../lib/p5/browserDraft.ts", import.meta.url), "utf8");
   const ads = readFileSync(new URL("../lib/googleAdsConversion.ts", import.meta.url), "utf8");
 
-  assert.match(consultation, /const metaEventId = consultationReferenceId\(\)/);
+  assert.match(consultation, /consultationSessionKey\(consultationReferenceId\)/);
+  assert.match(consultation, /metaEventIdRef\.current = submission\.id/);
   assert.match(consultation, /result\.submissionId \|\| metaEventIdRef\.current/);
   assert.match(route, /submissionId: data\.metaEventId/);
   assert.match(drafts, /const uuidBytes=crypto\.getRandomValues\(new Uint8Array\(16\)\);uuidBytes\[6\]=\(uuidBytes\[6\]&15\)\|64;/);
