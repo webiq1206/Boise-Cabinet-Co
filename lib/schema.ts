@@ -6,7 +6,7 @@ import {schemaTime} from './schemaTime';
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
 import { publicText, showFoundingYear } from '@/shared/claims';
-import { showTestimonials } from '@/shared/siteConfig';
+import { SITE_CONFIG, showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
@@ -43,6 +43,20 @@ export const P5_PARENT_ORGANIZATION = {
  * for this cabinet company.
  */
 const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as const;
+
+/** Idaho DOPL registration, attached to every LocalBusiness node. */
+function contractorCredential() {
+  return {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'registration',
+    identifier: SITE_CONFIG.trust.licenseNumber,
+    recognizedBy: {
+      '@type': 'GovernmentOrganization',
+      name: 'Idaho Division of Occupational and Professional Licenses',
+      url: 'https://dopl.idaho.gov/con/',
+    },
+  };
+}
 
 /**
  * Postal address for the Meridian service-area business record.
@@ -173,6 +187,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       })),
     },
     sameAs: BUSINESS_INFO.sameAs,
+    hasCredential: contractorCredential(),
   };
 }
 
@@ -213,6 +228,7 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       parentOrganization: P5_PARENT_ORGANIZATION,
       employee: publicRepresentative(),
       contactPoint: publicContactPoint(),
+      hasCredential: contractorCredential(),
     },
     areaServed: city
       ? {

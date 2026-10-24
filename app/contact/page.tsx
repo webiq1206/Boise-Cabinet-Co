@@ -254,7 +254,7 @@ export default function ContactPage() {
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
                   label="Call us"
                   href={SITE_CONFIG.phoneHref}
-                  subtext="Call or text to discuss your cabinet project"
+                  subtext="Mon-Fri 9 AM-6 PM and Sat 9 AM-4 PM Mountain, closed Sunday"
                   featured
                 >
                   <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>
