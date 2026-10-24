@@ -636,6 +636,7 @@ export function P5Estimator({defaultService='',entryLabel,headingAs='h1',project
     });
   }
   const manualIntakeReview=()=>run('Saving your project for review...',async()=>{
+    engage();
     setContactReached(false);
     if(!current.current?.text.trim()&&!filesRef.current.length&&!current.current?.uploads?.length&&!Object.values(current.current?.answers||{}).some(v=>v?.trim()))throw new Error('Describe your project or add a file to continue.');
     apply({...remember(current.current!,{field:'otherDetails',label:'Project review',reason:'Review with the details I have',semanticId:'intake-review'},'answered','Continue with saved materials'),pendingReply:undefined});
