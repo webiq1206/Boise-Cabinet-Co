@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
+import { GET as imageSitemap } from "../app/image-sitemap.xml/route.ts";
+import { getAllSiteUrls, getSiteUrlGroups } from "../lib/siteUrls.ts";
 import { generateLocalBusinessSchema, generateReviewSchema } from "../lib/schema.ts";
 import { showTestimonials } from "../shared/siteConfig.ts";
 import { TESTIMONIALS, visibleTestimonials } from "../shared/testimonialsData.ts";
@@ -61,6 +63,7 @@ test("seed review text and rating schema stay out of public output while the fla
     "server/storage.ts",
     "tests/hide-seed-testimonials.test.ts",
     "e2e/hide-seed-testimonials.spec.ts",
+    "scripts/verify-no-seed-reviews-client.mjs",
   ]);
   const hits: string[] = [];
   for (const file of walk(".")) {
@@ -91,8 +94,53 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.equal(page.includes("Concept imagery illustrates design options and is not evidence of completed Boise projects."), true);
   assert.equal(page.includes("They are not photographs of completed client projects."), true);
   assert.equal(page.includes("noindex: !showTestimonials()"), true);
+  assert.equal(page.includes("Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes."), true);
+  assert.equal(page.includes("Explore cabinet design concepts for Treasure Valley homes."), false);
   const nav = readFileSync("shared/cabinetNav.ts", "utf8");
   const footer = readFileSync("components/Footer.tsx", "utf8");
-  assert.equal(nav.includes('showTestimonials() ? [{ label: "Projects & reviews", href: "/testimonials" }]'), true);
-  assert.equal(footer.includes('showTestimonials() ? [{ label: "Projects & Reviews", href: "/testimonials" }]'), true);
+  const navigation = readFileSync("components/Navigation.tsx", "utf8");
+  const home = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
+  const layout = readFileSync("app/layout.tsx", "utf8");
+  const gallery = readFileSync("components/sections/ProjectGallerySection.tsx", "utf8");
+  const redirects = readFileSync("next.config.js", "utf8");
+  const imageSitemap = readFileSync("app/image-sitemap.xml/route.ts", "utf8");
+  assert.equal(nav.includes("Projects & reviews"), false);
+  assert.equal(footer.includes("Projects & Reviews"), false);
+  assert.equal(navigation.includes("Projects & reviews"), false);
+  assert.equal(home.includes("TestimonialsSection"), false);
+  assert.equal(home.includes("testimonialsData"), false);
+  assert.equal(readFileSync("app/page.tsx", "utf8").includes("<HomeTestimonials />"), true);
+  assert.equal(layout.includes('process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true"'), true);
+  assert.equal(redirects.includes("'/projects': '/cabinets'"), true);
+  assert.equal(redirects.includes("'/projects': '/testimonials'"), false);
+  assert.equal(imageSitemap.includes("cabinets in Meridian, Idaho"), true);
+  assert.equal(imageSitemap.includes("cabinets built by Boise Cabinet Co in Meridian, Idaho"), false);
+  assert.equal(gallery.includes("showViewAll && showTestimonials()"), true);
+  assert.equal(gallery.includes(">See more design ideas<"), true);
+  assert.equal(gallery.includes("See more projects and reviews"), false);
+});
+
+test("testimonials drops out of both sitemaps while the flag is off", async () => {
+  delete process.env.SHOW_TESTIMONIALS;
+  delete process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS;
+
+  assert.equal(getAllSiteUrls().some((entry) => entry.path === "/testimonials"), false);
+  assert.equal(
+    getSiteUrlGroups().some((group) => group.entries.some((entry) => entry.label === "Testimonials")),
+    false,
+  );
+  const hiddenXml = await (await imageSitemap()).text();
+  assert.equal(hiddenXml.includes("/testimonials</loc>"), false);
+
+  process.env.SHOW_TESTIMONIALS = "true";
+  assert.equal(getAllSiteUrls().some((entry) => entry.path === "/testimonials" && entry.label === "Testimonials"), true);
+  assert.equal(
+    getSiteUrlGroups().some((group) => group.entries.some((entry) => entry.path === "/testimonials" && entry.label === "Testimonials")),
+    true,
+  );
+  const shownXml = await (await imageSitemap()).text();
+  assert.equal(shownXml.includes("/testimonials</loc>"), true);
+
+  delete process.env.SHOW_TESTIMONIALS;
+  delete process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS;
 });

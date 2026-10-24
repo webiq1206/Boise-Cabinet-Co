@@ -4,6 +4,7 @@ import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
+import { showTestimonials } from '@/shared/siteConfig';
 
 /**
  * /image-sitemap.xml - Google Image sitemap extension.
@@ -50,22 +51,25 @@ export function GET() {
     if (!room.heroImage) continue;
     entries.push({
       page: `${BASE}/cabinets/${room.slug}`,
-      images: [{ loc: abs(room.heroImage), title: `Custom ${room.name.toLowerCase()} cabinets built by Boise Cabinet Co in Meridian, Idaho` }],
+      images: [{ loc: abs(room.heroImage), title: `Custom ${room.name.toLowerCase()} cabinets in Meridian, Idaho` }],
     });
   }
 
-  // Project imagery (design concepts are labeled as such; verified projects are
-  // described as completed work).
-  entries.push({
-    page: `${BASE}/testimonials`,
-    images: PROJECTS.map((project) => ({
-      loc: abs(project.hero.src),
-      title:
-        project.kind === 'concept'
-          ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
-          : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
-    })),
-  });
+  // Project imagery stays off the image sitemap while testimonials are hidden.
+  // Design concepts are labeled as such; verified projects are described as
+  // completed work.
+  if (showTestimonials()) {
+    entries.push({
+      page: `${BASE}/testimonials`,
+      images: PROJECTS.map((project) => ({
+        loc: abs(project.hero.src),
+        title:
+          project.kind === 'concept'
+            ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
+            : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
+      })),
+    });
+  }
 
   // Article imagery, mapped to the article it illustrates.
   for (const post of BLOG_POSTS) {

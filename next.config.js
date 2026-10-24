@@ -123,7 +123,7 @@ const nextConfig = {
       '/portfolio': '/testimonials',
       '/gallery': '/#gallery',
       '/our-work': '/testimonials',
-      '/projects': '/testimonials',
+      '/projects': '/cabinets',
       '/reviews': '/testimonials',
       '/our-reviews': '/testimonials',
       '/our-services': '/#services',

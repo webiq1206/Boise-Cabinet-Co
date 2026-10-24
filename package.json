@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "next build",
+    "postbuild": "node scripts/verify-no-seed-reviews-client.mjs",
     "start": "next start -p 5000",
     "lint": "next lint",
     "test:e2e": "playwright test",

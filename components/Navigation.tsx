@@ -45,15 +45,21 @@ function FunnelLogoHeader() {
   );
 }
 
-export function Navigation() {
+type ReviewLink = {label:string;href:string};
+export function Navigation({reviewLink=null}: {reviewLink?:ReviewLink|null}) {
   const pathname=usePathname();
   if (pathname === "/kitchen-cabinets") return <FunnelLogoHeader />;
-  return isEstimatorPath(pathname)?null:<MarketingNavigation />;
+  return isEstimatorPath(pathname)?null:<MarketingNavigation reviewLink={reviewLink} />;
 }
 
-function MarketingNavigation() {
+function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) {
   const pathname = usePathname();
   const mobileActionsVisible = useP5MobileActions(pathname);
+  const nav = PRIMARY_NAV.map((item) =>
+    reviewLink && item.label === "How It Works" && "children" in item && item.children
+      ? { ...item, children: [...item.children, reviewLink] }
+      : item,
+  );
   // The estimator is a one-page app with its own brand bar, step progress and exit control.
   // Stacking the marketing header on top of it cost about a third of a phone screen before any
   // content, and gave the customer a hamburger out of the flow they were in (owner 2026-09-23).
@@ -165,7 +171,7 @@ function MarketingNavigation() {
           <div className="hidden min-[1180px]:flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
-                {PRIMARY_NAV.map((item) =>
+                {nav.map((item) =>
                   "children" in item && item.children ? (
                     <NavigationMenuItem key={item.label}>
                       <NavigationMenuTrigger
@@ -313,7 +319,7 @@ function MarketingNavigation() {
                 Search
               </Link>
             </div>
-            {PRIMARY_NAV.map((item) => (
+            {nav.map((item) => (
               <div key={item.label} className="border-b border-border/40">
                 {"children" in item && item.children ? (
                   <>

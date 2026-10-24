@@ -107,6 +107,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const showReviewLinks = process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true";
+  const reviewNavLink = showReviewLinks
+    ? { label: "Projects & reviews", href: "/testimonials" }
+    : null;
+  const reviewFooterLink = showReviewLinks
+    ? { label: "Projects & Reviews", href: "/testimonials" }
+    : null;
   return (
     <html lang="en" className={`dark ${manrope.variable} ${cormorant.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
@@ -150,11 +157,11 @@ export default function RootLayout({
         <Providers>
           <ScrollToTop />
           <ApprovedShell><div className="flex flex-col min-h-screen">
-            <Navigation />
+            <Navigation reviewLink={reviewNavLink} />
             <main id="main-content" className="flex-1">
               {children}
             </main>
-            <ConditionalFooter />
+            <ConditionalFooter reviewLink={reviewFooterLink} />
           </div></ApprovedShell>
           <AssistantWidget />
           <Toaster />
