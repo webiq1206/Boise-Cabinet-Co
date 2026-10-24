@@ -15,20 +15,20 @@ Never on tab close or browser shutdown (browsers do not allow a custom prompt th
 A session counts as engaged once the visitor has completed a step (step index >= 1 or a completed step is recorded) or has spent 20 seconds inside the flow. Below that, nothing is emailed and the row expires silently after 7 days.
 
 ## Partial-completion emails
-`server/services/estimatorSessions.ts` keeps one row per session in `estimator_sessions` (created on first use if `npm run db:push` was not run; also in `migrations/0002_estimator_sessions.sql`). A sweep marks a session abandoned after **30 minutes** without a progress report and sends **one** summary to the site's admin recipients (`getAdminRecipientEmails`, currently `SITE_CONFIG.email`). The claim is an atomic conditional UPDATE, so concurrent workers cannot both send; a failed send records the error and is retried on the next pass, up to 5 attempts.
+Staff email for abandoned or partial sessions is off. `ABANDONMENT_EMAILS_ENABLED` in `server/services/estimatorSessions.ts` is `false`, and the abandonment sweep does not call the mailer. There is no environment variable that turns these emails back on. Idle engaged sessions are marked `expired` after **30 minutes** without a progress report, with no `[Partial] ... drop-off` message.
 
-The sweep runs two ways: opportunistically from the progress endpoint (at most every 5 minutes per instance) and from `POST /api/internal/abandonment-sweep` with `Authorization: Bearer $CRON_SECRET` (or `$LEAD_DASHBOARD_KEY`). Schedule the endpoint every 10 minutes so a quiet site still sends summaries.
+`server/services/estimatorSessions.ts` still keeps one row per session in `estimator_sessions` (created on first use if `npm run db:push` was not run; also in `migrations/0002_estimator_sessions.sql`). The sweep still runs opportunistically from the progress endpoint (at most every 5 minutes per instance) and from `POST /api/internal/abandonment-sweep` with `Authorization: Bearer $CRON_SECRET` (or `$LEAD_DASHBOARD_KEY`). That job expires idle drop-offs and purges old rows. It does not send partial-completion mail.
 
-A completed submission (`markEstimatorCompleted`) sets the session to `completed`, which the sweep never emails. A completion after the summary was sent sets `recovered`.
+A completed submission (`markEstimatorCompleted`) sets the session to `completed`. Completed forms, consultations, quotes, and other real leads notify staff through their own mailers (lead notifications, the consultation and pricing-request routes, and estimate delivery). Those paths do not read `ABANDONMENT_EMAILS_ENABLED`.
 
-Callback requests (`POST /api/recovery/callback`) are stored on the session and emailed immediately, once; the session is then excluded from the abandonment sweep so nobody gets two emails about one visitor.
+Callback requests (`POST /api/recovery/callback`) are stored on the session and emailed immediately, once. Those sessions are excluded from the abandonment close-out.
 
 ## Data policy
 - Session id: random, per tab (`sessionStorage`), never linked to cookies or accounts.
 - Stored: site, flow, page path (no query string), device category, timestamps, step positions, completion percent, time in flow, allow-listed selections (keys matching `^[a-z][a-z0-9_]*$`, never anything containing name/email/phone/address), validation error codes, exit method (or `unknown`), prompt interactions.
 - Contact details only from an explicit callback request. Typed-but-unsubmitted contact fields are never captured.
 - Retention: rows are deleted after 90 days.
-- Emails state plainly when no contact information exists ("anonymous partial completion") and that a call/text click shows intent, not a conversation.
+- The unused partial-completion template states plainly when no contact information exists ("anonymous partial completion") and that a call/text click shows intent, not a conversation. That template is not sent while the kill switch is off. Callback emails still go out.
 
 ## Integration
 `<EstimatorRecovery flow=... currentStep=... currentStepIndex=... totalSteps=... selections=... submitted=... />` inside any wizard. On success call `markEstimatorCompleted(flow)`. Analytics event: `estimator_recovery_prompt` with `action` in shown / call / text / callback_requested / stay / continue_leaving.

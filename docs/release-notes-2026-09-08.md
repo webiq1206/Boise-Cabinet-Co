@@ -7,8 +7,8 @@
 
 ## Operator steps after deploy
 1. No manual schema step is required: the app creates `estimator_sessions` on first use. Running `npm run db:push` is still fine.
-2. Schedule `POST /api/internal/abandonment-sweep` every 10 minutes with `Authorization: Bearer $CRON_SECRET` (or `$LEAD_DASHBOARD_KEY`) so abandoned-session summaries go out on quiet days. Without it, summaries still send whenever any visitor's progress beacon arrives.
-3. Confirm one partial-completion email and one callback email arrive at the site inbox (`SITE_CONFIG.email`) using a clearly labelled test session, then delete the test rows if desired.
+2. `POST /api/internal/abandonment-sweep` (Bearer `CRON_SECRET` or `LEAD_DASHBOARD_KEY`) still expires idle drop-offs and purges old rows. It does not send partial-completion staff email. That mail is off (`ABANDONMENT_EMAILS_ENABLED` in `server/services/estimatorSessions.ts`). See `docs/estimator-recovery.md`.
+3. Confirm a callback email still arrives at the site inbox (`SITE_CONFIG.email`) for a clearly labelled test callback. Do not expect a `[Partial] ... drop-off` email. Delete the test rows if desired.
 4. IndexNow: Construction and Handyman now have their own key files under `public/`; nothing to configure.
 5. Handyman only: set `NEXT_PUBLIC_FACEBOOK_URL` / `NEXT_PUBLIC_INSTAGRAM_URL` once the company's own profiles exist; until then no social links or `sameAs` are published.
 
