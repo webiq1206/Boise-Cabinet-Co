@@ -796,8 +796,12 @@ html, body {
   color: hsl(var(--muted-foreground));
 }
 .blog-content tr:last-child td { border-bottom: none; }
-.blog-content img {
+/* Next `fill` images are absolutely positioned inside a clipped frame; a margin
+   would push them down and expose the frame. (BRC-28, BCONC-27) */
+.blog-content img:not([data-nimg="fill"]) {
   margin: 1.5rem 0;
+}
+.blog-content img {
   max-width: 100%;
 }
 .blog-content hr {

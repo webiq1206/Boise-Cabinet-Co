@@ -7,6 +7,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { REGISTERED_BONDED_INSURED, showLifetimeWarranty } from "@/shared/claims";
 
 export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
@@ -20,6 +21,15 @@ export const HERO_STATS = [
   { num: "Free", label: "Design consultation" },
   { num: "Lifetime", label: "Warranty" },
 ] as const;
+
+/** Lifetime stat stays in HERO_STATS. It renders only when the warranty flag is on. */
+export function publicHeroStats() {
+  return HERO_STATS.map((stat) =>
+    stat.num === "Lifetime" && !showLifetimeWarranty()
+      ? { num: "Parts", label: "Manufacturer warranties passed through on parts we supply" }
+      : stat,
+  );
+}
 
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 
@@ -157,7 +167,7 @@ export interface ClientPriority {
 export const CLIENT_PRIORITIES: ClientPriority[] = [
   {
     title: "Trust and credibility",
-    body: "Licensed, bonded, and insured with permits handled in-house and a written scope before work begins.",
+    body: `${REGISTERED_BONDED_INSURED}, with permits handled in-house and a written scope before work begins.`,
     icon: ShieldCheck,
   },
   {

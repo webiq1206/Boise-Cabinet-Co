@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing";
+import { publicText } from "@/shared/claims";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
@@ -54,7 +55,7 @@ export function ProcessSection() {
                   <span className="ed-step-n">{step.number}</span>
                   <div>
                     <h3 className="ed-h4">{step.title}</h3>
-                    <p className="ed-body mt-2 text-[0.875rem]">{step.desc}</p>
+                    <p className="ed-body mt-2 text-[0.875rem]">{publicText(step.desc)}</p>
                   </div>
                 </div>
               </Reveal>

@@ -131,3 +131,11 @@ test("the bridge registers that one listener and does not edit the estimator", (
   const privacy = readFileSync("app/privacy-policy/page.tsx", "utf8");
   assert.equal(privacy.includes("ng9fCPiOhaAdEKzf-q9E"), false);
 });
+
+ test("throwing Ads tag preserves the contact action", () => {
+  installBrowser();
+  try {
+    (window as unknown as {gtag: (...args: unknown[]) => void}).gtag = () => { throw new Error("tag unavailable"); };
+    assert.equal(trackCallTextClickConversion("tel:+12084771169"), false);
+  } finally { cleanupGlobals(); }
+});

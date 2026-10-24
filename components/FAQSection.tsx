@@ -1,7 +1,6 @@
 import { Section } from "@/components/marketing/Section";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
-import { Button } from "@/components/ui/button";
-import { CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { publicQa } from "@/shared/claims";
 import { HOMEPAGE_FAQS } from "@/shared/homepageFaqs";
 
 export { HOMEPAGE_FAQS };
@@ -15,7 +14,7 @@ export { HOMEPAGE_FAQS };
  * unchanged - it already handles keyboard and screen-reader behaviour.
  */
 export function FAQSection() {
-  const faqs = HOMEPAGE_FAQS.map((f) => ({ question: f.q, answer: f.a }));
+  const faqs = publicQa(HOMEPAGE_FAQS).map((f) => ({ question: f.q, answer: f.a }));
 
   return (
     <Section id="faq" surface="dark" spacing="xl" edge>
@@ -29,11 +28,6 @@ export function FAQSection() {
                 matter
               </em>
             </h2>
-            <div className="mt-10">
-              <Button variant="brand" asChild>
-                <a href="#calculator">{CTA_ESTIMATE}</a>
-              </Button>
-            </div>
           </div>
 
           <div>

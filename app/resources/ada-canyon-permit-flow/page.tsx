@@ -55,7 +55,7 @@ export default function AdaCanyonPermitFlowPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
-      <div className="flex flex-col pb-20">
+      <div className="flex flex-col">
       <Section spacing="none" className="pt-28 md:pt-32">
         <InteriorDocument heading={<h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
             Ada vs Canyon County permit flow

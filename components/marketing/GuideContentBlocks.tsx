@@ -1,3 +1,4 @@
+import { publicText } from '@/shared/claims';
 import Link from 'next/link';
 import type { TocHeading } from '@/lib/content-utils';
 
@@ -20,7 +21,7 @@ export function GuideContentBlocks({
           data-speakable="summary"
         >
           <p className="text-xs font-medium uppercase tracking-wider text-accent mb-2">Quick answer</p>
-          <p className="text-foreground leading-relaxed">{quickAnswer}</p>
+          <p className="text-foreground leading-relaxed">{publicText(quickAnswer)}</p>
         </div>
       )}
 
@@ -31,7 +32,7 @@ export function GuideContentBlocks({
           </p>
           <ul className="space-y-2 text-sm md:text-base text-foreground list-disc pl-5">
             {keyTakeaways.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item}>{publicText(item)}</li>
             ))}
           </ul>
         </div>
@@ -63,7 +64,7 @@ export function GuideJumpChips({ headings }: GuideJumpChipsProps) {
             href={`#${h.id}`}
             className="tap-target inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted transition-colors"
           >
-            {h.text.length > 42 ? `${h.text.slice(0, 40)}…` : h.text}
+            {h.text}
           </Link>
         ))}
       </div>
@@ -71,37 +72,4 @@ export function GuideJumpChips({ headings }: GuideJumpChipsProps) {
   );
 }
 
-interface GuideSidebarTocProps {
-  headings: TocHeading[];
-}
-
-export function GuideSidebarToc({ headings }: GuideSidebarTocProps) {
-  if (!headings || headings.length < 2) return null;
-
-  return (
-    <nav
-      className="rounded-lg border border-border p-4 mb-4 max-h-[min(50vh,20rem)] overflow-y-auto"
-      aria-label="Table of contents"
-      data-testid="guide-toc"
-    >
-      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
-        On this page
-      </p>
-      <ol className="space-y-1 text-sm">
-        {headings.map((h) => (
-          <li
-            key={h.id}
-            className={h.level === 3 ? 'ml-3 list-[circle]' : 'list-decimal ml-4'}
-          >
-            <a
-              href={`#${h.id}`}
-              className="tap-target inline-flex items-center text-muted-foreground hover:text-foreground transition-colors leading-snug"
-            >
-              {h.text}
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
+export { GuideSidebarToc } from './GuideSidebarToc';

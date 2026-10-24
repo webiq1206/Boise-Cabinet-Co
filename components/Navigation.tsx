@@ -35,8 +35,19 @@ function Logo() {
   );
 }
 
+function FunnelLogoHeader() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90">
+      <div className="container flex h-16 items-center px-6">
+        <ApprovedBrand />
+      </div>
+    </header>
+  );
+}
+
 export function Navigation() {
   const pathname=usePathname();
+  if (pathname === "/kitchen-cabinets") return <FunnelLogoHeader />;
   return isEstimatorPath(pathname)?null:<MarketingNavigation />;
 }
 
@@ -237,12 +248,15 @@ function MarketingNavigation() {
             <a
               href={SITE_CONFIG.phoneHref}
               className="flex items-center gap-2 text-[13px] font-medium transition-colors whitespace-nowrap text-muted-foreground hover:text-foreground"
+              aria-label={`Call ${SITE_CONFIG.phone}`}
+              data-header-phone=""
             >
               <span className="relative flex h-2 w-2">
                 <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              {SITE_CONFIG.phone}
+              <Phone className="header-phone-icon hidden h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+              <span className="header-phone-number">{SITE_CONFIG.phone}</span>
             </a>
             <Button
               variant="brand"
@@ -293,7 +307,7 @@ function MarketingNavigation() {
               <Link
                 href="/search"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-muted-foreground"
+                className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-foreground"
               >
                 <Search className="h-5 w-5" />
                 Search
@@ -312,8 +326,8 @@ function MarketingNavigation() {
                       className={cn(
                         "flex w-full items-center justify-between px-6 py-5 text-xl font-medium",
                         navItemActive(item.href, item.children)
-                          ? "text-foreground"
-                          : "text-muted-foreground",
+                          ? "text-accent"
+                          : "text-foreground",
                       )}
                     >
                       {item.label}
@@ -367,8 +381,8 @@ function MarketingNavigation() {
                     className={cn(
                       "block px-6 py-5 text-xl font-medium",
                       navItemActive(item.href)
-                        ? "text-foreground"
-                        : "text-muted-foreground",
+                        ? "text-accent"
+                        : "text-foreground",
                     )}
                   >
                     {item.label}
@@ -419,6 +433,17 @@ function MarketingNavigation() {
           >
             <Phone className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Call</span>
           </a>
+          {["/cabinets/built-ins","/builders"].includes(pathname ?? "") ? <a href={SITE_CONFIG.phoneSmsHref} className="flex min-h-14 w-[76px] shrink-0 items-center justify-center rounded-sm border border-border text-foreground focus-visible:ring-2 focus-visible:ring-ring">Text Us</a> : (
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("p5:assistant-open"))}
+            className="flex min-h-14 w-[76px] shrink-0 flex-col gap-1 items-center justify-center rounded-sm border border-border text-foreground hover-elevate active-elevate-2"
+            aria-label="Chat with our estimating assistant"
+            data-testid="button-chat-mobile"
+          >
+            <MessageSquare className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Chat</span>
+          </button>
+          )}
           <button
             type="button"
             onClick={() => {

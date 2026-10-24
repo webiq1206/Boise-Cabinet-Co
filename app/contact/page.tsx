@@ -21,7 +21,7 @@ generateWebPageSchema,
 import { BUSINESS_INFO } from '@/lib/seo';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CONSULT_BULLETS,HERO_STATS } from '@/shared/siteContent';
+import { CONSULT_BULLETS,publicHeroStats } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
 import Image from 'next/image';
@@ -153,7 +153,7 @@ export default function ContactPage() {
   return (
     <InteriorPage kind="contact"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Approved editorial hero */}
         <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="bathroom design with custom wood vanity cabinets">
             <HeroBreadcrumbs />
@@ -177,7 +177,7 @@ export default function ContactPage() {
             </a>
             <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a></div>
             <dl className="ed-hero-facts">
-              {HERO_STATS.map((stat) => (
+              {publicHeroStats().map((stat) => (
                 <div key={stat.label}>
                   <dt>{stat.label}</dt>
                   <dd>{stat.num}</dd>
@@ -215,7 +215,7 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="md:col-span-3 p-4 sm:p-7 md:p-10" padding="lg">
+            <MarketingCard className="interior-contact-form p-4 sm:p-7 md:p-10" padding="lg">
               <ConsultationForm />
             </MarketingCard>
           </div>
@@ -242,7 +242,7 @@ export default function ContactPage() {
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
                   label="Call us"
                   href={SITE_CONFIG.phoneHref}
-                  subtext="Mon – Fri 7 am – 6 pm · Sat 8 am – 4 pm"
+                  subtext="Call or text to discuss your cabinet project"
                   featured
                 >
                   <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>

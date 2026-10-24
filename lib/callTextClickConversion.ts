@@ -40,8 +40,13 @@ export function trackCallTextClickConversion(href: string): boolean {
       : null;
   if (!sendTo) return false;
   const gtag = (window as unknown as { gtag: GtagFn }).gtag;
-  gtag("event", "conversion", { send_to: sendTo });
-  return true;
+  try {
+    gtag("event", "conversion", { send_to: sendTo });
+    return true;
+  } catch {
+    // Preserve main: an unavailable or throwing analytics tag cannot interrupt contact.
+    return false;
+  }
 }
 
 let boundHandler: ((event: Event) => void) | null = null;

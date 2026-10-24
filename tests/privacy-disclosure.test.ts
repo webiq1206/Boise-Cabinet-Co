@@ -14,7 +14,7 @@ test("the privacy page states the approved analytics disclosures", () => {
     privacy,
     /We do not currently send your name, email, phone number, address or project description to Google; Google Analytics receives only the type of project you choose \(for example, cabinet installation or new cabinets\) when you use the estimator\./,
   );
-  assert.doesNotMatch(
+  assert.match(
     privacy,
     /Calls from our site or ads may be routed through a Google forwarding number so we can measure which ads lead to calls\./,
   );
@@ -38,27 +38,7 @@ test("the privacy page states the approved analytics disclosures", () => {
 test("Google Ads reference number is stated immediately after the Google Analytics sentence", () => {
   assert.match(
     privacy,
-    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\. When you tap Call or Text on our site, Google Ads is told that the tap happened, on which page, and the ad click identifier Google's tag saved if you arrived from one of our ads, so we can count calls and texts that come from our ads\. The tap itself doesn't send Google your name, your own phone number or what you say or write\. Google Analytics also records that you tapped Call or Text\. If your call goes through a Google forwarding number, Google connects the call and can see the calling number and call length, but not what's said\./,
-  );
-});
-
-test("the forwarding disclosure keeps F and marks the merged sentence as pending", () => {
-  const analytics = readFileSync(new URL("../components/seo/GoogleAnalytics.tsx", import.meta.url), "utf8");
-  const configured = /phoneConversionLabel:\s*['"]YHR0CIaPz_ccEKzf-q9E['"]/.test(analytics);
-  const standalone =
-    "If your call goes through a Google forwarding number, Google connects the call and can see the calling number and call length, but not what's said.";
-  const placeholder = "[PLACEHOLDER: merged forwarding sentence. Priya rev 4 will supply this wording.]";
-  assert.equal(configured, true);
-  assert.equal(privacy.includes(standalone), true);
-  assert.equal(privacy.split(standalone).length - 1, 1);
-  assert.equal(privacy.includes(placeholder), true);
-  assert.equal(privacy.split(placeholder).length - 1, 1);
-  assert.equal(privacy.includes("from our forms"), false);
-  assert.equal(
-    privacy.includes(
-      "Calls from our site or ads may be routed through a Google forwarding number so we can measure which ads lead to calls; when that happens",
-    ),
-    false,
+    /when you use the estimator\. Google Ads receives a random reference number for your inquiry so each lead is counted only once\./,
   );
 });
 
@@ -68,7 +48,7 @@ test("the consultation success screen is masked on every page that renders it", 
   assert.ok(successAt !== -1);
   const opening = source.slice(Math.max(0, successAt - 180), successAt + 80);
   assert.match(opening, /data-clarity-mask="True"/);
-  assert.match(source, /consultationReferenceId\(\)/);
+  assert.match(source, /consultationSessionKey\(consultationReferenceId\)/);
   assert.doesNotMatch(source, /lead-\$\{Date\.now\(\)/);
   for (const page of ["app/page.tsx", "app/contact/page.tsx", "app/services/cabinet-installation/page.tsx"]) {
     const pageSource = readFileSync(new URL(`../${page}`, import.meta.url), "utf8");

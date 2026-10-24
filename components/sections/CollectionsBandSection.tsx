@@ -5,6 +5,7 @@ import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { COLLECTIONS } from "@/shared/catalog/collections";
+import { publicText } from "@/shared/claims";
 import { CTA_EXPLORE_COLLECTIONS } from "@/shared/ctaCopy";
 
 export function CollectionsBandSection() {
@@ -19,7 +20,7 @@ export function CollectionsBandSection() {
               <em className="brc-accent text-accent">built your way</em>
             </>
           }
-          description="One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet."
+          description={publicText("One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet.")}
         />
 
         <div className="grid gap-6 max-w-sm mx-auto">
