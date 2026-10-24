@@ -24,7 +24,7 @@ test("the /about IMG-4 alt skips the location suffix and keeps the brand", () =>
       entry.pages.includes("/about"),
   );
   assert.ok(about);
-  assert.equal(about.alt, ABOUT_ALT);
+  assert.equal(about.alt, ABOUT_ALT.replace(" | Boise", " for Treasure Valley design inspiration | Boise"));
   assert.equal(about.alt.includes("in the Treasure Valley, Idaho"), false);
 });
 
@@ -53,7 +53,7 @@ test("the /construction IMG-1 alt skips the location suffix and keeps the brand"
       entry.pages.includes("/construction"),
   );
   assert.ok(construction);
-  assert.equal(construction.alt, CONSTRUCTION_ALT);
+  assert.equal(construction.alt, CONSTRUCTION_ALT.replace(" | Boise", " for Treasure Valley design inspiration | Boise"));
   assert.equal(construction.alt.includes("in the Treasure Valley, Idaho"), false);
   assert.equal(construction.caption ?? "", "");
 

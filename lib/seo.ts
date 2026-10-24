@@ -4,14 +4,15 @@
  * for service and location pages
  */
 
-import { IDAHO_REGISTERED_CONTRACTOR, showUnprovenSatisfactionGuarantee, SITE_CONFIG } from '@/shared/siteConfig';
+import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from '@/shared/claims';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const BRAND = SITE_CONFIG.name;
 
 /** Homepage title (50–60 chars) and meta description (120–160 chars). */
 export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
 export const HOMEPAGE_DESCRIPTION =
-  `Kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Free design consultation.`;
+  'Kitchen, bath, and storage cabinets for Boise and the Treasure Valley. Idaho Registered Contractor #8381215, bonded and insured. Free design consultation.';
 
 interface SEOMetaData {
   title: string;
@@ -139,12 +140,24 @@ const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
 const CITY_CTA_VARIANTS: Record<string, string> = {
   Kuna: "Free design consultation",
   Boise: "Treasure Valley cabinet pros",
-  Meridian: "Free design consultation",
+  Meridian: "In-home design visit",
   Eagle: "Clear written scope",
   Middleton: "Workmanship guarantee",
   Nampa: "Ada & Canyon County service",
   Caldwell: "Professional installation",
 };
+
+/** Keep a registration line inside the meta description length. */
+function clampDescription(text: string, max = 160): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const kept = clean.slice(0, max);
+  const boundary = Math.max(kept.lastIndexOf(". "), kept.lastIndexOf("! "));
+  if (boundary >= 110) return kept.slice(0, boundary + 1).trim();
+  const space = kept.lastIndexOf(" ");
+  const cut = (space > 110 ? kept.slice(0, space) : kept).replace(/[,:;]$/, "");
+  return /[.!]$/.test(cut) ? cut : `${cut}.`;
+}
 
 /**
  * Generate SEO-optimized meta description
@@ -161,15 +174,13 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   
   if (city && serviceName) {
     const serviceLC = serviceName.toLowerCase();
-    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || city;
-    const ctaVariant =
-      CITY_CTA_VARIANTS[city] ||
-      (showUnprovenSatisfactionGuarantee() ? "Satisfaction guaranteed" : "Free design consultation");
-    return `${cityVariant} ${serviceLC}, installed. ${IDAHO_REGISTERED_CONTRACTOR} & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
+    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
+    const ctaVariant = CITY_CTA_VARIANTS[city] || "Free design consultation";
+    return clampDescription(`${cityVariant} ${serviceLC}. ${REGISTERED_BONDED_INSURED}. ${ctaVariant}. Call ${phone}.`);
   }
   
   if (city) {
-    return `Custom cabinets and storage solutions in ${city}, Idaho. ${IDAHO_REGISTERED_CONTRACTOR}, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`;
+    return clampDescription(`Custom cabinets and storage in ${city}, Idaho. ${REGISTERED_BONDED_INSURED}. Call ${phone} for a free design consultation.`);
   }
   
   if (!serviceName) {
@@ -177,8 +188,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   const serviceLC = serviceName.toLowerCase();
-  const satisfaction = showUnprovenSatisfactionGuarantee() ? ", satisfaction guaranteed" : "";
-  return `Expert ${serviceLC} in Boise & Treasure Valley Idaho. ${IDAHO_REGISTERED_CONTRACTOR}, insured${satisfaction}. Call ${phone} for your free consultation today!`;
+  return clampDescription(`Expert ${serviceLC} in Boise and the Treasure Valley. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
 }
 
 /**
@@ -210,19 +220,19 @@ export function generateCityServiceDescription(
   const neighborhood = cityData?.neighborhoods?.[0];
 
   if (neighborhood) {
-    const withNeighborhood = `${cityVariant} ${serviceLC}, installed. Serving ${neighborhood} & all ${cityName}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
+    const withNeighborhood = clampDescription(`${cityVariant} ${serviceLC}. Serving ${neighborhood} and ${cityName}. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
     if (withNeighborhood.length <= 160) return withNeighborhood;
   }
 
   if (shortDescription) {
-    const desc = `${cityVariant} ${serviceLC}, installed. ${shortDescription}. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone}!`;
+    const desc = clampDescription(`${cityVariant} ${serviceLC}. ${shortDescription}. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
     if (desc.length <= 160) return desc;
   }
 
-  const base = `${cityVariant} ${serviceLC} in ${cityName}, ID. ${IDAHO_REGISTERED_CONTRACTOR} & insured. Call ${phone} for a free quote!`;
+  const base = clampDescription(`${cityVariant} ${serviceLC} in ${cityName}, ID. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
   if (base.length <= 160) return base;
 
-  return `${serviceLC} in ${cityName}, ID. ${IDAHO_REGISTERED_CONTRACTOR}, insured pros. Call ${phone} for a free quote today!`;
+  return clampDescription(`${serviceLC} in ${cityName}, ID. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
 }
 
 /** Keep complete authored titles; an optional secondary label may be omitted. */
@@ -420,23 +430,20 @@ export const BUSINESS_INFO = {
     country: 'United States',
   },
   hours: {
-    monday: '7:00 AM - 6:00 PM',
-    tuesday: '7:00 AM - 6:00 PM',
-    wednesday: '7:00 AM - 6:00 PM',
-    thursday: '7:00 AM - 6:00 PM',
-    friday: '7:00 AM - 6:00 PM',
-    saturday: '8:00 AM - 4:00 PM',
+    monday: '9:00 AM - 6:00 PM',
+    tuesday: '9:00 AM - 6:00 PM',
+    wednesday: '9:00 AM - 6:00 PM',
+    thursday: '9:00 AM - 6:00 PM',
+    friday: '9:00 AM - 6:00 PM',
+    saturday: '9:00 AM - 4:00 PM',
     sunday: 'Closed',
   },
   founded: '2020',
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
-  // TODO(client): set NEXT_PUBLIC_LICENSE_NUMBER to surface the real license #.
-  licenses: SITE_CONFIG.trust.licenseNumber
-    ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
-    : ['License details available upon request'],
-  certifications: ['Custom Cabinetry', 'Bonded & Insured'],
-  insurance: `${IDAHO_REGISTERED_CONTRACTOR} & Insured`,
+  licenses: [IDAHO_REGISTERED_CONTRACTOR],
+  certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
+  insurance: REGISTERED_BONDED_INSURED,
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,

@@ -25,7 +25,8 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { foundingYearCopy, SITE_CONFIG } from '@/shared/siteConfig';
-import { HERO_STATS,PRINCIPLES,TEAM,TRUST_ITEMS } from '@/shared/siteContent';
+import { publicQa,publicText,REGISTERED_BONDED_INSURED } from '@/shared/claims';
+import { PRINCIPLES,TEAM,TRUST_ITEMS,publicHeroStats } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -86,11 +87,11 @@ export default function AboutPage() {
     '@type': 'Person',
     name: m.name,
     jobTitle: m.role,
-    description: m.bio,
+    description: publicText(m.bio),
     worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
   }));
 
-  const ABOUT_FAQS = [
+  const ABOUT_FAQS = publicQa([
     {
       question: `Who is ${SITE_CONFIG.name}?`,
       answer: foundingYearCopy(
@@ -107,14 +108,14 @@ export default function AboutPage() {
       answer: `We are a service-area business with no public showroom. We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
     },
     {
-      question: `Is ${SITE_CONFIG.name} licensed and insured?`,
-      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and pass manufacturer warranties through to you.`,
+      question: `Is ${SITE_CONFIG.name} a registered contractor and insured?`,
+      answer: `Yes. ${REGISTERED_BONDED_INSURED} for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
     },
     {
       question: `How does a cabinet project work?`,
       answer: `Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`,
     },
-  ];
+  ]);
 
   const schemas = [
     generateOrganizationSchema(),
@@ -135,7 +136,7 @@ export default function AboutPage() {
   return (
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Approved editorial hero */}
         <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}>
             <HeroBreadcrumbs />
@@ -165,7 +166,7 @@ export default function AboutPage() {
               </Button>
             </div>
             <dl className="ed-hero-facts">
-              {HERO_STATS.map((stat) => (
+              {publicHeroStats().map((stat) => (
                 <div key={stat.label}>
                   <dt>{stat.label}</dt>
                   <dd>{stat.num}</dd>
@@ -222,10 +223,7 @@ export default function AboutPage() {
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                  {SITE_CONFIG.trust.licenseNumber
-                    ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
-                    : 'Idaho contractor license information is available upon request. '}
-                  We are bonded and insured for residential cabinet design and installation across
+                  {REGISTERED_BONDED_INSURED} for residential cabinet design and installation across
                   the Treasure Valley.
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3">
@@ -303,7 +301,7 @@ export default function AboutPage() {
                     <p className="text-xs tracking-[0.1em] uppercase text-accent mb-3">
                       {member.role}
                     </p>
-                    <p className="text-base text-muted-foreground leading-relaxed">{member.bio}</p>
+                    <p className="text-base text-muted-foreground leading-relaxed">{publicText(member.bio)}</p>
                   </MarketingCard>
                 </Reveal>
               ))}

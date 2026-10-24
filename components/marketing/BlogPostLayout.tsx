@@ -22,6 +22,7 @@ guidePath,
 isCategoryHubIndexable,
 } from '@/shared/contentHubs';
 import { getResourcesForBlog } from '@/shared/guideResources';
+import { publicText } from '@/shared/claims';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { ArrowLeft,ArrowRight,BookOpen,Calendar,Tag,User } from 'lucide-react';
 import Link from 'next/link';
@@ -55,7 +56,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const shareUrl = `${SITE_CONFIG.siteUrl}${blogPath}`;
 
   return (
-    <div className="flex flex-col pb-20 md:pb-0">
+    <div className="flex flex-col ">
 
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
@@ -74,7 +75,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-serif tracking-tight text-foreground mb-4">
               {post.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{post.excerpt}</p>
+            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{publicText(post.excerpt)}</p>
             <div role="presentation" className="border-t border-border/60 mb-5" />
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
@@ -181,7 +182,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               </div>
             </div>
 
-            <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
+            <aside className="article-rail hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
               <ArticleSidebar
                 tocHeadings={tocHeadings}
                 ctaDescription="Planning cabinet work? Get a free design visit and planning range from our team."

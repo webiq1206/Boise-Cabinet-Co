@@ -1,3 +1,5 @@
+import { publicQa, publicText } from "@/shared/claims";
+
 /**
  * Additive answer blocks for phase-1 pages.
  * Facts are limited to frameless (European-style) boxes, soft-close hardware,
@@ -45,7 +47,7 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
       },
       {
         question: `Is workmanship covered in writing for a ${city} project?`,
-        answer: "Yes. Boise Cabinet Co was founded in 2020 and provides a written workmanship guarantee.",
+        answer: "Yes. Boise Cabinet Co provides a written workmanship guarantee.",
       },
     ],
   };
@@ -54,19 +56,19 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
 const LOCATIONS: Record<string, Phase1Answer> = {
   kuna: cityAnswer(
     "Kuna",
-    "Boise Cabinet Co designs custom cabinets for Kuna homes with frameless and soft-close options. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. Service covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Kitchen cabinets and kitchen pantry storage are available for Kuna homes. Boise Cabinet Co sources the cabinets and installs them after a free in-home design consultation, including upgrades for newer houses with builder-grade packages. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
   ),
   middleton: cityAnswer(
     "Middleton",
-    "Custom cabinets in Middleton start with frameless and soft-close options from Boise Cabinet Co, founded in 2020. Homeowners get a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. The service area is Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Custom cabinets in Middleton, ID start with a free in-home design consultation. Boise Cabinet Co sources cabinetry and installs it for hardworking kitchens, pantries, mudrooms, and shop storage along the Highway 44 corridor. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
   ),
   meridian: cityAnswer(
     "Meridian",
-    "Meridian cabinet projects from Boise Cabinet Co use frameless (European-style) boxes and soft-close hardware. The company, founded in 2020, includes a free in-home design consultation and a written workmanship guarantee. Choose from hundreds of finishes and Shaker, slab and more door styles. Coverage includes Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Custom cabinetry in Meridian, ID starts with a free in-home design consultation. Boise Cabinet Co sources cabinet packages and installs them for Meridian homes, including builder-grade kitchen upgrades in subdivisions such as Paramount and Tuscany. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
   ),
   boise: cityAnswer(
     "Boise",
-    "Boise homeowners can order custom cabinets with frameless and soft-close options from Boise Cabinet Co, founded in 2020. Every project includes a free in-home design consultation and a written workmanship guarantee, plus hundreds of finishes and Shaker, slab and more door styles. The company serves Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    "Custom cabinets Boise projects should feel local from the first visit. We source cabinet packages sized for your layout, then install them in Boise and across the Treasure Valley. Tell us about your kitchen or storage goals, review finishes and door styles, and leave with a planning path you can act on. Bonded and insured. Idaho Registered Contractor #8381215.",
   ),
 };
 
@@ -74,7 +76,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
     heading: "What are kitchen cabinets from Boise Cabinet Co?",
     paragraph:
-      "Kitchen cabinets from Boise Cabinet Co offer frameless and soft-close options. Founded in 2020, Boise Cabinet Co includes a free in-home design consultation and a written workmanship guarantee. Hundreds of finishes and Shaker, slab and more door styles are available across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. (full text, rev 4b; supersedes M11)dwell.",
+      "Kitchen cabinets near me should mean a local team that helps you choose, source, and install a kitchen package that fits your home. Boise Cabinet Co plans base runs, uppers, pantries, and appliance panels as one system, then sources and installs the package. Free in-home design consultation. Bonded and insured. Idaho Registered Contractor #8381215.",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",
@@ -93,8 +95,8 @@ const ROOMS: Record<string, Phase1Answer> = {
         answer: `The service area is ${AREA}.`,
       },
       {
-        question: "Is kitchen workmanship covered in writing?",
-        answer: "Yes. Boise Cabinet Co was founded in 2020 and provides a written workmanship guarantee.",
+        question: "Do you build cabinets?",
+        answer: "No. We source and install.",
       },
     ],
   },
@@ -155,46 +157,26 @@ const CONTACT: Phase1Answer = {
   ],
 };
 
-function publishFoundingText(text: string): string {
-  if (showFoundingYear()) return text;
-  return text
-    .replaceAll("Yes. Boise Cabinet Co was founded in 2020 and provides", "Yes. Boise Cabinet Co provides")
-    .replaceAll("Boise Cabinet Co was founded in 2020 and provides", "Boise Cabinet Co provides")
-    .replaceAll(
-      "When was Boise Cabinet Co founded, and is workmanship in writing?",
-      "Is workmanship covered in writing?",
-    )
-    .replaceAll("Founded in 2020, the company offers", "The company offers")
-    .replaceAll("Founded in 2020, Boise Cabinet Co includes", "Boise Cabinet Co includes")
-    .replaceAll("The company, founded in 2020, includes", "The company includes")
-    .replaceAll("Contact Boise Cabinet Co, founded in 2020, for", "Contact Boise Cabinet Co for")
-    .replaceAll("from Boise Cabinet Co, founded in 2020.", "from Boise Cabinet Co.");
-}
-
-function publishBlock(block: Phase1Answer): Phase1Answer {
+function presentPhase1(answer: Phase1Answer): Phase1Answer {
   return {
-    ...block,
-    paragraph: publishFoundingText(block.paragraph),
-    faqs: block.faqs.map((faq) => ({
-      ...faq,
-      question: publishFoundingText(faq.question),
-      answer: publishFoundingText(faq.answer),
-    })),
+    ...answer,
+    paragraph: publicText(answer.paragraph),
+    faqs: publicQa(answer.faqs.map(faq => ({ ...faq, question: !showFoundingYear() && faq.question === "When was Boise Cabinet Co founded, and is workmanship in writing?" ? "Is workmanship covered in writing?" : faq.question }))),
   };
 }
 
 export function phase1LocationAnswer(slug: string): Phase1Answer | undefined {
-  const block = LOCATIONS[slug];
-  return block ? publishBlock(block) : undefined;
+  const answer = LOCATIONS[slug];
+  return answer ? presentPhase1(answer) : undefined;
 }
 
 export function phase1RoomAnswer(slug: string): Phase1Answer | undefined {
-  const block = ROOMS[slug];
-  return block ? publishBlock(block) : undefined;
+  const answer = ROOMS[slug];
+  return answer ? presentPhase1(answer) : undefined;
 }
 
 export function phase1ContactAnswer(): Phase1Answer {
-  return publishBlock(CONTACT);
+  return presentPhase1(CONTACT);
 }
 
-export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(publishBlock);
+export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(presentPhase1);

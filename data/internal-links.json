@@ -510,9 +510,9 @@
           "score": 0.221
         },
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
+          "url": "/cabinets/entertainment",
+          "anchor": "Entertainment cabinets",
+          "title": "Entertainment Cabinets",
           "type": "catalog",
           "score": 0.198
         }
@@ -567,16 +567,16 @@
           "score": 0.243
         },
         {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
+          "type": "catalog",
+          "score": 0.194
+        },
+        {
           "url": "/cabinets/built-ins",
           "anchor": "Built-Ins cabinets",
           "title": "Built-Ins Cabinets",
-          "type": "catalog",
-          "score": 0.16
-        },
-        {
-          "url": "/cabinets/closet",
-          "anchor": "Closet cabinets",
-          "title": "Closet Cabinets",
           "type": "catalog",
           "score": 0.16
         }
@@ -631,9 +631,9 @@
           "score": 0.22
         },
         {
-          "url": "/cabinets/entertainment",
-          "anchor": "Entertainment cabinets",
-          "title": "Entertainment Cabinets",
+          "url": "/cabinets/closet",
+          "anchor": "Closet cabinets",
+          "title": "Closet Cabinets",
           "type": "catalog",
           "score": 0.16
         },
@@ -887,18 +887,18 @@
           "score": 1.183
         },
         {
+          "url": "/blog/cabinet-installation-punch-list",
+          "anchor": "Cabinet Installation Punch List",
+          "title": "Cabinet Installation Punch List",
+          "type": "blog",
+          "score": 1.136
+        },
+        {
           "url": "/locations/eagle",
           "anchor": "Eagle cabinets",
           "title": "Custom Cabinets in Eagle, Idaho",
           "type": "guide",
           "score": 0.22
-        },
-        {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
-          "type": "catalog",
-          "score": 0.12
         }
       ]
     },
@@ -4105,7 +4105,7 @@
           "anchor": "Bedroom cabinets",
           "title": "Bedroom Cabinets",
           "type": "catalog",
-          "score": -0.089
+          "score": -0.093
         }
       ]
     },
@@ -4606,18 +4606,18 @@
           "score": 0.55
         },
         {
-          "url": "/blog/how-deep-are-kitchen-cabinets",
-          "anchor": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
-          "title": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
-          "type": "blog",
-          "score": 0.503
-        },
-        {
           "url": "/blog/best-kitchen-cabinet-colors",
           "anchor": "Best Kitchen Cabinet Colors (2026 Trends + How to Choose)",
           "title": "Best Kitchen Cabinet Colors (2026 Trends + How to Choose)",
           "type": "blog",
           "score": 0.499
+        },
+        {
+          "url": "/locations/eagle",
+          "anchor": "Eagle cabinets",
+          "title": "Custom Cabinets in Eagle, Idaho",
+          "type": "guide",
+          "score": -0.037
         }
       ]
     },
@@ -5083,18 +5083,18 @@
           "score": 0.265
         },
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
-          "type": "catalog",
-          "score": 0.205
-        },
-        {
           "url": "/blog/bathroom-vanity-buying-guide",
           "anchor": "Bathroom Vanity Buying Guide: Sizes, Styles & Cost",
           "title": "Bathroom Vanity Buying Guide: Sizes, Styles & Cost",
           "type": "blog",
           "score": 0.179
+        },
+        {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
+          "type": "catalog",
+          "score": 0.175
         },
         {
           "url": "/cabinets/laundry",
@@ -5144,35 +5144,35 @@
           "anchor": "Closet cabinets",
           "title": "Closet Cabinets",
           "type": "catalog",
-          "score": 0.223
+          "score": 0.188
         },
         {
           "url": "/blog/primary-suite-closet-cabinets",
           "anchor": "Primary Suite Closet Cabinets",
           "title": "Primary Suite Closet Cabinets",
           "type": "blog",
-          "score": 0.171
+          "score": 0.167
         },
         {
           "url": "/cabinets/wet-bar",
           "anchor": "Wet Bar cabinets",
           "title": "Wet Bar Cabinets",
           "type": "catalog",
-          "score": 0.153
+          "score": 0.151
         },
         {
           "url": "/cabinets/garage",
           "anchor": "Garage cabinets",
           "title": "Garage Cabinets",
           "type": "catalog",
-          "score": 0.131
+          "score": 0.13
         },
         {
           "url": "/cabinets/mudroom",
           "anchor": "Mudroom cabinets",
           "title": "Mudroom Cabinets",
           "type": "catalog",
-          "score": 0.13
+          "score": 0.129
         },
         {
           "url": "/blog/custom-vs-reserve-cabinets",
@@ -5268,18 +5268,18 @@
       "url": "/cabinets/closet",
       "links": [
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
-          "type": "catalog",
-          "score": 0.183
-        },
-        {
           "url": "/cabinets/pantry",
           "anchor": "Pantry cabinets",
           "title": "Pantry Cabinets",
           "type": "catalog",
           "score": 0.157
+        },
+        {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
+          "type": "catalog",
+          "score": 0.148
         },
         {
           "url": "/blog/cabinets-for-long-term-living",
@@ -5623,11 +5623,11 @@
           "score": 0.06
         },
         {
-          "url": "/cabinets/pantry",
-          "anchor": "Pantry cabinets",
-          "title": "Pantry Cabinets",
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
           "type": "catalog",
-          "score": 0.045
+          "score": 0.047
         },
         {
           "url": "/guides/whole-home-cabinetry-guide",
@@ -5844,13 +5844,6 @@
       "url": "/cabinets/wet-bar",
       "links": [
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
-          "type": "catalog",
-          "score": 0.073
-        },
-        {
           "url": "/cabinets/entertainment",
           "anchor": "Entertainment cabinets",
           "title": "Entertainment Cabinets",
@@ -5858,11 +5851,25 @@
           "score": 0.073
         },
         {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
+          "type": "catalog",
+          "score": 0.031
+        },
+        {
           "url": "/blog/custom-vs-reserve-cabinets",
           "anchor": "Custom Cabinets Built to Your Specifications",
           "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
           "score": 0.023
+        },
+        {
+          "url": "/cabinets/pantry",
+          "anchor": "Pantry cabinets",
+          "title": "Pantry Cabinets",
+          "type": "catalog",
+          "score": 0.022
         },
         {
           "url": "/blog/bathroom-vanity-roi-boise",
@@ -5875,13 +5882,6 @@
           "url": "/blog/cabinet-consultation-process",
           "anchor": "Cabinet Consultation Process",
           "title": "Cabinet Consultation Process",
-          "type": "blog",
-          "score": 0.02
-        },
-        {
-          "url": "/blog/cabinet-installation-punch-list",
-          "anchor": "Cabinet Installation Punch List",
-          "title": "Cabinet Installation Punch List",
           "type": "blog",
           "score": 0.02
         },
@@ -6248,6 +6248,13 @@
           "score": 0.732
         },
         {
+          "url": "/blog/cabinet-installation-punch-list",
+          "anchor": "Cabinet Installation Punch List",
+          "title": "Cabinet Installation Punch List",
+          "type": "blog",
+          "score": 0.67
+        },
+        {
           "url": "/blog/cabinet-design-development",
           "anchor": "Cabinet Design Development",
           "title": "Cabinet Design Development",
@@ -6267,13 +6274,6 @@
           "title": "Cabinet Warranty Guide",
           "type": "blog",
           "score": 0.64
-        },
-        {
-          "url": "/blog/cabinet-installation-punch-list",
-          "anchor": "Cabinet Installation Punch List",
-          "title": "Cabinet Installation Punch List",
-          "type": "blog",
-          "score": 0.63
         },
         {
           "url": "/locations/kuna",
@@ -6354,16 +6354,16 @@
           "score": -0.089
         },
         {
-          "url": "/cabinets/closet",
-          "anchor": "Closet cabinets",
-          "title": "Closet Cabinets",
+          "url": "/cabinets/laundry",
+          "anchor": "Laundry cabinets",
+          "title": "Laundry Cabinets",
           "type": "catalog",
           "score": -0.44
         },
         {
-          "url": "/cabinets/laundry",
-          "anchor": "Laundry cabinets",
-          "title": "Laundry Cabinets",
+          "url": "/cabinets/mudroom",
+          "anchor": "Mudroom cabinets",
+          "title": "Mudroom Cabinets",
           "type": "catalog",
           "score": -0.44
         }
@@ -6439,9 +6439,9 @@
           "score": -0.18
         },
         {
-          "url": "/cabinets/mudroom",
-          "anchor": "Mudroom cabinets",
-          "title": "Mudroom Cabinets",
+          "url": "/cabinets/pantry",
+          "anchor": "Pantry cabinets",
+          "title": "Pantry Cabinets",
           "type": "catalog",
           "score": -0.44
         }
@@ -6517,11 +6517,11 @@
           "score": -0.435
         },
         {
-          "url": "/cabinets/wet-bar",
-          "anchor": "Wet Bar cabinets",
-          "title": "Wet Bar Cabinets",
+          "url": "/cabinets/closet",
+          "anchor": "Closet cabinets",
+          "title": "Closet Cabinets",
           "type": "catalog",
-          "score": -0.44
+          "score": -0.448
         }
       ]
     },
@@ -6588,18 +6588,18 @@
           "score": -0.18
         },
         {
-          "url": "/cabinets/closet",
-          "anchor": "Closet cabinets",
-          "title": "Closet Cabinets",
-          "type": "catalog",
-          "score": -0.442
-        },
-        {
           "url": "/cabinets/entertainment",
           "anchor": "Entertainment cabinets",
           "title": "Entertainment Cabinets",
           "type": "catalog",
           "score": -0.442
+        },
+        {
+          "url": "/cabinets/outdoor",
+          "anchor": "Outdoor Kitchen cabinets",
+          "title": "Outdoor Kitchen Cabinets",
+          "type": "catalog",
+          "score": -0.446
         }
       ]
     },
@@ -6666,16 +6666,16 @@
           "score": 0.151
         },
         {
-          "url": "/cabinets/outdoor",
-          "anchor": "Outdoor Kitchen cabinets",
-          "title": "Outdoor Kitchen Cabinets",
-          "type": "catalog",
-          "score": -0.44
-        },
-        {
           "url": "/cabinets/bathroom",
           "anchor": "Bathroom cabinets",
           "title": "Bathroom Cabinets",
+          "type": "catalog",
+          "score": -0.48
+        },
+        {
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
           "type": "catalog",
           "score": -0.48
         }
@@ -6751,9 +6751,9 @@
           "score": -0.448
         },
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
+          "url": "/cabinets/built-ins",
+          "anchor": "Built-Ins cabinets",
+          "title": "Built-Ins Cabinets",
           "type": "catalog",
           "score": -0.48
         }
@@ -6822,16 +6822,16 @@
           "score": 0.051
         },
         {
-          "url": "/cabinets/built-ins",
-          "anchor": "Built-Ins cabinets",
-          "title": "Built-Ins Cabinets",
+          "url": "/cabinets/garage",
+          "anchor": "Garage cabinets",
+          "title": "Garage Cabinets",
           "type": "catalog",
           "score": -0.48
         },
         {
-          "url": "/cabinets/garage",
-          "anchor": "Garage cabinets",
-          "title": "Garage Cabinets",
+          "url": "/cabinets/laundry",
+          "anchor": "Laundry cabinets",
+          "title": "Laundry Cabinets",
           "type": "catalog",
           "score": -0.48
         }
@@ -6900,16 +6900,16 @@
           "score": 0.031
         },
         {
-          "url": "/cabinets/laundry",
-          "anchor": "Laundry cabinets",
-          "title": "Laundry Cabinets",
+          "url": "/cabinets/mudroom",
+          "anchor": "Mudroom cabinets",
+          "title": "Mudroom Cabinets",
           "type": "catalog",
           "score": -0.48
         },
         {
-          "url": "/cabinets/mudroom",
-          "anchor": "Mudroom cabinets",
-          "title": "Mudroom Cabinets",
+          "url": "/cabinets/outdoor",
+          "anchor": "Outdoor Kitchen cabinets",
+          "title": "Outdoor Kitchen Cabinets",
           "type": "catalog",
           "score": -0.48
         }
@@ -7035,6 +7035,13 @@
           "score": 0.66
         },
         {
+          "url": "/blog/how-deep-are-kitchen-cabinets",
+          "anchor": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
+          "title": "How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)",
+          "type": "blog",
+          "score": 0.048
+        },
+        {
           "url": "/blog/fixed-price-vs-cost-plus",
           "anchor": "Fixed Price vs Cost Plus Cabinet Quotes",
           "title": "Fixed Price vs Cost Plus Cabinet Quotes",
@@ -7054,13 +7061,6 @@
           "title": "Kitchen Layout Ideas for Boise Homes",
           "type": "blog",
           "score": 0.017
-        },
-        {
-          "url": "/cabinets/outdoor",
-          "anchor": "Outdoor Kitchen cabinets",
-          "title": "Outdoor Kitchen Cabinets",
-          "type": "catalog",
-          "score": -0.482
         },
         {
           "url": "/cabinets/wet-bar",
@@ -7324,15 +7324,15 @@
     "/cabinets/home-office": 8,
     "/cabinets/entertainment": 10,
     "/cabinets/built-ins": 12,
-    "/cabinets/pantry": 11,
-    "/cabinets/closet": 9,
+    "/cabinets/pantry": 12,
+    "/cabinets/closet": 8,
     "/cabinets/garage": 10,
     "/cabinets/outdoor": 15,
-    "/cabinets/wet-bar": 12,
+    "/cabinets/wet-bar": 11,
     "/cabinets/bedroom": 7,
     "/locations/boise": 18,
     "/locations/meridian": 15,
-    "/locations/eagle": 14,
+    "/locations/eagle": 15,
     "/locations/nampa": 13,
     "/locations/kuna": 18,
     "/locations/star": 13,

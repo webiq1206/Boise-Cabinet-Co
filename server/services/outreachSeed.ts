@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { emailTemplates, sequences, sequenceSteps } from "@/shared/schema";
 import { eq } from "drizzle-orm";
+import { publicText } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 // Seeds managed email templates and the on-brand sequences. Idempotent:

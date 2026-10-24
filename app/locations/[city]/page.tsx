@@ -7,6 +7,7 @@ import { Section } from "@/components/marketing/Section";
 import { SectionedArticle } from "@/components/marketing/SectionedArticle";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CtaButton } from "@/components/modals/CtaButton";
+import { ProcessSection } from "@/components/sections/ProcessSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
@@ -26,6 +27,7 @@ getCityBySlug,
 getCountyLabel,
 locationPath,
 } from "@/shared/contentData";
+import { bot05Location } from "@/shared/content/bot05PageCopy";
 import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
@@ -44,13 +46,14 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
   const params = await props.params;
   const city = getCityBySlug(params.city);
   if (!city) return {};
+  const copy = bot05Location(city.slug);
   return withBrandPageMetadata(await (buildPageMetadata({
     kind: "area",
     path: locationPath(city.slug),
     cityName: city.name,
     citySlug: city.slug,
-    titleOverride: `Custom Cabinets in ${city.name}, Idaho`,
-    descriptionOverride: `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
+    titleOverride: copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`,
+    descriptionOverride: copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
   })), "/locations/[city]");
 }
 
@@ -59,10 +62,8 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   const city = getCityBySlug(params.city);
   if (!city) notFound();
 
-  // Each of the 8 Treasure Valley cities already has a full local-knowledge
-  // guide (housing stock, popular projects, county permitting, cost context)
-  // authored in shared/content/cityCabinetGuides.ts (and shared/guideContent.ts
-  // for Boise). Reused verbatim below - nothing here rewrites that copy.
+  // City guides still supply neighborhood planning. Optimized cities overlay
+  // BOT-05 title, hero, process, and FAQ copy on top of that local detail.
   const guide = GUIDE_PAGES.find(
     (g) => g.guideType === "location" && g.linkedCities?.includes(city.slug),
   );
@@ -74,14 +75,20 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // to this city are shown, and each section says so plainly when there are none.
   const cityProjects = PROJECTS.filter((p) => p.area === city.name).slice(0, 3);
   const cityReviews = visibleTestimonials().filter((t) => t.city === city.slug);
-  const phaseAnswer = phase1LocationAnswer(city.slug);
+  const copy = bot05Location(city.slug);
+  const phaseAnswer = copy ? undefined : phase1LocationAnswer(city.slug);
   const guideFaqs = guide?.faqs ?? [];
-  const faqs = [...guideFaqs, ...(phaseAnswer?.faqs ?? [])];
+  const visibleFaqs = copy?.faqs ?? guideFaqs;
+  const faqs = [...visibleFaqs, ...(phaseAnswer?.faqs ?? [])];
+  const pageTitle = copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`;
+  const pageDescription = copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homes, ${countyLabel}.`;
+  const localBusiness = generateLocalBusinessSchema(city.name);
+  if (copy) delete localBusiness.foundingDate;
 
   const schemas = [
     generateWebPageSchema({
-      title: `Custom Cabinets in ${city.name}, Idaho`,
-      description: `Custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homes, ${countyLabel}.`,
+      title: pageTitle,
+      description: pageDescription,
       url: locationPath(city.slug),
     }),
     generateBreadcrumbSchema([
@@ -89,14 +96,14 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
       { name: `${city.name}, Idaho`, url: locationPath(city.slug) },
     ]),
     // City coverage is areaServed. PostalAddress stays the Meridian service-area record.
-    generateLocalBusinessSchema(city.name),
+    localBusiness,
     ...(faqs.length ? [generateFAQSchema(faqs)] : []),
   ];
 
   return (
     <InteriorPage kind="locations"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Local hero */}
         <InteriorHero layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
@@ -107,19 +114,33 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               className="mt-6"
               eyebrow={`${countyLabel} · Treasure Valley`}
               title={
-                <>
-                  Custom cabinets in{" "}
-                  <em className="brc-accent text-accent">{city.name}</em>
-                </>
+                copy ? (
+                  <>
+                    {copy.h1Lead}{" "}
+                    <em className="brc-accent text-accent">{copy.h1Accent}</em>
+                  </>
+                ) : (
+                  <>
+                    Custom cabinets in{" "}
+                    <em className="brc-accent text-accent">{city.name}</em>
+                  </>
+                )
               }
               description={
+                copy?.firstSentence ??
                 guide?.quickAnswer ??
                 `${SITE_CONFIG.name} designs, builds, and installs custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homeowners.`
               }
             />
+            {copy?.aboveFold ? (
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{copy.aboveFold}</p>
+            ) : null}
+            {copy ? (
+              <p className="mt-3 text-sm text-foreground/80">{copy.trustLine}</p>
+            ) : null}
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
-              <CtaButton variant="brand">
-                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+              <CtaButton variant="brand" intent={copy ? "visit" : "estimate"}>
+                {copy ? copy.ctaLabel : CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
               <Button variant="brandOutline" asChild>
                 <a href={SITE_CONFIG.phoneHref}>
@@ -144,7 +165,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         )}
 
         {/* Local project proof */}
-        {cityProjects.length > 0 && (
+        {!copy && cityProjects.length > 0 && (
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
@@ -155,7 +176,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             />
               <div className="ed-cards-3 gap-6">
                 {cityProjects.map((project) => (
-                  <MarketingCard key={project.slug} className="overflow-hidden p-0">
+                  <MarketingCard key={project.slug} padding="none" className="overflow-hidden">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}
@@ -185,7 +206,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow="What we build"
+              eyebrow={copy ? "Cabinet services" : "What we build"}
               title={<>Cabinet services for {city.name} homes</>}
               align="left"
               className="mb-6"
@@ -209,9 +230,42 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
           </div>
         </Section>
 
-        {/* Local planning considerations + cost/timeline (reused verbatim from
-            the existing city guide content - housing stock, popular projects,
-            county-specific permitting, and planning ranges). */}
+        {copy?.sections?.map((section) => (
+          <Section key={section.heading} divider>
+            <div className="ed-shell max-w-3xl">
+              <h2 className="ed-h2-sm">{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </Section>
+        ))}
+
+        {copy?.steps ? (
+          <ProcessSection steps={copy.steps} heading={copy.processHeading} note={copy.processNote} />
+        ) : null}
+
+        {copy?.links?.length ? (
+          <Section divider>
+            <div className="ed-shell">
+              <h2 className="ed-h2-sm">Related cabinet pages</h2>
+              <ul className="mt-4 flex flex-wrap gap-3">
+                {copy.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm underline underline-offset-2 hover:text-accent">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        ) : null}
+
+        {/* Neighborhood planning stays on the page. Manufacture claims are
+            removed from the city guide source for the optimized URLs. */}
         {guide && (
           <Section variant="greige" divider>
             <div className="ed-shell">
@@ -274,7 +328,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         )}
 
         {/* FAQs */}
-        {guideFaqs.length > 0 && (
+        {visibleFaqs.length > 0 && (
           <Section variant="greige" divider>
             <div className="ed-shell">
               <div className="ed-split ed-split-narrow">
@@ -287,7 +341,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   />
                 </div>
                 <div>
-                  <FaqAccordion faqs={guideFaqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+                  <FaqAccordion faqs={visibleFaqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
                 </div>
               </div>
             </div>

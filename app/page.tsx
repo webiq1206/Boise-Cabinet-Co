@@ -6,25 +6,24 @@ import { Section } from "@/components/marketing/Section";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
+import { publicText } from "@/shared/claims";
 import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
-import { Check } from "lucide-react";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ArrowUpRight, Check } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home", path: "/" })), "/");
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col pb-20 md:pb-0 bg-background">
+    <div className="flex flex-col bg-background">
       <HomePageSchema />
       <ApprovedHome />
       <h2 data-speakable="summary" className="sr-only">
-        Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle,
-        Nampa, Kuna, Star, Middleton, and Caldwell across Idaho&apos;s Treasure Valley.
-        We design, build, and install frameless custom kitchen cabinets, bathroom
-        vanities, and built-in storage, with 299 finishes, six door styles, a free
-        and a free design consultation.
+        {publicText("Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell across Idaho's Treasure Valley. We design, build, and install frameless custom kitchen cabinets, bathroom vanities, and built-in storage, with 299 finishes, six door styles, a free design consultation, and a lifetime workmanship warranty.")}
       </h2>
+      <div id="contact" className="scroll-mt-24" aria-hidden="true" />
       <Section
         id="consult"
         divider
@@ -82,6 +81,16 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-6 grid border-t" style={{ borderColor: "var(--ed-line)" }}>
+                  <a href={SITE_CONFIG.phoneHref} className="flex min-h-12 items-center justify-between gap-4 border-b text-[0.9375rem] font-medium transition-colors hover:[color:var(--ed-accent)]" style={{ borderColor: "var(--ed-line)" }}>
+                    Call {SITE_CONFIG.phone}
+                    <ArrowUpRight className="h-4 w-4 shrink-0" style={{ color: "var(--ed-accent)" }} aria-hidden="true" />
+                  </a>
+                  <a href={SITE_CONFIG.phoneSmsHref} className="flex min-h-12 items-center justify-between gap-4 border-b text-[0.9375rem] font-medium transition-colors hover:[color:var(--ed-accent)]" style={{ borderColor: "var(--ed-line)" }}>
+                    Send a text
+                    <ArrowUpRight className="h-4 w-4 shrink-0" style={{ color: "var(--ed-accent)" }} aria-hidden="true" />
+                  </a>
+                </div>
               </Reveal>
             </div>
             <MarketingCard padding="lg">

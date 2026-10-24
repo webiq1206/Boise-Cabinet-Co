@@ -2,6 +2,8 @@
  * Customer-facing project timeline stages for Boise Cabinet Co.
  */
 
+import { publicWarrantyRow } from "@/shared/claims";
+
 export type ProjectStage =
   | "consultation"
   | "design"
@@ -102,7 +104,7 @@ export const STAGE_DEFINITIONS: Record<ProjectStage, TimelineStageDefinition> = 
   warranty: {
     id: "warranty",
     label: "Warranty",
-    description: "Warranty support for your cabinetry.",
+    description: publicWarrantyRow("Lifetime warranty support for your cabinetry."),
   },
 };
 

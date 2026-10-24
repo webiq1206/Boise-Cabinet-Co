@@ -13,10 +13,10 @@ extractHeadingsFromHtml,
 injectHeadingIds,
 } from '@/lib/content-utils';
 import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
-import { showFoundingYear } from '@/shared/siteConfig';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
 import { getResourcesForGuide } from '@/shared/guideResources';
+import { publicText, showFoundingYear } from '@/shared/claims';
 import {
 ArrowRight,
 BookOpen,
@@ -54,7 +54,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
   const heroCaption = `${guide.title}, Treasure Valley custom cabinet guide by Boise Cabinet Co.`;
 
   return (
-    <div className="flex flex-col pb-20 md:pb-0">
+    <div className="flex flex-col ">
 
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
@@ -78,7 +78,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-serif tracking-tight text-foreground mb-4">
               {guide.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{guide.excerpt}</p>
+            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{publicText(guide.excerpt)}</p>
             <div role="presentation" className="border-t border-border/60 mb-5" />
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
@@ -90,7 +90,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 <span className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {guide.author}
-                  {guide.author === 'Boise Cabinet Co' && showFoundingYear() && (
+                  {showFoundingYear() && guide.author === 'Boise Cabinet Co' && (
                     <span className="text-muted-foreground">
                       · Treasure Valley cabinet designers since 2020
                     </span>
@@ -193,7 +193,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
               </div>
             </div>
 
-            <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
+            <aside className="article-rail hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
               <ArticleSidebar tocHeadings={tocHeadings} />
             </aside>
           </div>

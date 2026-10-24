@@ -88,7 +88,7 @@ const boiseSections: ContentSection[] = [
     h2: 'Boise neighborhoods at a glance',
     paragraphs: [
       'Boise is not one cabinet market, it is half a dozen. North End bungalows, Bench ranches, Harris Ranch and East Boise newer builds, Southeast Boise family subdivisions, and foothills view homes each bring different ceiling heights, wall conditions, and storage needs.',
-      'We measure on site and build every box to your room, not catalog-only stock widths. That matters more in Boise than anywhere else in the valley because so much of the housing stock predates 1980.',
+      'We measure on site and source cabinet packages sized to your room, not catalog-only stock widths. That matters more in Boise than anywhere else in the valley because so much of the housing stock predates 1980.',
     ],
   },
   {
@@ -109,7 +109,7 @@ const boiseSections: ContentSection[] = [
     h2: 'Harris Ranch and East Boise',
     paragraphs: [
       'Harris Ranch, Barber Valley, and East Boise infill bring larger kitchens, butler pantries, and mudroom lockers. Many homes are under 25 years old, so projects are upgrade-driven: taller uppers, working islands with seating, and <a href="/cabinets/mudroom">mudroom systems</a> where garage traffic enters.',
-      'Harris Ranch HOAs may review exterior-visible work such as outdoor kitchens; interior cabinetry is normally exempt. We plan review time in when it applies.',
+      'Harris Ranch HOAs may review exterior-visible work such as outdoor kitchens; interior cabinetry is normally exempt. We include review time in the plan when it applies.',
     ],
   },
   {

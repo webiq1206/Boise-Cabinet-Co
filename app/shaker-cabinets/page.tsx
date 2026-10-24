@@ -107,7 +107,7 @@ export default function ShakerCabinetsPage() {
   return (
     <InteriorPage kind="shaker-cabinets"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={"/images/marketing/hero-home.webp"}
           alt="Shaker-style kitchen design inspiration with white cabinets and a wood island"

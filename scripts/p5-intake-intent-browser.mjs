@@ -1,3 +1,4 @@
+import {openOptionalGuidedFlow} from './p5-guided-browser-fixture.mjs';
 import {chromium,webkit} from '@playwright/test';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -16,18 +17,18 @@ try{
    const req=route.request();if(req.method()!=='GET'){const input=req.postDataJSON(),intent=applyIntakeIntent(input.text,input.answers,saved?.extraction||null,input.wizard?.resolutions);saved={...input,...intent,id:req.headers()['x-p5-draft-id'],revision:(saved?.revision||0)+1,status:'draft',uploads:[]};}
    await route.fulfill({json:{draft:saved}});
   });
-  await page.goto(base+'/estimate');await page.getByText('Loading your project...', {exact:true}).waitFor({state:'hidden'});
+  await page.goto(base+'/estimate');await openOptionalGuidedFlow(page);const estimator=page.locator('[data-p5-estimator]');await page.getByText('Loading your project...', {exact:true}).waitFor({state:'hidden'});
   await page.locator('[data-p5-estimator] textarea').first().fill(text);
-  await page.getByRole('button',{name:'Review with the details I have',exact:true}).click();
-  await page.getByRole('heading',{name:'Review your project',exact:true}).waitFor();
+  await estimator.getByRole('button',{name:'Review with the details I have',exact:true}).click();
+  await estimator.getByRole('heading',{name:'Review your project',exact:true}).waitFor();
   await writeFile(`${output}/review-${service||'unknown'}.html`,await page.content());
-  assert.equal(await page.getByRole('combobox',{name:/^What best describes the whole project/}).inputValue(),service);
-  assert.equal(await page.getByRole('textbox',{name:/^Your project description/}).inputValue(),text);
+  assert.equal(await estimator.getByRole('combobox',{name:/^What best describes the whole project/}).inputValue(),service);
+  assert.equal(await estimator.getByRole('textbox',{name:/^Your project description/}).inputValue(),text);
   const routing=routeIntake(intakeSite(brand.id)||'p5',service);
-  await page.getByRole('button',{name:'Continue to contact details',exact:true}).click();
-  await page.getByLabel('Your name',{exact:true}).fill('Synthetic Routing Check');
-  await page.getByLabel('Email',{exact:true}).fill('routing@example.invalid');
-  await page.getByRole('button',{name:routing.handoff?`Continue with ${routing.teamName}`:'Send project request',exact:true}).waitFor();
+  await estimator.getByRole('button',{name:'Continue to contact details',exact:true}).click();
+  await estimator.getByLabel('Your name',{exact:true}).fill('Synthetic Routing Check');
+  await estimator.getByLabel('Email',{exact:true}).fill('routing@example.invalid');
+  await estimator.getByRole('button',{name:routing.handoff?`Continue with ${routing.teamName}`:'Send project request',exact:true}).waitFor();
   assert.equal(blocked.filter(p=>/scope|intake|callback/.test(p)).length,0);
   await page.screenshot({path:`${output}/${service||'unknown'}-${process.env.P5_TEST_BROWSER||'chromium'}.png`});
   results.push({service,site:brand.id,cta:routing.handoff||'current-site',passed:true});await context.close();

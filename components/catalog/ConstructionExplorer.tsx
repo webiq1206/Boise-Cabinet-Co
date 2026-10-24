@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { publicWarrantyRow } from "@/shared/claims";
 import { OSC_CONSTRUCTION, CATALOG_CONTENT } from "@/shared/catalog";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 
@@ -34,7 +35,7 @@ export function ConstructionExplorer() {
         <li>{c.drawerSlides}</li>
         <li>{c.drawerConstruction}</li>
         <li>{c.fillerConstruction}</li>
-        <li>{CATALOG_CONTENT.warrantyHeadline}</li>
+        <li>{publicWarrantyRow(CATALOG_CONTENT.warrantyHeadline)}</li>
       </ul>
     </div>
   );

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
+import { publicText } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
@@ -35,7 +36,7 @@ const STANDARDS = [
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Manufacturer warranties are passed through to you, documented in your contract.",
+    body: publicText("Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract."),
   },
   {
     title: "Written scope before build",
@@ -71,7 +72,7 @@ export default function ConstructionPage() {
   return (
     <InteriorPage kind="construction"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
           alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling | Boise Cabinet Co"
