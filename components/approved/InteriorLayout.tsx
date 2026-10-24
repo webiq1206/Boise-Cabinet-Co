@@ -1,10 +1,11 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { IMAGE_VARIANTS } from '@/shared/generated/imageVariants';
 
 /**
- * Room and city heroes ship a full original plus 640 and 1080 derivatives.
- * The default src is the 1080 file so the LCP request is not the multi-megabyte original.
- * Other heroes keep their given src.
+ * Room and city heroes ship a full original plus width derivatives.
+ * The default room src is the 1080 file so the LCP request is not the original.
+ * Marketing heroes use the 768 and 1280 files listed in IMAGE_VARIANTS.
  */
 /** Ada's full-size files are soft. Normal widths must use the sharp variants. */
 const SHARP_VARIANT_SRCS = new Set([
@@ -12,7 +13,7 @@ const SHARP_VARIANT_SRCS = new Set([
   '/images/marketing/kitchen-wood-island.webp',
 ]);
 
-function heroImageAttrs(src: string) {
+export function heroImageAttrs(src: string) {
   const match = /^(.*)\.webp$/.exec(src);
   if (match && SHARP_VARIANT_SRCS.has(src)) {
     const root = match[1];
@@ -24,20 +25,27 @@ function heroImageAttrs(src: string) {
   }
   if (!match || /-\d+\.webp$/.test(src)) return { src };
   const root = match[1];
-  if (src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/')) {
+  const responsive = src.startsWith('/images/catalog/rooms/') || src.startsWith('/images/areas/');
+  if (responsive) {
+    const widths = IMAGE_VARIANTS[src];
+    if (widths?.length) {
+      const srcSet = [...widths.map((w) => `${root}-${w}.webp ${w}w`), `${src} 1600w`].join(', ');
+      const preferred = widths.includes(1080) ? `${root}-1080.webp` : src;
+      return { src: preferred, srcSet, sizes: '(max-width: 700px) 100vw, 50vw' };
+    }
     return {
       src: `${root}-1080.webp`,
       srcSet: `${root}-640.webp 640w, ${root}-1080.webp 1080w, ${src} 1600w`,
       sizes: '(max-width: 700px) 100vw, 50vw',
     };
   }
-  // Marketing heroes already have these two derivatives. A phone otherwise
-  // downloads the full original for a short first-screen photograph.
   if (src.startsWith('/images/marketing/')) {
+    const widths = IMAGE_VARIANTS[src];
+    if (!widths?.length) return { src };
     return {
-      src: `${root}-1280.webp`,
-      srcSet: `${root}-768.webp 768w, ${root}-1280.webp 1280w`,
-      sizes: '(max-width: 700px) 100vw, 50vw',
+      src: widths.includes(1280) ? `${root}-1280.webp` : src,
+      srcSet: [...widths.map((w) => `${root}-${w}.webp ${w}w`), `${src} 1536w`].join(', '),
+      sizes: '(max-width: 768px) 100vw, 50vw',
     };
   }
   return { src };
@@ -53,8 +61,8 @@ export function InteriorEstimateLink({label='Get my online estimate'}:{label?:st
 }
 
 /** The approved split-detail and editorial-introduction compositions. */
-export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className=''}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string}) {
-  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${className?` ${className}`:''}`}>
+export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean}) {
+  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
     {imageSrc&&<div className="interior-hero-image"><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={1400} height={1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;

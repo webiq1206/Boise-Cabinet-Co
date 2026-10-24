@@ -1,4 +1,4 @@
-import { InteriorPage } from '@/components/approved/InteriorLayout';
+import { heroImageAttrs, InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
@@ -46,8 +46,8 @@ export default function CabinetsHubPage() {
       <div className="flex flex-col ">
         <CinematicHero
           className="interior-hero-above-fold"
-          image={MARKETING_IMAGES.designStudio}
-          alt="display of cabinet finish samples and door styles"
+          image={MARKETING_IMAGES.cabinetsHero}
+          alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={CABINETS_HUB_HEADLINE}
@@ -72,10 +72,8 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=>{
-          const cardRoot = room.heroImage.replace(/\.webp$/, "");
-          return <Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img src={`${cardRoot}-640.webp`} srcSet={`${cardRoot}-640.webp 640w, ${cardRoot}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 400px" alt={`${room.name} cabinetry`} width={640} height={480} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>;
-        })}</section>
+          className="interior-hero-above-fold"
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
 
         <CatalogClosingCTA />
       </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SITE_IMAGES } from "@/shared/siteImages";
 
 const STATEMENT_BAND_ALT =
-  "Whole-home custom cabinet installation in an Eagle Idaho residence | Boise Cabinet Co";
+  "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams";
 
 /** Full-bleed photography band to break long light section stretches. */
 export function StatementBandSection() {

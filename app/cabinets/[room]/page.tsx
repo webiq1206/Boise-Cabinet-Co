@@ -167,7 +167,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Hero */}
-        <InteriorHero className={["kitchen", "built-ins"].includes(room.slug) ? "interior-hero-above-fold" : ""} layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
+        <InteriorHero className={["kitchen", "built-ins"].includes(room.slug) ? "interior-hero-above-fold" : ""} layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },

@@ -37,7 +37,7 @@ import type { CabinetDimension } from "@/shared/catalog/types";
 export const CATALOG_PDF_FOOTER = `${SITE_CONFIG.name} | ${SITE_CONFIG.siteUrl} | Full product catalog - planning reference, not a contract or quote`;
 
 /**
- * Resolves a public image path (e.g. `/images/catalog/rooms/kitchen.webp`) to
+ * Resolves a public image path (e.g. `/images/catalog/rooms/kitchen-walnut-mountain.webp`) to
  * embeddable JPEG bytes, or `null` when the file is missing/undecodable.
  */
 export type CatalogImageResolver = (publicPath: string) => Promise<Uint8Array | null>;

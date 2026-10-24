@@ -293,7 +293,7 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
       "Soft-close hinge and drawer-slide options.",
     path: "/hardware",
     campaign: "product-hardware",
-    imagePath: "/images/marketing/hero-hardware.webp",
+    imagePath: "/images/marketing/warranty-hardware.webp",
     priority: "bonus",
   },
   {

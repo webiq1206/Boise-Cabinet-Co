@@ -44,6 +44,15 @@ const PREBUILT_VARIANTS = new Set([
   "kitchen-wood-island.webp",
 ]);
 
+/** Replaced by Sam image QA r1. Files stay on disk and are not served. */
+const RETIRED = new Set([
+  "images/marketing/hero-contact.webp",
+  "images/marketing/hero-hardware.webp",
+  "images/marketing/statement-whole-home.webp",
+  "images/marketing/drawers-black-pulls-oak.webp",
+  "images/catalog/rooms/kitchen.webp",
+]);
+
 const manifest = {};
 let generated = 0;
 let skipped = 0;
@@ -52,7 +61,7 @@ async function processDir(dirRel, widths) {
   const absDir = path.join(publicDir, dirRel);
   if (!fs.existsSync(absDir)) return;
   for (const name of fs.readdirSync(absDir)) {
-    if (!isBaseWebp(name)) continue;
+    if (!isBaseWebp(name) || RETIRED.has(`${dirRel}/${name}`)) continue;
     const absFile = path.join(absDir, name);
     const base = name.replace(/\.webp$/, "");
     let maxW = 0;
