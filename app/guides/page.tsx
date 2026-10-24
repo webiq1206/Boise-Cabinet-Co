@@ -148,7 +148,7 @@ export default function GuidesIndexPage() {
           </h2>
           <div className="ed-cards-3 gap-6">
             {pillarGuides.map((guide) => (
-              <MarketingCard key={guide.slug} className="p-0 overflow-hidden flex flex-col h-full">
+              <MarketingCard key={guide.slug} padding="none" className="overflow-hidden flex flex-col h-full">
                 <Link href={guidePath(guide.slug)} className="block relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={getBlogThumbnail(guide.slug, guide.heroImage)}
@@ -185,13 +185,13 @@ export default function GuidesIndexPage() {
               <MarketingCard key={guide.slug} className="p-5 flex flex-col h-full">
                 <MapPin className="h-4 w-4 text-accent mb-2" />
                 <h3 className="font-medium text-base mb-1">{guide.title}</h3>
-                <p className="text-sm text-muted-foreground flex-1 mb-2 line-clamp-2">
+                <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
                   {guide.excerpt}
                 </p>
                 <GuideCardStats guide={guide} />
                 <Link
                   href={guideHref(guide)}
-                  className="tap-target text-sm text-accent hover:underline inline-flex items-center"
+                  className="mt-auto tap-target text-sm text-accent hover:underline inline-flex items-center"
                 >
                   Read
                   <ArrowRight className="ml-1 h-3 w-3" />

@@ -14,6 +14,17 @@ function numFromEnv(value: string | undefined): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+/**
+ * Seed testimonials and ratings stay in the repo. They render only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ */
+export function showTestimonials(
+  value: string | undefined = process.env.SHOW_TESTIMONIALS ?? process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS,
+): boolean {
+  return value === "true";
+}
+
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
 // E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
 const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;
@@ -82,7 +93,7 @@ export const SITE_CONFIG = {
 
 /** Plain-text Prefer to text sentence. Hours come only from SITE_CONFIG.textReplyHours. */
 export function preferToTextLine(phone: string = SITE_CONFIG.phone): string {
-  return `Prefer to text? Text ${phone}. We reply in minutes during business hours (${SITE_CONFIG.textReplyHours}).`;
+  return `Prefer to text? Text ${phone}. Business hours: ${SITE_CONFIG.textReplyHours}.`;
 }
 
 function escapeHtmlText(value: string): string {
@@ -98,7 +109,7 @@ export function preferToTextHtml(
   phone: string = SITE_CONFIG.phone,
   smsHref: string = SITE_CONFIG.phoneSmsHref,
 ): string {
-  return `Prefer to text? Text <a href="${escapeHtmlText(smsHref)}">${escapeHtmlText(phone)}</a>. We reply in minutes during business hours (${escapeHtmlText(SITE_CONFIG.textReplyHours)}).`;
+  return `Prefer to text? Text <a href="${escapeHtmlText(smsHref)}">${escapeHtmlText(phone)}</a>. Business hours: ${escapeHtmlText(SITE_CONFIG.textReplyHours)}.`;
 }
 
 export function formatPhoneDisplay(tel: string = SITE_CONFIG.phoneTel): string {

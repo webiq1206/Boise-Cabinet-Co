@@ -27,6 +27,7 @@ import {
   getKnowledgeTopic,
 } from "@/shared/assistantKnowledge";
 import { preferToTextLine, SITE_CONFIG } from "@/shared/siteConfig";
+import { MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty } from "@/shared/claims";
 
 /**
  * Deterministic tool layer for the estimating assistant.
@@ -316,7 +317,10 @@ function executeGetBusinessInfo(input: unknown) {
       availableTopics: KNOWLEDGE_TOPIC_KEYS,
     };
   }
-  return { topic: topic.key, content: topic.content };
+  const content = topic.key === "warranty" && !showLifetimeWarranty()
+    ? `${MANUFACTURER_WARRANTY_PASS_THROUGH}. Ask us which written terms apply to your project.`
+    : publicText(topic.content);
+  return { topic: topic.key, content };
 }
 
 /**

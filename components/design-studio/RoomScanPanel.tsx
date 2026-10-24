@@ -385,7 +385,7 @@ export function RoomScanPanel() {
           if (f) void handlePhotoScan(f);
           e.target.value = "";
         }}
-      />
+        data-clarity-mask="True" />
 
       {scanned && meta ? (
         <div className="space-y-4">
@@ -702,13 +702,13 @@ export function RoomScanPanel() {
               {scanCopy.lowConfidenceConfirm}
             </AlertDialogAction>
           </AlertDialogFooter>
-          <label className="flex items-center gap-2 text-sm px-6 pb-4">
+          <label className="flex items-center gap-2 text-sm px-6 pb-4" data-clarity-mask="True">
             <input
               type="checkbox"
               checked={lowConfAck}
               onChange={(e) => setLowConfAck(e.target.checked)}
               data-testid="checkbox-low-confidence-ack"
-            />
+              data-clarity-mask="True" />
             {scanCopy.lowConfidenceAck}
           </label>
         </AlertDialogContent>

@@ -24,7 +24,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
       - run: npm ci --no-audit --no-fund
       - name: Record exact source under test
         run: |
@@ -51,9 +50,16 @@ jobs:
           # Existing prebuild scripts regenerate these assets, including PDF timestamps.
           # Keep every maintained source file protected against test-time mutation.
           git diff --exit-code -- . ':(exclude)public/downloads/*.pdf' ':(exclude)public/images/blog/cabinet-company-red-flags.webp' ':(exclude)public/images/blog/cabinet-project-process-guide.webp' ':(exclude)public/images/blog/custom-cabinet-design-process.webp' ':(exclude)public/images/blog/custom-cabinet-shop-vs-big-box.webp' ':(exclude)public/images/blog/outdoor-bar-cabinet-storage.webp' ':(exclude)public/images/blog/outdoor-cabinet-roi.webp' ':(exclude)shared/generated/imageBlur.ts' ':(exclude)shared/generated/projects.generated.ts'
+      - name: Offline evidence guard regressions
+        run: node --test tests/ci-evidence.test.mjs
+      - name: Package complete document evidence within storage limit
+        if: always()
+        run: node scripts/prepare-ci-evidence.mjs document
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: document-adapter-verification
-          path: document-adapter-verification
+          path: ci-evidence-artifacts/document.tar.gz
           retention-days: 14
+          compression-level: 0
+          if-no-files-found: error

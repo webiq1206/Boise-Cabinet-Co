@@ -122,7 +122,7 @@ export function ImportDialog({ onImported }: { onImported: () => void }) {
               accept=".csv,text/csv"
               className="hidden"
               onChange={onFile}
-            />
+              data-clarity-mask="True" />
           </div>
 
           <div className="space-y-1">

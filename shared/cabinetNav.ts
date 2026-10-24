@@ -1,4 +1,5 @@
 import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
+import { showTestimonials } from "@/shared/siteConfig";
 
 /**
  * Primary navigation: homeowner-first entry points (no supplier/brand names).
@@ -44,7 +45,7 @@ export const PRIMARY_NAV = [
       { label: "How we build", href: "/construction" },
       { label: "Cabinet installation", href: "/services/cabinet-installation" },
       { label: "Why choose us", href: "/#why-choose-us" },
-      { label: "Projects & reviews", href: "/testimonials" },
+      ...(showTestimonials() ? [{ label: "Projects & reviews", href: "/testimonials" }] : []),
     ],
   },
   { label: "For Builders", href: "/builders" },

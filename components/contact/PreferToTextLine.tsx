@@ -10,7 +10,7 @@ export function PreferToTextLine({ className }: { className?: string }) {
       <a href={SITE_CONFIG.phoneSmsHref} className="underline underline-offset-2">
         {SITE_CONFIG.phone}
       </a>
-      . We reply in minutes during business hours ({SITE_CONFIG.textReplyHours}).
+      . Business hours: {SITE_CONFIG.textReplyHours}.
     </span>
   );
 }

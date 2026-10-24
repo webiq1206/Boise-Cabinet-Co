@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+import { saveConsultationOnce, ConsultationReplayConflict, CONSULTATION_KEY } from "@/lib/consultationReplay";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
@@ -151,6 +153,10 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
+    const requestKey = request.headers.get("Idempotency-Key");
+    if (requestKey !== null && !CONSULTATION_KEY.test(requestKey)) {
+      return NextResponse.json({ accepted: false, message: "Invalid request key." }, { status: 400 });
+    }
 
     if (data.companyWebsite.trim().length > 0) {
       // Silently accept honeypot hits so bots don't adapt.
@@ -166,44 +172,12 @@ export async function POST(request: NextRequest) {
     const leadCity = (data.propertyProfile?.city as string) || parts.city || "";
     const leadState = (data.propertyProfile?.state as string) || parts.state || "";
 
-    // Mirror the lead to the external Boise Remodeling lead dashboard.
-    // Fire-and-forget; never blocks the user's response.
-    // The zod schema for the record is deliberately permissive (rooms are
-    // validated as loose objects so a new field never 400s a real lead), so the
-    // parsed type is wider than EstimateRecord. The client builds this with
-    // buildEstimateRecord, so the shape is known at runtime.
-    const rec = (data.estimateRecord ?? null) as EstimateRecord | null;
-    forwardLeadToDashboard({
-      fullName: data.name,
-      email: data.email,
-      phone: data.phone || undefined,
-      // The record carries the address the homeowner picked from autocomplete;
-      // fall back to the typed field for the lighter forms that have no record.
-      propertyAddress: rec?.propertyAddress || data.address || undefined,
-      zip: zip || undefined,
-      city: leadCity || undefined,
-      state: leadState || undefined,
-      timeline: data.timeline || undefined,
-      // The dashboard shows projectGoals next to projectScope, so the
-      // homeowner's own words land in a field of their own rather than only
-      // inside the generated block.
-      projectGoals: data.message || undefined,
-      // A multi-room estimate spans several project types; send them all rather
-      // than the single collapsed "other".
-      projectTypes: rec?.rooms?.length
-        ? Array.from(new Set(rec.rooms.map((r) => String(r.projectLabel)).filter(Boolean)))
-        : data.projectType
-          ? [data.projectType]
-          : undefined,
-      budgetRange: data.budget || rec?.budget || undefined,
-      estimateLow: rec?.rangeLow ?? data.estimate?.priceLow,
-      estimateHigh: rec?.rangeHigh ?? data.estimate?.priceHigh,
-      estimateRange: rec?.rangeFormatted,
-      estimate: rec,
-      notes: data.message || undefined,
-    });
 
+    if (!db) {
+      return NextResponse.json({ accepted: false, message: "We couldn't save your request. Please try again later or call us directly." }, { status: 503 });
+    }
     let dbSaved = false;
+    let persistedRequestId: string | null = null;
     // Set once the lead row exists; the admin email's dashboard button uses it
     // to deep link. Stays null when the DB is unavailable, and the button then
     // falls back to the dashboard root.
@@ -213,7 +187,7 @@ export async function POST(request: NextRequest) {
       const city = (profile?.city as string) || "";
 
       try {
-        await db.insert(consultationRequests).values({
+        const savedRequest = await saveConsultationOnce(db, requestKey, data as Record<string, unknown>, {
           name: data.name,
           phone: data.phone,
           email: data.email,
@@ -228,9 +202,19 @@ export async function POST(request: NextRequest) {
           estimateLow: data.estimate?.priceLow?.toString() || null,
           estimateHigh: data.estimate?.priceHigh?.toString() || null,
         });
+        persistedRequestId = savedRequest.requestId;
+        if (savedRequest.replayed) {
+          return NextResponse.json({ success: true, accepted: true, persisted: true, replayed: true,
+            requestId: savedRequest.requestId, submissionId: data.metaEventId,
+            notificationStatus: "unconfirmed", crmRoutingStatus: "unconfirmed" });
+        }
         dbSaved = true;
       } catch (dbErr) {
+        if (dbErr instanceof ConsultationReplayConflict) {
+          return NextResponse.json({ accepted: false, message: "This request key was already used. Please contact us before submitting changed details." }, { status: 409 });
+        }
         console.error("[consultation] DB insert failed:", dbErr);
+        return NextResponse.json({ accepted: false, message: "We couldn't save your request. Please try again later or call us directly." }, { status: 503 });
       }
 
       // Mirror the consultation into the admin lead manager so it can be
@@ -298,13 +282,8 @@ export async function POST(request: NextRequest) {
         capturedLeadId = leadId ?? null;
 
         if (leadId) {
-          // Immutable raw record of exactly what was submitted.
-          await db.insert(submissions).values({
-            leadId,
-            formType: "consultation",
-            rawPayload: data as unknown as Record<string, unknown>,
-            sourcePage: data.source === "assistant" ? "/assistant" : "/consultation",
-          });
+          // Link the committed raw receipt; never insert another receipt on replay.
+          await db.update(submissions).set({ leadId }).where(eq(submissions.id, persistedRequestId!));
 
           // Persist the estimator output as a planning range.
           if (data.estimate) {
@@ -336,12 +315,50 @@ export async function POST(request: NextRequest) {
             city: city || null,
             message: data.message || null,
             estimate: data.estimate ?? null,
-          });
+          }, { sendAdminEmail: false });
         }
       } catch (leadErr) {
         console.error("[consultation] Lead mirror insert failed:", leadErr);
       }
     }
+
+    // Mirror the lead to the external Boise Remodeling lead dashboard.
+    // Only after a durable local request exists. This does not prove CRM receipt.
+    // The zod schema for the record is deliberately permissive (rooms are
+    // validated as loose objects so a new field never 400s a real lead), so the
+    // parsed type is wider than EstimateRecord. The client builds this with
+    // buildEstimateRecord, so the shape is known at runtime.
+    const rec = (data.estimateRecord ?? null) as EstimateRecord | null;
+    forwardLeadToDashboard({
+      fullName: data.name,
+      email: data.email,
+      phone: data.phone || undefined,
+      // The record carries the address the homeowner picked from autocomplete;
+      // fall back to the typed field for the lighter forms that have no record.
+      propertyAddress: rec?.propertyAddress || data.address || undefined,
+      zip: zip || undefined,
+      city: leadCity || undefined,
+      state: leadState || undefined,
+      timeline: data.timeline || undefined,
+      // The dashboard shows projectGoals next to projectScope, so the
+      // homeowner's own words land in a field of their own rather than only
+      // inside the generated block.
+      projectGoals: data.message || undefined,
+      // A multi-room estimate spans several project types; send them all rather
+      // than the single collapsed "other".
+      projectTypes: rec?.rooms?.length
+        ? Array.from(new Set(rec.rooms.map((r) => String(r.projectLabel)).filter(Boolean)))
+        : data.projectType
+          ? [data.projectType]
+          : undefined,
+      budgetRange: data.budget || rec?.budget || undefined,
+      estimateLow: rec?.rangeLow ?? data.estimate?.priceLow,
+      estimateHigh: rec?.rangeHigh ?? data.estimate?.priceHigh,
+      estimateRange: rec?.rangeFormatted,
+      estimate: rec,
+      notes: data.message || undefined,
+    });
+
 
     let emailSent = false;
     try {
@@ -442,7 +459,7 @@ export async function POST(request: NextRequest) {
       console.error("[consultation] Email send failed:", emailErr);
     }
 
-    if (!dbSaved && !emailSent) {
+    if (!dbSaved) {
       return NextResponse.json(
         {
           message:
@@ -472,6 +489,10 @@ export async function POST(request: NextRequest) {
       success: true,
       accepted: true,
       submissionId: data.metaEventId,
+      requestId: persistedRequestId,
+      persisted: true,
+      notificationStatus: emailSent ? "attempted" : "unconfirmed",
+      crmRoutingStatus: "unconfirmed",
     });
   } catch (err) {
     console.error("[consultation] Error:", err);

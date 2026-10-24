@@ -5,7 +5,7 @@ import test from "node:test";
 import { preferToTextHtml, preferToTextLine, SITE_CONFIG } from "../shared/siteConfig";
 
 const LINE =
-  "Prefer to text? Text (208) 477-1169. We reply in minutes during business hours (Mon–Fri 9–6, Sat 9–4 MT).";
+  "Prefer to text? Text (208) 477-1169. Business hours: Mon–Fri 9–6, Sat 9–4 MT.";
 const SMS_HREF = "sms:+12084771169";
 const PROMISE = /one\s+business\s+day/g;
 const FOLLOW = /preferToTextLine\(|preferToTextHtml\(|<PreferToTextLine[\s/>]/;
@@ -33,7 +33,7 @@ test("the Prefer to text sentence uses one hours constant, including Saturday", 
   assert.equal(preferToTextLine(), LINE);
   assert.equal(
     preferToTextHtml(),
-    `Prefer to text? Text <a href="${SMS_HREF}">(208) 477-1169</a>. We reply in minutes during business hours (${SITE_CONFIG.textReplyHours}).`,
+    `Prefer to text? Text <a href="${SMS_HREF}">(208) 477-1169</a>. Business hours: ${SITE_CONFIG.textReplyHours}.`,
   );
 
   const config = readFileSync("shared/siteConfig.ts", "utf8");
@@ -80,17 +80,25 @@ test("each customer one-business-day line stays and is followed by Prefer to tex
   assert.equal(staff.includes("Prefer to text?"), false);
 });
 
-test("published office hours stay on the existing 7-6 and 8-4 schedule", () => {
+test("published office hours preserve current main 9-6 and 9-4 schedule", () => {
   const contact = readFileSync("app/contact/page.tsx", "utf8");
-  assert.match(contact, /Mon – Fri 7 am – 6 pm · Sat 8 am – 4 pm/);
+  assert.match(contact, /Call or text to discuss your cabinet project/);
+  assert.doesNotMatch(contact, /7 am|8 am/);
 
   const seo = readFileSync("lib/seo.ts", "utf8");
-  assert.match(seo, /monday: '7:00 AM - 6:00 PM'/);
-  assert.match(seo, /saturday: '8:00 AM - 4:00 PM'/);
+  assert.match(seo, /monday: '9:00 AM - 6:00 PM'/);
+  assert.match(seo, /saturday: '9:00 AM - 4:00 PM'/);
   assert.match(seo, /sunday: 'Closed'/);
 
   const gbp = readFileSync("shared/gbpConfig.ts", "utf8");
-  assert.match(gbp, /monday: "7:00 AM - 6:00 PM"/);
-  assert.match(gbp, /saturday: "8:00 AM - 4:00 PM"/);
-  assert.match(gbp, /Hours set \(Mon-Fri 7-6, Sat 8-4, Sun closed\)/);
+  assert.match(gbp, /monday: "9:00 AM - 6:00 PM"/);
+  assert.match(gbp, /saturday: "9:00 AM - 4:00 PM"/);
+  assert.match(gbp, /Hours set \(Mon-Fri 9 AM-6 PM, Sat 9 AM-4 PM, Sun closed\)/);
 });
+
+ test("text invitation makes no unsupported minutes guarantee and preserves honest receipt", () => {
+ for (const path of ["shared/siteConfig.ts", "components/contact/PreferToTextLine.tsx"]) assert.doesNotMatch(readFileSync(path,"utf8"), /reply in minutes/i);
+ const form = readFileSync("components/consultation/ConsultationFields.tsx", "utf8");
+ assert.match(form, /Email delivery and follow-up are not confirmed on this page/);
+ assert.doesNotMatch(form, /We sent a confirmation to your email/);
+ });

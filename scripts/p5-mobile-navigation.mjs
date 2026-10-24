@@ -23,6 +23,14 @@ try{
   for(const route of parent?['/quote','/estimate/scope']:['/estimate','/','/estimate/scope',...extraRoutes]){
    await page.goto(`${process.env.P5_TEST_BASE_URL||'http://127.0.0.1:5000'}${route}`,{waitUntil:'load'});
    if(route==='/')await page.locator('#calculator').first().scrollIntoViewIfNeeded();
+   if(route==='/estimate'){
+    const guided=page.locator('details').filter({has:page.locator('summary',{hasText:'Prefer the guided project flow?'})});
+    if(await guided.count()){
+     assert.ok(await page.locator('#estimate-request form').isVisible(),'Basic estimate request must be available without guided intake');
+     const summary=guided.locator('summary');await summary.focus();await summary.press('Enter');
+     assert.equal(await guided.evaluate(el=>el.open),true,'Guided intake must open by keyboard');
+    }
+   }
    const estimator=page.locator('[data-p5-estimator]').first();await estimator.waitFor();
    const input=estimator.getByLabel('Tell us about your project',{exact:true});await input.waitFor().catch(async error=>{console.log('Navigation failure',width,route,await page.locator('body').innerText());await page.screenshot({path:'p5-verification/navigation-failure.png',fullPage:true});throw error;});
    assert.equal(await estimator.getByLabel('Upload project files',{exact:true}).count(),1);

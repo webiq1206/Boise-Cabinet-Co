@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { db, isDbAvailable } from "@/lib/db";
 import { testimonials } from "@/shared/schema";
 import { storage } from "@/server/storage";
+import { showTestimonials } from "@/shared/siteConfig";
 import { TESTIMONIALS } from "@/shared/testimonialsData";
 
 export async function GET() {
+  if (!showTestimonials()) return NextResponse.json([]);
   if (isDbAvailable() && db) {
     try {
       const dbTestimonials = await db.select().from(testimonials).limit(50);

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing";
+import { publicText } from "@/shared/claims";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
+
+type ProcessStep = { number: string; title: string; desc: string };
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -17,7 +20,15 @@ const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/
  * numbered entry with a serif title, so a homeowner can count to five and know
  * what "yes" sets in motion.
  */
-export function ProcessSection() {
+export function ProcessSection({
+  steps = HOW_WE_BUILD_STEPS,
+  heading,
+  note,
+}: {
+  steps?: ProcessStep[];
+  heading?: string;
+  note?: string;
+} = {}) {
   return (
     <Section id="how-we-build" surface="deep" spacing="none" edge className="p-0">
       <div className="ed-panel ed-panel-reverse">
@@ -40,26 +51,31 @@ export function ProcessSection() {
           <Reveal>
             <p className="ed-eyebrow">Our process</p>
             <h2 className="ed-h2-sm ed-statement">
-              From design to{" "}
-              <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
-                installed cabinets
-              </em>
+              {heading ?? (
+                <>
+                  From design to{" "}
+                  <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
+                    installed cabinets
+                  </em>
+                </>
+              )}
             </h2>
           </Reveal>
 
           <div className="ed-steps mt-[clamp(32px,4vw,56px)]">
-            {HOW_WE_BUILD_STEPS.map((step, i) => (
+            {steps.map((step, i) => (
               <Reveal key={step.number} delay={i * 40}>
                 <div className="ed-step">
                   <span className="ed-step-n">{step.number}</span>
                   <div>
                     <h3 className="ed-h4">{step.title}</h3>
-                    <p className="ed-body mt-2 text-[0.875rem]">{step.desc}</p>
+                    <p className="ed-body mt-2 text-[0.875rem]">{publicText(step.desc)}</p>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
+          {note ? <p className="ed-body mt-6 text-[0.875rem]">{note}</p> : null}
         </div>
       </div>
     </Section>
