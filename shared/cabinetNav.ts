@@ -42,7 +42,7 @@ export const PRIMARY_NAV = [
     href: "/about",
     children: [
       { label: "About us", href: "/about" },
-      { label: "How we build", href: "/construction" },
+      { label: "How We Work", href: "/construction" },
       { label: "Cabinet installation", href: "/services/cabinet-installation" },
       { label: "Why choose us", href: "/#why-choose-us" },
       ...(showTestimonials() ? [{ label: "Projects & reviews", href: "/testimonials" }] : []),

@@ -63,7 +63,7 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
           description={
             allVerified
               ? "Custom kitchen cabinets, bathroom vanities, and built-in storage completed for Treasure Valley homeowners."
-              : "Kitchen cabinets, bathroom vanities, and built-in storage the way we design and build them. A finished look preview for planning your own project."
+              : "Kitchen cabinets, bathroom vanities, and built-in storage the way we design, source, and install them. A finished look preview for planning your own project."
           }
           align="center"
           className="mb-10 max-w-3xl"
