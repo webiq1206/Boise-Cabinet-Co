@@ -40,7 +40,7 @@ function adminLeadDeepLink(leadId: string): string {
  * SMS (off unless TWILIO_* env is configured). All channels fail soft so a
  * notification problem never blocks lead capture.
  */
-export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
+export async function notifyNewLead(alert: NewLeadAlert, options: { sendAdminEmail?: boolean } = {}): Promise<void> {
   if (!db) return;
 
   // Idempotency: if any admin already has a new-lead notification for this lead,
@@ -78,6 +78,7 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
     console.error("[leadNotifications] in-app notification failed:", err);
   }
 
+  if (options.sendAdminEmail !== false) {
   // Admin email with a deep link to the lead.
   try {
     const { client, fromEmail } = await getUncachableResendClient();
@@ -121,6 +122,8 @@ export async function notifyNewLead(alert: NewLeadAlert): Promise<void> {
     }
   } catch (err) {
     console.error("[leadNotifications] admin email failed:", err);
+  }
+
   }
 
   // Optional SMS. Stubbed and off unless Twilio env is fully configured.

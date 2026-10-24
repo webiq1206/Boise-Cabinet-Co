@@ -1,3 +1,5 @@
+import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
+import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -9,7 +11,7 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Kitchen cabinets, bathroom vanities and built-ins installed as fast as 3 weeks. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
+  "Planning a kitchen update? Talk with Boise Cabinet Co about your space, cabinet needs and project goals. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
@@ -36,7 +38,7 @@ const TILES = [
 const FAQS = [
   {
     question: "How long does it take?",
-    answer: "As fast as 3 weeks from order to install, depending on the cabinet line. We'll give you a timeline with your estimate.",
+    answer: "Timing depends on your project scope and cabinet selections. Our team will review availability and discuss the schedule with you.",
   },
   {
     question: "What areas do you serve?",
@@ -61,7 +63,7 @@ const FAQS = [
 
 const TRUST = [
   { icon: ShieldCheck, label: "Bonded & insured" },
-  { icon: Clock, label: "As fast as 3 weeks" },
+  { icon: Clock, label: "Project review" },
   { icon: Sparkles, label: "Free estimate" },
 ] as const;
 
@@ -84,7 +86,7 @@ function CallTextButtons({ onDark = false }: { onDark?: boolean }) {
   const linkClass =
     "inline-flex min-h-14 w-full items-center justify-center rounded-md px-5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto sm:min-w-[220px]";
   return (
-    <div className="flex flex-col gap-3 sm:flex-row">
+    <div className="grid grid-cols-2 gap-3">
       <a
         href={TEL_HREF}
         className={
@@ -119,7 +121,7 @@ export default function KitchenCabinetsPage() {
         .approved-shell .kc-hero p { color: #fbfaf6; }
         .approved-shell .kc-hero h1 { font-size: clamp(30px, 7.6vw, 60px); line-height: 1.05; }
         @media (max-width: 767px) {
-          .approved-shell .kc-hero { min-height: calc(100svh - 148px); }
+          .approved-shell .kc-hero { min-height: 0; }
           .approved-shell .kc-hero h1 { font-size: 30px; }
         }
       `}</style>
@@ -136,7 +138,7 @@ export default function KitchenCabinetsPage() {
         </nav>
       </header>
 
-      <section className="kc-hero relative flex min-h-[calc(100svh-84px)] items-end overflow-hidden">
+      <section data-p5-hero className="kc-hero relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
           alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details"
@@ -145,18 +147,18 @@ export default function KitchenCabinetsPage() {
           sizes="100vw"
           className="object-cover object-[62%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1c1f1e]/92 via-[#1c1f1e]/55 to-[#1c1f1e]/20" aria-hidden="true" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,31,30,0.92), rgba(28,31,30,0.72) 55%, rgba(28,31,30,0.60))" }} aria-hidden="true" />
         <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
           <h1 className="max-w-[16ch] font-serif">
             Boise Cabinets for Kitchens, Baths &amp; Built-Ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
-            Kitchen cabinets, bathroom vanities and built-ins installed as fast as 3 weeks.
+            Planning a kitchen update? Talk with Boise Cabinet Co about your space, cabinet needs and project goals.
           </p>
           <div className="mt-5">
-            <CallTextButtons onDark />
+            <LandingContactActions onDark formId="quick-quote" formLabel="Request a Cabinet Estimate" />
           </div>
-          <p className="mt-3 text-sm leading-snug">{HOURS}</p>
+          
           <ul className="mt-5 flex flex-wrap gap-2">
             {TRUST.map(({ icon: Icon, label }) => (
               <li
@@ -170,6 +172,12 @@ export default function KitchenCabinetsPage() {
           </ul>
         </div>
       </section>
+
+        <section tabIndex={-1} id="quick-quote" className="mx-auto w-full max-w-3xl px-6 py-8 scroll-mt-28 space-y-5">
+          <h2 className="font-serif text-3xl text-foreground">Get a free estimate</h2>
+          <p>Share a few details about your kitchen. Your request will be reviewed by our team.</p>
+          <KitchenCabinetsQuoteForm />
+        </section>
 
       <section className="mx-auto grid max-w-5xl gap-4 px-5 py-8 sm:grid-cols-3 sm:px-8" aria-label="Cabinet types">
         {TILES.map((tile) => (
@@ -189,10 +197,7 @@ export default function KitchenCabinetsPage() {
       </section>
 
       <article className="mx-auto max-w-3xl px-6 pb-28 md:pb-16">
-        <section id="quick-quote" className="scroll-mt-28 space-y-5">
-          <h2 className="font-serif text-3xl text-foreground">Get a free estimate</h2>
-          <KitchenCabinetsQuoteForm />
-        </section>
+
 
         <section className="mt-14 space-y-4">
           <h2 className="font-serif text-3xl text-foreground">Why Boise Cabinet Co</h2>
@@ -204,7 +209,7 @@ export default function KitchenCabinetsPage() {
               <strong>Bonded and insured.</strong>
             </li>
             <li>
-              <strong>As fast as 3 weeks.</strong> We&apos;ll give you a timeline with your estimate.
+              <strong>Plan the next step.</strong> We review scope, selections and scheduling with you.
             </li>
           </ul>
         </section>
@@ -248,20 +253,7 @@ export default function KitchenCabinetsPage() {
         </section>
       </article>
 
-      <nav
-        aria-label="Call or text"
-        className="fixed inset-x-0 bottom-0 z-[100] grid grid-cols-2 border-t border-border bg-background pb-safe md:hidden"
-      >
-        <a
-          href={TEL_HREF}
-          className="flex min-h-14 items-center justify-center border-r border-border font-medium"
-        >
-          Call
-        </a>
-        <a href={SMS_HREF} className="flex min-h-14 items-center justify-center font-medium">
-          Text
-        </a>
-      </nav>
+      <LandingMobileActions />
     </div>
   );
 }
