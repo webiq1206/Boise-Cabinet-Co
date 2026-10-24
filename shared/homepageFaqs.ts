@@ -8,15 +8,15 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "We combine a full product catalog (hundreds of finishes and Shaker, slab and more door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless construction options, with manufacturer warranties passed through. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    a: "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
   },
   {
-    q: "What kind of cabinets do you build?",
-    a: "We design and install fully custom cabinets, sized to fit your space. You choose from hundreds of finishes and Shaker, slab and more door styles, with frameless options.",
+    q: "What kind of cabinets do you offer?",
+    a: "We source and install custom frameless cabinets, made to order for your space. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction.",
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through fabrication, delivery, and installation.`,
+    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through order, delivery, and installation.`,
   },
   {
     q: "Can I design my cabinets online before committing?",
@@ -28,11 +28,11 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you install cabinets or supply only?",
-    a: "We offer full-service design, fabrication coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.",
+    a: "We offer full-service design, sourcing coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.",
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co passes manufacturer warranties through to you. Warranty details and service requests are accessible anytime through your client portal.",
+    a: "Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the warranty page for current terms; service requests are handled through your client portal.",
   },
   {
     q: "What does the free design consultation include?",
@@ -48,7 +48,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you offer closet, laundry, and mudroom cabinets?",
-    a: "Yes. We design and build cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications.",
+    a: "Yes. We design, source, and install cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications.",
   },
   {
     q: "How does pricing work?",
