@@ -1010,9 +1010,10 @@ export type Task = typeof tasks.$inferSelect;
  * One row per estimator or lead-form session, keyed by a browser-generated
  * pseudonymous id. It records WHERE a visitor was when they stopped, never who
  * they are: contact fields are filled only from an explicit callback request.
- * A server-side sweep turns an engaged, inactive, incomplete session into one
- * abandonment email; a completed submission cancels it; a completion after the
- * email marks the session recovered. See docs/estimator-recovery.md.
+ * A server-side sweep closes an engaged, inactive, incomplete session without
+ * emailing staff (ABANDONMENT_EMAILS_ENABLED is false). A completed submission
+ * marks the session completed. Callback requests still email staff once.
+ * See docs/estimator-recovery.md.
  */
 export const estimatorSessions = pgTable("estimator_sessions", {
   id: varchar("id", { length: 64 }).primaryKey(),
