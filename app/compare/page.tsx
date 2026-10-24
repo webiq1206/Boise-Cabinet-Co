@@ -9,6 +9,7 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { cn } from "@/lib/utils";
+import { publicWarrantyRow } from "@/shared/claims";
 import {
 COLLECTIONS,
 COLLECTION_COMPARISON,
@@ -55,7 +56,7 @@ function ComparisonCell({ value }: { value: ComparisonValue | undefined }) {
   if (value === undefined) {
     return <span className="text-muted-foreground">N/A</span>;
   }
-  return <span className="text-sm text-foreground">{String(value)}</span>;
+  return <span className="text-sm text-foreground">{publicWarrantyRow(String(value))}</span>;
 }
 
 function ComparisonRowVisual({
@@ -129,7 +130,7 @@ function SingleCollectionGrid({
             )}
             <div className="mt-auto flex items-center gap-2 text-sm">
               {typeof value === "string" ? (
-                <span className="text-foreground">{value}</span>
+                <span className="text-foreground">{publicWarrantyRow(value)}</span>
               ) : value === false ? (
                 <>
                   <X className="h-4 w-4 text-muted-foreground" aria-hidden="true" />

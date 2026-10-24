@@ -16,6 +16,7 @@ import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
 import { getResourcesForGuide } from '@/shared/guideResources';
+import { publicText, showFoundingYear } from '@/shared/claims';
 import {
 ArrowRight,
 BookOpen,
@@ -77,7 +78,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-serif tracking-tight text-foreground mb-4">
               {guide.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{guide.excerpt}</p>
+            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{publicText(guide.excerpt)}</p>
             <div role="presentation" className="border-t border-border/60 mb-5" />
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
@@ -89,7 +90,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 <span className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {guide.author}
-                  {guide.author === 'Boise Cabinet Co' && (
+                  {showFoundingYear() && guide.author === 'Boise Cabinet Co' && (
                     <span className="text-muted-foreground">
                       · Treasure Valley cabinet designers since 2020
                     </span>

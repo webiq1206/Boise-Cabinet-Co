@@ -1,3 +1,4 @@
+import { publicText } from '@/shared/claims';
 import Link from 'next/link';
 import type { TocHeading } from '@/lib/content-utils';
 
@@ -20,7 +21,7 @@ export function GuideContentBlocks({
           data-speakable="summary"
         >
           <p className="text-xs font-medium uppercase tracking-wider text-accent mb-2">Quick answer</p>
-          <p className="text-foreground leading-relaxed">{quickAnswer}</p>
+          <p className="text-foreground leading-relaxed">{publicText(quickAnswer)}</p>
         </div>
       )}
 
@@ -31,7 +32,7 @@ export function GuideContentBlocks({
           </p>
           <ul className="space-y-2 text-sm md:text-base text-foreground list-disc pl-5">
             {keyTakeaways.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item}>{publicText(item)}</li>
             ))}
           </ul>
         </div>
