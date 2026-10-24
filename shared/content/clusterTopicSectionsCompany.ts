@@ -463,13 +463,13 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What a real cabinet warranty covers',
       paragraphs: [
-        'A meaningful warranty names three things in writing: workmanship (joinery, installation, alignment), materials (boxes, doors, finish adhesion), and hardware (hinges and slides, often carrying the manufacturer\'s own lifetime coverage). "Lifetime warranty" without a document is a slogan, not coverage.',
+        'A meaningful warranty names three things in writing: workmanship (joinery, installation, alignment), materials (boxes, doors, finish adhesion), and hardware (hinges and slides, often carrying the manufacturer\'s own coverage). A warranty promise without a written document is a slogan, not coverage.',
       ],
     },
     {
       h2: 'Our coverage',
       paragraphs: [
-        'Boise Cabinet Co cabinets carry a limited lifetime warranty to the original homeowner on workmanship and materials, with service requests handled through your client portal. The full terms live on our <a href="/warranty">warranty page</a>, published, not produced on request.',
+        'Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the <a href="/warranty">warranty page</a> for current terms; service requests are handled through your client portal.',
       ],
     },
     {

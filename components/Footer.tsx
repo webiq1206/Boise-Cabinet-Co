@@ -44,7 +44,7 @@ function buildFooterGroups(reviewLink: FooterLink | null): { title: string; link
         { label: "About", href: "/about" },
         ...(reviewLink ? [reviewLink] : []),
         { label: "Why Choose Us", href: "/#why-choose-us" },
-        { label: "How We Build", href: "/construction" },
+        { label: "How We Work", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
         { label: "Contact", href: "/contact" },
         { label: "My Project", href: "/portal" },
