@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from "./siteConfig";
+import { preferToTextLine, SITE_CONFIG } from "./siteConfig";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { CITIES } from "./contentData";
@@ -90,7 +90,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     content: [
       faqBlock((q) => q.includes("consultation include")),
       "",
-      "The visit is focused on planning guidance and an honest project range, not a commission-driven pitch. Reply within one business day; no spam.",
+      `The visit is focused on planning guidance and an honest project range, not a commission-driven pitch. Reply within one business day; no spam. ${preferToTextLine()}`,
     ].join("\n"),
   },
   {

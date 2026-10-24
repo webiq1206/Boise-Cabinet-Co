@@ -45,6 +45,11 @@ export const SITE_CONFIG = {
   phoneTel: PHONE_TEL,
   phoneHref: `tel:${PHONE_E164}`,
   phoneSmsHref: `sms:${PHONE_E164}`,
+  /**
+   * Hours we reply to texts. One constant, so the contact line cannot drift.
+   * Jared confirmed Saturday. En dashes are range marks, not em dashes.
+   */
+  textReplyHours: "Mon–Fri 9–6, Sat 9–4 MT",
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
   // The owner who personally signs every outgoing email. The sender display
@@ -85,6 +90,27 @@ export const SITE_CONFIG = {
     reviewCount: numFromEnv(process.env.NEXT_PUBLIC_REVIEW_COUNT),
   },
 } as const;
+
+/** Plain-text Prefer to text sentence. Hours come only from SITE_CONFIG.textReplyHours. */
+export function preferToTextLine(phone: string = SITE_CONFIG.phone): string {
+  return `Prefer to text? Text ${phone}. Business hours: ${SITE_CONFIG.textReplyHours}.`;
+}
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+/** Same sentence for HTML email and blog copy, with the phone as an sms: link. */
+export function preferToTextHtml(
+  phone: string = SITE_CONFIG.phone,
+  smsHref: string = SITE_CONFIG.phoneSmsHref,
+): string {
+  return `Prefer to text? Text <a href="${escapeHtmlText(smsHref)}">${escapeHtmlText(phone)}</a>. Business hours: ${escapeHtmlText(SITE_CONFIG.textReplyHours)}.`;
+}
 
 export function formatPhoneDisplay(tel: string = SITE_CONFIG.phoneTel): string {
   const digits = tel.replace(/\D/g, "");
