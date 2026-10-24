@@ -82,7 +82,9 @@ test("each customer one-business-day line stays and is followed by Prefer to tex
 
 test("published office hours preserve current main 9-6 and 9-4 schedule", () => {
   const contact = readFileSync("app/contact/page.tsx", "utf8");
-  assert.match(contact, /Call or text to discuss your cabinet project/);
+  assert.match(contact, /label="Call us"/);
+  assert.match(contact, /label="Text us"/);
+  assert.match(contact, /Mon-Fri 9 AM-6 PM and Sat 9 AM-4 PM Mountain, closed Sunday/);
   assert.doesNotMatch(contact, /7 am|8 am/);
 
   const seo = readFileSync("lib/seo.ts", "utf8");

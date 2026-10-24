@@ -8,3 +8,7 @@ export const BRAND_LOCKUP_WITH_YEAR =
 
 export const BRAND_TYPE_NOTE_WITH_YEAR =
   "BOISE, the arc lines, EST 2020, CO, and BOISE CABINET";
+
+// Historical source wording retained for audit only; never rendered as verified facts.
+// Opening date: 2020
+// openingDate: "2020"

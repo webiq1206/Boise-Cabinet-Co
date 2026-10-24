@@ -9,7 +9,6 @@ import { publicQa, publicText, showFoundingYear } from "@/shared/claims";
  * The 2020 sentences stay in this file. Published answers omit them unless
  * SHOW_FOUNDING_YEAR is exactly "true".
  */
-import { showFoundingYear } from "@/shared/siteConfig";
 
 export interface Phase1Faq {
   question: string;

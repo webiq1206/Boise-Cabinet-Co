@@ -61,8 +61,8 @@ export function InteriorEstimateLink({label='Get my online estimate'}:{label?:st
 }
 
 /** The approved split-detail and editorial-introduction compositions. */
-export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean}) {
-  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}`}>
+export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className=''}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string}) {
+  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${className?` ${className}`:''}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
     {imageSrc&&<div className="interior-hero-image"><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={1400} height={1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;

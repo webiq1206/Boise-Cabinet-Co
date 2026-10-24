@@ -142,7 +142,7 @@ test("heroes srcset the variant widths", () => {
   assert.match(cabinets.srcSet ?? "", /kitchen-farmhouse-shaker-1280\.webp 1280w/);
 
   const marketing = heroImageAttrs("/images/marketing/bath-white-oak-vanity.webp");
-  assert.equal(marketing.src, "/images/marketing/bath-white-oak-vanity.webp");
+  assert.equal(marketing.src, "/images/marketing/bath-white-oak-vanity-1280.webp");
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity-768\.webp 768w/);
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity-1280\.webp 1280w/);
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity\.webp 1536w/);

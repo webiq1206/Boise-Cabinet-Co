@@ -9,7 +9,7 @@ test("about and footer retain the current centralized contractor registration", 
   assert.equal(IDAHO_REGISTERED_CONTRACTOR, "Idaho Registered Contractor #8381215");
   assert.equal(REGISTERED_BONDED_INSURED, `${IDAHO_REGISTERED_CONTRACTOR}, bonded and insured`);
   assert.match(about, /\{REGISTERED_BONDED_INSURED\} for residential cabinet design and installation/);
-  assert.match(footer, /<span>\{IDAHO_REGISTERED_CONTRACTOR\}<\/span>/);
+  assert.match(footer, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[\s\S]*?\{IDAHO_REGISTERED_CONTRACTOR\}[\s\S]*?<\/a>/);
   assert.doesNotMatch(about, /contractor license/);
   assert.doesNotMatch(footer, /Idaho license #|License details available upon request/);
   // Do not turn a municipality's permit requirement into a claim about this business.

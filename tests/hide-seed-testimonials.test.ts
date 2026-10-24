@@ -91,7 +91,7 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.equal(readFileSync("app/locations/[city]/page.tsx", "utf8").includes("visibleTestimonials()"), true);
   assert.equal(readFileSync("app/cabinets/[room]/page.tsx", "utf8").includes("visibleTestimonials()"), true);
   const page = readFileSync("app/testimonials/page.tsx", "utf8");
-  assert.equal(page.includes("Concept imagery illustrates design options and is not evidence of completed Boise projects."), true);
+  assert.equal(page.includes("Design concepts illustrate possible layouts and finishes."), true);
   assert.equal(page.includes("They are not photographs of completed client projects."), true);
   assert.equal(page.includes("noindex: !showTestimonials()"), true);
   assert.equal(page.includes("Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes."), true);

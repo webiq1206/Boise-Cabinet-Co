@@ -32,7 +32,7 @@
   {
     "route": "/cabinets/[room]",
     "file": "app/cabinets/[room]/page.tsx",
-    "seoSignature": "24afa80f66485702bf0577ec56205fb5c29f078235561d8f0dfc66148a443f49"
+    "seoSignature": "62900bc938db5a31477e1d44486a17c27012248a87d55d2ebf4804e8530ee694"
   },
   {
     "route": "/cabinets",
@@ -42,7 +42,7 @@
   {
     "route": "/catalog",
     "file": "app/catalog/page.tsx",
-    "seoSignature": "21758659808dfbdf4b23571efc69fdad13ee7bbee9d3842fc98c3b097c972e75"
+    "seoSignature": "28bc7e0795ba9fb95583471e775bd7762971937692780f416308c9d1bddfa367"
   },
   {
     "route": "/compare",
@@ -52,12 +52,12 @@
   {
     "route": "/construction",
     "file": "app/construction/page.tsx",
-    "seoSignature": "2f8b7f65b52f7094d4f90b63292cc3a87bf653290dacc457361c1b9eb9ea4e49"
+    "seoSignature": "77292c3444da8316c313496f5e9faf31cf1e5fe4fd825dc80b4f4f33eb403872"
   },
   {
     "route": "/contact",
     "file": "app/contact/page.tsx",
-    "seoSignature": "c2a9c7ae149be9d1baeb1cdd363b5be3367a3d49f36ce04630e19df1be0be508"
+    "seoSignature": "167c60bf027d9c98d2c9655917d151704bf8ab3c749fea485f361c23eba541fa"
   },
   {
     "route": "/guides/[slug]",
@@ -72,7 +72,7 @@
   {
     "route": "/locations/[city]",
     "file": "app/locations/[city]/page.tsx",
-    "seoSignature": "76cd839b780bd3dc8deb0da386a5674b586a6183b0e1395e9454faedd4889c73"
+    "seoSignature": "84e5d39ea825f077f5f0c151d4acc4ac944501b9edeacfbb059e4d0dd1868bba"
   },
   {
     "route": "/privacy-policy",
@@ -102,7 +102,7 @@
   {
     "route": "/shaker-cabinets",
     "file": "app/shaker-cabinets/page.tsx",
-    "seoSignature": "5750c8b38d5ca893f5af584d8ef168f803b46da25b3e59d85071fe26823de207"
+    "seoSignature": "11ca07bfee29c61c2115d643d81d783ee0acbe7016497d6d360cd3c6403eef32"
   },
   {
     "route": "/sitemap",
@@ -117,11 +117,11 @@
   {
     "route": "/testimonials",
     "file": "app/testimonials/page.tsx",
-    "seoSignature": "92e62b5b87a22c8d630368f4308114638927bd9e24841ba28fc63110d04797b2"
+    "seoSignature": "97285fbf35047d4e5f5cffb7856cc5fea3080c2e08893b21b9af51fc238a5256"
   },
   {
     "route": "/warranty",
     "file": "app/warranty/page.tsx",
-    "seoSignature": "341d1aaed44fb0f12d7175059957897a40c612a55fae011fc710f25aba11f566"
+    "seoSignature": "63ac8ee53695c30999ac0eae008862a80afb144cec849642214854d367b65eb7"
   }
 ]
