@@ -93,10 +93,10 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
     },
     "/cabinets/[room]",
   );
-  assert.deepEqual(kitchen.title, { absolute: "Kitchen Cabinets in Boise, Idaho | Boise Cabinet Co" });
+  assert.deepEqual(kitchen.title, { absolute: "Kitchen Cabinets Near Me | Boise Cabinet Co" });
   assert.equal(
     kitchen.description,
-    "Plan kitchen cabinets for your Boise or Treasure Valley home. Explore frameless construction, door styles, finishes, layout, supply and installation.",
+    "Kitchen cabinets near me in Boise and the Treasure Valley. Source and install kitchen storage with a free design consult and clear next steps. Call today.",
   );
 });
 
