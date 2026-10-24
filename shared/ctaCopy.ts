@@ -1,5 +1,5 @@
 /** Sitewide conversion copy; each string matches its destination action. */
-export const CTA_ESTIMATE = "Get an Estimate";
+export const CTA_ESTIMATE = "Request an Estimate";
 export const CTA_BOOK_VISIT = "Book Your Free Visit";
 export const CTA_DESIGN_STUDIO = "Open Design Studio";
 export const CTA_EXPLORE_COLLECTIONS = "Explore collections";

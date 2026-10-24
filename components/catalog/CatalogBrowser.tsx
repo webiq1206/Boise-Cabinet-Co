@@ -291,7 +291,7 @@ export function CatalogBrowser({ className }: { className?: string }) {
           aria-label="Search the catalog"
           data-testid="catalog-search-input"
           className="w-full rounded-md border border-input bg-background py-3 pl-10 pr-4 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
+          data-clarity-mask="True" />
       </div>
 
       {/* Entity-type tabs */}
@@ -397,7 +397,7 @@ export function CatalogBrowser({ className }: { className?: string }) {
               onChange={(e) => setSort(e.target.value as "featured" | "az")}
               className="rounded-md border border-input bg-background px-2 py-1.5 text-sm"
               aria-label="Sort results"
-            >
+              data-clarity-mask="True">
               <option value="featured">Featured</option>
               <option value="az">Name (A–Z)</option>
             </select>

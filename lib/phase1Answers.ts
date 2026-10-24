@@ -1,3 +1,5 @@
+import { publicQa, publicText } from "@/shared/claims";
+
 /**
  * Additive answer blocks for phase-1 pages.
  * Facts are limited to frameless (European-style) boxes, soft-close hardware,
@@ -152,16 +154,26 @@ const CONTACT: Phase1Answer = {
   ],
 };
 
+function presentPhase1(answer: Phase1Answer): Phase1Answer {
+  return {
+    ...answer,
+    paragraph: publicText(answer.paragraph),
+    faqs: publicQa(answer.faqs),
+  };
+}
+
 export function phase1LocationAnswer(slug: string): Phase1Answer | undefined {
-  return LOCATIONS[slug];
+  const answer = LOCATIONS[slug];
+  return answer ? presentPhase1(answer) : undefined;
 }
 
 export function phase1RoomAnswer(slug: string): Phase1Answer | undefined {
-  return ROOMS[slug];
+  const answer = ROOMS[slug];
+  return answer ? presentPhase1(answer) : undefined;
 }
 
 export function phase1ContactAnswer(): Phase1Answer {
-  return CONTACT;
+  return presentPhase1(CONTACT);
 }
 
 export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT];

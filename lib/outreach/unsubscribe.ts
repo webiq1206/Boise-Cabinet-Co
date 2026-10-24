@@ -54,9 +54,9 @@ export function createUnsubscribeHandlers(options: UnsubscribeOptions) {
       <title>Unsubscribe | ${escapeHtml(options.businessName)}</title>
       <style>body{font:400 17px/1.65 system-ui,sans-serif;background:#1c1f1e;color:#f7f5f3;margin:0;padding:24px}main{box-sizing:border-box;max-width:560px;margin:60px auto;padding:32px;background:#262b29;border:1px solid #39403d;border-radius:8px}h1{font-size:28px;line-height:1.3}a{color:#a9d4d4}button{font:inherit;cursor:pointer;padding:12px 20px;border:0;border-radius:5px;background:#a9d4d4;color:#1c1f1e}button:focus-visible,a:focus-visible{outline:3px solid white;outline-offset:4px}</style>
       </head><body><main><p>${escapeHtml(options.businessName)}</p><h1>${escapeHtml(title)}</h1>
-      <p>${escapeHtml(message)}</p>${token ? `<form method="post" action="${action}" data-clarity-mask="true">
-      <input type="hidden" name="List-Unsubscribe" value="One-Click">
-      <input type="hidden" name="source" value="manual">
+      <p>${escapeHtml(message)}</p>${token ? `<form method="post" action="${action}" data-clarity-mask="True">
+      <input type="hidden" name="List-Unsubscribe" value="One-Click" data-clarity-mask="True">
+      <input type="hidden" name="source" value="manual" data-clarity-mask="True">
       <button type="submit">Unsubscribe</button></form>` : ""}
       <p><a href="${escapeHtml(options.siteUrl)}">Return to our website</a></p></main></body></html>`, {
       status, headers: { ...headers, "Content-Type": "text/html; charset=utf-8" },

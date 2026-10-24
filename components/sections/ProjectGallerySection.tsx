@@ -11,7 +11,7 @@ import type { SiteProject } from "@/shared/projects/types";
 
 function ProjectCard({ project }: { project: SiteProject }) {
   return (
-    <MarketingCard className="overflow-hidden p-0">
+    <MarketingCard padding="none" className="overflow-hidden">
       <div className="relative aspect-[4/3] overflow-hidden">
         {project.showBeforeAfter && project.before ? (
           <BeforeAfterSlider

@@ -118,7 +118,7 @@ export function AbandonmentPrompt({ open, flow, method, leaving, onStay, onConti
               </a>
             </div>
 
-            <form onSubmit={submitCallback} noValidate className="mt-5 border-t border-inverse-foreground/[0.12] pt-5" data-testid="recovery-callback-form" data-clarity-mask="true">
+            <form onSubmit={submitCallback} noValidate className="mt-5 border-t border-inverse-foreground/[0.12] pt-5" data-testid="recovery-callback-form" data-clarity-mask="True">
               <p className="mb-2 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-inverse-muted">Or request a callback</p>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto]">
                 <label className="sr-only" htmlFor="recovery-phone">Your phone number</label>
@@ -134,7 +134,7 @@ export function AbandonmentPrompt({ open, flow, method, leaving, onStay, onConti
                   aria-invalid={state === "error" || undefined}
                   aria-describedby={message ? "recovery-callback-msg" : undefined}
                   data-testid="recovery-phone"
-                />
+                  data-clarity-mask="True" />
                 <Button type="submit" variant="brand" className="min-h-12 px-5" disabled={state === "sending"} data-testid="recovery-callback-submit">
                   <PhoneCall className="h-4 w-4" strokeWidth={1.5} aria-hidden />
                   {state === "sending" ? "Sending…" : "Call me"}
@@ -149,7 +149,7 @@ export function AbandonmentPrompt({ open, flow, method, leaving, onStay, onConti
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="mt-2 h-11 w-full rounded-sm border border-inverse-foreground/25 bg-inverse-foreground/[0.06] px-3 text-sm text-inverse-foreground placeholder:text-inverse-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-legible"
-              />
+                data-clarity-mask="True" />
               {message && (
                 <p id="recovery-callback-msg" role="alert" className="mt-2 text-[0.8125rem] text-red-300">
                   {message}

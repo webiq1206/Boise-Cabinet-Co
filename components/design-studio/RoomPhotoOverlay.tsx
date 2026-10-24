@@ -356,7 +356,7 @@ export function RoomPhotoOverlay({
               if (file) handleFile(file);
             }}
             data-testid="input-room-photo"
-          />
+            data-clarity-mask="True" />
           <Button
             type="button"
             variant="outline"

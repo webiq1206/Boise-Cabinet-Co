@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
+import { MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty } from "@/shared/claims";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
@@ -40,11 +41,15 @@ const EXCLUDED = [
   "Customer-supplied appliances, fixtures, or third-party hardware",
 ];
 
+const WARRANTY_META_SOURCE =
+  "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.";
+
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
-    "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.",
+    publicText(WARRANTY_META_SOURCE) ||
+      "Manufacturer warranties passed through on parts we supply. Ask which terms apply before you order cabinets in the Treasure Valley.",
   ),
 )), "/warranty");
 
@@ -52,7 +57,9 @@ export default function WarrantyPage() {
   const schemas = [
     generateWebPageSchema({
       title: "Warranty",
-      description: `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`,
+      description: showLifetimeWarranty()
+        ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
+        : `${MANUFACTURER_WARRANTY_PASS_THROUGH}.`,
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
@@ -64,17 +71,17 @@ export default function WarrantyPage() {
   return (
     <InteriorPage kind="warranty"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
           alt="cabinet hardware and finished door fronts"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
-          title={<>
+          title={showLifetimeWarranty() ? <>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </>}
-          description={CATALOG_CONTENT.warrantySummary}
+                </> : <>Manufacturer warranties <em className="brc-accent text-accent">passed through</em></>}
+          description={showLifetimeWarranty() ? CATALOG_CONTENT.warrantySummary : MANUFACTURER_WARRANTY_PASS_THROUGH}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
@@ -96,7 +103,7 @@ export default function WarrantyPage() {
               <MarketingCard>
                 <h3 className="text-lg font-serif tracking-tight mb-3">Covered</h3>
                 <ul className="space-y-2">
-                  {COVERED.map((item) => (
+                  {COVERED.filter((item) => publicText(item)).map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
                       <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
                       {item}

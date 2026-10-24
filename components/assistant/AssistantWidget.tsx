@@ -47,7 +47,8 @@ function isSuppressedRoute(pathname: string | null): boolean {
     pathname.startsWith("/admin") ||
     pathname.startsWith("/portal") ||
     pathname.startsWith("/design-studio") ||
-    pathname.startsWith("/estimate")
+    pathname.startsWith("/estimate") ||
+    pathname === "/kitchen-cabinets"
   );
 }
 
@@ -131,6 +132,11 @@ export function AssistantWidget() {
   const formInView = useFormInView(pathname, true);
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const openFromBar = () => setOpen(true);
+    window.addEventListener("p5:assistant-open", openFromBar);
+    return () => window.removeEventListener("p5:assistant-open", openFromBar);
+  }, []);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
@@ -294,7 +300,7 @@ export function AssistantWidget() {
         <button
           type="button"
           onClick={handleOpen}
-          className="fixed bottom-[calc(96px+env(safe-area-inset-bottom))] right-4 z-[90] flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] xl:bottom-6 xl:right-6"
+          className="fixed bottom-[calc(96px+env(safe-area-inset-bottom))] right-4 z-[90] hidden min-[1180px]:flex items-center gap-2 rounded-full bg-inverse px-4 py-3 text-sm font-medium text-inverse-foreground shadow-lg transition-transform hover:scale-[1.03] xl:bottom-6 xl:right-6"
           data-testid="button-assistant-open"
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
@@ -332,7 +338,7 @@ export function AssistantWidget() {
             </button>
           </div>
 
-          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4" data-clarity-mask="True">
             {messages.map((m, i) => (
               <div
                 key={i}
@@ -387,7 +393,7 @@ export function AssistantWidget() {
           )}
 
           <form
-            data-clarity-mask="true"
+            data-clarity-mask="True"
             className="flex items-end gap-2 border-t border-border px-3 py-3"
             onSubmit={(e) => {
               e.preventDefault();
@@ -404,7 +410,7 @@ export function AssistantWidget() {
                 void attachPhotos(e.target.files);
                 e.target.value = "";
               }}
-            />
+              data-clarity-mask="True" />
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -429,7 +435,7 @@ export function AssistantWidget() {
               aria-label="Message the estimating assistant"
               className="max-h-28 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40"
               data-testid="input-assistant-message"
-            />
+              data-clarity-mask="True" />
             <button
               type="submit"
               disabled={pending || (!input.trim() && !photos.length)}

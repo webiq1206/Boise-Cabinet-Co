@@ -1,3 +1,5 @@
+import { showTestimonials } from "@/shared/siteConfig";
+
 export interface TestimonialItem {
   customerName: string;
   serviceType: string;
@@ -40,3 +42,8 @@ export const TESTIMONIALS: TestimonialItem[] = [
       "Fantastic craftsmanship and reliable timeline. Our new mudroom and pantry storage exceeded every expectation.",
   },
 ];
+
+/** Public pages use this list. It is empty unless showTestimonials() is on. */
+export function visibleTestimonials(): TestimonialItem[] {
+  return showTestimonials() ? TESTIMONIALS : [];
+}

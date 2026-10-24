@@ -30,7 +30,7 @@ import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { TESTIMONIALS } from "@/shared/testimonialsData";
+import { visibleTestimonials } from "@/shared/testimonialsData";
 import { ArrowRight,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // Honest empty states, never fabricated: only real projects/reviews tagged
   // to this city are shown, and each section says so plainly when there are none.
   const cityProjects = PROJECTS.filter((p) => p.area === city.name).slice(0, 3);
-  const cityReviews = TESTIMONIALS.filter((t) => t.city === city.slug);
+  const cityReviews = visibleTestimonials().filter((t) => t.city === city.slug);
   const phaseAnswer = phase1LocationAnswer(city.slug);
   const guideFaqs = guide?.faqs ?? [];
   const faqs = [...guideFaqs, ...(phaseAnswer?.faqs ?? [])];
@@ -96,7 +96,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   return (
     <InteriorPage kind="locations"><>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
+      <div className="flex flex-col ">
         {/* Local hero */}
         <InteriorHero layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
@@ -155,7 +155,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             />
               <div className="ed-cards-3 gap-6">
                 {cityProjects.map((project) => (
-                  <MarketingCard key={project.slug} className="overflow-hidden p-0">
+                  <MarketingCard key={project.slug} padding="none" className="overflow-hidden">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}

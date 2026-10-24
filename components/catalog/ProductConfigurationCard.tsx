@@ -24,7 +24,7 @@ export function ProductConfigurationCard({
   if (cfg.partitions) tags.push("partition");
 
   return (
-    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden">
+    <MarketingCard padding="none" className="h-full flex flex-col overflow-hidden">
       {showGallery && (
         <div className="p-4 pb-0">
           <ProductConfigGallery product={product} />
