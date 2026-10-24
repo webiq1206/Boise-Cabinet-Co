@@ -23,7 +23,7 @@ export const PROJECTS: SiteProject[] = [
       "scope": "Full kitchen cabinet replacement with island in a Boise Bench ranch",
       "challenge": "A 1960s Boise Bench ranch with original boxes, a soffit-wrapped perimeter, and walls nearly an inch out of plumb across the main run. The owners wanted a current shaker kitchen with real drawer storage and an island, without moving plumbing or walls.",
       "approach": "Field measurement mapped the wall lean so cabinets could be dimensioned to absorb it invisibly. Soffits came down to allow ceiling-height uppers, the base run converted from doors to full-extension drawers, and a new island added prep storage and a trash pull-out. Modern shaker doors in a matte painted finish with soft-close hardware throughout.",
-      "outcome": "A typical build like this installs in about four days after a six-week fabrication window, with owners gaining roughly a third more usable storage in the same footprint and scribed fillers that read as intentional trim.",
+      "outcome": "A typical project like this installs in about four days after a six-week production window, with owners gaining roughly a third more usable storage in the same footprint and scribed fillers that read as intentional trim.",
       "details": [
         {
           "label": "Location",
@@ -79,7 +79,7 @@ export const PROJECTS: SiteProject[] = [
       "scope": "Builder-grade single vanity to a double vanity suite with linen tower",
       "challenge": "A 2000s Meridian subdivision primary bath with a cultured-marble single vanity, one bank of shallow drawers, and two adults sharing one sink every morning. The room had the wall length for a double vanity but the plumbing for one.",
       "approach": "The layout runs a 72-inch double vanity with a drawer stack between sinks and a full-height linen tower at the end wall. Plumbing extends for the second sink during a short rough-in window, and drawer interiors are configured for hair tools with in-drawer outlets. Finish and hardware match the home's existing trim palette so the bath reads original to the house.",
-      "outcome": "A build like this installs in about two days after fabrication, turning the morning bottleneck into a two-station bath with roughly triple the drawer storage, and a linen tower that ends the hallway closet shuffle.",
+      "outcome": "A project like this installs in about two days after production, turning the morning bottleneck into a two-station bath with roughly triple the drawer storage, and a linen tower that ends the hallway closet shuffle.",
       "details": [
         {
           "label": "Location",
@@ -134,7 +134,7 @@ export const PROJECTS: SiteProject[] = [
     "scenario": {
       "scope": "Kitchen, two baths, mudroom, and office under one finish schedule",
       "challenge": "An Eagle family wants to replace piecemeal builder cabinetry across five rooms while living in the house, and to end up with one coherent palette instead of five mismatched vendor finishes accumulated over the years.",
-      "approach": "All selections lock once: a single door profile, a two-finish schedule (painted perimeter tones with a woodgrain accent), and one hardware family across every room. Fabrication batches together, and installation stages room by room, kitchen first on a temporary-kitchen plan, baths one at a time so a working bathroom always exists, then mudroom lockers and the office wall.",
+      "approach": "All selections lock once: a single door profile, a two-finish schedule (painted perimeter tones with a woodgrain accent), and one hardware family across every room. Orders batch together, and installation stages room by room, kitchen first on a temporary-kitchen plan, baths one at a time so a working bathroom always exists, then mudroom lockers and the office wall.",
       "outcome": "A program like this completes in under four months with the family home throughout. One finish schedule means every future touch-up and addition has a documented spec, and resale presentation reads designed, not assembled.",
       "details": [
         {
