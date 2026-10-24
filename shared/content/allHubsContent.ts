@@ -329,19 +329,58 @@ const processSlugs = [
   ['cabinet-warranty-guide', 'Cabinet Warranty Guide'],
 ] as const;
 
+const WARRANTY_GUIDE_ANSWER =
+  'Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the warranty page for current terms; service requests are handled through your client portal.';
+
+function withoutWarrantyBuildClaims(post: BlogPostData): BlogPostData {
+  if (post.slug !== 'cabinet-warranty-guide') return post;
+  const fix = (text: string) =>
+    text
+      .replace(/Before fabrication begins/g, 'Before the order begins')
+      .replace(/before fabrication begins/g, 'before the order begins')
+      .replace(/How long does fabrication take\?/g, 'How long does the order take?')
+      .replace(/\bdesign, build, and install\b/gi, 'design, source, and install')
+      .replace(/\bfabrication\b/gi, 'the order')
+      .replace(/\bwe build\b/gi, 'we install');
+  return {
+    ...post,
+    content: fix(post.content),
+    quickAnswer: post.quickAnswer === undefined ? undefined : fix(post.quickAnswer),
+    metaDescription: fix(post.metaDescription),
+    excerpt: fix(post.excerpt),
+    keyTakeaways: post.keyTakeaways?.map(fix),
+    faqs: post.faqs.map((faq) => ({
+      question: fix(faq.question),
+      answer: fix(faq.answer),
+    })),
+  };
+}
+
 export const PROCESS_CLUSTER_POSTS: BlogPostData[] = processSlugs.map(([slug, title]) =>
-  buildClusterPost({
+  withoutWarrantyBuildClaims(buildClusterPost({
     slug,
     title,
     seoTitle: `${title} | ${SITE_CONFIG.name}`,
-    metaDescription: `${title} for Ada and Canyon County cabinet projects.`,
+    metaDescription:
+      slug === 'cabinet-warranty-guide'
+        ? 'Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written guarantee. See the warranty page for terms.'
+        : `${title} for Ada and Canyon County cabinet projects.`,
     excerpt: title,
     hubSlug: 'cabinet-project-process',
     tags: ['process', 'cabinets'],
-    quickAnswer: `${title} for Treasure Valley homeowners working with custom cabinet teams.`,
-    takeaways: ['Build time for fabrication.', 'Document selections and revisions.'],
+    quickAnswer:
+      slug === 'cabinet-warranty-guide'
+        ? WARRANTY_GUIDE_ANSWER
+        : `${title} for Treasure Valley homeowners working with custom cabinet teams.`,
+    takeaways:
+      slug === 'cabinet-warranty-guide'
+        ? [
+            'Manufacturer warranties pass through on parts we supply.',
+            'Workmanship is covered by a written workmanship guarantee. See the warranty page for current terms.',
+          ]
+        : ['Build time for fabrication.', 'Document selections and revisions.'],
     serviceUrl: k,
-  }),
+  })),
 );
 
 // , ,  Cabinet ROI , , 

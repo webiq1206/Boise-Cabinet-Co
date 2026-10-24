@@ -2,11 +2,11 @@
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
-    "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
+    "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
   ],
   [
-    "What kind of cabinets do you build?",
-    "We build fully custom frameless cabinets, made to order for your space. You choose from 299 finishes and six door styles, and every cabinet uses the same quality frameless construction."
+    "What kind of cabinets do you offer?",
+    "We source and install custom frameless cabinets, made to order for your space. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction."
   ],
   [
     "How long does a custom cabinet project take?",
@@ -22,11 +22,11 @@ export const faqs = [
   ],
   [
     "Do you install cabinets or supply only?",
-    "We offer full-service design, fabrication coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal."
+    "We offer full-service design, sourcing coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal."
   ],
   [
     "What warranty do you provide?",
-    "Our limited lifetime warranty covers defects in materials and workmanship for the original homeowner under normal use. Conditions and exclusions apply. Review the full warranty for coverage details, including the 180-day limit for door warping."
+    "Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the warranty page for current terms; service requests are handled through your client portal."
   ],
   [
     "What does the free design consultation include?",
@@ -42,7 +42,7 @@ export const faqs = [
   ],
   [
     "Do you offer closet, laundry, and mudroom cabinets?",
-    "Yes. We design and build cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications."
+    "Yes. We design, source, and install cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications."
   ],
   [
     "How does pricing work?",
@@ -67,7 +67,7 @@ export const steps = [
     "tag": "03 / APPROVE"
   },
   {
-    "title": "Fabrication & quality check",
+    "title": "Order & quality check",
     "desc": "Your cabinets are made to order with frameless Euro construction. We check the cabinetry and finishes before shipping.",
     "tag": "04 / BUILD"
   },
@@ -81,11 +81,11 @@ export const steps = [
 export const differentiators = [
   [
     "One team, one point of accountability",
-    "Design, fabrication, and installation stay with one cabinet team. Your dedicated project manager stays with you from the first visit through the final walkthrough."
+    "Design, sourcing, and installation stay with one cabinet team. Your dedicated project manager stays with you from the first visit through the final walkthrough."
   ],
   [
-    "A written plan before fabrication",
-    "Your scope, design direction, and finish selections are documented before the build begins. Changes require a written change order and your approval first."
+    "A written plan before order",
+    "Your scope, design direction, and finish selections are documented before the order begins. Changes require a written change order and your approval first."
   ],
   [
     "A written update every Friday",
