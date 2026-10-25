@@ -11,6 +11,17 @@ import { TESTIMONIALS, visibleTestimonials } from "../shared/testimonialsData.ts
 const NAMES = ["Sarah M.", "Mike R.", "Jennifer K.", "David L."];
 const QUOTES = TESTIMONIALS.map((item) => item.testimonial);
 
+test("the effective npm postbuild preserves both public-output guards", () => {
+  const source = readFileSync("package.json", "utf8");
+  assert.equal([...source.matchAll(/"postbuild"\s*:/g)].length, 1,
+    "duplicate JSON keys silently replace an earlier build guard");
+  const command = JSON.parse(source).scripts.postbuild;
+  assert.deepEqual(command.split(/\s*&&\s*/), [
+    "node scripts/verify-no-seed-reviews-client.mjs",
+    "node scripts/guards/no-public-supplier-names.mjs",
+  ]);
+});
+
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
     if (name === "node_modules" || name === ".next") continue;
