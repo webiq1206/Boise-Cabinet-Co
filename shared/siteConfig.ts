@@ -1,3 +1,4 @@
+import { showFoundingYear } from "./claims";
 /**
  * Central site configuration, NAP, URLs, and contact strings.
  * Override via env for staging; replace placeholder values before launch.
@@ -25,6 +26,22 @@ export function showTestimonials(
   return value === "true";
 }
 
+/**
+ * A 2020 years-in-business claim stays in source. It renders only when this
+ * value is exactly "true". Unset, empty, or any other string stays hidden.
+ * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
+ * Idaho SOS shows P5 Home Co. LLC filed 09/25/2025, so nothing backs 2020.
+ */
+export { showFoundingYear } from "./claims";
+
+/** Verified Idaho registration. The number stays in the published phrase. */
+export { IDAHO_REGISTERED_CONTRACTOR } from "./claims";
+
+/** Keep both wordings. Publish the year claim only while the flag is on. */
+export function foundingYearCopy(shown: string, hidden: string): string {
+  return showFoundingYear() ? shown : hidden;
+}
+
 const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
 // E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
 const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;
@@ -45,6 +62,11 @@ export const SITE_CONFIG = {
   phoneTel: PHONE_TEL,
   phoneHref: `tel:${PHONE_E164}`,
   phoneSmsHref: `sms:${PHONE_E164}`,
+  /**
+   * Hours we reply to texts. One constant, so the contact line cannot drift.
+   * Jared confirmed Saturday. En dashes are range marks, not em dashes.
+   */
+  textReplyHours: "Mon–Fri 9–6, Sat 9–4 MT",
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
   // The owner who personally signs every outgoing email. The sender display
@@ -73,8 +95,9 @@ export const SITE_CONFIG = {
    * TODO(client): set NEXT_PUBLIC_* for license, GBP, and reviews before launch.
    */
   trust: {
-    // Idaho registered contractor / business license number.
-    licenseNumber: process.env.NEXT_PUBLIC_LICENSE_NUMBER ?? "",
+    // Idaho registered contractor number. The code default is the verified
+    // registration, so the footer and schema do not depend on an env var.
+    licenseNumber: process.env.NEXT_PUBLIC_LICENSE_NUMBER || "8381215",
     // Google Business Profile URL (strongest local entity signal).
     gbpUrl: process.env.NEXT_PUBLIC_GBP_URL ?? "",
     houzzUrl: process.env.NEXT_PUBLIC_HOUZZ_URL ?? "",
@@ -85,6 +108,27 @@ export const SITE_CONFIG = {
     reviewCount: numFromEnv(process.env.NEXT_PUBLIC_REVIEW_COUNT),
   },
 } as const;
+
+/** Plain-text Prefer to text sentence. Hours come only from SITE_CONFIG.textReplyHours. */
+export function preferToTextLine(phone: string = SITE_CONFIG.phone): string {
+  return `Prefer to text? Text ${phone}. Business hours: ${SITE_CONFIG.textReplyHours}.`;
+}
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+/** Same sentence for HTML email and blog copy, with the phone as an sms: link. */
+export function preferToTextHtml(
+  phone: string = SITE_CONFIG.phone,
+  smsHref: string = SITE_CONFIG.phoneSmsHref,
+): string {
+  return `Prefer to text? Text <a href="${escapeHtmlText(smsHref)}">${escapeHtmlText(phone)}</a>. Business hours: ${escapeHtmlText(SITE_CONFIG.textReplyHours)}.`;
+}
 
 export function formatPhoneDisplay(tel: string = SITE_CONFIG.phoneTel): string {
   const digits = tel.replace(/\D/g, "");

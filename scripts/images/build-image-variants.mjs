@@ -38,6 +38,20 @@ const TARGETS = [
 
 const VARIANT_RE = /-\d+\.webp$/;
 const isBaseWebp = (name) => name.endsWith(".webp") && !VARIANT_RE.test(name);
+/** Full-size files are soft. Keep Ada's shipped -768 and -1280 files; do not resize the base. */
+const PREBUILT_VARIANTS = new Set([
+  "cabinet-door-samples.webp",
+  "kitchen-wood-island.webp",
+]);
+
+/** Replaced by Sam image QA r1. Files stay on disk and are not served. */
+const RETIRED = new Set([
+  "images/marketing/hero-contact.webp",
+  "images/marketing/hero-hardware.webp",
+  "images/marketing/statement-whole-home.webp",
+  "images/marketing/drawers-black-pulls-oak.webp",
+  "images/catalog/rooms/kitchen.webp",
+]);
 
 const manifest = {};
 let generated = 0;
@@ -47,7 +61,7 @@ async function processDir(dirRel, widths) {
   const absDir = path.join(publicDir, dirRel);
   if (!fs.existsSync(absDir)) return;
   for (const name of fs.readdirSync(absDir)) {
-    if (!isBaseWebp(name)) continue;
+    if (!isBaseWebp(name) || RETIRED.has(`${dirRel}/${name}`)) continue;
     const absFile = path.join(absDir, name);
     const base = name.replace(/\.webp$/, "");
     let maxW = 0;
@@ -57,10 +71,12 @@ async function processDir(dirRel, widths) {
       continue;
     }
     const available = [];
+    const prebuilt = PREBUILT_VARIANTS.has(name);
     for (const w of widths) {
       if (maxW && w > maxW) continue;
       const destAbs = path.join(absDir, `${base}-${w}.webp`);
       if (!fs.existsSync(destAbs)) {
+        if (prebuilt) continue;
         try {
           await sharp(absFile).resize(w).webp({ quality: QUALITY }).toFile(destAbs);
           generated += 1;

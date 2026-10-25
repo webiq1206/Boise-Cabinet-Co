@@ -135,7 +135,7 @@ async function main() {
     // Spot-check grounding against the published sources.
     const warranty = KNOWLEDGE_TOPICS.find((t) => t.key === "warranty")!;
     check(
-      warranty.content.toLowerCase().includes("limited lifetime warranty"),
+      warranty.content.toLowerCase().includes("passes the manufacturer's warranty through"),
       "warranty topic states the published warranty",
     );
     const leadTime = KNOWLEDGE_TOPICS.find((t) => t.key === "lead-time")!;

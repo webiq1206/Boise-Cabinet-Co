@@ -24,7 +24,6 @@ const COVERED = [
   "Cabinet boxes against defects in materials and workmanship",
   "Doors and drawer fronts against manufacturing defects",
   "Hardware we supply: hinges and drawer slides under normal use",
-  "Coverage for the lifetime of original home ownership",
 ];
 
 const CONDITIONS = [
@@ -74,7 +73,7 @@ export default function WarrantyPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
-          alt="cabinet hardware and finished door fronts"
+          alt="Oak drawers with round brass knobs above walnut doors with black knobs"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
           title={showLifetimeWarranty() ? <>

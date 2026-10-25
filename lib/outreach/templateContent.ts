@@ -42,21 +42,21 @@ export const DEFAULT_TEMPLATE_CONTENT: OutreachTemplateContent = {
   personal: {
     subject: "Taking the cabinet work off your plate in {city}",
     opener:
-      "I run a custom cabinet shop here in the Treasure Valley, and I wanted to reach out and introduce myself.",
+      "I run a custom cabinet company here in the Treasure Valley, and I wanted to reach out and introduce myself.",
     pitch:
-      "I spent several years running a remodeling business in Colorado before my family moved to Boise, where I opened a custom cabinet shop. These days I build custom cabinets right here in the valley for contractors who would rather hand off the cabinet portion of a job than manage it themselves. You get one person handling design, build, and install, pricing that stays competitive, and solid work your clients will be glad to show off. In practice that means one less trade to chase down and a budget that holds together.",
+      "I spent several years running a remodeling business in Colorado before my family moved to Boise, where I opened a custom cabinet company. These days I design and install custom cabinets right here in the valley for contractors who would rather hand off the cabinet portion of a job than manage it themselves. You get one person handling design, ordering, and install, pricing that stays competitive, and solid work your clients will be glad to show off. In practice that means one less trade to chase down and a budget that holds together.",
     closing:
       "If you have a kitchen, bath, or built in coming up, I would be glad to put a bid together so you can see the numbers, with no pressure either way. Just reply to this email or call me at {phone} and I will take it from there.",
   },
   branded: {
     subject: "{company}: your local cabinet partner in {city}",
     intro:
-      "I am {owner} with {company}. After several years running a remodeling business in Colorado, my family moved to Boise and I opened this custom cabinet shop. I partner with contractors who would rather hand off the cabinet portion of a remodel than juggle it in house.",
+      "I am {owner} with {company}. After several years running a remodeling business in Colorado, my family moved to Boise and I opened this custom cabinet company. I partner with contractors who would rather hand off the cabinet portion of a remodel than juggle it in house.",
     bullets: [
-      "Custom kitchens, baths, and built ins, designed and built right here in the valley.",
+      "Custom kitchens, baths, and built ins, designed and installed right here in the valley.",
       "Competitive pricing that keeps your project budget on track.",
-      "Solid, well built work your clients will be proud to show off.",
-      "One point of contact for design, build, and install, so you have one less trade to manage.",
+      "Solid, well-installed work your clients will be proud to show off.",
+      "One point of contact for design, ordering, and install, so you have one less trade to manage.",
     ],
     closing:
       "If you have a project coming up where the cabinets need pricing, just reply here or call me at {phone} and I will put a bid together. No pressure at all.",

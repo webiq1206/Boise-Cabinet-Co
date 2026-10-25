@@ -328,7 +328,7 @@ export const PROJECT_LABELS: Record<
 > = {
   kitchen: {
     label: "Kitchen", sub: "Bases, uppers, pantries, islands", icon: "ChefHat",
-    image: "/images/catalog/rooms/kitchen.webp",
+    image: "/images/catalog/rooms/kitchen-walnut-mountain.webp",
   },
   bathroom: {
     label: "Bathroom", sub: "Vanities, towers, linen storage", icon: "Bath",
@@ -816,7 +816,7 @@ export function buildScopeSummary(sel: EstimateSelections): string {
     parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
   }
   // Guarantee a multi-part summary so downstream UI always has a separator.
-  if (parts.length < 2) parts.push("built to order");
+  if (parts.length < 2) parts.push("sized to fit");
   return parts.join(" · ");
 }
 
@@ -829,7 +829,7 @@ export function buildSelectionSummary(sel: EstimateSelections): string {
 function buildIncluded(sel: EstimateSelections): string[] {
   const vis = sel.project ? getStepVisibility(sel.project) : { layout: false, doorStyle: true };
   const list: string[] = [];
-  list.push("Custom cabinets, built to order");
+  list.push("Custom cabinets, sized to your layout");
 
   if (vis.layout) {
     const layout = LAYOUT_BY_SLUG[sel.layout];
@@ -851,7 +851,7 @@ function buildIncluded(sel: EstimateSelections): string[] {
     list.push(CONSTRUCTION_INCLUDED[sel.construction]);
   }
 
-  list.push("Soft-close hinges and full-extension drawer slides");
+  list.push("Soft-close hinge and drawer-slide options");
   list.push("Professional installation and final adjustment");
 
   const seen = new Set<string>();

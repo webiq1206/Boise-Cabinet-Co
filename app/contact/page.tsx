@@ -1,4 +1,5 @@
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
+import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { Section } from '@/components/marketing';
 import { FaqAccordion } from '@/components/marketing/FaqAccordion';
@@ -26,6 +27,7 @@ import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -74,7 +76,7 @@ interface ContactChannelProps {
   href?: string;
   external?: boolean;
   children: React.ReactNode;
-  subtext: string;
+  subtext: ReactNode;
   featured?: boolean;
 }
 
@@ -155,7 +157,7 @@ export default function ContactPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Approved editorial hero */}
-        <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="bathroom design with custom wood vanity cabinets">
+        <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -211,7 +213,12 @@ export default function ContactPage() {
                     <em className="brc-accent text-accent">project</em>
                   </>
                 }
-                description="We respond within one business day. Share your goals and we will schedule a free in-home design consultation."
+                description={
+                  <>
+                    We respond within one business day. Share your goals and we will schedule a free in-home design consultation.{" "}
+                    <PreferToTextLine />
+                  </>
+                }
                 className="max-w-none"
               />
             </div>
@@ -233,7 +240,12 @@ export default function ContactPage() {
                   <em className="brc-accent text-accent">connect</em>
                 </>
               }
-              description="Call, email, or visit, we respond within one business day and never use high-pressure sales tactics."
+              description={
+                <>
+                  Call, email, or visit, we respond within one business day and never use high-pressure sales tactics.{" "}
+                  <PreferToTextLine />
+                </>
+              }
               className="max-w-3xl"
             />
             <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
@@ -242,7 +254,7 @@ export default function ContactPage() {
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
                   label="Call us"
                   href={SITE_CONFIG.phoneHref}
-                  subtext="Call or text to discuss your cabinet project"
+                  subtext="Mon-Fri 9 AM-6 PM and Sat 9 AM-4 PM Mountain, closed Sunday"
                   featured
                 >
                   <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>
@@ -262,7 +274,11 @@ export default function ContactPage() {
                 <ContactChannel
                   icon={<Mail className="h-5 w-5" strokeWidth={1.5} />}
                   label="Email us"
-                  subtext="Response within one business day"
+                  subtext={
+                    <>
+                      Response within one business day <PreferToTextLine className="mt-1 block" />
+                    </>
+                  }
                 >
                   <a
                     href={`mailto:${SITE_CONFIG.email}`}

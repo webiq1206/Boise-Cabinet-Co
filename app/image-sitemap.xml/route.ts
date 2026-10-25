@@ -4,6 +4,7 @@ import { MARKETING_IMAGES } from '@/shared/siteImages';
 import { PROJECTS } from '@/shared/galleryData';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { getBlogThumbnail } from '@/shared/blogImages';
+import { showTestimonials } from '@/shared/siteConfig';
 
 /**
  * /image-sitemap.xml - Google Image sitemap extension.
@@ -40,8 +41,21 @@ export function GET() {
     page: `${BASE}/`,
     images: [
       { loc: abs(MARKETING_IMAGES.heroHome), title: 'Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home' },
-      { loc: abs(MARKETING_IMAGES.hardware), title: 'Satin nickel bar pulls on custom painted cabinet drawers by Boise Cabinet Co' },
       { loc: abs(MARKETING_IMAGES.designStudio), title: 'Cabinet door samples, finish swatches, and a kitchen layout rendering during a design consultation' },
+    ],
+  });
+
+  entries.push({
+    page: `${BASE}/cabinets`,
+    images: [
+      { loc: abs(MARKETING_IMAGES.cabinetsHero), title: 'Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall' },
+    ],
+  });
+
+  entries.push({
+    page: `${BASE}/warranty`,
+    images: [
+      { loc: abs(MARKETING_IMAGES.hardware), title: 'Oak drawers with round brass knobs above walnut doors with black knobs' },
     ],
   });
 
@@ -50,22 +64,25 @@ export function GET() {
     if (!room.heroImage) continue;
     entries.push({
       page: `${BASE}/cabinets/${room.slug}`,
-      images: [{ loc: abs(room.heroImage), title: `Custom ${room.name.toLowerCase()} cabinets built by Boise Cabinet Co in Meridian, Idaho` }],
+      images: [{ loc: abs(room.heroImage), title: room.imageAlt ?? `Custom ${room.name.toLowerCase()} cabinets in Meridian, Idaho` }],
     });
   }
 
-  // Project imagery (design concepts are labeled as such; verified projects are
-  // described as completed work).
-  entries.push({
-    page: `${BASE}/testimonials`,
-    images: PROJECTS.map((project) => ({
-      loc: abs(project.hero.src),
-      title:
-        project.kind === 'concept'
-          ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
-          : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
-    })),
-  });
+  // Project imagery stays off the image sitemap while testimonials are hidden.
+  // Design concepts are labeled as such; verified projects are described as
+  // completed work.
+  if (showTestimonials()) {
+    entries.push({
+      page: `${BASE}/testimonials`,
+      images: PROJECTS.map((project) => ({
+        loc: abs(project.hero.src),
+        title:
+          project.kind === 'concept'
+            ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
+            : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
+      })),
+    });
+  }
 
   // Article imagery, mapped to the article it illustrates.
   for (const post of BLOG_POSTS) {

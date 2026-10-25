@@ -144,6 +144,7 @@ export function AssistantWidget() {
   const [error, setError] = useState<string | null>(null);
   const [estimate, setEstimate] = useState<CombinedEstimateResult | null>(null);
   const [wizardBarActive, setWizardBarActive] = useState(false);
+  const [contactClear, setContactClear] = useState(true);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -161,6 +162,29 @@ export function AssistantWidget() {
       cancelled = true;
     };
   }, []);
+
+  // The first-screen Call and Text row must stay clickable. Hide the launcher
+  // only while its corner would cover that row.
+  useEffect(() => {
+    const update = () => {
+      const row = document.querySelector("[data-above-fold-actions]");
+      if (!row) {
+        setContactClear(true);
+        return;
+      }
+      const rect = row.getBoundingClientRect();
+      const launcherTop = window.innerHeight - 96 - 52;
+      const overlaps = rect.top < window.innerHeight && rect.bottom > launcherTop;
+      setContactClear(!overlaps);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname]);
 
   // Step aside whenever a guided-flow wizard shows its own mobile bar.
   useEffect(() => {
@@ -296,7 +320,7 @@ export function AssistantWidget() {
 
   return (
     <>
-      {!open && !formInView && !wizardBarActive && (
+      {!open && !formInView && !wizardBarActive && contactClear && (
         <button
           type="button"
           onClick={handleOpen}

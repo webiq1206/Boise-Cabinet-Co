@@ -40,6 +40,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
   CheckCircle2,
@@ -210,7 +211,11 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
     if (ok) {
       toast({
         title: "Pricing request sent",
-        description: `${SITE_CONFIG.name} will contact you within one business day.`,
+        description: (
+          <>
+            {SITE_CONFIG.name} will contact you within one business day. <PreferToTextLine />
+          </>
+        ),
       });
     }
   };
@@ -246,7 +251,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
               <p className="text-sm text-muted-foreground">
                 {SITE_CONFIG.name} will review your design and reach out within one business
                 day to schedule a free consultation. We&apos;ve saved your design so you can
-                revisit or tweak it anytime.
+                revisit or tweak it anytime. <PreferToTextLine />
               </p>
               <div className="flex flex-wrap gap-3 pt-1">
                 <Button variant="brandOutline" size="sm" asChild>

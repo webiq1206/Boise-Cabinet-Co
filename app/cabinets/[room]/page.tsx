@@ -1,3 +1,4 @@
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
@@ -166,7 +167,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Hero */}
-        <InteriorHero layout="split" imageSrc={room.heroImage} imageAlt={`${room.name} custom cabinets`}>
+        <InteriorHero className={["kitchen", "built-ins"].includes(room.slug) ? "interior-hero-above-fold" : ""} layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
@@ -191,8 +192,12 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   </>
                 )
               }
-              description={roomCopy?.firstSentence ?? room.description}
+              description={["kitchen", "built-ins"].includes(room.slug) ? undefined : roomCopy?.firstSentence ?? room.description}
             />
+            {["kitchen", "built-ins"].includes(room.slug) && <>
+              <AboveFoldActions />
+              <p className="ed-lede mt-4">{roomCopy?.firstSentence ?? room.description}</p>
+            </>}
             {roomCopy ? (
               <>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{roomCopy.aboveFold}</p>

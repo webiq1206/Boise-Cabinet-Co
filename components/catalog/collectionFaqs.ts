@@ -18,7 +18,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
     {
       question: "Does Boise Cabinet Co include installation?",
       answer:
-        "Yes. Every collection includes professional installation by our Treasure Valley crew, soft-close hinges on doors, and our written workmanship guarantee. We coordinate with your project timeline when other trades are on site.",
+        "Yes. Every collection includes professional installation by our Treasure Valley crew and our written workmanship guarantee, with soft-close options. We coordinate with your project timeline when other trades are on site.",
     },
     {
       question: "Can I see finishes before ordering?",

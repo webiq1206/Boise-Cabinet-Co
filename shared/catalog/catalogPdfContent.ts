@@ -37,7 +37,7 @@ import type { CabinetDimension } from "@/shared/catalog/types";
 export const CATALOG_PDF_FOOTER = `${SITE_CONFIG.name} | ${SITE_CONFIG.siteUrl} | Full product catalog - planning reference, not a contract or quote`;
 
 /**
- * Resolves a public image path (e.g. `/images/catalog/rooms/kitchen.webp`) to
+ * Resolves a public image path (e.g. `/images/catalog/rooms/kitchen-walnut-mountain.webp`) to
  * embeddable JPEG bytes, or `null` when the file is missing/undecodable.
  */
 export type CatalogImageResolver = (publicPath: string) => Promise<Uint8Array | null>;
@@ -301,7 +301,7 @@ export async function buildCatalogPdfBlocks(
   });
   blocks.push({
     type: "paragraph",
-    text: "Product availability, lead times, and pricing change over time and are confirmed in writing during your design consultation. Cabinet configurations and accessories are built to order. This catalog is a planning reference, not a contract or quote.",
+    text: "Product availability, lead times, and pricing change over time and are confirmed in writing during your design consultation. Cabinet configurations and accessories are ordered to your specifications. This catalog is a planning reference, not a contract or quote.",
   });
 
   // ── Plan your project (contact + CTA back matter) ────────────────────────────

@@ -54,7 +54,7 @@ export function buildFinishIntro(finish: Finish): string {
   const cat = CATEGORY_LABEL[finish.category] ?? finish.category;
   const fam = finish.colorFamily ? `${finish.colorFamily.toLowerCase()} ` : "";
   const sheen = SHEEN_NOTE[finish.sheen] ?? "a durable, easy-to-clean surface";
-  return `${finish.name} is a ${fam}${cat} cabinet finish offered by Boise Cabinet Co. It has ${sheen}. Every door, drawer front, and panel is built to order and finished to match, so your cabinets read as one cohesive piece in your home.`;
+  return `${finish.name} is a ${fam}${cat} cabinet finish offered by Boise Cabinet Co. It has ${sheen}. Every door, drawer front, and panel is ordered to your specs and finished to match, so your cabinets read as one cohesive piece in your home.`;
 }
 
 export function buildFinishSections(
@@ -116,7 +116,7 @@ export function buildFinishFaqs(
 
   faqs.push({
     question: `Is ${finish.name} available for custom sizes?`,
-    answer: `Yes. ${finish.name} is built to order in our custom line, so you can size cabinets to your room in 1/4 inch increments rather than relying on stock widths.`,
+    answer: `Yes. ${finish.name} is available in our custom line, so you can size cabinets to your room in 1/4 inch increments rather than relying on stock widths.`,
   });
 
   faqs.push({

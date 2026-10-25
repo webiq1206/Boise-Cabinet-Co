@@ -1,7 +1,6 @@
 # Boise Cabinet Co Brand Kit
 
 Custom Cabinetry · Boise & the Treasure Valley, Idaho
-<!-- FLAG-HIDE founding year until verified: Est. 2020 -->
 
 Part of the Boise trades brand system. The system-wide rules live in
 [`../../BRAND-SYSTEM.md`](../../BRAND-SYSTEM.md). **This file covers only what is specific to Boise Cabinet Co.**

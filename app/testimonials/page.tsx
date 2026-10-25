@@ -20,7 +20,7 @@ const testimonialsMetadata = buildPageMetadata({
   path: '/testimonials',
   titleOverride: showTestimonials() ? 'Cabinet Design Ideas & Reviews' : 'Cabinet Design Ideas',
   descriptionOverride:
-    'Explore cabinet design concepts for kitchens, bathrooms and built-ins. Concept imagery illustrates design options and is not evidence of completed Boise projects.',
+    'Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with us.',
   noindex: !showTestimonials(),
 });
 
@@ -76,7 +76,7 @@ export default function TestimonialsPage() {
         title={showTestimonials() ? <>Design ideas &amp; <em className="brc-accent text-accent">reviews</em></> : "Design ideas"}
         description={showTestimonials()
           ? "Explore cabinet design concepts for Treasure Valley homes and hear from homeowners who prioritized clarity, craftsmanship, and communication."
-          : "Explore cabinet design concepts for Treasure Valley homes."}
+          : "Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes."}
       >
         <CtaButton variant="brand">
           {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />

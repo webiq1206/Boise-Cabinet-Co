@@ -345,7 +345,7 @@ function withoutWarrantyBuildClaims(post: BlogPostData): BlogPostData {
   return {
     ...post,
     content: fix(post.content),
-    quickAnswer: fix(post.quickAnswer),
+    quickAnswer: post.quickAnswer === undefined ? undefined : fix(post.quickAnswer),
     metaDescription: fix(post.metaDescription),
     excerpt: fix(post.excerpt),
     keyTakeaways: post.keyTakeaways?.map(fix),

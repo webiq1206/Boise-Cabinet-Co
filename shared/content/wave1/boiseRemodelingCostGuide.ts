@@ -133,7 +133,7 @@ const sections: ContentSection[] = [
       'Get a planning range from a written preliminary scope',
       'Hold 10–15% contingency for field adjustments at install',
       'Budget countertops, appliances, and plumbing separately',
-      'Plan for shop lead times before demo day',
+      'Plan for cabinet lead times before demo day',
     ],
   },
   {

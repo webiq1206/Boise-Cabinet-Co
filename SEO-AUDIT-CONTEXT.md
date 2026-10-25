@@ -14,7 +14,7 @@
 - Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
 - Address: Service-area business; base city Meridian, ID (no public street address)
-- Founded: 2017
+- Founded: leave blank until documented
 - Service Area: Boise, Meridian, Eagle, Kuna, Star, Nampa, Middleton, Caldwell (Treasure Valley)
 - Source of truth: `shared/siteConfig.ts`
 

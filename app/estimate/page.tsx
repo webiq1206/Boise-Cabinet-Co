@@ -1,3 +1,4 @@
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
@@ -37,6 +38,7 @@ export default function EstimatePage() {
       <header><ApprovedBrand /></header>
       <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 py-8">
         <h1 className="text-3xl font-serif">Get an Estimate</h1>
+        <AboveFoldActions />
         <p className="mt-4">Share your project details for our team to review. Prefer to talk it through? Call or text Boise Cabinet Co.</p>
         <LandingContactActions formId="estimate-request" formLabel="Send Estimate Request" />
         <div id="estimate-request" tabIndex={-1} className="scroll-mt-28">

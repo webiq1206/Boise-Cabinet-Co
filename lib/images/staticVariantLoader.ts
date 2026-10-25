@@ -24,7 +24,12 @@ export default function staticVariantLoader({ src, width }: LoaderArgs): string 
   const requested = widths.find((w) => w >= width);
   // Room originals are legacy scenes; their optimized variants form the
   // consistent, reviewed room set. Keep that same scene on high-DPI displays.
-  const pick = requested ?? (src.startsWith("/images/catalog/rooms/") ? widths[widths.length - 1] : undefined);
+  // Ada's marketing bases are soft, so those also stay on the largest sharp variant.
+  const keepLargest =
+    src.startsWith("/images/catalog/rooms/") ||
+    src === "/images/marketing/cabinet-door-samples.webp" ||
+    src === "/images/marketing/kitchen-wood-island.webp";
+  const pick = requested ?? (keepLargest ? widths[widths.length - 1] : undefined);
   if (!pick) return src;
 
   const dot = src.lastIndexOf(".");

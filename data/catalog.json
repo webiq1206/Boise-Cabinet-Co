@@ -50,7 +50,7 @@
     },
     {
       "name": "Alpha Shaker",
-      "altName": "internal alias only: Zeta / Tafisa profile",
+      "altName": "internal alias only: Zeta profile",
       "description": "Mitered shaker profile, streamlined look.",
       "drawerFront": "Horizontal-grain slab front",
       "image": "door-styles/alpha-shaker.webp"
@@ -1042,7 +1042,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/amber-pearwood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Chocolate Carini Walnut",
@@ -1051,7 +1051,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/chocolate-carini-walnut.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Dark Steel",
@@ -1060,7 +1060,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/dark-steel.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Auburn Carini Walnut",
@@ -1069,7 +1069,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/auburn-carini-walnut.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Chocolate Pearwood",
@@ -1078,7 +1078,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/chocolate-pearwood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Espresso",
@@ -1087,7 +1087,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/espresso.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Beige Textile",
@@ -1096,7 +1096,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/beige-textile.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Chromix Anthracite",
@@ -1105,7 +1105,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/chromix-anthracite.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Floral Mahogany",
@@ -1114,7 +1114,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/floral-mahogany.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Black",
@@ -1123,7 +1123,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/black.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Chromix Silver",
@@ -1132,7 +1132,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/chromix-silver.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Fog Grey Tossini Elm",
@@ -1141,7 +1141,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/fog-grey-tossini-elm.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Brown Tossini Elm",
@@ -1150,7 +1150,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/brown-tossini-elm.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Dark Brown Eucalyptus",
@@ -1159,7 +1159,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/dark-brown-eucalyptus.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Grey Beige Gladstone Oak",
@@ -1168,7 +1168,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/grey-beige-gladstone-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Carbon Frozen Wood",
@@ -1177,7 +1177,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/carbon-frozen-wood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Dark Grey Fineline",
@@ -1186,7 +1186,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/dark-grey-fineline.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Grey Frozen Wood",
@@ -1195,7 +1195,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/grey-frozen-wood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Natural Carini Walnut",
@@ -1204,7 +1204,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/natural-carini-walnut.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Vicenza Oak",
@@ -1213,7 +1213,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/vicenza-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Hardrock Maple",
@@ -1222,7 +1222,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/hardrock-maple.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Natural Eucalyptus",
@@ -1231,7 +1231,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/natural-eucalyptus.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Warm Grey Eucalyptus",
@@ -1240,7 +1240,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/warm-grey-eucalyptus.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Natural Bardolino Oak",
@@ -1249,7 +1249,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/natural-bardolino-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Tobacco Halifax Oak",
@@ -1258,7 +1258,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/tobacco-halifax-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Grey Beige Tossini Elm",
@@ -1267,7 +1267,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/grey-beige-tossini-elm.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Light Grey Fineline",
@@ -1276,7 +1276,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/light-grey-fineline.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Shorewood",
@@ -1285,7 +1285,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/shorewood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Fineline",
@@ -1294,7 +1294,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-fineline.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Medium Grey Fineline",
@@ -1303,7 +1303,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/medium-grey-fineline.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Tobacco Gladstone Oak",
@@ -1312,7 +1312,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/tobacco-gladstone-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Honey Carini Walnut",
@@ -1321,7 +1321,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/honey-carini-walnut.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Sand Gladstone Oak",
@@ -1330,7 +1330,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/sand-gladstone-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Chromix",
@@ -1339,7 +1339,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-chromix.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Tossini Elm",
@@ -1348,7 +1348,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-tossini-elm.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Gladstone Oak",
@@ -1357,7 +1357,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-gladstone-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Halifax Oak",
@@ -1366,7 +1366,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-halifax-oak.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Frozen Wood",
@@ -1375,7 +1375,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-frozen-wood.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Levanto Marble",
@@ -1384,7 +1384,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-levanto-marble.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Linen",
@@ -1393,7 +1393,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-linen.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "White Havana Pine",
@@ -1402,7 +1402,7 @@
       "colorFamily": "Wood",
       "onSiteNow": "No",
       "image": "finishes/woodgrain/white-havana-pine.webp",
-      "materialLine": "TFL (Tafisa)"
+      "materialLine": "TFL"
     },
     {
       "name": "Bianco",
@@ -16154,8 +16154,8 @@
     }
   ],
   "content": {
-    "warrantyHeadline": "Limited lifetime warranty",
-    "warrantySummary": "Boise Cabinet Co stands behind your cabinets with a limited lifetime warranty: we warrant to the original homeowner that cabinet boxes, doors, and hardware are free from defects in materials and workmanship for the lifetime of original home ownership, under normal use. Conditions apply (e.g., door warping is covered only within the first 180 days); damage from moisture, heat, chemicals, improper installation, or normal wear is excluded.",
+    "warrantyHeadline": "Manufacturer warranties passed through",
+    "warrantySummary": "Boise Cabinet Co passes the manufacturer's warranty through to you. Conditions vary by manufacturer; your written scope lists the warranty for your cabinets.",
     "warrantyNote": "Internal: present this as Boise Cabinet Co's own warranty. Boise must be able to honor and administer these terms; all warranty claims route to Boise Cabinet Co. Legal review recommended before launch.",
     "leadTime": "4-8 weeks",
     "leadTimeNote": "Single site-wide value. Reflects the figure most prominent on the current site; keep it equal to Boise actual production + install time.",

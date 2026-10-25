@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const ALT =
-  "Close-up of satin nickel bar pulls on custom painted cabinet drawers built by Boise Cabinet Co";
+  "Oak drawers with round brass knobs above walnut doors with black knobs";
 
 /**
  * Full-bleed cabinet-detail band with an overlaid statement. Breaks the lower,
@@ -46,8 +46,7 @@ export function CraftStatementBand() {
             </em>
           </p>
           <p className="ed-lede mt-9 max-w-[40ch]" style={{ color: "hsl(var(--foreground) / 0.85)" }}>
-            Soft-close hardware, hand-checked finishes and frameless construction,
-            built to order in our Meridian shop and installed to last.
+            Frameless and soft-close options, sized to fit and installed by our own local crew.
           </p>
         </div>
       </div>

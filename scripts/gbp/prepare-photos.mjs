@@ -87,7 +87,8 @@ function main() {
 
   console.log("Room category photos:");
   for (const slug of ROOM_SLUGS) {
-    if (copy(`images/catalog/rooms/${slug}.webp`, `${slug}-cabinets-treasure-valley-idaho.webp`)) count++;
+    const file = slug === "kitchen" ? "kitchen-walnut-mountain.webp" : `${slug}.webp`;
+    if (copy(`images/catalog/rooms/${file}`, `${slug}-cabinets-treasure-valley-idaho.webp`)) count++;
   }
 
   console.log("Finish swatches:");

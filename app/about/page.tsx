@@ -24,7 +24,7 @@ generateOrganizationSchema,
 generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
-import { SITE_CONFIG } from '@/shared/siteConfig';
+import { SITE_CONFIG, foundingYearCopy, showFoundingYear } from '@/shared/siteConfig';
 import { publicQa,publicText,REGISTERED_BONDED_INSURED } from '@/shared/claims';
 import { PRINCIPLES,TEAM,TRUST_ITEMS,publicHeroStats } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
@@ -94,7 +94,10 @@ export default function AboutPage() {
   const ABOUT_FAQS = publicQa([
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      answer: foundingYearCopy(
+        `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+        `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+      ),
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -178,7 +181,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="image of a Boise Cabinet Co cabinetmaker assembling a frameless cabinet box"
+                alt="Cabinet door samples and finish swatches laid out for a kitchen design"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
@@ -202,8 +205,8 @@ export default function AboutPage() {
               <Reveal>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg"
-                  alt="Boise Cabinet Co seal"
+                  src={showFoundingYear() ? "/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg" : "/brand/svg/icon/boise-cabinet-co-icon-bone.svg"}
+                  alt={showFoundingYear() ? "Boise Cabinet Co seal" : "Boise Cabinet Co"}
                   width={64}
                   height={64}
                   className="mb-7 h-16 w-16 rounded-full"

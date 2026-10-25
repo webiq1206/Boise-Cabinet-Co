@@ -30,10 +30,10 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
     // First page of the catalog, cropped to OG dimensions. JPEG on purpose:
     // iMessage and some crawlers don't render WebP link previews.
     ogImage: {
-      url: "/images/marketing/og-catalog.jpg",
+      url: "/images/marketing/og-catalog-kitchen.jpg",
       width: 1200,
       height: 630,
-      alt: "Boise Cabinet Co full cabinet catalog cover",
+      alt: "Warm kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling",
     },
   },
 )), "/catalog");

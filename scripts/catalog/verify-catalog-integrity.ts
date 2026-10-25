@@ -231,6 +231,25 @@ function main() {
     }
   }
 
+  // Shared supplier terms, case-insensitive, across every generated catalog string.
+  // Reserve stays on the name check above. Internal keys stripped at codegen are skipped.
+  const termsPath = path.join(ROOT, "scripts/guards/supplier-terms.json");
+  const terms = JSON.parse(fs.readFileSync(termsPath, "utf8")).terms as string[];
+  const termRes = terms.map((term) => new RegExp(term, "i"));
+  const generatedFiles = fs.readdirSync(GEN).filter((name) => name.endsWith(".ts"));
+  const allowKey = /"(?:oscLine|materialLine|altName)"\s*:/;
+  for (const file of generatedFiles) {
+    const lines = fs.readFileSync(path.join(GEN, file), "utf8").split("\n");
+    lines.forEach((line, index) => {
+      if (allowKey.test(line)) return;
+      for (const re of termRes) {
+        if (re.test(line)) {
+          fail(`Supplier term ${re} in shared/catalog/generated/${file}:${index + 1}`);
+        }
+      }
+    });
+  }
+
   // ── Generated TS in sync ──────────────────────────────────────────────────
   for (const f of ["doorStyles.ts", "finishes.ts", "cabinetProducts.ts", "content.ts", "nomenclature.ts"]) {
     if (!fs.existsSync(path.join(GEN, f))) fail(`Missing generated ${f} — run: npm run catalog:codegen`);

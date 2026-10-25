@@ -5,15 +5,16 @@
 export const MARKETING_IMAGES = {
   heroHome: "/images/marketing/hero-home.webp",
   heroAbout: "/images/marketing/hero-about-branded.webp",
-  heroContact: "/images/marketing/hero-contact.webp",
+  heroContact: "/images/marketing/bath-white-oak-vanity.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
+  cabinetsHero: "/images/marketing/kitchen-farmhouse-shaker.webp",
   processHome: "/images/marketing/process-home-branded.webp",
-  processAbout: "/images/marketing/process-about-branded.webp",
+  processAbout: "/images/marketing/cabinet-door-samples.webp",
   processContact: "/images/marketing/process-home-branded.webp",
-  hardware: "/images/marketing/hero-hardware.webp",
-  construction: "/images/marketing/hero-construction.webp",
+  hardware: "/images/marketing/warranty-hardware.webp",
+  construction: "/images/marketing/kitchen-wood-island.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",
-  statementBand: "/images/marketing/statement-whole-home.webp",
+  statementBand: "/images/marketing/great-room-oak-built-ins.webp",
   ogDefault: "/images/marketing/og-default.webp",
 } as const;
 

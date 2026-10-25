@@ -24,7 +24,7 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
   "/shaker-cabinets",
   "Shaker Cabinets",
   catalogDescription(
-    "Custom shaker cabinets built to order by {company} in Meridian, Idaho. Four shaker profiles, 299 finishes including classic white shaker, sage green, and two-tone, with frameless construction.",
+    "Custom shaker cabinets from {company}, sized to your layout and installed across the Treasure Valley. Four shaker profiles in finishes including classic white shaker, sage green, and two-tone, with frameless options.",
   ),
 )), "/shaker-cabinets");
 
@@ -76,7 +76,7 @@ const FAQS = [
   {
     question: "Are shaker cabinets framed or frameless?",
     answer:
-      "Ours are frameless. Frameless (European) construction gives you more usable interior space and full-overlay doors for the clean, uninterrupted shaker look most homeowners want.",
+      "We offer frameless options. Frameless (European) construction gives you more usable interior space and full-overlay doors for the clean, uninterrupted shaker look most homeowners want.",
   },
   {
     question: "How much do shaker cabinets cost?",
@@ -90,7 +90,7 @@ export default function ShakerCabinetsPage() {
     generateWebPageSchema({
       title: "Shaker Cabinets",
       description:
-        "Custom shaker cabinets in four profiles and 299 finishes, built to order by Boise Cabinet Co in Meridian, Idaho.",
+        "Custom shaker cabinets in four profiles and hundreds of finishes, designed and installed by Boise Cabinet Co across the Treasure Valley.",
       url: "/shaker-cabinets",
     }),
     generateBreadcrumbSchema([
@@ -99,7 +99,7 @@ export default function ShakerCabinetsPage() {
     ]),
     generateServiceSchema(
       "Custom Shaker Cabinets",
-      "Built-to-order shaker cabinetry in modern, thin, alpha, and beta profiles with frameless construction and 299 finishes, designed and installed across the Treasure Valley by Boise Cabinet Co.",
+      "Shaker cabinetry in modern, thin, alpha, and beta profiles with frameless options and hundreds of finishes, designed and installed across the Treasure Valley by Boise Cabinet Co.",
     ),
     generateFAQSchema(FAQS),
   ];
@@ -191,12 +191,12 @@ export default function ShakerCabinetsPage() {
         </Section>
 
         <Section variant="greige" divider>
-          <SplitSection header={<SectionHeader eyebrow="Built to last" title={<>Why our shaker holds up</>} className="mb-0" />}>
+          <SplitSection header={<SectionHeader eyebrow="Chosen to last" title={<>Why our shaker holds up</>} className="mb-0" />}>
             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
               {[
-                "Frameless construction for more interior space and a clean, full-overlay look",
+                "Frameless options for more interior space and a clean, full-overlay look",
                 "Furniture-grade plywood boxes, not particle board",
-                "Dovetail drawers and soft-close hardware standard",
+                "Soft-close options",
                 "Built to order and sized to your layout in Meridian, Idaho",
                 "Installed by our own Treasure Valley crew",
                 "Backed by a written workmanship guarantee",
@@ -210,7 +210,7 @@ export default function ShakerCabinetsPage() {
             <p className="text-sm text-muted-foreground mt-6">
               More on our{" "}
               <Link href="/construction" className="text-accent hover:underline">
-                frameless cabinet construction
+                cabinet construction options
               </Link>
               .
             </p>

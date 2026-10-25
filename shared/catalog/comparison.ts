@@ -77,7 +77,7 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
     },
     {
       id: "soft-close-drawers",
-      label: "Soft-close drawer slides",
+      label: "Soft-close drawer slides (option) (option)",
       values: {
         custom: true,
       },

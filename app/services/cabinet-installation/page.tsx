@@ -62,7 +62,8 @@ export default function CabinetInstallationPage() {
     <InteriorPage kind="services"><>
       <JsonLd data={schemas} />
       <main>
-        <InteriorHero layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Finished custom cabinetry in a Treasure Valley home">
+        <InteriorHero layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
+
             <nav aria-label="Breadcrumb" className="mb-16 text-sm text-inverse-muted">
               <Link href="/" className="tap-target hover:text-inverse-foreground">Home</Link>
               <span className="mx-2 opacity-70">/</span>

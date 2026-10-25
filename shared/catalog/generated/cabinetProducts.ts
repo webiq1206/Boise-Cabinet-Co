@@ -9,7 +9,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-0S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -77,7 +77,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-1S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -146,7 +146,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-2S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -215,7 +215,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-3S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -284,7 +284,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-4S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -353,7 +353,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-1PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -422,7 +422,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-2PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -491,7 +491,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-1D-3PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -560,7 +560,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-0S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -628,7 +628,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-1S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -697,7 +697,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-2S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -766,7 +766,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-3S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -835,7 +835,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-4S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -904,7 +904,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-1PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -973,7 +973,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-2PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1042,7 +1042,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "W-2D-3PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1111,7 +1111,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VWL",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 24
@@ -1180,7 +1180,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GVWL",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 24
@@ -1249,7 +1249,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WHL",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 21
@@ -1317,7 +1317,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WHF",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -1386,7 +1386,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWHF",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -1455,7 +1455,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-0S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1523,7 +1523,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-1S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1592,7 +1592,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-2S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1661,7 +1661,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-3S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1730,7 +1730,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-4S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1799,7 +1799,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-0S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1867,7 +1867,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-1S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -1936,7 +1936,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-2S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2005,7 +2005,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-3S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2074,7 +2074,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-4S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2143,7 +2143,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-1PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2212,7 +2212,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-2PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2281,7 +2281,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-1D-3PART",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2350,7 +2350,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-1PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2419,7 +2419,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-2PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2488,7 +2488,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDD-2D-3PART",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2557,7 +2557,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-1D-0S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2625,7 +2625,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-1D-1S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2694,7 +2694,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-1D-2S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2763,7 +2763,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-1D-3S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2832,7 +2832,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-1D-4S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2901,7 +2901,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-2D-0S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -2969,7 +2969,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-2D-1S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3038,7 +3038,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-2D-2S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3107,7 +3107,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-2D-3S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3176,7 +3176,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GW-2D-4S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3245,7 +3245,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-1D-0S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3313,7 +3313,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-1D-1S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3382,7 +3382,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-1D-2S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3451,7 +3451,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-1D-3S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3520,7 +3520,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-1D-4S",
     "name": "Wall Cabinet, 1 Door",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3589,7 +3589,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-2D-0S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3657,7 +3657,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-2D-1S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3726,7 +3726,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-2D-2S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3795,7 +3795,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-2D-3S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3864,7 +3864,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDD-2D-4S",
     "name": "Wall Cabinet, 2 Doors",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3933,7 +3933,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OW-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -3999,7 +3999,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OW-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4067,7 +4067,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OW-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4135,7 +4135,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OW-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4203,7 +4203,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OW-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4271,7 +4271,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDC-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4337,7 +4337,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDC-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4405,7 +4405,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDC-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4473,7 +4473,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDC-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4541,7 +4541,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDC-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4609,7 +4609,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDC-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4675,7 +4675,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDC-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4743,7 +4743,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDC-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4811,7 +4811,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDC-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4879,7 +4879,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDC-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -4947,7 +4947,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDCDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5013,7 +5013,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDCDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5081,7 +5081,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDCDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5149,7 +5149,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDCDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5217,7 +5217,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDCDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5285,7 +5285,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDCDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5351,7 +5351,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDCDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5419,7 +5419,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDCDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5487,7 +5487,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDCDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5555,7 +5555,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWDCDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5623,7 +5623,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCL-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5689,7 +5689,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCL-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5757,7 +5757,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCL-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5825,7 +5825,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCL-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5893,7 +5893,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCL-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -5961,7 +5961,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCR-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6027,7 +6027,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCR-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6095,7 +6095,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCR-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6163,7 +6163,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCR-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6231,7 +6231,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCR-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6299,7 +6299,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCLDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6365,7 +6365,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCLDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6433,7 +6433,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCLDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6501,7 +6501,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCLDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6569,7 +6569,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCLDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6637,7 +6637,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCRDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6703,7 +6703,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCRDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6771,7 +6771,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCRDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6839,7 +6839,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCRDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6907,7 +6907,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WBCRDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -6975,7 +6975,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCL-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7041,7 +7041,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCL-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7109,7 +7109,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCL-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7177,7 +7177,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCL-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7245,7 +7245,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCL-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7313,7 +7313,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCR-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7379,7 +7379,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCR-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7447,7 +7447,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCR-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7515,7 +7515,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCR-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7583,7 +7583,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCR-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7651,7 +7651,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCLDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7717,7 +7717,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCLDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7785,7 +7785,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCLDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7853,7 +7853,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCLDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7921,7 +7921,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCLDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -7989,7 +7989,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCRDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8055,7 +8055,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCRDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8123,7 +8123,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCRDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8191,7 +8191,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCRDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8259,7 +8259,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWBCRDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8327,7 +8327,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90L-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8393,7 +8393,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90L-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8461,7 +8461,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90L-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8529,7 +8529,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90L-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8597,7 +8597,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90L-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8665,7 +8665,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90R-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8731,7 +8731,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90R-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8799,7 +8799,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90R-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8867,7 +8867,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90R-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -8935,7 +8935,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90R-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9003,7 +9003,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90LDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9069,7 +9069,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90LDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9137,7 +9137,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90LDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9205,7 +9205,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90LDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9273,7 +9273,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90LDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9341,7 +9341,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90RDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9407,7 +9407,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90RDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9475,7 +9475,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90RDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9543,7 +9543,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90RDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9611,7 +9611,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WC90RDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9679,7 +9679,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90L-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9745,7 +9745,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90L-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9813,7 +9813,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90L-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9881,7 +9881,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90L-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -9949,7 +9949,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90L-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10017,7 +10017,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90R-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10083,7 +10083,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90R-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10151,7 +10151,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90R-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10219,7 +10219,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90R-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10287,7 +10287,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90R-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10355,7 +10355,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90LDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10421,7 +10421,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90LDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10489,7 +10489,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90LDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10557,7 +10557,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90LDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10625,7 +10625,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90LDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10693,7 +10693,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90RDD-0S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10759,7 +10759,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90RDD-1S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10827,7 +10827,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90RDD-2S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10895,7 +10895,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90RDD-3S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -10963,7 +10963,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "GWC90RDD-4S",
     "name": "Wall Cabinet",
     "category": "wall",
-    "description": "Custom wall cabinet built to fit your space.",
+    "description": "Custom wall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 54
@@ -11031,7 +11031,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3L",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 1.5,
       "maxInches": 48
@@ -11097,7 +11097,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3R",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 1.5,
       "maxInches": 48
@@ -11163,7 +11163,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3OE",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 1.5,
       "maxInches": 48
@@ -11229,7 +11229,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3L_HOVR",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 2.25,
       "maxInches": 18
@@ -11295,7 +11295,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3R_HOVR",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 2.25,
       "maxInches": 18
@@ -11361,7 +11361,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLS3B_HOVR",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 2.25,
       "maxInches": 18
@@ -11427,7 +11427,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -11493,7 +11493,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -11559,7 +11559,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -11625,7 +11625,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BMSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -11691,7 +11691,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBMSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -11757,7 +11757,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BXPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 96
@@ -11823,7 +11823,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBXPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 96
@@ -11889,7 +11889,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BTSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -11955,7 +11955,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBTSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 96
@@ -12021,7 +12021,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "APH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12087,7 +12087,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "AMSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12153,7 +12153,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "ATSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12219,7 +12219,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "ABPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12285,7 +12285,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "ABMSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12351,7 +12351,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "ABTSPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12417,7 +12417,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "ABXPH",
     "name": "Range Hood Cover",
     "category": "hood",
-    "description": "Custom range hood cover built to fit your space.",
+    "description": "Custom range hood cover, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 96
@@ -12483,7 +12483,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-1S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12553,7 +12553,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-1ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12623,7 +12623,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-2ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12693,7 +12693,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-1PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12763,7 +12763,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-2PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12833,7 +12833,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1TD-3PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12903,7 +12903,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-1S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -12973,7 +12973,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-1ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13043,7 +13043,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-2ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13113,7 +13113,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-1PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13183,7 +13183,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-2PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13253,7 +13253,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1TD-3PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13323,7 +13323,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-1S",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13393,7 +13393,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-1ROT",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13463,7 +13463,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-2ROT",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13533,7 +13533,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-1PART",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13603,7 +13603,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-2PART",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13673,7 +13673,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-2TD-3PART",
     "name": "Base Cabinet, 2 Doors + 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -13743,7 +13743,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-0S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -13812,7 +13812,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-1S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -13882,7 +13882,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-1ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -13952,7 +13952,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-2ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14022,7 +14022,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-1PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14092,7 +14092,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-2PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14162,7 +14162,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-1D-1BD-3PART",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14232,7 +14232,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-0S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14301,7 +14301,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-1S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14371,7 +14371,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-1ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14441,7 +14441,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-2ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14511,7 +14511,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-1PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14581,7 +14581,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-2PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14651,7 +14651,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "B-2D-1BD-3PART",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -14721,7 +14721,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-0S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -14789,7 +14789,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-1S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -14858,7 +14858,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-2S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -14927,7 +14927,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-3S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -14996,7 +14996,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-0S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15064,7 +15064,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-1S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15133,7 +15133,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-2S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15202,7 +15202,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-3S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15271,7 +15271,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-1ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15340,7 +15340,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-2ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15409,7 +15409,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-3ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15478,7 +15478,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-1ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15547,7 +15547,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-2ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15616,7 +15616,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-3ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -15685,7 +15685,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-1PART",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15754,7 +15754,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-2PART",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15823,7 +15823,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-1D-3PART",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15892,7 +15892,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-1PART",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -15961,7 +15961,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-2PART",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -16030,7 +16030,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BFH-2D-3PART",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 66
@@ -16099,7 +16099,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB15-TD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16165,7 +16165,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB18-TD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16231,7 +16231,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB21-TD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16297,7 +16297,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB15-FHD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16363,7 +16363,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB18-FHD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16429,7 +16429,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TB21-FHD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 32,
       "maxInches": 42
@@ -16495,7 +16495,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BIR-1D-1TD",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -16564,7 +16564,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BIRFH-1D",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -16632,7 +16632,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-1D-1FF",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -16700,7 +16700,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-2FF",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -16768,7 +16768,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-1FF",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -16836,7 +16836,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-1D-1FF-1ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -16905,7 +16905,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-1D-1FF-2ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -16974,7 +16974,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-1FF-1ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17043,7 +17043,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-1FF-2ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17112,7 +17112,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-2FF-1ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17181,7 +17181,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SB-2D-2FF-2ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17250,7 +17250,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-1D",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17318,7 +17318,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-2D",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17386,7 +17386,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-1D-1ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17455,7 +17455,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-1D-2ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17524,7 +17524,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-2D-1ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17593,7 +17593,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SBFH-2D-2ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -17662,7 +17662,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB1",
     "name": "Base Cabinet, 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 12
@@ -17730,7 +17730,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB2",
     "name": "Base Cabinet, 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 21,
       "maxInches": 36
@@ -17798,7 +17798,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB3",
     "name": "Base Cabinet, 3 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 28,
       "maxInches": 42
@@ -17866,7 +17866,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB4",
     "name": "Base Cabinet, 4 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 34.5,
       "maxInches": 42
@@ -17934,7 +17934,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB-1PD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 7,
       "maxInches": 12
@@ -18000,7 +18000,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB-2PD",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 7,
       "maxInches": 12
@@ -18066,7 +18066,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB2-1FF",
     "name": "Base Cabinet, 2 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 36
@@ -18134,7 +18134,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "DB3-1FF",
     "name": "Base Cabinet, 3 Drawers",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 42
@@ -18202,7 +18202,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1TD-0S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18271,7 +18271,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1TD-1S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18341,7 +18341,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1TD-0S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18410,7 +18410,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1TD-1S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18480,7 +18480,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1TD-1ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18550,7 +18550,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1TD-2ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18620,7 +18620,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1TD-1ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18690,7 +18690,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1TD-2ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -18760,7 +18760,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-0S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -18828,7 +18828,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-1S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -18897,7 +18897,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-2S",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -18966,7 +18966,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-0S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19034,7 +19034,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-1S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19103,7 +19103,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-2S",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19172,7 +19172,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-1ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19241,7 +19241,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-2ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19310,7 +19310,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-1D-3ROT",
     "name": "Base Cabinet, 1 Door",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19379,7 +19379,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-1ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19448,7 +19448,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-2ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19517,7 +19517,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLFH-2D-3ROT",
     "name": "Base Cabinet, 2 Doors",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 18,
       "maxInches": 30
@@ -19586,7 +19586,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-1D-1FF",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19654,7 +19654,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-2D-1FF",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19722,7 +19722,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-1D-1FF-1ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19791,7 +19791,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-1D-1FF-2ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19860,7 +19860,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-2D-1FF-1ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19929,7 +19929,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSB-2D-1FF-2ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -19998,7 +19998,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-1D",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20066,7 +20066,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-2D",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20134,7 +20134,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-1D-1ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20203,7 +20203,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-1D-2ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20272,7 +20272,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-2D-1ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20341,7 +20341,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLSBFH-2D-2ROT",
     "name": "Floating Shelf",
     "category": "floating-shelf",
-    "description": "Custom floating shelf built to fit your space.",
+    "description": "Custom floating shelf, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20410,7 +20410,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1BD-0S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20479,7 +20479,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1BD-1S",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20549,7 +20549,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1BD-0S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20618,7 +20618,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1BD-1S",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20688,7 +20688,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1BD-1ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20758,7 +20758,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-1D-1BD-2ROT",
     "name": "Base Cabinet, 1 Door + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20828,7 +20828,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1BD-1ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20898,7 +20898,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLB-2D-1BD-2ROT",
     "name": "Base Cabinet, 2 Doors + 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -20968,7 +20968,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLDB2",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -21034,7 +21034,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLDB3",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -21100,7 +21100,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLDB3-1FF",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -21166,7 +21166,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FLDB2-1FF",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 30
@@ -21232,7 +21232,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OB-0S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 15,
       "maxInches": 66
@@ -21298,7 +21298,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OB-1S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 15,
       "maxInches": 66
@@ -21366,7 +21366,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OB-2S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 15,
       "maxInches": 66
@@ -21434,7 +21434,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OB-3S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 15,
       "maxInches": 66
@@ -21502,7 +21502,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "OB-4S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 15,
       "maxInches": 66
@@ -21570,7 +21570,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "LS3612L",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -21636,7 +21636,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "LS3612R",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -21702,7 +21702,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BC45-0S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -21768,7 +21768,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BC45-1S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -21836,7 +21836,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BC45-LS",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -21902,7 +21902,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCL-1TD-0S",
     "name": "Base Cabinet, 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -21970,7 +21970,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCL-1TD-1S",
     "name": "Base Cabinet, 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -22039,7 +22039,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCR-1TD-0S",
     "name": "Base Cabinet, 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -22107,7 +22107,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCR-1TD-1S",
     "name": "Base Cabinet, 1 Drawer",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 42
@@ -22176,7 +22176,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCL-FHD-0S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22242,7 +22242,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCL-FHD-1S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22310,7 +22310,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCL-FHD-2S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22378,7 +22378,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCR-FHD-0S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22444,7 +22444,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCR-FHD-1S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22512,7 +22512,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BBCR-FHD-2S",
     "name": "Base Cabinet",
     "category": "base",
-    "description": "Custom base cabinet built to fit your space.",
+    "description": "Custom base cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 66
@@ -22580,7 +22580,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-0S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22648,7 +22648,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-1S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22717,7 +22717,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-2S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22786,7 +22786,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-3S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22855,7 +22855,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-0S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22923,7 +22923,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-1S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -22992,7 +22992,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-2S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23061,7 +23061,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-3S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23130,7 +23130,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-1ROT-2S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23200,7 +23200,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-2ROT-2S",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23270,7 +23270,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-3ROT",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23339,7 +23339,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-1D-4ROT",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23408,7 +23408,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-1ROT-2S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23478,7 +23478,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-2ROT-2S",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23548,7 +23548,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-3ROT",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23617,7 +23617,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TBFH-2D-4ROT",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 66
@@ -23686,7 +23686,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TA-1D",
     "name": "Tall Cabinet, 1 Door",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 30,
       "maxInches": 72
@@ -23754,7 +23754,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TA-2D",
     "name": "Tall Cabinet, 2 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 34.5,
       "maxInches": 72
@@ -23822,7 +23822,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TA-3D",
     "name": "Tall Cabinet, 3 Doors",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 42,
       "maxInches": 72
@@ -23890,7 +23890,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BA-OPEN",
     "name": "Tall Cabinet",
     "category": "tall",
-    "description": "Custom tall cabinet built to fit your space.",
+    "description": "Custom tall cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 72
@@ -23956,7 +23956,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-1BD-0S",
     "name": "Vanity Cabinet, 1 Door + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24025,7 +24025,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-1BD-1S",
     "name": "Vanity Cabinet, 1 Door + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24095,7 +24095,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-1BD-2S",
     "name": "Vanity Cabinet, 1 Door + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24165,7 +24165,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-1BD-3S",
     "name": "Vanity Cabinet, 1 Door + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24235,7 +24235,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-1BD-0S",
     "name": "Vanity Cabinet, 2 Doors + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24304,7 +24304,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-1BD-1S",
     "name": "Vanity Cabinet, 2 Doors + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24374,7 +24374,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-1BD-2S",
     "name": "Vanity Cabinet, 2 Doors + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24444,7 +24444,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-1BD-3S",
     "name": "Vanity Cabinet, 2 Doors + 1 Drawer",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24514,7 +24514,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-2BD-0S",
     "name": "Vanity Cabinet, 1 Door + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24583,7 +24583,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-2BD-1S",
     "name": "Vanity Cabinet, 1 Door + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24653,7 +24653,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-2BD-2S",
     "name": "Vanity Cabinet, 1 Door + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24723,7 +24723,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-1D-2BD-3S",
     "name": "Vanity Cabinet, 1 Door + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24793,7 +24793,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-2BD-0S",
     "name": "Vanity Cabinet, 2 Doors + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24862,7 +24862,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-2BD-1S",
     "name": "Vanity Cabinet, 2 Doors + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -24932,7 +24932,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-2BD-2S",
     "name": "Vanity Cabinet, 2 Doors + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -25002,7 +25002,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VT-2D-2BD-3S",
     "name": "Vanity Cabinet, 2 Doors + 2 Drawers",
     "category": "vanity",
-    "description": "Custom vanity cabinet built to fit your space.",
+    "description": "Custom vanity cabinet, sized to fit your space.",
     "widthRange": {
       "minInches": 24,
       "maxInches": 54
@@ -25072,7 +25072,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "CDF",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 96,
       "maxInches": 96,
@@ -25139,7 +25139,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "SCDF",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 96,
       "maxInches": 96,
@@ -25206,7 +25206,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "VDF",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 96,
       "maxInches": 96,
@@ -25273,7 +25273,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BDF-L",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25339,7 +25339,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "BDF-R",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25405,7 +25405,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDF-L",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25471,7 +25471,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WDF-R",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25537,7 +25537,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TDF-L",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25603,7 +25603,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TDF-R",
     "name": "Filler / Crown",
     "category": "filler",
-    "description": "Custom filler / crown built to fit your space.",
+    "description": "Custom filler / crown, sized to fit your space.",
     "widthRange": {
       "minInches": 7.875,
       "maxInches": 7.875
@@ -25669,7 +25669,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "WEP",
     "name": "End Panel",
     "category": "end-panel",
-    "description": "Custom end panel built to fit your space.",
+    "description": "Custom end panel, sized to fit your space.",
     "widthRange": {
       "minInches": 0.75,
       "maxInches": 0.75
@@ -25735,7 +25735,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TEP",
     "name": "End Panel",
     "category": "end-panel",
-    "description": "Custom end panel built to fit your space.",
+    "description": "Custom end panel, sized to fit your space.",
     "widthRange": {
       "minInches": 0.75,
       "maxInches": 0.75
@@ -25801,7 +25801,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "FBOT",
     "name": "Trim Panel",
     "category": "panel",
-    "description": "Custom trim panel built to fit your space.",
+    "description": "Custom trim panel, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 12,
@@ -25868,7 +25868,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "LTR",
     "name": "Trim Panel",
     "category": "panel",
-    "description": "Custom trim panel built to fit your space.",
+    "description": "Custom trim panel, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 12,
@@ -25935,7 +25935,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TK",
     "name": "Trim Panel",
     "category": "panel",
-    "description": "Custom trim panel built to fit your space.",
+    "description": "Custom trim panel, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 12,
@@ -26002,7 +26002,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "oscCode": "TK_1/4",
     "name": "Trim Panel",
     "category": "panel",
-    "description": "Custom trim panel built to fit your space.",
+    "description": "Custom trim panel, sized to fit your space.",
     "widthRange": {
       "minInches": 12,
       "maxInches": 12,

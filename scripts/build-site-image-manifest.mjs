@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
 const STYLE_SUFFIX =
-  "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks";
+  "Photorealistic architectural interior, natural window light, no people, no text, no watermarks";
 
 const ROOMS = [
   { slug: "kitchen", name: "Kitchen", door: "shaker", finish: "snowcap", collection: "custom" },
@@ -83,10 +83,10 @@ for (const c of COLLECTIONS) {
     doorStyleId: c.door,
     finishId: c.finish,
     supplierColorName: c.finish,
-    promptScene: `${c.name} custom cabinet collection, One Source ${c.door.replace(/-/g, " ")} doors, Tafisa ${c.finish} finish, frameless kitchen with island, ${STYLE_SUFFIX}`,
-    alt: `${c.name} custom cabinets by Boise Cabinet Co — One Source ${c.name} line with premium frameless construction`,
+    promptScene: `${c.name} custom cabinet collection, a ready-to-assemble cabinet line, ${c.door.replace(/-/g, " ")} doors, ${c.finish} finish, frameless kitchen with island, ${STYLE_SUFFIX}`,
+    alt: `${c.name} custom cabinets by Boise Cabinet Co, ${c.name} line, with frameless options`,
     title: `${c.name} Cabinet Collection | Boise Cabinet Co`,
-    caption: `${c.name} cabinets featuring One Source panel products and Treasure Valley installation.`,
+    caption: `${c.name} cabinets featuring thermally fused laminate (TFL) panels and Treasure Valley installation.`,
     phase: 2,
     priority: "critical",
   });
@@ -94,18 +94,25 @@ for (const c of COLLECTIONS) {
 
 // Rooms
 for (const r of ROOMS) {
+  const kitchenSwap = r.slug === "kitchen";
   add({
-    outputPath: `/images/catalog/rooms/${r.slug}.webp`,
+    outputPath: kitchenSwap
+      ? "/images/catalog/rooms/kitchen-walnut-mountain.webp"
+      : `/images/catalog/rooms/${r.slug}.webp`,
     pages: [`/`, `/cabinets`, `/cabinets/${r.slug}`],
     placement: "card-hero",
     roomId: r.slug,
     collectionId: r.collection,
     doorStyleId: r.door,
     finishId: r.finish,
-    promptScene: `${r.name} with custom frameless cabinets, One Source ${r.door.replace(/-/g, " ")} doors, ${r.finish} finish, Idaho home interior, ${STYLE_SUFFIX}`,
-    alt: `Custom ${r.name.toLowerCase()} cabinets with One Source ${r.door.replace(/-/g, " ")} doors in Treasure Valley Idaho`,
+    promptScene: kitchenSwap
+      ? `Kitchen with walnut cabinets, a stone range wall and a grey-topped island, ${STYLE_SUFFIX}`
+      : `${r.name} with custom frameless cabinets, a ready-to-assemble cabinet line, ${r.door.replace(/-/g, " ")} doors, ${r.finish} finish, Idaho home interior, ${STYLE_SUFFIX}`,
+    alt: kitchenSwap
+      ? "Kitchen with walnut cabinets, a stone range wall and a grey-topped island"
+      : `Custom ${r.name.toLowerCase()} cabinets with a ready-to-assemble cabinet line, ${r.door.replace(/-/g, " ")} doors in Treasure Valley Idaho`,
     title: `${r.name} Custom Cabinets | Boise Cabinet Co`,
-    caption: `${r.name} cabinetry designed and installed by Boise Cabinet Co using One Source panel products.`,
+    caption: kitchenSwap ? "" : `${r.name} cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels.`,
     phase: 2,
     priority: "critical",
   });
@@ -118,10 +125,10 @@ for (const f of FINISHES) {
     pages: [`/finishes`, `/finishes/matte`, `/finishes/gloss`, `/finishes/woodgrain`],
     placement: "swatch",
     finishId: f,
-    promptScene: `Macro close-up of cabinet door surface showing ${f.replace(/-/g, " ")} finish texture, One Source Tafisa panel product, flat even lighting, ${STYLE_SUFFIX}`,
-    alt: `${f.replace(/-/g, " ")} cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co`,
+    promptScene: `Macro close-up of cabinet door surface showing ${f.replace(/-/g, " ")} finish texture, a ready-to-assemble cabinet line, flat even lighting, ${STYLE_SUFFIX}`,
+    alt: `${f.replace(/-/g, " ")} cabinet finish swatch, ${f.replace(/-/g, " ")} panel finish for Boise Cabinet Co`,
     title: `${f.replace(/-/g, " ")} Cabinet Finish`,
-    caption: `One Source ${f.replace(/-/g, " ")} finish available through Boise Cabinet Co.`,
+    caption: `${f.replace(/-/g, " ")} panel finish available through Boise Cabinet Co.`,
     phase: 2,
     priority: "high",
     width: 800,
@@ -137,10 +144,10 @@ for (const d of DOOR_STYLES) {
     placement: "profile",
     doorStyleId: d,
     finishId: "snowcap",
-    promptScene: `Close-up of One Source ${d.replace(/-/g, " ")} cabinet door profile on frameless box, white matte finish, ${STYLE_SUFFIX}`,
-    alt: `One Source ${d.replace(/-/g, " ")} cabinet door profile — Boise Cabinet Co`,
+    promptScene: `Close-up of a ${d.replace(/-/g, " ")} cabinet door profile on frameless box, white matte finish, ${STYLE_SUFFIX}`,
+    alt: `${d.replace(/-/g, " ")} cabinet door profile, Boise Cabinet Co`,
     title: `${d.replace(/-/g, " ")} Door Style`,
-    caption: `${d.replace(/-/g, " ")} door style from One Source Cabinets, available through Boise Cabinet Co.`,
+    caption: `${d.replace(/-/g, " ")} door style from our cabinet catalog, available through Boise Cabinet Co.`,
     phase: 2,
     priority: "high",
     width: 1200,
@@ -152,15 +159,16 @@ for (const d of DOOR_STYLES) {
 const siteHeroes = [
   { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home" },
   { id: "hero-about", path: "/images/marketing/hero-about.webp", pages: ["/about"], alt: "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners" },
-  { id: "hero-contact", path: "/images/marketing/hero-contact.webp", pages: ["/contact"], alt: "Custom bathroom vanity cabinets installed in a Meridian Idaho home" },
+  { id: "hero-contact", path: "/images/marketing/bath-white-oak-vanity.webp", pages: ["/contact"], alt: "Bathroom with a white oak double vanity, a limestone countertop and black fixtures" },
   { id: "hero-design-studio", path: "/images/marketing/hero-design-studio.webp", pages: ["/design-studio"], alt: "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen" },
   { id: "process-home", path: "/images/marketing/process-home.webp", pages: ["/"], alt: "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners" },
-  { id: "process-about", path: "/images/marketing/process-about.webp", pages: ["/about"], alt: "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop" },
+  { id: "process-about", path: "/images/marketing/cabinet-door-samples.webp", pages: ["/about"], alt: "Cabinet door samples and finish swatches laid out for a kitchen design for Treasure Valley design inspiration", noLocationSuffix: true },
   { id: "process-contact", path: "/images/marketing/process-contact.webp", pages: ["/contact"], alt: "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley" },
-  { id: "hero-hardware", path: "/images/marketing/hero-hardware.webp", pages: ["/hardware"], alt: "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho" },
-  { id: "hero-construction", path: "/images/marketing/hero-construction.webp", pages: ["/construction"], alt: "CNC cabinet door machining at the Boise Cabinet Co Meridian Idaho shop" },
+  { id: "hero-hardware", path: "/images/marketing/warranty-hardware.webp", pages: ["/warranty"], alt: "Oak drawers with round brass knobs above walnut doors with black knobs | Boise Cabinet Co inspiration for Treasure Valley homes" },
+  { id: "cabinets-hero", path: "/images/marketing/kitchen-farmhouse-shaker.webp", pages: ["/cabinets"], alt: "Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall | Boise Cabinet Co inspiration for Treasure Valley homes" },
+  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling for Treasure Valley design inspiration", noLocationSuffix: true, caption: "" },
   { id: "catalog-default", path: "/images/marketing/catalog-default.webp", pages: ["/catalog"], alt: "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes" },
-  { id: "statement-band", path: "/images/marketing/statement-whole-home.webp", pages: ["/", "/about", "/contact"], alt: "Whole-home custom cabinet installation in an Eagle Idaho residence", decorative: true },
+  { id: "statement-band", path: "/images/marketing/great-room-oak-built-ins.webp", pages: ["/", "/about", "/contact"], alt: "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams", decorative: true },
   { id: "og-default", path: "/images/marketing/og-default.webp", pages: ["og"], alt: "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho" },
 ];
 
@@ -174,7 +182,8 @@ for (const h of siteHeroes) {
     promptScene: h.alt + ", " + STYLE_SUFFIX,
     alt: h.alt,
     title: "Boise Cabinet Co Custom Cabinets",
-    caption: h.alt,
+    caption: "caption" in h ? h.caption : ["hero-contact", "hero-hardware", "statement-band", "cabinets-hero"].includes(h.id) ? "" : h.alt,
+    noLocationSuffix: h.noLocationSuffix,
     phase: 2,
     priority: h.id.startsWith("hero") ? "critical" : "high",
   });
@@ -187,7 +196,7 @@ for (const city of CITIES) {
     outputPath: `/images/areas/${city}.webp`,
     pages: [`/areas`, `/areas/${city}`],
     placement: "hero",
-    promptScene: `Custom kitchen cabinets in a ${name} Idaho home, One Source shaker doors white oak finish, neighborhood exterior visible through window, ${STYLE_SUFFIX}`,
+    promptScene: `Custom kitchen cabinets in a ${name} Idaho home, shaker cabinet doors, white oak finish, neighborhood exterior visible through window, ${STYLE_SUFFIX}`,
     alt: `Custom cabinets installed in ${name}, Idaho by Boise Cabinet Co`,
     title: `Custom Cabinets ${name} Idaho`,
     caption: `Boise Cabinet Co custom cabinet projects serving ${name} and the Treasure Valley.`,
@@ -206,8 +215,8 @@ for (const svc of SERVICES) {
       placement: "hero",
       doorStyleId: svc.door,
       finishId: svc.finish,
-      promptScene: `${svc.label} in ${name} Idaho, One Source ${svc.door.replace(/-/g, " ")} doors, ${svc.finish} finish, ${STYLE_SUFFIX}`,
-      alt: `${svc.label} in ${name}, Idaho — Boise Cabinet Co One Source cabinets`,
+      promptScene: `${svc.label} in ${name} Idaho, ${svc.door.replace(/-/g, " ")} cabinet doors, ${svc.finish} finish, ${STYLE_SUFFIX}`,
+      alt: `${svc.label} in ${name}, Idaho, Boise Cabinet Co cabinets`,
       title: `${svc.label} ${name} ID`,
       caption: `Custom ${svc.label.toLowerCase()} for ${name} homeowners by Boise Cabinet Co.`,
       phase: 2,
@@ -224,8 +233,8 @@ for (const svc of SERVICES) {
     placement: "hero",
     doorStyleId: svc.door,
     finishId: svc.finish,
-    promptScene: `${svc.label}, One Source custom cabinets, ${STYLE_SUFFIX}`,
-    alt: `${svc.label} by Boise Cabinet Co using One Source panel products`,
+    promptScene: `${svc.label}, custom cabinets, ${STYLE_SUFFIX}`,
+    alt: `${svc.label} by Boise Cabinet Co using thermally fused laminate (TFL) panels`,
     title: svc.label,
     caption: `${svc.label} throughout the Treasure Valley.`,
     phase: 2,
@@ -271,7 +280,7 @@ for (const h of HARDWARE) {
     outputPath: `/images/catalog/hardware/${h}.webp`,
     pages: ["/hardware"],
     placement: "product",
-    promptScene: `Cabinet ${h.replace(/-/g, " ")} hardware on One Source shaker door, product photography, ${STYLE_SUFFIX}`,
+    promptScene: `Cabinet ${h.replace(/-/g, " ")} hardware on a shaker door, product photography, ${STYLE_SUFFIX}`,
     alt: `Cabinet ${h.replace(/-/g, " ")} hardware option — Boise Cabinet Co`,
     title: h.replace(/-/g, " "),
     phase: 3,
@@ -305,7 +314,7 @@ for (const a of ACCESSORIES) {
     outputPath: `/images/catalog/accessories/${a}.webp`,
     pages: ["/accessories"],
     placement: "product",
-    promptScene: `Cabinet ${a.replace(/-/g, " ")} interior accessory installed in One Source kitchen, product photography, ${STYLE_SUFFIX}`,
+    promptScene: `Cabinet ${a.replace(/-/g, " ")} interior accessory installed in a kitchen, product photography, ${STYLE_SUFFIX}`,
     alt: `Cabinet ${a.replace(/-/g, " ")} interior accessory — Boise Cabinet Co`,
     title: a.replace(/-/g, " "),
     phase: 3,
@@ -323,17 +332,18 @@ const LOCALE_TOKENS = [
   "Treasure Valley", "Idaho", "Boise", "Meridian", "Eagle", "Nampa",
   "Kuna", "Star", "Middleton", "Caldwell", "Ada County", "Canyon County",
 ];
-function ensureSeoAlt(alt, decorative) {
+function ensureSeoAlt(alt, decorative, noLocationSuffix) {
   let a = (alt || "").trim();
   if (decorative) return a;
   const sansBrand = a.split(BRAND).join(" ");
   const hasLocale = LOCALE_TOKENS.some((t) => sansBrand.includes(t));
-  if (!hasLocale) a = `${a} in the Treasure Valley, Idaho`;
+  if (!hasLocale && !noLocationSuffix) a = `${a} in the Treasure Valley, Idaho`;
   if (!a.includes(BRAND)) a = `${a} | ${BRAND}`;
   return a;
 }
 for (const e of entries) {
-  e.alt = ensureSeoAlt(e.alt, e.decorative);
+  e.alt = ensureSeoAlt(e.alt, e.decorative, e.noLocationSuffix);
+  delete e.noLocationSuffix;
 }
 
 const manifest = {

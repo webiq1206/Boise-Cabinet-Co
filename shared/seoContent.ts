@@ -29,8 +29,8 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Quality kitchen cabinets define how your family cooks, stores, and gathers. Boise Cabinet Co designs, supplies, and installs custom and value kitchen cabinetry with clear written scope from first visit through final walkthrough.',
     benefits: [
       'Design Studio layout tools and in-home templating',
-      'Written scope and finish selections before shop release',
-      'Frameless Euro construction and plywood box options',
+      'Written scope and finish selections before your order is placed',
+      'Frameless and plywood box options',
       'Professional installation with workmanship guarantee',
     ],
     inclusions: [

@@ -127,14 +127,14 @@ export function generatePageTitle(params: ServiceSEOParams): string {
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
-  Kuna: "Kuna's trusted custom cabinet",
+  Kuna: "Kuna",
   Boise: "Boise's custom cabinet",
-  Meridian: "Meridian's trusted",
+  Meridian: "Meridian",
   Eagle: "Eagle's preferred",
   Star: "Star's reliable",
   Middleton: "Middleton's expert",
-  Nampa: "Nampa's trusted",
-  Caldwell: "Caldwell's trusted",
+  Nampa: "Nampa",
+  Caldwell: "Caldwell",
 };
 
 const CITY_CTA_VARIANTS: Record<string, string> = {
@@ -142,7 +142,6 @@ const CITY_CTA_VARIANTS: Record<string, string> = {
   Boise: "Treasure Valley cabinet pros",
   Meridian: "In-home design visit",
   Eagle: "Clear written scope",
-  Star: "Shop-built quality",
   Middleton: "Workmanship guarantee",
   Nampa: "Ada & Canyon County service",
   Caldwell: "Professional installation",
@@ -216,7 +215,7 @@ export function generateCityServiceDescription(
 ): string {
   const phone = SITE_CONFIG.phone;
   const serviceLC = serviceName.toLowerCase();
-  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || "Local";
   const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
   const neighborhood = cityData?.neighborhoods?.[0];
 
@@ -400,7 +399,7 @@ export const CITY_SEO_DATA: Record<string, {
     founded: '1886',
     zipCodes: ['83651', '83653', '83686', '83687'],
     neighborhoods: ['Downtown Nampa', 'Karcher', 'Greenhurst'],
-    landmarks: ['Ford Idaho Center', 'Lake Lowell', 'Nampa Train Depot'],
+    landmarks: ['Ford Idaho Center', 'Nampa Train Depot'],
     climate: 'semi-arid with hot summers and cold winters',
     coordinates: { lat: 43.5407, lng: -116.5635 },
   },

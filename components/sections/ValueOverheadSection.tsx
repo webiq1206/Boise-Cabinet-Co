@@ -40,8 +40,7 @@ export function ValueOverheadSection() {
               down the line.
             </p>
             <p className="ed-body mt-5">
-              So we built our shop lean and put the money where it shows up in the
-              finished space: skilled craftsmen, better materials, and workmanship
+              So we run lean and put the money where it shows up in the finished space: skilled installers, better materials, and workmanship
               we stand behind. More of your budget lands in the room, with nothing
               padded in for a showroom you will never use.
             </p>

@@ -11,6 +11,7 @@ import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { CITIES, locationPath } from '@/shared/contentData';
 import { CONTENT_HUBS, categoryHubPath, guidePath, isCategoryHubIndexable } from '@/shared/contentHubs';
+import { showTestimonials } from '@/shared/siteConfig';
 
 export type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 export interface SiteUrlEntry { path: string; label: string; changeFrequency: ChangeFrequency; priority: number; lastModified?: Date; }
@@ -29,7 +30,9 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
     { path: '/estimate', label: 'Get an estimate', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/services/cabinet-installation', label: 'Cabinet installation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/about', label: 'About', changeFrequency: 'monthly', priority: 0.7 },
-    { path: '/testimonials', label: 'Testimonials', changeFrequency: 'monthly', priority: 0.65 },
+    ...(showTestimonials()
+      ? [{ path: '/testimonials', label: 'Testimonials', changeFrequency: 'monthly' as const, priority: 0.65 }]
+      : []),
     { path: '/contact', label: 'Contact', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/resources', label: 'Resources', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/resources/ada-canyon-permit-flow', label: 'Ada vs Canyon County permit flow', changeFrequency: 'monthly', priority: 0.65 },

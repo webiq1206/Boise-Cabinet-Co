@@ -28,11 +28,11 @@ const STANDARDS = [
   },
   {
     title: "Drawer boxes & slides",
-    body: "Dovetail hardwood or plywood drawer boxes sized to your layout. Soft-close slides are standard on our Custom Cabinets.",
+    body: "Drawer boxes sized to your layout. Soft-close slide options are available.",
   },
   {
     title: "Soft-close hinges",
-    body: "Our Custom Cabinets include soft-close hinges on doors and soft-close drawer slides as standard.",
+    body: "Our Custom Cabinets offer soft-close hinge and drawer-slide options.",
   },
   {
     title: "Installation & warranty",
@@ -65,7 +65,7 @@ export default function ConstructionPage() {
     ]),
     generateServiceSchema(
       "Custom Cabinet Construction & Installation",
-      "Frameless cabinet boxes, dovetail drawers, soft-close hardware, and professional installation, built and installed by Boise Cabinet Co across the Treasure Valley, Idaho.",
+      "Cabinet boxes with frameless and soft-close options, and professional installation, designed and installed by Boise Cabinet Co across the Treasure Valley, Idaho.",
     ),
   ];
 
@@ -75,7 +75,7 @@ export default function ConstructionPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="CNC cabinet door machining and inspection"
+          alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling | Boise Cabinet Co"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>
@@ -83,7 +83,7 @@ export default function ConstructionPage() {
                   <em className="brc-accent text-accent">construction</em>
                 </>}
           description={catalogDescription(
-                "{company} cabinets are engineered and built in Meridian, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
+                "{company} cabinets use materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
         >
               <Button variant="brand" asChild>

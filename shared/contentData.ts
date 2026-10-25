@@ -21,7 +21,7 @@ export const SERVICES: ServiceData[] = [
   {
     slug: 'kitchen-remodel',
     name: 'Kitchen Cabinets',
-    shortDescription: 'Custom kitchen cabinets from layout design through installation, frameless Euro construction, 299 finishes.',
+    shortDescription: 'Custom kitchen cabinets from layout design through installation, frameless construction options, hundreds of finishes.',
     url: '/cabinets/kitchen',
   },
   {

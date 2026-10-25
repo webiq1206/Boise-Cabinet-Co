@@ -38,8 +38,7 @@ export function RoomCategoriesGrid() {
           </Reveal>
           <Reveal delay={60}>
             <p className="ed-body">
-              From kitchen and bath to mudroom, closet and garage, every cabinet is
-              made to order with your choice of door style, finish and hardware.
+              From kitchen and bath to mudroom, closet and garage, custom cabinets are sized to fit your space, with your choice of door style, finish and hardware.
             </p>
           </Reveal>
         </div>
@@ -53,7 +52,7 @@ export function RoomCategoriesGrid() {
             <div className="relative min-h-[clamp(280px,38vw,460px)] overflow-hidden">
               <Image
                 src={lead.heroImage}
-                alt={`${lead.name} custom cabinets`}
+                alt={lead.imageAlt ?? `${lead.name} custom cabinets`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="object-cover"

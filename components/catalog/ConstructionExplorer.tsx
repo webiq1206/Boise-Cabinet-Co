@@ -16,7 +16,7 @@ export function ConstructionExplorer() {
       <div className="relative w-full aspect-[5/3] max-w-2xl overflow-hidden rounded-lg border bg-card">
         <Image
           src="/generated/construction.svg"
-          alt="Diagram of plywood box construction, dovetail drawers, and soft-close hardware"
+          alt="Diagram of cabinet box construction with frameless and soft-close options"
           fill
           sizes="(max-width: 768px) 100vw, 672px"
           className="object-contain"
