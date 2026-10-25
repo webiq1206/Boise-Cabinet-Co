@@ -47,8 +47,7 @@ function isSuppressedRoute(pathname: string | null): boolean {
     pathname.startsWith("/admin") ||
     pathname.startsWith("/portal") ||
     pathname.startsWith("/design-studio") ||
-    pathname.startsWith("/estimate/scope") ||
-    pathname.startsWith("/estimate/p5-preview") ||
+    pathname.startsWith("/estimate") ||
     pathname === "/kitchen-cabinets"
   );
 }
@@ -149,7 +148,6 @@ export function AssistantWidget() {
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
 
   // Only offer the assistant when the server says it's configured.
   useEffect(() => {
@@ -204,40 +202,6 @@ export function AssistantWidget() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages, open, pending]);
 
-  // Phone: the sheet fills the visible screen and stays above the keyboard.
-  useEffect(() => {
-    if (!open) return;
-    const panel = panelRef.current;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const mobileQuery = window.matchMedia("(max-width: 767px)");
-    const viewport = window.visualViewport;
-    const sync = () => {
-      if (!panel) return;
-      if (!mobileQuery.matches || !viewport) {
-        panel.style.top = "";
-        panel.style.height = "";
-        return;
-      }
-      panel.style.top = `${viewport.offsetTop}px`;
-      panel.style.height = `${viewport.height}px`;
-    };
-    sync();
-    viewport?.addEventListener("resize", sync);
-    viewport?.addEventListener("scroll", sync);
-    mobileQuery.addEventListener("change", sync);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      viewport?.removeEventListener("resize", sync);
-      viewport?.removeEventListener("scroll", sync);
-      mobileQuery.removeEventListener("change", sync);
-      if (panel) {
-        panel.style.top = "";
-        panel.style.height = "";
-      }
-    };
-  }, [open]);
-
   const handleOpen = useCallback(() => {
     setOpen(true);
     track("assistant_opened", { page_type: pathname ?? "unknown" });
@@ -258,7 +222,7 @@ export function AssistantWidget() {
       }
       return [GREETING];
     });
-    setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 60);
+    setTimeout(() => inputRef.current?.focus(), 50);
   }, [pathname]);
 
   const send = useCallback(async () => {
@@ -320,7 +284,7 @@ export function AssistantWidget() {
       track("assistant_error", {});
     } finally {
       setPending(false);
-      inputRef.current?.focus({ preventScroll: true });
+      inputRef.current?.focus();
     }
   }, [input, photos, pending, messages, pathname]);
 
@@ -371,15 +335,14 @@ export function AssistantWidget() {
 
       {open && (
         <div
-          ref={panelRef}
           role="dialog"
           aria-label="Boise Cabinet Co virtual estimating assistant"
-          className="assistant-sheet fixed z-[220] flex w-full flex-col bg-background text-foreground shadow-2xl max-md:inset-x-0 max-md:top-0 max-md:h-[100dvh] max-md:rounded-none md:bottom-6 md:right-6 md:h-[min(640px,calc(100dvh-3rem))] md:w-[400px] md:rounded-xl md:border md:border-border"
+          className="fixed inset-x-0 bottom-0 z-[110] flex h-[85dvh] flex-col rounded-t-xl border border-border bg-background shadow-2xl md:inset-x-auto md:bottom-6 md:right-6 md:h-[600px] md:max-h-[80dvh] md:w-[400px] md:rounded-xl"
           onKeyDown={(e) => {
             if (e.key === "Escape") setOpen(false);
           }}
         >
-          <div className="flex shrink-0 items-start justify-between gap-3 border-b border-border px-4 py-3">
+          <div className="flex items-start justify-between gap-3 border-b border-border px-4 py-3">
             <div>
               <p className="font-sans text-sm font-medium text-foreground">
                 Estimating assistant
@@ -399,7 +362,7 @@ export function AssistantWidget() {
             </button>
           </div>
 
-          <div ref={listRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4" data-clarity-mask="True">
+          <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4" data-clarity-mask="True">
             {messages.map((m, i) => (
               <div
                 key={i}
@@ -432,7 +395,7 @@ export function AssistantWidget() {
             )}
           </div>
 
-          {messages.some(m=>m.role==='user')&&<button type="button" onClick={continueProject} className="m-3 min-h-11 shrink-0 rounded-md bg-primary px-4 py-3 text-primary-foreground">Continue project</button>}
+          {messages.some(m=>m.role==='user')&&<button type="button" onClick={continueProject} className="m-3 min-h-11 rounded-md bg-primary px-4 py-3 text-primary-foreground">Continue project</button>}
 
           {photos.length > 0 && (
             <div className="flex gap-2 px-4 pb-1">
@@ -455,7 +418,7 @@ export function AssistantWidget() {
 
           <form
             data-clarity-mask="True"
-            className="assistant-composer flex shrink-0 items-end gap-2 border-t border-border px-3 py-3"
+            className="flex items-end gap-2 border-t border-border px-3 py-3"
             onSubmit={(e) => {
               e.preventDefault();
               void send();
@@ -492,12 +455,6 @@ export function AssistantWidget() {
                 }
               }}
               rows={1}
-              name="assistant-message"
-              enterKeyHint="send"
-              autoComplete="off"
-              autoCorrect="on"
-              autoCapitalize="sentences"
-              spellCheck
               placeholder="Ask about pricing, rooms, or how we work..."
               aria-label="Message the estimating assistant"
               className="max-h-28 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40"

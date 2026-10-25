@@ -3,6 +3,7 @@ import { useP5MobileActions } from "@/components/P5MobileActions";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 
 
+import { useModals } from "@/components/modals/ModalProvider";
 import { Button } from "@/components/ui/button";
 import {
 NavigationMenu,
@@ -80,8 +81,8 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+  const { openEstimate } = useModals();
   const { isAuthenticated, isCustomer } = useAuth();
-  const requestHref = pathname === "/" ? "/#project-request" : "/estimate#estimate-request";
   // While a guided-flow wizard shows its own contextual mobile bar, the generic
   // Call / Book-consult bar steps aside so the two never stack on phones.
   const [wizardBarActive, setWizardBarActive] = useState(false);
@@ -263,13 +264,15 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
               <Phone className="header-phone-icon hidden h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
               <span className="header-phone-number">{SITE_CONFIG.phone}</span>
             </a>
-            <Button variant="brand" size="sm" asChild>
-              <Link
-                href={requestHref}
-                onClick={() => track("primary_cta_clicked", { intent: "estimate", placement: "header" })}
-              >
-                {CTA_ESTIMATE}
-              </Link>
+            <Button
+              variant="brand"
+              size="sm"
+              onClick={() => {
+                track("primary_cta_clicked", { intent: "estimate", placement: "header" });
+                openEstimate();
+              }}
+            >
+              {CTA_ESTIMATE}
             </Button>
           </div>
 
@@ -404,16 +407,16 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
               <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
               Text {SITE_CONFIG.phone}
             </a>
-            <Button variant="brand" className="w-full" asChild>
-              <Link
-                href={requestHref}
-                onClick={() => {
-                  track("primary_cta_clicked", { intent: "estimate", placement: "mobile_menu" });
-                  setMobileOpen(false);
-                }}
-              >
-                {CTA_ESTIMATE}
-              </Link>
+            <Button
+              variant="brand"
+              className="w-full"
+              onClick={() => {
+                track("primary_cta_clicked", { intent: "estimate", placement: "mobile_menu" });
+                setMobileOpen(false);
+                openEstimate();
+              }}
+            >
+              {CTA_ESTIMATE}
             </Button>
           </div>
         </SheetContent>
@@ -447,14 +450,17 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
             <MessageSquare className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Chat</span>
           </button>
           )}
-          <Link
-            href={requestHref}
-            onClick={() => track("mobile_sticky_cta_clicked", { intent: "estimate" })}
+          <button
+            type="button"
+            onClick={() => {
+              track("mobile_sticky_cta_clicked", { intent: "estimate" });
+              openEstimate();
+            }}
             aria-label={CTA_ESTIMATE}
             className="flex min-h-14 flex-1 items-center justify-center rounded-sm bg-accent text-accent-foreground px-4 text-base font-medium"
           >
             {CTA_ESTIMATE}
-          </Link>
+          </button>
         </div>
       </div>
     </>
