@@ -25,7 +25,6 @@ import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress, parseAddressParts } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
-import { leadUploadError, safeLeadFileName } from "@/lib/leadAttachments";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 import type { EstimateRecord } from "@/shared/estimateRecord";
@@ -132,32 +131,6 @@ const bodySchema = z.object({
   companyWebsite: z.string().optional().default(""),
 });
 
-type LeadFile = { name: string; type: string; bytes: Buffer };
-
-/** JSON stays the default. Files are accepted only from the short project form. */
-async function readConsultationPayload(request: NextRequest): Promise<{ raw: unknown; files: LeadFile[] }> {
-  const type = request.headers.get("content-type") || "";
-  if (!type.toLowerCase().includes("multipart/form-data")) {
-    return { raw: await request.json(), files: [] };
-  }
-  const form = await request.formData();
-  const raw: Record<string, unknown> = {};
-  for (const [key, value] of form.entries()) {
-    if (value instanceof File) continue;
-    raw[key] = String(value);
-  }
-  const files: LeadFile[] = [];
-  for (const value of form.getAll("files")) {
-    if (!(value instanceof File) || value.size <= 0) continue;
-    files.push({
-      name: value.name || "upload",
-      type: value.type || "application/octet-stream",
-      bytes: Buffer.from(await value.arrayBuffer()),
-    });
-  }
-  return { raw, files };
-}
-
 export async function POST(request: NextRequest) {
   try {
     const ip = getClientIp(request);
@@ -169,16 +142,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const loaded = await readConsultationPayload(request);
-    const fileError = leadUploadError(loaded.files.map((file) => ({
-      name: file.name,
-      type: file.type,
-      size: file.bytes.length,
-    })));
-    if (fileError) {
-      return NextResponse.json({ message: fileError }, { status: 400 });
-    }
-    const raw = loaded.raw;
+    const raw = await request.json();
     const parsed = bodySchema.safeParse(raw);
 
     if (!parsed.success) {
@@ -188,13 +152,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const attachmentNote = loaded.files.length
-      ? `Files included: ${loaded.files.map((file) => safeLeadFileName(file.name)).join(", ")}`
-      : "";
-    const data = {
-      ...parsed.data,
-      message: [parsed.data.message?.trim(), attachmentNote].filter(Boolean).join("\n\n") || undefined,
-    };
+    const data = parsed.data;
     const requestKey = request.headers.get("Idempotency-Key");
     if (requestKey !== null && !CONSULTATION_KEY.test(requestKey)) {
       return NextResponse.json({ accepted: false, message: "Invalid request key." }, { status: 400 });
@@ -453,7 +411,6 @@ export async function POST(request: NextRequest) {
             <p><strong>Notes from the lead:</strong></p>
             <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
           </div>
-          ${loaded.files.length ? `<p style="margin-top:12px;">The lead attached ${loaded.files.length === 1 ? "a file" : `${loaded.files.length} files`} on the short project form. They are attached to this email.</p>` : ""}
           <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
           ${buildLeadDashboardButton(capturedLeadId)}
           <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
@@ -462,10 +419,6 @@ export async function POST(request: NextRequest) {
       });
 
       const adminEmails = await getAdminRecipientEmails(SITE_CONFIG.email);
-      const attachments = loaded.files.map((file) => ({
-        filename: safeLeadFileName(file.name),
-        content: file.bytes,
-      }));
       for (const adminEmail of adminEmails) {
         await client.emails.send({
           from,
@@ -475,7 +428,6 @@ export async function POST(request: NextRequest) {
           subject: `New consultation request: ${data.name}`,
           html: adminHtml,
           text: htmlToPlainText(adminHtml),
-          ...(attachments.length ? { attachments } : {}),
         });
       }
 
@@ -486,7 +438,6 @@ export async function POST(request: NextRequest) {
         content: `
           <p class="greeting">Hi ${escapeHtml(data.name)},</p>
           <p>Thanks so much for reaching out. I got your request and I will personally be in touch within one business day to set up your free design visit and learn more about what you have in mind.</p>
-          ${loaded.files.length ? "<p>We received the photo or plan you attached and will review it with your request.</p>" : ""}
           <p>${preferToTextHtml()}</p>
           ${estimateDetailBlock}
           ${buildHomeownerStoryHtml()}

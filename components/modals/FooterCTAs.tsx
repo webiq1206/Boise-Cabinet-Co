@@ -1,25 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useModals } from "./ModalProvider";
+import { useEstimateInline } from "./useEstimateHref";
 import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { track } from "@/lib/analytics/track";
 
 const cls =
   "tap-target block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left";
 
-/** Footer estimate action goes to the short project form, not the multi-step intake. */
+/** Renders a single CTA link/button - not a list item, so callers should not place it inside a <ul>. */
 export function FooterCTAs() {
-  const pathname = usePathname();
-  const href = pathname === "/" ? "/#project-request" : "/estimate#estimate-request";
+  const { openEstimate } = useModals();
+  const inline = useEstimateInline();
+  const trackClick = () =>
+    track("primary_cta_clicked", { intent: "estimate", placement: "footer" });
+
+  if (inline) {
+    return (
+      <Link prefetch={false} href="/#calculator" className={cls} onClick={trackClick}>
+        {CTA_ESTIMATE}
+      </Link>
+    );
+  }
+
   return (
-    <Link
-      prefetch={false}
-      href={href}
+    <button
+      type="button"
+      onClick={() => {
+        trackClick();
+        openEstimate();
+      }}
       className={cls}
-      onClick={() => track("primary_cta_clicked", { intent: "estimate", placement: "footer" })}
     >
       {CTA_ESTIMATE}
-    </Link>
+    </button>
   );
 }
