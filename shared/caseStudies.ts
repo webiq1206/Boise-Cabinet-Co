@@ -20,6 +20,8 @@ export interface CaseStudy {
   details: Array<{ label: string; value: string }>;
   imageUrl: string;
   imageAlt: string;
+  /** Same-property exterior and room details for visual continuity. */
+  detailImages: Array<{ src: string; alt: string }>;
   links: Array<{ label: string; href: string }>;
 }
 
@@ -41,5 +43,6 @@ export const CASE_STUDIES: CaseStudy[] = PROJECTS.filter((p) => p.scenario).map(
   details: p.scenario!.details,
   imageUrl: p.hero.src,
   imageAlt: p.hero.alt,
+  detailImages: p.detail,
   links: p.scenario!.links,
 }));

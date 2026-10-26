@@ -3,6 +3,7 @@ import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { SplitSection } from "@/components/marketing/SplitSection";
@@ -13,7 +14,7 @@ import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
 import { publicText } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { ENRICHMENT_IMAGES, MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -102,6 +103,12 @@ export default function ConstructionPage() {
           </div>
         </Section>
 
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.constructionDetail}
+          alt="Frameless plywood cabinet box with dovetail drawer and soft-close slide detail"
+          caption="Furniture-grade plywood boxes, dovetail drawers, and soft-close hardware."
+        />
+
         <Section divider>
           <SplitSection header={<SectionHeader
               eyebrow="Built to last"
@@ -109,7 +116,32 @@ export default function ConstructionPage() {
               className="mb-0"
             />}>
             <div className="ed-grid-balance grid md:grid-cols-2 gap-6">
-              {STANDARDS.map((item) => (
+              {STANDARDS.slice(0, 3).map((item) => (
+                <MarketingCard key={item.title}>
+                  <h3 className="text-lg font-serif tracking-tight mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{item.body}</p>
+                </MarketingCard>
+              ))}
+            </div>
+          </SplitSection>
+        </Section>
+
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.drawerHardware}
+          alt="Oak drawers with black pulls showing soft-close hardware and finish quality"
+          caption="Hardware you feel every day, checked before it leaves the shop."
+        />
+
+        <Section variant="greige" divider>
+          <SplitSection header={<SectionHeader
+              eyebrow="Install & accountability"
+              title={<>From Meridian shop to your home</>}
+              className="mb-0"
+            />}>
+            <div className="ed-grid-balance grid md:grid-cols-2 gap-6">
+              {STANDARDS.slice(3).map((item) => (
                 <MarketingCard key={item.title}>
                   <h3 className="text-lg font-serif tracking-tight mb-2">
                     {item.title}

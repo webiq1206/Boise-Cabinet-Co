@@ -14,3 +14,5 @@ export { BlogHeroBanner, HubHeroBanner } from "./BlogHeroBanner";
 export { BlogIndexClient } from "./BlogIndexClient";
 export { RelatedPostCards } from "./RelatedPostCards";
 export { FaqAccordion, type FaqItem } from "./FaqAccordion";
+export { PhotoBreak, type PhotoBreakProps } from "./PhotoBreak";
+export { ProjectDetailStrip, type ProjectDetailStripProps } from "./ProjectDetailStrip";

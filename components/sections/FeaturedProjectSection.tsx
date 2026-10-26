@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
+import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PROJECTS } from "@/shared/galleryData";
@@ -76,6 +77,17 @@ export function FeaturedProjectSection() {
           </div>
         )}
       </Reveal>
+
+      {project.detail.length > 0 ? (
+        <div className="ed-shell pt-6 pb-2">
+          <Reveal delay={80}>
+            <ProjectDetailStrip
+              images={project.detail}
+              label={`${project.area} property views`}
+            />
+          </Reveal>
+        </div>
+      ) : null}
 
       <div className="ed-shell py-10">
         <Reveal delay={120}>
