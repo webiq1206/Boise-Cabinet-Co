@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { saveConsultationOnce, ConsultationReplayConflict, CONSULTATION_KEY } from "@/lib/consultationReplay";
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { consultationRequests, leads, submissions, leadQuotes } from "@/shared/schema";
@@ -27,6 +27,7 @@ import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
+import { forwardConsultationToP5Intake } from "@/server/services/p5IntakeBridge";
 import type { EstimateRecord } from "@/shared/estimateRecord";
 
 const PER_IP_LIMIT = 8;
@@ -215,6 +216,27 @@ export async function POST(request: NextRequest) {
         }
         console.error("[consultation] DB insert failed:", dbErr);
         return NextResponse.json({ accepted: false, message: "We couldn't save your request. Please try again later or call us directly." }, { status: 503 });
+      }
+
+      // HubSpot contact + mapped deal + lead_created mail live on p5 intake.
+      // Started as soon as the lead is durable so it overlaps Resend, and kept
+      // alive with after() so the visitor response does not wait on it.
+      // Failures stay inside the bridge and cannot change this status.
+      try {
+        const bridge = forwardConsultationToP5Intake({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          city: leadCity || city || null,
+          zip: zip || null,
+          projectType: data.projectType,
+          message: data.message,
+          inquiryId: persistedRequestId,
+        });
+        after(() => bridge);
+      } catch (bridgeErr) {
+        console.error("[p5-intake] Could not schedule HubSpot bridge:", bridgeErr);
       }
 
       // Mirror the consultation into the admin lead manager so it can be
