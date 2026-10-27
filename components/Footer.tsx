@@ -189,7 +189,7 @@ export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }
           {" · "}
           <a href="https://boisecabinet.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Cabinet Co</a>
           {" · "}
-          Boise ADU Co (launching soon)
+          Boise ADU Co (website coming soon; requests through P5)
         </p>
 
         {/* Utility row: legal, credentials, copyright - smaller weight than the primary groups above. */}
