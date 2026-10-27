@@ -160,7 +160,7 @@ test("llms files and the footer publish the public email, address, and represent
   assert.equal(footer.includes("https://boiseremodeling.co"), true);
   assert.equal(footer.includes("https://boisehandyman.co"), true);
   assert.equal(footer.includes("https://boisecabinet.co"), true);
-  assert.equal(footer.includes("Boise ADU Co (launching soon)"), true);
+  assert.equal(footer.includes("Boise ADU Co (website coming soon; requests through P5)"), true);
   assert.equal(footer.includes("https://boiseadu"), false);
   const contact = readFileSync("app/contact/page.tsx", "utf8");
   assert.equal(contact.includes("{SITE_CONFIG.email}"), true);
