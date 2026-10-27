@@ -35,7 +35,7 @@ import Link from 'next/link';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 299 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.';
+  'Boise Cabinet Co is the cabinetry specialist in the P5 family, serving the Treasure Valley. Share your space, cabinet needs and project goals for review. Scope, price and schedule are agreed before work begins; an inquiry does not confirm an order or installation date.';
 
 function HeroBreadcrumbs() {
   const items = [
@@ -149,13 +149,10 @@ export default function AboutPage() {
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              We are Idaho&apos;s premier custom cabinet company, serving the Treasure Valley from
-              design through installation.
+              Boise Cabinet Co is the cabinetry specialist in the P5 family, serving the Treasure Valley. Tell us about your kitchen, bathroom, storage or built-in project and the result you have in mind.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              Our focus is clarity: written scope before order, proactive project updates,
-              an online Design Studio to explore finishes and layouts, and a client portal to track
-              every milestone. Every detail, every decision, handled with intention.
+              We review your space, cabinet needs and project goals before preparing a proposal. The cabinet scope, price and schedule are agreed before work begins; an inquiry does not confirm an order or installation date.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>*]:w-full sm:[&>*]:w-auto mb-8">
               <CtaButton variant="brand">
@@ -219,7 +216,7 @@ export default function AboutPage() {
                       <em className="brc-accent text-accent">one team</em>
                     </>
                   }
-                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, sourcing, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
+                  description="Start with your space, storage needs and any plans or photos you want to share. Review the layout, finishes and cabinet scope with us, then agree on the proposal, responsibilities and schedule before ordering or installation. Availability depends on the cabinet line and project scope and is confirmed with you."
                   className="mb-8 max-w-none"
                 />
                 <p className="text-base text-muted-foreground leading-relaxed mb-8">

@@ -16,7 +16,7 @@ const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
 
-const HERO_IMAGE = "/images/approved/hero-p5-v2.webp";
+const HERO_IMAGE = "/images/service-scenes/kitchen.webp";
 const TILES = [
   {
     src: "/images/approved/kitchen.webp",
@@ -142,7 +142,7 @@ export default function KitchenCabinetsPage() {
       <section data-p5-hero className="kc-hero relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
-          alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details"
+          alt="Ivory kitchen cabinetry with an oak island, stone backsplash and pendant lighting"
           fill
           priority
           sizes="100vw"
