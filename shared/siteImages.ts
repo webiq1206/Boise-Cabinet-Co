@@ -18,6 +18,16 @@ export const MARKETING_IMAGES = {
   ogDefault: "/images/marketing/og-default.webp",
 } as const;
 
+/** Mid-page photo breaks for text-heavy marketing routes. */
+export const ENRICHMENT_IMAGES = {
+  buildersStaging: "/images/enrichment/builders-cabinet-staging.webp",
+  constructionDetail: "/images/enrichment/construction-box-detail.webp",
+  aboutMaterials: "/images/enrichment/about-lean-materials.webp",
+  workshop: "/images/marketing/hero-construction.webp",
+  drawerHardware: "/images/marketing/warranty-hardware.webp",
+  oakBuiltIns: "/images/marketing/great-room-oak-built-ins.webp",
+} as const;
+
 /** @deprecated Use MARKETING_IMAGES, kept for gradual migration */
 export const SITE_IMAGES = {
   hero: MARKETING_IMAGES.heroHome,

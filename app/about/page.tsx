@@ -2,6 +2,7 @@ import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout'
 import { DisplayNum,formatStepNumber,Section } from '@/components/marketing';
 import { Hairline } from '@/components/marketing/Hairline';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { PhotoBreak } from '@/components/marketing/PhotoBreak';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
@@ -27,7 +28,7 @@ import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG, foundingYearCopy, showFoundingYear } from '@/shared/siteConfig';
 import { publicQa,publicText,REGISTERED_BONDED_INSURED } from '@/shared/claims';
 import { PRINCIPLES,TEAM,TRUST_ITEMS,publicHeroStats } from '@/shared/siteContent';
-import { SITE_IMAGES } from '@/shared/siteImages';
+import { ENRICHMENT_IMAGES, SITE_IMAGES } from '@/shared/siteImages';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -258,6 +259,12 @@ export default function AboutPage() {
             </p>
           </div>
         </Section>
+
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.aboutMaterials}
+          alt="Cabinet door samples and finish boards laid out for a Treasure Valley design consultation"
+          caption="Selections happen around real samples, not a showroom markup."
+        />
 
         <WhyChooseUsSection />
 

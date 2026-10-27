@@ -8,6 +8,8 @@ import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { PhotoBreak } from "@/components/marketing/PhotoBreak";
+import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
 import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
@@ -44,6 +46,7 @@ type ProjectType,
 } from "@/shared/estimateEngine";
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ENRICHMENT_IMAGES } from "@/shared/siteImages";
 import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
 import { visibleTestimonials } from "@/shared/testimonialsData";
 import { ArrowRight,Check,MapPin,Phone } from "lucide-react";
@@ -291,6 +294,12 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           </div>
         </Section>
 
+        <PhotoBreak
+          src={room.heroImage}
+          alt={room.imageAlt ?? `${room.name} custom cabinets for Treasure Valley homes`}
+          caption={`${room.name} cabinetry designed for Boise and Treasure Valley homes.`}
+        />
+
         {/* Project proof */}
         {!roomCopy && roomProjects.length > 0 && (
         <Section divider>
@@ -320,6 +329,11 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {project.description}
                       </p>
+                      {project.detail.length > 0 ? (
+                        <div className="mt-4">
+                          <ProjectDetailStrip images={project.detail.slice(0, 3)} />
+                        </div>
+                      ) : null}
                     </div>
                   </MarketingCard>
                 ))}
@@ -398,17 +412,26 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         </Section>
 
         {/* Process */}
-        {roomCopy?.sections?.map((section) => (
-          <Section key={section.heading} divider>
-            <div className="ed-shell max-w-3xl">
-              <h2 className="ed-h2-sm">{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </Section>
+        {roomCopy?.sections?.map((section, index) => (
+          <div key={section.heading}>
+            <Section divider>
+              <div className="ed-shell max-w-3xl">
+                <h2 className="ed-h2-sm">{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </Section>
+            {index === 0 ? (
+              <PhotoBreak
+                src={ENRICHMENT_IMAGES.oakBuiltIns}
+                alt={`${room.name} cabinetry detail in a Treasure Valley home`}
+                caption={`More ${room.name.toLowerCase()} planning detail for Ada and Canyon County homes.`}
+              />
+            ) : null}
+          </div>
         ))}
 
         <ProcessSection

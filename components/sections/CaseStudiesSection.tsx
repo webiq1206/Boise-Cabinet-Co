@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CASE_STUDIES } from "@/shared/caseStudies";
@@ -27,20 +28,28 @@ export function CaseStudiesSection() {
           align="left"
           className="mb-10"
         />
-        <div className="space-y-12">
+        <div className="space-y-16">
           {CASE_STUDIES.map((study) => (
             <article
               key={study.slug}
               className="grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-muted">
-                <Image
-                  src={study.imageUrl}
-                  alt={study.imageAlt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover img-brand-grade"
-                />
+              <div className="space-y-3">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-muted">
+                  <Image
+                    src={study.imageUrl}
+                    alt={study.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover img-brand-grade"
+                  />
+                </div>
+                {study.detailImages.length > 0 ? (
+                  <ProjectDetailStrip
+                    images={study.detailImages}
+                    label="Same property views"
+                  />
+                ) : null}
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">

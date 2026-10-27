@@ -56,9 +56,9 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 )}
               </div>
             </Reveal>
-            {/* The column used to end after the intro and sit empty beside a
-                long list. A photograph now fills it, so the evidence on the
-                right has a picture of the work on the left. */}
+            {/* Desktop: sticky photo beside the evidence list. Mobile: the
+                same photograph appears as a break between the intro and the
+                numbered steps so the scroll is not a wall of copy. */}
             <Reveal delay={60}>
               <figure className="mt-10 hidden lg:block">
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
@@ -75,6 +75,19 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
           </div>
 
           <div className="ed-steps">
+            <Reveal delay={40}>
+              <figure className="mb-8 lg:hidden">
+                <div className="relative aspect-[16/10] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
+                  <Image
+                    src="/images/marketing/hero-construction.webp"
+                    alt="cabinet workshop with a CNC router shaping a cabinet door"
+                    fill
+                    sizes="100vw"
+                    className="object-cover img-brand-grade"
+                  />
+                </div>
+              </figure>
+            </Reveal>
             {items.map((item, i) => (
               <Reveal key={item.title} delay={i * 40}>
                 <div className="ed-step">

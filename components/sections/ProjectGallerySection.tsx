@@ -37,6 +37,21 @@ function ProjectCard({ project }: { project: SiteProject }) {
       <div className="p-5">
         <h3 className="font-serif font-medium text-sm mb-1 text-foreground">{project.title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
+        {project.detail.length > 0 ? (
+          <div className="mt-4 grid grid-cols-3 gap-1.5">
+            {project.detail.slice(0, 3).map((image) => (
+              <div key={image.src} className="relative aspect-square overflow-hidden bg-muted">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="80px"
+                  className="object-cover img-brand-grade"
+                />
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     </MarketingCard>
   );

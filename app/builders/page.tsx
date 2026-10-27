@@ -3,6 +3,7 @@ import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinets
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { SplitSection } from "@/components/marketing/SplitSection";
@@ -17,6 +18,7 @@ generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ENRICHMENT_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -184,6 +186,12 @@ export default function BuildersPage() {
           </div>
         </Section>
 
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.buildersStaging}
+          alt="Cabinet boxes staged for delivery and installation for a Treasure Valley builder project"
+          caption="Boxes staged and ready so install days stay on your schedule."
+        />
+
         <Section divider>
           <SplitSection header={<SectionHeader
               eyebrow="The terms, up front"
@@ -221,6 +229,12 @@ export default function BuildersPage() {
             </ul>
           </SplitSection>
         </Section>
+
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.constructionDetail}
+          alt="Frameless plywood cabinet box and dovetail drawer detail from Boise Cabinet Co"
+          caption="One Meridian shop for design, fabrication, and install coordination."
+        />
 
         <Section divider>
           <SplitSection header={<SectionHeader

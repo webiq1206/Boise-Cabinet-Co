@@ -2,6 +2,7 @@ import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { SplitSection } from "@/components/marketing/SplitSection";
@@ -13,7 +14,7 @@ import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty } from "@/shared/claims";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { ENRICHMENT_IMAGES, MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -133,6 +134,12 @@ export default function WarrantyPage() {
             </div>
           </SplitSection>
         </Section>
+
+        <PhotoBreak
+          src={ENRICHMENT_IMAGES.drawerHardware}
+          alt="Finished oak drawers and cabinet doors with quality hardware covered under warranty"
+          caption="Coverage is tied to the finishes and hardware on your approved shop drawings."
+        />
 
         <Section divider>
           <SplitSection header={<SectionHeader

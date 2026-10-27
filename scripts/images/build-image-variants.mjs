@@ -34,6 +34,8 @@ const TARGETS = [
   { dir: "images/catalog/accessories", widths: [160, 320, 640] },
   { dir: "images/gallery", widths: [640, 1080, 1920] },
   { dir: "images/blog", widths: [640, 1080, 1920] },
+  { dir: "images/enrichment", widths: [640, 1080, 1920] },
+  { dir: "images/projects", widths: [640, 1080, 1920], recursive: true },
 ];
 
 const VARIANT_RE = /-\d+\.webp$/;
@@ -57,10 +59,17 @@ const manifest = {};
 let generated = 0;
 let skipped = 0;
 
-async function processDir(dirRel, widths) {
+async function processDir(dirRel, widths, { recursive = false } = {}) {
   const absDir = path.join(publicDir, dirRel);
   if (!fs.existsSync(absDir)) return;
-  for (const name of fs.readdirSync(absDir)) {
+  for (const entry of fs.readdirSync(absDir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (recursive) {
+        await processDir(path.join(dirRel, entry.name), widths, { recursive: true });
+      }
+      continue;
+    }
+    const name = entry.name;
     if (!isBaseWebp(name) || RETIRED.has(`${dirRel}/${name}`)) continue;
     const absFile = path.join(absDir, name);
     const base = name.replace(/\.webp$/, "");
@@ -96,7 +105,7 @@ async function processDir(dirRel, widths) {
 
 async function main() {
   for (const t of TARGETS) {
-    await processDir(t.dir, t.widths);
+    await processDir(t.dir, t.widths, { recursive: !!t.recursive });
   }
 
   const sortedKeys = Object.keys(manifest).sort();

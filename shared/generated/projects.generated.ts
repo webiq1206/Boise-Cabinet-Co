@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-10-08";
+export const PROJECTS_GENERATED_ON = "2026-10-26";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -14,10 +14,23 @@ export const PROJECTS: SiteProject[] = [
     "title": "Modern shaker kitchen concept",
     "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
     "hero": {
-      "src": "/images/gallery/gallery-kitchen-after.webp",
+      "src": "/images/projects/modern-shaker-kitchen/after.webp",
       "alt": "Design concept: custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
     },
-    "detail": [],
+    "detail": [
+      {
+        "src": "/images/projects/modern-shaker-kitchen/detail-exterior.webp",
+        "alt": "Boise Bench ranch exterior with modern shaker kitchen visible through windows"
+      },
+      {
+        "src": "/images/projects/modern-shaker-kitchen/detail-island.webp",
+        "alt": "Island drawers and quartz countertop detail matching the modern shaker kitchen concept"
+      },
+      {
+        "src": "/images/projects/modern-shaker-kitchen/detail-pantry.webp",
+        "alt": "Walk-in pantry with matching matte shaker doors adjacent to the kitchen"
+      }
+    ],
     "showBeforeAfter": false,
     "scenario": {
       "scope": "Full kitchen cabinet replacement with island in a Boise Bench ranch",
@@ -70,10 +83,19 @@ export const PROJECTS: SiteProject[] = [
     "title": "Double vanity suite concept",
     "description": "White Shaker double vanity with central drawer storage, paired mirrors, and matte black faucets.",
     "hero": {
-      "src": "/images/gallery/gallery-bathroom-after.webp",
+      "src": "/images/projects/double-vanity-suite/after.webp",
       "alt": "Design concept: white double bathroom vanity with central drawers, paired mirrors and black faucets"
     },
-    "detail": [],
+    "detail": [
+      {
+        "src": "/images/projects/double-vanity-suite/detail-exterior.webp",
+        "alt": "Meridian subdivision home exterior with primary bath vanity visible through the window"
+      },
+      {
+        "src": "/images/projects/double-vanity-suite/detail-linen.webp",
+        "alt": "White Shaker double vanity with matching linen tower and matte black faucets"
+      }
+    ],
     "showBeforeAfter": false,
     "scenario": {
       "scope": "Builder-grade single vanity to a double vanity suite with linen tower",
@@ -126,10 +148,23 @@ export const PROJECTS: SiteProject[] = [
     "title": "Whole-home finish schedule concept",
     "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
     "hero": {
-      "src": "/images/catalog/rooms/built-ins-1080.webp",
-      "alt": "Design concept: wood-finish living-room built-ins illustrating a coordinated cabinetry palette"
+      "src": "/images/projects/whole-home-finish-schedule/after.webp",
+      "alt": "Design concept: Eagle foothills kitchen with painted perimeter cabinets and a woodgrain accent island"
     },
-    "detail": [],
+    "detail": [
+      {
+        "src": "/images/projects/whole-home-finish-schedule/detail-exterior.webp",
+        "alt": "Eagle Idaho foothills home exterior with coordinated cabinetry visible through kitchen windows"
+      },
+      {
+        "src": "/images/projects/whole-home-finish-schedule/detail-mudroom.webp",
+        "alt": "Mudroom lockers and bench matching the whole-home shaker finish schedule"
+      },
+      {
+        "src": "/images/projects/whole-home-finish-schedule/detail-builtins.webp",
+        "alt": "Living-room wood built-ins under the same door style and finish schedule"
+      }
+    ],
     "showBeforeAfter": false,
     "scenario": {
       "scope": "Kitchen, two baths, mudroom, and office under one finish schedule",

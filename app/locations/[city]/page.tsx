@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { Section } from "@/components/marketing/Section";
 import { SectionedArticle } from "@/components/marketing/SectionedArticle";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
@@ -230,17 +231,32 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
           </div>
         </Section>
 
-        {copy?.sections?.map((section) => (
-          <Section key={section.heading} divider>
-            <div className="ed-shell max-w-3xl">
-              <h2 className="ed-h2-sm">{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </Section>
+        <PhotoBreak
+          src={images.breather}
+          alt={images.heroAlt ?? `Kitchen cabinetry for ${city.name}, Idaho homes`}
+          caption={`Cabinetry planned for ${city.name} homes and neighborhoods.`}
+        />
+
+        {copy?.sections?.map((section, index) => (
+          <div key={section.heading}>
+            <Section divider>
+              <div className="ed-shell max-w-3xl">
+                <h2 className="ed-h2-sm">{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="mt-4 text-base leading-relaxed text-foreground/90">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </Section>
+            {index === 1 ? (
+              <PhotoBreak
+                src={images.process}
+                alt={images.processAlt ?? `Whole-home cabinet package ideas for ${city.name}, Idaho`}
+                caption={`Local planning cues for ${city.name} and the wider Treasure Valley.`}
+              />
+            ) : null}
+          </div>
         ))}
 
         {copy?.steps ? (
