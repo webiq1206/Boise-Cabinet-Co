@@ -1,0 +1,76 @@
+{
+  "sourceLibraryId": "libfile_4efa3eb963fc81919a6cd4c2c179b0e3",
+  "archiveSha256": "52ba70b766cd32a607675d11a4f1a36eb43697fe49f379b8ce4585c371316b6a",
+  "assets": [
+    {
+      "destination": "public/brand/approved-lockup-dark.svg",
+      "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Light.svg",
+      "sha256": "c427b8281284d96530f19ac7e38cc29163ddeeaa76effd2dc3693f64bdac21ef"
+    },
+    {
+      "destination": "public/brand/p5-family-dark.svg",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light.svg",
+      "sha256": "806e39ded709c4b3673379925fd4f995678fa27c72dce13ef52043b45da9adc8"
+    },
+    {
+      "destination": "public/brand/approved-lockup-light.svg",
+      "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Dark.svg",
+      "sha256": "70f21a18cbd695c9f4946b047700c6c6f4716bc5393aa3d763b90c763f2adf3e"
+    },
+    {
+      "destination": "public/brand/p5-family-light.svg",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Dark.svg",
+      "sha256": "ebab484af30f243eae818cbda33da5451835b8b9a0ecac0caf2c77ec5a0d417f"
+    },
+    {
+      "destination": "public/favicon.svg",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light.svg",
+      "sha256": "806e39ded709c4b3673379925fd4f995678fa27c72dce13ef52043b45da9adc8"
+    },
+    {
+      "destination": "public/favicon.ico",
+      "source": "cabinet/icons/favicon.ico",
+      "sha256": "3d3452c4821311a29138fccc30cee85a160741bc145ca661492177fa2ce6bcad"
+    },
+    {
+      "destination": "public/favicon-16.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_16px.png",
+      "sha256": "8a24281898025e14b3d790179a6ea1d898b4c0620d0331bb66000f500d107aba"
+    },
+    {
+      "destination": "public/favicon-32.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_32px.png",
+      "sha256": "dd2af3bc3b2344b5817dbe4cbe8fc06c36cc64f18f1520cbfd51b2ff57574586"
+    },
+    {
+      "destination": "public/icons/apple-touch-icon.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_180px.png",
+      "sha256": "17e48f25fef539f5149152209724299bff1704015a81d85be2e5fde272d84cd0"
+    },
+    {
+      "destination": "public/apple-touch-icon.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_180px.png",
+      "sha256": "17e48f25fef539f5149152209724299bff1704015a81d85be2e5fde272d84cd0"
+    },
+    {
+      "destination": "public/icons/icon-192.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_192px.png",
+      "sha256": "34ab58516e6ff3a5adde85ac22fc2277e4dad6aadfb104e88685135d3db6775d"
+    },
+    {
+      "destination": "public/icons/icon-512.png",
+      "source": "cabinet/icons/Boise-Cabinet-Co_P5-Icon_On-Light_512px.png",
+      "sha256": "7e72df1f78d233d30f85698dba31e749cf7ea1a7e0af7ede12d4b4159733926c"
+    },
+    {
+      "destination": "public/brand/png/wordmark/light/boise-cabinet-co-wordmark-charcoal-accent-1200w.png",
+      "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Light_1280px.png",
+      "sha256": "c8240da7a01c18df668ec824536ed2644909d9068e6b666853bd7367f64f9b0f"
+    },
+    {
+      "destination": "public/brand/png/wordmark/dark/boise-cabinet-co-wordmark-bone-accent-1200w.png",
+      "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Dark_1280px.png",
+      "sha256": "ea56e06bdc0e6573a8bca2ddca792426135756a5c6fb4c7e3a917d3750275d1a"
+    }
+  ]
+}
