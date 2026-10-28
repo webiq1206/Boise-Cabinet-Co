@@ -761,7 +761,7 @@
   border: 1px solid transparent;
 }
 .above-fold-actions a:focus-visible {
-  outline: 3px solid var(--approved-accent, #7aaaaa);
+  outline: 3px solid var(--approved-accent, #659B9A);
   outline-offset: 3px;
 }
 @media (max-width: 700px) {
