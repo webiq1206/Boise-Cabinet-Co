@@ -141,7 +141,7 @@ export default function AboutPage() {
               <em className="brc-accent text-accent">Co</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020, moved to the Treasure Valley in 2025, and named the company for his five children. Read the full story on{' '}
+              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
               <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
@@ -176,7 +176,7 @@ export default function AboutPage() {
                 priority
               />
               <figcaption className="mt-3 text-sm text-muted-foreground">
-                The Perkins family in Meridian. Family is why P5 exists.
+                The Perkins family in Meridian.
               </figcaption>
             </figure>
             <p className="text-base text-muted-foreground leading-relaxed mb-4">
