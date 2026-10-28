@@ -101,6 +101,9 @@ export default function CabinetInstallationPage() {
               <p className="mt-5 text-lg leading-relaxed text-foreground/80">
                 We will talk through the scope, the room, and what you already have before recommending the next step.
               </p>
+              <p className="mt-5 text-lg leading-relaxed text-foreground/80">
+                Installation-only work is quoted per linear foot after we see the room and the boxes you plan to use.
+              </p>
             </Reveal>
           </div>
         </Section>

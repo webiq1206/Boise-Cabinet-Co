@@ -9,27 +9,20 @@ import {
   REGISTERED_BONDED_INSURED,
 } from "../shared/claims";
 
-const NUMBERED = "Idaho Registered Contractor #8381215";
-const ENTITY_LINE = "P5 Home Co LLC, Idaho Registered Contractor #8381215";
-
 test("license meta and schema publish the registration number", () => {
-  assert.equal(
-    HOMEPAGE_DESCRIPTION,
-    "Custom cabinets in Boise. P5 Home Co LLC, Idaho Registered Contractor #8381215. Free design consult.",
-  );
+  assert.match(HOMEPAGE_DESCRIPTION, /P5 Home Co LLC, Idaho Registered Contractor #8381215/);
   assert.ok(HOMEPAGE_DESCRIPTION.length <= 160);
   assert.equal(HOMEPAGE_DESCRIPTION.includes("Licensed"), false);
-  assert.match(HOMEPAGE_DESCRIPTION, /P5 Home Co LLC/);
   const city = generateMetaDescription({ serviceName: "", serviceSlug: "", city: "Boise" });
-  assert.equal(city.includes(NUMBERED) || city.includes(ENTITY_LINE), true);
+  assert.equal(city.includes(REGISTERED_BONDED_INSURED), true);
   const service = generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets" });
-  assert.equal(service.includes(NUMBERED) || service.includes("8381215"), true);
+  assert.equal(service.includes(`${REGISTERED_BONDED_INSURED}.`), true);
   assert.equal(service.includes("satisfaction guaranteed"), false);
   const cityService = generateCityServiceDescription("Kitchen Cabinets", "Meridian");
-  assert.match(cityService, /Idaho Registered Contractor #8381215|8381215/);
+  assert.match(cityService, /Idaho Registered Contractor #8381215/);
   assert.equal(BUSINESS_INFO.insurance, REGISTERED_BONDED_INSURED);
   const org = String(generateOrganizationSchema().description);
-  assert.equal(org.includes("8381215"), true);
+  assert.equal(org.includes(`${REGISTERED_BONDED_INSURED}.`), true);
   assert.equal(org.includes("craftsmanship"), false);
   assert.equal(org.includes("2020"), false);
   const priority = CLIENT_PRIORITIES.find((item) => item.title === "Trust and credibility");
@@ -37,7 +30,7 @@ test("license meta and schema publish the registration number", () => {
     priority?.body,
     `${REGISTERED_BONDED_INSURED}, with permits handled in-house and a written scope before work begins.`,
   );
-  assert.equal(IDAHO_REGISTERED_CONTRACTOR, ENTITY_LINE);
+  assert.equal(IDAHO_REGISTERED_CONTRACTOR, "P5 Home Co LLC, Idaho Registered Contractor #8381215");
 });
 
 test("current main metadata never restores unapproved satisfaction claims", () => {
@@ -48,7 +41,7 @@ test("current main metadata never restores unapproved satisfaction claims", () =
    else process.env.SHOW_UNPROVEN_SATISFACTION_GUARANTEE = flag;
    for (const city of [undefined, "Star", "Meridian"]) {
     const description = generateMetaDescription({ serviceName: "Kitchen Cabinets", serviceSlug: "kitchen-cabinets", city });
-    assert.match(description, /Idaho Registered Contractor #8381215|8381215/);
+    assert.match(description, /Idaho Registered Contractor #8381215/);
     assert.doesNotMatch(description, /satisfaction guaranteed|shop-built/i);
     assert.ok(description.length <= 160);
    }

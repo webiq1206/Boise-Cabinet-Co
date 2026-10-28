@@ -11,7 +11,8 @@ test("about and footer retain the current centralized contractor registration", 
     REGISTERED_BONDED_INSURED,
     "P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request",
   );
-  assert.match(about, /REGISTERED_BONDED_INSURED|IDAHO_REGISTERED_CONTRACTOR/);
+  assert.match(about, /\$\{REGISTERED_BONDED_INSURED\}/);
+  assert.match(about, /\$\{IDAHO_REGISTERED_CONTRACTOR\}/);
   assert.match(footer, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[\s\S]*?\{IDAHO_REGISTERED_CONTRACTOR\}[\s\S]*?<\/a>/);
   assert.doesNotMatch(about, /contractor license/);
   assert.doesNotMatch(footer, /Idaho license #|License details available upon request/);

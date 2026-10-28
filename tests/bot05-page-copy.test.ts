@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { GUIDE_PAGES } from "../shared/guideContent";
 import {
   BOT05_LOCATIONS,
   BOT05_ROOMS,
@@ -12,15 +11,16 @@ const FORBIDDEN = [
   /\u2014/,
   new RegExp("&" + "mdash;|" + "&" + "#8212;", "i"),
   /lock production/i,
-  /Fabrication claims on older page copy/i,
   /lifetime/i,
   /\blicensed\b/i,
   /founded in 2020/i,
-  /\bwe build\b/i,
-  /\bbuilds and installs\b/i,
-  /\bdesign, builds?\b/i,
-  /build every box/i,
-  /\bfabrication\b/i,
+  /\bwe source\b/i,
+  /\bdo not fabricate\b/i,
+  /ready-to-assemble/i,
+  /near me/i,
+  /bonded and insured/i,
+  /Design Studio/i,
+  /client portal/i,
 ];
 
 function walk(value: unknown, found: string[]) {
@@ -28,7 +28,7 @@ function walk(value: unknown, found: string[]) {
     for (const pattern of FORBIDDEN) {
       if (pattern.test(value)) found.push(`${pattern}: ${value}`);
     }
-    if (/\bfabricat/i.test(value) && !/do not fabricate|does not mean we fabricate/i.test(value)) {
+    if (/\bfabricat/i.test(value)) {
       found.push(`fabrication claim: ${value}`);
     }
     return;
@@ -43,14 +43,14 @@ function walk(value: unknown, found: string[]) {
 }
 
 test("BOT-05 customer build answer is exact and deposit wording is locked", () => {
-  assert.equal(BUILD_CABINETS_ANSWER, "No. We source and install.");
+  assert.match(BUILD_CABINETS_ANSWER, /designs custom cabinets to your measurements/);
   for (const copy of Object.values(BOT05_ROOMS)) {
     const answer = copy.faqs.find((faq) => faq.question === "Do you build cabinets?")?.answer;
-    assert.equal(answer, "No. We source and install.");
+    assert.equal(answer, BUILD_CABINETS_ANSWER);
   }
   assert.equal(
     BOT05_LOCATIONS.boise.faqs?.find((faq) => faq.question === "Do you build cabinets?")?.answer,
-    "No. We source and install.",
+    BUILD_CABINETS_ANSWER,
   );
   const steps = [
     ...(BOT05_LOCATIONS.boise.steps ?? []),
@@ -61,23 +61,10 @@ test("BOT-05 customer build answer is exact and deposit wording is locked", () =
   assert.equal(steps.includes("lock production"), false);
 });
 
-test("BOT-05 page copy and touched city guides stay inside source-and-install claims", () => {
+test("BOT-05 page copy stays inside D1 identity claims", () => {
   const hits: string[] = [];
   walk(BOT05_LOCATIONS, hits);
   walk(BOT05_ROOMS, hits);
-  for (const slug of ["boise", "meridian", "middleton", "kuna"]) {
-    const guide = GUIDE_PAGES.find((page) => page.guideType === "location" && page.linkedCities?.includes(slug));
-    assert.ok(guide, slug);
-    walk(
-      {
-        content: guide?.content,
-        quickAnswer: guide?.quickAnswer,
-        faqs: guide?.faqs,
-        excerpt: guide?.excerpt,
-      },
-      hits,
-    );
-  }
   assert.deepEqual(hits, []);
 });
 

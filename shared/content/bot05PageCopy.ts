@@ -2,7 +2,7 @@
  * BOT-05 existing-URL copy (Priya drafts, Sam PASS 2026-10-24).
  * Marketing truth: D1 cabinet identity (design, build to order, install).
  */
-import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from "../claims";
+import { REGISTERED_BONDED_INSURED } from "../claims";
 import { HERO_SUBHEAD } from "../siteContent";
 
 export const BUILD_CABINETS_ANSWER =
@@ -152,7 +152,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   boise: {
     title: "Custom Cabinets Boise",
     description:
-      "Custom cabinets for Boise and the Treasure Valley. Built to your layout with 299 finishes, six door styles, and install by our crew. Free in-home design consult.",
+      "Custom cabinets for Boise and the Treasure Valley. Built to your layout, 299 finishes, six door styles, install by our crew. Free in-home design consult.",
     h1Lead: "Custom cabinets",
     h1Accent: "Boise",
     firstSentence:
@@ -202,7 +202,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   meridian: {
     title: "Custom Cabinets Meridian",
     description:
-      "Custom cabinets for Meridian and the Treasure Valley. Designed to your measurements, built to your layout, and installed by our crew. Book a free in-home design consult.",
+      "Custom cabinets for Meridian and the Treasure Valley. Built to your layout, 299 finishes, and install by our crew. Book a free in-home design consult.",
     h1Lead: "Custom cabinets",
     h1Accent: "Meridian",
     firstSentence:
@@ -213,7 +213,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   middleton: {
     title: "Custom Cabinetry Middleton",
     description:
-      "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout and installed by our crew. Free in-home design consultation.",
+      "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout, installed by our crew. Free design consult.",
     h1Lead: "Custom cabinetry",
     h1Accent: "Middleton",
     firstSentence:
@@ -223,7 +223,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   },
   kuna: {
     description:
-      "Kitchen cabinets and pantry storage in Kuna, built to your layout with a free design consult. Upgrades for newer builder-grade kitchens across the Treasure Valley.",
+      "Kitchen cabinets and pantry storage in Kuna, built to your layout. Free design consult and upgrades for newer builder-grade kitchens across the Treasure Valley.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Kuna",
     firstSentence:
@@ -259,7 +259,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
   kitchen: {
     title: "Kitchen Cabinets in Boise, Idaho",
     description:
-      "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, and installation by our crew. Request a free design consult.",
+      "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, installed by our crew. Request a free design consult.",
     h1Lead: "Kitchen cabinets in",
     h1Accent: "Boise, Idaho",
     firstSentence:
@@ -311,7 +311,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
   pantry: {
     title: "Kitchen Pantry Cabinets in Boise",
     description:
-      "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout and installed by our crew. Free in-home design consultation.",
+      "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, installed by our crew. Free design consult.",
     h1Lead: "Kitchen pantry cabinets",
     h1Accent: "for your home",
     firstSentence:
