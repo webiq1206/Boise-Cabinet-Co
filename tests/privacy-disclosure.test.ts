@@ -52,7 +52,7 @@ test("the consultation success screen is masked on every page that renders it", 
   assert.doesNotMatch(source, /lead-\$\{Date\.now\(\)/);
   for (const page of ["app/page.tsx", "app/contact/page.tsx", "app/services/cabinet-installation/page.tsx"]) {
     const pageSource = readFileSync(new URL(`../${page}`, import.meta.url), "utf8");
-    assert.match(pageSource, /<ConsultationForm\s*\/>/, page);
+    assert.match(pageSource, /<ConsultationForm\b[^>]*\/>/, page);
   }
 });
 

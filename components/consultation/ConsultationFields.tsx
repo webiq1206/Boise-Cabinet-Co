@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { ConsultationAttempt } from "@/lib/consultationAttempt";
 import { consultationSessionKey, clearConsultationSessionKey } from "@/lib/consultationRetrySession";
 import { requireConsultationReceipt } from "@/lib/consultationReceipt";
@@ -377,6 +377,8 @@ export function ConsultationFields({
   const [propertyProfile, setPropertyProfile] = useState<PropertyProfile | null>(null);
   const [addressInput, setAddressInput] = useState("");
   const [detailsOpen, setDetailsOpen] = useState(false);
+  /** Compact contact path: two short steps so C10 fits with the keyboard open. */
+  const [compactStep, setCompactStep] = useState<0 | 1>(0);
 
   // When an estimate is attached we already know the project, so the select is
   // hidden and we send the mapped consultation project type instead. A multi-room
@@ -596,21 +598,66 @@ export function ConsultationFields({
     );
   }
 
-  const onSubmit = form.handleSubmit((data) => {
+  useEffect(() => {
+    if (!compact) return;
+    try {
+      const raw = sessionStorage.getItem("brc_contact_compact_v1");
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as { step?: 0 | 1 };
+      if (parsed.step === 0 || parsed.step === 1) setCompactStep(parsed.step);
+    } catch {
+      /* ignore */
+    }
+  }, [compact]);
+
+  useEffect(() => {
+    if (!compact) return;
+    try {
+      sessionStorage.setItem(
+        "brc_contact_compact_v1",
+        JSON.stringify({ step: compactStep }),
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [compact, compactStep]);
+
+  async function advanceCompactStep() {
+    const ok = await form.trigger(["name", "phone"]);
+    if (ok) setCompactStep(1);
+  }
+
+  const submitLead = form.handleSubmit((data) => {
     if (mutation.isPending || attemptRef.current?.busy) return;
     const enriched = { ...data, zip: data.zip || extractZipFromAddress(data.address) };
     mutation.mutate(enriched);
   });
 
+  function onFormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (compact && compactStep === 0) {
+      void advanceCompactStep();
+      return;
+    }
+    void submitLead();
+  }
+
   return (
     <Form {...form}>
-      <p className="text-sm text-muted-foreground mb-4">
-        Sending this does not book installation. We reply within one business day.
-      </p>
+      {!compact && (
+        <p className="text-sm text-muted-foreground mb-4">
+          Sending this does not book installation. We reply within one business day.
+        </p>
+      )}
+      {compact && (
+        <p className="text-xs text-muted-foreground mb-2" data-testid="contact-compact-progress">
+          Step {compactStep + 1} of 2
+        </p>
+      )}
       <EstimatorRecovery
         flow="consultation"
         currentStep={form.formState.isDirty ? "filling" : "form"}
-        currentStepIndex={form.formState.isDirty ? 1 : 0}
+        currentStepIndex={compact ? compactStep : form.formState.isDirty ? 1 : 0}
         totalSteps={2}
         lastCompletedStep={form.formState.isDirty ? "form" : undefined}
         selections={{ project_type: String(form.watch("projectType") ?? "") || null }}
@@ -621,7 +668,7 @@ export function ConsultationFields({
       <form
         data-clarity-mask="True"
         id={formId}
-        onSubmit={onSubmit}
+        onSubmit={onFormSubmit}
         onFocusCapture={() => {
           if (formStartedRef.current) return;
           formStartedRef.current = true;
@@ -668,7 +715,8 @@ export function ConsultationFields({
             compact ? "space-y-2 p-3" : "space-y-5 p-5 sm:p-6",
           )}
         >
-          <div className={cn("grid gap-3", compact ? "grid-cols-2" : "sm:grid-cols-2 gap-4")}>
+          {(!compact || compactStep === 0) && (
+          <div className={cn("grid gap-3", compact ? "grid-cols-1" : "sm:grid-cols-2 gap-4")}>
             <FormField
               control={form.control}
               name="name"
@@ -680,7 +728,7 @@ export function ConsultationFields({
                       placeholder="Jane Smith"
                       autoComplete="name"
                       data-testid="input-name"
-                      className={consultInputClass}
+                      className={cn(consultInputClass, compact && "h-12")}
                       {...field}
                     />
                   </FormControl>
@@ -701,7 +749,7 @@ export function ConsultationFields({
                       autoComplete="tel"
                       inputMode="tel"
                       data-testid="input-phone"
-                      className={consultInputClass}
+                      className={cn(consultInputClass, compact && "h-12")}
                       {...field}
                     />
                   </FormControl>
@@ -710,7 +758,10 @@ export function ConsultationFields({
               )}
             />
           </div>
+          )}
 
+          {(!compact || compactStep === 1) && (
+          <>
           <FormField
             control={form.control}
             name="email"
@@ -723,7 +774,7 @@ export function ConsultationFields({
                     placeholder="jane@example.com"
                     autoComplete="email"
                     data-testid="input-email"
-                    className={consultInputClass}
+                    className={cn(consultInputClass, compact && "h-12")}
                     {...field}
                   />
                 </FormControl>
@@ -738,7 +789,9 @@ export function ConsultationFields({
               name="projectType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={labelClass}>What cabinetry are you planning?</FormLabel>
+                  <FormLabel className={labelClass}>
+                    {compact ? "Project type" : "What cabinetry are you planning?"}
+                  </FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger data-testid="select-project-type">
@@ -934,22 +987,58 @@ export function ConsultationFields({
               </div>
             )}
           </div>
+          </>
+          )}
         </div>
 
         {hideSubmitButton ? (
           !compact && <TrustRow />
+        ) : compact && compactStep === 0 ? (
+          <div className="flex flex-col gap-2">
+            <Button
+              type="button"
+              variant="brand"
+              className="min-h-12"
+              onClick={() => void advanceCompactStep()}
+              data-testid="button-contact-continue"
+            >
+              Continue
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            <p className="text-xs text-muted-foreground leading-snug">
+              Free in-home visit. We reply within one business day.
+            </p>
+          </div>
         ) : (
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className={cn("flex flex-col sm:flex-row sm:items-center", compact ? "gap-2" : "gap-4")}>
+            {compact && (
+              <Button
+                type="button"
+                variant="outline"
+                className="min-h-12"
+                onClick={() => setCompactStep(0)}
+                data-testid="button-contact-back"
+              >
+                Back
+              </Button>
+            )}
             <Button
               type="submit"
               variant="brand"
+              className={compact ? "min-h-12" : undefined}
               disabled={mutation.isPending}
               data-testid="button-submit-consultation"
             >
               {mutation.isPending ? "Sending…" : "Send my request"}
               {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
             </Button>
-            <TrustRow />
+            {compact ? (
+              <p className="text-xs text-muted-foreground leading-snug">
+                Free in-home visit. We reply within one business day.
+              </p>
+            ) : (
+              <TrustRow />
+            )}
           </div>
         )}
       </form>

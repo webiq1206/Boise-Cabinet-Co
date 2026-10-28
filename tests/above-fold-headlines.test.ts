@@ -25,7 +25,8 @@ test("each first-screen page has one swappable headline and the existing wording
   assert.match(read("app/cabinets/[room]/page.tsx"), /roomCopy.h1Accent/);
   assert.match(read("app/estimate/page.tsx"), /Get an Estimate<\/h1>/);
   assert.match(read("app/estimate/page.tsx"), /KitchenCabinetsQuoteForm/);
-  assert.match(read("app/estimate/page.tsx"), /Prefer the guided project flow/);
+  assert.match(read("app/estimate/page.tsx"), /Prefer a step-by-step planning range/);
+  assert.match(read("app/estimate/page.tsx"), /EstimateCalculatorWizard/);
 });
 
 test("call and text links are the site E.164 phone, rendered on each first-screen page", () => {

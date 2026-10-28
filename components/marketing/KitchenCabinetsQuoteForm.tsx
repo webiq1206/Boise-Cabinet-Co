@@ -140,7 +140,14 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4" data-clarity-mask="True" aria-busy={submitting} noValidate>
+    <form
+      onSubmit={onSubmit}
+      className="space-y-3 estimate-quote-form"
+      data-clarity-mask="True"
+      data-c10-estimate-quote=""
+      aria-busy={submitting}
+      noValidate
+    >
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor="kc-company">Company website</label>
         <input
@@ -153,20 +160,21 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
           onChange={(event) => setCompanyWebsite(event.target.value)}
         />
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="kc-name">Name</Label>
         <Input
           id="kc-name"
           name="name"
           autoComplete="name"
           placeholder="Your name"
+          className="h-12"
           value={name}
           onChange={(event) => setName(event.target.value)}
           disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="kc-phone">Phone</Label>
         <Input
           id="kc-phone"
@@ -174,14 +182,15 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
           type="tel"
           autoComplete="tel"
           inputMode="tel"
-          placeholder="Best number for a call or text"
+          placeholder="Best number"
+          className="h-12"
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
           disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="kc-email">Email</Label>
         <Input
           id="kc-email"
@@ -189,18 +198,20 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
           type="email"
           autoComplete="email"
           placeholder="Your email"
+          className="h-12"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           disabled={submitting || unconfirmed || requestRef.current !== null}
           required
         />
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <Label htmlFor="kc-project">Project</Label>
         <Input
           id="kc-project"
           name="project"
-          placeholder={projectPrompt ?? "e.g. full kitchen, bathroom vanity, built-in shelving"}
+          placeholder={projectPrompt ?? "e.g. full kitchen, vanity, built-ins"}
+          className="h-12"
           value={project}
           onChange={(event) => setProject(event.target.value)}
           disabled={submitting || unconfirmed || requestRef.current !== null}
@@ -215,19 +226,16 @@ export function KitchenCabinetsQuoteForm({context,projectPrompt,submitLabel="Req
       <button
         type="submit"
         disabled={submitting || unconfirmed}
-        className="inline-flex min-h-14 w-full items-center justify-center rounded-md bg-primary px-6 text-base font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="inline-flex min-h-12 w-full items-center justify-center rounded-md bg-primary px-6 text-base font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         {submitting ? "Sending request…" : submitLabel}
       </button>
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        Keep this page open until your request is confirmed. If receipt is uncertain, retry here or call or text us. If you already sent a request and then refreshed or left this page without confirmation, contact us before sending again. When browser storage is available, we retain only a random request reference for this tab session, not your entered details.
-      </p>
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        We&apos;ll use your name, phone number, email and project details only to call or text you about your estimate. We don&apos;t sell your information. See our{" "}
+      <p className="text-sm leading-snug text-muted-foreground">
+        No obligation. We reply within one business day. See our{" "}
         <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">
           Privacy Policy
         </Link>
-        . No obligation.
+        .
       </p>
     </form>
   );

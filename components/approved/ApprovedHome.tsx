@@ -9,6 +9,7 @@ import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
 import { CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
 import {steps,differentiators,additionalRooms,doorStyles} from './cabinet-content';
+import {KitchenPlanningRange} from './KitchenPlanningRange';
 const rooms = [
  {name:'Kitchen',title:'The heart of your home.',image:'kitchen.webp',desc:'Base cabinets, uppers, pantries, and appliance panels designed as one coordinated kitchen.',details:'Bring storage, appliances, and everyday routines into one thoughtful layout. Explore pantry cabinets, deep drawers, island storage, and finishes that work together.',features:['Storage planned around the way you cook','Coordinated island and perimeter cabinetry','Door, finish, and hardware selections']},
  {name:'Bathroom',title:'A better start to your day.',image:'bathroom.webp',desc:'Vanities and drawer storage sized for your daily routine, with moisture-resistant options.',details:'Make your bathroom easier to use with a vanity planned around your space, storage needs, and plumbing. Coordinate drawer layouts, door styles, and finishes with the rest of the room.',features:['Single and double vanity configurations','Storage that keeps counters clear','Finish guidance for your room']},
@@ -32,9 +33,9 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
        <a className="button" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={20}/></a>
        <a className="text-link light hero-secondary" href="#process">See how it works <ArrowRight size={18}/></a>
      </div>
-     <div className="hero-reassurance">
-       <span><Check size={15}/> Written price before work</span>
-       <span><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span>
+     <div className="hero-reassurance" data-testid="hero-reassurance">
+       <span data-reassurance="primary"><Check size={15}/> Written price before work</span>
+       <span data-reassurance="secondary"><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span>
      </div>
      <p className="hero-tagline">Designed around your life. Built around your space.</p>
    </div>
@@ -76,9 +77,6 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
   </section>
   {reviews}
   <section className="builder-band wrap"><div><p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p><h2>Your plans.<br/><em>Our cabinet expertise.</em></h2></div><div><p>One home or a full project pipeline. Let&apos;s coordinate the cabinet package, selections, and installation scope around your plans.</p><a className="button dark" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a><button className="text-link estimate-secondary" onClick={()=>window.location.assign("/builders")}>Let&apos;s work together <ArrowUpRight size={18}/></button></div></section>
-  <section id="ranges" className="section wrap" aria-labelledby="ranges-heading">
-    <div className="section-heading"><div><p className="eyebrow">PLANNING RANGES</p><h2 id="ranges-heading">What full kitchens<br/><em>usually plan for.</em></h2></div>
-    <p>Most full kitchens we install plan between $15,000 and $45,000+ installed, depending on linear feet, door style and finish; islands and pantry pull-outs add to that. Countertops, plumbing, electrical, demolition and haul-away are scoped separately when needed. Share your room and we reply within one business day. <a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE}</a></p></div>
-  </section>
+  <KitchenPlanningRange />
   <FAQSection/>
  </div>;}
