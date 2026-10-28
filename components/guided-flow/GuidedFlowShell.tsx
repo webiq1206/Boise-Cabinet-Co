@@ -61,6 +61,11 @@ interface GuidedFlowShellProps {
    * Opt-in: default `false` preserves the classic in-flow layout.
    */
   fitViewport?: boolean;
+  /**
+   * Hide the shell footer (Back + primary). Used when a child step owns its
+   * own C10 fixed action bar (e.g. contact text steps).
+   */
+  hideFooter?: boolean;
 }
 
 export function GuidedFlowShell({
@@ -90,6 +95,7 @@ export function GuidedFlowShell({
   focusPrimaryToken,
   sidePanel,
   fitViewport = false,
+  hideFooter = false,
 }: GuidedFlowShellProps) {
   const step = steps[currentIndex];
   const rootRef = useRef<HTMLDivElement>(null);
@@ -302,6 +308,7 @@ export function GuidedFlowShell({
         </div>
 
         {/* Pinned footer: Back + live-range chip (mobile) + primary CTA. */}
+        {!hideFooter && (
         <div
           className="shrink-0 border-t bg-background/95 px-0.5 pt-2 pb-safe"
           data-testid="wizard-mobile-bar"
@@ -340,6 +347,7 @@ export function GuidedFlowShell({
             })()}
           </div>
         </div>
+        )}
       </div>
     );
   }
@@ -413,6 +421,7 @@ export function GuidedFlowShell({
       </div>
 
       {/* Mobile actions follow the step and remain reachable by scrolling. */}
+      {!hideFooter && (
       <div
           className="mt-6 border-t bg-background lg:hidden pb-safe pt-3 px-4"
           data-testid="wizard-mobile-bar"
@@ -443,6 +452,7 @@ export function GuidedFlowShell({
             })()}
           </div>
         </div>
+      )}
     </div>
   );
 }

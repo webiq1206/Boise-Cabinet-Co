@@ -930,13 +930,17 @@ html, body {
 .article-table-scroll > table { display: table; }
 .article-table-scroll:focus-visible { outline: 2px solid hsl(var(--accent)); outline-offset: 3px; }
 
-/* Estimator navigation scrolls with the questions on phones and tablets. */
+/* AppFrame on phones: the whole frame scrolls, so in-frame footers stay in
+   document flow. Do NOT force static on standalone D2 bars (contact compact /
+   quote wizard / guided-flow contact): C10 requires a viewport-fixed Back/Next
+   that rides the keyboard inset. */
 @media (max-width: 1023px) {
-  [data-testid="wizard-action-bar"],
-  [data-wizard-action-bar],
-  [data-testid="wizard-sticky-nav"],
-  [data-testid="result-sticky-actions"],
-  [data-testid="wizard-mobile-bar"] {
+  [data-testid="estimate-app-frame"] [data-testid="wizard-action-bar"],
+  [data-testid="estimate-app-frame"] [data-wizard-action-bar],
+  [data-testid="estimate-app-frame"] [data-testid="wizard-sticky-nav"],
+  [data-testid="estimate-app-frame"] [data-testid="result-sticky-actions"],
+  [data-testid="estimate-app-frame"] [data-testid="wizard-mobile-bar"],
+  [data-testid="estimate-app-frame"] [data-testid="guided-flow-fit"] [data-testid="wizard-mobile-bar"] {
     position: static !important;
     transform: none !important;
     margin-top: 20px;
@@ -945,10 +949,6 @@ html, body {
   [data-testid="app-frame-body"] { flex: none; overflow: visible; min-height: auto; }
   [data-testid="app-frame-body"] > div { min-height: 0; }
   [data-testid="app-frame-footer"] { position: static; margin-top: 20px; }
-  [data-testid="guided-flow-fit"] { overflow-y: auto; overscroll-behavior: contain; }
-  [data-testid="guided-flow-fit"] > * { flex-shrink: 0; }
-  [data-guided-step-layout], [data-guided-step-body] { flex: none; overflow: visible; min-height: auto; }
-  [data-guided-step-body] > div { min-height: 0; }
 }
 
 /* While the conversational estimator owns the screen (full-screen frame), the

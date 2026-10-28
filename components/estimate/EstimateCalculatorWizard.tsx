@@ -29,7 +29,6 @@ import {
   Package,
   Sparkles,
   ChevronUp,
-  ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
 import { LAYOUT_DIAGRAM_SVG } from "@/shared/catalog/generated/layoutDiagrams";
@@ -1118,8 +1117,10 @@ export function EstimateCalculatorWizard({
               requireDetails
               showEstimateSummary
               formId={CONTACT_FORM_ID}
-              hideSubmitButton
-              compact={fitViewport}
+              // Compact owns its C10 fixed Back/Send dock (one field per step).
+              hideSubmitButton={false}
+              compact
+              onCompactExit={goBack}
               onPendingChange={handleContactPending}
               onSuccess={() => setContactSucceeded(true)}
             />
@@ -1231,20 +1232,6 @@ export function EstimateCalculatorWizard({
       </Drawer>
     ) : undefined;
 
-  const contactSubmitButton = (
-    <Button
-      type="submit"
-      form={CONTACT_FORM_ID}
-      variant="brand"
-      disabled={contactPending}
-      className="min-h-11 w-full"
-      data-testid="button-submit-consultation"
-    >
-      {contactPending ? "Sending…" : "Send my request"}
-      {!contactPending && <ArrowRight className="h-4 w-4" />}
-    </Button>
-  );
-
   // Mirrors isStepComplete: when Continue is disabled, say exactly what is
   // missing rather than leaving the visitor to guess at a greyed-out button.
   const blockedHint = (() => {
@@ -1286,9 +1273,38 @@ export function EstimateCalculatorWizard({
     />
   );
 
+  // Contact text steps own a C10 fixed dock. Skip GuidedFlowShell chrome so the
+  // field + Back/Send clear the keyboard band at 390 without competing headers.
+  if (currentStep.kind === "contact") {
+    const contactOnly = (
+      <div
+        className="mx-auto w-full max-w-xl scroll-mt-20 pb-[50vh]"
+        data-estimate-contact-step=""
+      >
+        <p className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
+          Book your visit
+        </p>
+        {stepBody}
+      </div>
+    );
+    if (inModal) {
+      return (
+        <div className="flex h-full min-h-0 flex-col" data-estimator-root>
+          {recovery}
+          {contactOnly}
+        </div>
+      );
+    }
+    return (
+      <div className="contents" data-estimator-root>
+        {recovery}
+        {contactOnly}
+      </div>
+    );
+  }
+
   const shell = (
     <GuidedFlowShell
-      
       steps={guidedSteps}
       currentIndex={safeIndex}
       isStepComplete={isStepComplete}
@@ -1301,9 +1317,7 @@ export function EstimateCalculatorWizard({
       blockedHint={blockedHint}
       continueLabel={continueLabel}
       hidePrimaryOnLast={contactSucceeded}
-      lastStepAction={
-        currentStep.kind === "contact" && !contactSucceeded ? contactSubmitButton : undefined
-      }
+      lastStepAction={undefined}
       stepDescription={stepDescription[currentStep.kind]}
       metaLabel={metaLabel}
       progressPercent={stagePercent}

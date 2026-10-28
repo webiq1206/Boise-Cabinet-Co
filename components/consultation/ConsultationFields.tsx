@@ -64,6 +64,9 @@ import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneVa
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useModals } from "@/components/modals/ModalProvider";
 import { cn } from "@/lib/utils";
+import { WizardActionBar } from "@/components/estimate/wizard/WizardActionBar";
+import { useKeyboardInset } from "@/components/estimate/wizard/useKeyboardInset";
+import { useEstimateKeyboardFlag } from "@/components/estimate/wizard/useEstimateKeyboardFlag";
 
 const baseFormSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
@@ -355,6 +358,36 @@ export interface ConsultationFieldsProps {
    * budget, and notes are only known at submit time.
    */
   estimateRooms?: EstimateSelections[];
+  /**
+   * When the compact wizard is on its first step, Back calls this (e.g. return
+   * to the previous estimate-wizard stage) instead of hiding the control.
+   */
+  onCompactExit?: () => void;
+}
+
+/** C10: one keyboard field per compact text step (fit sequence #1). */
+type CompactStepId =
+  | "name"
+  | "phone"
+  | "email"
+  | "project"
+  | "address"
+  | "qualify"
+  | "notes";
+
+const COMPACT_STORAGE_KEY = "brc_contact_compact_v2";
+
+function buildCompactSteps(
+  requireDetails: boolean,
+  projectTypeLocked: boolean,
+): CompactStepId[] {
+  const steps: CompactStepId[] = ["name", "phone", "email"];
+  if (!projectTypeLocked) steps.push("project");
+  if (requireDetails) {
+    steps.push("address", "qualify");
+  }
+  steps.push("notes");
+  return steps;
 }
 
 export function ConsultationFields({
@@ -371,14 +404,17 @@ export function ConsultationFields({
   compact = false,
   requireDetails = false,
   estimateRooms,
+  onCompactExit,
 }: ConsultationFieldsProps) {
   const { close: closeModal } = useModals();
   const [success, setSuccess] = useState(false);
   const [propertyProfile, setPropertyProfile] = useState<PropertyProfile | null>(null);
   const [addressInput, setAddressInput] = useState("");
   const [detailsOpen, setDetailsOpen] = useState(false);
-  /** Compact contact path: two short steps so C10 fits with the keyboard open. */
-  const [compactStep, setCompactStep] = useState<0 | 1>(0);
+  /** Compact contact path: one keyboard field per step (C10 fit sequence #1). */
+  const [compactStepIndex, setCompactStepIndex] = useState(0);
+  const keyboardInset = useKeyboardInset();
+  useEstimateKeyboardFlag(compact);
 
   // When an estimate is attached we already know the project, so the select is
   // hidden and we send the mapped consultation project type instead. A multi-room
@@ -598,33 +634,87 @@ export function ConsultationFields({
     );
   }
 
+  const projectTypeLocked = Boolean(projectTypeFromEstimate);
+  const compactSteps = useMemo(
+    () => buildCompactSteps(requireDetails, projectTypeLocked),
+    [requireDetails, projectTypeLocked],
+  );
+  const compactStepId = compactSteps[Math.min(compactStepIndex, compactSteps.length - 1)] ?? "name";
+  const compactStepCount = compactSteps.length;
+  const isLastCompactStep = compactStepIndex >= compactStepCount - 1;
+
   useEffect(() => {
     if (!compact) return;
     try {
-      const raw = sessionStorage.getItem("brc_contact_compact_v1");
+      const raw = sessionStorage.getItem(COMPACT_STORAGE_KEY);
       if (!raw) return;
-      const parsed = JSON.parse(raw) as { step?: 0 | 1 };
-      if (parsed.step === 0 || parsed.step === 1) setCompactStep(parsed.step);
+      const parsed = JSON.parse(raw) as { step?: number };
+      if (typeof parsed.step === "number" && parsed.step >= 0) {
+        setCompactStepIndex(Math.min(parsed.step, compactSteps.length - 1));
+      }
     } catch {
       /* ignore */
     }
-  }, [compact]);
+  }, [compact, compactSteps.length]);
 
   useEffect(() => {
     if (!compact) return;
     try {
       sessionStorage.setItem(
-        "brc_contact_compact_v1",
-        JSON.stringify({ step: compactStep }),
+        COMPACT_STORAGE_KEY,
+        JSON.stringify({ step: compactStepIndex }),
       );
     } catch {
       /* ignore */
     }
-  }, [compact, compactStep]);
+  }, [compact, compactStepIndex]);
+
+  // C10: keep the focused field above the fixed Back/Next dock while the keyboard is open.
+  useEffect(() => {
+    if (!compact || keyboardInset <= 0) return;
+    const active = document.activeElement;
+    if (!(active instanceof HTMLElement)) return;
+    if (!active.matches("input, textarea, select, [role='combobox']")) return;
+    const header = document.querySelector("header, .site-header");
+    const headerH = header ? header.getBoundingClientRect().height : 64;
+    const usableBottom = window.innerHeight - keyboardInset - 96;
+    const targetTop = headerH + 8;
+    const rect = active.getBoundingClientRect();
+    if (rect.bottom > usableBottom || rect.top < targetTop) {
+      const abs = rect.top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, abs - targetTop), behavior: "instant" as ScrollBehavior });
+      const after = active.getBoundingClientRect();
+      if (after.bottom > usableBottom) {
+        window.scrollTo({
+          top: window.scrollY + (after.bottom - usableBottom),
+          behavior: "instant" as ScrollBehavior,
+        });
+      }
+    }
+  }, [compact, keyboardInset, compactStepIndex]);
 
   async function advanceCompactStep() {
-    const ok = await form.trigger(["name", "phone"]);
-    if (ok) setCompactStep(1);
+    const id = compactStepId;
+    if (id === "name") {
+      const ok = await form.trigger("name");
+      if (!ok) return;
+    } else if (id === "phone") {
+      const ok = await form.trigger("phone");
+      if (!ok) return;
+    } else if (id === "email") {
+      const ok = await form.trigger("email");
+      if (!ok) return;
+    } else if (id === "project") {
+      const ok = await form.trigger("projectType");
+      if (!ok) return;
+    } else if (id === "address") {
+      const ok = await form.trigger("address");
+      if (!ok) return;
+    } else if (id === "qualify") {
+      const ok = await form.trigger(["budget", "timeline"]);
+      if (!ok) return;
+    }
+    setCompactStepIndex((i) => Math.min(i + 1, compactStepCount - 1));
   }
 
   const submitLead = form.handleSubmit((data) => {
@@ -635,11 +725,27 @@ export function ConsultationFields({
 
   function onFormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (compact && compactStep === 0) {
+    if (compact && !isLastCompactStep) {
       void advanceCompactStep();
       return;
     }
     void submitLead();
+  }
+
+  function onCompactPrimary() {
+    if (!isLastCompactStep) {
+      void advanceCompactStep();
+      return;
+    }
+    void submitLead();
+  }
+
+  function onCompactBack() {
+    if (compactStepIndex > 0) {
+      setCompactStepIndex((i) => Math.max(0, i - 1));
+      return;
+    }
+    onCompactExit?.();
   }
 
   return (
@@ -651,14 +757,14 @@ export function ConsultationFields({
       )}
       {compact && (
         <p className="text-xs text-muted-foreground mb-2" data-testid="contact-compact-progress">
-          Step {compactStep + 1} of 2
+          Step {compactStepIndex + 1} of {compactStepCount}
         </p>
       )}
       <EstimatorRecovery
         flow="consultation"
         currentStep={form.formState.isDirty ? "filling" : "form"}
-        currentStepIndex={compact ? compactStep : form.formState.isDirty ? 1 : 0}
-        totalSteps={2}
+        currentStepIndex={compact ? compactStepIndex : form.formState.isDirty ? 1 : 0}
+        totalSteps={compact ? compactStepCount : 2}
         lastCompletedStep={form.formState.isDirty ? "form" : undefined}
         selections={{ project_type: String(form.watch("projectType") ?? "") || null }}
         validationErrors={Object.keys(form.formState.errors)}
@@ -668,6 +774,8 @@ export function ConsultationFields({
       <form
         data-clarity-mask="True"
         id={formId}
+        data-c10-contact-compact={compact ? "true" : undefined}
+        data-compact-step={compact ? compactStepId : undefined}
         onSubmit={onFormSubmit}
         onFocusCapture={() => {
           if (formStartedRef.current) return;
@@ -676,7 +784,7 @@ export function ConsultationFields({
         }}
         className={compact ? "space-y-2.5" : "space-y-5"}
       >
-        {showEstimateSummary && (combinedEstimate || estimate) && (
+        {showEstimateSummary && (combinedEstimate || estimate) && (!compact || compactStepIndex === 0) && (
           <MaskedEstimateSummaryCard compact={compact} />
         )}
 
@@ -715,8 +823,272 @@ export function ConsultationFields({
             compact ? "space-y-2 p-3" : "space-y-5 p-5 sm:p-6",
           )}
         >
-          {(!compact || compactStep === 0) && (
-          <div className={cn("grid gap-3", compact ? "grid-cols-1" : "sm:grid-cols-2 gap-4")}>
+          {compact ? (
+            <>
+              {compactStepId === "name" && (
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Full name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Jane Smith"
+                          autoComplete="name"
+                          data-testid="input-name"
+                          className={cn(consultInputClass, "h-12")}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {compactStepId === "phone" && (
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Phone</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder="Your phone number"
+                          autoComplete="tel"
+                          inputMode="tel"
+                          data-testid="input-phone"
+                          className={cn(consultInputClass, "h-12")}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {compactStepId === "email" && (
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="jane@example.com"
+                          autoComplete="email"
+                          data-testid="input-email"
+                          className={cn(consultInputClass, "h-12")}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {compactStepId === "project" && (
+                <FormField
+                  control={form.control}
+                  name="projectType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Project type</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger data-testid="select-project-type" className="h-12">
+                            <SelectValue placeholder="Select a project type" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {PROJECT_OPTIONS.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {compactStepId === "address" && (
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Property address</FormLabel>
+                      <FormControl>
+                        <AddressAutocomplete
+                          value={addressInput || field.value || ""}
+                          onChange={(v) => {
+                            setAddressInput(v);
+                            field.onChange(v);
+                          }}
+                          onProfileResolved={handleProfileResolved}
+                          data-testid="input-address"
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {compactStepId === "qualify" && (
+                <div className="grid grid-cols-1 gap-2.5">
+                  <FormField
+                    control={form.control}
+                    name="budget"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className={labelClass}>Budget range</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                          <FormControl>
+                            <SelectTrigger className={cn(consultInputClass, "h-12")} data-testid="select-budget">
+                              <SelectValue placeholder="Select a range" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {BUDGET_OPTIONS.map((o) => (
+                              <SelectItem key={o} value={o}>
+                                {o}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FieldError />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="timeline"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className={labelClass}>Timeline</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value || ""}>
+                          <FormControl>
+                            <SelectTrigger className={cn(consultInputClass, "h-12")} data-testid="select-timeline">
+                              <SelectValue placeholder="When to start" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {TIMELINE_OPTIONS.map((o) => (
+                              <SelectItem key={o} value={o}>
+                                {o}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FieldError />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )}
+              {compactStepId === "notes" && (
+                <div className="rounded-sm border border-border bg-background">
+                  <button
+                    type="button"
+                    onClick={() => setDetailsOpen((o) => !o)}
+                    className="flex min-h-10 w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    aria-expanded={detailsOpen}
+                    data-testid="button-toggle-details"
+                  >
+                    <span>
+                      {requireDetails
+                        ? "Add notes (optional)"
+                        : "Add address & notes (optional)"}
+                    </span>
+                    {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  </button>
+                  {detailsOpen && (
+                    <div className="space-y-3 border-t border-border p-3">
+                      {!requireDetails && (
+                        <FormField
+                          control={form.control}
+                          name="address"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className={labelClass}>Property address</FormLabel>
+                              <FormControl>
+                                <AddressAutocomplete
+                                  value={addressInput || field.value || ""}
+                                  onChange={(v) => {
+                                    setAddressInput(v);
+                                    field.onChange(v);
+                                  }}
+                                  onProfileResolved={handleProfileResolved}
+                                  data-testid="input-address"
+                                />
+                              </FormControl>
+                              <FieldError />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+                      {!requireDetails && (
+                        <FormField
+                          control={form.control}
+                          name="budget"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className={labelClass}>Budget in mind</FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value || ""}>
+                                <FormControl>
+                                  <SelectTrigger className={consultInputClass} data-testid="select-budget">
+                                    <SelectValue placeholder="Optional" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {BUDGET_OPTIONS.map((o) => (
+                                    <SelectItem key={o} value={o}>
+                                      {o}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FieldError />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className={labelClass}>Anything else we should know?</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Tell us a little about your home, your vision, or your timeline..."
+                                rows={2}
+                                className="min-h-12 resize-none"
+                                data-testid="textarea-message"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FieldError />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  )}
+                  <p className="px-3 pb-2 text-xs leading-snug text-muted-foreground">
+                    Free in-home visit. We reply within one business day.
+                  </p>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+          <div className="grid gap-3 sm:grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="name"
@@ -728,7 +1100,7 @@ export function ConsultationFields({
                       placeholder="Jane Smith"
                       autoComplete="name"
                       data-testid="input-name"
-                      className={cn(consultInputClass, compact && "h-12")}
+                      className={consultInputClass}
                       {...field}
                     />
                   </FormControl>
@@ -749,7 +1121,7 @@ export function ConsultationFields({
                       autoComplete="tel"
                       inputMode="tel"
                       data-testid="input-phone"
-                      className={cn(consultInputClass, compact && "h-12")}
+                      className={consultInputClass}
                       {...field}
                     />
                   </FormControl>
@@ -758,10 +1130,7 @@ export function ConsultationFields({
               )}
             />
           </div>
-          )}
 
-          {(!compact || compactStep === 1) && (
-          <>
           <FormField
             control={form.control}
             name="email"
@@ -774,7 +1143,7 @@ export function ConsultationFields({
                     placeholder="jane@example.com"
                     autoComplete="email"
                     data-testid="input-email"
-                    className={cn(consultInputClass, compact && "h-12")}
+                    className={consultInputClass}
                     {...field}
                   />
                 </FormControl>
@@ -790,7 +1159,7 @@ export function ConsultationFields({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className={labelClass}>
-                    {compact ? "Project type" : "What cabinetry are you planning?"}
+                    What cabinetry are you planning?
                   </FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
@@ -812,8 +1181,6 @@ export function ConsultationFields({
             />
           )}
 
-          {/* In the estimator the property address is required, so it is a
-              first-class field rather than something hidden behind a toggle. */}
           {requireDetails && (
             <FormField
               control={form.control}
@@ -832,7 +1199,7 @@ export function ConsultationFields({
                       data-testid="input-address"
                     />
                   </FormControl>
-                  <p className={cn("mt-1.5 text-sm text-muted-foreground", compact && "hidden")}>
+                  <p className="mt-1.5 text-sm text-muted-foreground">
                     Start typing and pick your address. We use it to plan your in-home visit.
                   </p>
                   <FieldError />
@@ -841,10 +1208,8 @@ export function ConsultationFields({
             />
           )}
 
-          {/* Budget and timeline are required here too: a lead without them
-              cannot be qualified or scheduled, and both are one tap. */}
           {requireDetails && (
-            <div className={cn("grid", compact ? "grid-cols-2 gap-2.5" : "gap-4 sm:grid-cols-2")}>
+            <div className="grid gap-4 sm:grid-cols-2">
               <FormField
                 control={form.control}
                 name="budget"
@@ -896,15 +1261,11 @@ export function ConsultationFields({
             </div>
           )}
 
-          {/* Remaining optional detail stays off the critical path. */}
           <div className="rounded-sm border border-border bg-background">
             <button
               type="button"
               onClick={() => setDetailsOpen((o) => !o)}
-              className={cn(
-                "flex w-full items-center justify-between gap-2 px-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground",
-                compact ? "min-h-10 py-2" : "min-h-11 py-2.5",
-              )}
+              className="flex w-full items-center justify-between gap-2 px-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground min-h-11 py-2.5"
               aria-expanded={detailsOpen}
               data-testid="button-toggle-details"
             >
@@ -987,58 +1348,38 @@ export function ConsultationFields({
               </div>
             )}
           </div>
-          </>
+            </>
           )}
         </div>
 
-        {hideSubmitButton ? (
-          !compact && <TrustRow />
-        ) : compact && compactStep === 0 ? (
-          <div className="flex flex-col gap-2">
-            <Button
-              type="button"
-              variant="brand"
-              className="min-h-12"
-              onClick={() => void advanceCompactStep()}
-              data-testid="button-contact-continue"
-            >
-              Continue
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-            <p className="text-xs text-muted-foreground leading-snug">
-              Free in-home visit. We reply within one business day.
-            </p>
-          </div>
+        {compact ? (
+          <WizardActionBar
+            onBack={compactStepIndex > 0 || onCompactExit ? onCompactBack : undefined}
+            onPrimary={onCompactPrimary}
+            primaryLabel={isLastCompactStep ? "Send my request" : "Continue"}
+            primaryDisabled={mutation.isPending}
+            busy={mutation.isPending}
+            busyLabel="Sending…"
+            primaryIcon={isLastCompactStep ? "none" : "arrow"}
+            primaryTestId={
+              isLastCompactStep ? "button-submit-consultation" : "button-contact-continue"
+            }
+            backTestId="button-contact-back"
+          />
+        ) : hideSubmitButton ? (
+          <TrustRow />
         ) : (
-          <div className={cn("flex flex-col sm:flex-row sm:items-center", compact ? "gap-2" : "gap-4")}>
-            {compact && (
-              <Button
-                type="button"
-                variant="outline"
-                className="min-h-12"
-                onClick={() => setCompactStep(0)}
-                data-testid="button-contact-back"
-              >
-                Back
-              </Button>
-            )}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button
               type="submit"
               variant="brand"
-              className={compact ? "min-h-12" : undefined}
               disabled={mutation.isPending}
               data-testid="button-submit-consultation"
             >
               {mutation.isPending ? "Sending…" : "Send my request"}
               {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
             </Button>
-            {compact ? (
-              <p className="text-xs text-muted-foreground leading-snug">
-                Free in-home visit. We reply within one business day.
-              </p>
-            ) : (
-              <TrustRow />
-            )}
+            <TrustRow />
           </div>
         )}
       </form>
