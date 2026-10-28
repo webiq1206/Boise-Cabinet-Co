@@ -12,7 +12,7 @@ const BRAND = SITE_CONFIG.name;
 /** Homepage title (50–60 chars) and meta description (120–160 chars). */
 export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
 export const HOMEPAGE_DESCRIPTION =
-  'Kitchen, bath, and storage cabinets for Boise and the Treasure Valley. Idaho Registered Contractor #8381215, bonded and insured. Free design consultation.';
+  'Custom cabinets in Boise. P5 Home Co LLC, Idaho Registered Contractor #8381215. Free design consult.';
 
 interface SEOMetaData {
   title: string;

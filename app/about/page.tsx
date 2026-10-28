@@ -1,14 +1,9 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
-import { DisplayNum,formatStepNumber,Section } from '@/components/marketing';
-import { Hairline } from '@/components/marketing/Hairline';
-import { MarketingCard } from '@/components/marketing/MarketingCard';
-import { PhotoBreak } from '@/components/marketing/PhotoBreak';
+import { Section } from '@/components/marketing';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
-import { Reveal } from '@/components/Reveal';
-import { StatementBandSection } from '@/components/sections/StatementBandSection';
-import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { SaveContactLink } from '@/components/SaveContactLink';
 import {
 Accordion,
 AccordionContent,
@@ -25,18 +20,18 @@ generateOrganizationSchema,
 generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
-import { SITE_CONFIG, foundingYearCopy, showFoundingYear } from '@/shared/siteConfig';
-import { publicQa,publicText,REGISTERED_BONDED_INSURED } from '@/shared/claims';
-import { PRINCIPLES,TEAM,TRUST_ITEMS,publicHeroStats } from '@/shared/siteContent';
-import { ENRICHMENT_IMAGES, SITE_IMAGES } from '@/shared/siteImages';
+import { SITE_CONFIG } from '@/shared/siteConfig';
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from '@/shared/claims';
+import { differentiators } from '@/components/approved/cabinet-content';
 import { ArrowRight,Check,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+const IDENTITY =
+  'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
 const SPEAKABLE_SUMMARY =
-  'Boise Cabinet Co is the cabinetry specialist in the P5 family, serving the Treasure Valley. Share your space, cabinet needs and project goals for review. Scope, price and schedule are agreed before work begins; an inquiry does not confirm an order or installation date.';
+  'Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. Nick Perkins designs cabinets to your measurements, builds each order to order, and installs with a Treasure Valley crew.';
 
 function HeroBreadcrumbs() {
   const items = [
@@ -77,28 +72,16 @@ function HeroBreadcrumbs() {
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
   path: '/about',
+  titleOverride: 'About Boise Cabinet Co | Nick Perkins | Meridian, Idaho',
+  descriptionOverride:
+    'About Boise Cabinet Co: founder Nick Perkins, custom cabinets designed to your measurements, built to order and installed by our Treasure Valley crew.',
 })), "/about");
 
 export default function AboutPage() {
-  // Person schema only for confirmed (non-placeholder) team members so we never
-  // publish structured data for fabricated names.
-  const confirmedTeam = TEAM.filter((m) => !m.isPlaceholder);
-  const personSchemas = confirmedTeam.map((m) => ({
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: m.name,
-    jobTitle: m.role,
-    description: publicText(m.bio),
-    worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
-  }));
-
-  const ABOUT_FAQS = publicQa([
+  const ABOUT_FAQS = [
     {
       question: `Who is ${SITE_CONFIG.name}?`,
-      answer: foundingYearCopy(
-        `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2020. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
-        `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley. We design, source, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
-      ),
+      answer: `${SITE_CONFIG.name} is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. ${IDENTITY}`,
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
@@ -110,27 +93,36 @@ export default function AboutPage() {
     },
     {
       question: `Is ${SITE_CONFIG.name} a registered contractor and insured?`,
-      answer: `Yes. ${REGISTERED_BONDED_INSURED} for residential cabinet design and installation, and we stand behind our workmanship with a written workmanship guarantee.`,
+      answer: `Yes. ${REGISTERED_BONDED_INSURED}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written scope and planning range, sourcing, and professional installation, with weekly written updates so nothing drifts.`,
+      answer: `Every project starts with a free design consultation, then a written proposal with drawings, field measurement, build-to-order production, and installation by our crew, with weekly written updates so nothing drifts.`,
     },
-  ]);
+  ];
 
   const schemas = [
     generateOrganizationSchema(),
     generateWebPageSchema({
       title: `About ${SITE_CONFIG.name}`,
       description:
-        'Idaho premier custom cabinet company serving the Treasure Valley. Design Studio, client portal, and white-glove installation.',
+        'Custom cabinet company in Meridian, Idaho. Designed to your measurements, built to order, installed by our Treasure Valley crew.',
       url: '/about',
     }),
     generateBreadcrumbSchema([
       { name: 'Home', url: '/' },
       { name: 'About', url: '/about' },
     ]),
-    ...personSchemas,
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Nick Perkins',
+      jobTitle: 'Founder',
+      description:
+        'Founder of Boise Cabinet Co and P5 Home Co. Construction project manager with a bachelor\'s degree in Construction and more than a decade of custom homes, remodels and developments.',
+      worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
+      image: `${SITE_CONFIG.siteUrl}/images/about/nick-perkins-portrait-crop.webp`,
+    },
     generateFAQSchema(ABOUT_FAQS),
   ];
 
@@ -138,22 +130,22 @@ export default function AboutPage() {
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        {/* Approved editorial hero */}
-        <InteriorHero layout="editorial" imageSrc={SITE_IMAGES.leadership} imageAlt={`consultation with ${SITE_CONFIG.name} branded designers reviewing cabinet plans`}>
+        <InteriorHero layout="editorial" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
             </p>
             <div className="ed-eyebrow">About us</div>
             <h1 className="ed-display ed-statement-display text-inverse-foreground mb-8">
-              About {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
-              <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
+              About Boise Cabinet{' '}
+              <em className="brc-accent text-accent">Co</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              Boise Cabinet Co is the cabinetry specialist in the P5 family, serving the Treasure Valley. Tell us about your kitchen, bathroom, storage or built-in project and the result you have in mind.
+              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020, moved to the Treasure Valley, and named the company for his five children. Read the full story on{' '}
+              <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              We review your space, cabinet needs and project goals before preparing a proposal. The cabinet scope, price and schedule are agreed before work begins; an inquiry does not confirm an order or installation date.
+              {IDAHO_REGISTERED_CONTRACTOR}. Insured; certificate on request. {CABINET_WORKMANSHIP_WARRANTY}.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>*]:w-full sm:[&>*]:w-auto mb-8">
               <CtaButton variant="brand">
@@ -163,194 +155,105 @@ export default function AboutPage() {
                 <Link href="/catalog">{CTA_EXPLORE_COLLECTIONS}</Link>
               </Button>
             </div>
-            <dl className="ed-hero-facts">
-              {publicHeroStats().map((stat) => (
-                <div key={stat.label}>
-                  <dt>{stat.label}</dt>
-                  <dd>{stat.num}</dd>
-                </div>
-              ))}
-            </dl>
           </InteriorHero>
 
-        {/* ─── Design-build split ─── */}
-        <Section variant="greige" spacing="none" divider className="p-0">
-          <div className="grid md:grid-cols-2 overflow-hidden">
-            <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <div className="grid gap-8 md:grid-cols-[200px_1fr] md:items-start">
               <Image
-                src={SITE_IMAGES.processAbout}
-                alt="Cabinet door samples and finish swatches laid out for a kitchen design"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover img-brand-grade"
+                src="/images/about/nick-perkins-portrait-crop.webp"
+                alt="Nick Perkins, founder of Boise Cabinet Co"
+                width={600}
+                height={600}
+                className="w-full h-auto rounded-sm"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
-              />
-              <div className="absolute bottom-0 left-0 p-8 md:p-12">
-                <div className="ed-eyebrow">How we work</div>
-                <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
-                  One team from
-                  <br />
-                  design to installation
+              <div>
+                <SectionHeader
+                  eyebrow="Who you meet"
+                  title={<>Nick Perkins, <em className="brc-accent text-accent">founder</em></>}
+                  description="Husband, father of five, Meridian. Construction project manager with more than a decade leading custom homes, remodels and developments."
+                  className="mb-4"
+                />
+                <p className="text-base text-muted-foreground leading-relaxed mb-4">
+                  &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
                 </p>
+                <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
               </div>
             </div>
+          </div>
+        </Section>
 
-            <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
-              <Reveal>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={showFoundingYear() ? "/brand/svg/seal/dark/boise-cabinet-co-seal-bone-accent.svg" : "/brand/svg/icon/boise-cabinet-co-icon-bone.svg"}
-                  alt={showFoundingYear() ? "Boise Cabinet Co seal" : "Boise Cabinet Co"}
-                  width={64}
-                  height={64}
-                  className="mb-7 h-16 w-16 rounded-full"
-                />
-                <SectionHeader
-                  eyebrow="Our model"
-                  title={
-                    <>
-                      Cabinet design,{' '}
-                      <em className="brc-accent text-accent">one team</em>
-                    </>
-                  }
-                  description="Start with your space, storage needs and any plans or photos you want to share. Review the layout, finishes and cabinet scope with us, then agree on the proposal, responsibilities and schedule before ordering or installation. Availability depends on the cabinet line and project scope and is confirmed with you."
-                  className="mb-8 max-w-none"
-                />
-                <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                  {REGISTERED_BONDED_INSURED} for residential cabinet design and installation across
-                  the Treasure Valley.
-                </p>
-                <ul className="grid sm:grid-cols-2 gap-3">
-                  {TRUST_ITEMS.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
+        <Section variant="greige" divider>
+          <div className="container px-4 max-w-3xl">
+            <SectionHeader
+              eyebrow="What we do"
+              title={<>Custom cabinets, <em className="brc-accent text-accent">built to order</em></>}
+              description={IDENTITY}
+              className="mb-6"
+            />
+            <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-4">
+              We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
+            </p>
+            <p className="text-base leading-relaxed text-muted-foreground">
+              Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
+            </p>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <figure>
+              <Image
+                src="/images/about/perkins-family-meridian-idaho.webp"
+                alt="Nick Perkins with his wife and five children at a pumpkin patch"
+                width={2560}
+                height={1920}
+                className="w-full h-auto rounded-sm"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                The Perkins family in Meridian. Family is why P5 exists.
+              </figcaption>
+            </figure>
           </div>
         </Section>
 
         <Section divider>
           <div className="container px-4 max-w-3xl">
             <SectionHeader
-              eyebrow="Where your money goes"
-              title={
-                <>
-                  Don&apos;t pay for a vendor&apos;s{' '}
-                  <em className="brc-accent text-accent">overhead</em>
-                </>
-              }
-              description="Big offices, fancy showrooms, fleets of trucks, and layers of management do not absorb themselves. They get built into the price and passed down the line."
-              className="mb-6"
+              eyebrow="What you can count on"
+              title={<>Five promises on <em className="brc-accent text-accent">every cabinet job</em></>}
+              className="mb-8"
             />
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-              We built Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
-              where it shows up in the finished space: skilled craftsmen, better materials, and
-              workmanship you can stand behind. For the homeowners and builders we work with, that
-              means pricing you can plan around and cabinetry built to hold up, on every project.
-              Every dollar goes into the work, not our bills.
+            <ul className="space-y-4">
+              {differentiators.map(([title, desc]) => (
+                <li key={title} className="flex items-start gap-3">
+                  <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium text-foreground">{title}</p>
+                    <p className="text-base text-muted-foreground leading-relaxed">{desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+
+        <Section variant="inverse" divider>
+          <div className="container px-4 max-w-3xl">
+            <SectionHeader
+              eyebrow="Credentials"
+              inverse
+              title={<>Registered, insured, <em className="brc-accent text-accent">accountable</em></>}
+              description={`${IDAHO_REGISTERED_CONTRACTOR}. Look it up at the Idaho DOPL. Boise Cabinet Co is a DBA of P5 Home Co LLC. ${CABINET_WORKMANSHIP_WARRANTY}.`}
+              className="mb-0"
+            />
+            <p className="mt-6 text-inverse-muted text-base leading-relaxed">
+              Prefer to talk first? Call or text {SITE_CONFIG.phone}. You will reach a person who does this work, not a call centre.
             </p>
           </div>
         </Section>
 
-        <PhotoBreak
-          src={ENRICHMENT_IMAGES.aboutMaterials}
-          alt="Cabinet door samples and finish boards laid out for a Treasure Valley design consultation"
-          caption="Selections happen around real samples, not a showroom markup."
-        />
-
-        <WhyChooseUsSection />
-
-        {/* ─── Team ─── */}
-        {/*
-          The team section renders only once there are real people to name.
-          TEAM still holds placeholder entries (isPlaceholder: true) as a
-          scaffold, and rendering those published cards for "Founder & Owner"
-          and "Lead Designer" as if they were staff - unfinished-looking to a
-          visitor, and worse, fabricated people on the one page whose job is
-          establishing trust.
-
-          Gating on confirmedTeam, the same list the Person schema is built
-          from, means the page and its structured data can never disagree: add
-          a member with isPlaceholder: false and the section and its schema
-          both appear on their own.
-        */}
-        {confirmedTeam.length > 0 && (
-        <Section divider>
-          <div className="container px-4 max-w-5xl">
-            <SectionHeader
-              eyebrow="The team"
-              title={
-                <>
-                  One accountable{' '}
-                  <em className="brc-accent text-accent">team</em>
-                </>
-              }
-              description="The same people guide your project from first design conversation through final walkthrough."
-              align="left"
-              className="mb-10"
-            />
-            <div className="ed-cards-3 gap-6">
-              {confirmedTeam.map((member, i) => (
-                <Reveal key={member.role} delay={Math.min(i, 3) * 60}>
-                  <MarketingCard className="h-full p-6">
-                    <h3 className="font-serif font-medium text-base mb-1">{member.name}</h3>
-                    <p className="text-xs tracking-[0.1em] uppercase text-accent mb-3">
-                      {member.role}
-                    </p>
-                    <p className="text-base text-muted-foreground leading-relaxed">{publicText(member.bio)}</p>
-                  </MarketingCard>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Section>
-        )}
-
-        <StatementBandSection />
-
-        {/* ─── Principles ─── */}
-        <Section variant="inverse" divider>
-          <div className="container px-4 max-w-5xl">
-            <SectionHeader
-              eyebrow="Our standards"
-              inverse
-              size="display"
-              title={
-                <>
-                  Six principles we never{' '}
-                  <em className="brc-accent text-accent">compromise</em> on
-                </>
-              }
-              className="mb-0 max-w-3xl"
-            />
-            <Hairline inverse className="mt-8 mb-12" />
-            <div className="ed-cards-3 gap-6">
-              {PRINCIPLES.map(({ title, desc }, i) => (
-                <Reveal key={title} delay={Math.min(i, 5) * 60}>
-                  <div className="h-full">
-                    <DisplayNum className="text-2xl text-accent leading-none mb-4 block">
-                      {formatStepNumber(i)}
-                    </DisplayNum>
-                    <h3 className="font-serif font-medium text-sm mb-2 text-inverse-foreground">
-                      {title}
-                    </h3>
-                    <p className="text-base text-inverse-muted leading-relaxed">{desc}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* ─── FAQ ─── */}
         <Section divider>
           <div className="container px-4 max-w-3xl">
             <SectionHeader
@@ -371,7 +274,6 @@ export default function AboutPage() {
           </div>
         </Section>
 
-        {/* ─── Closing CTA ─── */}
         <Section surface="gradient" spacing="xl" edge>
           <div className="ed-shell">
             <div className="ed-split ed-split-center">
@@ -383,10 +285,12 @@ export default function AboutPage() {
                 Schedule a free in-home visit for planning guidance, design direction, and an honest
                 project range.
               </p>
-              <div className="mt-8"><CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+              <div className="mt-8 flex flex-wrap gap-4 items-center">
+                <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+                <SaveContactLink showIcon className="text-sm underline underline-offset-2" />
+              </div>
+              </div>
             </div>
-
-              </div></div>
           </div>
         </Section>
       </div>

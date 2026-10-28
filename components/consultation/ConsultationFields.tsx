@@ -605,9 +605,7 @@ export function ConsultationFields({
   return (
     <Form {...form}>
       <p className="text-sm text-muted-foreground mb-4">
-        Send your project details for our team to review before preparing a quote. This request does not book installation.
-        Keep this page open until receipt is confirmed. Retry unchanged details here after an uncertain response;
-        if you refresh or leave without confirmation, call or text us before sending another request.
+        Sending this does not book installation. We reply within one business day.
       </p>
       <EstimatorRecovery
         flow="consultation"
@@ -643,7 +641,11 @@ export function ConsultationFields({
             tabIndex={-1}
             className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive focus:outline-none"
           >
-            {(mutation.error as Error).message || "Something went wrong. Please try again."}
+            <p>{(mutation.error as Error).message || "Something went wrong. Please try again."}</p>
+            <p className="mt-2 text-destructive/90">
+              Keep this page open until receipt is confirmed. Retry unchanged details here after an uncertain response;
+              if you refresh or leave without confirmation, call or text us before sending another request.
+            </p>
           </div>
         )}
 

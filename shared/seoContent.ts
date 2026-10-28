@@ -28,7 +28,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     overview:
       'Quality kitchen cabinets define how your family cooks, stores, and gathers. Boise Cabinet Co designs, supplies, and installs custom and value kitchen cabinetry with clear written scope from first visit through final walkthrough.',
     benefits: [
-      'Design Studio layout tools and in-home templating',
+      'In-home templating and layout planning with your project team',
       'Written scope and finish selections before your order is placed',
       'Frameless and plywood box options',
       'Professional installation with workmanship guarantee',
@@ -282,7 +282,7 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   {
     question: 'Are you a registered contractor and insured?',
     answer:
-      'Yes. Idaho Registered Contractor #8381215, bonded and insured.',
+      'Yes. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.',
   },
   {
     question: 'How do I start a cabinet project?',
@@ -295,7 +295,7 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
   {
     question: 'How are you different from other cabinet companies in the Treasure Valley?',
     answer:
-      'We combine Design Studio planning, curated collections, shop-built quality, and professional installation under one accountable team.',
+      'We combine catalog planning, curated collections, build-to-order cabinets, and professional installation under one accountable team.',
   },
   {
     question: 'What areas do you serve?',

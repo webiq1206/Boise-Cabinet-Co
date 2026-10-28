@@ -28,7 +28,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
-    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order in Meridian, Idaho.",
+    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order for your plans.",
 })), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */
@@ -46,8 +46,8 @@ const REASONS = [
     body: "We build to one approved finish schedule and one set of shop drawings, so cabinetry matches from the first unit to the last. Reorders and later phases stay consistent.",
   },
   {
-    title: "One local shop, one point of contact",
-    body: "Design, fabrication, and installation run out of our Meridian shop under a single project contact. No cross-country freight, no backorder roulette, and no finger-pointing between vendors.",
+    title: "One team, one point of contact",
+    body: "Design, build-to-order coordination, and installation stay under a single project contact. No cross-country freight, no backorder roulette, and no finger-pointing between vendors.",
   },
 ];
 
@@ -119,7 +119,7 @@ const FAQS = [
   {
     question: "Do you deliver and install, or just supply the cabinets?",
     answer:
-      "We build to order in our Meridian shop, then deliver and install with our own Treasure Valley crew, coordinated to your jobsite schedule.",
+      "We build to order for your approved plans, then deliver and install with our own Treasure Valley crew, coordinated to your jobsite schedule.",
   },
 ];
 
@@ -137,7 +137,7 @@ export default function BuildersPage() {
     ]),
     generateServiceSchema(
       "Builder & Trade Cabinetry Program",
-      "Volume-priced custom cabinetry for builders, general contractors, and multi-family developers across the Treasure Valley, built to order in Meridian, Idaho with fast lead times and consistent specs across units.",
+      "Volume-priced custom cabinetry for builders, general contractors, and multi-family developers across the Treasure Valley, built to order with lead times confirmed for your scope and consistent specs across units.",
     ),
     generateFAQSchema(FAQS),
   ];
@@ -233,7 +233,7 @@ export default function BuildersPage() {
         <PhotoBreak
           src={ENRICHMENT_IMAGES.constructionDetail}
           alt="Frameless plywood cabinet box and dovetail drawer detail from Boise Cabinet Co"
-          caption="One Meridian shop for design, fabrication, and install coordination."
+          caption="One accountable team for design, production, and install coordination."
         />
 
         <Section divider>

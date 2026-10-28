@@ -28,7 +28,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
     {
       question: "How do I get a quote for this collection?",
       answer:
-        "Start in our Design Studio to explore layouts and finishes, or schedule an in-home consultation. We'll produce shop drawings and a written scope with line-item pricing before any cabinets are built.",
+        "Browse layouts and finishes in the catalog, or schedule an in-home consultation. We produce drawings and a written scope with line-item pricing before any cabinets are ordered.",
     },
   ];
 }

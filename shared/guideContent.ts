@@ -106,7 +106,7 @@ const costPillarFaqs = [
   {
     question: 'How do I get an accurate cabinet estimate?',
     answer:
-      'Browse our catalog, use the design studio or consultation form, and schedule an in-home measure for a written quote tied to your layout.',
+      'Browse our catalog, use the consultation form, and schedule an in-home measure for a written quote tied to your layout.',
   },
   {
     question: 'Does Eagle or Meridian cost more than Boise for cabinets?',
@@ -162,7 +162,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     title: 'Treasure Valley Custom Cabinet Guide',
     seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
-      'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell, room guides, collections, design studio, and delivery.',
+      'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell, room guides, collections, catalog, and delivery.',
     excerpt:
       'Your starting point for custom cabinets anywhere in the Treasure Valley, city context, catalog rooms, and links to planning guides.',
     content: TREASURE_VALLEY_GUIDE_HTML,
@@ -187,7 +187,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How do I explore cabinet styles and finishes?',
         answer:
-          'Browse door styles and finishes online, then use the design studio or schedule a consultation to see samples in your space.',
+          'Browse door styles and finishes online, then schedule a consultation to see samples in your space.',
       },
       {
         question: 'How do I find cabinet costs for my project?',
@@ -242,7 +242,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How do I start a cabinet project?',
         answer:
-          'Explore the catalog, try the design studio, or contact us to schedule an in-home measure.',
+          'Explore the catalog or contact us to schedule an in-home measure.',
       },
     ],
     relatedLinks: [
@@ -308,7 +308,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'Where can I see door styles and finishes?',
         answer:
-          'Browse online, use the design studio, or view samples during your in-home consultation.',
+          'Browse online or view samples during your in-home consultation.',
       },
       {
         question: 'How much of Boise\'s housing predates 1980?',

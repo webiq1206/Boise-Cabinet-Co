@@ -1,20 +1,20 @@
-// Business copy restored from boisecabinet.co, reviewed September 24, 2026.
+// Business copy restored from boisecabinet.co, reviewed for P5 Family Fix Plan (28 Oct 2026).
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
-    "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage."
+    "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us."
   ],
   [
     "What kind of cabinets do you offer?",
-    "We source and install custom frameless cabinets, made to order for your space. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction."
+    "Custom cabinets designed to your measurements and built to order: kitchen cabinets, bathroom vanities, laundry, mudroom, pantry, closet, garage, and built-ins. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction."
   ],
   [
     "How long does a custom cabinet project take?",
-    "Most custom cabinet projects run about 4–8 weeks from approved design, depending on size and finish selection. We confirm your project schedule and share status through the client portal."
+    "Most custom cabinet projects run about 4 to 8 weeks from approved design, depending on size and finish selection. We confirm your project schedule in writing and share a weekly update until install."
   ],
   [
-    "Can I design my cabinets online before committing?",
-    "Yes. Our Design Studio starts by scanning your real room (phone AR or a wide photo), then shows cabinet layouts that fit your space. You refine the plan in 2D and 3D, preview finishes, save your design, and request pricing, all before your free consultation. We still confirm exact dimensions at your site visit."
+    "Can I plan my cabinets before committing?",
+    "Yes. Browse door styles and finishes in the catalog, then book a free in-home design consultation. We measure your space, refine the layout with you, and provide a written proposal with drawings before anything is ordered."
   ],
   [
     "What areas do you serve?",
@@ -22,78 +22,83 @@ export const faqs = [
   ],
   [
     "Do you install cabinets or supply only?",
-    "We offer full-service design, sourcing coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal."
+    "We design, build to order, deliver, and install with our own crew. Trade partners and builders can discuss project packages on the builders page."
   ],
   [
     "What warranty do you provide?",
-    "Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the warranty page for current terms; service requests are handled through your client portal."
+    "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms."
   ],
   [
     "What does the free design consultation include?",
-    "A 60 to 90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure, you leave with clarity, not a sales pitch."
+    "A 60 to 90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure; you leave with clarity, not a sales pitch."
   ],
   [
     "How do I track my project after I order?",
-    "Every customer gets access to our client portal where you can view your project timeline, approve designs, sign documents, pay invoices, message your project team, upload inspiration photos, and track order status through delivery and installation."
+    "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets."
   ],
   [
     "What door styles and finishes are available?",
-    "Shaker, slab and more door styles. Finishes span matte solids, high-gloss, and woodgrain textures, hundreds of options in total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio."
+    "Six door styles, including Shaker and slab. Finishes span matte solids, high-gloss, and woodgrain textures: 299 options in total. Browse the full finish library at boisecabinet.co/catalog, then confirm with a physical sample at your design visit."
   ],
   [
     "Do you offer closet, laundry, and mudroom cabinets?",
-    "Yes. We design, source, and install cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications."
+    "Yes. We design custom cabinets to your measurements for every room in the home: kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications."
   ],
   [
     "How does pricing work?",
-    "Pricing depends on your door style, finish selections, linear footage, and accessories. After your Design Studio session or consultation, we provide a detailed written proposal with line-item scope. Deposits are collected through your client portal with secure online payment."
+    "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed; production is reserved with a deposit."
   ]
 ];
 
 export const steps = [
   {
     "title": "Free design consultation",
-    "desc": "We walk your space, discuss your goals, and explore collections and finishes. Your 60–90 minute in-home visit includes planning guidance with no obligation.",
+    "desc": "We walk your space, discuss your goals, and explore collections and finishes. Your 60 to 90 minute in-home visit includes planning guidance with no obligation.",
     "tag": "01 / DISCOVER"
   },
   {
-    "title": "Design Studio & selections",
-    "desc": "Refine your layout, door style, finish, and hardware. See the plan in 3D and work through the details with your cabinet team.",
+    "title": "Layout and selections",
+    "desc": "Refine your layout, door style, finish, and hardware with your cabinet team. You get drawings that match how you cook and store before anything is ordered.",
     "tag": "02 / DESIGN"
   },
   {
-    "title": "Approval & deposit",
-    "desc": "Review your written proposal in the client portal, approve the design, sign your agreement, and secure production with a deposit.",
+    "title": "Approval and deposit",
+    "desc": "Review your written proposal with drawings, approve the design, sign your agreement, and reserve production with a deposit. Fifty percent reserves production; fifty percent is due after installation.",
     "tag": "03 / APPROVE"
   },
   {
-    "title": "Order & quality check",
-    "desc": "Your cabinets are made to order with frameless Euro construction. We check the cabinetry and finishes before shipping.",
+    "title": "Built to order",
+    "desc": "Your cabinets are made to your measurements with frameless construction. We check the cabinetry and finishes before delivery.",
     "tag": "04 / BUILD"
   },
   {
-    "title": "Delivery, install & warranty",
-    "desc": "Professional installation and a final walkthrough bring it all together. Your client portal keeps warranty information and support close at hand.",
+    "title": "Delivery, install and warranty",
+    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the 2-year installation workmanship term.",
     "tag": "05 / ENJOY"
   }
 ];
 
+/** Five cabinet-specific promise items (K-8). */
 export const differentiators = [
   [
-    "One team, one point of accountability",
-    "Design, sourcing, and installation stay with one cabinet team. Your dedicated project manager stays with you from the first visit through the final walkthrough."
+    "Written proposal with drawings before order",
+    "Your scope, elevations, and finish selections are documented before production starts. Changes require a written change order and your approval first."
   ],
   [
-    "A written plan before order",
-    "Your scope, design direction, and finish selections are documented before the order begins. Changes require a written change order and your approval first."
+    "Field-measured and scribed installation",
+    "We measure on site, then level and scribe cabinets to your walls so gaps stay tight and lines stay true."
   ],
   [
-    "A written update every Friday",
-    "Know what was completed, what comes next, and which decisions need your attention. Budget impacts are flagged early, before they become surprises."
+    "One crew from measure to walkthrough",
+    "The same Treasure Valley crew that measures installs. You are not handed off between sales, shop, and a random install crew."
   ],
   [
-    "Local permit and schedule expertise",
-    "We handle Ada and Canyon County permit requirements for the agreed scope and build realistic schedules into your project plan."
+    "Warranty claims handled by us",
+    "Two-year workmanship warranty on installation. Manufacturer coverage on boxes and hardware is administered through our team, not passed off to a call centre."
+  ],
+  [
+    "Packaging and old-cabinet haul-away",
+    "We remove packaging and, when the scope includes it, haul away the cabinets we replace so your kitchen is ready to use."
   ]
 ];
 

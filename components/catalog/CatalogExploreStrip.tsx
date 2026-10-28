@@ -32,7 +32,7 @@ export function CatalogExploreStrip() {
           Explore door styles &amp; finishes
         </h3>
         <p className="text-sm text-muted-foreground mt-2">
-          Shaker, slab and more door styles and hundreds of finishes - browse the full library or open Design Studio.
+          Shaker, slab and more door styles and 299 finishes. Browse the full library in the catalog.
         </p>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">

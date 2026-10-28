@@ -1,6 +1,7 @@
 
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
+import { SaveContactLink } from "@/components/SaveContactLink";
 import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CONTENT_HUBS,guidePath } from "@/shared/contentHubs";
@@ -42,12 +43,11 @@ function buildFooterGroups(reviewLink: FooterLink | null): { title: string; link
       title: "Company",
       links: [
         { label: "About", href: "/about" },
-        ...(reviewLink ? [reviewLink] : []),
-        { label: "Why Choose Us", href: "/#why-choose-us" },
+        ...(reviewLink ? [reviewLink] : [{ label: "Design ideas", href: "/design-ideas" }]),
+        { label: "Why Choose Us", href: "/#why-us" },
         { label: "How We Work", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
         { label: "Contact", href: "/contact" },
-        { label: "My Project", href: "/portal" },
       ],
     },
     {
@@ -127,6 +127,10 @@ export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }
                 Serving Boise &amp; the Treasure Valley
               </p>
               <p className="text-sm text-inverse-muted">{PUBLIC_HOURS_LINE}</p>
+              <SaveContactLink
+                showIcon
+                className="tap-target mt-1 text-sm text-inverse-muted underline underline-offset-2 transition-colors hover:text-inverse-foreground"
+              />
             </div>
             <FooterCTAs />
           </div>
@@ -189,7 +193,9 @@ export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }
           {" · "}
           <a href="https://boisecabinet.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise Cabinet Co</a>
           {" · "}
-          Boise ADU Co (website coming soon; requests through P5)
+          <a href="https://boiseconstruction.co" className="underline underline-offset-2 transition-colors hover:text-inverse-foreground">Boise ADU Co</a>
+          {" "}
+          (projects currently run through Boise Construction Co; site coming)
         </p>
 
         {/* Utility row: legal, credentials, copyright - smaller weight than the primary groups above. */}

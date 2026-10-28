@@ -1,13 +1,8 @@
-import { publicQa, publicText, showFoundingYear } from "@/shared/claims";
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, publicQa, publicText, REGISTERED_BONDED_INSURED, showFoundingYear } from "@/shared/claims";
 
 /**
  * Additive answer blocks for phase-1 pages.
- * Facts are limited to frameless (European-style) boxes, soft-close hardware,
- * a written workmanship guarantee, a free in-home design consultation,
- * founded 2020, the eight-city service area, and hundreds of finishes
- * and six door styles. Existing page claims stay in place.
- * The 2020 sentences stay in this file. Published answers omit them unless
- * SHOW_FOUNDING_YEAR is exactly "true".
+ * Aligned to P5 Family Fix Plan D1 identity and Phase 6 registration wording.
  */
 
 export interface Phase1Faq {
@@ -22,6 +17,8 @@ export interface Phase1Answer {
 }
 
 const AREA = "Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell";
+const IDENTITY =
+  "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.";
 
 function cityAnswer(city: string, paragraph: string): Phase1Answer {
   return {
@@ -38,7 +35,7 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
       },
       {
         question: `How many finishes and door styles are available for ${city} projects?`,
-        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
+        answer: "299 finishes and six door styles, including Shaker and slab.",
       },
       {
         question: `Which cities does Boise Cabinet Co serve, including ${city}?`,
@@ -46,7 +43,7 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
       },
       {
         question: `Is workmanship covered in writing for a ${city} project?`,
-        answer: "Yes. Boise Cabinet Co provides a written workmanship guarantee.",
+        answer: `Yes. ${CABINET_WORKMANSHIP_WARRANTY}. Warranty claims are handled by us.`,
       },
     ],
   };
@@ -55,31 +52,31 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
 const LOCATIONS: Record<string, Phase1Answer> = {
   kuna: cityAnswer(
     "Kuna",
-    "Kitchen cabinets and kitchen pantry storage are available for Kuna homes. Boise Cabinet Co sources the cabinets and installs them after a free in-home design consultation, including upgrades for newer houses with builder-grade packages. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
+    `Kitchen cabinets and pantry storage are available for Kuna homes. ${IDENTITY} Free in-home design consultation. ${REGISTERED_BONDED_INSURED}. Frameless European-style boxes and soft-close hardware are available on many packages.`,
   ),
   middleton: cityAnswer(
     "Middleton",
-    "Custom cabinets in Middleton, ID start with a free in-home design consultation. Boise Cabinet Co sources cabinetry and installs it for hardworking kitchens, pantries, mudrooms, and shop storage along the Highway 44 corridor. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
+    `Custom cabinets in Middleton, ID start with a free in-home design consultation. ${IDENTITY} Hardworking kitchens, pantries, mudrooms, and shop storage along the Highway 44 corridor. ${REGISTERED_BONDED_INSURED}.`,
   ),
   meridian: cityAnswer(
     "Meridian",
-    "Custom cabinetry in Meridian, ID starts with a free in-home design consultation. Boise Cabinet Co sources cabinet packages and installs them for Meridian homes, including builder-grade kitchen upgrades in subdivisions such as Paramount and Tuscany. Bonded and insured. Idaho Registered Contractor #8381215. Frameless European-style boxes and soft-close hardware are available on many packages.",
+    `Custom cabinetry in Meridian, ID starts with a free in-home design consultation. ${IDENTITY} Builder-grade kitchen upgrades in subdivisions such as Paramount and Tuscany are a common request. ${REGISTERED_BONDED_INSURED}.`,
   ),
   boise: cityAnswer(
     "Boise",
-    "Custom cabinets Boise projects should feel local from the first visit. We source cabinet packages sized for your layout, then install them in Boise and across the Treasure Valley. Tell us about your kitchen or storage goals, review finishes and door styles, and leave with a planning path you can act on. Bonded and insured. Idaho Registered Contractor #8381215.",
+    `Custom cabinets in Boise should feel local from the first visit. ${IDENTITY} Tell us about your kitchen or storage goals, review finishes and door styles, and leave with a planning path you can act on. ${REGISTERED_BONDED_INSURED}.`,
   ),
 };
 
 const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
-    heading: "What are kitchen cabinets from Boise Cabinet Co?",
+    heading: "Kitchen cabinets in Boise, Idaho",
     paragraph:
-      "Kitchen cabinets near me should mean a local team that helps you choose, source, and install a kitchen package that fits your home. Boise Cabinet Co plans base runs, uppers, pantries, and appliance panels as one system, then sources and installs the package. Free in-home design consultation. Bonded and insured. Idaho Registered Contractor #8381215.",
+      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans base runs, uppers, pantries, and appliance panels as one system, then builds each order to your layout and installs with our own crew. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_BONDED_INSURED + ".",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",
-        answer: "Kitchen cabinets offer frameless and soft-close options.",
+        answer: "Kitchen cabinets offer frameless and soft-close options. Box material is published per line.",
       },
       {
         question: "Is the kitchen design consultation free?",
@@ -87,7 +84,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many kitchen finishes and door styles are available?",
-        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
+        answer: "299 finishes and six door styles, including Shaker and slab.",
       },
       {
         question: "Where are kitchen cabinets installed?",
@@ -95,14 +92,14 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "Do you build cabinets?",
-        answer: "No. We source and install.",
+        answer: IDENTITY,
       },
     ],
   },
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      "Home office cabinets from Boise Cabinet Co offer frameless and soft-close options. Founded in 2020, the company offers a free in-home design consultation, a written workmanship guarantee, and hundreds of finishes and Shaker, slab and more door styles. Installation covers Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+      `Home office cabinets from Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation, ${CABINET_WORKMANSHIP_WARRANTY.toLowerCase()}, and 299 finishes with six door styles. Installation covers ${AREA}.`,
     faqs: [
       {
         question: "What construction do home office cabinets use?",
@@ -114,7 +111,7 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "How many finishes and door styles can a home office use?",
-        answer: "Hundreds of finishes and Shaker, slab and more door styles.",
+        answer: "299 finishes and six door styles, including Shaker and slab.",
       },
       {
         question: "Where are home office cabinets installed?",
@@ -122,36 +119,37 @@ const ROOMS: Record<string, Phase1Answer> = {
       },
       {
         question: "Is home office workmanship covered in writing?",
-        answer: "Yes. Boise Cabinet Co was founded in 2020 and provides a written workmanship guarantee.",
+        answer: `Yes. ${CABINET_WORKMANSHIP_WARRANTY}.`,
       },
     ],
   },
 };
 
+/** K-13: contact page does not ask "How do I contact" (the page is the answer). */
 const CONTACT: Phase1Answer = {
-  heading: "How do I contact Boise Cabinet Co?",
+  heading: "What happens when you reach out?",
   paragraph:
-    "Contact Boise Cabinet Co, founded in 2020, for a free in-home design consultation. Cabinets use frameless (European-style) boxes and soft-close hardware, with a written workmanship guarantee and hundreds of finishes and six door styles. The service area is Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+    `Call, text, or send the form. We reply within one business day to schedule a free in-home design consultation. ${IDENTITY} ${IDAHO_REGISTERED_CONTRACTOR}. Service area: ${AREA}.`,
   faqs: [
     {
       question: "How do I request a design consultation?",
-      answer: "Contact Boise Cabinet Co for a free in-home design consultation.",
+      answer: "Call or text (208) 477-1169, or send the contact form. We reply within one business day.",
     },
     {
       question: "What cabinet construction should I expect?",
-      answer: "Cabinets offer frameless and soft-close options.",
+      answer: "Cabinets offer frameless and soft-close options. Box and finish specifications are published per line.",
     },
     {
       question: "How many finishes and door styles are available?",
-      answer: "Hundreds of finishes and Shaker, slab and more door styles.",
+      answer: "299 finishes and six door styles, including Shaker and slab.",
     },
     {
       question: "Which cities does Boise Cabinet Co serve?",
       answer: `The service area is ${AREA}.`,
     },
     {
-      question: "When was Boise Cabinet Co founded, and is workmanship in writing?",
-      answer: "Boise Cabinet Co was founded in 2020 and provides a written workmanship guarantee.",
+      question: "Is workmanship covered in writing?",
+      answer: `Yes. ${CABINET_WORKMANSHIP_WARRANTY}. Warranty claims are handled by us.`,
     },
   ],
 };
@@ -160,7 +158,7 @@ function presentPhase1(answer: Phase1Answer): Phase1Answer {
   return {
     ...answer,
     paragraph: publicText(answer.paragraph),
-    faqs: publicQa(answer.faqs.map(faq => ({ ...faq, question: !showFoundingYear() && faq.question === "When was Boise Cabinet Co founded, and is workmanship in writing?" ? "Is workmanship covered in writing?" : faq.question }))),
+    faqs: publicQa(answer.faqs),
   };
 }
 
@@ -179,3 +177,6 @@ export function phase1ContactAnswer(): Phase1Answer {
 }
 
 export const PHASE1_ANSWERS = [...Object.values(LOCATIONS), ...Object.values(ROOMS), CONTACT].map(presentPhase1);
+
+// Keep showFoundingYear import used for future founding sentences.
+void showFoundingYear;

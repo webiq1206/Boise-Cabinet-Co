@@ -72,7 +72,6 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-          className="interior-hero-above-fold"
         <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
 
         <CatalogClosingCTA />

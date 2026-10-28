@@ -57,7 +57,7 @@ export const FINISHES: Finish[] = [
   {
     "id": "matte-brezee-beige",
     "slug": "matte-brezee-beige",
-    "name": "Brezee Beige",
+    "name": "Breeze Beige",
     "oscName": "Brezee Beige",
     "category": "matte",
     "sheen": "matte",

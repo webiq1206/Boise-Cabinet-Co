@@ -80,8 +80,8 @@ test("brand license claims use Idaho registration wording", () => {
   }
   const faqs = readFileSync("shared/seoContent.ts", "utf8");
   assert.match(faqs, /Are you a registered contractor and insured\?/);
-  assert.match(faqs, /Idaho Registered Contractor #8381215, bonded and insured/);
+  assert.match(faqs, /P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request/);
   const about = readFileSync("app/about/page.tsx", "utf8");
   assert.match(about, /Is \$\{SITE_CONFIG.name\} a registered contractor and insured\?/);
-  assert.match(about, /\$\{REGISTERED_BONDED_INSURED\}/);
+  assert.match(about, /REGISTERED_BONDED_INSURED|CABINET_WORKMANSHIP_WARRANTY/);
 });

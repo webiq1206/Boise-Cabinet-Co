@@ -8,19 +8,19 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "We combine a full product catalog (299 finishes and six door styles) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    a: "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us.",
   },
   {
     q: "What kind of cabinets do you offer?",
-    a: "We source and install custom frameless cabinets, made to order for your space. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction.",
+    a: "Custom cabinets designed to your measurements and built to order: kitchen cabinets, bathroom vanities, laundry, mudroom, pantry, closet, garage, and built-ins. Finish and door-style options are selected during design; every cabinet uses the same quality frameless construction.",
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through order, delivery, and installation.`,
+    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. We confirm your schedule in writing and share a weekly update until install.`,
   },
   {
-    q: "Can I design my cabinets online before committing?",
-    a: "Yes. Our Design Studio starts by scanning your real room (phone AR or a wide photo), then shows cabinet layouts that fit your space. You refine the plan in 2D and 3D, preview finishes, save your design, and request pricing, all before your free consultation. We still confirm exact dimensions at your site visit.",
+    q: "Can I plan my cabinets before committing?",
+    a: "Yes. Browse door styles and finishes in the catalog, then book a free in-home design consultation. We measure your space, refine the layout with you, and provide a written proposal with drawings before anything is ordered.",
   },
   {
     q: "What areas do you serve?",
@@ -28,30 +28,30 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you install cabinets or supply only?",
-    a: "We offer full-service design, sourcing coordination, delivery, and professional installation. You can also discuss supply-only options for trade partners and contractors through our partner portal.",
+    a: "We design, build to order, deliver, and install with our own crew. Trade partners and builders can discuss project packages on the builders page.",
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the warranty page for current terms; service requests are handled through your client portal.",
+    a: "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
   },
   {
     q: "What does the free design consultation include?",
-    a: "A 60 to 90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure, you leave with clarity, not a sales pitch.",
+    a: "A 60 to 90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure; you leave with clarity, not a sales pitch.",
   },
   {
     q: "How do I track my project after I order?",
-    a: "Every customer gets access to our client portal where you can view your project timeline, approve designs, sign documents, pay invoices, message your project team, upload inspiration photos, and track order status through delivery and installation.",
+    a: "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
   },
   {
     q: "What door styles and finishes are available?",
-    a: "Shaker, slab and more door styles. Finishes span matte solids, high-gloss, and woodgrain textures, hundreds of options in total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio.",
+    a: "Six door styles, including Shaker and slab. Finishes span matte solids, high-gloss, and woodgrain textures: 299 options in total. Browse the full finish library in the catalog, then confirm with a physical sample at your design visit.",
   },
   {
     q: "Do you offer closet, laundry, and mudroom cabinets?",
-    a: "Yes. We design, source, and install cabinetry for every room in the home, kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications.",
+    a: "Yes. We design custom cabinets to your measurements for every room in the home: kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications.",
   },
   {
     q: "How does pricing work?",
-    a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your Design Studio session or consultation, we provide a detailed written proposal with line-item scope. Deposits are collected through your client portal with secure online payment.",
+    a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed; production is reserved with a deposit.",
   },
 ];
