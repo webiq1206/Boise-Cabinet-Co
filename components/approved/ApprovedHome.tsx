@@ -20,12 +20,24 @@ const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);const [door,setDoor]=useState('Help me choose');return <div className="cabinet-approved">
-  <section className="hero" aria-labelledby="hero-title">
+  <section className="hero" aria-labelledby="hero-title" data-p5-hero>
    <img className="hero-image" src="/images/approved/hero-p5-v2.webp" srcSet="/images/approved/hero-mobile.webp 960w, /images/approved/hero-p5-v2.webp 1672w" sizes="100vw" alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details" width="1672" height="941" fetchPriority="high"/>
-   <div className="hero-shade"/>
-   <div className="hero-content"><p className="eyebrow"><span/> CUSTOM CABINETS · TREASURE VALLEY, IDAHO</p><h1 id="hero-title">Custom cabinets in Boise,<br/><em>Idaho</em></h1><p className="hero-summary">{IDENTITY}</p><p>Kitchen cabinets, bathroom vanities, closet systems, and built-in storage. Free in-home design consultation. Written scope before order.</p><div className="hero-actions"><a className="button" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={20}/></a><a className="text-link light" href="#process">See how it works <ArrowRight size={18}/></a></div><div className="hero-reassurance"><span><Check size={15}/> Written price before work</span><span><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span></div></div>
-   <div className="hero-bottom"><span>Designed around your life. Built around your space.</span><a href="#cabinetry">SCROLL TO EXPLORE <ArrowRight size={16}/></a></div>
-
+   <div className="hero-shade" aria-hidden="true"/>
+   <div className="hero-content">
+     <p className="eyebrow"><span/> CUSTOM CABINETS · TREASURE VALLEY, IDAHO</p>
+     <h1 id="hero-title">Custom cabinets in Boise,<br/><em>Idaho</em></h1>
+     <p className="hero-summary">{IDENTITY}</p>
+     <p className="hero-support">Kitchen cabinets, vanities, and built-ins. Free in-home design consultation.</p>
+     <div className="hero-actions">
+       <a className="button" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={20}/></a>
+       <a className="text-link light hero-secondary" href="#process">See how it works <ArrowRight size={18}/></a>
+     </div>
+     <div className="hero-reassurance">
+       <span><Check size={15}/> Written price before work</span>
+       <span><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span>
+     </div>
+     <p className="hero-tagline">Designed around your life. Built around your space.</p>
+   </div>
   </section>
   <section className="proof-bar" aria-label="The Boise Cabinet Co difference"><div><strong>299</strong><span>Finish options</span></div><div><strong>6</strong><span>Door styles</span></div><div><strong>Free</strong><a href="#contact">In-home design consultation <ArrowUpRight size={14}/></a></div><div><strong>ID</strong><a href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch" target="_blank" rel="noopener noreferrer">{IDAHO_REGISTERED_CONTRACTOR} <ArrowUpRight size={14}/></a></div></section>
   <section id="cabinetry" className="section wrap room-editorial">

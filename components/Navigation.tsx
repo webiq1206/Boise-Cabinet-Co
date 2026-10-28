@@ -151,11 +151,11 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
       <header data-approved-navigation
         className={cn(
           "fixed top-0 z-[100] w-full transition-[background-color,border-color] duration-300",
-          "bg-background/95 backdrop-blur border-b border-border",
+          "bg-background/95 backdrop-blur border-b border-border pt-[env(safe-area-inset-top)]",
           scrolled && "shadow-sm",
         )}
       >
-        <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
+        <nav className="container flex h-16 min-[768px]:h-[76px] items-center justify-between gap-4 px-4 md:px-6 [&_img]:max-h-8 min-[768px]:[&_img]:max-h-10">
           <Logo />
 
           <div className="hidden min-[1180px]:flex items-center">
@@ -416,30 +416,21 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
         data-mobile-nav-bar=""
         data-p5-actions-ready={mobileActionsVisible}
         className={cn(
-          "fixed left-0 right-0 bottom-0 z-[100] min-[1180px]:hidden pb-safe border-t",
+          "fixed left-0 right-0 bottom-0 z-[100] min-[1180px]:hidden border-t",
           "bg-background border-border transition-opacity duration-200",
+          "pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]",
           (wizardBarActive || ctaSuppressed || mobileOpen || pathname?.startsWith("/estimate")) && "invisible pointer-events-none opacity-0",
         )}
       >
-        <div className="flex items-stretch gap-2 p-2">
+        <div className="flex items-stretch gap-2 px-3">
           <a
             href={SITE_CONFIG.phoneHref}
             aria-label={`Call us at ${SITE_CONFIG.phone}`}
-            className="flex min-h-14 w-[76px] shrink-0 flex-col gap-1 items-center justify-center rounded-sm border border-border text-foreground hover-elevate active-elevate-2"
+            className="flex h-12 min-w-[5.5rem] shrink-0 items-center justify-center gap-2 rounded-sm border border-border px-3 text-base font-medium text-foreground hover-elevate active-elevate-2"
           >
-            <Phone className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Call</span>
+            <Phone className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+            <span>Call</span>
           </a>
-          {["/cabinets/built-ins","/builders"].includes(pathname ?? "") ? <a href={SITE_CONFIG.phoneSmsHref} className="flex min-h-14 w-[76px] shrink-0 items-center justify-center rounded-sm border border-border text-foreground focus-visible:ring-2 focus-visible:ring-ring">Text Us</a> : (
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event("p5:assistant-open"))}
-            className="flex min-h-14 w-[76px] shrink-0 flex-col gap-1 items-center justify-center rounded-sm border border-border text-foreground hover-elevate active-elevate-2"
-            aria-label="Chat with our estimating assistant"
-            data-testid="button-chat-mobile"
-          >
-            <MessageSquare className="h-5 w-5" strokeWidth={1.5} /><span className="text-xs font-medium">Chat</span>
-          </button>
-          )}
           <button
             type="button"
             onClick={() => {
@@ -447,7 +438,7 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
               openEstimate();
             }}
             aria-label={CTA_ESTIMATE}
-            className="flex min-h-14 flex-1 items-center justify-center rounded-sm bg-accent text-accent-foreground px-4 text-base font-medium"
+            className="flex h-12 flex-1 items-center justify-center rounded-sm bg-accent px-4 text-base font-medium text-accent-foreground"
           >
             {CTA_ESTIMATE}
           </button>

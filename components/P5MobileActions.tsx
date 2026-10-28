@@ -1,29 +1,22 @@
 'use client';
 import {useEffect,useState} from 'react';
 
-/** Keep fixed marketing actions below the hero and away from a focused field. */
+/**
+ * C7: keep the mobile bottom CTA bar available on the first screen of marketing
+ * pages. Hide only while editing a field or when a suppress target is in view.
+ */
 export function useP5MobileActions(pathname:string|null){
-  const [state,setState]=useState({path:pathname,visible:false});
+  const [state,setState]=useState({path:pathname,visible:true});
   useEffect(()=>{
     let frame=0;
     const update=()=>{
       frame=0;
-      // A marked hero wins. Pages without one (articles, categories, sitemap) fall
-      // back to the H1's section, unless that section wraps the whole article, in
-      // which case the H1 itself is the hero; otherwise the bar stayed hidden for
-      // most of every long post.
-      const marked=document.querySelector('[data-p5-hero],.f-hero,.cabinet-approved .hero,.interior-hero');
-      const h1=marked?null:document.querySelector('main h1');
-      const h1Section=h1?.closest('section')??null;
-      const hero=marked
-        ||(h1Section&&h1Section.getBoundingClientRect().height>window.innerHeight*1.5?h1:h1Section);
       const active=document.activeElement;
       const editing=active instanceof HTMLElement&&active.matches('input,textarea,select,[contenteditable=true]');
       const footerVisible=[...document.querySelectorAll('[data-suppress-sticky-cta]')].some(el=>{
         const rect=el.getBoundingClientRect();return rect.bottom>0&&rect.top<window.innerHeight;
       });
-      const pastHero=hero?hero.getBoundingClientRect().bottom<=100:window.scrollY>240;
-      setState({path:pathname,visible:pastHero&&!editing&&!footerVisible});
+      setState({path:pathname,visible:!editing&&!footerVisible});
     };
     const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
     update();
