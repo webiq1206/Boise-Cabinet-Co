@@ -45,7 +45,7 @@ export default function CabinetsHubPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
-          className="interior-hero-above-fold"
+          className="interior-hero-cabinets-hub"
           image={MARKETING_IMAGES.cabinetsHero}
           alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}

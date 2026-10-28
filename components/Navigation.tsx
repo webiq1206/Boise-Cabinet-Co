@@ -35,20 +35,10 @@ function Logo() {
   );
 }
 
-function FunnelLogoHeader() {
-  return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90">
-      <div className="container flex h-16 items-center px-6">
-        <ApprovedBrand />
-      </div>
-    </header>
-  );
-}
-
 type ReviewLink = {label:string;href:string};
 export function Navigation({reviewLink=null}: {reviewLink?:ReviewLink|null}) {
   const pathname=usePathname();
-  if (pathname === "/kitchen-cabinets") return <FunnelLogoHeader />;
+  // /kitchen-cabinets uses the standard marketing header (design-review B2).
   return isEstimatorPath(pathname)?null:<MarketingNavigation reviewLink={reviewLink} />;
 }
 

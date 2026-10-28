@@ -824,6 +824,33 @@
   .approved-interior .interior-hero-above-fold .above-fold-actions a {
     flex: 1 1 0;
   }
+  /* Cabinets hub: keep a readable room photo in the first mobile viewport. */
+  .approved-interior .interior-hero-cabinets-hub {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .approved-interior .interior-hero-cabinets-hub .interior-hero-image {
+    order: -1;
+    height: min(42vh, 280px);
+    min-height: 220px;
+    max-height: none;
+    width: 100%;
+  }
+  .approved-interior .interior-hero-cabinets-hub .interior-hero-copy {
+    order: 1;
+    padding: 28px 6% 20px;
+  }
+  /* Locations: photo participates in the first mobile viewport. */
+  .approved-interior.interior-locations .interior-hero-image {
+    order: -1;
+    height: min(46vh, 320px);
+    min-height: 220px;
+  }
+  .approved-interior.interior-locations .interior-hero-copy {
+    order: 1;
+    padding-top: 28px;
+  }
 }
 
 /* Owner hard rule (all breakpoints): never crop people out of photos. */

@@ -87,7 +87,9 @@ export default function WarrantyPage() {
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
                 </> : <>Warranty claims <em className="brc-accent text-accent">handled by us</em></>}
-          description={showLifetimeWarranty() ? CATALOG_CONTENT.warrantySummary : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`}
+          description={showLifetimeWarranty()
+            ? CATALOG_CONTENT.warrantySummary
+            : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">

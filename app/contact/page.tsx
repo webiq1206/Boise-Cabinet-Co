@@ -203,7 +203,7 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="interior-contact-form p-4 sm:p-7 md:p-10" padding="lg">
+            <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-7 md:p-10" padding="lg">
               <ConsultationForm />
             </MarketingCard>
           </div>
