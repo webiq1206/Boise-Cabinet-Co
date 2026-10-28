@@ -58,7 +58,7 @@ export default function CabinetsHubPage() {
         >
           <Button variant="brand" asChild>
             <Link href="/estimate">
-              Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              Request an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
         </CinematicHero>
