@@ -224,6 +224,33 @@
   animation:none;
   visibility:visible
 }
+/* Owner hard rule: never crop people. Natural aspect, full frame. */
+.approved-interior .interior-hero-image--uncropped,
+.approved-interior .people-safe-photo {
+  position:relative;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important
+}
+.approved-interior .interior-hero-image--uncropped img,
+.approved-interior .people-safe-photo img,
+.approved-interior img.people-safe-photo {
+  position:static!important;
+  inset:auto!important;
+  width:100%;
+  height:auto!important;
+  max-width:100%;
+  object-fit:contain!important;
+  object-position:center top
+}
+.cabinet-approved .people-safe-photo,
+.cabinet-approved img.people-safe-photo {
+  width:100%;
+  height:auto!important;
+  max-width:100%;
+  object-fit:contain!important;
+  object-position:center top
+}
 .approved-interior .interior-hero,
 .approved-interior .interior-hero-copy,
 .approved-interior .interior-hero-image {
@@ -797,5 +824,34 @@
   .approved-interior .interior-hero-above-fold .above-fold-actions a {
     flex: 1 1 0;
   }
+}
+
+/* Owner hard rule (all breakpoints): never crop people out of photos. */
+.approved-interior.interior-about .interior-hero-uncropped .interior-hero-image,
+.approved-interior .interior-hero-uncropped .interior-hero-image--uncropped,
+.approved-interior .interior-hero-image--uncropped,
+.approved-interior .people-safe-photo {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+.approved-interior .interior-hero-image--uncropped img,
+.approved-interior .people-safe-photo img,
+.approved-interior img.people-safe-photo {
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center top !important;
+}
+.cabinet-approved .people-safe-photo,
+.cabinet-approved img.people-safe-photo {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center top !important;
 }
 

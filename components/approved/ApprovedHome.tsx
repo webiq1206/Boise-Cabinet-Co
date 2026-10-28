@@ -48,15 +48,18 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
   <section id="process" className="section wrap process-editorial"><div className="process-overview"><p className="eyebrow">FROM IDEA TO INSTALLATION</p><h2>A clear plan.<br/><em>At every step.</em></h2><p>{IDENTITY} Know what happens next, what needs your approval, and where your project stands.</p><a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a></div><Accordion type="single" collapsible defaultValue="step-0" className="process-accordion">{steps.map((s,i)=><AccordionItem value={'step-'+i} key={s.tag}><AccordionTrigger><span className="process-index">0{i+1}</span><span>{s.title}</span></AccordionTrigger><AccordionContent><p>{s.desc}</p></AccordionContent></AccordionItem>)}</Accordion></section>
   <section id="inspiration" className="craft-section"><div className="craft-photo"><img src="/images/approved/drawer-oak.webp" alt="Natural oak drawer and organized utensil storage" loading="lazy" width="1448" height="1086"/><span className="craft-caption">THE BEAUTY IS IN THE EVERYDAY DETAILS</span></div><div className="craft-copy"><p className="eyebrow">WHAT YOU ARE BUYING</p><h2>Beautiful outside.<br/><em>Thoughtful inside.</em></h2><p>Frameless Euro construction. Soft-close hardware. Hand-checked finishes. Made to order for everyday life.</p><Accordion type="single" collapsible className="craft-details"><AccordionItem value="construction"><AccordionTrigger>Box and drawer construction</AccordionTrigger><AccordionContent>Frameless boxes with plywood or melamine-faced cores by line, full-extension drawers, and soft-close hinges. See the <a href="/construction">construction page</a> for the specification of each line.</AccordionContent></AccordionItem><AccordionItem value="hardware"><AccordionTrigger>Hardware you feel every day</AccordionTrigger><AccordionContent>Soft-close doors and full-extension drawer storage, with selections coordinated around your routines.</AccordionContent></AccordionItem><AccordionItem value="warranty"><AccordionTrigger>Warranty claims handled by us</AccordionTrigger><AccordionContent>{MANUFACTURER_WARRANTY_PASS_THROUGH}. {CABINET_WORKMANSHIP_WARRANTY}. <a href="/warranty">See the warranty page</a> for current terms.</AccordionContent></AccordionItem></Accordion><button className="text-link" onClick={()=>window.location.assign("/catalog")}>Explore design inspiration <ArrowUpRight size={18}/></button></div></section>
   <section id="who-hiring" className="section wrap" aria-labelledby="who-hiring-heading">
-    <div className="who-hiring-layout" style={{display:'grid',gap:'2rem',alignItems:'center',gridTemplateColumns:'minmax(0,220px) minmax(0,1fr)'}}>
-      <img src="/images/about/nick-perkins-portrait-crop.webp" alt="Nick Perkins, founder of Boise Cabinet Co" width={600} height={600} loading="lazy" style={{width:'100%',height:'auto',borderRadius:4}}/>
+    <div className="who-hiring-layout" style={{display:'grid',gap:'1.5rem',alignItems:'start'}}>
       <div>
         <p className="eyebrow">WHO YOU ARE HIRING</p>
         <h2 id="who-hiring-heading">Nick Perkins, founder</h2>
-        <p>Construction project manager, bachelor&apos;s in Construction, more than a decade of custom homes, remodels and developments. Husband, father of five, Meridian.</p>
+        <p>Construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of custom homes, remodels and developments. Husband, father of five. The family moved to the Treasure Valley in 2025.</p>
         <p>&ldquo;Work hard. Keep your word. Treat people right.&rdquo;</p>
         <a className="text-link" href="/about">Read Nick&apos;s story <ArrowUpRight size={18}/></a>
       </div>
+      <figure className="people-safe-photo" style={{margin:0}}>
+        <img className="people-safe-photo" src="/images/about/perkins-family-meridian-idaho.webp" alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho" width={2560} height={1920} loading="lazy" style={{width:'100%',height:'auto',borderRadius:4,objectFit:'contain'}}/>
+        <figcaption style={{marginTop:'0.75rem',fontSize:'0.875rem',opacity:0.75}}>The Perkins family in Meridian.</figcaption>
+      </figure>
     </div>
   </section>
   {reviews}

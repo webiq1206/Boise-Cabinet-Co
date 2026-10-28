@@ -293,8 +293,8 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.processContact}
-                alt="consultation: a Boise Cabinet Co designer reviews cabinet plans and finish samples with homeowners"
-                title="Design consultation | Boise Cabinet Co"
+                alt="Open oak drawers with black pulls in a finished cabinet install"
+                title="Cabinet details | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

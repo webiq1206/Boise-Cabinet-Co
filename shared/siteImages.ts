@@ -4,13 +4,14 @@
 
 export const MARKETING_IMAGES = {
   heroHome: "/images/marketing/hero-home.webp",
-  heroAbout: "/images/marketing/hero-about-branded.webp",
+  // Project photography only — no staged customer-meeting / people stock.
+  heroAbout: "/images/marketing/great-room-oak-built-ins.webp",
   heroContact: "/images/marketing/bath-white-oak-vanity.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
   cabinetsHero: "/images/marketing/kitchen-farmhouse-shaker.webp",
-  processHome: "/images/marketing/process-home-branded.webp",
+  processHome: "/images/marketing/kitchen-wood-island.webp",
   processAbout: "/images/marketing/cabinet-door-samples.webp",
-  processContact: "/images/marketing/process-home-branded.webp",
+  processContact: "/images/marketing/drawers-black-pulls-oak.webp",
   hardware: "/images/marketing/warranty-hardware.webp",
   construction: "/images/marketing/kitchen-wood-island.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",

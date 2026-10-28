@@ -119,9 +119,9 @@ export default function AboutPage() {
       name: 'Nick Perkins',
       jobTitle: 'Founder',
       description:
-        'Founder of Boise Cabinet Co and P5 Home Co. Construction project manager with a bachelor\'s degree in Construction and more than a decade of custom homes, remodels and developments.',
+        'Founder of Boise Cabinet Co and P5 Home Co. Construction project manager with a bachelor\'s degree in Construction with an emphasis in Project Management and more than a decade of custom homes, remodels and developments.',
       worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
-      image: `${SITE_CONFIG.siteUrl}/images/about/nick-perkins-portrait-crop.webp`,
+      image: `${SITE_CONFIG.siteUrl}/images/about/perkins-family-meridian-idaho.webp`,
     },
     generateFAQSchema(ABOUT_FAQS),
   ];
@@ -130,7 +130,7 @@ export default function AboutPage() {
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        <InteriorHero layout="editorial" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch">
+        <InteriorHero uncropped layout="editorial" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -141,7 +141,7 @@ export default function AboutPage() {
               <em className="brc-accent text-accent">Co</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020, moved to the Treasure Valley, and named the company for his five children. Read the full story on{' '}
+              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020, moved to the Treasure Valley in 2025, and named the company for his five children. Read the full story on{' '}
               <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
@@ -159,27 +159,30 @@ export default function AboutPage() {
 
         <Section divider>
           <div className="container px-4 max-w-3xl">
-            <div className="grid gap-8 md:grid-cols-[200px_1fr] md:items-start">
+            <SectionHeader
+              eyebrow="Who you meet"
+              title={<>Nick Perkins, <em className="brc-accent text-accent">founder</em></>}
+              description="Husband, father of five, Meridian. Construction project manager with a bachelor's degree in Construction with an emphasis in Project Management and more than a decade leading custom homes, remodels and developments."
+              className="mb-6"
+            />
+            <figure className="people-safe-photo mb-6">
               <Image
-                src="/images/about/nick-perkins-portrait-crop.webp"
-                alt="Nick Perkins, founder of Boise Cabinet Co"
-                width={600}
-                height={600}
-                className="w-full h-auto rounded-sm"
+                src="/images/about/perkins-family-meridian-idaho.webp"
+                alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho"
+                width={2560}
+                height={1920}
+                className="people-safe-photo w-full h-auto rounded-sm"
+                sizes="(max-width: 768px) 100vw, 720px"
+                priority
               />
-              <div>
-                <SectionHeader
-                  eyebrow="Who you meet"
-                  title={<>Nick Perkins, <em className="brc-accent text-accent">founder</em></>}
-                  description="Husband, father of five, Meridian. Construction project manager with more than a decade leading custom homes, remodels and developments."
-                  className="mb-4"
-                />
-                <p className="text-base text-muted-foreground leading-relaxed mb-4">
-                  &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
-                </p>
-                <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
-              </div>
-            </div>
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                The Perkins family in Meridian. Family is why P5 exists.
+              </figcaption>
+            </figure>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
+            </p>
+            <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
           </div>
         </Section>
 
@@ -197,24 +200,6 @@ export default function AboutPage() {
             <p className="text-base leading-relaxed text-muted-foreground">
               Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
             </p>
-          </div>
-        </Section>
-
-        <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <figure>
-              <Image
-                src="/images/about/perkins-family-meridian-idaho.webp"
-                alt="Nick Perkins with his wife and five children at a pumpkin patch"
-                width={2560}
-                height={1920}
-                className="w-full h-auto rounded-sm"
-                sizes="(max-width: 768px) 100vw, 720px"
-              />
-              <figcaption className="mt-3 text-sm text-muted-foreground">
-                The Perkins family in Meridian. Family is why P5 exists.
-              </figcaption>
-            </figure>
           </div>
         </Section>
 
