@@ -18,7 +18,7 @@ export interface Phase1Answer {
 
 const AREA = "Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell";
 const IDENTITY =
-  "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.";
+  "Boise Cabinet Co designs and builds cabinets to your measurements, layout, finishes and hardware, installed by our own Treasure Valley crew.";
 
 function cityAnswer(city: string, paragraph: string): Phase1Answer {
   return {
@@ -64,7 +64,7 @@ const LOCATIONS: Record<string, Phase1Answer> = {
   ),
   boise: cityAnswer(
     "Boise",
-    `Custom cabinets in Boise should feel local from the first visit. ${IDENTITY} Tell us about your kitchen or storage goals, review finishes and door styles, and leave with a planning path you can act on. ${REGISTERED_BONDED_INSURED}.`,
+    `Custom cabinets in Boise should feel local from the first visit. ${IDENTITY} Discuss your storage goals, finishes, door styles, and next steps. ${REGISTERED_BONDED_INSURED}.`,
   ),
 };
 
@@ -72,7 +72,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
     heading: "Kitchen cabinets in Boise, Idaho",
     paragraph:
-      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans base runs, uppers, pantries, and appliance panels as one system, then builds each order to your layout and installs with our own crew. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_BONDED_INSURED + ".",
+      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans coordinated base runs, uppers, pantries, and appliance panels, builds to your layout, and installs with our own crew. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_BONDED_INSURED + ".",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",
@@ -99,7 +99,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      `Home office cabinets from Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation, ${CABINET_WORKMANSHIP_WARRANTY.toLowerCase()}, and 299 finishes with six door styles. Installation covers ${AREA}.`,
+      `Office cabinets by Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation, ${CABINET_WORKMANSHIP_WARRANTY.toLowerCase()}, and 299 finishes with six door styles. Installation covers ${AREA}.`,
     faqs: [
       {
         question: "What construction do home office cabinets use?",
