@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
@@ -10,9 +11,6 @@ import { requireConsultationReceipt } from "@/lib/consultationReceipt";
 import { consultationReferenceId } from "@/lib/consultationReferenceId";
 import { clearConsultationSessionKey, consultationSessionKey } from "@/lib/consultationRetrySession";
 import { PHONE_VALIDATION_MESSAGE, phoneHasEnoughDigits } from "@/shared/phoneValidation";
-import { WizardActionBar } from "@/components/estimate/wizard/WizardActionBar";
-import { useKeyboardInset } from "@/components/estimate/wizard/useKeyboardInset";
-import { useEstimateKeyboardFlag } from "@/components/estimate/wizard/useEstimateKeyboardFlag";
 
 const TEL_HREF = "tel:+12084771169";
 function focusErrorSummary(node: HTMLParagraphElement | null) {
@@ -23,9 +21,6 @@ function emailLooksValid(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-/** C10: one keyboard field per step so the dock clears the software keyboard. */
-type QuoteStep = "name" | "phone" | "email" | "project";
-const QUOTE_STEPS: readonly QuoteStep[] = ["name", "phone", "email", "project"];
 const QUOTE_STORAGE_KEY = "brc_estimate_quote_v1";
 
 export function KitchenCabinetsQuoteForm({
@@ -47,29 +42,19 @@ export function KitchenCabinetsQuoteForm({
   const [receipt, setReceipt] = useState("");
   const [unconfirmed, setUnconfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [stepIndex, setStepIndex] = useState(0);
   const lock = useRef(false);
   const requestRef = useRef<{ id: string; body: string } | null>(null);
-  const keyboardInset = useKeyboardInset();
-  useEstimateKeyboardFlag(true);
-
-  const stepId = QUOTE_STEPS[Math.min(stepIndex, QUOTE_STEPS.length - 1)] ?? "name";
-  const isLast = stepIndex >= QUOTE_STEPS.length - 1;
 
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem(QUOTE_STORAGE_KEY);
       if (!raw) return;
       const parsed = JSON.parse(raw) as {
-        step?: number;
         name?: string;
         phone?: string;
         email?: string;
         project?: string;
       };
-      if (typeof parsed.step === "number" && parsed.step >= 0) {
-        setStepIndex(Math.min(parsed.step, QUOTE_STEPS.length - 1));
-      }
       if (parsed.name) setName(parsed.name);
       if (parsed.phone) setPhone(parsed.phone);
       if (parsed.email) setEmail(parsed.email);
@@ -83,41 +68,18 @@ export function KitchenCabinetsQuoteForm({
     try {
       sessionStorage.setItem(
         QUOTE_STORAGE_KEY,
-        JSON.stringify({ step: stepIndex, name, phone, email, project }),
+        JSON.stringify({ name, phone, email, project }),
       );
     } catch {
       /* ignore */
     }
-  }, [stepIndex, name, phone, email, project]);
+  }, [name, phone, email, project]);
 
-  useEffect(() => {
-    if (keyboardInset <= 0) return;
-    const active = document.activeElement;
-    if (!(active instanceof HTMLElement)) return;
-    if (!active.matches("input, textarea")) return;
-    const header = document.querySelector("header, .site-header");
-    const headerH = header ? header.getBoundingClientRect().height : 64;
-    const usableBottom = window.innerHeight - keyboardInset - 96;
-    const targetTop = headerH + 8;
-    const rect = active.getBoundingClientRect();
-    if (rect.bottom > usableBottom || rect.top < targetTop) {
-      const abs = rect.top + window.scrollY;
-      window.scrollTo({ top: Math.max(0, abs - targetTop), behavior: "instant" as ScrollBehavior });
-      const after = active.getBoundingClientRect();
-      if (after.bottom > usableBottom) {
-        window.scrollTo({
-          top: window.scrollY + (after.bottom - usableBottom),
-          behavior: "instant" as ScrollBehavior,
-        });
-      }
-    }
-  }, [keyboardInset, stepIndex]);
-
-  function validateCurrentStep(): string | null {
-    if (stepId === "name" && name.trim().length < 2) return "Enter your name.";
-    if (stepId === "phone" && !phoneHasEnoughDigits(phone.trim())) return PHONE_VALIDATION_MESSAGE;
-    if (stepId === "email" && !emailLooksValid(email.trim())) return "Enter a valid email.";
-    if (stepId === "project" && !project.trim()) return "Tell us a little about the project.";
+  function validateAll(): string | null {
+    if (name.trim().length < 2) return "Enter your name.";
+    if (!phoneHasEnoughDigits(phone.trim())) return PHONE_VALIDATION_MESSAGE;
+    if (!emailLooksValid(email.trim())) return "Enter a valid email.";
+    if (!project.trim()) return "Tell us a little about the project.";
     return null;
   }
 
@@ -127,24 +89,9 @@ export function KitchenCabinetsQuoteForm({
     const trimmedPhone = phone.trim();
     const trimmedEmail = email.trim();
     const trimmedProject = project.trim();
-    if (trimmedName.length < 2) {
-      setError("Enter your name.");
-      setStepIndex(0);
-      return;
-    }
-    if (!phoneHasEnoughDigits(trimmedPhone)) {
-      setError(PHONE_VALIDATION_MESSAGE);
-      setStepIndex(1);
-      return;
-    }
-    if (!emailLooksValid(trimmedEmail)) {
-      setError("Enter a valid email.");
-      setStepIndex(2);
-      return;
-    }
-    if (!trimmedProject) {
-      setError("Tell us a little about the project.");
-      setStepIndex(3);
+    const validationError = validateAll();
+    if (validationError) {
+      setError(validationError);
       return;
     }
 
@@ -249,28 +196,15 @@ export function KitchenCabinetsQuoteForm({
     }
   }
 
-  function onPrimary() {
-    const stepError = validateCurrentStep();
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const stepError = validateAll();
     if (stepError) {
       setError(stepError);
       return;
     }
     setError("");
-    if (!isLast) {
-      setStepIndex((i) => Math.min(i + 1, QUOTE_STEPS.length - 1));
-      return;
-    }
     void submitLead();
-  }
-
-  function onBack() {
-    setError("");
-    setStepIndex((i) => Math.max(0, i - 1));
-  }
-
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    onPrimary();
   }
 
   if (done) {
@@ -291,16 +225,12 @@ export function KitchenCabinetsQuoteForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-3 estimate-quote-form"
+      className="space-y-4 estimate-quote-form estimate-quote-form--single"
       data-clarity-mask="True"
-      data-c10-estimate-quote=""
-      data-quote-step={stepId}
+      data-estimate-quote-single=""
       aria-busy={submitting}
       noValidate
     >
-      <p className="text-xs text-muted-foreground" data-testid="estimate-quote-progress">
-        Step {stepIndex + 1} of {QUOTE_STEPS.length}
-      </p>
       <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor="kc-company">Company website</label>
         <input
@@ -314,7 +244,7 @@ export function KitchenCabinetsQuoteForm({
         />
       </div>
 
-      {stepId === "name" && (
+      <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="kc-name">Name</Label>
           <Input
@@ -329,8 +259,6 @@ export function KitchenCabinetsQuoteForm({
             required
           />
         </div>
-      )}
-      {stepId === "phone" && (
         <div className="space-y-1.5">
           <Label htmlFor="kc-phone">Phone</Label>
           <Input
@@ -347,39 +275,37 @@ export function KitchenCabinetsQuoteForm({
             required
           />
         </div>
-      )}
-      {stepId === "email" && (
-        <div className="space-y-1.5">
-          <Label htmlFor="kc-email">Email</Label>
-          <Input
-            id="kc-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            placeholder="Your email"
-            className="h-12"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            disabled={locked}
-            required
-          />
-        </div>
-      )}
-      {stepId === "project" && (
-        <div className="space-y-1.5">
-          <Label htmlFor="kc-project">Project</Label>
-          <Input
-            id="kc-project"
-            name="project"
-            placeholder={projectPrompt ?? "e.g. full kitchen, vanity, built-ins"}
-            className="h-12"
-            value={project}
-            onChange={(event) => setProject(event.target.value)}
-            disabled={locked}
-            required
-          />
-        </div>
-      )}
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor="kc-email">Email</Label>
+        <Input
+          id="kc-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="Your email"
+          className="h-12"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          disabled={locked}
+          required
+        />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor="kc-project">Project</Label>
+        <Input
+          id="kc-project"
+          name="project"
+          placeholder={projectPrompt ?? "e.g. full kitchen, vanity, built-ins"}
+          className="h-12"
+          value={project}
+          onChange={(event) => setProject(event.target.value)}
+          disabled={locked}
+          required
+        />
+      </div>
 
       {error ? (
         <p ref={focusErrorSummary} tabIndex={-1} className="text-sm text-destructive" role="alert">
@@ -394,20 +320,17 @@ export function KitchenCabinetsQuoteForm({
         </p>
       ) : null}
 
-      <WizardActionBar
-        onBack={stepIndex > 0 ? onBack : undefined}
-        onPrimary={onPrimary}
-        primaryLabel={isLast ? submitLabel : "Continue"}
-        primaryDisabled={submitting || unconfirmed}
-        busy={submitting}
-        busyLabel="Sending request…"
-        primaryIcon={isLast ? "none" : "arrow"}
-        primaryTestId={isLast ? "button-estimate-quote-submit" : "button-estimate-quote-continue"}
-        backTestId="button-estimate-quote-back"
-      />
+      <Button
+        type="submit"
+        className="h-12 w-full min-h-12 text-base"
+        disabled={submitting || unconfirmed}
+        data-testid="button-estimate-quote-submit"
+      >
+        {submitting ? "Sending request…" : submitLabel}
+      </Button>
 
       <p className="text-sm leading-snug text-muted-foreground">
-        No obligation. We reply within one business day.{" "}<PreferToTextLine /> See our{" "}
+        No obligation. We reply within one business day. <PreferToTextLine /> See our{" "}
         <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">
           Privacy Policy
         </Link>

@@ -205,7 +205,7 @@ export default function ContactPage() {
               />
             </div>
             <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-6 md:p-8" padding="lg" data-c10-contact-form="">
-              <ConsultationForm compact />
+              <ConsultationForm />
             </MarketingCard>
           </div>
         </Section>

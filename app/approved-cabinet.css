@@ -545,3 +545,275 @@
   .cabinet-approved .kitchen-planning-panel{grid-template-columns:1fr;padding:18px}
   .cabinet-approved .kitchen-planning-finish-grid{grid-template-columns:1fr}
 }
+
+/* ── Premium redesign 2026-10-29: denser photography, brand-first hero, calm type ── */
+.cabinet-premium.cabinet-approved h2{
+  letter-spacing:-0.02em;
+  line-height:1.08;
+}
+.cabinet-premium.cabinet-approved .hero h1{
+  font-size:clamp(48px,6.2vw,84px);
+  line-height:0.98;
+  letter-spacing:-0.025em;
+  max-width:12ch;
+}
+.cabinet-premium.cabinet-approved .hero h1 em{
+  color:var(--cabinet-accent,#659B9A);
+  font-style:normal;
+}
+.cabinet-premium .hero .hero-content{
+  width:min(620px,92%);
+  padding:36px 36px 40px;
+  background:rgba(28,31,30,.68);
+  animation:cabinet-hero-rise .9s cubic-bezier(.22,1,.36,1) both;
+}
+.cabinet-premium .hero .hero-support{
+  font-size:17px;
+  line-height:1.55;
+  max-width:34ch;
+  margin:0 0 20px;
+}
+.cabinet-premium .hero .hero-actions .button{
+  background:var(--cabinet-accent,#659B9A);
+  color:#fbfaf6;
+  border:0;
+}
+.cabinet-premium .hero .hero-actions .button:hover{
+  background:#356463;
+  color:#fbfaf6;
+}
+.cabinet-premium .hero-shade{
+  background:linear-gradient(90deg,rgba(28,31,30,.18) 0%,transparent 46%);
+}
+@keyframes cabinet-hero-rise{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .cabinet-premium .hero .hero-content{animation:none}
+}
+
+/* Horizontal kitchen photography rhythm */
+.cabinet-premium .photo-rhythm{
+  overflow:hidden;
+  padding:28px 0 8px;
+  background:var(--paper,#fbfaf6);
+  border-bottom:1px solid var(--line,#20231f26);
+}
+.cabinet-premium .photo-rhythm-track{
+  display:flex;
+  gap:14px;
+  width:max-content;
+  padding-inline:max(4%,calc((100% - 1400px)/2));
+  animation:cabinet-photo-drift 48s linear infinite;
+}
+.cabinet-premium .photo-rhythm-frame{
+  margin:0;
+  flex:0 0 auto;
+  width:min(320px,72vw);
+  overflow:hidden;
+  border-radius:2px;
+}
+.cabinet-premium .photo-rhythm-frame img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+}
+.cabinet-premium .photo-rhythm-frame:hover img{transform:scale(1.04)}
+@keyframes cabinet-photo-drift{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .cabinet-premium .photo-rhythm-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
+}
+
+.cabinet-premium .room-feature-list{
+  list-style:none;
+  margin:18px 0 22px;
+  padding:0;
+  display:grid;
+  gap:10px;
+}
+.cabinet-premium .room-feature-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:15px;
+  line-height:1.45;
+  color:#66635d;
+}
+.cabinet-premium .room-feature-list svg{color:var(--cabinet-accent,#659B9A);margin-top:2px;flex-shrink:0}
+
+/* Design concepts gallery */
+.cabinet-premium .design-concepts .section-heading{margin-bottom:36px}
+.cabinet-premium .concept-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+.cabinet-premium .concept-card{
+  display:block;
+  color:inherit;
+  overflow:hidden;
+  border-radius:2px;
+  background:var(--bone,#f1ede4);
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.cabinet-premium .concept-card:hover{transform:translateY(-4px)}
+.cabinet-premium .concept-card figure{margin:0}
+.cabinet-premium .concept-card img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+}
+.cabinet-premium .concept-card figcaption{
+  display:grid;
+  gap:6px;
+  padding:18px 18px 22px;
+}
+.cabinet-premium .concept-label{
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--cabinet-accent,#659B9A);
+  font-weight:650;
+}
+.cabinet-premium .concept-card strong{
+  font-family:var(--font-cormorant),Georgia,serif;
+  font-size:26px;
+  font-weight:400;
+  letter-spacing:-0.02em;
+  line-height:1.15;
+}
+.cabinet-premium .concept-card figcaption > span:last-child{
+  font-size:13px;
+  color:#66635d;
+  text-transform:capitalize;
+}
+
+/* Full-bleed photo break */
+.cabinet-premium .photo-break{
+  position:relative;
+  min-height:min(62vh,620px);
+  overflow:hidden;
+  display:grid;
+  place-items:end start;
+}
+.cabinet-premium .photo-break img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.cabinet-premium .photo-break-veil{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,rgba(28,31,30,.55),transparent 45%);
+}
+.cabinet-premium .photo-break-caption{
+  position:relative;
+  z-index:1;
+  margin:0;
+  padding:28px max(4%,calc((100% - 1400px)/2));
+  color:#fbfaf6;
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.cabinet-premium .process-visual{
+  display:grid;
+  grid-template-columns:0.9fr 1.1fr;
+  gap:36px;
+  align-items:start;
+  margin-top:40px;
+}
+.cabinet-premium .process-photo{
+  margin:0;
+  overflow:hidden;
+  border-radius:2px;
+  background:var(--bone,#f1ede4);
+}
+.cabinet-premium .process-photo img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+}
+.cabinet-premium .process-photo figcaption{
+  padding:14px 16px;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#66635d;
+}
+
+/* Who you are hiring */
+.cabinet-premium .who-hiring-layout{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  gap:48px;
+  align-items:center;
+}
+.cabinet-premium .who-hiring-copy h2{
+  margin:0 0 18px;
+}
+.cabinet-premium .who-hiring-copy > p{
+  max-width:42ch;
+  color:#66635d;
+  font-size:17px;
+}
+.cabinet-premium .who-hiring-quote{
+  margin:24px 0;
+  padding:0;
+  border:0;
+  font-family:var(--font-cormorant),Georgia,serif;
+  font-size:clamp(26px,2.6vw,34px);
+  line-height:1.25;
+  letter-spacing:-0.02em;
+  color:var(--bronze-ink,#89603c);
+}
+.cabinet-premium .who-hiring-photo{
+  margin:0;
+  background:var(--bone,#f1ede4);
+  padding:18px;
+  border-radius:2px;
+}
+.cabinet-premium .who-hiring-photo img.people-safe-photo,
+.cabinet-premium .who-hiring-photo img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  object-position:center top;
+  border-radius:2px;
+  background:#efeae1;
+}
+.cabinet-premium .who-hiring-photo figcaption{
+  margin-top:12px;
+  font-size:14px;
+  color:#66635d;
+}
+
+@media(max-width:1000px){
+  .cabinet-premium .concept-grid{grid-template-columns:1fr 1fr}
+  .cabinet-premium .process-visual,
+  .cabinet-premium .who-hiring-layout{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:700px){
+  .cabinet-premium.cabinet-approved .hero h1{font-size:clamp(40px,11vw,56px);max-width:10ch}
+  .cabinet-premium .hero .hero-content{padding:22px 18px 20px;width:calc(100% - 24px)}
+  .cabinet-premium .photo-rhythm-frame{width:240px}
+  .cabinet-premium .photo-rhythm-frame img{height:168px}
+  .cabinet-premium .concept-grid{grid-template-columns:1fr;gap:16px}
+  .cabinet-premium .photo-break{min-height:42vh}
+  .cabinet-premium .who-hiring-photo{padding:12px}
+  .cabinet-premium .who-hiring-quote{font-size:26px}
+}
+@media(max-width:359px){
+  .cabinet-premium.cabinet-approved .hero h1{font-size:34px}
+}

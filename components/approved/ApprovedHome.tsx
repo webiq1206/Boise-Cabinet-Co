@@ -1,82 +1,670 @@
 'use client';
-import {useState, type ReactNode} from 'react';
-import {ArrowUpRight,ArrowRight,Check} from 'lucide-react';
-import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
-import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/components/ui/accordion';
-import {RadioGroup,RadioGroupItem} from '@/components/ui/radio-group';
-import {FAQSection} from '@/components/FAQSection';
-import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
-import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
+
+import { useState, type ReactNode } from 'react';
+import { ArrowUpRight, ArrowRight, Check } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { FAQSection } from '@/components/FAQSection';
+import { DOOR_STYLES } from '@/shared/catalog/generated/doorStyles';
+import {
+  CABINET_WORKMANSHIP_WARRANTY,
+  IDAHO_REGISTERED_CONTRACTOR,
+  MANUFACTURER_WARRANTY_PASS_THROUGH,
+} from '@/shared/claims';
 import { CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
-import {steps,differentiators,additionalRooms,doorStyles} from './cabinet-content';
-import {KitchenPlanningRange} from './KitchenPlanningRange';
+import { PROJECTS, DESIGN_CONCEPT_DISCLOSURE } from '@/shared/galleryData';
+import { MARKETING_IMAGES } from '@/shared/siteImages';
+import { steps, differentiators, additionalRooms, doorStyles } from './cabinet-content';
+import { KitchenPlanningRange } from './KitchenPlanningRange';
+
 const rooms = [
- {name:'Kitchen',title:'The heart of your home.',image:'kitchen.webp',desc:'Base cabinets, uppers, pantries, and appliance panels designed as one coordinated kitchen.',details:'Bring storage, appliances, and everyday routines into one thoughtful layout. Explore pantry cabinets, deep drawers, island storage, and finishes that work together.',features:['Storage planned around the way you cook','Coordinated island and perimeter cabinetry','Door, finish, and hardware selections']},
- {name:'Bathroom',title:'A better start to your day.',image:'bathroom.webp',desc:'Vanities and drawer storage sized for your daily routine, with moisture-resistant options.',details:'Make your bathroom easier to use with a vanity planned around your space, storage needs, and plumbing. Coordinate drawer layouts, door styles, and finishes with the rest of the room.',features:['Single and double vanity configurations','Storage that keeps counters clear','Finish guidance for your room']},
- {name:'Mudroom & built-ins',title:'Less clutter. More living.',image:'mudroom.webp',desc:'Bench seating, boot storage, and built-ins that make hardworking spaces feel considered.',details:'Put hardworking storage where you need it. Plan entry benches, laundry cabinetry, home office built-ins, entertainment storage, and custom pantry layouts.',features:['Storage sized to your room','Coordinated cabinetry throughout your home','Practical layouts for everyday routines']}
+  {
+    name: 'Kitchen',
+    title: 'The heart of your home.',
+    image: 'kitchen.webp',
+    desc: 'Base cabinets, uppers, pantries, and appliance panels designed as one coordinated kitchen.',
+    details:
+      'Bring storage, appliances, and everyday routines into one thoughtful layout. Explore pantry cabinets, deep drawers, island storage, and finishes that work together.',
+    features: [
+      'Storage planned around the way you cook',
+      'Coordinated island and perimeter cabinetry',
+      'Door, finish, and hardware selections',
+    ],
+  },
+  {
+    name: 'Bathroom',
+    title: 'A better start to your day.',
+    image: 'bathroom.webp',
+    desc: 'Vanities and drawer storage sized for your daily routine, with moisture-resistant options.',
+    details:
+      'Make your bathroom easier to use with a vanity planned around your space, storage needs, and plumbing. Coordinate drawer layouts, door styles, and finishes with the rest of the room.',
+    features: [
+      'Single and double vanity configurations',
+      'Storage that keeps counters clear',
+      'Finish guidance for your room',
+    ],
+  },
+  {
+    name: 'Mudroom & built-ins',
+    title: 'Less clutter. More living.',
+    image: 'mudroom.webp',
+    desc: 'Bench seating, boot storage, and built-ins that make hardworking spaces feel considered.',
+    details:
+      'Put hardworking storage where you need it. Plan entry benches, laundry cabinetry, home office built-ins, entertainment storage, and custom pantry layouts.',
+    features: [
+      'Storage sized to your room',
+      'Coordinated cabinetry throughout your home',
+      'Practical layouts for everyday routines',
+    ],
+  },
 ];
-const finishes=[{name:'Bitter',family:'Warm neutral',image:'bitter.webp',code:''},{name:'Macaron Green',family:'Soft color',image:'green.webp',code:''},{name:'Breeze Beige',family:'Light neutral',image:'beige.webp',code:'Brezee Beige'},{name:'Pearl Black',family:'Deep contrast',image:'black.webp',code:''}];
+
+const finishes = [
+  { name: 'Bitter', family: 'Warm neutral', image: 'bitter.webp', code: '' },
+  { name: 'Macaron Green', family: 'Soft color', image: 'green.webp', code: '' },
+  { name: 'Breeze Beige', family: 'Light neutral', image: 'beige.webp', code: 'Brezee Beige' },
+  { name: 'Pearl Black', family: 'Deep contrast', image: 'black.webp', code: '' },
+];
+
+const PHOTO_RHYTHM = [
+  {
+    src: MARKETING_IMAGES.processHome,
+    alt: 'Wood kitchen island with custom cabinetry in warm natural light',
+  },
+  {
+    src: '/images/approved/kitchen.webp',
+    alt: 'Bright kitchen with cream shaker cabinets and coordinated island',
+  },
+  {
+    src: MARKETING_IMAGES.heroContact,
+    alt: 'White oak bathroom vanity with clean drawer storage',
+  },
+  {
+    src: MARKETING_IMAGES.statementBand,
+    alt: 'Great room oak built-ins with open shelving and closed storage',
+  },
+  {
+    src: '/images/approved/drawer-oak.webp',
+    alt: 'Natural oak drawer with organized utensil storage',
+  },
+  {
+    src: MARKETING_IMAGES.cabinetsHero,
+    alt: 'Farmhouse shaker kitchen cabinets with soft daylight',
+  },
+];
 
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
-export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);const [door,setDoor]=useState('Help me choose');return <div className="cabinet-approved">
-  <section className="hero" aria-labelledby="hero-title" data-p5-hero>
-   <img className="hero-image" src="/images/approved/hero-p5-v2.webp" srcSet="/images/approved/hero-mobile.webp 960w, /images/approved/hero-p5-v2.webp 1672w" sizes="100vw" alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details" width="1672" height="941" fetchPriority="high"/>
-   <div className="hero-shade" aria-hidden="true"/>
-   <div className="hero-content">
-     <p className="eyebrow"><span/> CUSTOM CABINETS · TREASURE VALLEY, IDAHO</p>
-     <h1 id="hero-title">Custom cabinets in Boise,<br/><em>Idaho</em></h1>
-     <p className="hero-summary">{IDENTITY}</p>
-     <p className="hero-support">Kitchen cabinets, vanities, and built-ins. Free in-home design consultation.</p>
-     <div className="hero-actions">
-       <a className="button" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={20}/></a>
-       <a className="text-link light hero-secondary" href="#process">See how it works <ArrowRight size={18}/></a>
-     </div>
-     <div className="hero-reassurance" data-testid="hero-reassurance">
-       <span data-reassurance="primary"><Check size={15}/> Written price before work</span>
-       <span data-reassurance="secondary"><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span>
-     </div>
-     <p className="hero-tagline">Designed around your life. Built around your space.</p>
-   </div>
-  </section>
-  <section className="proof-bar" aria-label="The Boise Cabinet Co difference"><div><strong>299</strong><span>Finish options</span></div><div><strong>6</strong><span>Door styles</span></div><div><strong>Free</strong><a href="#contact">In-home design consultation <ArrowUpRight size={14}/></a></div><div><strong>ID</strong><a href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch" target="_blank" rel="noopener noreferrer">{IDAHO_REGISTERED_CONTRACTOR} <ArrowUpRight size={14}/></a></div></section>
-  <section id="cabinetry" className="section wrap room-editorial">
- <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew.</p></div>
- <Tabs defaultValue="kitchen" className="room-explorer"><TabsList className="room-tabs"><TabsTrigger value="kitchen">Kitchens</TabsTrigger><TabsTrigger value="bathroom">Bathrooms</TabsTrigger><TabsTrigger value="storage">Built-ins</TabsTrigger><TabsTrigger value="more">More rooms</TabsTrigger></TabsList>
- {rooms.map((r,i)=><TabsContent key={r.name} value={['kitchen','bathroom','storage'][i]}><div className="room-scene"><button className="room-scene-image" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])} aria-label={'Explore '+r.name.toLowerCase()+' cabinetry'}><img src={'/images/approved/'+r.image} alt={r.name+' cabinetry'} loading="lazy" width="1080" height="810"/><span className="scene-explore">Explore this space <ArrowUpRight size={18}/></span></button><div className="room-scene-copy"><span className="eyebrow">0{i+1} / {r.name}</span><h3>{r.title}</h3><p>{r.desc}</p><button className="text-link" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])}>Explore {r.name.toLowerCase()} <ArrowUpRight size={18}/></button></div></div></TabsContent>)}
- <TabsContent value="more"><div className="room-scene"><div className="room-scene-image"><img src="/images/approved/laundry-charcoal.webp" alt="Laundry cabinetry with charcoal cabinets and oak shelving" loading="lazy" width="1448" height="1086"/></div><div className="room-scene-copy"><span className="eyebrow">THINK BEYOND THE KITCHEN</span><h3>Every inch.<br/>Put to good use.</h3><Accordion type="single" collapsible className="other-room-list">{additionalRooms.map(([name,desc,url])=><AccordionItem value={name} key={name}><AccordionTrigger>{name}</AccordionTrigger><AccordionContent><p>{desc}</p><a className="text-link" href={''+url}>Explore {name.toLowerCase()} <ArrowUpRight size={16}/></a></AccordionContent></AccordionItem>)}</Accordion></div></div></TabsContent>
- </Tabs></section>
-  <section id="projects-honest" className="section wrap" aria-labelledby="projects-heading">
-    <div className="section-heading"><div><p className="eyebrow">OUR WORK</p><h2 id="projects-heading">Finished work,<br/><em>when it is ready.</em></h2></div>
-    <p>We publish only our own completed work, and our first projects as Boise Cabinet Co are finishing now. Ask us for references and we will connect you with past clients. For layout and finish ideas, see <a className="text-link" href="/design-ideas">design ideas</a>.</p></div>
-  </section>
-  <section id="finishes" className="finish-section">
-   <div className="finish-photo"><img src="/images/approved/design-optimized.webp" alt="Cabinet door samples, finish swatches, and kitchen design plans" loading="lazy" width="1536" height="1024"/><div className="photo-label"><span>THE DETAILS MAKE IT YOURS.</span><span>Design & selections</span></div></div>
-   <div className="finish-copy"><p className="eyebrow">FIND YOUR POINT OF VIEW</p><h2>A little texture.<br/>A little contrast.<br/><em>All you.</em></h2><p>299 finishes. Shaker, slab and more door styles. Matte solids, high-gloss colors, and woodgrain textures. Find the combination that makes your home feel like you.</p>
-   <Tabs defaultValue="finishes"><TabsList className="selection-tabs"><TabsTrigger value="finishes">Explore finishes</TabsTrigger><TabsTrigger value="doors">Door styles</TabsTrigger></TabsList><TabsContent value="finishes"><div className="swatches">{finishes.map((f,i)=><button key={f.name} onClick={()=>setFinish(i)} aria-label={`Select ${f.name}`} aria-pressed={finish===i} className={finish===i?'selected':''}><span className="swatch-image"><img src={'/images/approved/'+f.image} alt={f.name} width="480" height="480"/></span>{finish===i&&<span><Check size={14}/></span>}</button>)}</div><div className="swatch-info" aria-live="polite"><b>{finish===null?'Find your finish':finishes[finish].name}</b><span>{finish===null?'Select a sample to explore':finishes[finish].code?`${finishes[finish].family} · ${finishes[finish].code}`:finishes[finish].family}</span></div><p className="sample-note">Explore a selection from our catalog. Confirm your finish with a physical sample.</p></TabsContent><TabsContent value="doors"><RadioGroup value={door} onValueChange={setDoor} className="door-choices" aria-label="Door style preference">{doorStyles.map(d=>{const reference=DOOR_STYLES.find(style=>style.name===d);return <label key={d}>{reference&&<img className="door-reference" src={reference.imagePath} alt={`${d} door profile reference`} width="320" height="370" loading="lazy"/>}<span className="door-choice-control"><RadioGroupItem value={d}/><span>{d}</span></span></label>;})}</RadioGroup><p className="sample-note">Six profiles, from clean slab doors to distinctive shaker details. We will help you compare the construction and proportions.</p></TabsContent></Tabs>
-   <div className="finish-links"><a className="text-link light" href="/catalog">Explore the full catalog <ArrowUpRight size={18}/></a></div></div>
-  </section>
-  <section id="why-us" className="why-section section"><div className="wrap why-layout"><div className="sticky-intro"><p className="eyebrow">WHY BOISE CABINET CO</p><h2>Great cabinets.<br/><em>A better experience.</em></h2><p>One accountable team. A written scope before order. A job site that respects your home. Five things you can count on.</p></div><Accordion type="single" collapsible defaultValue="standard-0" className="standard-accordion">{differentiators.map(([title,desc],i)=><AccordionItem value={"standard-"+i} key={title}><AccordionTrigger>{title}</AccordionTrigger><AccordionContent>{desc}</AccordionContent></AccordionItem>)}</Accordion></div><div className="value-panel wrap"><figure className="value-photo"><img src="/images/approved/kitchen-charcoal.webp" alt="Kitchen combining charcoal cabinetry, a white oak island, and ivory stone" loading="lazy" width="1672" height="941"/><figcaption>CHARCOAL & OAK</figcaption></figure><div className="value-copy"><p className="eyebrow">WHERE YOUR MONEY GOES</p><h2>Don&apos;t pay for our overhead.<br/><em>Pay for the cabinets.</em></h2><p>Big offices, fancy showrooms, truck fleets, and layers of management add cost. We keep the operation lean so more of your budget goes into better materials and the cabinetry in your home.</p><a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a></div></div></section>
-  <section id="process" className="section wrap process-editorial"><div className="process-overview"><p className="eyebrow">FROM IDEA TO INSTALLATION</p><h2>A clear plan.<br/><em>At every step.</em></h2><p>{IDENTITY} Know what happens next, what needs your approval, and where your project stands.</p><a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a></div><Accordion type="single" collapsible defaultValue="step-0" className="process-accordion">{steps.map((s,i)=><AccordionItem value={'step-'+i} key={s.tag}><AccordionTrigger><span className="process-index">0{i+1}</span><span>{s.title}</span></AccordionTrigger><AccordionContent><p>{s.desc}</p></AccordionContent></AccordionItem>)}</Accordion></section>
-  <section id="inspiration" className="craft-section"><div className="craft-photo"><img src="/images/approved/drawer-oak.webp" alt="Natural oak drawer and organized utensil storage" loading="lazy" width="1448" height="1086"/><span className="craft-caption">THE BEAUTY IS IN THE EVERYDAY DETAILS</span></div><div className="craft-copy"><p className="eyebrow">WHAT YOU ARE BUYING</p><h2>Beautiful outside.<br/><em>Thoughtful inside.</em></h2><p>Frameless Euro construction. Soft-close hardware. Hand-checked finishes. Made to order for everyday life.</p><Accordion type="single" collapsible className="craft-details"><AccordionItem value="construction"><AccordionTrigger>Box and drawer construction</AccordionTrigger><AccordionContent>Frameless boxes with plywood or melamine-faced cores by line, full-extension drawers, and soft-close hinges. See the <a href="/construction">construction page</a> for the specification of each line.</AccordionContent></AccordionItem><AccordionItem value="hardware"><AccordionTrigger>Hardware you feel every day</AccordionTrigger><AccordionContent>Soft-close doors and full-extension drawer storage, with selections coordinated around your routines.</AccordionContent></AccordionItem><AccordionItem value="warranty"><AccordionTrigger>Warranty claims handled by us</AccordionTrigger><AccordionContent>{MANUFACTURER_WARRANTY_PASS_THROUGH}. {CABINET_WORKMANSHIP_WARRANTY}. <a href="/warranty">See the warranty page</a> for current terms.</AccordionContent></AccordionItem></Accordion><button className="text-link" onClick={()=>window.location.assign("/catalog")}>Explore design inspiration <ArrowUpRight size={18}/></button></div></section>
-  <section id="who-hiring" className="section wrap" aria-labelledby="who-hiring-heading">
-    <div className="who-hiring-layout" style={{display:'grid',gap:'1.5rem',alignItems:'start'}}>
-      <div>
-        <p className="eyebrow">WHO YOU ARE HIRING</p>
-        <h2 id="who-hiring-heading">Nick Perkins, founder</h2>
-        <p>Construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of custom homes, remodels and developments. Husband, father of five. The family moved to the Treasure Valley in 2025.</p>
-        <p>&ldquo;Work hard. Keep your word. Treat people right.&rdquo;</p>
-        <a className="text-link" href="/about">Read Nick&apos;s story <ArrowUpRight size={18}/></a>
-      </div>
-      <figure className="people-safe-photo" style={{margin:0}}>
-        <img className="people-safe-photo" src="/images/about/perkins-family-meridian-idaho.webp" alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho" width={2560} height={1920} loading="lazy" style={{width:'100%',height:'auto',borderRadius:4,objectFit:'contain'}}/>
-        <figcaption style={{marginTop:'0.75rem',fontSize:'0.875rem',opacity:0.75}}>The Perkins family in Meridian.</figcaption>
-      </figure>
+export function ApprovedHome({ reviews = null }: { reviews?: ReactNode }) {
+  const [finish, setFinish] = useState<number | null>(null);
+  const [door, setDoor] = useState('Help me choose');
+  const concepts = PROJECTS.slice(0, 3);
+
+  return (
+    <div className="cabinet-approved cabinet-premium">
+      <section className="hero" aria-labelledby="hero-title" data-p5-hero>
+        <img
+          className="hero-image"
+          src="/images/approved/hero-p5-v2.webp"
+          srcSet="/images/approved/hero-mobile.webp 960w, /images/approved/hero-p5-v2.webp 1672w"
+          sizes="100vw"
+          alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details"
+          width="1672"
+          height="941"
+          fetchPriority="high"
+        />
+        <div className="hero-shade" aria-hidden="true" />
+        <div className="hero-content">
+          <p className="eyebrow">
+            <span /> CUSTOM CABINETS · TREASURE VALLEY, IDAHO
+          </p>
+          <h1 id="hero-title">
+            Boise Cabinet <em>Co</em>
+          </h1>
+          <p className="hero-summary">{IDENTITY}</p>
+          <p className="hero-support">
+            Custom kitchen cabinets, vanities, and built-ins. Free in-home design consultation.
+          </p>
+          <div className="hero-actions">
+            <a className="button" href="/estimate" data-cta="primary">
+              {CTA_REQUEST_QUOTE} <ArrowUpRight size={20} />
+            </a>
+            <a className="text-link light hero-secondary" href="#cabinetry">
+              Explore the rooms <ArrowRight size={18} />
+            </a>
+          </div>
+          <div className="hero-reassurance" data-testid="hero-reassurance">
+            <span data-reassurance="primary">
+              <Check size={15} /> Written price before work
+            </span>
+            <span data-reassurance="secondary">
+              <Check size={15} /> {CABINET_WORKMANSHIP_WARRANTY}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="proof-bar" aria-label="The Boise Cabinet Co difference">
+        <div>
+          <strong>299</strong>
+          <span>Finish options</span>
+        </div>
+        <div>
+          <strong>6</strong>
+          <span>Door styles</span>
+        </div>
+        <div>
+          <strong>Free</strong>
+          <a href="#contact">
+            In-home design consultation <ArrowUpRight size={14} />
+          </a>
+        </div>
+        <div>
+          <strong>ID</strong>
+          <a
+            href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {IDAHO_REGISTERED_CONTRACTOR} <ArrowUpRight size={14} />
+          </a>
+        </div>
+      </section>
+
+      <section className="photo-rhythm" aria-label="Cabinet photography">
+        <div className="photo-rhythm-track">
+          {[...PHOTO_RHYTHM, ...PHOTO_RHYTHM].map((shot, index) => (
+            <figure key={`${shot.src}-${index}`} className="photo-rhythm-frame">
+              <img src={shot.src} alt={index < PHOTO_RHYTHM.length ? shot.alt : ''} loading="lazy" width="960" height="720" />
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section id="cabinetry" className="section wrap room-editorial">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">CABINETRY, CONSIDERED</p>
+            <h2>
+              Every room.
+              <br />
+              <em>Considered.</em>
+            </h2>
+          </div>
+          <p>
+            Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style,
+            finish, and hardware. We bring the layout and installation together with our own crew.
+          </p>
+        </div>
+        <Tabs defaultValue="kitchen" className="room-explorer">
+          <TabsList className="room-tabs">
+            <TabsTrigger value="kitchen">Kitchens</TabsTrigger>
+            <TabsTrigger value="bathroom">Bathrooms</TabsTrigger>
+            <TabsTrigger value="storage">Built-ins</TabsTrigger>
+            <TabsTrigger value="more">More rooms</TabsTrigger>
+          </TabsList>
+          {rooms.map((r, i) => (
+            <TabsContent key={r.name} value={['kitchen', 'bathroom', 'storage'][i]}>
+              <div className="room-scene">
+                <button
+                  className="room-scene-image"
+                  onClick={() =>
+                    window.location.assign(
+                      ['/cabinets/kitchen', '/cabinets/bathroom', '/cabinets/mudroom'][i],
+                    )
+                  }
+                  aria-label={'Explore ' + r.name.toLowerCase() + ' cabinetry'}
+                >
+                  <img
+                    src={'/images/approved/' + r.image}
+                    alt={r.name + ' cabinetry'}
+                    loading="lazy"
+                    width="1080"
+                    height="810"
+                  />
+                  <span className="scene-explore">
+                    Explore this space <ArrowUpRight size={18} />
+                  </span>
+                </button>
+                <div className="room-scene-copy">
+                  <span className="eyebrow">
+                    0{i + 1} / {r.name}
+                  </span>
+                  <h3>{r.title}</h3>
+                  <p>{r.desc}</p>
+                  <ul className="room-feature-list">
+                    {r.features.map((feature) => (
+                      <li key={feature}>
+                        <Check size={15} aria-hidden="true" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    className="text-link"
+                    onClick={() =>
+                      window.location.assign(
+                        ['/cabinets/kitchen', '/cabinets/bathroom', '/cabinets/mudroom'][i],
+                      )
+                    }
+                  >
+                    Explore {r.name.toLowerCase()} <ArrowUpRight size={18} />
+                  </button>
+                </div>
+              </div>
+            </TabsContent>
+          ))}
+          <TabsContent value="more">
+            <div className="room-scene">
+              <div className="room-scene-image">
+                <img
+                  src="/images/approved/laundry-charcoal.webp"
+                  alt="Laundry cabinetry with charcoal cabinets and oak shelving"
+                  loading="lazy"
+                  width="1448"
+                  height="1086"
+                />
+              </div>
+              <div className="room-scene-copy">
+                <span className="eyebrow">THINK BEYOND THE KITCHEN</span>
+                <h3>
+                  Every inch.
+                  <br />
+                  Put to good use.
+                </h3>
+                <Accordion type="single" collapsible className="other-room-list">
+                  {additionalRooms.map(([name, desc, url]) => (
+                    <AccordionItem value={name} key={name}>
+                      <AccordionTrigger>{name}</AccordionTrigger>
+                      <AccordionContent>
+                        <p>{desc}</p>
+                        <a className="text-link" href={'' + url}>
+                          Explore {name.toLowerCase()} <ArrowUpRight size={16} />
+                        </a>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </section>
+
+      <section id="design-concepts" className="section wrap design-concepts" aria-labelledby="concepts-heading">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">DESIGN DIRECTION</p>
+            <h2 id="concepts-heading">
+              Spaces worth
+              <br />
+              <em>living in.</em>
+            </h2>
+          </div>
+          <p>
+            {DESIGN_CONCEPT_DISCLOSURE} Ask for references from past clients, and browse more ideas
+            in our <a className="text-link" href="/design-ideas">design ideas</a> gallery.
+          </p>
+        </div>
+        <div className="concept-grid">
+          {concepts.map((project) => (
+            <a key={project.slug} className="concept-card" href="/design-ideas">
+              <figure>
+                <img
+                  src={project.hero.src}
+                  alt={project.hero.alt}
+                  loading="lazy"
+                  width="960"
+                  height="720"
+                />
+                <figcaption>
+                  <span className="concept-label">Design concept</span>
+                  <strong>{project.title.replace(/ concept$/i, '')}</strong>
+                  <span>
+                    {project.area} · {project.serviceType.replace(/-/g, ' ')}
+                  </span>
+                </figcaption>
+              </figure>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="photo-break" aria-hidden="true">
+        <img
+          src="/images/approved/kitchen-charcoal.webp"
+          alt=""
+          loading="lazy"
+          width="1672"
+          height="941"
+        />
+        <div className="photo-break-veil" />
+        <p className="photo-break-caption">Charcoal perimeter. White oak island. Ivory stone.</p>
+      </section>
+
+      <section id="finishes" className="finish-section">
+        <div className="finish-photo">
+          <img
+            src="/images/approved/design-optimized.webp"
+            alt="Cabinet door samples, finish swatches, and kitchen design plans"
+            loading="lazy"
+            width="1536"
+            height="1024"
+          />
+          <div className="photo-label">
+            <span>THE DETAILS MAKE IT YOURS.</span>
+            <span>Design & selections</span>
+          </div>
+        </div>
+        <div className="finish-copy">
+          <p className="eyebrow">FIND YOUR POINT OF VIEW</p>
+          <h2>
+            A little texture.
+            <br />
+            A little contrast.
+            <br />
+            <em>All you.</em>
+          </h2>
+          <p>
+            299 finishes. Shaker, slab and more door styles. Matte solids, high-gloss colors, and
+            woodgrain textures. Find the combination that makes your home feel like you.
+          </p>
+          <Tabs defaultValue="finishes">
+            <TabsList className="selection-tabs">
+              <TabsTrigger value="finishes">Explore finishes</TabsTrigger>
+              <TabsTrigger value="doors">Door styles</TabsTrigger>
+            </TabsList>
+            <TabsContent value="finishes">
+              <div className="swatches">
+                {finishes.map((f, i) => (
+                  <button
+                    key={f.name}
+                    onClick={() => setFinish(i)}
+                    aria-label={`Select ${f.name}`}
+                    aria-pressed={finish === i}
+                    className={finish === i ? 'selected' : ''}
+                  >
+                    <span className="swatch-image">
+                      <img
+                        src={'/images/approved/' + f.image}
+                        alt={f.name}
+                        width="480"
+                        height="480"
+                      />
+                    </span>
+                    {finish === i && (
+                      <span>
+                        <Check size={14} />
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div className="swatch-info" aria-live="polite">
+                <b>{finish === null ? 'Find your finish' : finishes[finish].name}</b>
+                <span>
+                  {finish === null
+                    ? 'Select a sample to explore'
+                    : finishes[finish].code
+                      ? `${finishes[finish].family} · ${finishes[finish].code}`
+                      : finishes[finish].family}
+                </span>
+              </div>
+              <p className="sample-note">
+                Explore a selection from our catalog. Confirm your finish with a physical sample.
+              </p>
+            </TabsContent>
+            <TabsContent value="doors">
+              <RadioGroup
+                value={door}
+                onValueChange={setDoor}
+                className="door-choices"
+                aria-label="Door style preference"
+              >
+                {doorStyles.map((d) => {
+                  const reference = DOOR_STYLES.find((style) => style.name === d);
+                  return (
+                    <label key={d}>
+                      {reference && (
+                        <img
+                          className="door-reference"
+                          src={reference.imagePath}
+                          alt={`${d} door profile reference`}
+                          width="320"
+                          height="370"
+                          loading="lazy"
+                        />
+                      )}
+                      <span className="door-choice-control">
+                        <RadioGroupItem value={d} />
+                        <span>{d}</span>
+                      </span>
+                    </label>
+                  );
+                })}
+              </RadioGroup>
+              <p className="sample-note">
+                Six profiles, from clean slab doors to distinctive shaker details. We will help you
+                compare the construction and proportions.
+              </p>
+            </TabsContent>
+          </Tabs>
+          <div className="finish-links">
+            <a className="text-link light" href="/catalog">
+              Explore the full catalog <ArrowUpRight size={18} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-us" className="why-section section">
+        <div className="wrap why-layout">
+          <div className="sticky-intro">
+            <p className="eyebrow">WHY BOISE CABINET CO</p>
+            <h2>
+              Great cabinets.
+              <br />
+              <em>A better experience.</em>
+            </h2>
+            <p>
+              One accountable team. A written scope before order. A job site that respects your home.
+              Five things you can count on.
+            </p>
+          </div>
+          <Accordion type="single" collapsible defaultValue="standard-0" className="standard-accordion">
+            {differentiators.map(([title, desc], i) => (
+              <AccordionItem value={'standard-' + i} key={title}>
+                <AccordionTrigger>{title}</AccordionTrigger>
+                <AccordionContent>{desc}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+        <div className="value-panel wrap">
+          <figure className="value-photo">
+            <img
+              src="/images/approved/kitchen-charcoal.webp"
+              alt="Kitchen combining charcoal cabinetry, a white oak island, and ivory stone"
+              loading="lazy"
+              width="1672"
+              height="941"
+            />
+            <figcaption>CHARCOAL & OAK</figcaption>
+          </figure>
+          <div className="value-copy">
+            <p className="eyebrow">WHERE YOUR MONEY GOES</p>
+            <h2>
+              Don&apos;t pay for our overhead.
+              <br />
+              <em>Pay for the cabinets.</em>
+            </h2>
+            <p>
+              Big offices, fancy showrooms, truck fleets, and layers of management add cost. We keep
+              the operation lean so more of your budget goes into better materials and the cabinetry
+              in your home.
+            </p>
+            <a className="text-link" href="/estimate">
+              {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" className="section wrap process-editorial">
+        <div className="process-overview">
+          <p className="eyebrow">FROM IDEA TO INSTALLATION</p>
+          <h2>
+            A clear plan.
+            <br />
+            <em>At every step.</em>
+          </h2>
+          <p>
+            {IDENTITY} Know what happens next, what needs your approval, and where your project
+            stands.
+          </p>
+          <a className="text-link" href="/estimate">
+            {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} />
+          </a>
+        </div>
+        <div className="process-visual">
+          <figure className="process-photo">
+            <img
+              src={MARKETING_IMAGES.processAbout}
+              alt="Cabinet door samples and finish boards for a Treasure Valley kitchen"
+              loading="lazy"
+              width="1280"
+              height="960"
+            />
+            <figcaption>Selections before build</figcaption>
+          </figure>
+          <Accordion type="single" collapsible defaultValue="step-0" className="process-accordion">
+            {steps.map((s, i) => (
+              <AccordionItem value={'step-' + i} key={s.tag}>
+                <AccordionTrigger>
+                  <span className="process-index">0{i + 1}</span>
+                  <span>{s.title}</span>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p>{s.desc}</p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      <section id="inspiration" className="craft-section">
+        <div className="craft-photo">
+          <img
+            src="/images/approved/drawer-oak.webp"
+            alt="Natural oak drawer and organized utensil storage"
+            loading="lazy"
+            width="1448"
+            height="1086"
+          />
+          <span className="craft-caption">THE BEAUTY IS IN THE EVERYDAY DETAILS</span>
+        </div>
+        <div className="craft-copy">
+          <p className="eyebrow">WHAT YOU ARE BUYING</p>
+          <h2>
+            Beautiful outside.
+            <br />
+            <em>Thoughtful inside.</em>
+          </h2>
+          <p>
+            Frameless Euro construction. Soft-close hardware. Hand-checked finishes. Made to order
+            for everyday life.
+          </p>
+          <Accordion type="single" collapsible className="craft-details">
+            <AccordionItem value="construction">
+              <AccordionTrigger>Box and drawer construction</AccordionTrigger>
+              <AccordionContent>
+                Frameless boxes with plywood or melamine-faced cores by line, full-extension drawers,
+                and soft-close hinges. See the <a href="/construction">construction page</a> for the
+                specification of each line.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="hardware">
+              <AccordionTrigger>Hardware you feel every day</AccordionTrigger>
+              <AccordionContent>
+                Soft-close doors and full-extension drawer storage, with selections coordinated
+                around your routines.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="warranty">
+              <AccordionTrigger>Warranty claims handled by us</AccordionTrigger>
+              <AccordionContent>
+                {MANUFACTURER_WARRANTY_PASS_THROUGH}. {CABINET_WORKMANSHIP_WARRANTY}.{' '}
+                <a href="/warranty">See the warranty page</a> for current terms.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <button className="text-link" onClick={() => window.location.assign('/catalog')}>
+            Explore design inspiration <ArrowUpRight size={18} />
+          </button>
+        </div>
+      </section>
+
+      <section id="who-hiring" className="section wrap who-hiring" aria-labelledby="who-hiring-heading">
+        <div className="who-hiring-layout">
+          <div className="who-hiring-copy">
+            <p className="eyebrow">WHO YOU ARE HIRING</p>
+            <h2 id="who-hiring-heading">Nick Perkins, founder</h2>
+            <p>
+              Construction project manager with a bachelor&apos;s degree in Construction with an
+              emphasis in Project Management and more than a decade of custom homes, remodels and
+              developments. Husband, father of five. The family moved to the Treasure Valley in 2025.
+            </p>
+            <blockquote className="who-hiring-quote">
+              &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
+            </blockquote>
+            <a className="text-link" href="/about">
+              Read Nick&apos;s story <ArrowUpRight size={18} />
+            </a>
+          </div>
+          <figure className="people-safe-photo who-hiring-photo">
+            <img
+              className="people-safe-photo"
+              src="/images/about/perkins-family-meridian-idaho.webp"
+              alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho"
+              width={2560}
+              height={1920}
+              loading="lazy"
+            />
+            <figcaption>The Perkins family in Meridian.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {reviews}
+
+      <section className="builder-band wrap">
+        <div>
+          <p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p>
+          <h2>
+            Your plans.
+            <br />
+            <em>Our cabinet expertise.</em>
+          </h2>
+        </div>
+        <div>
+          <p>
+            One home or a full project pipeline. Let&apos;s coordinate the cabinet package,
+            selections, and installation scope around your plans.
+          </p>
+          <a className="button dark" href="/estimate" data-cta="primary">
+            {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} />
+          </a>
+          <button className="text-link estimate-secondary" onClick={() => window.location.assign('/builders')}>
+            Let&apos;s work together <ArrowUpRight size={18} />
+          </button>
+        </div>
+      </section>
+
+      <KitchenPlanningRange />
+      <FAQSection />
     </div>
-  </section>
-  {reviews}
-  <section className="builder-band wrap"><div><p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p><h2>Your plans.<br/><em>Our cabinet expertise.</em></h2></div><div><p>One home or a full project pipeline. Let&apos;s coordinate the cabinet package, selections, and installation scope around your plans.</p><a className="button dark" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a><button className="text-link estimate-secondary" onClick={()=>window.location.assign("/builders")}>Let&apos;s work together <ArrowUpRight size={18}/></button></div></section>
-  <KitchenPlanningRange />
-  <FAQSection/>
- </div>;}
+  );
+}

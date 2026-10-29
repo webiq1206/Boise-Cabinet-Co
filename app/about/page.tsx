@@ -187,18 +187,51 @@ export default function AboutPage() {
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="What we do"
-              title={<>Custom cabinets, <em className="brc-accent text-accent">built to order</em></>}
-              description={IDENTITY}
-              className="mb-6"
+          <div className="container px-4 max-w-5xl">
+            <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <div>
+                <SectionHeader
+                  eyebrow="What we do"
+                  title={<>Custom cabinets, <em className="brc-accent text-accent">built to order</em></>}
+                  description={IDENTITY}
+                  className="mb-6"
+                />
+                <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-4">
+                  We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
+                </p>
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
+                </p>
+              </div>
+              <figure className="m-0 overflow-hidden rounded-sm">
+                <Image
+                  src="/images/marketing/kitchen-wood-island.webp"
+                  alt="Custom wood kitchen island and cabinetry in warm natural light"
+                  width={1280}
+                  height={960}
+                  className="h-auto w-full object-cover"
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                />
+                <figcaption className="mt-3 text-sm text-muted-foreground">
+                  Kitchen cabinetry planned around how you cook and store.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </Section>
+
+        <Section divider spacing="none" reveal={false}>
+          <div className="relative min-h-[42vh] overflow-hidden md:min-h-[52vh]">
+            <Image
+              src="/images/approved/kitchen.webp"
+              alt="Bright kitchen with cream shaker cabinets and coordinated island"
+              fill
+              className="object-cover"
+              sizes="100vw"
             />
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-4">
-              We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
-            </p>
-            <p className="text-base leading-relaxed text-muted-foreground">
-              Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1c1f1e]/55 via-transparent to-transparent" />
+            <p className="absolute bottom-6 left-6 right-6 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[#fbfaf6] md:left-12">
+              Treasure Valley kitchens, designed to your measurements
             </p>
           </div>
         </Section>

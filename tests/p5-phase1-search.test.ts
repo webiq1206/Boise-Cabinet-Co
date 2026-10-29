@@ -180,12 +180,12 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
     "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
-  assert.match(hero, /<h1[^>]*>Custom cabinets in Boise,<br\/><em>Idaho<\/em><\/h1>/);
+  assert.match(hero, /<h1[^>]*>\s*Boise Cabinet <em>Co<\/em>\s*<\/h1>/);
   assert.equal(hero.includes("designs custom cabinets to your measurements"), true);
   assert.equal(hero.includes("Written price before work"), true);
   assert.equal(hero.includes("IDAHO_REGISTERED_CONTRACTOR"), true);
   assert.equal(hero.includes("Bonded & insured"), false);
-  assert.equal(hero.includes('"/cabinets/kitchen"'), true);
+  assert.equal(hero.includes("/cabinets/kitchen"), true);
   assert.equal(hero.includes('id="cabinetry"'), true);
   assert.match(hero, /href="\/estimate" data-cta="primary"/);
   assert.equal(hero.includes("Custom kitchen cabinets, bathroom vanities, and built-in storage."), true);

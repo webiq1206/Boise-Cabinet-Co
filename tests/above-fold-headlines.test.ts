@@ -27,6 +27,7 @@ test("each first-screen page has one swappable headline and the existing wording
   assert.match(read("app/estimate/page.tsx"), /KitchenCabinetsQuoteForm/);
   assert.match(read("app/estimate/page.tsx"), /Prefer a step-by-step planning range/);
   assert.match(read("app/estimate/page.tsx"), /EstimateCalculatorWizard/);
+  assert.match(read("app/estimate/page.tsx"), /SITE_CONFIG\.phoneHref/);
 });
 
 test("call and text links are the site E.164 phone, rendered on each first-screen page", () => {
@@ -37,7 +38,8 @@ test("call and text links are the site E.164 phone, rendered on each first-scree
   assert.match(actions, /href=\{SITE_CONFIG\.phoneSmsHref\}/);
   assert.match(actions, />\s*Call\s*</);
   assert.match(actions, />\s*Text\s*</);
-  for (const path of ["app/cabinets/page.tsx", "app/cabinets/[room]/page.tsx", "app/estimate/page.tsx"]) {
+  for (const path of ["app/cabinets/page.tsx", "app/cabinets/[room]/page.tsx"]) {
     assert.match(read(path), /AboveFoldActions/);
   }
+  assert.match(read("app/estimate/page.tsx"), /LandingMobileActions/);
 });
