@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 import { TESTIMONIALS } from "../shared/testimonialsData";
 
@@ -37,8 +38,11 @@ test("live routes render no seed reviews, stars, counts, or review schema", asyn
     await expect(page.locator("header[data-approved-navigation] a[href='/testimonials']"), path).toHaveCount(0);
     await expect(page.locator("footer a[href='/testimonials']"), path).toHaveCount(0);
     if (path === "/testimonials") {
-      expect(html.toLowerCase(), path).toContain("noindex");
-      expect(html, path).toContain("They are not photographs of completed client projects.");
+      await expect(page).toHaveURL(/\/design-ideas$/);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://boisecabinet.co/design-ideas");
+      expect(html, path).toContain("they are not records of completed client projects.");
     }
   }
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

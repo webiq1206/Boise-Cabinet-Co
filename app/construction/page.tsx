@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
-import { publicText } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ENRICHMENT_IMAGES, MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
@@ -20,12 +19,12 @@ import Link from "next/link";
 
 const STANDARDS = [
   {
-    title: "Plywood box construction",
-    body: "Cabinet boxes are built from furniture-grade plywood, not particle board, for screw holding power, moisture resistance, and long-term stability in Idaho's dry climate and seasonal humidity swings.",
+    title: "Box and side construction",
+    body: "Structural boxes use moisture-resistant panel stock with matching edgebanding. Exposed sides are 3/4 inch birch plywood for screw holding power and long-term stability in Idaho's dry climate and seasonal humidity swings.",
   },
   {
     title: "Precision door machining",
-    body: "Doors are CNC-routed and hand-finished in our Meridian shop. Hinge boring, overlay, and reveal tolerances are verified against your approved shop drawings before assembly.",
+    body: "Doors are machined and finished to your approved shop drawings. Hinge boring, overlay, and reveal tolerances are verified before assembly.",
   },
   {
     title: "Drawer boxes & slides",
@@ -36,8 +35,8 @@ const STANDARDS = [
     body: "Our Custom Cabinets offer soft-close hinge and drawer-slide options.",
   },
   {
-    title: "Installation & warranty",
-    body: publicText("Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract."),
+    title: "Installation and warranty",
+    body: "Treasure Valley installation by our own crew. Warranty claims are handled by us under a 2-year workmanship warranty on cabinet installation. Manufacturer coverage on boxes and hardware is administered through our team.",
   },
   {
     title: "Written scope before build",
@@ -47,16 +46,16 @@ const STANDARDS = [
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/construction",
-  "Frameless Cabinet Construction",
+  "How our cabinets are built",
   catalogDescription(
-    "How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
+    "How {company} builds custom cabinets: frameless options, plywood sides and drawers, soft-close hardware, and professional installation in the Treasure Valley.",
   ),
 )), "/construction");
 
 export default function ConstructionPage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Construction Standards",
+      title: "How our cabinets are built",
       description: `Cabinet construction quality from ${SITE_CONFIG.name}.`,
       url: "/construction",
     }),
@@ -80,11 +79,11 @@ export default function ConstructionPage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>
-                  Frameless cabinet{" "}
-                  <em className="brc-accent text-accent">construction</em>
+                  How our cabinets{" "}
+                  <em className="brc-accent text-accent">are built</em>
                 </>}
           description={catalogDescription(
-                "{company} cabinets use materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
+                "{company} designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.",
               )}
         >
               <Button variant="brand" asChild>
@@ -106,7 +105,7 @@ export default function ConstructionPage() {
         <PhotoBreak
           src={ENRICHMENT_IMAGES.constructionDetail}
           alt="Frameless plywood cabinet box with dovetail drawer and soft-close slide detail"
-          caption="Furniture-grade plywood boxes, dovetail drawers, and soft-close hardware."
+          caption="Box, drawer, hinge and finish specifications published per cabinet line."
         />
 
         <Section divider>
@@ -131,13 +130,13 @@ export default function ConstructionPage() {
         <PhotoBreak
           src={ENRICHMENT_IMAGES.drawerHardware}
           alt="Oak drawers with black pulls showing soft-close hardware and finish quality"
-          caption="Hardware you feel every day, checked before it leaves the shop."
+          caption="Hardware you feel every day, checked before installation."
         />
 
         <Section variant="greige" divider>
           <SplitSection header={<SectionHeader
               eyebrow="Install & accountability"
-              title={<>From Meridian shop to your home</>}
+              title={<>From approved design to your home</>}
               className="mb-0"
             />}>
             <div className="ed-grid-balance grid md:grid-cols-2 gap-6">

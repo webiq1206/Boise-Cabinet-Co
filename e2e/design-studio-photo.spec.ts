@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 
 test.describe("Design Studio photo room sizing", () => {
@@ -65,3 +66,5 @@ test.describe("Design Studio photo room sizing", () => {
     await expect(page.getByTestId('room-scan-panel').getByText(/Room size saved/i)).not.toBeVisible();
   });
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

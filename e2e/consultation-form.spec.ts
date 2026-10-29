@@ -8,6 +8,8 @@ test.describe("Consultation form", () => {
   }) => {
     // Test form behavior against an explicit synthetic delivery receipt.
     // Production persistence/delivery requires separately configured services.
+    const clientErrors: string[] = [];
+    page.on("pageerror", error => clientErrors.push(error.message));
     let submissions = 0;
     const attempts: string[] = [];
     await page.route('**/api/consultation', async route => {
@@ -24,21 +26,23 @@ test.describe("Consultation form", () => {
     await expect(page.getByTestId("input-name")).toBeVisible({ timeout: 30_000 });
 
     await page.getByTestId("input-name").fill("Playwright Test");
+    await page.getByTestId("button-contact-continue").click();
     await page.getByTestId("input-phone").fill("abc");
-    await page.getByTestId("input-email").fill("playwright@example.com");
-    await page.getByTestId("select-project-type").click();
-    await page.getByRole("option", { name: /Kitchen Cabinets/i }).click();
-    await page.getByTestId("button-submit-consultation").click();
-
+    await page.getByTestId("button-contact-continue").click();
     await expect(page.getByText(/at least 10 digits/i)).toBeVisible();
-
     expect(submissions).toBe(0);
     await page.getByTestId("input-phone").fill("(208) 555-0101");
+    await page.getByTestId("button-contact-continue").click();
+    await page.getByTestId("input-email").fill("playwright@example.invalid");
+    await page.getByTestId("button-contact-continue").click();
+    await page.getByTestId("select-project-type").click();
+    await page.getByRole("option", { name: /Kitchen Cabinets/i }).click();
+    await page.getByTestId("button-contact-continue").click();
     await page.getByTestId("button-submit-consultation").click();
 
     await expect(page.getByText(/We could not confirm that your request was saved/)).toBeVisible();
     await expect(page.getByTestId("consultation-success")).toHaveCount(0);
-    await expect(page.getByTestId("input-name")).toHaveValue("Playwright Test");
+    expect(JSON.parse(attempts[0]).name).toBe("Playwright Test");
     expect(submissions).toBe(1);
     await page.getByTestId("button-submit-consultation").click();
     await expect(page.getByTestId("consultation-success")).toBeVisible({
@@ -46,5 +50,6 @@ test.describe("Consultation form", () => {
     });
     expect(submissions).toBe(2);
     expect(attempts[1]).toBe(attempts[0]);
+    expect(clientErrors).toEqual([]);
   });
 });

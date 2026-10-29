@@ -2,12 +2,12 @@ import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/app
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { Section } from '@/components/marketing';
-import { FaqAccordion } from '@/components/marketing/FaqAccordion';
 import { Hairline } from '@/components/marketing/Hairline';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
 import { Reveal } from '@/components/Reveal';
+import { SaveContactLink } from '@/components/SaveContactLink';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
@@ -21,8 +21,8 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
-import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CONSULT_BULLETS,publicHeroStats } from '@/shared/siteContent';
+import { SITE_CONFIG, preferToTextLine } from '@/shared/siteConfig';
+import { CONSULT_BULLETS } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
 import Image from 'next/image';
@@ -32,7 +32,7 @@ import type { ReactNode } from 'react';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'Contact Boise Cabinet Co for a free design consultation. Call our team, schedule a visit, or use the Design Studio to explore cabinet options for your Treasure Valley home.';
+  `Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`;
 
 function HeroBreadcrumbs() {
   const items = [
@@ -142,7 +142,7 @@ export default function ContactPage() {
     generateWebPageSchema({
       title: `Contact ${SITE_CONFIG.name}`,
       description:
-        'Schedule a free design consultation or explore options in our online Design Studio.',
+        `Schedule a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`,
       url: '/contact',
     }),
     generateBreadcrumbSchema([
@@ -168,8 +168,9 @@ export default function ContactPage() {
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-6">
-              Schedule a free design consultation, call our team, or use the Design Studio to
-              explore cabinet options for your home.
+              Schedule a free design consultation, call or text our team, or send project details
+              through the form. We reply within one business day.{" "}
+              <PreferToTextLine className="block mt-2 text-sm" />
             </p>
             <a
               href={SITE_CONFIG.phoneHref}
@@ -177,28 +178,9 @@ export default function ContactPage() {
             >
               {BUSINESS_INFO.phone}
             </a>
-            <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a></div>
-            <dl className="ed-hero-facts">
-              {publicHeroStats().map((stat) => (
-                <div key={stat.label}>
-                  <dt>{stat.label}</dt>
-                  <dd>{stat.num}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a><SaveContactLink showIcon className="interior-text-link" /></div>
+            <p className="text-sm text-inverse-foreground/70 mt-3">Adds Boise Cabinet Co and Nick&apos;s direct number to your phone.</p>
           </InteriorHero>
-
-        <Section divider>
-          <div className="container px-4 max-w-5xl">
-            <SectionHeader
-              eyebrow="Quick answer"
-              title={phaseAnswer.heading}
-              description={phaseAnswer.paragraph}
-              align="left"
-            />
-            <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix="phase1-contact" />
-          </div>
-        </Section>
 
         {/* ─── Consultation form ─── */}
         <Section id="consult" divider data-suppress-sticky-cta="">
@@ -222,8 +204,8 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="interior-contact-form p-4 sm:p-7 md:p-10" padding="lg">
-              <ConsultationForm />
+            <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-6 md:p-8" padding="lg" data-c10-contact-form="">
+              <ConsultationForm compact />
             </MarketingCard>
           </div>
         </Section>
@@ -312,8 +294,8 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.processContact}
-                alt="consultation: a Boise Cabinet Co designer reviews cabinet plans and finish samples with homeowners"
-                title="Design consultation | Boise Cabinet Co"
+                alt="Open oak drawers with black pulls in a finished cabinet install"
+                title="Cabinet details | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

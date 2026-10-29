@@ -3,7 +3,7 @@ import type { CatalogContent } from "../types";
 export type { CatalogContent } from "../types";
 
 export const CATALOG_CONTENT: CatalogContent = {
-  "warrantyHeadline": "Manufacturer warranties passed through",
+  "warrantyHeadline": "Warranty claims handled by us",
   "warrantySummary": "Boise Cabinet Co passes the manufacturer's warranty through to you. Conditions vary by manufacturer; your written scope lists the warranty for your cabinets.",
   "leadTime": "4-8 weeks",
   "estimateDisclaimer": "Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.",

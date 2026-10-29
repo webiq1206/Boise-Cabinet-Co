@@ -23,7 +23,7 @@ export default function HomePage() {
       <HomePageSchema />
       <ApprovedHome reviews={<HomeTestimonials />} />
       <h2 data-speakable="summary" className="sr-only">
-        {publicText("Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell across Idaho's Treasure Valley. We design, source, and install frameless custom kitchen cabinets, bathroom vanities, and built-in storage, with 299 finishes, six door styles, a free design consultation, and a written workmanship guarantee.")}
+        {publicText("Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. Kitchen cabinets, bathroom vanities, and built-in storage across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, with 299 finishes, six door styles, a free design consultation, and a 2-year workmanship warranty on installation.")}
       </h2>
       <div id="contact" className="scroll-mt-24" aria-hidden="true" />
       <Section

@@ -56,15 +56,16 @@ export function InteriorPage({children,kind='detail'}:{children:ReactNode;kind?:
   return <div className={`approved-interior interior-${kind}`}>{children}</div>;
 }
 
-export function InteriorEstimateLink({label='Get my online estimate'}:{label?:string}) {
+export function InteriorEstimateLink({label='Request a quote'}:{label?:string}) {
   return <a className="interior-estimate-link" href="/estimate">{label}<ArrowUpRight size={18} aria-hidden="true"/></a>;
 }
 
-/** The approved split-detail and editorial-introduction compositions. */
-export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className=''}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string}) {
-  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${className?` ${className}`:''}`}>
+/** The approved split-detail and editorial-introduction compositions.
+ *  Pass uncropped when the hero shows people - never object-fit:cover people photos. */
+export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className='',uncropped=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string;uncropped?:boolean}) {
+  return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${uncropped?' interior-hero-uncropped':''}${className?` ${className}`:''}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
-    {imageSrc&&<div className="interior-hero-image"><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={1400} height={1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
+    {imageSrc&&<div className={`interior-hero-image${uncropped?' interior-hero-image--uncropped':''}`}><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={uncropped?2560:1400} height={uncropped?1920:1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;
 }
 

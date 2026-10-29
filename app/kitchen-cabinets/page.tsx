@@ -1,17 +1,17 @@
 import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
-import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
+import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
 import { Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Kitchen cabinets, bathroom vanities and built-ins. Bonded and insured. Call or text (208) 477-1169 for a free estimate.";
+  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Idaho Registered Contractor #8381215. Call or text (208) 477-1169.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
@@ -57,13 +57,13 @@ const FAQS = [
       "It depends on the size of the space and the cabinet line you choose. The estimate is free, so call, text or send the form and we'll give you a real number.",
   },
   {
-    question: "Are you bonded and insured?",
-    answer: "Yes. We're bonded and insured.",
+    question: "Are you a registered contractor and insured?",
+    answer: `Yes. ${REGISTERED_BONDED_INSURED}.`,
   },
 ];
 
 const TRUST = [
-  { icon: ShieldCheck, label: "Bonded & insured" },
+  { icon: ShieldCheck, label: "Registered & insured" },
   { icon: Clock, label: "Project review" },
   { icon: Sparkles, label: "Free estimate" },
 ] as const;
@@ -116,7 +116,7 @@ export default function KitchenCabinetsPage() {
   return (
     <div className="kc-landing bg-background text-foreground">
       <style>{`
-        .approved-shell:has(.kc-landing) > .flex > header { display: none !important; }
+        /* Keep the standard AppFrame/primary nav; only theme the landing hero. */
         .approved-shell .kc-hero,
         .approved-shell .kc-hero h1,
         .approved-shell .kc-hero p { color: #fbfaf6; }
@@ -132,12 +132,6 @@ export default function KitchenCabinetsPage() {
           generateFAQSchema(FAQS),
         ]}
       />
-
-      <header data-approved-navigation className="z-[100] w-full">
-        <nav className="flex items-center">
-          <ApprovedBrand />
-        </nav>
-      </header>
 
       <section data-p5-hero className="kc-hero relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
@@ -207,7 +201,7 @@ export default function KitchenCabinetsPage() {
               <strong>Kitchens, baths and built-ins.</strong> Kitchen cabinets, bathroom vanities and built-ins for Ada and Canyon County homes.
             </li>
             <li>
-              <strong>Bonded and insured.</strong> We&apos;re bonded and insured for every install.
+              <strong>Registered and insured.</strong> {REGISTERED_BONDED_INSURED}.
             </li>
             <li>
               <strong>As fast as 3 weeks.</strong> Many projects install as fast as 3 weeks. We&apos;ll give you a timeline with your estimate.

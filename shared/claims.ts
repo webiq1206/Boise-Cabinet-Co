@@ -6,13 +6,29 @@
  * A badge or stat row that must keep text uses the manufacturer pass-through.
  */
 
-export const IDAHO_REGISTERED_CONTRACTOR = "Idaho Registered Contractor #8381215";
+/** Registered entity name + number (Phase 0 X1 / Phase 6.7). */
+export const REGISTERED_ENTITY_NAME = "P5 Home Co LLC";
 
+export const IDAHO_REGISTERED_CONTRACTOR =
+  "P5 Home Co LLC, Idaho Registered Contractor #8381215";
+
+/** Short number-only form for places that already name the entity nearby. */
+export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
+
+/**
+ * Trust line without "bonded" (Phase 6.4: Idaho registration requires no bond;
+ * publish bonded only when a surety and amount are named).
+ */
 export const REGISTERED_BONDED_INSURED =
-  "Idaho Registered Contractor #8381215, bonded and insured";
+  "P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request";
 
+/** Proof-strip / warranty claim language (F18, D6, K-5). */
 export const MANUFACTURER_WARRANTY_PASS_THROUGH =
-  "Manufacturer warranties passed through on parts we supply";
+  "Warranty claims handled by us";
+
+/** Two-year installation workmanship term (D6). */
+export const CABINET_WORKMANSHIP_WARRANTY =
+  "2-year workmanship warranty on cabinet installation";
 
 export const PUBLIC_HOURS_LINE =
   "Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";

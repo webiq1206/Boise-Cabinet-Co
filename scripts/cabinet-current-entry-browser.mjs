@@ -1,0 +1,28 @@
+import {chromium,webkit} from '@playwright/test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const base=process.env.P5_TEST_BASE_URL||'http://127.0.0.1:3196',origin=new URL(base).origin;
+if(!['127.0.0.1','localhost'].includes(new URL(base).hostname))throw Error('Local isolated qualification only');
+const engine=process.env.P5_TEST_BROWSER==='webkit'?'webkit':'chromium';
+const browser=await({chromium,webkit}[engine]).launch();const results=[];
+await fs.mkdir('p5-verification/cabinet-current-entry',{recursive:true});
+async function unobstructed(button){await button.scrollIntoViewIfNeeded();assert.ok(await button.evaluate(el=>{const r=el.getBoundingClientRect();const x=r.left+r.width/2,y=r.top+r.height/2;return r.width>0&&r.height>0&&y>=0&&y<innerHeight&&el.contains(document.elementFromPoint(x,y));}),'Visible unoccluded action');}
+try{for(const width of [320,390,768,1440]){
+ const context=await browser.newContext({viewport:{width,height:900},serviceWorkers:'block'}),page=await context.newPage();page.setDefaultTimeout(30000);const blockedApi=[];
+ await context.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin!==origin||u.pathname.startsWith('/api/')||r.request().method()!=='GET'){if(u.pathname.startsWith('/api/'))blockedApi.push({path:u.pathname,method:r.request().method()});return r.abort('blockedbyclient');}return r.continue();});
+ await page.goto(base+'/estimate');const form=page.locator('[data-c10-estimate-quote]');await form.getByLabel('Name',{exact:true}).waitFor();
+ const next=page.getByTestId('button-estimate-quote-continue');await page.locator('body > [data-wizard-action-bar][data-wizard-action-bar-docked="true"]').filter({has:next}).waitFor();await unobstructed(next);await next.click();assert.ok(await form.getByRole('alert').isVisible());
+ await form.getByLabel('Name',{exact:true}).fill('QA Synthetic Cabinet');await next.click();await form.getByLabel('Phone',{exact:true}).fill('123');await next.click();assert.ok(await form.getByRole('alert').isVisible());
+ await form.getByLabel('Phone',{exact:true}).fill('2025550102');await next.click();await form.getByLabel('Email',{exact:true}).fill('invalid');await next.click();assert.ok(await form.getByRole('alert').isVisible());
+ await form.getByLabel('Email',{exact:true}).fill('qa@example.invalid');await next.click();await form.getByLabel('Project',{exact:true}).fill('Synthetic cabinet request retained locally only');
+ const send=page.getByTestId('button-estimate-quote-submit');await unobstructed(send);assert.equal(await form.getAttribute('data-quote-step'),'project');
+ await page.reload();await form.getByLabel('Project',{exact:true}).waitFor();assert.equal(await form.getByLabel('Project',{exact:true}).inputValue(),'Synthetic cabinet request retained locally only');
+ await page.getByTestId('button-estimate-quote-back').click();assert.equal(await form.getByLabel('Email',{exact:true}).inputValue(),'qa@example.invalid');
+ const planner=page.getByTestId('estimate-d2-details');await planner.locator('summary').focus();await planner.locator('summary').press('Enter');assert.equal(await planner.evaluate(el=>el.open),true);assert.ok(await planner.locator('[data-estimate-wizard]').isVisible());
+ assert.equal(await page.locator('h1').count(),1);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(blockedApi.filter(r=>!((r.path==='/api/estimator-session'&&r.method==='POST')||(r.path==='/api/assistant/chat'&&r.method==='GET'))),[],'No lead, provider, quote or submission API attempted; session and assistant bootstrap remain blocked');
+ await page.screenshot({path:`p5-verification/cabinet-current-entry/${engine}-${width}-estimate.png`,fullPage:true});
+ await page.goto(base+'/contact');assert.equal(await page.locator('h1').count(),1);assert.ok(await page.locator('a[href="sms:+12084771169"]').count()>0);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ await page.screenshot({path:`p5-verification/cabinet-current-entry/${engine}-${width}-contact.png`,fullPage:true});
+ results.push({width,passed:true,checks:['required name','malformed phone and email','four-step request','reload and Back preserve fields','unobstructed final action','keyboard optional planner','one H1','no overflow','contact SMS link','no submission']});await context.close();
+}}finally{await browser.close();await fs.writeFile(`p5-verification/cabinet-current-entry/${engine}.json`,JSON.stringify(results,null,2)+'\n');}
+console.log(JSON.stringify(results));

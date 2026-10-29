@@ -45,7 +45,7 @@ export default function CabinetsHubPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
-          className="interior-hero-above-fold"
+          className="interior-hero-cabinets-hub"
           image={MARKETING_IMAGES.cabinetsHero}
           alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
@@ -58,7 +58,7 @@ export default function CabinetsHubPage() {
         >
           <Button variant="brand" asChild>
             <Link href="/estimate">
-              Get an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              Request an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
         </CinematicHero>
@@ -72,7 +72,6 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-          className="interior-hero-above-fold"
         <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
 
         <CatalogClosingCTA />

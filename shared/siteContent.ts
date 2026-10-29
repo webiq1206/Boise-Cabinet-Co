@@ -15,12 +15,12 @@ export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "Design, source, and install premium custom cabinets from first sketch to final walkthrough.";
+  "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.";
 
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "Parts", label: "Manufacturer warranties passed through on parts we supply" },
+  { num: "2 yr", label: "Warranty claims handled by us" },
 ] as const;
 
 /** Hero facts. Coverage length is not stated. */
@@ -46,12 +46,12 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "One team, one point of accountability",
     contrast: "Instead of coordinating a designer, a contractor, and multiple subs who may point fingers when something goes wrong,",
-    body: "you work with one cabinet team. Design, sourcing, and installation stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
+    body: "you work with one cabinet team. Design, build-to-order coordination, and installation stay with one crew, with the same dedicated project manager from your first visit through final walkthrough.",
   },
   {
-    title: "A written plan before we swing a hammer",
+    title: "Written proposal with drawings before order",
     contrast: "Rather than relying on a verbal estimate that shifts once work begins,",
-    body: "you receive a clear written scope with design direction and finish selections before the order begins. Any change mid-project requires a written change order with your approval first.",
+    body: "you receive a clear written scope with drawings, design direction, and finish selections before the order begins. Any change mid-project requires a written change order with your approval first.",
   },
   {
     title: "Proactive communication, not radio silence",
@@ -258,7 +258,7 @@ export const STANDARD_INCLUSIONS = [
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
   "Written workmanship guarantee",
-  "Manufacturer warranties passed through",
+  "Warranty claims handled by us",
 ];
 
 export const OPTIONAL_ENHANCEMENTS = {

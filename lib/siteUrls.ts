@@ -27,12 +27,12 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
     { path: '/shaker-cabinets', label: 'Shaker cabinets', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/compare', label: 'Compare', changeFrequency: 'monthly', priority: 0.75 },
     { path: '/builders', label: 'For builders', changeFrequency: 'monthly', priority: 0.85 },
-    { path: '/estimate', label: 'Get an estimate', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/estimate', label: 'Request an estimate', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/services/cabinet-installation', label: 'Cabinet installation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/about', label: 'About', changeFrequency: 'monthly', priority: 0.7 },
     ...(showTestimonials()
       ? [{ path: '/testimonials', label: 'Testimonials', changeFrequency: 'monthly' as const, priority: 0.65 }]
-      : []),
+      : [{ path: '/design-ideas', label: 'Design ideas', changeFrequency: 'monthly' as const, priority: 0.65 }]),
     { path: '/contact', label: 'Contact', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/resources', label: 'Resources', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/resources/ada-canyon-permit-flow', label: 'Ada vs Canyon County permit flow', changeFrequency: 'monthly', priority: 0.65 },

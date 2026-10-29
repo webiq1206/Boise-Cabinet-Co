@@ -11,7 +11,12 @@ import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
-import { MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty } from "@/shared/claims";
+import {
+  CABINET_WORKMANSHIP_WARRANTY,
+  MANUFACTURER_WARRANTY_PASS_THROUGH,
+  publicText,
+  showLifetimeWarranty,
+} from "@/shared/claims";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ENRICHMENT_IMAGES, MARKETING_IMAGES } from "@/shared/siteImages";
@@ -32,6 +37,7 @@ const CONDITIONS = [
   "Door warping is covered only within the first 180 days",
   "Normal use, care, and a stable indoor environment are required",
   "Claims are administered directly by Boise Cabinet Co",
+  CABINET_WORKMANSHIP_WARRANTY,
 ];
 
 const EXCLUDED = [
@@ -42,14 +48,14 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "{company}'s limited lifetime cabinet warranty: what's covered, the conditions, and how to file a claim in the Treasure Valley.";
+  "{company} warranty: what's covered, workmanship terms, and how to file a claim in the Treasure Valley.";
 
 export const metadata = withBrandPageMetadata((catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
-      "Manufacturer warranties passed through on parts we supply. Ask which terms apply before you order cabinets in the Treasure Valley.",
+      `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
   ),
 )), "/warranty");
 
@@ -59,7 +65,7 @@ export default function WarrantyPage() {
       title: "Warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
-        : `${MANUFACTURER_WARRANTY_PASS_THROUGH}.`,
+        : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
@@ -80,12 +86,14 @@ export default function WarrantyPage() {
           title={showLifetimeWarranty() ? <>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </> : <>Manufacturer warranties <em className="brc-accent text-accent">passed through</em></>}
-          description={showLifetimeWarranty() ? CATALOG_CONTENT.warrantySummary : MANUFACTURER_WARRANTY_PASS_THROUGH}
+                </> : <>Warranty claims <em className="brc-accent text-accent">handled by us</em></>}
+          description={showLifetimeWarranty()
+            ? CATALOG_CONTENT.warrantySummary
+            : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
-                  Get an Estimate <ArrowRight className="h-4 w-4" />
+                  Request an Estimate <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
@@ -149,9 +157,8 @@ export default function WarrantyPage() {
               className="mb-0"
             />}>
             <p className="text-base text-muted-foreground leading-relaxed mb-4">
-              If something isn&apos;t right, reach out to {SITE_CONFIG.name} directly. Every claim is
-              reviewed and administered by our team - not a distant manufacturer. Keep your contract
-              and approved shop drawings handy; they document the finishes, hardware, and scope your
+              If something isn&apos;t right, reach out to {SITE_CONFIG.name} directly. {MANUFACTURER_WARRANTY_PASS_THROUGH}.
+              Keep your contract and approved shop drawings handy; they document the finishes, hardware, and scope your
               warranty is tied to.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed">

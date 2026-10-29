@@ -93,10 +93,10 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
     },
     "/cabinets/[room]",
   );
-  assert.deepEqual(kitchen.title, { absolute: "Kitchen Cabinets Near Me | Boise Cabinet Co" });
+  assert.deepEqual(kitchen.title, { absolute: "Kitchen Cabinets in Boise | Boise Cabinet Co" });
   assert.equal(
     kitchen.description,
-    "Kitchen cabinets near me in Boise and the Treasure Valley. Source and install kitchen storage with a free design consult and clear next steps. Call today.",
+    "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, and installation by our crew. Request a free design consult.",
   );
 });
 
@@ -160,7 +160,8 @@ test("llms files and the footer publish the public email, address, and represent
   assert.equal(footer.includes("https://boiseremodeling.co"), true);
   assert.equal(footer.includes("https://boisehandyman.co"), true);
   assert.equal(footer.includes("https://boisecabinet.co"), true);
-  assert.equal(footer.includes("Boise ADU Co (website coming soon; requests through P5)"), true);
+  assert.match(footer, /href="https:\/\/boiseconstruction\.co"[^>]*>Boise ADU Co<\/a>/);
+  assert.equal(footer.includes("projects currently run through Boise Construction Co; site coming"), true);
   assert.equal(footer.includes("https://boiseadu"), false);
   const contact = readFileSync("app/contact/page.tsx", "utf8");
   assert.equal(contact.includes("{SITE_CONFIG.email}"), true);
@@ -168,7 +169,7 @@ test("llms files and the footer publish the public email, address, and represent
   assert.equal(contact.includes("SiteEmailLink"), false);
 });
 
-test("home title and H1 aim at custom cabinets Boise and keep the existing claims", () => {
+test("home title and H1 preserve current custom-cabinet identity and quote entry", () => {
   const home = withBrandPageMetadata(
     { title: "Home", description: "fallback", alternates: { canonical: "https://boisecabinet.co/" } },
     "/",
@@ -179,13 +180,15 @@ test("home title and H1 aim at custom cabinets Boise and keep the existing claim
     "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
-  assert.equal(hero.includes("Custom cabinets in Boise."), true);
-  assert.equal(hero.includes("Made for Boise."), true);
-  assert.equal(hero.includes("Premium custom cabinets, designed, built, and installed by one accountable team."), true);
-  assert.equal(hero.includes("Bonded & insured"), true);
-  assert.equal(hero.includes('href="/cabinets/kitchen"'), true);
-  assert.equal(hero.includes('href="#cabinetry"'), true);
-  assert.equal(hero.includes("Kitchen cabinets, bathroom vanities, closet systems, and built-in storage."), true);
+  assert.match(hero, /<h1[^>]*>Custom cabinets in Boise,<br\/><em>Idaho<\/em><\/h1>/);
+  assert.equal(hero.includes("designs custom cabinets to your measurements"), true);
+  assert.equal(hero.includes("Written price before work"), true);
+  assert.equal(hero.includes("IDAHO_REGISTERED_CONTRACTOR"), true);
+  assert.equal(hero.includes("Bonded & insured"), false);
+  assert.equal(hero.includes('"/cabinets/kitchen"'), true);
+  assert.equal(hero.includes('id="cabinetry"'), true);
+  assert.match(hero, /href="\/estimate" data-cta="primary"/);
+  assert.equal(hero.includes("Custom kitchen cabinets, bathroom vanities, and built-in storage."), true);
   assert.equal(hero.includes("Jared"), false);
   assert.equal(hero.includes("\u2014"), false);
   const contact = withBrandPageMetadata(
@@ -201,7 +204,12 @@ test("home title and H1 aim at custom cabinets Boise and keep the existing claim
   assert.equal(gate.includes("window.location.assign(loginHref)"), true);
   const estimate = readFileSync("app/estimate/page.tsx", "utf8");
   assert.equal(estimate.includes("<h1"), true);
-  assert.equal(estimate.includes('headingAs="h2"'), true);
+  assert.match(estimate, /<EstimateCalculatorWizard fitViewport\s*\/>/);
+  const wizard = readFileSync("components/estimate/EstimateCalculatorWizard.tsx", "utf8");
+  assert.match(wizard, /<GuidedFlowShell/);
+  const guided = readFileSync("components/guided-flow/GuidedFlowShell.tsx", "utf8");
+  assert.equal((guided.match(/<h2\b/g) || []).length, 2, "Both guided layouts retain subordinate headings");
+  assert.doesNotMatch(guided, /<h1\b/);
   const login = readFileSync("app/login/layout.tsx", "utf8");
   assert.equal(login.includes("<h1"), true);
 });

@@ -159,7 +159,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     generateServiceSchema(
       roomCopy?.title ?? `Custom ${seoName(room)} Cabinets`,
       roomCopy
-        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} sources and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
+        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, builds, and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
         : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
     ),
     generateFAQSchema(faqs),
@@ -383,14 +383,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <SectionHeader
               eyebrow="Cabinets for this room"
               title={
-                roomCopy
-                  ? <>What we source and install for this {room.name.toLowerCase()}</>
-                  : <>What we build for {room.name.toLowerCase()}</>
+                  <>What we build for {room.name.toLowerCase()}</>
               }
               description={
-                roomCopy
-                  ? `${SITE_CONFIG.name} sources these cabinets and installs them in ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
-                  : `${SITE_CONFIG.name} sizes these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+                `${SITE_CONFIG.name} sizes and builds these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
               }
               align="left"
               className="mb-6"

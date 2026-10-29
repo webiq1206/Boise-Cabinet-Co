@@ -1,16 +1,17 @@
 /**
  * BOT-05 existing-URL copy (Priya drafts, Sam PASS 2026-10-24).
- * Marketing truth: Boise Cabinet Co sources and installs cabinets.
- * Customer FAQ answer for "Do you build cabinets?" is exactly BUILD_CABINETS_ANSWER.
+ * Marketing truth: D1 cabinet identity (design, build to order, install).
  */
-import { IDAHO_REGISTERED_CONTRACTOR } from "../claims";
+import { REGISTERED_BONDED_INSURED } from "../claims";
+import { HERO_SUBHEAD } from "../siteContent";
 
-export const BUILD_CABINETS_ANSWER = "No. We source and install.";
+export const BUILD_CABINETS_ANSWER =
+  "Yes. Boise Cabinet Co designs custom cabinets to your measurements and builds each order to your layout.";
 
-export const TRUST_LINE = `Bonded and insured. ${IDAHO_REGISTERED_CONTRACTOR}.`;
+export const TRUST_LINE = `${REGISTERED_BONDED_INSURED}.`;
 
 export const LEAD_TIME_LINE =
-  "Lead time is typically 4-8 weeks, often faster for ready-to-assemble.";
+  "Lead time from approved design is typically 4-8 weeks.";
 
 export const DEPOSIT_TO_LOCK_ORDER = "deposit to lock your order";
 
@@ -38,7 +39,7 @@ const BOISE_FAQS: Bot05Faq[] = [
   {
     question: "What is included with installation?",
     answer:
-      "Professional installation of the cabinets we source for your project, site protection as scoped, and a final walkthrough. Exact inclusions appear in your written proposal.",
+      "Professional installation by our Treasure Valley crew, site protection as scoped, and a final walkthrough. Exact inclusions appear in your written proposal.",
   },
   {
     question: "How do I get a quote?",
@@ -56,7 +57,7 @@ const KITCHEN_FAQS: Bot05Faq[] = [
   {
     question: "Can you design a walk-in pantry?",
     answer:
-      "Yes, when the room supports it. We plan the layout with you, then source and install the pantry cabinets. We do not build the boxes ourselves.",
+      "Yes, when the room supports it. We plan the layout with you, then build and install pantry cabinets sized to your space.",
   },
   {
     question: "Do you serve Kuna?",
@@ -110,8 +111,8 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
   },
   {
     number: "02",
-    title: "Design Studio or portal selections",
-    desc: "Design Studio or portal selections for layout, doors, and finishes.",
+    title: "Layout and selections",
+    desc: "Layout, door style, finish, and hardware selections with your project team.",
   },
   {
     number: "03",
@@ -129,9 +130,6 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
     desc: "Delivery, install, and walkthrough.",
   },
 ];
-
-export const SOURCE_AND_INSTALL_NOTE =
-  "We source cabinets and install them. We do not fabricate cabinets in-house.";
 
 export type Bot05LocationCopy = {
   title?: string;
@@ -154,26 +152,25 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   boise: {
     title: "Custom Cabinets Boise",
     description:
-      "Custom cabinets Boise homeowners can source and install with a free design consult. Kitchen-first options for Boise and the Treasure Valley. Book a free visit.",
+      "Custom cabinets for Boise and the Treasure Valley. Built to your layout, 299 finishes, six door styles, install by our crew. Free in-home design consult.",
     h1Lead: "Custom cabinets",
     h1Accent: "Boise",
     firstSentence:
-      "Custom cabinets Boise homeowners can start with a free in-home design consultation, then a clear path from selections to professional installation.",
-    aboveFold:
-      "Custom cabinets Boise projects should feel local from the first visit. We source cabinet packages sized for your layout, then install them in Boise and across the Treasure Valley. Tell us about your kitchen or storage goals, review finishes and door styles, and leave with a planning path you can act on.",
+      "Custom cabinets in Boise start with a free in-home design consultation, then a clear path from selections to professional installation.",
+    aboveFold: HERO_SUBHEAD,
     trustLine: TRUST_LINE,
     ctaLabel: "Book a free in-home design consultation",
     sections: [
       {
         heading: "Custom cabinets for Boise homes",
         paragraphs: [
-          "Custom cabinets Boise buyers usually want a kitchen that fits the house they already have, not a catalog-only floor plan. North End bungalows, Bench ranches, and newer East Boise layouts each need different heights, pantry depth, and appliance clearances. We measure on site, help you choose from available finishes and door styles, and coordinate sourcing with installation so the package arrives ready for your schedule.",
+          "Custom cabinets Boise buyers usually want a kitchen that fits the house they already have, not a catalog-only floor plan. North End bungalows, Bench ranches, and newer East Boise layouts each need different heights, pantry depth, and appliance clearances. We measure on site, help you choose from available finishes and door styles, and coordinate build-to-order production with installation so the package arrives ready for your schedule.",
         ],
       },
       {
         heading: "What custom means here",
         paragraphs: [
-          "Custom here means configured to your room: widths, heights, pantry and tall storage, and hardware that matches how you cook and store. It does not mean we fabricate boxes in a local mill. We source cabinetry and install it. Frameless European-style construction and soft-close hardware are available on many packages. Browse door styles and finishes before your consult so decisions move faster.",
+          "Custom here means configured to your room: widths, heights, pantry and tall storage, and hardware that matches how you cook and store. Frameless construction and soft-close hardware are available on many packages. Browse door styles and finishes before your consult so decisions move faster.",
         ],
       },
       {
@@ -205,32 +202,32 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   meridian: {
     title: "Custom Cabinets Meridian",
     description:
-      "Custom cabinets Meridian homeowners can source and install with a free design consult. Kitchen and storage options for Meridian and the Treasure Valley.",
+      "Custom cabinets for Meridian and the Treasure Valley. Built to your layout, 299 finishes, and install by our crew. Book a free in-home design consult.",
     h1Lead: "Custom cabinets",
     h1Accent: "Meridian",
     firstSentence:
-      "Custom cabinetry in Meridian, ID starts with a free in-home design consultation, then sourced cabinet packages and professional installation.",
+      "Custom cabinetry in Meridian, ID starts with a free in-home design consultation, then cabinets built to your layout and professional installation.",
     trustLine: TRUST_LINE,
     ctaLabel: "Book a free in-home design consultation",
   },
   middleton: {
     title: "Custom Cabinetry Middleton",
     description:
-      "Custom cabinetry Middleton homeowners can source and install with a free design consult. Kitchens, pantries, and storage for Middleton and the Treasure Valley.",
+      "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout, installed by our crew. Free design consult.",
     h1Lead: "Custom cabinetry",
     h1Accent: "Middleton",
     firstSentence:
-      "Custom cabinets in Middleton, ID start with a free in-home design consultation. We source cabinetry and install it for kitchens, pantries, and storage.",
+      "Custom cabinets in Middleton, ID start with a free in-home design consultation for kitchens, pantries, mudrooms, and storage along the Highway 44 corridor.",
     trustLine: TRUST_LINE,
     ctaLabel: "Book a free in-home design consultation",
   },
   kuna: {
     description:
-      "Kitchen cabinets and a kitchen pantry in Kuna. We source and install cabinets for newer homes, with a free design consult across the Treasure Valley today.",
+      "Kitchen cabinets and pantry storage in Kuna, built to your layout. Free design consult and upgrades for newer builder-grade kitchens across the Treasure Valley.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Kuna",
     firstSentence:
-      "Kitchen cabinets and a kitchen pantry in Kuna are available from Boise Cabinet Co. We source the cabinets and install them, including upgrades on newer homes with builder-grade packages.",
+      "Kitchen cabinets and pantry storage in Kuna are available from Boise Cabinet Co, including upgrades on newer homes with builder-grade packages.",
     trustLine: TRUST_LINE,
     ctaLabel: "Book a free in-home design consultation",
     links: [
@@ -260,34 +257,33 @@ export type Bot05RoomCopy = {
 
 export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
   kitchen: {
-    title: "Kitchen Cabinets Near Me",
+    title: "Kitchen Cabinets in Boise, Idaho",
     description:
-      "Kitchen cabinets near me in Boise and the Treasure Valley. Source and install kitchen storage with a free design consult and clear next steps. Call today.",
-    h1Lead: "Kitchen cabinets",
-    h1Accent: "near me",
+      "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, installed by our crew. Request a free design consult.",
+    h1Lead: "Kitchen cabinets in",
+    h1Accent: "Boise, Idaho",
     firstSentence:
-      "Kitchen cabinets near me should mean a local team that helps you choose, source, and install a kitchen package that fits your home.",
-    aboveFold:
-      "Kitchen cabinets near me is the search many Treasure Valley homeowners make when the builder-grade boxes run out of room. We help you plan base runs, uppers, pantries, and appliance panels as one system, then source and install the package. Free in-home design consultation.",
+      "Kitchen cabinets in Boise, Idaho should mean a local team that designs to your measurements, builds to your layout, and installs with our Treasure Valley crew.",
+    aboveFold: HERO_SUBHEAD,
     trustLine: TRUST_LINE,
     ctaLabel: "Book a free design consultation",
     sections: [
       {
         heading: "Kitchen cabinets for Boise and the Treasure Valley",
         paragraphs: [
-          "Kitchen cabinets near me should cover more than a product photo. Daily cooking, Idaho dry-climate swings, and different house ages all change what storage you need. Galley kitchens on the Bench need different tall storage than larger islands in Eagle or newer Kuna plans. We start with how you cook and store, then map cabinets to that layout.",
+          "Kitchen cabinets should cover more than a product photo. Daily cooking, Idaho dry-climate swings, and different house ages all change what storage you need. Galley kitchens on the Bench need different tall storage than larger islands in Eagle or newer Kuna plans. We start with how you cook and store, then map cabinets to that layout.",
         ],
       },
       {
         heading: "Styles and storage without a SKU dump",
         paragraphs: [
-          "Choose from available door styles and finishes in the catalog, including popular shaker and slab looks. Soft-close hardware and frameless European-style boxes are available on many packages. Focus the plan on drawers for utensils, tall pantry storage, and wall cabinets that match your ceiling height. We do not list supplier brands on this page.",
+          "Choose from available door styles and finishes in the catalog, including popular shaker and slab looks. Soft-close hardware and frameless European-style boxes are available on many packages. Focus the plan on drawers for utensils, tall pantry storage, and wall cabinets that match your ceiling height.",
         ],
       },
       {
         heading: "Pantry path from the kitchen page",
         paragraphs: [
-          "If your main goal is a kitchen pantry near me, use the pantry page for walk-in and tall pantry detail. The kitchen page links there so pantry-intent visitors are not stuck on a general kitchen overview.",
+          "If your main goal is a walk-in or tall pantry, use the pantry page for walk-in and tall pantry detail. The kitchen page links there so pantry-intent visitors are not stuck on a general kitchen overview.",
         ],
       },
       {
@@ -299,7 +295,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     ],
     steps: KITCHEN_PROCESS_STEPS,
     processHeading: "Process and lead time",
-    processNote: SOURCE_AND_INSTALL_NOTE,
+    processNote: HERO_SUBHEAD,
     faqs: KITCHEN_FAQS,
     links: [
       { href: "/cabinets/pantry", label: "Pantry cabinets" },
@@ -313,22 +309,22 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
       "You get planning guidance after we understand scope, finishes, and linear footage. Your written proposal is the source of truth.",
   },
   pantry: {
-    title: "Kitchen Pantry Cabinets Near Me",
+    title: "Kitchen Pantry Cabinets in Boise",
     description:
-      "Kitchen pantry cabinets near me for walk-in and tall storage. Source and install pantry solutions across Boise and the Treasure Valley. Free design consult.",
+      "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, installed by our crew. Free design consult.",
     h1Lead: "Kitchen pantry cabinets",
-    h1Accent: "near me",
+    h1Accent: "for your home",
     firstSentence:
-      "Kitchen pantry cabinets near me help Boise-area homes add tall storage, walk-in layouts, and pull-out access without guessing on sizing.",
+      "Kitchen pantry cabinets help Treasure Valley homes add tall storage, walk-in layouts, and pull-out access without guessing on sizing.",
     aboveFold:
-      "Kitchen pantry near me searches usually mean better bulk storage and fewer deep shelves you cannot reach. We help you choose walk-in or tall pantry layouts, source the cabinets, and install them in Boise-area homes including Kuna. Same consult-first path as kitchen projects.",
+      "Pantry projects usually mean better bulk storage and fewer deep shelves you cannot reach. We help you choose walk-in or tall pantry layouts, build cabinets to your measurements, and install them across the Treasure Valley.",
     trustLine: TRUST_LINE,
     ctaLabel: "Tell us about your pantry layout",
     sections: [
       {
         heading: "Walk-in and tall pantry storage",
         paragraphs: [
-          "A kitchen pantry near me can be a walk-in room or a tall reach-in run. Adjustable shelving and pull-out access keep bulk storage usable. We measure the space, source the cabinets, and install them. We do not build the boxes ourselves.",
+          "A pantry can be a walk-in room or a tall reach-in run. Adjustable shelving and pull-out access keep bulk storage usable. We measure the space, build cabinets to order, and install them.",
         ],
       },
       {
@@ -340,7 +336,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     ],
     steps: KITCHEN_PROCESS_STEPS,
     processHeading: "Process and lead time",
-    processNote: SOURCE_AND_INSTALL_NOTE,
+    processNote: HERO_SUBHEAD,
     faqs: KITCHEN_FAQS,
     links: [
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },

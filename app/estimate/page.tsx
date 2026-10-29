@@ -6,7 +6,7 @@ import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinets
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { EstimateCalculator } from "@/components/EstimateCalculator";
+import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
@@ -46,9 +46,13 @@ export default function EstimatePage() {
           <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
         </div>
       </section>
-      <details className="mx-auto w-full max-w-3xl px-6 pb-24">
-        <summary className="min-h-11 cursor-pointer py-3 underline">Prefer the guided project flow?</summary>
-        <EstimateCalculator headingAs="h2" />
+      <details className="mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details">
+        <summary className="min-h-11 cursor-pointer py-3 underline">
+          Prefer a step-by-step planning range?
+        </summary>
+        <div className="pt-4" data-estimate-wizard="">
+          <EstimateCalculatorWizard fitViewport />
+        </div>
       </details>
       <LandingMobileActions />
     </>

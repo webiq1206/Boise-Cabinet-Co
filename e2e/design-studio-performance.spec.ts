@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 
 test.describe("Design Studio performance", () => {
@@ -9,3 +10,5 @@ test.describe("Design Studio performance", () => {
     expect(elapsed).toBeLessThan(15_000);
   });
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

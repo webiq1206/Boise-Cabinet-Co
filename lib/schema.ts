@@ -273,7 +273,7 @@ export function generateOrganizationSchema(): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}/images/brc-logo.png`,
     },
-    description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Idaho Registered Contractor #8381215, bonded and insured.'),
+    description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.'),
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,

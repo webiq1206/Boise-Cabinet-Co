@@ -35,7 +35,7 @@ export function RoomCatalogShowcase({
             <em className="brc-accent text-accent">cabinets</em>
           </>
         }
-        description="Door profiles and finishes from our catalog, the same library used in Design Studio and your client portal."
+        description="Door profiles and finishes from our catalog, confirmed with physical samples at your design visit."
         align="left"
         className="mb-6"
       />
@@ -68,6 +68,7 @@ export function RoomCatalogShowcase({
               <CatalogVisualCard
                 key={finish.slug}
                 name={finish.name}
+                description={finish.oscName ?? undefined}
                 imageSrc={imgs.swatch}
                 imageAlt={`${finish.name} finish swatch`}
                 fallbackColor={finish.hexColor}
@@ -77,7 +78,7 @@ export function RoomCatalogShowcase({
                 ]}
                 primaryHref="/catalog"
                 primaryLabel="View finish"
-                className="[&_h3]:text-base"
+                className="[&_h3]:text-base [&_p]:text-xs [&_p]:text-muted-foreground"
               />
             );
           })}
@@ -95,7 +96,7 @@ export function RoomCatalogShowcase({
           Product catalog
         </Link>
         <Link href="/estimate" className="tap-target text-accent hover:underline underline-offset-2">
-          Get an estimate
+          Request an estimate
         </Link>
       </div>
     </div>

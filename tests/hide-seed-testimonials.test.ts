@@ -101,12 +101,10 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.equal(readFileSync("app/api/testimonials/route.ts", "utf8").includes("if (!showTestimonials()) return NextResponse.json([]);"), true);
   assert.equal(readFileSync("app/locations/[city]/page.tsx", "utf8").includes("visibleTestimonials()"), true);
   assert.equal(readFileSync("app/cabinets/[room]/page.tsx", "utf8").includes("visibleTestimonials()"), true);
-  const page = readFileSync("app/testimonials/page.tsx", "utf8");
-  assert.equal(page.includes("Design concepts illustrate possible layouts and finishes."), true);
-  assert.equal(page.includes("They are not photographs of completed client projects."), true);
-  assert.equal(page.includes("noindex: !showTestimonials()"), true);
+  const page = readFileSync("app/design-ideas/page.tsx", "utf8");
+  assert.equal(page.includes("they are not records of completed client projects."), true);
   assert.equal(page.includes("Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes."), true);
-  assert.equal(page.includes("Explore cabinet design concepts for Treasure Valley homes."), false);
+  assert.match(readFileSync("next.config.js", "utf8"), /['"]\/testimonials['"]:\s*['"]\/design-ideas['"]/);
   const nav = readFileSync("shared/cabinetNav.ts", "utf8");
   const footer = readFileSync("components/Footer.tsx", "utf8");
   const navigation = readFileSync("components/Navigation.tsx", "utf8");

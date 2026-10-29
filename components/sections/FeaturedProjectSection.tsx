@@ -92,7 +92,7 @@ export function FeaturedProjectSection() {
       <div className="ed-shell py-10">
         <Reveal delay={120}>
           <Button variant="brandOutline" asChild>
-            <Link href="/testimonials">View projects and reviews</Link>
+            <Link href="/design-ideas">Browse design ideas</Link>
           </Button>
         </Reveal>
       </div>

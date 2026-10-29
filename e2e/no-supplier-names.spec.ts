@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -27,3 +28,5 @@ test("construction and installer render no supplier names", async ({ page }) => 
     for (const name of names) expect(html, path).not.toContain(name);
   }
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

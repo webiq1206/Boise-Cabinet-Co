@@ -15,7 +15,7 @@ export const ESTIMATOR_BRAND = {
   "email": "hello@boisecabinet.co",
   "phone": "(208) 477-1169",
   "ink": "#2C302F",
-  "paper": "#F7F5F3",
+  "paper": "#FBFAF6",
   "logo": "/brand/png/wordmark/light/boise-cabinet-co-wordmark-charcoal-accent-1200w.png",
   "font": "/fonts/p5-estimator-sans.ttf",
   "headingFont": "/fonts/p5-estimator-serif.ttf",

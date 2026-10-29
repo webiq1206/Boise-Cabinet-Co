@@ -56,7 +56,7 @@ const FAQS = [
   {
     question: "What are shaker cabinets?",
     answer:
-      "Shaker cabinets have a five-piece door with a flat, recessed center panel set inside a simple square frame. The look is clean, timeless, and the most requested cabinet door style in America, which is why it works in almost any kitchen or bath.",
+      "Shaker cabinets have a five-piece door with a flat, recessed center panel set inside a simple square frame. The look is clean, timeless, and one of the most requested cabinet door styles in Treasure Valley kitchens and baths.",
   },
   {
     question: "Are shaker cabinets still in style?",
@@ -71,7 +71,7 @@ const FAQS = [
   {
     question: "Are your shaker cabinets custom?",
     answer:
-      "Yes. Every shaker cabinet is built to order in our Meridian, Idaho shop and sized to your layout, with frameless (European) construction, dovetail drawers, and soft-close hardware standard.",
+      "Yes. Every shaker cabinet is built to order and sized to your layout, with frameless (European) construction, dovetail drawers, and soft-close hardware standard.",
   },
   {
     question: "Are shaker cabinets framed or frameless?",
@@ -116,11 +116,11 @@ export default function ShakerCabinetsPage() {
           title={<>
                   Custom shaker <em className="brc-accent text-accent">cabinets</em>
                 </>}
-          description={"Shaker is the most requested cabinet door in America: a flat, recessed panel inside a clean square frame that looks right in any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, in our Meridian, Idaho shop."}
+          description={"Shaker is a flat, recessed panel inside a clean square frame that looks right in almost any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, and install with our Treasure Valley crew."}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
-                  Get an estimate <ArrowRight className="h-4 w-4" />
+                  Request an estimate <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
@@ -197,7 +197,7 @@ export default function ShakerCabinetsPage() {
                 "Frameless options for more interior space and a clean, full-overlay look",
                 "Furniture-grade plywood boxes, not particle board",
                 "Soft-close options",
-                "Built to order and sized to your layout in Meridian, Idaho",
+                "Built to order and sized to your layout",
                 "Installed by our own Treasure Valley crew",
                 "Backed by a written workmanship guarantee",
               ].map((item) => (
@@ -243,7 +243,7 @@ export default function ShakerCabinetsPage() {
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>
                   <Link href="/estimate">
-                    Get an estimate <ArrowRight className="h-4 w-4" />
+                    Request an estimate <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
                 <Button

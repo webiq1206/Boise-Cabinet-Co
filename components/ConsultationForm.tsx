@@ -32,7 +32,7 @@ import { ConsultationFields } from "@/components/consultation/ConsultationFields
  * unified quote flow renders {@link ConsultationFields} directly as its final
  * step, so all of the contact UI lives in one place.
  */
-export function ConsultationForm() {
+export function ConsultationForm({ compact = false }: { compact?: boolean } = {}) {
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [combinedEstimate, setCombinedEstimate] = useState<CombinedStoredEstimate | null>(null);
   const [estimateRooms, setEstimateRooms] = useState<EstimateSelections[] | undefined>(undefined);
@@ -163,6 +163,7 @@ export function ConsultationForm() {
       resolvedProjectType={resolvedProjectType}
       defaultProjectType={defaultProjectType}
       defaultMessage={defaultMessage}
+      compact={compact}
     />
   );
 }

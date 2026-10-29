@@ -1,9 +1,10 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test, type Page } from "@playwright/test";
 
 test.describe.configure({ timeout: 120_000 });
 
 const PAGES = [
-  { path: "/cabinets/kitchen", headline: "Kitchen cabinets near me" },
+  { path: "/cabinets/kitchen", headline: "Kitchen cabinets in Boise, Idaho" },
   { path: "/cabinets/built-ins", headline: "Built-In cabinets" },
   { path: "/cabinets", headline: "Cabinets by room" },
   { path: "/estimate", headline: "Get an Estimate" },
@@ -44,7 +45,7 @@ async function assertAboveFold(page: Page, width: number, height: number, headli
 
   if (path === "/estimate") {
     await expect(page.locator("#estimate-request")).toBeVisible();
-    await expect(page.getByText("Prefer the guided project flow?")).toBeVisible();
+    await expect(page.getByText("Prefer a step-by-step planning range?")).toBeVisible();
 
   }
 }
@@ -66,3 +67,5 @@ test.describe("first screen at 360x740", () => {
     });
   }
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));
