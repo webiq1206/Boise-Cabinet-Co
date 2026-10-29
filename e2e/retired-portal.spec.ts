@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 
 /**
@@ -34,3 +35,5 @@ test.describe("Retired subcontractor portal", () => {
     await expect(page.getByRole("link", { name: /partner login/i })).toHaveCount(0);
   });
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

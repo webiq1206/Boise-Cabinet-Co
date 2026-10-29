@@ -61,7 +61,7 @@ export function InteriorEstimateLink({label='Request a quote'}:{label?:string}) 
 }
 
 /** The approved split-detail and editorial-introduction compositions.
- *  Pass uncropped when the hero shows people — never object-fit:cover people photos. */
+ *  Pass uncropped when the hero shows people - never object-fit:cover people photos. */
 export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className='',uncropped=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string;uncropped?:boolean}) {
   return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${uncropped?' interior-hero-uncropped':''}${className?` ${className}`:''}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>

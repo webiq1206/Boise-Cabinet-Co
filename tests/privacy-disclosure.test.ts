@@ -107,7 +107,7 @@ test("every brand-owned form field sets data-clarity-mask=\"True\"", () => {
   const walk = (dir: string) => {
     for (const name of readdirSync(dir)) {
       const path = join(dir, name);
-      if (name === "node_modules" || name === ".next" || name === "tests" || name === "e2e") continue;
+      if (name === "node_modules" || name === ".next" || name === "tests" || name === "e2e" || ["p5-verification", "p5-mobile-seo-verification", "branding-ci-evidence", "test-results", "playwright-report"].includes(name)) continue;
       const info = statSync(path);
       if (info.isDirectory()) {
         walk(path);

@@ -8,11 +8,13 @@ export async function isolateFixtureRequests(page: Page) {
   });
 }
 
+/** The optional public planner is distinct from /estimate/scope's retained engine. */
 export async function openGuidedRequest(page: Page) {
   await expect(page.locator('#estimate-request form')).toBeVisible();
-  const summary = page.locator('summary', {hasText: 'Prefer the guided project flow?'});
+  const summary = page.locator('summary', {hasText: 'Prefer a step-by-step planning range?'});
   await expect(summary).toBeVisible();
   await summary.focus();
   await summary.press('Enter');
   await expect(summary.locator('..')).toHaveAttribute('open', '');
+  await expect(summary.locator('..').locator('[data-estimate-wizard]')).toBeVisible();
 }

@@ -110,7 +110,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
         {showViewAll && (
           <div className="mt-12">
             <Button variant="brandOutline" asChild>
-              <Link href="/testimonials">Read all reviews</Link>
+              <Link href="/design-ideas">Browse design ideas</Link>
             </Button>
           </div>
         )}

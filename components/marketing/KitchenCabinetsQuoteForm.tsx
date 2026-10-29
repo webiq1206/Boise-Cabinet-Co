@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
@@ -406,7 +407,7 @@ export function KitchenCabinetsQuoteForm({
       />
 
       <p className="text-sm leading-snug text-muted-foreground">
-        No obligation. We reply within one business day. See our{" "}
+        No obligation. We reply within one business day.{" "}<PreferToTextLine /> See our{" "}
         <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">
           Privacy Policy
         </Link>

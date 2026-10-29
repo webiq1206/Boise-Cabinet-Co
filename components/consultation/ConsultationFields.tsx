@@ -593,47 +593,6 @@ export function ConsultationFields({
     }
   }, [mutation.isError]);
 
-  if (success) {
-    return (
-      <div
-        className="flex flex-col items-start py-8 space-y-5"
-        data-testid="consultation-success"
-        data-clarity-mask="True"
-        aria-live="polite"
-        role="status"
-      >
-        <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
-          <CheckCircle2 className="h-5 w-5 text-accent" />
-        </div>
-        <h3 className="font-serif text-2xl text-foreground">
-          Your request has been received.
-        </h3>
-        {/* The reveal: the real planning range, shown only now that contact
-            details are in. Every surface before this point carried a mask. */}
-        {showEstimateSummary &&
-          (combinedEstimate ? (
-            <CombinedEstimateSummaryCard estimate={combinedEstimate} />
-          ) : (
-            estimate && <EstimateSummaryCard estimate={estimate} />
-          ))}
-        <p className="text-base leading-relaxed text-muted-foreground">
-          Your request is saved for our team to review. Email delivery and follow-up are not confirmed on this page. <PreferToTextLine />
-        </p>
-        <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
-          <li>Our team reviews your project details</li>
-          <li>We discuss the scope and any information needed for a quote</li>
-          <li>Pricing and scheduling are confirmed separately; this request does not book installation</li>
-        </ol>
-        <p className="text-sm text-muted-foreground">
-          Need us sooner?{" "}
-          <a href={SITE_CONFIG.phoneHref} className="text-primary font-medium hover:underline">
-            Call {SITE_CONFIG.phone}
-          </a>
-        </p>
-      </div>
-    );
-  }
-
   const projectTypeLocked = Boolean(projectTypeFromEstimate);
   const compactSteps = useMemo(
     () => buildCompactSteps(requireDetails, projectTypeLocked),
@@ -748,11 +707,52 @@ export function ConsultationFields({
     onCompactExit?.();
   }
 
+  if (success) {
+    return (
+      <div
+        className="flex flex-col items-start py-8 space-y-5"
+        data-testid="consultation-success"
+        data-clarity-mask="True"
+        aria-live="polite"
+        role="status"
+      >
+        <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
+          <CheckCircle2 className="h-5 w-5 text-accent" />
+        </div>
+        <h3 className="font-serif text-2xl text-foreground">
+          Your request has been received.
+        </h3>
+        {/* The reveal: the real planning range, shown only now that contact
+            details are in. Every surface before this point carried a mask. */}
+        {showEstimateSummary &&
+          (combinedEstimate ? (
+            <CombinedEstimateSummaryCard estimate={combinedEstimate} />
+          ) : (
+            estimate && <EstimateSummaryCard estimate={estimate} />
+          ))}
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Your request is saved for our team to review. Email delivery and follow-up are not confirmed on this page. <PreferToTextLine />
+        </p>
+        <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
+          <li>Our team reviews your project details</li>
+          <li>We discuss the scope and any information needed for a quote</li>
+          <li>Pricing and scheduling are confirmed separately; this request does not book installation</li>
+        </ol>
+        <p className="text-sm text-muted-foreground">
+          Need us sooner?{" "}
+          <a href={SITE_CONFIG.phoneHref} className="text-primary font-medium hover:underline">
+            Call {SITE_CONFIG.phone}
+          </a>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <Form {...form}>
       {!compact && (
         <p className="text-sm text-muted-foreground mb-4">
-          Sending this does not book installation. We reply within one business day.
+          Sending this does not book installation. We reply within one business day.{" "}<PreferToTextLine />
         </p>
       )}
       {compact && (
@@ -1081,7 +1081,7 @@ export function ConsultationFields({
                     </div>
                   )}
                   <p className="px-3 pb-2 text-xs leading-snug text-muted-foreground">
-                    Free in-home visit. We reply within one business day.
+                    Free in-home visit. We reply within one business day.{" "}<PreferToTextLine />
                   </p>
                 </div>
               )}

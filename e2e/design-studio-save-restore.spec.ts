@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 
 test.describe("Design Studio save payload", () => {
@@ -71,3 +72,5 @@ test.describe("Design Studio tablet CTA", () => {
     ).toBeVisible();
   });
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

@@ -1,3 +1,4 @@
+import {isolateFixtureRequests} from './guided-fixture';
 import { expect, test } from "@playwright/test";
 
 /**
@@ -63,3 +64,5 @@ test.describe("Design Studio autosave & summary", () => {
     await expect(page.getByText(/Your selections carry into the project estimator/).first()).toBeVisible();
   });
 });
+
+test.beforeEach(async ({page}) => isolateFixtureRequests(page));

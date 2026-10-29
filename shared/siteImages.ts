@@ -4,7 +4,7 @@
 
 export const MARKETING_IMAGES = {
   heroHome: "/images/marketing/hero-home.webp",
-  // Project photography only — no staged customer-meeting / people stock.
+  // Project photography only - no staged customer-meeting / people stock.
   heroAbout: "/images/marketing/great-room-oak-built-ins.webp",
   heroContact: "/images/marketing/bath-white-oak-vanity.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",

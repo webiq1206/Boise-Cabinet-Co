@@ -1,3 +1,4 @@
+import { preferToTextLine } from "@/shared/siteConfig";
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, publicQa, publicText, REGISTERED_BONDED_INSURED, showFoundingYear } from "@/shared/claims";
 
 /**
@@ -129,11 +130,11 @@ const ROOMS: Record<string, Phase1Answer> = {
 const CONTACT: Phase1Answer = {
   heading: "What happens when you reach out?",
   paragraph:
-    `Call, text, or send the form. We reply within one business day to schedule a free in-home design consultation. ${IDENTITY} ${IDAHO_REGISTERED_CONTRACTOR}. Service area: ${AREA}.`,
+    `Call or send project details to Boise Cabinet Co. We reply within one business day to schedule a free in-home design consultation. ${preferToTextLine()} ${IDAHO_REGISTERED_CONTRACTOR}. Serving the Treasure Valley.`,
   faqs: [
     {
       question: "How do I request a design consultation?",
-      answer: "Call or text (208) 477-1169, or send the contact form. We reply within one business day.",
+      answer: `Call or text (208) 477-1169, or send the contact form. We reply within one business day. ${preferToTextLine()}`,
     },
     {
       question: "What cabinet construction should I expect?",

@@ -21,7 +21,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
 import { CTA_ESTIMATE } from '@/shared/ctaCopy';
-import { SITE_CONFIG } from '@/shared/siteConfig';
+import { SITE_CONFIG, preferToTextLine } from '@/shared/siteConfig';
 import { CONSULT_BULLETS } from '@/shared/siteContent';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Check,ChevronRight,Mail,MapPin,MessageSquare,Phone } from 'lucide-react';
@@ -32,7 +32,7 @@ import type { ReactNode } from 'react';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We reply within one business day.';
+  `Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`;
 
 function HeroBreadcrumbs() {
   const items = [
@@ -142,7 +142,7 @@ export default function ContactPage() {
     generateWebPageSchema({
       title: `Contact ${SITE_CONFIG.name}`,
       description:
-        'Schedule a free design consultation. Call or text our team, or send project details through the form. We reply within one business day.',
+        `Schedule a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`,
       url: '/contact',
     }),
     generateBreadcrumbSchema([
@@ -169,7 +169,8 @@ export default function ContactPage() {
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-6">
               Schedule a free design consultation, call or text our team, or send project details
-              through the form. We reply within one business day.
+              through the form. We reply within one business day.{" "}
+              <PreferToTextLine className="block mt-2 text-sm" />
             </p>
             <a
               href={SITE_CONFIG.phoneHref}

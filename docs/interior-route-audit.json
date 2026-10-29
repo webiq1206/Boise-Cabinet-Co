@@ -2,7 +2,7 @@
   {
     "route": "/about",
     "file": "app/about/page.tsx",
-    "seoSignature": "7a9c426013389cbfed507e31f3755d58d8adae0c75fb571e1a557f60de33d9d2"
+    "seoSignature": "b9980d4c1eb26351a439f43c25cab026862f4d444c722ba06dcdd1a867b9281c"
   },
   {
     "route": "/accessories",
@@ -27,12 +27,12 @@
   {
     "route": "/builders",
     "file": "app/builders/page.tsx",
-    "seoSignature": "bdb6e068487c834581b86fee8a39905b3b6dbd308336604a116b06f5effc92bc"
+    "seoSignature": "fa78306a53a992d8748c0ceb89570244a6875d79a34927dfcc473f80cda17850"
   },
   {
     "route": "/cabinets/[room]",
     "file": "app/cabinets/[room]/page.tsx",
-    "seoSignature": "62900bc938db5a31477e1d44486a17c27012248a87d55d2ebf4804e8530ee694"
+    "seoSignature": "33fe038ea307f311932a1b5fb098dd364ef06e12161f8b2f441abd9ccc9a428e"
   },
   {
     "route": "/cabinets",
@@ -52,12 +52,12 @@
   {
     "route": "/construction",
     "file": "app/construction/page.tsx",
-    "seoSignature": "77292c3444da8316c313496f5e9faf31cf1e5fe4fd825dc80b4f4f33eb403872"
+    "seoSignature": "2bafa9801ef5ae7cdf3aa367cddda06a3919d1c3ae1dc61b0a7687585f2b6c9d"
   },
   {
     "route": "/contact",
     "file": "app/contact/page.tsx",
-    "seoSignature": "167c60bf027d9c98d2c9655917d151704bf8ab3c749fea485f361c23eba541fa"
+    "seoSignature": "e5f92aac38ea24abbcbae793e169815c29f74f4a40c7630a12f9ff6dbb9d2a42"
   },
   {
     "route": "/guides/[slug]",
@@ -115,13 +115,13 @@
     "seoSignature": "d07c49495a574b9b6b1ae337a57b9c28627e935264e49c9627c4942f2c6ee999"
   },
   {
-    "route": "/testimonials",
-    "file": "app/testimonials/page.tsx",
-    "seoSignature": "97285fbf35047d4e5f5cffb7856cc5fea3080c2e08893b21b9af51fc238a5256"
+    "route": "/design-ideas",
+    "file": "app/design-ideas/page.tsx",
+    "seoSignature": "d2b9cb0c0f6d84354406598fad26b5c55b86b26ca639dba819d80fd85ccc1f48"
   },
   {
     "route": "/warranty",
     "file": "app/warranty/page.tsx",
-    "seoSignature": "63ac8ee53695c30999ac0eae008862a80afb144cec849642214854d367b65eb7"
+    "seoSignature": "355ead76a42e49eff9eea15682a54528afc5947f7538436888aa5da4c40894a2"
   }
 ]

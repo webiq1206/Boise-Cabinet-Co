@@ -1,10 +1,11 @@
-import {isolateFixtureRequests, openGuidedRequest} from './guided-fixture';
+import {verifyCabinetEntry} from '../scripts/lib/shortBrandEntry.mjs';
+import {isolateFixtureRequests} from './guided-fixture';
 import {expect,test} from '@playwright/test';
 test.beforeEach(async ({page}) => isolateFixtureRequests(page));
-for (const path of ['/#calculator','/estimate','/estimate/scope']) {
+for (const path of ['/','/estimate','/estimate/scope']) {
  test(`one project input at ${path}`,async({page})=>{
   await page.goto(path);
-  if(path==='/estimate')await openGuidedRequest(page);
+  if(path!=='/estimate/scope'){await verifyCabinetEntry(page,path);return;}
   const estimator=page.locator('[data-p5-estimator]').first();
   await expect(estimator.getByLabel('Tell us about your project',{exact:true})).toBeVisible({timeout:30000});
   await expect(estimator.getByRole('button',{name:'Send message',exact:true})).toBeVisible();
