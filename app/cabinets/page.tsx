@@ -51,6 +51,9 @@ export default function CabinetsHubPage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={CABINETS_HUB_HEADLINE}
+          // Owner requirement (e2e/mobile-above-fold.spec.ts): call and text sit
+          // directly under the headline so they are in the first phone screen.
+          actions={<AboveFoldActions />}
           description={catalogDescription(
             "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
           )}
@@ -60,7 +63,6 @@ export default function CabinetsHubPage() {
               Request a quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
-          <AboveFoldActions />
         </CinematicHero>
         <Section surface="dark" spacing="sm">
           <div className="ed-shell">
