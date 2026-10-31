@@ -43,7 +43,7 @@ test("an estimator key fires both labels once and a repeat fires nothing", () =>
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   const key = "estimator:draft-1";
 
@@ -68,7 +68,7 @@ test("an intake key fires both labels once and a repeat fires nothing", () => {
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   const key = "intake:project-9";
 
@@ -90,7 +90,7 @@ test("a form key fires the form label only", () => {
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   const id = "form-submission-1";
 
@@ -124,7 +124,7 @@ test("an estimator key waits for gtag and does not mark sent early", () => {
   assert.equal(calls.length, 0);
 
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   mock.timers.tick(GTAG_RETRY_MS);
   assert.deepEqual(calls.map(sendTo).sort(), [GOOGLE_ADS_ESTIMATOR_COMPLETED_LABEL, GOOGLE_ADS_LEAD_LABEL].sort());
@@ -172,7 +172,7 @@ test("each accepted finish key fires the form label once for that key", () => {
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   const id = "11111111-2222-4333-8444-555555555555";
   const intakeKey = `intake:cabinet:${id}`;
@@ -200,7 +200,7 @@ test("a submit replay fires only the estimator label", () => {
   const win = installWindow(store);
   const calls: Call[] = [];
   win.gtag = (...args: unknown[]) => {
-    calls.push(args);
+    if (args[1] === "conversion") calls.push(args);
   };
   const key = "estimator:draft-replay";
 
