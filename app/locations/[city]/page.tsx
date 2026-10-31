@@ -43,18 +43,30 @@ export function generateStaticParams() {
   return CITIES.map((c) => ({ city: c.slug }));
 }
 
+/**
+ * Cities whose retired /guides/{city}-cabinet-guide earned more Search Console
+ * impressions than the location page itself (1 June to 29 October 2026:
+ * Nampa guide 490 at position 12.1 vs /locations/nampa 379 at 19.6). The
+ * guide's description moves here with its 308, so the phrasing that ranked
+ * comes along with the URL that now serves it.
+ */
+const GUIDE_DESCRIPTION_CITIES = new Set(["nampa"]);
+
 export async function generateMetadata(props: { params: Promise<{ city: string }> }) {
   const params = await props.params;
   const city = getCityBySlug(params.city);
   if (!city) return {};
   const copy = bot05Location(city.slug);
+  const guide = GUIDE_DESCRIPTION_CITIES.has(city.slug)
+    ? GUIDE_PAGES.find((g) => g.guideType === "location" && g.linkedCities?.includes(city.slug))
+    : undefined;
   return withBrandPageMetadata(await (buildPageMetadata({
     kind: "page",
     path: locationPath(city.slug),
     cityName: city.name,
     citySlug: city.slug,
     titleOverride: copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`,
-    descriptionOverride: copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
+    descriptionOverride: copy?.description ?? guide?.metaDescription ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
   })), "/locations/[city]");
 }
 
@@ -301,8 +313,8 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               <div className="ed-split ed-split-narrow">
                 <div className="lg:sticky lg:top-28 lg:self-start">
                   <SectionHeader
-                    eyebrow="Local planning guide"
-                    title={<>Planning a project in {city.name}</>}
+                    eyebrow={`Planning a project in ${city.name}`}
+                    title={<>{city.name} custom cabinet guide</>}
                     align="left"
                     className="mb-0"
                   />

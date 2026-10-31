@@ -48,7 +48,8 @@ export const THIN_POST_META: Record<string, { seoTitle?: string; metaDescription
     metaDescription:
       'Walk-in pantry design: layout basics, shelving, counters and appliance garages, and pantry cabinet walls for kitchens where a walk-in does not fit.',
   },
-  'bathroom-vanity-layout-guide': { seoTitle: 'Bathroom Vanity Layout Guide | Clearances' },
+  // bathroom-vanity-layout-guide keeps its title: 19 impressions at 11.7 in
+  // Search Console (June to October 2026), too close to page one to reword.
   'multi-room-cabinet-planning': { seoTitle: 'Multi-Room Cabinet Planning | One Plan' },
   // Was "Outdoor Kitchen Cabinets Boise", the exact query /cabinets/outdoor owns.
   'outdoor-kitchen-cabinets-boise': { seoTitle: 'Outdoor Cabinet Planning | Weather, Cost' },
