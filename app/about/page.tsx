@@ -1,5 +1,7 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Section } from '@/components/marketing';
+import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
+import { HeroFollowOn } from '@/components/marketing/HeroFollowOn';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -10,7 +12,6 @@ AccordionContent,
 AccordionItem,
 AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
@@ -130,7 +131,7 @@ export default function AboutPage() {
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        <InteriorHero uncropped layout="editorial" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho">
+        <InteriorHero uncropped layout="editorial" className="interior-hero-fit" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -140,22 +141,31 @@ export default function AboutPage() {
               About Boise Cabinet{' '}
               <em className="brc-accent text-accent">Co</em>
             </h1>
-            <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
-              <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
+            {/* One support line. The rest of this paragraph, the registration line
+                and the collections link follow directly below the photograph. */}
+            <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed">
+              Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co.
             </p>
-            <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              {IDAHO_REGISTERED_CONTRACTOR}. Insured; certificate on request. {CABINET_WORKMANSHIP_WARRANTY}.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap [&>*]:w-full sm:[&>*]:w-auto mb-8">
+            <div className="interior-hero-cta">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
-              <Button asChild variant="heroOutline">
-                <Link href="/catalog">{CTA_EXPLORE_COLLECTIONS}</Link>
-              </Button>
+              <AboveFoldActions />
             </div>
           </InteriorHero>
+
+        <HeroFollowOn>
+          <p>
+            It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
+            <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
+          </p>
+          <p>
+            {IDAHO_REGISTERED_CONTRACTOR}. Insured; certificate on request. {CABINET_WORKMANSHIP_WARRANTY}.
+          </p>
+          <p>
+            <Link href="/catalog" className="underline underline-offset-2">{CTA_EXPLORE_COLLECTIONS}</Link>
+          </p>
+        </HeroFollowOn>
 
         <Section divider>
           <div className="container px-4 max-w-3xl">

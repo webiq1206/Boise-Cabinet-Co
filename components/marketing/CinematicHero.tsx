@@ -13,7 +13,7 @@ interface CinematicHeroProps {
   eyebrow?: string;
   title: React.ReactNode;
   description?: React.ReactNode;
-  /** Links that must sit directly under the headline, before the description. */
+  /** The quiet call/text line. It follows the primary action in the CTA row. */
   actions?: React.ReactNode;
   className?: string;
   /** CTAs and anything else that sits under the description. */
@@ -46,9 +46,12 @@ export function CinematicHero({ image, alt, breadcrumbs, eyebrow, title, descrip
         </nav>
         {eyebrow && <p className="ed-eyebrow mt-8" style={{ color: "rgb(255 255 255 / 0.72)" }}>{eyebrow}</p>}
         <h1 className="ed-display ed-statement-display text-inverse-foreground">{title}</h1>
-        {actions}
         {description && <p className="ed-lede mt-8 max-w-[44ch] text-inverse-foreground/85">{description}</p>}
-        {children && <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 [&>*]:w-full sm:[&>*]:w-auto">{children}</div>}
+        {actions ? (
+          <div className="interior-hero-cta">{children}{actions}</div>
+        ) : (
+          children && <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 [&>*]:w-full sm:[&>*]:w-auto">{children}</div>
+        )}
       </InteriorHero>
   );
 }

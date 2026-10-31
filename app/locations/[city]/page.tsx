@@ -1,6 +1,8 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
+import { HeroFollowOn } from "@/components/marketing/HeroFollowOn";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { PhotoBreak } from "@/components/marketing/PhotoBreak";
@@ -13,6 +15,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { phase1LocationAnswer } from '@/lib/phase1Answers';
+import { splitLead } from '@/lib/heroLead';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
 generateBreadcrumbSchema,
@@ -106,6 +109,16 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // The guide's answer already opens the hero when there is no BOT-05 copy.
   const guideAnswer = copy ? guide?.quickAnswer : undefined;
   const faqs = [...visibleFaqs, ...(phaseAnswer?.faqs ?? [])];
+  // The hero keeps one support line (the first sentence). The rest of that
+  // paragraph, the BOT-05 subhead and the trust line follow directly below.
+  const heroLead = splitLead(
+    copy?.firstSentence ??
+      guide?.quickAnswer ??
+      `${SITE_CONFIG.name} designs, builds, and installs custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homeowners.`,
+  );
+  const heroFollowOn = [heroLead.rest, copy?.aboveFold, copy?.trustLine].filter(
+    (paragraph): paragraph is string => Boolean(paragraph),
+  );
   const pageTitle = copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`;
   const pageDescription = copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homes, ${countyLabel}.`;
   const localBusiness = generateLocalBusinessSchema(city.name);
@@ -131,7 +144,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Local hero */}
-        <InteriorHero layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
+        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
               items={[{ name: "Home", href: "/" }, { name: `${city.name}, Idaho` }]}
             />
@@ -152,29 +165,22 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   </>
                 )
               }
-              description={
-                copy?.firstSentence ??
-                guide?.quickAnswer ??
-                `${SITE_CONFIG.name} designs, builds, and installs custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homeowners.`
-              }
+              description={heroLead.lead}
             />
-            {copy?.aboveFold ? (
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{copy.aboveFold}</p>
-            ) : null}
-            {copy ? (
-              <p className="mt-3 text-sm text-foreground/80">{copy.trustLine}</p>
-            ) : null}
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
+            <div className="interior-hero-cta">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
-              <Button variant="brandOutline" asChild>
-                <a href={SITE_CONFIG.phoneHref}>
-                  <Phone className="h-4 w-4" /> {SITE_CONFIG.phone}
-                </a>
-              </Button>
+              <AboveFoldActions />
             </div>
           </InteriorHero>
+        {heroFollowOn.length > 0 && (
+          <HeroFollowOn>
+            {heroFollowOn.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </HeroFollowOn>
+        )}
 
         {phaseAnswer && (
           <Section divider>

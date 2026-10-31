@@ -51,14 +51,15 @@ export default function CabinetsHubPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
-          className="interior-hero-cabinets-hub"
+          className="interior-hero-cabinets-hub interior-hero-fit"
           image={MARKETING_IMAGES.cabinetsHero}
           alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={CABINETS_HUB_HEADLINE}
-          // Owner requirement (e2e/mobile-above-fold.spec.ts): call and text sit
-          // directly under the headline so they are in the first phone screen.
+          // Owner requirement (e2e/mobile-above-fold.spec.ts): call and text stay
+          // in the first phone screen. They now follow the one primary action as
+          // its quiet secondary line, and the hero copy comes first on phones.
           actions={<AboveFoldActions />}
           description={catalogDescription(
             "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",

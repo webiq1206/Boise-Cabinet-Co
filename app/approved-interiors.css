@@ -823,65 +823,6 @@
   outline: 3px solid var(--approved-accent, #659B9A);
   outline-offset: 3px;
 }
-@media (max-width: 700px) {
-  .approved-interior .interior-hero-above-fold {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 0;
-  }
-  .approved-interior .interior-hero-above-fold .interior-hero-copy {
-    order: 1;
-    align-self: stretch;
-    padding: 8px 6% 4px;
-  }
-  .approved-interior .interior-hero-above-fold .interior-hero-image {
-    order: 2;
-    min-height: 0;
-    height: 112px;
-    max-height: 16vh;
-  }
-  .approved-interior .interior-hero-above-fold .interior-hero-copy h1 {
-    font-size: 32px;
-    line-height: 1.08;
-    max-width: none;
-    margin: 4px 0 8px;
-  }
-  .approved-interior .interior-hero-above-fold .interior-hero-copy :is(.ed-eyebrow, .interior-eyebrow) {
-    margin-top: 6px;
-  }
-  .approved-interior .interior-hero-above-fold .interior-page-heading {
-    margin-top: 8px;
-  }
-  /* Cabinets hub: keep a readable room photo in the first mobile viewport. */
-  .approved-interior .interior-hero-cabinets-hub {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-  .approved-interior .interior-hero-cabinets-hub .interior-hero-image {
-    order: -1;
-    height: min(42vh, 280px);
-    min-height: 220px;
-    max-height: none;
-    width: 100%;
-  }
-  .approved-interior .interior-hero-cabinets-hub .interior-hero-copy {
-    order: 1;
-    padding: 28px 6% 20px;
-  }
-  /* Locations: photo participates in the first mobile viewport. */
-  .approved-interior.interior-locations .interior-hero-image {
-    order: -1;
-    height: min(46vh, 320px);
-    min-height: 220px;
-  }
-  .approved-interior.interior-locations .interior-hero-copy {
-    order: 1;
-    padding-top: 28px;
-  }
-}
-
 /* Owner hard rule (all breakpoints): never crop people out of photos. */
 .approved-interior.interior-about .interior-hero-uncropped .interior-hero-image,
 .approved-interior .interior-hero-uncropped .interior-hero-image--uncropped,
@@ -911,3 +852,133 @@
   object-position: center top !important;
 }
 
+
+/* ---------- Family plan Phase 3: page templates (Cabinet) ----------
+   Prefixed with the shell classes so these win over the earlier layers and
+   the later shared files without !important. */
+
+/* Type scale. One H1 and one H2 size for every interior template: H1 at most
+   64px, H2 28 to 44px so a section heading never outranks the page title.
+   (WAS H1 31 to 82px and H2 up to 72px, with homepage H2s above its H1.)
+   The homepage hero H1 is untouched; it moves to the family hero later. */
+.approved-shell.site-cabinet {
+  --cab-h1: clamp(34px, calc(1rem + 3.4vw), 64px);
+  --cab-h2: clamp(28px, calc(0.75rem + 2.4vw), 44px);
+  --ed-fs-h2: var(--cab-h2);
+  --ed-fs-h2-sm: var(--cab-h2);
+}
+.approved-shell.site-cabinet .approved-interior h1:not(.sr-only) {
+  font-size: var(--cab-h1);
+  line-height: 1.06;
+}
+.approved-shell.site-cabinet :is(.ed-h2, .ed-h2-sm):not(.sr-only),
+.approved-shell.site-cabinet .cabinet-approved h2:not(.sr-only) {
+  font-size: var(--cab-h2);
+  line-height: 1.08;
+}
+
+/* Measure. Running text stops at about 65 characters instead of crossing the
+   1,260px container (about, location and room pages). Article bodies keep
+   their own column. Centred bands keep their paragraphs centred. */
+.approved-shell.site-cabinet :where(.approved-interior) p {
+  max-width: 65ch;
+}
+.approved-shell.site-cabinet :where(.approved-interior) :where(.blog-content, .interior-article-grid, .interior-document-main) p {
+  max-width: none;
+}
+.approved-shell.site-cabinet :where(.approved-interior) :where(.text-center) p {
+  margin-inline: auto;
+}
+
+/* Fitted hero (rooms, locations, /cabinets, about, contact, installation):
+   one support line, one primary and the quiet call/text line, so the primary
+   sits inside the first screen at 1280x720 and 1440x900 and above the mobile
+   bar at 360x640 and 390x844. */
+.approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy h1 {
+  margin: 16px 0 0;
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-page-heading .ed-lede,
+.approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy h1 + p:not(.sr-only) {
+  margin-top: 20px;
+}
+.approved-shell.site-cabinet .interior-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 28px;
+}
+.approved-shell.site-cabinet .interior-hero-cta .interior-contact-actions {
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  /* Copy first on every phone hero, so the headline and the action are the
+     first screen; the photograph follows at a capped height. */
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy {
+    order: 1;
+    align-self: stretch;
+    padding: 16px 6% 28px;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-image {
+    order: 2;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit:not(.interior-hero-uncropped) .interior-hero-image {
+    width: 100%;
+    min-height: 0;
+    max-height: none;
+    height: clamp(180px, 32svh, 260px);
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-page-heading {
+    margin-top: 4px;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy :is(.ed-eyebrow, .interior-eyebrow, .brc-label) {
+    margin-top: 8px;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy h1 {
+    margin-top: 10px;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-page-heading .ed-lede,
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit .interior-hero-copy h1 + p:not(.sr-only) {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .approved-shell.site-cabinet .interior-hero-cta {
+    gap: 4px 16px;
+    margin-top: 20px;
+  }
+}
+
+/* The first section under a fitted hero: what the hero used to say beyond its
+   support line, word for word, at the reading measure. */
+.approved-shell.site-cabinet .hero-follow-on-body > p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: hsl(var(--foreground) / 0.9);
+}
+.approved-shell.site-cabinet .hero-follow-on-body > p + p {
+  margin-top: 16px;
+}
+
+/* /compare on phones: each table row becomes a label and value list inside
+   its card instead of a four-column table scrolling sideways (the stacking
+   itself is the shared .article-table-scroll rule in design-refresh.css). */
+@media (max-width: 640px) {
+  .approved-shell.site-cabinet .compare-table.article-table-scroll {
+    padding: 4px 16px;
+  }
+  .approved-shell.site-cabinet .compare-table.article-table-scroll table[data-stack] tr:first-child {
+    border-top: 0;
+  }
+  .approved-shell.site-cabinet .compare-table.article-table-scroll table[data-stack] tr:last-child {
+    border-bottom: 0;
+  }
+  .approved-shell.site-cabinet .compare-table.article-table-scroll table[data-stack] :is(td, th) {
+    position: static;
+  }
+}
