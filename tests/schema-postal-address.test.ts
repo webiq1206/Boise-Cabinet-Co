@@ -80,6 +80,11 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
   assert.equal(parent["@id"], "https://p5homeco.com/#organization");
   assert.equal(parent["@id"], P5_ORG_ID);
   assert.equal(parent.url, "https://p5homeco.com");
+  // The family's one social profile is P5 Home Co's Facebook page: on the
+  // parent node only, never in this brand's own sameAs.
+  assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, ["https://www.facebook.com/1228704823655951"]);
+  assert.equal(JSON.stringify(home.sameAs).includes("facebook.com"), false);
+  assert.equal(JSON.stringify(organization.sameAs ?? []).includes("facebook.com"), false);
 
   for (const schema of [home, organization]) {
     const contact = schema.contactPoint as {

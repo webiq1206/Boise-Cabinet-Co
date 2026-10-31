@@ -55,6 +55,12 @@ function doorStylesFor(category: string): string[] {
   ).map((style) => style.name);
 }
 
+/** "Six door styles" reads better as a heading than "6", and e2e pins it. */
+function countWord(n: number): string {
+  const words = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
+  return words[n] ?? String(n);
+}
+
 function drawerFront(notes: string | undefined): string {
   const match = notes?.match(/Drawer fronts:\s*([^.]+)\./);
   return match ? match[1].trim() : "Slab front";
@@ -223,7 +229,7 @@ export default function ComparePage() {
           <div className="ed-shell">
             <SectionHeader
               eyebrow="Door styles"
-              title={<>{DOOR_STYLES.length} door styles compared</>}
+              title={<>{countWord(DOOR_STYLES.length)} door styles compared</>}
               description="Every door style is available on every cabinet we build. The finish families each profile accepts, and the drawer front it pairs with, are listed below."
               align="left"
               className="mb-8"
