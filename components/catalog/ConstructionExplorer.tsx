@@ -10,7 +10,7 @@ export function ConstructionExplorer() {
       <SectionHeader
         eyebrow="Cabinet construction"
         title={<>How our cabinets are built</>}
-        description={`${c.boxStyle}. Built to order for your Treasure Valley home.`}
+        description={`${c.boxStyle.charAt(0).toUpperCase()}${c.boxStyle.slice(1)}. Built to order for your Treasure Valley home.`}
         align="left"
       />
       <div className="relative w-full aspect-[5/3] max-w-2xl overflow-hidden rounded-lg border bg-card">

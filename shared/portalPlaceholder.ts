@@ -5,7 +5,7 @@ export const PLACEHOLDER_PROJECT_ID = "demo-001";
 export const PLACEHOLDER_PROJECT = {
   id: PLACEHOLDER_PROJECT_ID,
   title: "Kitchen Cabinet Refresh",
-  address: "1842 N Harrison Blvd",
+  address: "123 Example St",
   city: "Boise",
   state: "ID",
   currentStage: "design_review" as ProjectStage,

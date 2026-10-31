@@ -104,7 +104,7 @@ export default function AdaCanyonPermitFlowPage() {
               to county permits.
             </p>
             <p>
-              cabinet design and installation contracts should state who submits plans, pays fees, and schedules
+              Cabinet design and installation contracts should state who submits plans, pays fees, and schedules
               inspections. Cosmetic work without layout changes may not need the full path below.
             </p>
           </div>

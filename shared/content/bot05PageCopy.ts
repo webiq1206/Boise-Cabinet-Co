@@ -79,17 +79,17 @@ export const BOISE_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "01",
     title: "Free design consultation",
-    desc: "Free design consultation at your home.",
+    desc: "We visit your home, measure the space, and talk through how you use it.",
   },
   {
     number: "02",
     title: "Selections",
-    desc: "Selections for layout, door style, finish, and hardware.",
+    desc: "Choose the layout, door style, finish, and hardware with our help.",
   },
   {
     number: "03",
     title: "Proposal and deposit",
-    desc: `Written proposal and ${DEPOSIT_TO_LOCK_ORDER}.`,
+    desc: `You review a written proposal, then place a ${DEPOSIT_TO_LOCK_ORDER}.`,
   },
   {
     number: "04",
@@ -99,7 +99,7 @@ export const BOISE_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "05",
     title: "Delivery and install",
-    desc: "Delivery, professional installation, and a final walkthrough.",
+    desc: "Our crew delivers and installs your cabinets, then walks the finished work with you.",
   },
 ];
 
@@ -107,7 +107,7 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "01",
     title: "Free design consultation",
-    desc: "Free design consultation.",
+    desc: "We visit your home, measure the kitchen, and talk through how you cook and store.",
   },
   {
     number: "02",
@@ -117,7 +117,7 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "03",
     title: "Approval and deposit",
-    desc: `Approval and ${DEPOSIT_TO_LOCK_ORDER}.`,
+    desc: `You approve the written proposal and place a ${DEPOSIT_TO_LOCK_ORDER}.`,
   },
   {
     number: "04",
@@ -127,7 +127,7 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "05",
     title: "Delivery, install, and walkthrough",
-    desc: "Delivery, install, and walkthrough.",
+    desc: "Our crew delivers and installs the cabinets, then walks the finished kitchen with you.",
   },
 ];
 
@@ -159,7 +159,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
       "Custom cabinets in Boise start with a free in-home design consultation, then a clear path from selections to professional installation.",
     aboveFold: HERO_SUBHEAD,
     trustLine: TRUST_LINE,
-    ctaLabel: "Book a free in-home design consultation",
+    ctaLabel: "Request a quote",
     sections: [
       {
         heading: "Custom cabinets for Boise homes",
@@ -176,7 +176,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
       {
         heading: "Cities we serve",
         paragraphs: [
-          "Boise is the primary focus of this page. We also serve Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Use the Meridian and Middleton location pages when your search is city-specific.",
+          "We work across Boise and the Treasure Valley, including Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Each city has its own page with local planning notes.",
         ],
       },
       {
@@ -208,7 +208,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     firstSentence:
       "Custom cabinetry in Meridian, ID starts with a free in-home design consultation, then cabinets built to your layout and professional installation.",
     trustLine: TRUST_LINE,
-    ctaLabel: "Book a free in-home design consultation",
+    ctaLabel: "Request a quote",
   },
   middleton: {
     title: "Custom Cabinetry Middleton",
@@ -219,7 +219,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     firstSentence:
       "Custom cabinets in Middleton, ID start with a free in-home design consultation for kitchens, pantries, mudrooms, and storage along the Highway 44 corridor.",
     trustLine: TRUST_LINE,
-    ctaLabel: "Book a free in-home design consultation",
+    ctaLabel: "Request a quote",
   },
   kuna: {
     description:
@@ -229,7 +229,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     firstSentence:
       "Kitchen cabinets and pantry storage in Kuna are available from Boise Cabinet Co, including upgrades on newer homes with builder-grade packages.",
     trustLine: TRUST_LINE,
-    ctaLabel: "Book a free in-home design consultation",
+    ctaLabel: "Request a quote",
     links: [
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },
       { href: "/cabinets/pantry", label: "Pantry cabinets" },
@@ -266,7 +266,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
       "Kitchen cabinets in Boise, Idaho should mean a local team that designs to your measurements, builds to your layout, and installs with our Treasure Valley crew.",
     aboveFold: HERO_SUBHEAD,
     trustLine: TRUST_LINE,
-    ctaLabel: "Book a free design consultation",
+    ctaLabel: "Request a quote",
     sections: [
       {
         heading: "Kitchen cabinets for Boise and the Treasure Valley",
@@ -275,15 +275,15 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
         ],
       },
       {
-        heading: "Styles and storage without a SKU dump",
+        heading: "Door styles, finishes, and storage",
         paragraphs: [
           "Choose from available door styles and finishes in the catalog, including popular shaker and slab looks. Soft-close hardware and frameless European-style boxes are available on many packages. Focus the plan on drawers for utensils, tall pantry storage, and wall cabinets that match your ceiling height.",
         ],
       },
       {
-        heading: "Pantry path from the kitchen page",
+        heading: "Planning a pantry too?",
         paragraphs: [
-          "If your main goal is a walk-in or tall pantry, use the pantry page for walk-in and tall pantry detail. The kitchen page links there so pantry-intent visitors are not stuck on a general kitchen overview.",
+          "If a walk-in or tall pantry is the main goal, our pantry cabinets page covers walk-in layouts, tall reach-in runs, and pull-out access in more detail.",
         ],
       },
       {
@@ -319,7 +319,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     aboveFold:
       "Pantry projects usually mean better bulk storage and fewer deep shelves you cannot reach. We help you choose walk-in or tall pantry layouts, build cabinets to your measurements, and install them across the Treasure Valley.",
     trustLine: TRUST_LINE,
-    ctaLabel: "Tell us about your pantry layout",
+    ctaLabel: "Request a quote",
     sections: [
       {
         heading: "Walk-in and tall pantry storage",

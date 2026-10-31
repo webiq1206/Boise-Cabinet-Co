@@ -62,7 +62,7 @@ async function main() {
     name: "Demo Customer",
     email: "demo@boisecabinet.co",
     phone: "2085550100",
-    address: "1842 N Harrison Blvd",
+    address: "123 Example St",
     city: "Boise",
     propertyType: "single-family",
     serviceType: "kitchen-cabinets",

@@ -68,7 +68,6 @@ export function RoomCatalogShowcase({
               <CatalogVisualCard
                 key={finish.slug}
                 name={finish.name}
-                description={finish.oscName ?? undefined}
                 imageSrc={imgs.swatch}
                 imageAlt={`${finish.name} finish swatch`}
                 fallbackColor={finish.hexColor}
@@ -96,7 +95,7 @@ export function RoomCatalogShowcase({
           Product catalog
         </Link>
         <Link href="/estimate" className="tap-target text-accent hover:underline underline-offset-2">
-          Request an estimate
+          Request a quote
         </Link>
       </div>
     </div>
