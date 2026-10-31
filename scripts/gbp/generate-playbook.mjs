@@ -306,12 +306,7 @@ ${qaBlocks}
 
 ### Step 22: Link your social accounts
 
-| Platform | URL |
-|---|---|
-| Facebook | ${GBP_PROFILE.social.facebook} |
-| Instagram | ${GBP_PROFILE.social.instagram} |
-
-Make sure both pages use the same business name, phone, and website before linking.
+Boise Cabinet Co has no social accounts of its own. P5 Home Co's Facebook page and its single Google Business Profile cover every brand, so there is nothing brand-specific to link here.
 
 ### Step 23: Enable messaging
 

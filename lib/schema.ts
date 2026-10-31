@@ -59,20 +59,28 @@ function contractorCredential() {
 }
 
 /**
- * Postal address for the Meridian service-area business record.
- * Copied from backlink-engine/config.ts. This is not a public showroom:
- * the footer prints the same street with the not-a-storefront line.
+ * Postal address for the Meridian service-area business record, read from
+ * BUSINESS_INFO (lib/seo.ts) so schema and the visible NAP have one source.
+ * This is not a public showroom: the footer prints the same street with the
+ * not-a-storefront line.
  */
 function serviceAreaPostalAddress() {
   return {
     '@type': 'PostalAddress' as const,
-    streetAddress: '4031 W Wapoot St' as const,
-    addressLocality: 'Meridian' as const,
-    addressRegion: 'ID' as const,
-    postalCode: '83646' as const,
-    addressCountry: 'US' as const,
+    streetAddress: BUSINESS_INFO.address.street,
+    addressLocality: BUSINESS_INFO.address.city,
+    addressRegion: BUSINESS_INFO.address.state,
+    postalCode: BUSINESS_INFO.address.postalCode,
+    addressCountry: BUSINESS_INFO.address.countryCode,
   };
 }
+
+/**
+ * Boise Cabinet Co's own wordmark (charcoal on transparent). It replaced
+ * /images/brc-logo.png, a file named for Boise Remodeling Co left over from
+ * the shared scaffold.
+ */
+const BRAND_LOGO_PATH = '/brand/png/wordmark/light/boise-cabinet-co-wordmark-charcoal-1200w.png';
 
 /**
  * Shared Person node. The @id lives on p5homeco.com so Cabinet, Handyman,
@@ -135,7 +143,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     image: `${baseUrl}/images/marketing/og-default.webp`,
     logo: {
       '@type': 'ImageObject',
-      url: `${baseUrl}/images/brc-logo.png`,
+      url: `${baseUrl}${BRAND_LOGO_PATH}`,
     },
     '@id': `${baseUrl}/#localbusiness`,
     url: baseUrl,
@@ -158,17 +166,8 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     })).filter(spec => spec.opens),
     priceRange: '$$',
     areaServed: citiesServed(city),
-    ...(showTestimonials() && BUSINESS_INFO.reviewCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: BUSINESS_INFO.rating,
-            reviewCount: BUSINESS_INFO.reviewCount,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
+    // No aggregateRating here. The repo holds no real, dated review data, and an
+    // env flag is not evidence. Add it back only from reviews visible on the page.
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     slogan: 'Idaho\'s Premier Custom Cabinet Company',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
@@ -271,7 +270,7 @@ export function generateOrganizationSchema(): SchemaContext {
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${baseUrl}/images/brc-logo.png`,
+      url: `${baseUrl}${BRAND_LOGO_PATH}`,
     },
     description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.'),
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
@@ -315,16 +314,7 @@ export function generateReviewSchema(reviews: Array<{
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: BUSINESS_INFO.name,
-    // Only with real reviews behind it: a 0-star aggregate is worse than none.
-    ...(BUSINESS_INFO.reviewCount > 0 && BUSINESS_INFO.rating > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: BUSINESS_INFO.rating,
-            reviewCount: BUSINESS_INFO.reviewCount,
-          },
-        }
-      : {}),
+    // No aggregateRating here. An env-driven count is not review data in the repo.
     review: reviews.map(review => ({
       '@type': 'Review',
       author: {
