@@ -389,7 +389,9 @@ html :where(.ed-small) {
 /*
  * Card grids that never leave a lonely last card. One column on phones, two
  * on tablets, three on laptops and up. A last row that would hold one card
- * centres it; a last row that would hold two widens both to half.
+ * centres it; a last row that would hold two keeps both at the normal card
+ * width and centres the pair (it used to stretch them to half rows, which
+ * read as two oversized leftovers: 5 location services, 8 city guides).
  */
 .ed-cards-3 { display: grid; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 640px) {
@@ -401,12 +403,31 @@ html :where(.ed-small) {
 @media (min-width: 1024px) {
   .ed-cards-3 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .ed-cards-3 > :last-child:nth-child(n) { grid-column: span 2; }
-  .ed-cards-3 > :nth-last-child(2):nth-child(3n + 1),
-  .ed-cards-3 > :last-child:nth-child(3n + 2) { grid-column: span 3; }
+  .ed-cards-3 > :nth-last-child(2):nth-child(3n + 1) { grid-column: 2 / span 2; }
   .ed-cards-3 > :last-child:nth-child(3n + 1) { grid-column: 3 / span 2; }
   /* A single card takes two thirds of the row, centred, instead of one small
      card beside empty space. */
   .ed-cards-3 > :only-child:nth-child(n) { grid-column: 2 / span 4; }
+}
+
+/*
+ * Four-up card grid for counts that divide by four (8 city guides) or sit one
+ * short of it (7 permit steps). One column on phones, two on tablets, four on
+ * laptops and up, on an 8-track grid so a short last row of one, two or three
+ * cards is centred at the normal card width instead of stretched or orphaned.
+ */
+.ed-cards-4 { display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) {
+  .ed-cards-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ed-cards-4 > * { grid-column: span 2; }
+  .ed-cards-4 > :last-child:nth-child(odd) { grid-column: 2 / span 2; }
+}
+@media (min-width: 1024px) {
+  .ed-cards-4 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .ed-cards-4 > :last-child:nth-child(n) { grid-column: span 2; }
+  .ed-cards-4 > :nth-last-child(3):nth-child(4n + 1) { grid-column: 2 / span 2; }
+  .ed-cards-4 > :nth-last-child(2):nth-child(4n + 1) { grid-column: 3 / span 2; }
+  .ed-cards-4 > :last-child:nth-child(4n + 1) { grid-column: 4 / span 2; }
 }
 
 /* Full-bleed image + content panel, 57/43, reversible. */
