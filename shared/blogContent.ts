@@ -1,6 +1,7 @@
 // Blog Content for Boise Cabinet Co
 
 import { ALL_BLOG_POSTS } from './content/allBlogPosts';
+import { applyThinPostSupport } from './content/thinPostSupport';
 
 export interface BlogPostData {
   slug: string;
@@ -29,7 +30,7 @@ export interface BlogPostData {
   keyTakeaways?: string[];
 }
 
-export const BLOG_POSTS: BlogPostData[] = ALL_BLOG_POSTS;
+export const BLOG_POSTS: BlogPostData[] = ALL_BLOG_POSTS.map(applyThinPostSupport);
 
 export function getBlogPostBySlug(slug: string): BlogPostData | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
