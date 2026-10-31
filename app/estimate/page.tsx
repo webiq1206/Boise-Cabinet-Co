@@ -1,7 +1,5 @@
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
-import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
-import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -35,13 +33,15 @@ export default function EstimatePage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <header><ApprovedBrand /></header>
-      <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 py-8">
+      <header className="mx-auto w-full max-w-3xl px-6 pt-6"><ApprovedBrand /></header>
+      {/* One bottom bar on this page: the form's own Continue bar. The marketing
+          call/text bar is not mounted here, and the copy above the form stays short
+          so the first field sits clear of that bar at 360x640. */}
+      <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-4">
         <h1 className="text-3xl font-serif">Get an Estimate</h1>
+        <p className="mt-2">Share your project details for our team to review. Prefer to talk it through?</p>
         <AboveFoldActions />
-        <p className="mt-4">Share your project details for our team to review. Prefer to talk it through? Call or text Boise Cabinet Co.</p>
-        <LandingContactActions formId="estimate-request" formLabel="Send Estimate Request" />
-        <div id="estimate-request" tabIndex={-1} className="scroll-mt-28">
+        <div id="estimate-request" tabIndex={-1} className="mt-2 scroll-mt-28">
           <KitchenCabinetsQuoteForm context="cabinet-project" submitLabel="Send Estimate Request" />
           <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
         </div>
@@ -54,7 +54,6 @@ export default function EstimatePage() {
           <EstimateCalculatorWizard fitViewport />
         </div>
       </details>
-      <LandingMobileActions />
     </>
   );
 }

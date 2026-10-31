@@ -350,6 +350,9 @@ html, body {
     /* Elegance comes from light weight + spacing + sans/serif contrast — never
        synthesize a heavier face when a weight above 400 is (accidentally) asked. */
     font-synthesis-weight: none;
+    /* Set by WizardActionBar only while its Continue bar is docked to the
+       bottom edge, so the end of the page can scroll clear of it. */
+    padding-bottom: var(--wizard-bar-clearance, 0px);
   }
 
   h1, h2, h3, h4, h5, h6 {
