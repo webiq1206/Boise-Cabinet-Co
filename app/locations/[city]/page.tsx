@@ -148,7 +148,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                 ) : (
                   <>
                     Custom cabinets in{" "}
-                    <em className="brc-accent text-accent">{city.name}, Idaho</em>
+                    <em className="brc-accent text-accent">{`${city.name}, Idaho`}</em>
                   </>
                 )
               }

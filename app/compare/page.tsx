@@ -17,7 +17,7 @@ import Link from "next/link";
 
 const PAGE_TITLE = "Custom Cabinet Comparison | Spec Sheet";
 const PAGE_DESCRIPTION =
-  "Custom cabinet comparison from {company}: our built-to-order specs beside stock and semi-custom lines, six door styles and 299 finishes side by side.";
+  "Custom cabinet comparison from {company}: built-to-order specs beside stock and semi-custom lines, plus six door styles and 299 finishes.";
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
