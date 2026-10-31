@@ -4,6 +4,7 @@ import { Section } from "@/components/marketing";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CtaButton } from "@/components/modals/CtaButton";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
@@ -80,7 +81,7 @@ export default function CabinetInstallationPage() {
                 Bring us cabinets you already chose, or let Boise Cabinet Co design, sell, and install the right cabinets for your home.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <CtaButton variant="brand">Talk through your project <ArrowRight className="h-4 w-4" /></CtaButton>
+                <CtaButton variant="brand">{CTA_ESTIMATE} <ArrowRight className="h-4 w-4" /></CtaButton>
                 <Link href="#options" className="tap-target inline-flex items-center justify-center border border-inverse-foreground/30 px-5 py-3 text-sm text-inverse-foreground transition-colors hover:border-inverse-foreground/70">
                   Compare your options
                 </Link>
@@ -156,7 +157,7 @@ export default function CabinetInstallationPage() {
                         </li>
                       ))}
                     </ul>
-                    <CtaButton variant="brand" className="mt-9">Plan custom cabinets <ArrowRight className="h-4 w-4" /></CtaButton>
+                    <CtaButton variant="brand" className="mt-9">{CTA_ESTIMATE} <ArrowRight className="h-4 w-4" /></CtaButton>
                   </div>
                 </article>
               </Reveal>
@@ -235,7 +236,7 @@ export default function CabinetInstallationPage() {
               <p className="ed-eyebrow">Cabinet installation and custom cabinetry</p>
               <h2 className="ed-h2-sm mt-3">Let&apos;s find the right way forward.</h2>
             </div>
-            <CtaButton variant="brand">Get started <ArrowRight className="h-4 w-4" /></CtaButton>
+            <CtaButton variant="brand">{CTA_ESTIMATE} <ArrowRight className="h-4 w-4" /></CtaButton>
           </div>
         </Section>
       </main>

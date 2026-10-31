@@ -1,5 +1,4 @@
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
-import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -36,7 +35,7 @@ import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
 import { CITIES,locationPath } from "@/shared/contentData";
-import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
 import {
 PROJECT_PRICING,
 calculateEstimate,
@@ -197,31 +196,34 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               }
               description={["kitchen", "built-ins"].includes(room.slug) ? undefined : roomCopy?.firstSentence ?? room.description}
             />
-            {["kitchen", "built-ins"].includes(room.slug) && <>
-              <AboveFoldActions />
+            {["kitchen", "built-ins"].includes(room.slug) && (
               <p className="ed-lede mt-4">{roomCopy?.firstSentence ?? room.description}</p>
-            </>}
-            {roomCopy ? (
-              <>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{roomCopy.aboveFold}</p>
-                <p className="mt-3 text-sm text-foreground/80">{roomCopy.trustLine}</p>
-              </>
-            ) : null}
-            {room.slug === "built-ins" ? <>
-              <p className="mt-4">Tell Boise Cabinet Co which room you are working on and what you need to store.</p>
-              <LandingContactActions formId="built-in-inquiry" formLabel="Send Your Built-In Ideas" />
-            </> :             <div className="flex flex-wrap gap-3 mt-4">
-              <CtaButton variant="brand" intent={roomCopy ? "visit" : "estimate"}>
-                {roomCopy ? roomCopy.ctaLabel : CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+            )}
+            {/* One primary (Request a quote, to /estimate) and at most one secondary:
+                the call/text line on kitchen and built-ins, the phone button elsewhere. */}
+            <div className="flex flex-wrap items-center gap-3 mt-4">
+              <CtaButton variant="brand">
+                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
-              {roomCopy ? (
+              {["kitchen", "built-ins"].includes(room.slug) ? (
+                <AboveFoldActions />
+              ) : roomCopy ? (
                 <Button variant="brandOutline" asChild>
                   <a href={SITE_CONFIG.phoneHref}>
                     <Phone className="h-4 w-4" /> {SITE_CONFIG.phone}
                   </a>
                 </Button>
               ) : null}
-            </div>}
+            </div>
+            {roomCopy ? (
+              <>
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{roomCopy.aboveFold}</p>
+                <p className="mt-3 text-sm text-foreground/80">{roomCopy.trustLine}</p>
+              </>
+            ) : null}
+            {room.slug === "built-ins" ? (
+              <p className="mt-4">Tell Boise Cabinet Co which room you are working on and what you need to store.</p>
+            ) : null}
           </InteriorHero>
         {room.slug === "built-ins" && <section id="built-in-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
           <h2 className="text-2xl font-serif">Your room, your storage goals</h2>
@@ -284,9 +286,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               </p>
               )}
               <Button variant="brandOutline" asChild>
-                <Link href="/estimate">
-                  Request a {room.name.toLowerCase()} estimate{" "}
-                  <ArrowRight className="h-4 w-4" />
+                <Link href={CTA_QUOTE_HREF}>
+                  {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
             </MarketingCard>
@@ -548,9 +549,11 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
-              <CtaButton variant="brandOutline" intent="visit">
-                {CTA_BOOK_VISIT}
-              </CtaButton>
+              <Button variant="brandOutline" asChild>
+                <a href={SITE_CONFIG.phoneHref}>
+                  <Phone className="h-4 w-4" /> Call {SITE_CONFIG.phone}
+                </a>
+              </Button>
             </div>
           </div>
         </Section>

@@ -87,12 +87,12 @@ export default function ConstructionPage() {
               )}
         >
               <Button variant="brand" asChild>
-                <Link href="/compare">
-                  Compare collections <ArrowRight className="h-4 w-4" />
+                <Link href="/estimate">
+                  Request a quote <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
-                <Link href="/catalog">View collections</Link>
+                <Link href="/compare">Compare collections</Link>
               </Button>
         </CinematicHero>
 

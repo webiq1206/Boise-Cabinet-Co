@@ -78,7 +78,7 @@ const tvSections: ContentSection[] = [
   {
     h2: 'Next steps',
     paragraphs: [
-      `<a href="/estimate">Get an estimate</a> · <a href="/contact">Consultation</a> · <a href="${PILLAR_COST}">Cost guide</a>.`,
+      `<a href="/estimate">Request a quote</a> · <a href="/contact">Consultation</a> · <a href="${PILLAR_COST}">Cost guide</a>.`,
     ],
   },
 ];
@@ -146,7 +146,7 @@ const boiseSections: ContentSection[] = [
   {
     h2: 'Next steps in Boise',
     paragraphs: [
-      '<a href="/contact">Consultation</a> · <a href="/estimate">Get an estimate</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley hub</a>.',
+      '<a href="/contact">Consultation</a> · <a href="/estimate">Request a quote</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley hub</a>.',
     ],
   },
 ];

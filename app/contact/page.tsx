@@ -178,8 +178,7 @@ export default function ContactPage() {
             >
               {BUSINESS_INFO.phone}
             </a>
-            <div className="interior-contact-actions"><InteriorEstimateLink/><a href="#consult" className="interior-text-link">Request a consultation</a><SaveContactLink showIcon className="interior-text-link" /></div>
-            <p className="text-sm text-inverse-foreground/70 mt-3">Adds Boise Cabinet Co and Nick&apos;s direct number to your phone.</p>
+            <div className="interior-contact-actions"><InteriorEstimateLink/></div>
           </InteriorHero>
 
         {/* ─── Consultation form ─── */}
@@ -231,15 +230,14 @@ export default function ContactPage() {
               className="max-w-3xl"
             />
             <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
-              <Reveal className="sm:col-span-2">
+              <Reveal>
                 <ContactChannel
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
                   label="Call us"
                   href={SITE_CONFIG.phoneHref}
                   subtext="Mon-Fri 9 AM-6 PM and Sat 9 AM-4 PM Mountain, closed Sunday"
-                  featured
                 >
-                  <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>
+                  <span className="brc-display-num tabular-nums text-xl md:text-2xl">{BUSINESS_INFO.phone}</span>
                 </ContactChannel>
               </Reveal>
               <Reveal delay={60}>
@@ -249,7 +247,7 @@ export default function ContactPage() {
                   href={SITE_CONFIG.phoneSmsHref}
                   subtext="Quick questions, fast replies"
                 >
-                  <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>
+                  <span className="brc-display-num tabular-nums text-xl md:text-2xl">{BUSINESS_INFO.phone}</span>
                 </ContactChannel>
               </Reveal>
               <Reveal delay={120}>
@@ -279,12 +277,16 @@ export default function ContactPage() {
                   <address className="not-italic leading-relaxed">
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}
                     <br />
-                    We come to you - free in-home consultations by appointment.
+                    We come to you: free in-home consultations by appointment.
                     No public showroom.
                   </address>
                 </ContactChannel>
               </Reveal>
             </div>
+            <p className="mt-6 text-base text-muted-foreground">
+              <SaveContactLink showIcon className="tap-target text-foreground underline underline-offset-2 hover:text-accent" />{" "}
+              adds Boise Cabinet Co and Nick&apos;s direct number to your phone.
+            </p>
           </div>
         </Section>
 

@@ -3,54 +3,32 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { ButtonProps } from "@/components/ui/button";
-import { useModals } from "./ModalProvider";
-import { useEstimateInline } from "./useEstimateHref";
 import { track } from "@/lib/analytics/track";
+import { CTA_QUOTE_HREF } from "@/shared/ctaCopy";
 
 interface CtaButtonProps extends Omit<ButtonProps, "onClick" | "asChild"> {
   /**
-   * "estimate" opens the quote flow from the start, resuming any saved
-   * progress. "visit" deep-links straight to the booking/contact step for a
-   * visitor who just wants to talk, not build a range first.
+   * Kept for analytics only. Every primary quote CTA now has one destination,
+   * /estimate, so "estimate" and "visit" both navigate there; the intent still
+   * tells primary and secondary placements apart in GA4.
    */
   intent?: "estimate" | "visit";
   onExtraClick?: () => void;
 }
 
 export function CtaButton({ intent = "estimate", onExtraClick, children, ...props }: CtaButtonProps) {
-  const { openEstimate, openConsult } = useModals();
-  const inline = useEstimateInline();
-  const open = intent === "visit" ? openConsult : openEstimate;
-  const trackClick = () =>
-    track(intent === "visit" ? "secondary_cta_clicked" : "primary_cta_clicked", { intent });
-
-  if (inline) {
-    return (
-      <Button {...props} asChild>
-        <Link
-          prefetch={false}
-          href="/#calculator"
-          onClick={() => {
-            trackClick();
-            onExtraClick?.();
-          }}
-        >
-          {children}
-        </Link>
-      </Button>
-    );
-  }
-
   return (
-    <Button
-      {...props}
-      onClick={() => {
-        trackClick();
-        open();
-        onExtraClick?.();
-      }}
-    >
-      {children}
+    <Button {...props} asChild>
+      <Link
+        prefetch={false}
+        href={CTA_QUOTE_HREF}
+        onClick={() => {
+          track(intent === "visit" ? "secondary_cta_clicked" : "primary_cta_clicked", { intent });
+          onExtraClick?.();
+        }}
+      >
+        {children}
+      </Link>
     </Button>
   );
 }

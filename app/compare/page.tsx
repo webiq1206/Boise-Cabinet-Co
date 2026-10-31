@@ -240,7 +240,7 @@ export default function ComparePage() {
         >
 <Button variant="brand" asChild className="mt-4">
               <Link href="/estimate">
-                Get an estimate <ArrowRight className="h-4 w-4" />
+                Request a quote <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
         </CinematicHero>

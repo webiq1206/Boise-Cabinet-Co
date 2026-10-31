@@ -54,7 +54,7 @@ function buildPillarSections(
     {
       h2: 'Next steps',
       paragraphs: [
-        '<a href="/estimate">Get an estimate</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
+        '<a href="/estimate">Request a quote</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
         `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],
     },

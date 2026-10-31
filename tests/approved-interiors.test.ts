@@ -41,8 +41,13 @@ test('interior CSS follows the original family and system layers', () => {
   assert.ok(styles.indexOf('./approved-interiors.css') < styles.indexOf('./audit-accessibility.css'), 'accessibility corrections override the presentation layers');
 });
 
-test('contact hero puts the estimate before the secondary consultation link', () => {
+// Family plan Phase 1: a hero carries one primary plus at most one secondary.
+// On contact that is "Request a quote" (to /estimate) plus the phone number; the
+// separate "Request a consultation" and "Save our contact" hero links were removed
+// (save contact now sits under "Every way to connect").
+test('contact hero has one primary estimate link and the phone as its only secondary', () => {
   const source = read('app/contact/page.tsx');
-  assert.match(source, /interior-contact-actions[\s\S]*?<InteriorEstimateLink\s*\/>[\s\S]*?href="#consult"/);
+  assert.match(source, /<div className="interior-contact-actions"><InteriorEstimateLink\s*\/><\/div>/);
+  assert.equal(source.includes('Request a consultation'), false);
   assert.match(read('components/approved/InteriorLayout.tsx'), /href="\/estimate"/);
 });

@@ -75,7 +75,7 @@ export function CatalogExploreStrip() {
           All finishes
         </Link>
         <Link href="/estimate" className="tap-target text-accent hover:underline underline-offset-2">
-          Get an estimate
+          Request a quote
         </Link>
       </div>
     </div>

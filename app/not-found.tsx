@@ -46,7 +46,7 @@ export default function NotFound() {
             <div className="grid grid-cols-2 gap-2">
               {[
                 { href: "/cabinets", label: "Cabinet Catalog" },
-                { href: "/estimate", label: "Get an Estimate" },
+                { href: "/estimate", label: "Request a quote" },
                 { href: "/catalog", label: "Catalog" },
                 { href: "/contact", label: "Free Consultation" },
               ].map((item) => (

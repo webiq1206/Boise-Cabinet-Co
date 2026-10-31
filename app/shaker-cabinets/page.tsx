@@ -120,7 +120,7 @@ export default function ShakerCabinetsPage() {
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
-                  Request an estimate <ArrowRight className="h-4 w-4" />
+                  Request a quote <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
@@ -243,7 +243,7 @@ export default function ShakerCabinetsPage() {
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>
                   <Link href="/estimate">
-                    Request an estimate <ArrowRight className="h-4 w-4" />
+                    Request a quote <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
                 <Button

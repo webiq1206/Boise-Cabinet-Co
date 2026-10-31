@@ -93,7 +93,7 @@ export default function WarrantyPage() {
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">
-                  Request an Estimate <ArrowRight className="h-4 w-4" />
+                  Request a quote <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
