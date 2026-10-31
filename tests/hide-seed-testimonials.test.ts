@@ -94,7 +94,10 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.deepEqual(hits, []);
 
   const schema = readFileSync("lib/schema.ts", "utf8");
-  assert.equal(schema.includes("showTestimonials() && BUSINESS_INFO.reviewCount > 0"), true);
+  // Family plan Phase 1: no aggregateRating at all until real, dated review
+  // data lives in the repo. An env count is not evidence, so the gated branch
+  // that used to sit here was removed rather than kept behind the flag.
+  assert.equal(/aggregateRating\s*:/.test(schema), false);
   assert.equal(schema.includes("if (!showTestimonials())"), true);
   assert.equal(readFileSync("components/sections/TestimonialsSection.tsx", "utf8").includes("if (!showTestimonials()) return null;"), true);
   assert.equal(readFileSync("components/marketing/AggregateRating.tsx", "utf8").includes("if (!showTestimonials()) return null;"), true);

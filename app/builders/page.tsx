@@ -1,4 +1,3 @@
-import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
@@ -156,7 +155,18 @@ export default function BuildersPage() {
                 </>}
           description="Discuss your cabinet scope, project location and target schedule with Boise Cabinet Co. Start with a call, text or project request."
         >
-          <LandingContactActions formId="builder-inquiry" formLabel="Send Project Details" />
+          <Button variant="brand" asChild>
+            <Link href="#builder-inquiry">
+              Request builder pricing <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button
+            variant="brandOutline"
+            className="border-inverse-foreground/25 bg-inverse-foreground/10 text-inverse-foreground hover:bg-inverse-foreground/15"
+            asChild
+          >
+            <a href={SITE_CONFIG.phoneHref}>Call {SITE_CONFIG.phone}</a>
+          </Button>
         </CinematicHero>
         <section id="builder-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
           <h2 className="text-2xl font-serif">Tell us about your cabinet project</h2>

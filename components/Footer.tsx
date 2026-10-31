@@ -152,9 +152,10 @@ export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }
                 </div>
               </details>
               <div className="hidden lg:block">
-                <h2 className="font-serif font-medium text-[12px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+                {/* A label, not a heading: footer groups must not add H2s to every page's outline. */}
+                <p className="footer-group-label font-serif font-medium text-[12px] leading-[1.08] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
                   {group.title}
-                </h2>
+                </p>
                 <GroupLinks links={group.links} />
               </div>
             </div>
@@ -163,9 +164,9 @@ export function Footer({ reviewLink = null }: { reviewLink?: FooterLink | null }
 
         {/* Service areas - compact wrapped row rather than a tall vertical list. */}
         <div className="border-t border-inverse-foreground/10 py-6">
-          <h2 className="font-serif font-medium text-[12px] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
+          <p className="footer-group-label font-serif font-medium text-[12px] leading-[1.08] tracking-[0.12em] uppercase mb-3 text-inverse-muted">
             Serving the Treasure Valley
-          </h2>
+          </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             {sortedCities.map((city) => (
               <Link

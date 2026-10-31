@@ -312,7 +312,7 @@ const budgetExtra: ContentSection[] = [
     h2: 'Work with a local cabinet team',
     paragraphs: [
       '<a href="/contact">Contact Boise Cabinet Co</a> for a consultation across Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell.',
-      '<a href="/cabinets">Cabinet catalog</a> · <a href="/estimate">Get an estimate</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
+      '<a href="/cabinets">Cabinet catalog</a> · <a href="/estimate">Request a quote</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
     ],
   },
 ];

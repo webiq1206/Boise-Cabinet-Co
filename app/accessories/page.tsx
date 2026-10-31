@@ -55,7 +55,7 @@ export default function AccessoriesPage() {
         >
 <Button variant="brand" asChild>
               <Link href="/estimate">
-                Get an estimate <ArrowRight className="h-4 w-4" />
+                Request a quote <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
         </CinematicHero>

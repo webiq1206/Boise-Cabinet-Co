@@ -62,10 +62,10 @@ export const GBP_PROFILE = {
     sunday: "Closed",
   },
   paymentMethods: ["Cash", "Credit Card", "Check", "Financing"],
-  social: {
-    facebook: "https://www.facebook.com/boisecabinetco",
-    instagram: "https://www.instagram.com/boisecabinetco",
-  },
+  // Boise Cabinet Co has no social profiles of its own. P5 Home Co's Facebook
+  // page and single Google Business Profile cover every brand (owner decision,
+  // 2026-10-31). Never list brand-level accounts that do not exist.
+  social: {} as Record<string, string>,
   messagingWelcome:
     "Hi! Thanks for reaching out to Boise Cabinet Co. We design, source, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact",
   attributes: {

@@ -422,12 +422,18 @@ export const BUSINESS_INFO = {
   legalName: SITE_CONFIG.legalName,
   phone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
-  // Service-area business: no street address or ZIP is published. Locality +
-  // region + country only, for clean NAP / local SEO.
+  // Service-area business, not a staffed storefront. The street and ZIP are
+  // published in the footer NAP line, llms.txt and backlink-engine/config.ts, so
+  // they live here too and the JSON-LD PostalAddress reads this one object
+  // (lib/schema.ts serviceAreaPostalAddress). Owner to confirm the street is
+  // the address of record (family plan Phase 1 report).
   address: {
+    street: '4031 W Wapoot St',
     city: SITE_CONFIG.address.city,
     state: 'ID',
+    postalCode: '83646',
     country: 'United States',
+    countryCode: 'US',
   },
   hours: {
     monday: '9:00 AM - 6:00 PM',
@@ -448,10 +454,11 @@ export const BUSINESS_INFO = {
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,
   yearlyServicesCompleted: 0,
-  // TODO(client): add real GBP / Houzz / BBB / Yelp profile URLs via env.
+  // Boise Cabinet Co has no Facebook or Instagram profile of its own; P5 Home
+  // Co's Facebook page and single Google Business Profile cover every brand
+  // (owner decision 2026-10-31). Empty unless a real profile URL is set via
+  // env; never invent one.
   sameAs: [
-    'https://www.facebook.com/boisecabinetco',
-    'https://www.instagram.com/boisecabinetco',
     SITE_CONFIG.trust.gbpUrl,
     SITE_CONFIG.trust.houzzUrl,
     SITE_CONFIG.trust.bbbUrl,

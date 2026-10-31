@@ -3,7 +3,6 @@ import { useP5MobileActions } from "@/components/P5MobileActions";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 
 
-import { useModals } from "@/components/modals/ModalProvider";
 import { Button } from "@/components/ui/button";
 import {
 NavigationMenu,
@@ -19,7 +18,7 @@ import { track } from "@/lib/analytics/track";
 import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
 import { cn } from "@/lib/utils";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
-import { CTA_ESTIMATE,CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE,CTA_PORTAL_SHORT,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ChevronDown,Menu,MessageSquare,Phone,Search,X } from "lucide-react";
 import Link from "next/link";
@@ -71,7 +70,6 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
-  const { openEstimate } = useModals();
   const { isAuthenticated, isCustomer } = useAuth();
   // While a guided-flow wizard shows its own contextual mobile bar, the generic
   // Call / Book-consult bar steps aside so the two never stack on phones.
@@ -254,15 +252,14 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
               <Phone className="header-phone-icon hidden h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
               <span className="header-phone-number">{SITE_CONFIG.phone}</span>
             </a>
-            <Button
-              variant="brand"
-              size="sm"
-              onClick={() => {
-                track("primary_cta_clicked", { intent: "estimate", placement: "header" });
-                openEstimate();
-              }}
-            >
-              {CTA_ESTIMATE}
+            <Button variant="brand" size="sm" asChild>
+              <Link
+                prefetch={false}
+                href={CTA_QUOTE_HREF}
+                onClick={() => track("primary_cta_clicked", { intent: "estimate", placement: "header" })}
+              >
+                {CTA_ESTIMATE}
+              </Link>
             </Button>
           </div>
 
@@ -397,16 +394,17 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
               <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
               Text {SITE_CONFIG.phone}
             </a>
-            <Button
-              variant="brand"
-              className="w-full"
-              onClick={() => {
-                track("primary_cta_clicked", { intent: "estimate", placement: "mobile_menu" });
-                setMobileOpen(false);
-                openEstimate();
-              }}
-            >
-              {CTA_ESTIMATE}
+            <Button variant="brand" className="w-full" asChild>
+              <Link
+                prefetch={false}
+                href={CTA_QUOTE_HREF}
+                onClick={() => {
+                  track("primary_cta_clicked", { intent: "estimate", placement: "mobile_menu" });
+                  setMobileOpen(false);
+                }}
+              >
+                {CTA_ESTIMATE}
+              </Link>
             </Button>
           </div>
         </SheetContent>
@@ -431,17 +429,14 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
             <Phone className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
             <span>Call</span>
           </a>
-          <button
-            type="button"
-            onClick={() => {
-              track("mobile_sticky_cta_clicked", { intent: "estimate" });
-              openEstimate();
-            }}
-            aria-label={CTA_ESTIMATE}
+          <Link
+            prefetch={false}
+            href={CTA_QUOTE_HREF}
+            onClick={() => track("mobile_sticky_cta_clicked", { intent: "estimate" })}
             className="flex h-12 flex-1 items-center justify-center rounded-sm bg-accent px-4 text-base font-medium text-accent-foreground"
           >
             {CTA_ESTIMATE}
-          </button>
+          </Link>
         </div>
       </div>
     </>

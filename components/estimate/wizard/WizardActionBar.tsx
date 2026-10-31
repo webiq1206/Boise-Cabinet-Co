@@ -79,6 +79,19 @@ export function WizardActionBar({
     return requestHideMobileNavBar();
   }, [ownsBottomEdge, docked]);
 
+  // Reserve clearance under the docked bar (C7): while it is fixed to the
+  // bottom edge, the end of the page (reassurance copy, the planning-range
+  // disclosure, the registration line) gets the bar's height as bottom padding
+  // so it can scroll clear of the bar instead of sitting underneath it.
+  useEffect(() => {
+    if (!docked) return;
+    const root = document.documentElement;
+    root.style.setProperty("--wizard-bar-clearance", `${barHeight}px`);
+    return () => {
+      root.style.removeProperty("--wizard-bar-clearance");
+    };
+  }, [docked, barHeight]);
+
   useEffect(() => {
     if (!pinned) return;
     const node = barRef.current;

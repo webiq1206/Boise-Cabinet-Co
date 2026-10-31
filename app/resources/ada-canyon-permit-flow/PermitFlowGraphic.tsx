@@ -71,11 +71,12 @@ export function PermitFlowGraphic() {
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Typical permit path
         </h2>
-        <div className="ed-cards-3 gap-3">
+        <div className="ed-cards-4 gap-3">
           {STEPS.map((step, i) => (
             <div key={step.n} className="relative">
-              <FlowStep {...step} />
-              {i < STEPS.length - 1 && (
+              <FlowStep {...step} className="h-full" />
+              {/* Connectors join steps within a row of four; none dangles off a row end. */}
+              {i < STEPS.length - 1 && (i + 1) % 4 !== 0 && (
                 <div
                   className="hidden lg:block absolute top-1/2 -right-2 w-4 h-px bg-border"
                   aria-hidden

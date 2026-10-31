@@ -30,7 +30,7 @@ export function ObfuscatedEmail({
       type="button"
       onClick={handleClick}
       className={className}
-      aria-label={`${label} at ${user}@${domain}`}
+      aria-label={label.includes("@") ? `Email ${user}@${domain}` : `${label} at ${user}@${domain}`}
     >
       {showIcon && <Mail className={iconClassName} />}
       <span>{label}</span>

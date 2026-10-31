@@ -180,7 +180,7 @@ export default function GuidesIndexPage() {
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
             City &amp; neighborhood guides
           </h2>
-          <div className="ed-cards-3 gap-4">
+          <div className="ed-cards-4 gap-4">
             {locationGuides.map((guide) => (
               <MarketingCard key={guide.slug} className="p-5 flex flex-col h-full">
                 <MapPin className="h-4 w-4 text-accent mb-2" />

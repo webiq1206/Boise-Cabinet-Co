@@ -29,7 +29,7 @@ getCountyLabel,
 locationPath,
 } from "@/shared/contentData";
 import { bot05Location } from "@/shared/content/bot05PageCopy";
-import { CTA_BOOK_VISIT,CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -140,8 +140,8 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               <p className="mt-3 text-sm text-foreground/80">{copy.trustLine}</p>
             ) : null}
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto mt-4">
-              <CtaButton variant="brand" intent={copy ? "visit" : "estimate"}>
-                {copy ? copy.ctaLabel : CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+              <CtaButton variant="brand">
+                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
               <Button variant="brandOutline" asChild>
                 <a href={SITE_CONFIG.phoneHref}>
@@ -373,13 +373,15 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             </h2>
             <p className="text-inverse-muted mb-6">
               Share your project online for team review. More information or a site visit may be needed before we prepare your estimate.
-              Larger plan sets may take longer. Book a free in-home visit whenever you are ready.
+              Larger plan sets may take longer. The in-home design visit is free.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
-              <CtaButton variant="brandOutline" intent="visit">
-                {CTA_BOOK_VISIT}
-              </CtaButton>
+              <Button variant="brandOutline" asChild>
+                <a href={SITE_CONFIG.phoneHref}>
+                  <Phone className="h-4 w-4" /> Call {SITE_CONFIG.phone}
+                </a>
+              </Button>
             </div>
           </div>
         </Section>

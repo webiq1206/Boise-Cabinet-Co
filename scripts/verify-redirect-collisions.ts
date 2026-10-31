@@ -20,6 +20,10 @@
  *                   Google gets a 301).
  *   3. HREF       - a hardcoded internal href that targets a redirect source,
  *                   costing a hop on a link we could have written correctly.
+ *   4. CHAIN      - a literal redirect whose destination is itself redirected
+ *                   (by a literal or a :path* pattern rule). Every redirect must
+ *                   reach its final destination in one hop. The /finishes slug
+ *                   map once produced 26 two-hop chains this way.
  *
  * Run: npm run verify:redirect-collisions
  */
@@ -163,6 +167,34 @@ async function main() {
       `HREF       ${href} redirects${dest ? ` to ${dest}` : ''}; link the destination directly. ` +
         `Used in: ${[...new Set(where)].join(', ')}`,
     );
+  }
+
+  /* 4. CHAIN */
+  // Host rules (with a `has` condition) apply to every path on the other host
+  // and are not part of a path chain, so they are left out.
+  const pathRules = redirects.filter((rule) => !(rule as { has?: unknown }).has);
+  const escapeRe = (s: string) => s.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+  const ruleRe = (source: string) =>
+    new RegExp(
+      '^' +
+        escapeRe(source)
+          .replace(/\/:(\w+)\*/g, '(?:/.*)?')
+          .replace(/:(\w+)/g, '[^/]+') +
+        '$',
+    );
+  const compiled = pathRules.map((rule) => ({ rule, re: ruleRe(rule.source) }));
+  for (const { rule } of compiled) {
+    if (rule.source.includes(':') || rule.source.includes('*')) continue;
+    const dest = rule.destination;
+    if (/^https?:/.test(dest)) continue;
+    const destPath = dest.split('#')[0].split('?')[0];
+    const next = compiled.find(({ re }) => re.test(destPath));
+    if (next) {
+      failures.push(
+        `CHAIN      ${rule.source} -> ${dest} -> ${next.rule.destination}; ` +
+          `point ${rule.source} at the final destination.`,
+      );
+    }
   }
 
   if (failures.length > 0) {

@@ -21,7 +21,7 @@ export function CatalogActionBar({
     <div className={`flex flex-wrap gap-2 ${className ?? ""}`}>
       <Button variant="brand" size="sm" asChild>
         <Link href={primaryHref}>
-          Get an estimate <ArrowRight className="h-4 w-4" />
+          Request a quote <ArrowRight className="h-4 w-4" />
         </Link>
       </Button>
       {productsHref && (

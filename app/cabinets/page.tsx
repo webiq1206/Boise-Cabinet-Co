@@ -51,6 +51,8 @@ export default function CabinetsHubPage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={CABINETS_HUB_HEADLINE}
+          // Owner requirement (e2e/mobile-above-fold.spec.ts): call and text sit
+          // directly under the headline so they are in the first phone screen.
           actions={<AboveFoldActions />}
           description={catalogDescription(
             "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
@@ -58,7 +60,7 @@ export default function CabinetsHubPage() {
         >
           <Button variant="brand" asChild>
             <Link href="/estimate">
-              Request an estimate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              Request a quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
         </CinematicHero>
@@ -72,7 +74,7 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map(room=><Link className="interior-service-card" href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map((room,index)=><Link className={index===0?"interior-service-card interior-service-card--featured":"interior-service-card"} href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{room.name}</h2><ArrowRight size={18} aria-hidden="true"/></div><p>{room.description}</p></Link>)}</section>
 
         <CatalogClosingCTA />
       </div>
