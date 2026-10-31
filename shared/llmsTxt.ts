@@ -84,7 +84,6 @@ Planning ranges only; firm quotes require approved drawings.
 ## Trust and company
 
 - [About the company and team](https://boisecabinet.co/about)
-- [Projects and reviews](https://boisecabinet.co/testimonials)
 - [Warranty details](https://boisecabinet.co/warranty)
 - [Contact page](https://boisecabinet.co/contact)
 
