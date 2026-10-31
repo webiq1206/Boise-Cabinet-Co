@@ -49,12 +49,12 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "{company} warranty: what's covered, workmanship terms, and how to file a claim in the Treasure Valley.";
+  "Cabinet warranty from {company}: a 2-year workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/warranty",
-  "Warranty",
+  "Cabinet Warranty | 2-Year Workmanship",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -68,7 +68,7 @@ export const metadata = withBrandPageMetadata({
 export default function WarrantyPage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Warranty",
+      title: "Cabinet warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
         : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -92,7 +92,7 @@ export default function WarrantyPage() {
           title={showLifetimeWarranty() ? <>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </> : <>Warranty claims <em className="brc-accent text-accent">handled by us</em></>}
+                </> : <>Cabinet warranty: claims <em className="brc-accent text-accent">handled by us</em></>}
           description={showLifetimeWarranty()
             ? CATALOG_CONTENT.warrantySummary
             : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`}

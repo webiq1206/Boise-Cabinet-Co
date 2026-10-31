@@ -76,7 +76,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/cabinets/wet-bar": "Custom wet bar cabinets in the Treasure Valley: beverage centers with wine storage, glassware dividers, and optional sink bases for compact entertaining nooks.",
   "/cabinets/bedroom": "Custom bedroom cabinets in the Treasure Valley: dresser bases, wardrobe towers, and nightstands with soft-close drawer options and finishes matched to the bath.",
   "/builders": "Trade cabinet pricing, consistent specs across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers.",
-  "/services/cabinet-installation": "Cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley cities. Bring your own cabinets or add custom cabinetry and installation.",
+  "/services/cabinet-installation": "Cabinet installation in Boise and the Treasure Valley by our own crew: we install cabinets you already own, or design, build and install custom cabinets.",
   "/testimonials": "Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with us.",
   "/catalog": "Browse the Boise Cabinet Co catalog online: 6 door styles, 299 finishes, 382 cabinet configurations, plus hardware and accessories, with no download required.",
   "/shaker-cabinets": "Custom shaker cabinets for Meridian homes, sized to your layout. Four shaker profiles in finishes including classic white, sage green, and two-tone doors.",

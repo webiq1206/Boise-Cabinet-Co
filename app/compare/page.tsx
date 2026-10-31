@@ -9,218 +9,137 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
-import { cn } from "@/lib/utils";
-import { publicWarrantyRow } from "@/shared/claims";
-import {
-COLLECTIONS,
-COLLECTION_COMPARISON,
-DOOR_STYLE_COMPARISON,
-FINISH_TIER_COMPARISON,
-getDoorStyleImages,
-type CollectionComparisonMatrix,
-type ComparisonValue,
-} from "@/shared/catalog";
+import { CABINET_WORKMANSHIP_WARRANTY, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
+import { CATALOG_CONTENT, DOOR_STYLES, FINISHES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { ArrowRight,Check,X } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+
+const PAGE_TITLE = "Custom Cabinet Comparison | Spec Sheet";
+const PAGE_DESCRIPTION =
+  "Custom cabinet comparison from {company}: our built-to-order specs beside stock and semi-custom lines, six door styles and 299 finishes side by side.";
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/compare",
-  "Compare Collections",
-  catalogDescription(
-    "How {company} builds Custom Cabinets to your exact sizes, finishes, and details.",
-  ),
+  PAGE_TITLE,
+  catalogDescription(PAGE_DESCRIPTION),
 ),
   // Explicit self canonical in the page file, so a change to the metadata
   // wrapper can never silently drop it.
   alternates: { canonical: buildCanonical("/compare") },
 }, "/compare");
 
-const FINISH_ROW_IMAGES: Record<string, string> = {
-  "matte-finishes": "/images/catalog/finishes/category-matte.webp",
-  "gloss-finishes": "/images/catalog/finishes/category-gloss.webp",
-  "woodgrain-finishes": "/images/catalog/finishes/category-woodgrain.webp",
-};
-
-function ComparisonCell({ value }: { value: ComparisonValue | undefined }) {
-  if (value === true) {
-    return (
-      <span className="tap-target inline-flex items-center justify-center text-accent" aria-label="Yes">
-        <Check className="h-4 w-4" />
-      </span>
-    );
-  }
-  if (value === false) {
-    return (
-      <span className="inline-flex items-center justify-center text-muted-foreground" aria-label="No">
-        <X className="h-4 w-4" />
-      </span>
-    );
-  }
-  if (value === undefined) {
-    return <span className="text-muted-foreground">N/A</span>;
-  }
-  return <span className="text-sm text-foreground">{publicWarrantyRow(String(value))}</span>;
-}
-
-function ComparisonRowVisual({
-  matrixId,
-  featureId,
-  label,
-}: {
-  matrixId: string;
-  featureId: string;
-  label: string;
-}) {
-  if (matrixId === "door-style-fit") {
-    const { primary } = getDoorStyleImages(featureId);
-    return (
-      <div className="flex items-center gap-3">
-        <div className="relative h-12 w-10 shrink-0 overflow-hidden rounded-sm bg-muted">
-          <Image src={primary} alt={`${label} door style`} fill sizes="40px" className="object-cover" />
-        </div>
-        <span className="font-medium text-foreground">{label}</span>
-      </div>
-    );
-  }
-
-  if (matrixId === "finish-tier-access") {
-    const src = FINISH_ROW_IMAGES[featureId];
-    if (src) {
-      return (
-        <div className="flex items-center gap-3">
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-sm bg-muted">
-            <Image src={src} alt={`${label} cabinet finish`} fill sizes="40px" className="object-cover" />
-          </div>
-          <span className="font-medium text-foreground">{label}</span>
-        </div>
-      );
-    }
-  }
-
-  return <span className="font-medium text-foreground">{label}</span>;
-}
-
 /**
- * With a single collection a comparison table has nothing to compare: one
- * column of ticks beside a feature list. The same data reads far better as
- * a hairline matrix of what every cabinet includes.
+ * /compare used to render one column of ticks for a single collection, which
+ * compared nothing. It now compares real options, using only facts the site
+ * already publishes:
+ * - stock and semi-custom columns: the tier table in
+ *   /blog/stock-vs-custom-cabinets-boise (shared/content/premiumPosts.ts)
+ * - our column: /construction, the catalog data, the process and warranty copy
+ * - door styles and finish families: shared/catalog generated data
  */
-function SingleCollectionGrid({
-  matrix,
-  visualRows = false,
-}: {
-  matrix: CollectionComparisonMatrix;
-  visualRows?: boolean;
-}) {
-  const only = COLLECTIONS[0];
-  const cols = visualRows ? 3 : 2;
-  return (
-    <div
-      className="ed-matrix mx-auto max-w-5xl"
-      style={{ ["--ed-cols" as string]: cols, ["--ed-cell-h" as string]: "0" }}
-    >
-      {matrix.features.map((feature) => {
-        const value = feature.values[only.id];
-        return (
-          <div key={feature.id} className="flex flex-col gap-3">
-            {visualRows ? (
-              <ComparisonRowVisual matrixId={matrix.id} featureId={feature.id} label={feature.label} />
-            ) : (
-              <span className="ed-h4">{feature.label}</span>
-            )}
-            {feature.description && (
-              <p className="text-sm text-muted-foreground">{feature.description}</p>
-            )}
-            <div className="mt-auto flex items-center gap-2 text-sm">
-              {typeof value === "string" ? (
-                <span className="text-foreground">{publicWarrantyRow(value)}</span>
-              ) : value === false ? (
-                <>
-                  <X className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                  <span className="text-muted-foreground">Not included</span>
-                </>
-              ) : (
-                <>
-                  <Check className="h-4 w-4 text-accent" aria-hidden="true" />
-                  <span className="text-foreground">Included</span>
-                </>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+const FINISH_FAMILIES = [
+  { id: "matte", label: "Matte" },
+  { id: "gloss", label: "Gloss" },
+  { id: "woodgrain", label: "Woodgrain" },
+] as const;
+
+function finishCount(category: string): number {
+  return FINISHES.filter((finish) => finish.category === category).length;
 }
 
-function ComparisonMatrixTable({
-  matrix,
-  visualRows = false,
-}: {
-  matrix: CollectionComparisonMatrix;
-  visualRows?: boolean;
-}) {
-  if (COLLECTIONS.length === 1) return <SingleCollectionGrid matrix={matrix} visualRows={visualRows} />;
-  return (
-    <div className="overflow-x-auto -mx-4 px-4">
-      <table className="w-full min-w-[640px] border-collapse text-left">
-        <thead>
-          <tr className="border-b border-border">
-            <th className="py-4 pr-4 text-sm font-medium text-muted-foreground w-[28%] sticky left-0 bg-surface-greige z-10">
-              Feature
-            </th>
-            {COLLECTIONS.map((c) => (
-              <th key={c.id} className="py-4 px-3 text-sm font-medium text-foreground min-w-[120px]">
-                <Link href="/catalog" className="tap-target inline-flex items-center hover:underline underline-offset-2">
-                  {c.name}
-                </Link>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {matrix.features.map((feature, rowIndex) => (
-            <tr
-              key={feature.id}
-              className={cn("border-b border-border/60", rowIndex % 2 === 0 && "bg-card/40")}
-            >
-              <td className="py-3 pr-4 text-sm sticky left-0 bg-inherit z-10">
-                {visualRows ? (
-                  <ComparisonRowVisual
-                    matrixId={matrix.id}
-                    featureId={feature.id}
-                    label={feature.label}
-                  />
-                ) : (
-                  <span className="font-medium text-foreground">{feature.label}</span>
-                )}
-                {feature.description && (
-                  <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">
-                    {feature.description}
-                  </p>
-                )}
-              </td>
-              {COLLECTIONS.map((c) => (
-                <td key={c.id} className="py-3 px-3 text-center align-middle">
-                  <ComparisonCell value={feature.values[c.id]} />
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+function doorStylesFor(category: string): string[] {
+  return DOOR_STYLES.filter((style) =>
+    (style.compatibleFinishCategories as readonly string[]).includes(category),
+  ).map((style) => style.name);
 }
+
+function drawerFront(notes: string | undefined): string {
+  const match = notes?.match(/Drawer fronts:\s*([^.]+)\./);
+  return match ? match[1].trim() : "Slab front";
+}
+
+function familyList(categories: readonly string[]): string {
+  return FINISH_FAMILIES.filter((family) => categories.includes(family.id))
+    .map((family) => family.label)
+    .join(", ");
+}
+
+const TIER_ROWS: Array<{ factor: string; stock: string; semi: string; ours: string }> = [
+  {
+    factor: "Sizes",
+    stock: "Fixed sizes in 3 inch increments",
+    semi: "Standard sizes plus modifications",
+    ours: "Built to your room's exact widths, heights, and depths",
+  },
+  {
+    factor: "Door styles",
+    stock: "Limited",
+    semi: "Broad",
+    ours: `${DOOR_STYLES.length}: ${DOOR_STYLES.map((style) => style.name).join(", ")}`,
+  },
+  {
+    factor: "Finishes",
+    stock: "Limited",
+    semi: "Broad",
+    ours: `${FINISHES.length}: ${FINISH_FAMILIES.map((family) => `${finishCount(family.id)} ${family.label.toLowerCase()}`).join(", ")}`,
+  },
+  {
+    factor: "Fit to your space",
+    stock: "Filler strips cover the gaps",
+    semi: "Good",
+    ours: "Field-measured, then leveled and scribed to your walls",
+  },
+  {
+    factor: "Box construction",
+    stock: "Varies, often basic",
+    semi: "Better",
+    ours: "Frameless box; exposed sides in 3/4 inch birch plywood; soft-close hinge and slide options",
+  },
+  {
+    factor: "Design and drawings",
+    stock: "Sold at home centers, often ready to assemble",
+    semi: "Configured through a dealer or showroom",
+    ours: "Free in-home design consultation and shop drawings you approve before the order",
+  },
+  {
+    factor: "Installation",
+    stock: "You or a separate installer",
+    semi: "Often a separate installer",
+    ours: "Installed by our own Treasure Valley crew",
+  },
+  {
+    factor: "Lead time",
+    stock: "Fastest",
+    semi: "Moderate",
+    ours: `Typically ${CATALOG_CONTENT.leadTime} from approved design`,
+  },
+  {
+    factor: "Warranty",
+    stock: "Varies by line",
+    semi: "Varies by line",
+    ours: `${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}`,
+  },
+  {
+    factor: "Relative cost",
+    stock: "$",
+    semi: "$$",
+    ours: "$$$, quoted in writing after measurement",
+  },
+];
+
+const tableShell = "overflow-x-auto rounded-sm border border-border bg-card";
+const tableBase = "w-full min-w-[600px] border-collapse text-left text-sm";
+const headCell = "px-4 py-3 font-medium text-foreground align-bottom";
+const rowHead = "sticky left-0 z-10 bg-card px-4 py-3 font-medium text-foreground align-top";
+const bodyCell = "px-4 py-3 text-foreground/90 align-top";
 
 export default function ComparePage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Compare Cabinet Collections",
-      description: COLLECTION_COMPARISON.description,
+      title: "Custom cabinet comparison",
+      description: catalogDescription(PAGE_DESCRIPTION),
       url: "/compare",
     }),
     generateBreadcrumbSchema([
@@ -238,11 +157,11 @@ export default function ComparePage() {
           image={"/images/catalog/collections/custom.webp"}
           alt="custom cabinetry with coordinated sizes and finishes"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Catalog", href: "/catalog" }, { name: "Compare" }]}
-          eyebrow="Product catalog"
+          eyebrow="Compare your options"
           title={<>
-                  Compare <em className="brc-accent text-accent">collections</em>
+                  Custom cabinet <em className="brc-accent text-accent">comparison</em>
                 </>}
-          description={COLLECTION_COMPARISON.description}
+          description={`How ${SITE_CONFIG.name} custom cabinets compare with stock and semi-custom lines, plus our ${DOOR_STYLES.length} door styles and ${FINISHES.length} finishes side by side.`}
         >
 <Button variant="brand" asChild className="mt-4">
               <Link href="/estimate">
@@ -254,13 +173,48 @@ export default function ComparePage() {
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={COLLECTION_COMPARISON.title}
-              title={COLLECTIONS.length === 1 ? <>What every cabinet includes</> : <>Feature comparison</>}
+              eyebrow="Stock, semi-custom, or custom"
+              title={<>How our custom cabinets compare</>}
+              description="Stock cabinets are pre-built in fixed sizes, semi-custom lines start from a catalog and allow modifications, and custom cabinets are built to your exact dimensions. Here is where ours sit on each factor."
+              align="left"
               className="mb-8"
             />
-            <ComparisonMatrixTable matrix={COLLECTION_COMPARISON} />
-            <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto">
-              Every {SITE_CONFIG.name} collection includes professional installation and soft-close options. Details above reflect standard inclusions, ask about upgrades during your consultation.
+            <div className={tableShell}>
+              <table className={tableBase}>
+                <caption className="sr-only">
+                  Stock, semi-custom, and {SITE_CONFIG.name} custom cabinets compared
+                </caption>
+                <thead>
+                  <tr className="border-b border-border">
+                    <th scope="col" className={`${headCell} sticky left-0 z-10 bg-card w-[22%]`}>Factor</th>
+                    <th scope="col" className={headCell}>Stock</th>
+                    <th scope="col" className={headCell}>Semi-custom</th>
+                    <th scope="col" className={headCell}>{SITE_CONFIG.name} custom</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {TIER_ROWS.map((row) => (
+                    <tr key={row.factor} className="border-b border-border/60 last:border-b-0">
+                      <th scope="row" className={rowHead}>{row.factor}</th>
+                      <td className={bodyCell}>{row.stock}</td>
+                      <td className={bodyCell}>{row.semi}</td>
+                      <td className={`${bodyCell} text-foreground`}>{row.ours}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-6 max-w-3xl text-sm text-muted-foreground">
+              Custom describes fit and options, not quality on its own. Judge any cabinet by its box,
+              drawer boxes, and hinges; our{" "}
+              <Link href="/construction" className="text-foreground underline underline-offset-2 hover:text-accent">
+                construction specifications
+              </Link>{" "}
+              list ours, and the{" "}
+              <Link href="/blog/stock-vs-custom-cabinets-boise" className="text-foreground underline underline-offset-2 hover:text-accent">
+                stock vs custom cabinets guide
+              </Link>{" "}
+              explains each tier in depth.
             </p>
           </div>
         </Section>
@@ -268,45 +222,82 @@ export default function ComparePage() {
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={DOOR_STYLE_COMPARISON.title}
-              title={<>Six door styles</>}
-              description={DOOR_STYLE_COMPARISON.description}
+              eyebrow="Door styles"
+              title={<>{DOOR_STYLES.length} door styles compared</>}
+              description="Every door style is available on every cabinet we build. The finish families each profile accepts, and the drawer front it pairs with, are listed below."
+              align="left"
               className="mb-8"
             />
-            <ComparisonMatrixTable matrix={DOOR_STYLE_COMPARISON} visualRows />
+            <div className={tableShell}>
+              <table className={tableBase}>
+                <caption className="sr-only">Door styles compared by look, finish families, and drawer fronts</caption>
+                <thead>
+                  <tr className="border-b border-border">
+                    <th scope="col" className={`${headCell} sticky left-0 z-10 bg-card w-[22%]`}>Door style</th>
+                    <th scope="col" className={headCell}>Look</th>
+                    <th scope="col" className={headCell}>Finish families</th>
+                    <th scope="col" className={headCell}>Drawer fronts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DOOR_STYLES.map((style) => (
+                    <tr key={style.id} className="border-b border-border/60 last:border-b-0">
+                      <th scope="row" className={rowHead}>{style.name}</th>
+                      <td className={bodyCell}>{style.description}</td>
+                      <td className={bodyCell}>{familyList(style.compatibleFinishCategories)}</td>
+                      <td className={bodyCell}>{drawerFront(style.constructionNotes)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-6 max-w-3xl text-sm text-muted-foreground">
+              Four of the six are shaker profiles; see{" "}
+              <Link href="/shaker-cabinets" className="text-foreground underline underline-offset-2 hover:text-accent">
+                shaker cabinets
+              </Link>{" "}
+              for how they differ, or browse every door in the{" "}
+              <Link href="/catalog" className="text-foreground underline underline-offset-2 hover:text-accent">
+                cabinet catalog
+              </Link>
+              .
+            </p>
           </div>
         </Section>
 
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={FINISH_TIER_COMPARISON.title}
-              title={<>299 finishes</>}
-              description={FINISH_TIER_COMPARISON.description}
+              eyebrow="Finishes"
+              title={<>{FINISHES.length} finishes in three families</>}
+              description="Finish counts come from the current catalog. Physical samples are confirmed in your light at the design visit."
+              align="left"
               className="mb-8"
             />
-            <ComparisonMatrixTable matrix={FINISH_TIER_COMPARISON} visualRows />
-          </div>
-        </Section>
-
-        {COLLECTIONS.length > 1 && (
-        <Section>
-          <div className="ed-shell">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {COLLECTIONS.map((c) => (
-                <Link
-                  key={c.id}
-                  href="/catalog"
-                  className="marketing-card p-5 brc-lift text-center block"
-                >
-                  <p className="font-sans font-light text-lg">{c.name}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{c.leadTime}</p>
-                </Link>
-              ))}
+            <div className={tableShell}>
+              <table className={tableBase}>
+                <caption className="sr-only">Finish families compared by count and door styles</caption>
+                <thead>
+                  <tr className="border-b border-border">
+                    <th scope="col" className={`${headCell} sticky left-0 z-10 bg-card w-[22%]`}>Finish family</th>
+                    <th scope="col" className={headCell}>Finishes</th>
+                    <th scope="col" className={headCell}>Door styles</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {FINISH_FAMILIES.map((family) => (
+                    <tr key={family.id} className="border-b border-border/60 last:border-b-0">
+                      <th scope="row" className={rowHead}>{family.label}</th>
+                      <td className={bodyCell}>{finishCount(family.id)}</td>
+                      <td className={bodyCell}>{doorStylesFor(family.id).join(", ")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </Section>
-        )}
+
         <CatalogClosingCTA />
       </div>
     </></InteriorPage>

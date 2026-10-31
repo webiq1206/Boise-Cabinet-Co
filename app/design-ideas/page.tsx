@@ -16,9 +16,9 @@ import { ArrowRight } from 'lucide-react';
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: 'about',
   path: '/design-ideas',
-  titleOverride: 'Cabinet Design Ideas',
+  titleOverride: 'Cabinet Design Ideas for Boise Homes',
   descriptionOverride:
-    'Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with Boise Cabinet Co.',
+    'Cabinet design ideas for Treasure Valley homes: a modern shaker kitchen, a double vanity, mudroom storage, a wet bar and a covered outdoor kitchen concept.',
 })), "/design-ideas");
 
 export default function DesignIdeasPage() {
@@ -45,7 +45,7 @@ export default function DesignIdeasPage() {
         alt="Cabinet finish selections and design plans for a Treasure Valley kitchen"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Design ideas' }]}
         eyebrow="Cabinet design inspiration"
-        title="Design ideas"
+        title="Cabinet design ideas for Treasure Valley homes"
         description="Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes. Captions describe the design shown; they are not records of completed client projects."
       >
         <CtaButton variant="brand">

@@ -20,7 +20,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   serviceName: "Cabinet Installation",
   serviceSlug: "cabinet-installation",
   path: "/services/cabinet-installation",
-  titleOverride: "Cabinet Installation in Boise, ID",
+  titleOverride: "Cabinet Installation in Boise | Own Crew",
   descriptionOverride:
     "Professional cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley communities. Bring your own cabinets or work with Boise Cabinet Co for custom cabinetry and installation.",
 })), "/services/cabinet-installation");
@@ -75,7 +75,7 @@ export default function CabinetInstallationPage() {
             <div className="max-w-3xl fade-up">
               <p className="brc-label text-inverse-muted">Cabinet installation in the Treasure Valley</p>
               <h1 className="ed-display mt-5 max-w-3xl text-inverse-foreground">
-                Cabinets installed with a <em className="brc-accent text-accent">steady hand.</em>
+                Cabinet installation in <em className="brc-accent text-accent">Boise, Idaho</em>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-relaxed text-inverse-foreground/80 md:text-xl">
                 Bring us cabinets you already chose, or let Boise Cabinet Co design, sell, and install the right cabinets for your home.
