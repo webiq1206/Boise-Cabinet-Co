@@ -1,6 +1,7 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Section } from "@/components/marketing";
+import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CtaButton } from "@/components/modals/CtaButton";
@@ -63,9 +64,9 @@ export default function CabinetInstallationPage() {
     <InteriorPage kind="services"><>
       <JsonLd data={schemas} />
       <main>
-        <InteriorHero layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
+        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
 
-            <nav aria-label="Breadcrumb" className="mb-16 text-sm text-inverse-muted">
+            <nav aria-label="Breadcrumb" className="mb-6 text-sm text-inverse-muted">
               <Link href="/" className="tap-target hover:text-inverse-foreground">Home</Link>
               <span className="mx-2 opacity-70">/</span>
               <Link href="/cabinets" className="tap-target hover:text-inverse-foreground">Cabinets</Link>
@@ -80,11 +81,12 @@ export default function CabinetInstallationPage() {
               <p className="mt-7 max-w-2xl text-lg leading-relaxed text-inverse-foreground/80 md:text-xl">
                 Bring us cabinets you already chose, or let Boise Cabinet Co design, sell, and install the right cabinets for your home.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              {/* One primary plus the quiet call/text line. The two options are
+                  the very next section, so the in-page "Compare your options"
+                  button no longer competes with the primary. */}
+              <div className="interior-hero-cta">
                 <CtaButton variant="brand">{CTA_ESTIMATE} <ArrowRight className="h-4 w-4" /></CtaButton>
-                <Link href="#options" className="tap-target inline-flex items-center justify-center border border-inverse-foreground/30 px-5 py-3 text-sm text-inverse-foreground transition-colors hover:border-inverse-foreground/70">
-                  Compare your options
-                </Link>
+                <AboveFoldActions />
               </div>
             </div>
           </InteriorHero>

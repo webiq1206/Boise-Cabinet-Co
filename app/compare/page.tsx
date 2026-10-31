@@ -135,7 +135,9 @@ const TIER_ROWS: Array<{ factor: string; stock: string; semi: string; ours: stri
   },
 ];
 
-const tableShell = "overflow-x-auto rounded-sm border border-border bg-card";
+// On phones (640px and down) each row stacks into label and value pairs via the
+// shared .article-table-scroll rule, so nothing scrolls sideways at 360 or 390.
+const tableShell = "compare-table article-table-scroll overflow-x-auto rounded-sm border border-border bg-card";
 const tableBase = "w-full min-w-[600px] border-collapse text-left text-sm";
 const headCell = "px-4 py-3 font-medium text-foreground align-bottom";
 const rowHead = "sticky left-0 z-10 bg-card px-4 py-3 font-medium text-foreground align-top";
@@ -186,7 +188,7 @@ export default function ComparePage() {
               className="mb-8"
             />
             <div className={tableShell}>
-              <table className={tableBase}>
+              <table className={tableBase} data-stack="true">
                 <caption className="sr-only">
                   Stock, semi-custom, and {SITE_CONFIG.name} custom cabinets compared
                 </caption>
@@ -201,10 +203,10 @@ export default function ComparePage() {
                 <tbody>
                   {TIER_ROWS.map((row) => (
                     <tr key={row.factor} className="border-b border-border/60 last:border-b-0">
-                      <th scope="row" className={rowHead}>{row.factor}</th>
-                      <td className={bodyCell}>{row.stock}</td>
-                      <td className={bodyCell}>{row.semi}</td>
-                      <td className={`${bodyCell} text-foreground`}>{row.ours}</td>
+                      <th scope="row" className={rowHead} data-label="Factor">{row.factor}</th>
+                      <td className={bodyCell} data-label="Stock">{row.stock}</td>
+                      <td className={bodyCell} data-label="Semi-custom">{row.semi}</td>
+                      <td className={`${bodyCell} text-foreground`} data-label={`${SITE_CONFIG.name} custom`}>{row.ours}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -235,7 +237,7 @@ export default function ComparePage() {
               className="mb-8"
             />
             <div className={tableShell}>
-              <table className={tableBase}>
+              <table className={tableBase} data-stack="true">
                 <caption className="sr-only">Door styles compared by look, finish families, and drawer fronts</caption>
                 <thead>
                   <tr className="border-b border-border">
@@ -248,10 +250,10 @@ export default function ComparePage() {
                 <tbody>
                   {DOOR_STYLES.map((style) => (
                     <tr key={style.id} className="border-b border-border/60 last:border-b-0">
-                      <th scope="row" className={rowHead}>{style.name}</th>
-                      <td className={bodyCell}>{style.description}</td>
-                      <td className={bodyCell}>{familyList(style.compatibleFinishCategories)}</td>
-                      <td className={bodyCell}>{drawerFront(style.constructionNotes)}</td>
+                      <th scope="row" className={rowHead} data-label="Door style">{style.name}</th>
+                      <td className={bodyCell} data-label="Look">{style.description}</td>
+                      <td className={bodyCell} data-label="Finish families">{familyList(style.compatibleFinishCategories)}</td>
+                      <td className={bodyCell} data-label="Drawer fronts">{drawerFront(style.constructionNotes)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -281,7 +283,7 @@ export default function ComparePage() {
               className="mb-8"
             />
             <div className={tableShell}>
-              <table className={tableBase}>
+              <table className={tableBase} data-stack="true">
                 <caption className="sr-only">Finish families compared by count and door styles</caption>
                 <thead>
                   <tr className="border-b border-border">
@@ -293,9 +295,9 @@ export default function ComparePage() {
                 <tbody>
                   {FINISH_FAMILIES.map((family) => (
                     <tr key={family.id} className="border-b border-border/60 last:border-b-0">
-                      <th scope="row" className={rowHead}>{family.label}</th>
-                      <td className={bodyCell}>{finishCount(family.id)}</td>
-                      <td className={bodyCell}>{doorStylesFor(family.id).join(", ")}</td>
+                      <th scope="row" className={rowHead} data-label="Finish family">{family.label}</th>
+                      <td className={bodyCell} data-label="Finishes">{finishCount(family.id)}</td>
+                      <td className={bodyCell} data-label="Door styles">{doorStylesFor(family.id).join(", ")}</td>
                     </tr>
                   ))}
                 </tbody>

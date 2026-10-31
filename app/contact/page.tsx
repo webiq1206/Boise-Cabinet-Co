@@ -2,6 +2,7 @@ import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/app
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { Section } from '@/components/marketing';
+import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
 import { Hairline } from '@/components/marketing/Hairline';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
@@ -157,7 +158,7 @@ export default function ContactPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Approved editorial hero */}
-        <InteriorHero layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
+        <InteriorHero className="interior-hero-fit" layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -167,18 +168,18 @@ export default function ContactPage() {
               Contact {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
-            <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-6">
+            {/* One support line, one primary and the quiet call/text line. The
+                reply promise and the Prefer to text line this paragraph used to
+                carry open the form section directly below, which already states
+                both, so they are not repeated here. */}
+            <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed">
               Schedule a free design consultation, call or text our team, or send project details
-              through the form. We reply within one business day.{" "}
-              <PreferToTextLine className="block mt-2 text-sm" />
+              through the form.
             </p>
-            <a
-              href={SITE_CONFIG.phoneHref}
-              className="tap-target inline-block brc-display-num tabular-nums text-2xl md:text-3xl text-inverse-foreground hover:text-inverse-foreground/75 transition-colors mb-8"
-            >
-              {BUSINESS_INFO.phone}
-            </a>
-            <div className="interior-contact-actions"><InteriorEstimateLink/></div>
+            <div className="interior-hero-cta">
+              <div className="interior-contact-actions"><InteriorEstimateLink/></div>
+              <AboveFoldActions />
+            </div>
           </InteriorHero>
 
         {/* ─── Consultation form ─── */}

@@ -6,6 +6,7 @@ import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { HeroFollowOn } from "@/components/marketing/HeroFollowOn";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
@@ -18,6 +19,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { phase1RoomAnswer } from '@/lib/phase1Answers';
+import { splitLead } from '@/lib/heroLead';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import {
 generateBreadcrumbSchema,
@@ -140,6 +142,15 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const roomFaqs = roomCopy?.faqs ?? getRoomFaqs(room);
   const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
   const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
+  // The hero keeps the first sentence; the rest of its copy, the BOT-05 subhead
+  // and trust line, and the built-ins prompt follow in the first section below.
+  const heroLead = splitLead(roomCopy?.firstSentence ?? room.description);
+  const heroFollowOn = [
+    heroLead.rest,
+    roomCopy?.aboveFold,
+    roomCopy?.trustLine,
+    room.slug === "built-ins" ? "Tell Boise Cabinet Co which room you are working on and what you need to store." : undefined,
+  ].filter((paragraph): paragraph is string => Boolean(paragraph));
   const typicalRange = getTypicalRoomRange(room.slug);
   const roomProjects = PROJECTS.filter((p) =>
     (PROJECT_SERVICE_MATCH[room.slug] ?? []).includes(p.serviceType),
@@ -172,8 +183,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        {/* Hero */}
-        <InteriorHero className={["kitchen", "built-ins"].includes(room.slug) ? "interior-hero-above-fold" : ""} layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
+        {/* Hero: one support line, one primary and the quiet call/text line, so
+            the action sits in the first screen on every room (Phase 3). The rest
+            of what the hero used to say follows directly below, word for word. */}
+        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
@@ -198,37 +211,22 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   </>
                 )
               }
-              description={["kitchen", "built-ins"].includes(room.slug) ? undefined : roomCopy?.firstSentence ?? room.description}
+              description={heroLead.lead}
             />
-            {["kitchen", "built-ins"].includes(room.slug) && (
-              <p className="ed-lede mt-4">{roomCopy?.firstSentence ?? room.description}</p>
-            )}
-            {/* One primary (Request a quote, to /estimate) and at most one secondary:
-                the call/text line on kitchen and built-ins, the phone button elsewhere. */}
-            <div className="flex flex-wrap items-center gap-3 mt-4">
+            <div className="interior-hero-cta">
               <CtaButton variant="brand">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
-              {["kitchen", "built-ins"].includes(room.slug) ? (
-                <AboveFoldActions />
-              ) : roomCopy ? (
-                <Button variant="brandOutline" asChild>
-                  <a href={SITE_CONFIG.phoneHref}>
-                    <Phone className="h-4 w-4" /> {SITE_CONFIG.phone}
-                  </a>
-                </Button>
-              ) : null}
+              <AboveFoldActions />
             </div>
-            {roomCopy ? (
-              <>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{roomCopy.aboveFold}</p>
-                <p className="mt-3 text-sm text-foreground/80">{roomCopy.trustLine}</p>
-              </>
-            ) : null}
-            {room.slug === "built-ins" ? (
-              <p className="mt-4">Tell Boise Cabinet Co which room you are working on and what you need to store.</p>
-            ) : null}
           </InteriorHero>
+        {heroFollowOn.length > 0 && (
+          <HeroFollowOn>
+            {heroFollowOn.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </HeroFollowOn>
+        )}
         {room.slug === "built-ins" && <section id="built-in-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
           <h2 className="text-2xl font-serif">Your room, your storage goals</h2>
           <p className="my-4">Share your ideas for team review. Dimensions and photos can follow; they are not required to get in touch.</p>
