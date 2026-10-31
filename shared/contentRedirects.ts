@@ -126,21 +126,27 @@ export const CATEGORY_REDIRECTS: Record<string, string> = {
   '/blog/category/treasure-valley-locations': '/blog/category/local-guides',
 };
 
-/** BRC finish/door slug → OSC catalog slug (301) */
+/**
+ * Legacy BRC finish/door slugs (301). These once pointed at the OSC catalog
+ * slugs (e.g. /finishes/matte/matte-vanilla-orchid), which the /finishes and
+ * /door-styles consolidation in next.config.js redirects again to /catalog, so
+ * every visitor paid two hops (26 chains with the trailing-slash twins). Point
+ * straight at the final destination.
+ */
 export const CATALOG_FINISH_REDIRECTS: Record<string, string> = {
-  "/finishes/matte/snowcap": "/finishes/matte/matte-vanilla-orchid",
-  "/finishes/matte/glacier": "/finishes/matte/matte-carte-blanche",
-  "/finishes/matte/sagebrush": "/finishes/matte/matte-eucalyptus",
-  "/finishes/gloss/porcelain": "/finishes/gloss/gloss-white-hg",
-  "/finishes/gloss/pearl": "/finishes/gloss/gloss-light-grey",
-  "/finishes/gloss/obsidian": "/finishes/gloss/gloss-black-hg",
-  "/finishes/gloss/cobalt": "/finishes/gloss/gloss-deep-blue",
-  "/finishes/gloss/storm": "/finishes/gloss/gloss-dark-grey",
-  "/finishes/woodgrain/white-oak": "/finishes/woodgrain/woodgrain-canyon-oak",
-  "/finishes/woodgrain/natural-walnut": "/finishes/woodgrain/woodgrain-canyon-walnut",
-  "/finishes/woodgrain/driftwood": "/finishes/woodgrain/woodgrain-chameleon",
-  "/finishes/woodgrain/cherry": "/finishes/woodgrain/woodgrain-kirsche",
-  "/door-styles/shaker": "/door-styles/modern-shaker",
+  "/finishes/matte/snowcap": "/catalog",
+  "/finishes/matte/glacier": "/catalog",
+  "/finishes/matte/sagebrush": "/catalog",
+  "/finishes/gloss/porcelain": "/catalog",
+  "/finishes/gloss/pearl": "/catalog",
+  "/finishes/gloss/obsidian": "/catalog",
+  "/finishes/gloss/cobalt": "/catalog",
+  "/finishes/gloss/storm": "/catalog",
+  "/finishes/woodgrain/white-oak": "/catalog",
+  "/finishes/woodgrain/natural-walnut": "/catalog",
+  "/finishes/woodgrain/driftwood": "/catalog",
+  "/finishes/woodgrain/cherry": "/catalog",
+  "/door-styles/shaker": "/catalog",
 };
 
 export function allContentRedirects(): ContentRedirect[] {
