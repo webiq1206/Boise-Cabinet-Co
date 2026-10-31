@@ -39,7 +39,10 @@ function buildCityServiceImages(): Record<string, string> {
   const map: Record<string, string> = {};
   for (const service of SERVICE_SLUGS) {
     for (const city of CITY_SLUGS) {
-      map[`${service}/${city}`] = `/images/city-service/${service}__${city}.png`;
+      // WebP, not PNG: every service x city WebP exists, while most of the
+      // PNG originals were never committed, so location pages requested
+      // /images/city-service/*-remodel__{city}.png and rendered a broken image.
+      map[`${service}/${city}`] = `/images/city-service/${service}__${city}.webp`;
     }
   }
   return map;

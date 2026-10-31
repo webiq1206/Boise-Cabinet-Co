@@ -12,6 +12,8 @@ export const MARKETING_IMAGES = {
   processHome: "/images/marketing/kitchen-wood-island.webp",
   processAbout: "/images/marketing/cabinet-door-samples.webp",
   processContact: "/images/marketing/drawers-black-pulls-oak.webp",
+  /** The process panel on room and location pages (ProcessSection). */
+  processPanel: "/images/marketing/drawers-black-pulls-oak.webp",
   hardware: "/images/marketing/warranty-hardware.webp",
   construction: "/images/marketing/kitchen-wood-island.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",

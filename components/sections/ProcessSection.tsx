@@ -33,12 +33,17 @@ export function ProcessSection({
     <Section id="how-we-build" surface="deep" spacing="none" edge className="p-0">
       <div className="ed-panel ed-panel-reverse">
         <div className="ed-panel-media">
+          {/* WAS the design-studio photo at its 768px variant, upscaled about 2.6x
+              into this tall panel, so it read as a soft grey placeholder. NOW a
+              finished oak drawer run (not used elsewhere on room or location
+              pages), and the sizes hint asks for the full-resolution file at
+              desktop because the panel is taller than it is wide. */}
           <Image
-            src={MARKETING_IMAGES.designStudio}
-            alt="cabinet door samples, finish swatches and a kitchen layout rendering"
+            src={MARKETING_IMAGES.processPanel}
+            alt="White oak drawer fronts with matte black bar pulls beside a painted shaker door"
             fill
-            sizes="(max-width: 820px) 100vw, 43vw"
-            className="object-cover img-brand-grade"
+            sizes="(max-width: 820px) 100vw, 90vw"
+            className="object-cover object-[25%_50%] img-brand-grade"
           />
           <div
             className="pointer-events-none absolute inset-0"
