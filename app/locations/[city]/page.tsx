@@ -49,7 +49,7 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
   if (!city) return {};
   const copy = bot05Location(city.slug);
   return withBrandPageMetadata(await (buildPageMetadata({
-    kind: "area",
+    kind: "page",
     path: locationPath(city.slug),
     cityName: city.name,
     citySlug: city.slug,

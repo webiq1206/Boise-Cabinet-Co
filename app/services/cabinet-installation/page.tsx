@@ -16,7 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
-  kind: "service",
+  kind: "page",
   serviceName: "Cabinet Installation",
   serviceSlug: "cabinet-installation",
   path: "/services/cabinet-installation",

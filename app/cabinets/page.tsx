@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { getCollectionBySlug,ROOM_CATEGORIES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -16,13 +17,18 @@ import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/cabinets",
   "Cabinet Catalog by Room",
   catalogDescription(
     "Browse custom cabinets by room, kitchen, bath, laundry, mudroom, and more. {company} builds and installs cabinetry across the Treasure Valley.",
   ),
-)), "/cabinets");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/cabinets") },
+}, "/cabinets");
 
 export default function CabinetsHubPage() {
   const schemas = [

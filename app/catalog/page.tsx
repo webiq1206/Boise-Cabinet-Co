@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import {
 ACCESSORY_FAMILIES,
@@ -20,7 +21,8 @@ HARDWARE_OPTIONS,
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Download } from "lucide-react";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/catalog",
   "Full Cabinet Catalog",
   catalogDescription(
@@ -36,7 +38,11 @@ export const metadata = withBrandPageMetadata((catalogMetadata(
       alt: "Warm kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling",
     },
   },
-)), "/catalog");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/catalog") },
+}, "/catalog");
 
 const CATALOG_PDF_PATH = "/downloads/boise-cabinet-catalog.pdf";
 

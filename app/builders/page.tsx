@@ -22,7 +22,7 @@ import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({
-  kind: "service",
+  kind: "page",
   path: "/builders",
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",

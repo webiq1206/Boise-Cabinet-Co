@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import { publicWarrantyRow } from "@/shared/claims";
@@ -24,13 +25,18 @@ import { ArrowRight,Check,X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/compare",
   "Compare Collections",
   catalogDescription(
     "How {company} builds Custom Cabinets to your exact sizes, finishes, and details.",
   ),
-)), "/compare");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/compare") },
+}, "/compare");
 
 const FINISH_ROW_IMAGES: Record<string, string> = {
   "matte-finishes": "/images/catalog/finishes/category-matte.webp",

@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import {
   CABINET_WORKMANSHIP_WARRANTY,
@@ -50,14 +51,19 @@ const EXCLUDED = [
 const WARRANTY_META_SOURCE =
   "{company} warranty: what's covered, workmanship terms, and how to file a claim in the Treasure Valley.";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/warranty",
   "Warranty",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
   ),
-)), "/warranty");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/warranty") },
+}, "/warranty");
 
 export default function WarrantyPage() {
   const schemas = [

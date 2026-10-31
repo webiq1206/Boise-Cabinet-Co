@@ -312,8 +312,8 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     title: "Kitchen Pantry Cabinets in Boise",
     description:
       "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, installed by our crew. Free design consult.",
-    h1Lead: "Kitchen pantry cabinets",
-    h1Accent: "for your home",
+    h1Lead: "Pantry cabinets in",
+    h1Accent: "Boise, Idaho",
     firstSentence:
       "Kitchen pantry cabinets help Treasure Valley homes add tall storage, walk-in layouts, and pull-out access without guessing on sizing.",
     aboveFold:

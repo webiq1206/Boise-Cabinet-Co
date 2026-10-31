@@ -69,7 +69,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/cabinets/home-office": "Custom home office cabinets in the Treasure Valley: built-in desks, file drawers, and shelving that hide cables and printers while keeping the workspace calm.",
   "/cabinets/entertainment": "Custom entertainment cabinets in the Treasure Valley: media centers, fireplace surrounds, and bars with wire management and ventilation clearances for AV gear.",
   "/cabinets/built-ins": "Custom built-in cabinets in the Treasure Valley: window seats, bookcases, benches, and millwork sized for out-of-plumb walls in older Treasure Valley homes.",
-  "/cabinets/pantry": "Kitchen pantry cabinets near me for walk-in and tall storage. Source and install pantry solutions across Boise and the Treasure Valley. Free design consult.",
+  "/cabinets/pantry": "Pantry cabinets in Boise for walk-in and tall storage: pull-outs and adjustable shelves built to your layout, installed by our crew. Free design consult.",
   "/cabinets/closet": "Custom closet cabinets in the Treasure Valley: reach-in and walk-in systems with double-hang sections, shoe towers, and jewelry drawers for primary suites.",
   "/cabinets/garage": "Custom garage cabinets in the Treasure Valley: overhead storage, tool cabinets, and slatwall-ready units with durable finishes and plywood or melamine boxes.",
   "/cabinets/outdoor": "Custom outdoor kitchen cabinets in the Treasure Valley for covered patios, with weather-rated cabinet boxes, stainless hardware, and cedar or teak finishes.",

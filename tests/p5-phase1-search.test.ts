@@ -5,6 +5,7 @@ import { withBrandPageMetadata } from "../lib/brand-page-metadata";
 import { PHASE1_ANSWERS } from "../lib/phase1Answers";
 import { PHASE1_DESCRIPTIONS, PHASE1_TITLES } from "../lib/phase1SearchCopy";
 import { CABINET_PRODUCTS } from "../shared/catalog";
+import { ROOM_SEO } from "../shared/catalog/roomSeo";
 import { LLMS_TXT } from "../shared/llmsTxt";
 
 const BRAND = " | Boise Cabinet Co";
@@ -85,19 +86,36 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
   assert.equal(painted.title, PHASE1_TITLES["/blog/how-to-paint-kitchen-cabinets"]);
   assert.equal(painted.description, PHASE1_DESCRIPTIONS["/blog/how-to-paint-kitchen-cabinets"]);
 
+  // Phase 4: room titles and descriptions moved out of the brand override into
+  // shared/catalog/roomSeo.ts (one source for all 13 room pages), so the
+  // wrapper now passes the page's own kitchen metadata through untouched. The
+  // old kitchen description was 165 characters; the plan trimmed it.
   const kitchen = withBrandPageMetadata(
     {
-      title: "Kitchen Cabinets",
-      description: "Custom kitchen cabinets from Boise Cabinet Co in the Treasure Valley.",
+      title: ROOM_SEO.kitchen.title,
+      description: ROOM_SEO.kitchen.description,
       alternates: { canonical: "https://boisecabinet.co/cabinets/kitchen" },
     },
     "/cabinets/[room]",
   );
-  assert.deepEqual(kitchen.title, { absolute: "Kitchen Cabinets in Boise | Boise Cabinet Co" });
+  assert.equal(kitchen.title, "Kitchen Cabinets in Boise | Built to Fit");
   assert.equal(
     kitchen.description,
-    "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, and installation by our crew. Request a free design consult.",
+    "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, installed by our own crew. Book a free in-home design consult.",
   );
+});
+
+test("room titles carry the city and a benefit within 60 rendered characters", () => {
+  assert.equal(Object.keys(ROOM_SEO).length, 13);
+  const titles = Object.values(ROOM_SEO).map((room) => room.title);
+  assert.equal(new Set(titles).size, titles.length);
+  for (const room of Object.values(ROOM_SEO)) {
+    assert.match(room.title, /^[A-Z][^|]* Boise \| [A-Z]/, room.title);
+    assert.ok(room.title.length + BRAND.length <= 60, `${room.title.length + BRAND.length} ${room.title}`);
+    assert.match(`${room.h1Lead} Boise, Idaho`, /cabinets in Boise, Idaho$/);
+    assert.doesNotMatch(room.phrase, /ins cabinets/);
+    if (room.description) assert.ok(room.description.length >= 120 && room.description.length <= 155, room.description);
+  }
 });
 
 test("phase-1 answer blocks are 40 to 60 words and use no em dashes", () => {

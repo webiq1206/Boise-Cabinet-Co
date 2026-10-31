@@ -22,9 +22,11 @@ export default function HomePage() {
     <div className="flex flex-col bg-background">
       <HomePageSchema />
       <ApprovedHome reviews={<HomeTestimonials />} />
-      <h2 data-speakable="summary" className="sr-only">
+      {/* Answer block for screen readers and answer engines. A paragraph, not a
+          heading: it is a 60-word summary, not the title of a section. */}
+      <p data-speakable="summary" className="sr-only">
         {publicText("Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. Kitchen cabinets, bathroom vanities, and built-in storage across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, with 299 finishes, six door styles, a free design consultation, and a 2-year workmanship warranty on installation.")}
-      </h2>
+      </p>
       <div id="contact" className="scroll-mt-24" aria-hidden="true" />
       <Section
         id="consult"

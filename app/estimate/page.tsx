@@ -6,15 +6,21 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/estimate",
   "Get an Estimate",
   catalogDescription(
     "Share your cabinet project with {company}. Our team will review your details and follow up to prepare an estimate.",
   ),
-)), "/estimate");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/estimate") },
+}, "/estimate");
 
 export default function EstimatePage() {
   const schemas = [
