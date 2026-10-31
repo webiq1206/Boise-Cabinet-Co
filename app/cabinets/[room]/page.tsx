@@ -32,6 +32,7 @@ ROOM_CATEGORIES,
 getRoomBySlug,
 } from "@/shared/catalog";
 import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
+import { roomSeo,sentenceStart } from "@/shared/catalog/roomSeo";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
 import { CITIES,locationPath } from "@/shared/contentData";
@@ -105,11 +106,13 @@ export async function generateMetadata(props: { params: Promise<{ room: string }
   const params = await props.params;
   const room = getRoomBySlug(params.room);
   if (!room) return {};
+  const seo = roomSeo(room);
   return withBrandPageMetadata(await (catalogMetadata(
     `/cabinets/${room.slug}`,
-    `${seoName(room)} Cabinets`,
+    seo.title,
     catalogDescription(
-      `Custom ${seoName(room).toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
+      seo.description ??
+        `Custom ${seoName(room).toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
     ),
   )), "/cabinets/[room]");
 }
@@ -132,6 +135,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
   const roomCopy = bot05Room(room.slug);
+  const seo = roomSeo(room);
   const phaseAnswer = roomCopy ? undefined : phase1RoomAnswer(room.slug);
   const roomFaqs = roomCopy?.faqs ?? getRoomFaqs(room);
   const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
@@ -189,8 +193,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   </>
                 ) : (
                   <>
-                    {seoName(room)}{" "}
-                    <em className="brc-accent text-accent">cabinets</em>
+                    {seo.h1Lead}{" "}
+                    <em className="brc-accent text-accent">Boise, Idaho</em>
                   </>
                 )
               }
@@ -252,7 +256,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeader
               eyebrow="Cost & timeline"
-              title={<>What to expect for {room.name.toLowerCase()} cabinets</>}
+              title={<>What to expect for {seo.phrase}</>}
               align="left"
               className="mb-0"
             />
@@ -265,7 +269,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 </>
               ) : typicalRange ? (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
-                  Most {room.name.toLowerCase()} projects plan from{" "}
+                  Most {seo.label} projects plan from{" "}
                   <strong className="text-foreground">
                     {formatPlanningCurrency(typicalRange.priceLow)} to{" "}
                     {formatPlanningCurrency(typicalRange.priceHigh)}
@@ -275,7 +279,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 </p>
               ) : (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
-                  {room.name} cabinets are sized and priced individually based on your layout and
+                  {sentenceStart(seo.phrase)} are sized and priced individually based on your layout and
                   material choices, so we do not publish a generic starting price for this room.
                 </p>
               )}
@@ -298,7 +302,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         <PhotoBreak
           src={room.heroImage}
           alt={room.imageAlt ?? `${room.name} custom cabinets for Treasure Valley homes`}
-          caption={`${room.name} cabinetry designed for Boise and Treasure Valley homes.`}
+          caption={`${sentenceStart(seo.label)} cabinetry designed for Boise and Treasure Valley homes.`}
         />
 
         {/* Project proof */}
@@ -307,7 +311,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           <div className="ed-shell">
             <SectionHeader
               eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
-              title={<>{room.name} cabinet ideas</>}
+              title={<>{sentenceStart(seo.phrase)} ideas</>}
               align="left"
               className="mb-6"
             />
@@ -351,7 +355,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               <div className="lg:sticky lg:top-28 lg:self-start">
                 <SectionHeader
                   eyebrow="What's included"
-                  title={<>Included on every {room.name.toLowerCase()} project</>}
+                  title={<>Included on every {seo.label} project</>}
                   align="left"
                   className="mb-0"
                 />
@@ -373,7 +377,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           <div className="ed-shell">
             <RoomCatalogShowcase
               roomSlug={room.slug}
-              roomName={room.name}
+              roomName={seo.label}
               defaultCollectionId={room.defaultCollectionId}
             />
           </div>
@@ -384,10 +388,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <SectionHeader
               eyebrow="Cabinets for this room"
               title={
-                  <>What we build for {room.name.toLowerCase()}</>
+                  <>What we build for {seo.label === "built-in" ? "built-ins" : seo.label}</>
               }
               description={
-                `${SITE_CONFIG.name} sizes and builds these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+                `${SITE_CONFIG.name} sizes and builds these cabinets to fit ${seo.label} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
               }
               align="left"
               className="mb-6"
@@ -395,7 +399,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <CabinetOptionsSelector cabinets={roomCabinets} />
             {pillarGuide && (
               <p className="mt-6 text-sm text-muted-foreground">
-                Planning a {room.name.toLowerCase()} project? Read our{" "}
+                Planning a {seo.label} project? Read our{" "}
                 <Link
                   href={pillarGuide.href}
                   className="text-foreground underline underline-offset-2 hover:text-accent"
@@ -424,8 +428,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             {index === 0 ? (
               <PhotoBreak
                 src={ENRICHMENT_IMAGES.oakBuiltIns}
-                alt={`${room.name} cabinetry detail in a Treasure Valley home`}
-                caption={`More ${room.name.toLowerCase()} planning detail for Ada and Canyon County homes.`}
+                alt={`${sentenceStart(seo.label)} cabinetry detail in a Treasure Valley home`}
+                caption={`More ${seo.label} planning detail for Ada and Canyon County homes.`}
               />
             ) : null}
           </div>
@@ -493,7 +497,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               <div className="lg:sticky lg:top-28 lg:self-start">
                 <SectionHeader
                   eyebrow="Common questions"
-                  title={<>{room.name} cabinet questions</>}
+                  title={<>{sentenceStart(seo.phrase)} questions</>}
                   align="left"
                   className="mb-0"
                 />
@@ -509,7 +513,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           <div className="ed-shell">
             <RelatedPostCards
               path={`/cabinets/${room.slug}`}
-              title={`Guides for ${room.name.toLowerCase()} cabinets`}
+              title={`Guides for ${seo.phrase}`}
             />
           </div>
         </Section>
@@ -520,7 +524,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <div className="ed-split ed-split-narrow">
             <SectionHeader
               eyebrow="Where we work"
-              title={<>{room.name} cabinets across the Treasure Valley</>}
+              title={<>{sentenceStart(seo.phrase)} across the Treasure Valley</>}
               align="left"
               className="mb-0"
             />

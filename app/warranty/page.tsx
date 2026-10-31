@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import {
   CABINET_WORKMANSHIP_WARRANTY,
@@ -48,21 +49,26 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "{company} warranty: what's covered, workmanship terms, and how to file a claim in the Treasure Valley.";
+  "Cabinet warranty from {company}: a 2-year workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/warranty",
-  "Warranty",
+  "Cabinet Warranty | 2-Year Workmanship",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
   ),
-)), "/warranty");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/warranty") },
+}, "/warranty");
 
 export default function WarrantyPage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Warranty",
+      title: "Cabinet warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
         : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -86,7 +92,7 @@ export default function WarrantyPage() {
           title={showLifetimeWarranty() ? <>
                   {CATALOG_CONTENT.warrantyHeadline.replace(/warranty$/i, "")}
                   <em className="brc-accent text-accent">warranty</em>
-                </> : <>Warranty claims <em className="brc-accent text-accent">handled by us</em></>}
+                </> : <>Cabinet warranty: claims <em className="brc-accent text-accent">handled by us</em></>}
           description={showLifetimeWarranty()
             ? CATALOG_CONTENT.warrantySummary
             : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`}

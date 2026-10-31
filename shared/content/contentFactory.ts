@@ -33,14 +33,10 @@ function buildPillarSections(
   extra: ContentSection[] = [],
 ): ContentSection[] {
   const clusterSection = clusterLinksSection(hubSlug, linkedClusterSlugs);
+  // The factory opener "What should homeowners know about {topic}?" was a
+  // template heading on every pillar; each pillar already opens with its own
+  // quick answer, so the guide now starts with the planning essentials.
   return [
-    {
-      h2: `What should homeowners know about ${topic}?`,
-      paragraphs: [
-        `This overview covers ${topic.toLowerCase()} for ${CITIES_LIST}. Use the topic sections below, then follow linked articles for room-specific depth.`,
-        `${SITE_CONFIG.name} designs, builds, and installs custom cabinets with clear written scope from consultation through installation.`,
-      ],
-    },
     pillarEssentialsSection(topic),
     ...hubTopicSections(hubSlug, topic),
     {
@@ -54,6 +50,7 @@ function buildPillarSections(
     {
       h2: 'Next steps',
       paragraphs: [
+        `${SITE_CONFIG.name} designs custom cabinets to your measurements, builds each order to your layout, and installs it with our own crew across ${CITIES_LIST}, with a written scope from consultation through installation.`,
         '<a href="/estimate">Request a quote</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
         `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],

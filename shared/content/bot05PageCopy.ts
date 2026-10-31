@@ -150,11 +150,11 @@ export type Bot05LocationCopy = {
 
 export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   boise: {
-    title: "Custom Cabinets Boise",
+    title: "Custom Cabinets in Boise, Idaho",
     description:
       "Custom cabinets for Boise and the Treasure Valley. Built to your layout, 299 finishes, six door styles, install by our crew. Free in-home design consult.",
-    h1Lead: "Custom cabinets",
-    h1Accent: "Boise",
+    h1Lead: "Custom cabinets in",
+    h1Accent: "Boise, Idaho",
     firstSentence:
       "Custom cabinets in Boise start with a free in-home design consultation, then a clear path from selections to professional installation.",
     aboveFold: HERO_SUBHEAD,
@@ -200,22 +200,22 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     ],
   },
   meridian: {
-    title: "Custom Cabinets Meridian",
+    title: "Custom Cabinets in Meridian, Idaho",
     description:
       "Custom cabinets for Meridian and the Treasure Valley. Built to your layout, 299 finishes, and install by our crew. Book a free in-home design consult.",
-    h1Lead: "Custom cabinets",
-    h1Accent: "Meridian",
+    h1Lead: "Custom cabinets in",
+    h1Accent: "Meridian, Idaho",
     firstSentence:
       "Custom cabinetry in Meridian, ID starts with a free in-home design consultation, then cabinets built to your layout and professional installation.",
     trustLine: TRUST_LINE,
     ctaLabel: "Request a quote",
   },
   middleton: {
-    title: "Custom Cabinetry Middleton",
+    title: "Custom Cabinets in Middleton, Idaho",
     description:
       "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout, installed by our crew. Free design consult.",
-    h1Lead: "Custom cabinetry",
-    h1Accent: "Middleton",
+    h1Lead: "Custom cabinets in",
+    h1Accent: "Middleton, Idaho",
     firstSentence:
       "Custom cabinets in Middleton, ID start with a free in-home design consultation for kitchens, pantries, mudrooms, and storage along the Highway 44 corridor.",
     trustLine: TRUST_LINE,
@@ -225,7 +225,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     description:
       "Kitchen cabinets and pantry storage in Kuna, built to your layout. Free design consult and upgrades for newer builder-grade kitchens across the Treasure Valley.",
     h1Lead: "Custom cabinets in",
-    h1Accent: "Kuna",
+    h1Accent: "Kuna, Idaho",
     firstSentence:
       "Kitchen cabinets and pantry storage in Kuna are available from Boise Cabinet Co, including upgrades on newer homes with builder-grade packages.",
     trustLine: TRUST_LINE,
@@ -312,8 +312,8 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     title: "Kitchen Pantry Cabinets in Boise",
     description:
       "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, installed by our crew. Free design consult.",
-    h1Lead: "Kitchen pantry cabinets",
-    h1Accent: "for your home",
+    h1Lead: "Pantry cabinets in",
+    h1Accent: "Boise, Idaho",
     firstSentence:
       "Kitchen pantry cabinets help Treasure Valley homes add tall storage, walk-in layouts, and pull-out access without guessing on sizing.",
     aboveFold:

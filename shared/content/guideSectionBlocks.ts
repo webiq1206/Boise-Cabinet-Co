@@ -1,5 +1,7 @@
 import { CITIES_LIST, PILLAR_COST, type ContentSection } from './wave1/snippets';
 import { getClustersForHub } from '../contentHubs';
+import { LEAD_TIME_LINE } from './bot05PageCopy';
+import { CABINET_WORKMANSHIP_WARRANTY } from '../claims';
 
 /** Compact essentials, link out for valley-wide permit/cost depth. */
 export function pillarEssentialsSection(topic: string): ContentSection {
@@ -7,11 +9,11 @@ export function pillarEssentialsSection(topic: string): ContentSection {
   return {
     h2: 'Planning essentials',
     paragraphs: [
-      `Budget, permits, and selections drive ${t} timelines in ${CITIES_LIST}, not a single sticker price.`,
+      `Budget, layout, and selections drive ${t} timelines in ${CITIES_LIST}, not a single sticker price.`,
       `Use the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> for ranges, the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a> for local context, and the <a href="/guides/cabinet-project-process-guide">cabinet process guide</a> for milestones.`,
     ],
     list: [
-      'Hold 10–15% contingency for field adjustments',
+      'Hold 5 to 10% contingency for field adjustments',
       'Lock layout before cabinet fabrication',
       'Match quotes with identical line, finish, and install scope',
     ],
@@ -23,7 +25,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
   const legacyHub: Record<string, string> = {
     'kitchen-cabinets': 'kitchen-cabinets',
     'bathroom-vanities': 'bathroom-vanities',
-    'built-ins-storage': 'home-additions',
+    'built-ins-storage': 'built-ins-storage',
     'whole-home-cabinetry': 'whole-home-cabinetry',
     'choosing-cabinet-company': 'choosing-cabinet-company',
     'cabinet-project-process': 'cabinet-project-process',
@@ -94,54 +96,85 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           ],
         },
       ];
-    case 'home-additions':
+    case 'built-ins-storage':
+      // Rewritten in Phase 4: this pillar used to render a home-addition
+      // template (setbacks, second stories, a 3 to 9 month build table).
+      // Every fact below comes from the room pages, the process steps and
+      // the catalog copy already on the site.
       return [
         {
-          h2: 'Setbacks, soil, and feasibility',
+          h2: 'Which rooms get built-in cabinets?',
           paragraphs: [
-            'Eagle Foothills and hillside lots may change foundation type early. ADUs need utility, fire separation, and zoning study, not just desired square footage.',
+            'Built-in cabinets cover the rooms beyond the kitchen. Each one has its own page with sizes, storage ideas, and planning notes:',
+          ],
+          list: [
+            '<a href="/cabinets/mudroom">Mudroom cabinets</a>: bench seating, boot storage, coat cubbies, and locker systems',
+            '<a href="/cabinets/laundry">Laundry room cabinets</a>: folding surfaces, pull-out hampers, and upper storage over full-size machines',
+            '<a href="/cabinets/home-office">Home office cabinets</a>: built-in desks, file drawers, and shelving that hides cables and printers',
+            '<a href="/cabinets/entertainment">Entertainment center cabinets</a>: media centers and fireplace surrounds with wire management and ventilation for AV gear',
+            '<a href="/cabinets/built-ins">Built-in cabinets</a>: window seats, bookcases, and benches',
+            '<a href="/cabinets/closet">Closet cabinets</a>: reach-in and walk-in systems with double-hang sections and shoe towers',
+            '<a href="/cabinets/pantry">Pantry cabinets</a>: walk-in and tall pantry storage with pull-out access',
+            '<a href="/cabinets/bedroom">Bedroom cabinets</a>: dresser bases, wardrobe towers, and nightstands',
           ],
         },
         {
-          h2: 'Second story vs rear addition',
+          h2: 'How do built-ins fit walls that are not square?',
           paragraphs: [
-            'Second stories require engineering and longer Ada review. Rear mudrooms and family entries are common in Meridian lots with side or alley access.',
-            '<a href="/cabinets/built-ins">Built-in catalog</a> · <a href="/blog/garage-storage-cabinet-systems">Garage storage cabinets</a>.',
+            'Built-ins are sized on site, not from a catalog grid. We measure the room, draw the cabinets to those measurements, then level and scribe them to your walls at installation so gaps stay tight. That matters most in older Treasure Valley homes, where walls are often out of plumb.',
+            'Every door style is available on every cabinet we build, so a mudroom, office, or bookcase wall can match the kitchen and baths. See the <a href="/catalog">cabinet catalog</a> for the door styles and finishes.',
           ],
         },
         {
-          h2: 'Addition planning timeline',
+          h2: 'Garage and outdoor cabinets need different materials',
+          paragraphs: [
+            'Treasure Valley garages swing from freezing cold to summer heat, so garage cabinets use durable finishes over plywood or melamine boxes. Covered patio kitchens need weather-rated cabinet boxes and stainless hardware rather than indoor materials.',
+            '<a href="/cabinets/garage">Garage cabinets</a> · <a href="/cabinets/outdoor">Outdoor kitchen cabinets</a> · <a href="/blog/garage-storage-cabinet-systems">Garage storage systems</a> · <a href="/blog/outdoor-kitchen-cabinets-boise">Outdoor kitchen cabinets in Boise</a>.',
+          ],
+        },
+        {
+          h2: 'Built-in cabinet timeline',
           table: {
             className: 'timeline-table',
-            headers: ['Phase', 'Duration'],
+            headers: ['Step', 'What happens'],
             rows: [
-              ['Feasibility & design', '4–12 weeks'],
-              ['Permits', '2–10+ weeks'],
-              ['Construction', '3–9 months'],
+              ['Free design consultation', 'A 60 to 90 minute in-home visit to walk the room and talk through what you need to store'],
+              ['Layout and selections', 'Drawings, door style, finish, and hardware, settled before anything is ordered'],
+              ['Approval and deposit', 'A written proposal with drawings; fifty percent reserves production, fifty percent is due after installation'],
+              ['Built to order', LEAD_TIME_LINE],
+              ['Delivery and install', `Our crew delivers, levels, and scribes the cabinets and walks the job with you. ${CABINET_WORKMANSHIP_WARRANTY}.`],
             ],
           },
-          paragraphs: [],
+          paragraphs: [
+            'See the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for each step in detail.',
+          ],
         },
       ];
     case 'whole-home-cabinetry':
+      // Rewritten in Phase 4: the old sections ("Living through construction",
+      // "When contingency matters most", structural and HVAC sequencing) were
+      // remodel-generic. These come from the whole-home cluster answers, the
+      // cost guide FAQs, and the process copy already on the site.
       return [
         {
-          h2: 'Whole-home sequencing',
+          h2: 'How to sequence a whole-home cabinet program',
           paragraphs: [
-            'Lock structural, panel, and HVAC decisions before house-wide finish selections. Phasing spreads cost but adds mobilization, use a master finish plan.',
+            'Plan every room\'s layout first, then choose one door style and one finish family for the whole house before any order goes in. Rooms ordered apart can drift in finish, door style, and quality; one written selections schedule keeps the kitchen, baths, laundry, mudroom, and built-ins matched.',
+            '<a href="/blog/multi-room-cabinet-planning">Multi-room cabinet planning</a> · <a href="/blog/whole-home-cabinet-cost-boise">Whole-home cabinet cost</a>.',
           ],
         },
         {
-          h2: 'Living through construction',
+          h2: 'Can you phase rooms and still match?',
           paragraphs: [
-            'Temporary kitchens, dust barriers, and utility shutoffs should be planned before demo, not negotiated mid-project.',
-            '<a href="/blog/whole-home-cabinet-cost-boise">Whole-home cabinet cost guide</a>.',
+            'Yes. Many households install the kitchen first and the baths or built-ins later. A whole-home plan with the finish schedule written down is what keeps a later room matching the first one.',
+            `A whole-home timeline covers design, field measurement, selection approval, production, delivery, and installation, with dates tied to approved drawings rather than one generic lead time. ${LEAD_TIME_LINE} Plan room-by-room access so an unfinished space does not block the next trade.`,
           ],
         },
         {
-          h2: 'When contingency matters most',
+          h2: 'Living at home during installation',
           paragraphs: [
-            '1970s–1990s valley homes often need surprises addressed behind drywall, hold 10–15% until conditions are documented.',
+            'You can often stay home while cabinets go in, but plan for noise, dust, delivery access, and a stretch without kitchen or bathroom storage. Ask which rooms stay usable and when water or power must be shut off, and agree on daily cleanup and a temporary food-preparation area before removal starts.',
+            '<a href="/blog/living-through-cabinet-installation">Living through cabinet installation</a>.',
           ],
         },
       ];

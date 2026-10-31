@@ -34,7 +34,7 @@ import { PROJECTS } from "@/shared/galleryData";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { visibleTestimonials } from "@/shared/testimonialsData";
-import { ArrowRight,MapPin,Phone } from "lucide-react";
+import { ArrowRight,Check,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -43,18 +43,30 @@ export function generateStaticParams() {
   return CITIES.map((c) => ({ city: c.slug }));
 }
 
+/**
+ * Cities whose retired /guides/{city}-cabinet-guide earned more Search Console
+ * impressions than the location page itself (1 June to 29 October 2026:
+ * Nampa guide 490 at position 12.1 vs /locations/nampa 379 at 19.6). The
+ * guide's description moves here with its 308, so the phrasing that ranked
+ * comes along with the URL that now serves it.
+ */
+const GUIDE_DESCRIPTION_CITIES = new Set(["nampa"]);
+
 export async function generateMetadata(props: { params: Promise<{ city: string }> }) {
   const params = await props.params;
   const city = getCityBySlug(params.city);
   if (!city) return {};
   const copy = bot05Location(city.slug);
+  const guide = GUIDE_DESCRIPTION_CITIES.has(city.slug)
+    ? GUIDE_PAGES.find((g) => g.guideType === "location" && g.linkedCities?.includes(city.slug))
+    : undefined;
   return withBrandPageMetadata(await (buildPageMetadata({
-    kind: "area",
+    kind: "page",
     path: locationPath(city.slug),
     cityName: city.name,
     citySlug: city.slug,
     titleOverride: copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`,
-    descriptionOverride: copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
+    descriptionOverride: copy?.description ?? guide?.metaDescription ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
   })), "/locations/[city]");
 }
 
@@ -79,7 +91,20 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   const copy = bot05Location(city.slug);
   const phaseAnswer = copy ? undefined : phase1LocationAnswer(city.slug);
   const guideFaqs = guide?.faqs ?? [];
-  const visibleFaqs = copy?.faqs ?? guideFaqs;
+  // The retired /guides/{city}-cabinet-guide URLs 308 here (next.config.js),
+  // so everything unique on a guide now lives on this page: its answer, its
+  // takeaways, its body (the planning section below) and its FAQs. Cities with
+  // bespoke BOT-05 FAQs keep those first; guide questions follow, de-duplicated.
+  const visibleFaqs = copy?.faqs
+    ? [
+        ...copy.faqs,
+        ...guideFaqs.filter(
+          (faq) => !copy.faqs!.some((own) => own.question.toLowerCase() === faq.question.toLowerCase()),
+        ),
+      ]
+    : guideFaqs;
+  // The guide's answer already opens the hero when there is no BOT-05 copy.
+  const guideAnswer = copy ? guide?.quickAnswer : undefined;
   const faqs = [...visibleFaqs, ...(phaseAnswer?.faqs ?? [])];
   const pageTitle = copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`;
   const pageDescription = copy?.description ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage for ${city.name} homes, ${countyLabel}.`;
@@ -123,7 +148,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                 ) : (
                   <>
                     Custom cabinets in{" "}
-                    <em className="brc-accent text-accent">{city.name}</em>
+                    <em className="brc-accent text-accent">{`${city.name}, Idaho`}</em>
                   </>
                 )
               }
@@ -288,8 +313,8 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               <div className="ed-split ed-split-narrow">
                 <div className="lg:sticky lg:top-28 lg:self-start">
                   <SectionHeader
-                    eyebrow="Local planning guide"
-                    title={<>Planning a project in {city.name}</>}
+                    eyebrow={`Planning a project in ${city.name}`}
+                    title={<>{city.name} custom cabinet guide</>}
                     align="left"
                     className="mb-0"
                   />
@@ -305,6 +330,22 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   </div>
                 </div>
                 <div>
+                  {guideAnswer ? (
+                    <p className="mb-6 text-base leading-relaxed text-foreground/90">{guideAnswer}</p>
+                  ) : null}
+                  {guide.keyTakeaways?.length ? (
+                    <div className="mb-8">
+                      <h3 className="ed-h4">Key takeaways for {city.name}</h3>
+                      <ul className="mt-3 grid list-none gap-2 p-0">
+                        {guide.keyTakeaways.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-[0.9375rem] text-foreground/90">
+                            <Check className="mt-1 h-4 w-4 flex-shrink-0 text-accent" aria-hidden="true" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
                   <SectionedArticle html={guide.content} defaultOpenCount={99} />
                 </div>
               </div>

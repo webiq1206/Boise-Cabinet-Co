@@ -10,19 +10,25 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { ACCESSORY_FAMILIES,getAccessoryImagePath } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/accessories",
   "Cabinet Accessories",
   catalogDescription(
     "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. Accessory families for interior upgrades.",
   ),
-)), "/accessories");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/accessories") },
+}, "/accessories");
 
 export default function AccessoriesPage() {
   const schemas = [

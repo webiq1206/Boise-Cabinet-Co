@@ -26,13 +26,12 @@ const COPY:Record<string,Record<string,Copy>>={
   '/about':{title:'About Our Boise Handyman Team',description:'Learn how Boise Handyman Co handles Treasure Valley home repairs and installations, with clear project scopes, scheduling and attention to small jobs.'},
   '/contact':{title:'Contact a Boise Handyman',description:'Contact Boise Handyman Co about your repair list, installation or maintenance project. Call our team or send your scope for a Treasure Valley estimate.'}},
  cabinet:{
+  // Room pages (/cabinets/[room]) take their titles and descriptions from
+  // shared/catalog/roomSeo.ts, so they are no longer overridden here.
   "/guides/boise-cabinet-cost-guide":{title:"Boise Cabinet Costs (2026)",description:"Compare Boise kitchen cabinet, vanity and built-in storage budgets. Review materials, finishes, hardware, installation and the details that change your price."},
   "/blog/kitchen-cabinet-cost-boise":{title:"Boise Kitchen Cabinet Costs (2026)",description:"Plan your Boise kitchen cabinet budget with cost ranges, finishes and installation considerations. Compare scope and specifications before requesting a quote."},
   "/blog/cabinet-cost-per-linear-foot":{title:"Cabinet Cost per Linear Foot in Boise",description:"Understand cabinet costs per linear foot in Boise and what the comparison includes. Review cabinet type, materials, hardware and installation before budgeting."},
   "/blog/custom-kitchen-cabinet-cost":{title:"Custom Kitchen Cabinet Costs in Boise",description:"Explore custom kitchen cabinet costs in Boise. See how layout, cabinet construction, door style, finishes and installation shape the project budget."},
-  "/cabinets/kitchen":{title:"Kitchen Cabinets in Boise",description:"Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, and installation by our crew. Request a free design consult."},
-  "/cabinets/pantry":{title:"Kitchen Pantry Cabinets in Boise",description:"Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout and installed by our crew. Free in-home design consultation."},
-  "/cabinets/bathroom":{title:"Bathroom Vanities in Boise, Idaho",description:"Find bathroom vanities and cabinet storage for Boise and Treasure Valley homes. Compare sizes, finishes and layout options, then request help with your project."},
   '/':{title:'Custom Cabinets Boise: Kitchen, Vanities',description:'Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.'},
   '/about':{title:'About Our Boise Cabinet Team',description:'Learn how Boise Cabinet Co helps Treasure Valley homeowners and contractors with cabinet layouts, finish selections, supply and installation planning.'},
   '/contact':{title:'Contact Our Boise Custom Cabinet Team',description:'Discuss custom cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},

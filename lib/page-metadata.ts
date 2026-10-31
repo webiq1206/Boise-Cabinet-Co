@@ -2,11 +2,8 @@ import type { Metadata } from 'next';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import {
   clampMetaDescription,
-  generateCityServiceDescription,
-  generateCityServiceTitle,
   generateMetaDescription,
   generatePageTitle,
-  generateSafePageTitle,
   getBaseUrl,
 } from './seo';
 
@@ -17,11 +14,16 @@ const OG_DEFAULT_IMAGE = {
   alt: `${SITE_CONFIG.name} custom cabinets`,
 };
 
+/**
+ * The remodeling-era 'service', 'area' and 'city-service' kinds were retired
+ * (Phase 4): they produced "Remodeling Contractor in {city}, Idaho" and
+ * "... | Design-Build" titles, and every caller overrode them anyway. Cabinet
+ * service, builder and location pages use 'page' with an authored title and
+ * description, so no new page can inherit a remodeling title by default.
+ */
 export type PageMetaKind =
   | 'home'
-  | 'service'
-  | 'area'
-  | 'city-service'
+  | 'page'
   | 'about'
   | 'contact'
   | 'blog'
@@ -68,36 +70,10 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       title = generatePageTitle({ serviceName: '', serviceSlug: '', isHomePage: true });
       description = generateMetaDescription({ serviceName: '', serviceSlug: '', isHomePage: true });
       break;
-    case 'service':
-      title = generateSafePageTitle(
-        `${input.serviceName} in Boise & Treasure Valley`,
-        'Design-Build',
-      );
-      description = generateMetaDescription({
-        serviceName: input.serviceName!,
-        serviceSlug: input.serviceSlug!,
-      });
-      break;
-    case 'area':
-      title = generateSafePageTitle(`Remodeling Contractor in ${input.cityName}, Idaho`);
-      description = generateMetaDescription({
-        serviceName: '',
-        serviceSlug: '',
-        city: input.cityName,
-        citySlug: input.citySlug,
-      });
-      break;
-    case 'city-service':
-      title = generateCityServiceTitle(input.serviceName!, input.cityName!);
-      description = generateCityServiceDescription(
-        input.serviceName!,
-        input.cityName!,
-      );
-      break;
     case 'about':
       title = 'About Us';
       description =
-        `Learn about ${SITE_CONFIG.name}, Idaho's premier custom cabinet company. Design Studio, client portal, and installation across the Treasure Valley.`;
+        `Learn about ${SITE_CONFIG.name}: custom cabinets designed to your measurements, built to order, and installed by our own crew across the Treasure Valley.`;
       break;
     case 'contact':
       title = 'Contact Us';

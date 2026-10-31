@@ -6,15 +6,21 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
+import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
-export const metadata = withBrandPageMetadata((catalogMetadata(
+export const metadata = withBrandPageMetadata({
+  ...catalogMetadata(
   "/estimate",
-  "Get an Estimate",
+  "Cabinet Estimate in Boise | Free Consult",
   catalogDescription(
-    "Share your cabinet project with {company}. Our team will review your details and follow up to prepare an estimate.",
+    "Cabinet estimate in Boise: share your kitchen, bath or built-in project and photos for team review, then book a free in-home design consultation.",
   ),
-)), "/estimate");
+),
+  // Explicit self canonical in the page file, so a change to the metadata
+  // wrapper can never silently drop it.
+  alternates: { canonical: buildCanonical("/estimate") },
+}, "/estimate");
 
 export default function EstimatePage() {
   const schemas = [
@@ -38,7 +44,12 @@ export default function EstimatePage() {
           call/text bar is not mounted here, and the copy above the form stays short
           so the first field sits clear of that bar at 360x640. */}
       <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-4">
-        <h1 className="text-3xl font-serif">Get an Estimate</h1>
+        {/* The keyword line sits inside the H1 as a small eyebrow, so the heading
+            names the page ("Boise cabinet estimate") while the approved first-screen
+            headline "Get an Estimate" stays exactly as pinned. */}
+        <h1 className="text-3xl font-serif">
+          <span className="mb-1 block font-sans text-sm uppercase tracking-[0.06em] text-muted-foreground">Boise cabinet estimate</span>
+          Get an Estimate</h1>
         <p className="mt-2">Share your project details for our team to review. Prefer to talk it through?</p>
         <AboveFoldActions />
         <div id="estimate-request" tabIndex={-1} className="mt-2 scroll-mt-28">

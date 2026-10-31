@@ -1,98 +1,146 @@
-// Single source of truth for /llms.txt, served via app/llms.txt/route.ts.
-import { showFoundingYear } from "@/shared/siteConfig";
-
-const FOUNDED_LINE = "- Founded: 2020";
+// Single source of truth for /llms.txt, served via app/llms.txt/route.ts, and
+// the head of /llms-full.txt.
+//
+// Generated from the content layer, not hand-maintained. Both routes are
+// force-static, so this runs once per build and the file always describes the
+// pages that build ships. It used to be a template literal with its own dollar
+// midpoints ("updated June 2026") that disagreed with the cost guide, a
+// superlative the pages avoid, and a link to /testimonials, which has no
+// route. Costs now link to the cost guide instead of restating figures.
+// scripts/verify-llms.ts (prebuild) fails the build if any link here is not a
+// public sitemap URL.
+//
 // Served through an app route (not public/) because static public/ files are
 // not served by the standalone production deploy; app routes are.
 //
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
+import { BUSINESS_INFO } from "@/lib/seo";
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
+import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
+import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
+import { ROOM_SEO } from "@/shared/catalog/roomSeo";
+import { CITIES, locationPath } from "@/shared/contentData";
+import { CONTENT_HUBS, guidePath } from "@/shared/contentHubs";
+import { GUIDE_PAGES } from "@/shared/guideContent";
+import { SITE_CONFIG, showFoundingYear } from "@/shared/siteConfig";
 
-export const LLMS_TXT = `# Boise Cabinet Co
+const FOUNDED_LINE = "- Founded: 2020";
+/** The person who answers for the business in public listings. */
+const PUBLIC_REPRESENTATIVE = "Nick Perkins";
 
-> Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
+const BASE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
+const url = (path: string) => (path === "/" ? BASE : `${BASE}${path}`);
+const link = (label: string, path: string) => `[${label}](${url(path)})`;
+const sentenceStart = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+const list = (items: string[]) =>
+  items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
 
-Last updated: 2026-10-16
+/** Build date, so "Last updated" always matches the deploy that served it. */
+export const LLMS_LAST_UPDATED = new Date().toISOString().slice(0, 10);
 
-Public representative: Nick Perkins. Service-area business based at 4031 W Wapoot St, Meridian, ID 83646; no public showroom. (208) 477-1169. hello@boisecabinet.co.
+const name = SITE_CONFIG.name;
+const a = BUSINESS_INFO.address;
+const ADDRESS = `${a.street}, ${a.city}, ${a.state} ${a.postalCode}`;
+const cityNames = CITIES.map((city) => city.name);
+const finishFamilies = ["matte", "gloss", "woodgrain"].map(
+  (family) => `${FINISHES.filter((finish) => finish.category === family).length} ${family}`,
+);
 
-Full content export for LLMs (every guide answer, article answer, and the complete FAQ corpus in one file): [llms-full.txt](https://boisecabinet.co/llms-full.txt)
+/** Pillar guides in hub order, then the Treasure Valley overview. */
+const pillarGuides = CONTENT_HUBS.filter((hub) => hub.pillarSlug)
+  .map((hub) => GUIDE_PAGES.find((guide) => guide.slug === hub.pillarSlug))
+  .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
+const masterGuides = GUIDE_PAGES.filter((guide) => guide.guideType === "master");
 
-## Business facts
+function buildLlmsTxt(): string {
+  const out: string[] = [];
+  const push = (...lines: string[]) => out.push(...lines);
 
-- Company: Boise Cabinet Co, a DBA of P5 Home Co LLC
-${showFoundingYear() ? `${FOUNDED_LINE}\n` : ""}- Based in Meridian, Idaho (service-area business; consultations happen in your home)
-- Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
-- Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
-- Construction: frameless (European-style) cabinet boxes, soft-close hardware
-- Warranty: written workmanship guarantee
-- Free in-home design consultation
-- Also serve builders, general contractors, and multi-family developers with volume pricing
-- Public representative: Nick Perkins
-- Phone: (208) 477-1169
-- Email: hello@boisecabinet.co
+  push(`# ${name}`, "");
+  push(
+    `> ${name} designs custom cabinets to your measurements, builds each order to your layout, and installs it with our own crew: kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley, Idaho.`,
+    "",
+  );
+  push(`Last updated: ${LLMS_LAST_UPDATED}`, "");
+  push(
+    `Public representative: ${PUBLIC_REPRESENTATIVE}. Service-area business based at ${ADDRESS}; no public showroom. ${SITE_CONFIG.phone}. ${SITE_CONFIG.email}.`,
+    "",
+  );
+  push(
+    `Full content export for LLMs (every guide answer, article answer, and the complete FAQ corpus in one file): ${link("llms-full.txt", "/llms-full.txt")}`,
+    "",
+  );
 
-## Cost planning (Treasure Valley, installed midpoints, updated June 2026)
+  push("## Business facts", "");
+  push(`- Company: ${name}, a DBA of ${SITE_CONFIG.legalName}`);
+  if (showFoundingYear()) push(FOUNDED_LINE);
+  push(`- Registration: ${IDAHO_REGISTERED_CONTRACTOR}`);
+  push(`- Based in ${a.city}, Idaho (service-area business; consultations happen in your home)`);
+  push(`- Address: ${ADDRESS} (service-area business; no public showroom)`);
+  push(`- Service area: ${list(cityNames)} (Ada and Canyon Counties, Treasure Valley)`);
+  push(`- Catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes (${list(finishFamilies)}), ${HARDWARE_OPTIONS.length} hardware options, ${ACCESSORY_FAMILIES.length} accessory families`);
+  push("- Construction: frameless cabinet boxes built to order, soft-close hinge and drawer-slide options");
+  push(`- Lead time: typically ${CATALOG_CONTENT.leadTime} from approved design`);
+  push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}`);
+  push("- Free in-home design consultation; a written proposal with drawings before anything is ordered");
+  push("- Also serve builders, general contractors, and multi-family developers with volume pricing");
+  push(`- Public representative: ${PUBLIC_REPRESENTATIVE}`);
+  push(`- Phone: ${SITE_CONFIG.phone}`);
+  push(`- Email: ${SITE_CONFIG.email}`, "");
 
-Planning ranges only; firm quotes require approved drawings.
+  push("## Cost planning", "");
+  push(
+    `Cost ranges change with layout, door style, finish, and linear footage, so they are published in one place rather than repeated here. Firm quotes follow measurement and approved drawings.`,
+    "",
+  );
+  push(`- ${link("Boise cabinet cost guide", "/guides/boise-cabinet-cost-guide")}: planning ranges for kitchens, vanities, built-ins, and whole-home programs`);
+  push(`- ${link("Request a quote", "/estimate")}: share your project for a written estimate`, "");
 
-- Full kitchen cabinets: about $28,000 midpoint ($15,000 to $45,000+ typical, $450 to $900 per linear foot)
-- Guest bathroom vanity: about $6,500 midpoint
-- Master bathroom vanity: about $14,000 midpoint
-- Whole-home cabinet program: about $72,000 midpoint
-- Single-room built-ins or closet: about $12,000 midpoint
-- Outdoor kitchen cabinets: about $16,000 midpoint
-- [Full cabinet cost guide](https://boisecabinet.co/guides/boise-cabinet-cost-guide)
+  push("## Cabinets by room", "");
+  push(`- ${link("All rooms", "/cabinets")}`);
+  for (const room of ROOM_CATEGORIES) {
+    const seo = ROOM_SEO[room.slug];
+    push(`- ${link(sentenceStart(seo?.phrase ?? `${room.name.toLowerCase()} cabinets`), `/cabinets/${room.slug}`)}`);
+  }
+  push("");
 
-## Cabinets by city
+  push("## Cabinets by city", "");
+  for (const city of CITIES) push(`- ${link(`Custom cabinets in ${city.name}, Idaho`, locationPath(city.slug))}`);
+  push("");
 
-- [Treasure Valley overview](https://boisecabinet.co/guides/treasure-valley-cabinet-guide)
-- [Boise cabinet guide](https://boisecabinet.co/locations/boise)
-- [Meridian cabinet guide](https://boisecabinet.co/locations/meridian)
-- [Eagle cabinet guide](https://boisecabinet.co/locations/eagle)
-- [Nampa cabinet guide](https://boisecabinet.co/locations/nampa)
-- [Kuna cabinet guide](https://boisecabinet.co/locations/kuna)
-- [Star cabinet guide](https://boisecabinet.co/locations/star)
-- [Caldwell cabinet guide](https://boisecabinet.co/locations/caldwell)
-- [Middleton cabinet guide](https://boisecabinet.co/locations/middleton)
+  push("## Catalog", "");
+  push(`- ${link("Cabinet catalog and downloadable PDF", "/catalog")}: ${list(DOOR_STYLES.map((style) => style.name))} door styles; ${FINISHES.length} finishes`);
+  push(`- ${link("Shaker cabinets", "/shaker-cabinets")}: ${list(DOOR_STYLES.filter((style) => /shaker/i.test(style.name)).map((style) => style.name))}`);
+  push(`- ${link("Cabinet accessories", "/accessories")}: ${list(ACCESSORY_FAMILIES.map((family) => family.name.toLowerCase()))}`);
+  push(`- ${link("Frameless cabinet construction", "/construction")}`);
+  push(`- ${link("Custom cabinet comparison", "/compare")}: stock, semi-custom, and our custom cabinets; door styles and finish families side by side`, "");
 
-## Catalog
+  push("## Services", "");
+  push(`- ${link("Cabinet installation", "/services/cabinet-installation")}: installation by our own crew, including cabinets you already own`);
+  push(`- ${link("Builder and trade program", "/builders")}: volume pricing for multi-family, apartments, and condos; consistent specs across units`, "");
 
-- [Cabinets by room](https://boisecabinet.co/cabinets): kitchen, bathroom, laundry, mudroom, home office, entertainment, built-ins, pantry, closet, garage, outdoor, wet bar, bedroom
-- [Full catalog and downloadable PDF](https://boisecabinet.co/catalog): 6 door styles, 299 finishes across matte, gloss, and woodgrain, built-to-order product categories
-- [Shaker cabinets](https://boisecabinet.co/shaker-cabinets): four shaker profiles (modern, thin, alpha, beta) across 299 finishes, including white, sage green, and two-tone
-- [Hardware and accessories](https://boisecabinet.co/accessories)
-- [Frameless cabinet construction](https://boisecabinet.co/construction)
-- [Collection and feature comparison](https://boisecabinet.co/compare)
+  push("## Guides and content", "");
+  for (const guide of [...pillarGuides, ...masterGuides]) push(`- ${link(guide.title, guidePath(guide.slug))}`);
+  push(`- ${link("All cabinet guides", "/guides")}`);
+  push(`- ${link("Blog", "/blog")}: planning, costs, timelines, finishes, and selection advice, organized into topic hubs`);
+  push(`- ${link("Planning downloads and checklists", "/resources")}`, "");
 
-## For builders and contractors
+  push("## Trust and company", "");
+  push(`- ${link("About the company and team", "/about")}`);
+  push(`- ${link("Warranty details", "/warranty")}`);
+  push(`- ${link("Contact page", "/contact")}`, "");
 
-- [Builder and trade program](https://boisecabinet.co/builders): volume pricing for multi-family, apartments, and condos; lead times measured in weeks; consistent specs across units; 50% deposit and 50% after installation
+  push("## Contact", "");
+  push(`- ${link("Website", "/")}`);
+  push(`- ${link("Contact page", "/contact")}`);
+  push(`- Address: ${ADDRESS} (service-area business; no public showroom)`);
+  push(`- Public representative: ${PUBLIC_REPRESENTATIVE}`);
+  push(`- Phone: ${SITE_CONFIG.phone}`);
+  push(`- Email: ${SITE_CONFIG.email}`);
 
-## Tools
+  return `${out.join("\n")}\n`;
+}
 
-- [Project estimate planner](https://boisecabinet.co/estimate)
-- [Finish finder and catalog](https://boisecabinet.co/catalog)
-
-## Guides and content
-
-- [Cabinet guides](https://boisecabinet.co/guides): cost, kitchen, bath, built-ins, whole-home, choosing a company, process, and ROI, plus city guides
-- [Blog](https://boisecabinet.co/blog): planning, costs, timelines, finishes, and selection advice, organized into topic hubs
-- [Planning downloads and checklists](https://boisecabinet.co/resources)
-
-## Trust and company
-
-- [About the company and team](https://boisecabinet.co/about)
-- [Warranty details](https://boisecabinet.co/warranty)
-- [Contact page](https://boisecabinet.co/contact)
-
-## Contact
-
-- [Website](https://boisecabinet.co)
-- [Contact page](https://boisecabinet.co/contact)
-- Address: 4031 W Wapoot St, Meridian, ID 83646 (service-area business; no public showroom)
-- Public representative: Nick Perkins
-- Phone: (208) 477-1169
-- Email: hello@boisecabinet.co
-`;
+export const LLMS_TXT = buildLlmsTxt();

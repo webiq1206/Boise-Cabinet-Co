@@ -31,11 +31,18 @@ const baseUrl = getBaseUrl();
  */
 const P5_ORIGIN = 'https://p5homeco.com';
 export const P5_ORG_ID = `${P5_ORIGIN}/#organization`;
+/**
+ * P5 Home Co's Facebook page is the family's only social profile (owner
+ * confirmed via the Facebook API, 2026-10-31). It belongs to the parent node,
+ * never to this brand's own sameAs (lib/seo.ts BUSINESS_INFO.sameAs).
+ */
+export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
 export const P5_PARENT_ORGANIZATION = {
   '@type': 'Organization',
   '@id': P5_ORG_ID,
   name: 'P5 Home Co',
   url: P5_ORIGIN,
+  sameAs: [P5_FACEBOOK_URL],
 } as const;
 
 /**
