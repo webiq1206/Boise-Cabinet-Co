@@ -161,11 +161,13 @@ test("llms files and the footer publish the public email, address, and represent
     "4031 W Wapoot St, Meridian, ID 83646",
     "Nick Perkins",
     "no public showroom",
-    "Last updated: 2026-10-16",
     "Public representative: Nick Perkins. Service-area business based at 4031 W Wapoot St, Meridian, ID 83646; no public showroom. (208) 477-1169. hello@boisecabinet.co.",
   ]) {
     assert.equal(LLMS_TXT.includes(fact), true, fact);
   }
+  // Phase 4: llms.txt is generated from content at build, so "Last updated" is
+  // the build date rather than the hand-set 2026-10-16 this used to pin.
+  assert.match(LLMS_TXT, /Last updated: \d{4}-\d{2}-\d{2}/);
   assert.equal(LLMS_TXT.includes("Jared"), false);
   const full = readFileSync("app/llms-full.txt/route.ts", "utf8");
   assert.equal(full.includes("LLMS_TXT.trim()"), true);
