@@ -174,5 +174,5 @@ export const TV_TAKEAWAYS = [
 export const BOISE_TAKEAWAYS = [
   'Neighborhood era drives cabinet sizing and filler needs.',
   'North End and Bench benefit from custom widths and tall storage.',
-  'Link to kitchen and bath catalog pages for each project type.',
+  'We measure on site before drawings, so cabinets fit older walls and soffits.',
 ];

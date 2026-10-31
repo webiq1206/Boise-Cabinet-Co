@@ -364,7 +364,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       'Kitchen cabinets and a kitchen pantry in Kuna are available from Boise Cabinet Co. We source the cabinets and install them, including upgrades on newer homes with builder-grade packages. Kuna has been one of Idaho\'s fastest-growing cities, and its houses show it: about three in four were built in 2000 or later, a Census ACS 2020–2024 estimate. Kitchen upgrades, pantry walls, and mudroom and garage storage are what Kuna families ask us for most.',
     takeaways: [
       'Most Kuna homes are newer builds with stock cabinet packages ready for upgrades.',
-      'Family storage, mudrooms, pantries, and garages, is the signature Kuna request.',
+      'Family storage (mudrooms, pantries, and garages) is the signature Kuna request.',
       'Kuna is in Ada County; cabinet-only projects rarely need permits.',
     ],
     sections: [
@@ -473,7 +473,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     takeaways: [
       'Star mixes new subdivisions with acreage and estate homes.',
       'Large pantries, mudrooms, and shop or garage storage suit Star lot sizes.',
-      'Star is in Ada County; we deliver and install there weekly.',
+      'Star is in Ada County; we deliver and install there.',
     ],
     sections: [
       {
