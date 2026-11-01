@@ -183,4 +183,5 @@ export const FAMILY_BRAND: FamilyBrand = {
     rel: 'noopener noreferrer',
   },
   parentFacebook: { href: P5_FACEBOOK_URL, label: 'P5 Home Co on Facebook' },
+  parentGoogle: { href: P5_GOOGLE_PROFILE_URL, label: 'P5 Home Co on Google' },
 };

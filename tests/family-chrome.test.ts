@@ -51,6 +51,7 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   assert.equal(P5_FACEBOOK_URL, SCHEMA_FACEBOOK_URL);
   assert.equal(FAMILY_BRAND.parentFacebook.href, P5_FACEBOOK_URL);
   assert.equal(P5_GOOGLE_PROFILE_URL, 'https://www.google.com/search?kgmid=/g/11ntl1t7dc');
+  assert.deepEqual(FAMILY_BRAND.parentGoogle, { href: P5_GOOGLE_PROFILE_URL, label: 'P5 Home Co on Google' });
   assert.ok((P5_PARENT_ORGANIZATION.sameAs as readonly string[]).includes(P5_FACEBOOK_URL));
   // Approved C7 check (scripts/verify-p5-mobile-seo.mjs): the bar is on the first screen below 1180px.
   assert.equal(FAMILY_BRAND.bar.showOverHero, true);
@@ -119,6 +120,9 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.equal((html.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.ok(html.includes(`href="${P5_FACEBOOK_URL}"`));
   assert.ok(html.includes(`href="${P5_GOOGLE_PROFILE_URL}"`));
+  assert.ok(html.includes(`<a href="${P5_GOOGLE_PROFILE_URL}" rel="noopener" target="_blank" data-testid="link-footer-google">P5 Home Co on Google</a>`));
+  assert.equal((html.match(/data-testid="link-footer-google"/g) ?? []).length, 1);
+  assert.equal((html.match(/data-testid="link-footer-facebook"/g) ?? []).length, 1);
   assert.match(html, /<a data-testid="link-footer-quote" href="\/estimate">Request a quote<\/a>/);
   for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
     assert.ok(html.includes(`href="${href}"`), href);
