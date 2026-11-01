@@ -4,6 +4,13 @@ import test from "node:test";
 import { generateLocalBusinessSchema, generateServiceSchema } from "../lib/schema.ts";
 import { getAllSiteUrls } from "../lib/siteUrls.ts";
 import { SITE_CONFIG } from "../shared/siteConfig.ts";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Footer } from "../components/Footer.tsx";
+
+(globalThis as typeof globalThis & { React: typeof React }).React = React;
+/** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
+const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
 
 test("license number defaults to 8381215 and schema uses hasCredential", () => {
   assert.equal(SITE_CONFIG.trust.licenseNumber, process.env.NEXT_PUBLIC_LICENSE_NUMBER || "8381215");
@@ -34,8 +41,8 @@ test("license number defaults to 8381215 and schema uses hasCredential", () => {
 });
 
 test("sitemap pages get a visible registration line, and estimate stays plain text", () => {
-  const footer = readFileSync("components/Footer.tsx", "utf8");
-  assert.match(footer, /\{IDAHO_REGISTERED_CONTRACTOR\}/);
+  const footer = renderFooter();
+  assert.equal((footer.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.match(footer, /https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch/);
   assert.match(footer, /target="_blank"/);
   assert.match(footer, /rel="noopener noreferrer"/);

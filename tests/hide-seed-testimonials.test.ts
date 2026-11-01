@@ -111,6 +111,7 @@ test("seed review text and rating schema stay out of public output while the fla
   const nav = readFileSync("shared/cabinetNav.ts", "utf8");
   const footer = readFileSync("components/Footer.tsx", "utf8");
   const navigation = readFileSync("components/Navigation.tsx", "utf8");
+  const brand = readFileSync("lib/familyBrand.ts", "utf8");
   const home = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
   const layout = readFileSync("app/layout.tsx", "utf8");
   const gallery = readFileSync("components/sections/ProjectGallerySection.tsx", "utf8");
@@ -122,7 +123,10 @@ test("seed review text and rating schema stay out of public output while the fla
   assert.equal(home.includes("TestimonialsSection"), false);
   assert.equal(home.includes("testimonialsData"), false);
   assert.equal(readFileSync("app/page.tsx", "utf8").includes("<HomeTestimonials />"), true);
-  assert.equal(layout.includes('process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true"'), true);
+  // Phase 2 family chrome: the review link is part of the footer config (lib/familyBrand.ts), still gated by the flag.
+  assert.equal(brand.includes("process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === 'true'"), true);
+  assert.equal(brand.includes("SHOW_REVIEW_LINKS\n            ? { label: 'Projects & reviews', href: '/testimonials' }"), true);
+  assert.equal(layout.includes("Projects & reviews"), false);
   assert.equal(redirects.includes("'/projects': '/cabinets'"), true);
   assert.equal(redirects.includes("'/projects': '/testimonials'"), false);
   assert.equal(imageSitemap.includes("cabinets in Meridian, Idaho"), true);
