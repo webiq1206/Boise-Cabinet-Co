@@ -22,7 +22,12 @@ const rooms = [
 ];
 const finishes=[{name:'Bitter',family:'Warm neutral',image:'bitter.webp',code:''},{name:'Macaron Green',family:'Soft color',image:'green.webp',code:''},{name:'Breeze Beige',family:'Light neutral',image:'beige.webp',code:''},{name:'Pearl Black',family:'Deep contrast',image:'black.webp',code:''}];
 
-/** The kitchen photograph the homepage has opened on since the approved October design. */
+/**
+ * The kitchen photograph the homepage has opened on since the approved October design.
+ * Already sized WebP (1672x941 at 170 KB), so the hero serves it as is (unoptimized): a
+ * /_next/image request for a hero can stall and hold the page's load event open, as it
+ * did on Boise Remodeling Co.
+ */
 const HERO_SRC = '/images/approved/hero-p5-v2.webp';
 
 /** Sourced facts only, all already published on this site: the catalog count, the door profiles, the free consultation and the DOPL registration. */
@@ -38,8 +43,8 @@ const IDENTITY =
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);const [door,setDoor]=useState('Help me choose');return <div className="cabinet-approved">
   <HeroPhoto
-   image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%'}}
-   phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%'}}
+   image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%',unoptimized:true}}
+   phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%',unoptimized:true}}
    eyebrow="Custom cabinets · Treasure Valley, Idaho"
    title="Custom cabinets in Boise,"
    titleAccent="Idaho"
