@@ -27,6 +27,8 @@ import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 import { forwardConsultationToP5Intake } from "@/server/services/p5IntakeBridge";
 import type { EstimateRecord } from "@/shared/estimateRecord";
+import { issueDetailsToken } from "@/server/services/consultationDetails";
+import { quoteSecret } from "@/server/services/consultationFiles";
 import {
   buildLeadNotes,
   consultationBodySchema,
@@ -40,6 +42,16 @@ const PER_IP_WINDOW_MS = 15 * 60 * 1000;
 // The body schema lives in server/services/consultationRequest.ts so the full
 // request and the "Have us call you" callback shape are tested without a database.
 const bodySchema = consultationBodySchema;
+
+/**
+ * Step 2 key: lets the browser that sent this request add details and files to
+ * it (server/services/consultationDetails.ts). Absent when the server has no
+ * SESSION_SECRET; the form then simply does not offer Step 2 or uploads.
+ */
+function detailsKey(requestId: string | null): { detailsToken?: string; detailsExpiresAt?: string } {
+  const issued = requestId ? issueDetailsToken(requestId, quoteSecret()) : null;
+  return issued ? { detailsToken: issued.token, detailsExpiresAt: issued.expiresAt } : {};
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -120,7 +132,8 @@ export async function POST(request: NextRequest) {
         if (savedRequest.replayed) {
           return NextResponse.json({ success: true, accepted: true, persisted: true, replayed: true,
             requestId: savedRequest.requestId, submissionId: data.metaEventId,
-            notificationStatus: "unconfirmed", crmRoutingStatus: "unconfirmed" });
+            notificationStatus: "unconfirmed", crmRoutingStatus: "unconfirmed",
+            ...detailsKey(savedRequest.requestId) });
         }
         dbSaved = true;
       } catch (dbErr) {
@@ -146,6 +159,11 @@ export async function POST(request: NextRequest) {
           projectType: projectType,
           message: notes,
           inquiryId: persistedRequestId,
+          // The family quote form contract (p5 reads these as it adds them).
+          requestKind: data.requestKind,
+          contactPreference: data.requestKind === "callback" ? "call" : data.preferredContact ?? null,
+          bestTime: data.requestKind === "callback" ? data.bestTime : null,
+          submissionKind: "initial",
         });
         after(() => bridge);
       } catch (bridgeErr) {
@@ -432,6 +450,7 @@ export async function POST(request: NextRequest) {
       persisted: true,
       notificationStatus: emailSent ? "attempted" : "unconfirmed",
       crmRoutingStatus: "unconfirmed",
+      ...detailsKey(persistedRequestId),
     });
   } catch (err) {
     console.error("[consultation] Error:", err);

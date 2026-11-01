@@ -93,6 +93,9 @@ test("intake body uses the fields the p5 route already reads", () => {
     city: "Boise",
     summary: "Visitor project: kitchen\n\nShaker doors and a pantry.",
     externalLeadId: "boisecabinet-consultation:11111111-1111-4111-8111-111111111111",
+    // The family quote form contract: the same id under the contract name, and Step 1.
+    external_id: "boisecabinet-consultation:11111111-1111-4111-8111-111111111111",
+    submission_kind: "initial",
   });
 });
 

@@ -1,14 +1,16 @@
 "use client";
 
 import { QuoteRequestForm } from "@/components/quote/QuoteRequestForm";
-import { trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
 
 /**
  * The quote form on /estimate, /kitchen-cabinets, /builders and the built-ins
  * room page: the family short form (components/quote/QuoteRequestForm.tsx).
- * It was a four-step name, phone, email, project sequence; it is now one short
- * screen with the same field names, the same /api/consultation request, the
- * same "context: project" project type and the same Google Ads lead event.
+ * It was a four-step name, phone, email, project sequence; it is now the
+ * two-step form (one short screen, then optional details and files on the
+ * success screen) with the same field names, the same /api/consultation
+ * request, the same "context: project" project type and the same Google Ads
+ * lead event, plus lead_details_added (counts only) when Step 2 is saved.
  */
 const QUOTE_STORAGE_KEY = "brc_estimate_quote_v1";
 
@@ -41,6 +43,9 @@ export function KitchenCabinetsQuoteForm({
       onAccepted={({ submissionId, replayed }) => {
         if (!replayed) trackGoogleAdsLeadOnce(submissionId, { projectType: context ?? "kitchen" });
       }}
+      onDetailsSaved={({ fields, files }) =>
+        track("lead_details_added", { form: "estimate_quote", fields_count: fields, files_count: files })
+      }
     />
   );
 }
