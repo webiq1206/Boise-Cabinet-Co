@@ -8,13 +8,20 @@ import type {
   StoredEstimate,
 } from "@/shared/estimateEngine";
 import {
+  buildCombinedConsultationPayload,
   buildCombinedStoredEstimate,
+  buildConsultationEstimatePayload,
   calculateCombinedEstimate,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
+import { buildEstimateRecord } from "@/shared/estimateRecord";
 import { safeCombinedEstimate } from "@/shared/estimateValidation";
-import { loadWizardState } from "@/lib/estimate/wizardPersistence";
-import { ConsultationFields } from "@/components/consultation/ConsultationFields";
+import { clearWizardState, loadWizardState } from "@/lib/estimate/wizardPersistence";
+import { QuoteRequestForm } from "@/components/quote/QuoteRequestForm";
+import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { trackMetaLead } from "@/lib/analytics/metaPixel";
+import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
+import { markEstimatorCompleted } from "@/lib/estimatorSession";
 
 /**
  * Standalone consultation form for the homepage `#consult` section and the
@@ -28,11 +35,25 @@ import { ConsultationFields } from "@/components/consultation/ConsultationFields
  * 2. Fallback: the legacy single-room snapshot (sessionStorage
  *    `brc_estimate`) written by older flows.
  *
- * Style preferences from the finder (`brc_finder`) pre-fill the message. The
- * unified quote flow renders {@link ConsultationFields} directly as its final
- * step, so all of the contact UI lives in one place.
+ * Style preferences from the finder (`brc_finder`) pre-fill the message.
+ *
+ * The homepage, the installation page and the contact page render the family
+ * two-step form ({@link QuoteRequestForm}): what we can help with, optional
+ * files, name, phone, email, how to reach you, and "Have us call you"; then
+ * the optional "Help us prepare" details on the success screen. It fires the
+ * same events this form always has (form_started, form_completed, form_error,
+ * the Google Ads lead with GA4 generate_lead, the Meta Lead with the shared
+ * event id) exactly once at Step 1, attaches the same estimate and estimate
+ * record, and fires lead_details_added (counts only) when Step 2 is saved.
+ * The contact page used to keep a step-by-step form; it moved onto this one
+ * (e2e/consultation-form.spec.ts drives it at the same strength).
  */
-export function ConsultationForm({ compact = false }: { compact?: boolean } = {}) {
+export function ConsultationForm({
+  idPrefix = "qf",
+}: {
+  /** Stable field ids for the short form; one form per page. */
+  idPrefix?: string;
+} = {}) {
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [combinedEstimate, setCombinedEstimate] = useState<CombinedStoredEstimate | null>(null);
   const [estimateRooms, setEstimateRooms] = useState<EstimateSelections[] | undefined>(undefined);
@@ -155,15 +176,46 @@ export function ConsultationForm({ compact = false }: { compact?: boolean } = {}
     }
   }, []);
 
+  const projectFromEstimate =
+    resolvedProjectType ?? (estimate?.project ? mapEstimateProjectToConsultType(estimate.project) : "");
+  const estimateAttached = Boolean(combinedEstimate || estimate);
   return (
-    <ConsultationFields
-      estimate={estimate}
-      combinedEstimate={combinedEstimate}
-      estimateRooms={estimateRooms}
-      resolvedProjectType={resolvedProjectType}
-      defaultProjectType={defaultProjectType}
+    <QuoteRequestForm
+      idPrefix={idPrefix}
+      defaultProjectType={projectFromEstimate || defaultProjectType}
+      projectTypeLocked={Boolean(projectFromEstimate)}
       defaultMessage={defaultMessage}
-      compact={compact}
+      estimateAttached={estimateAttached}
+      extraPayload={({ notes }) => ({
+        estimate: combinedEstimate
+          ? buildCombinedConsultationPayload(combinedEstimate)
+          : buildConsultationEstimatePayload(estimate),
+        estimateRecord: estimateRooms?.length
+          ? buildEstimateRecord({
+              rooms: estimateRooms,
+              capturedAt: new Date().toISOString(),
+              budget: "",
+              notes,
+              propertyAddress: "",
+            })
+          : null,
+      })}
+      onFirstFocus={() => track("form_started", { form: "consultation" })}
+      onFailed={() => track("form_error", { form: "consultation" })}
+      onAccepted={({ submissionId, replayed, projectType }) => {
+        markEstimatorCompleted("consultation");
+        try { sessionStorage.removeItem("brc_estimate"); } catch { /* Receipt remains valid without browser storage. */ }
+        try { clearWizardState(); } catch { /* A saved request remains accepted when optional cleanup fails. */ }
+        if (replayed) return;
+        trackEstimatorEvent("estimator_lead_submitted");
+        track("form_completed", { form: "consultation" });
+        trackGoogleAdsLeadOnce(submissionId, { projectType });
+        // The shared event id dedupes this browser Lead with the server's Conversions API Lead.
+        trackMetaLead(submissionId);
+      }}
+      onDetailsSaved={({ fields, files }) =>
+        track("lead_details_added", { form: "consultation", fields_count: fields, files_count: files })
+      }
     />
   );
 }

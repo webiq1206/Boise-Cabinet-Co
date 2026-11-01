@@ -1,6 +1,7 @@
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { LazyConsultationForm as ConsultationForm } from '@/components/LazyConsultationForm';
+import { QuoteFormAnchor } from '@/components/quote/QuoteFormAnchor';
 import { Section } from '@/components/marketing/Section';
 import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
 import { Hairline } from '@/components/marketing/Hairline';
@@ -183,9 +184,10 @@ export default function ContactPage() {
           </InteriorHero>
 
         {/* ─── Consultation form ─── */}
-        <Section id="consult" divider data-suppress-sticky-cta="">
+        <Section divider data-suppress-sticky-cta="">
           <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
-            <div className="md:col-span-2">
+            {/* "#consult" lands on the form card itself; on phones the form comes first. */}
+            <div className="order-last md:order-first md:col-span-2">
               <SectionHeader
                 eyebrow="Begin a conversation"
                 size="display"
@@ -204,9 +206,10 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-6 md:p-8" padding="lg" data-c10-contact-form="">
-              <ConsultationForm compact />
+            <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-6 md:p-8" padding="lg" data-c10-contact-form="" id="consult" data-quote-anchor="">
+              <ConsultationForm idPrefix="contact-quote" />
             </MarketingCard>
+            <QuoteFormAnchor id="consult" />
           </div>
         </Section>
 

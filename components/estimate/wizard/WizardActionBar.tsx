@@ -22,6 +22,15 @@ export interface WizardActionBarProps {
   ownsBottomEdge?: boolean;
   /** Dock to the visual viewport and ride the keyboard inset (C10). */
   pinned?: boolean;
+  /**
+   * One-screen forms (the short quote form on /estimate): stay docked while any
+   * part of the form is on screen, not only while the bar's own place at the end
+   * of the form is. Without it a long single screen docks only once the visitor
+   * has scrolled to its end, and the send button is nowhere on the first screen.
+   */
+  dockWhenFormInView?: boolean;
+  /** One short line under the buttons, inside the bar (e.g. what happens next). */
+  footnote?: React.ReactNode;
   className?: string;
   "data-testid"?: string;
   primaryTestId?: string;
@@ -45,6 +54,8 @@ export function WizardActionBar({
   topAccessory,
   ownsBottomEdge = true,
   pinned = true,
+  dockWhenFormInView = false,
+  footnote,
   className,
   "data-testid": testId = "wizard-action-bar",
   primaryTestId = "wizard-continue",
@@ -65,7 +76,8 @@ export function WizardActionBar({
 
   useEffect(() => {
     if (!pinned) return;
-    const node = spacerRef.current;
+    const spacer = spacerRef.current;
+    const node = dockWhenFormInView ? (spacer?.closest("form") ?? spacer) : spacer;
     if (!node || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -75,7 +87,7 @@ export function WizardActionBar({
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [pinned]);
+  }, [pinned, dockWhenFormInView]);
 
   useEffect(() => {
     if (!pinned) return;
@@ -127,7 +139,7 @@ export function WizardActionBar({
     const ro = new ResizeObserver(measure);
     ro.observe(node);
     return () => ro.disconnect();
-  }, [pinned, docked, onBack, primaryLabel, topAccessory, busy]);
+  }, [pinned, docked, onBack, primaryLabel, topAccessory, busy, footnote]);
 
   const bar = (
     <div
@@ -199,6 +211,7 @@ export function WizardActionBar({
           )}
         </Button>
       </div>
+      {footnote ? <div className="mx-auto -mt-1 max-w-3xl pb-2">{footnote}</div> : null}
     </div>
   );
 

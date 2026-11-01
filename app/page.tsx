@@ -6,6 +6,7 @@ import { HomeTestimonials } from "@/components/sections/HomeTestimonials";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Section } from "@/components/marketing/Section";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
+import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { publicText } from "@/shared/claims";
@@ -29,7 +30,6 @@ export default function HomePage() {
       </p>
       <div id="contact" className="scroll-mt-24" aria-hidden="true" />
       <Section
-        id="consult"
         divider
         data-suppress-sticky-cta=""
         className="relative overflow-hidden pb-28 md:pb-28"
@@ -50,7 +50,10 @@ export default function HomePage() {
             the places a card is actually the right answer. */}
         <div className="ed-shell relative z-10">
           <div className="grid gap-[var(--ed-gutter)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div className="lg:sticky lg:top-28">
+            {/* "#consult" lands on the form card itself (owner, 1 November): on
+                phones the form comes first and this introduction follows it; on
+                wide screens it sits beside the form. */}
+            <div className="order-last lg:order-first lg:sticky lg:top-28">
               <Reveal>
                 <p className="ed-eyebrow">Begin a conversation</p>
                 <h2 className="ed-h2 ed-statement">
@@ -100,9 +103,10 @@ export default function HomePage() {
                 </div>
               </Reveal>
             </div>
-            <MarketingCard padding="lg">
-              <ConsultationForm />
+            <MarketingCard padding="lg" id="consult" data-quote-anchor="">
+              <ConsultationForm idPrefix="home-quote" />
             </MarketingCard>
+            <QuoteFormAnchor id="consult" />
           </div>
         </div>
       </Section>

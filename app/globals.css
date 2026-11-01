@@ -989,3 +989,23 @@ body[data-p5-estimator-active="true"] [data-testid="assistant-launcher"] {
 
 /* Site-owned approved palette; shared intake behavior and engine remain unchanged. */
 [data-p5-estimator][data-theme="light"]{--p5-accent:#659B9A!important;--p5-accent-ink:#356463!important;--p5-focus:#356463!important}
+
+/* Quote form (components/quote/QuoteRequestForm.tsx). An in-page quote link
+   lands on the form block itself: no scroll margin of its own, so the root
+   scroll-padding (sticky header plus a small gap) is the only offset. The
+   :target form outranks the shell's ".approved-shell :target" margin. */
+[data-quote-anchor],
+.approved-shell [data-quote-anchor][id]:target {
+  scroll-margin-top: 0;
+}
+/* While this tab's saved draft is put back after a reload, the fields wait a
+   moment instead of showing empty and then filling (released within 3s). */
+html[data-quote-draft-pending] [data-quote-fields] {
+  visibility: hidden;
+}
+/* The form heading takes focus on arrival for screen readers only; it is not a control. */
+[data-quote-form-heading]:focus,
+.approved-shell [data-quote-form-heading]:focus {
+  outline: none;
+  box-shadow: none;
+}

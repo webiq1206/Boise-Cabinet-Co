@@ -43,19 +43,26 @@ export default function EstimatePage() {
       {/* One bottom bar on this page: the form's own Continue bar. The marketing
           call/text bar is not mounted here, and the copy above the form stays short
           so the first field sits clear of that bar at 360x640. */}
-      <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-4">
+      {/* The first screen is the form (owner, 1 November): the page heading, the
+          quiet call and text line the first-screen check pins, then the fields.
+          No intro paragraph sits in front of the form. One bottom bar on this
+          page: the form's own docked send button. The marketing call/text bar is
+          not mounted here. */}
+      {/* pt-0: the shared first-section rule adds --ed-hero-top for a fixed site
+          header this page does not have (its brand header above is in flow), which
+          pushed the first field under the docked send button at 320x568. */}
+      <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-0">
         {/* The keyword line sits inside the H1 as a small eyebrow, so the heading
             names the page ("Boise cabinet estimate") while the first-screen headline
             uses the site's one primary action wording, "Request a cabinet quote"
             (owner call, 2026-11-01). The title tag and description keep the search
-            terms. */}
-        <h1 className="text-3xl font-serif">
+            terms. The H1 is the form's heading, so the form shows no second one. */}
+        <h1 className="mt-4 text-3xl font-serif">
           <span className="mb-1 block font-sans text-sm uppercase tracking-[0.06em] text-muted-foreground">Boise cabinet estimate</span>
           Request a cabinet quote</h1>
-        <p className="mt-2">Share your project details for our team to review. Prefer to talk it through?</p>
         <AboveFoldActions />
-        <div id="estimate-request" tabIndex={-1} className="mt-2 scroll-mt-28">
-          <KitchenCabinetsQuoteForm context="cabinet-project" submitLabel="Send Estimate Request" />
+        <div id="estimate-request" tabIndex={-1} className="mt-3 scroll-mt-28">
+          <KitchenCabinetsQuoteForm context="cabinet-project" heading={null} dock />
           <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
         </div>
       </section>

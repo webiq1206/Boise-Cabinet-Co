@@ -1,6 +1,7 @@
 import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
+import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
@@ -168,10 +169,10 @@ export default function KitchenCabinetsPage() {
         </div>
       </section>
 
-        <section tabIndex={-1} id="quick-quote" className="mx-auto w-full max-w-3xl px-6 py-8 scroll-mt-28 space-y-5">
-          <h2 className="font-serif text-3xl text-foreground">Get a free estimate</h2>
-          <p>Share a few details about your kitchen. Your request will be reviewed by our team.</p>
-          <KitchenCabinetsQuoteForm />
+        {/* "#quick-quote" lands on the form: heading and first field first. */}
+        <section id="quick-quote" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">
+          <KitchenCabinetsQuoteForm idPrefix="kitchen-quote" projectPrompt="Your kitchen: a full set, a refresh, an island, or not sure yet" />
+          <QuoteFormAnchor id="quick-quote" />
         </section>
 
       <section className="mx-auto grid max-w-5xl gap-4 px-5 py-8 sm:grid-cols-3 sm:px-8" aria-label="Cabinet types">

@@ -492,6 +492,33 @@ export const insertConsultationRequestSchema = createInsertSchema(consultationRe
 export type ConsultationRequest = typeof consultationRequests.$inferSelect;
 export type InsertConsultationRequest = z.infer<typeof insertConsultationRequestSchema>;
 
+/**
+ * Photos, plans and PDFs a visitor attached to a quote request (the quote
+ * form's "Add photos, plans or files" tile, Step 1 and Step 2). Stored in
+ * Postgres the way p5_estimator_files are (base64 text), because the
+ * container filesystem is ephemeral. Each file is served only through a signed,
+ * unguessable link (app/api/consultation/files/[id]). Additive: the app
+ * creates it on first upload (server/services/consultationFileStore.ts, the
+ * same statements as migrations/0002_consultation_files.sql). If that ever
+ * fails, an upload fails on its own and the lead it belongs to is unaffected.
+ */
+export const consultationFiles = pgTable("consultation_files", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  /** consultation_requests.id ("consultation:<uuid>"). */
+  requestId: varchar("request_id").notNull(),
+  name: text("name").notNull(),
+  contentType: text("content_type").notNull(),
+  sizeBytes: integer("size_bytes").notNull(),
+  sha256: text("sha256").notNull(),
+  dataBase64: text("data_base64").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  requestIdx: index("consultation_files_request_id_idx").on(table.requestId),
+  requestShaIdx: uniqueIndex("consultation_files_request_sha_idx").on(table.requestId, table.sha256),
+}));
+
+export type ConsultationFile = typeof consultationFiles.$inferSelect;
+
 // --- Project Management ---
 
 export type ProjectStatus = "draft" | "active" | "on_hold" | "completed" | "cancelled";

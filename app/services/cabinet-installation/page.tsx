@@ -1,5 +1,6 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { LazyConsultationForm as ConsultationForm } from "@/components/LazyConsultationForm";
+import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { Section } from "@/components/marketing/Section";
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -217,18 +218,20 @@ export default function CabinetInstallationPage() {
           </div>
         </Section>
 
-        <Section id="consult" divider>
+        <Section divider data-suppress-sticky-cta="">
           <div className="container mx-auto grid max-w-5xl gap-12 px-6 md:grid-cols-5 md:px-10">
-            <div className="md:col-span-2">
+            {/* "#consult" lands on the form card itself; on phones the form comes first. */}
+            <div className="order-last md:order-first md:col-span-2">
               <SectionHeader
                 eyebrow="Start with a conversation"
                 title={<>Tell us what your cabinets <em className="brc-accent text-accent">need.</em></>}
                 description="Share a few details before requesting an estimate. We will use them to understand whether you need installation, custom cabinets, or both."
               />
             </div>
-            <MarketingCard className="md:col-span-3" padding="lg">
-              <ConsultationForm />
+            <MarketingCard className="md:col-span-3" padding="lg" id="consult" data-quote-anchor="">
+              <ConsultationForm idPrefix="install-quote" />
             </MarketingCard>
+            <QuoteFormAnchor id="consult" />
           </div>
         </Section>
 
