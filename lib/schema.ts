@@ -32,17 +32,21 @@ const baseUrl = getBaseUrl();
 const P5_ORIGIN = 'https://p5homeco.com';
 export const P5_ORG_ID = `${P5_ORIGIN}/#organization`;
 /**
- * P5 Home Co's Facebook page is the family's only social profile (owner
- * confirmed via the Facebook API, 2026-10-31). It belongs to the parent node,
- * never to this brand's own sameAs (lib/seo.ts BUSINESS_INFO.sameAs).
+ * P5 Home Co's Facebook page (owner confirmed via the Facebook API,
+ * 2026-10-31) and its Google Business Profile (category General contractor,
+ * knowledge graph id /g/11ntl1t7dc; owner call A, 2026-11-01) are the family's
+ * only profiles. Both belong to the parent node, never to this brand's own
+ * sameAs (lib/seo.ts BUSINESS_INFO.sameAs): Boise Cabinet Co has no profile
+ * of its own.
  */
 export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
+export const P5_GOOGLE_BUSINESS_PROFILE_URL = 'https://www.google.com/search?kgmid=/g/11ntl1t7dc';
 export const P5_PARENT_ORGANIZATION = {
   '@type': 'Organization',
   '@id': P5_ORG_ID,
   name: 'P5 Home Co',
   url: P5_ORIGIN,
-  sameAs: [P5_FACEBOOK_URL],
+  sameAs: [P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL],
 } as const;
 
 /**
