@@ -678,7 +678,9 @@ export function QuoteRequestForm({
   );
 
   return (
-    <div className={cn("space-y-4", className)} data-quote-form="" data-quote-mode={mode}>
+    // data-family-bar-yield: the family mobile bar steps aside while this form is on screen
+    // (components/family/MobileActionBar.tsx); QuoteFollowUp carries it after sending.
+    <div className={cn("space-y-4", className)} data-quote-form="" data-quote-mode={mode} data-family-bar-yield="">
       {persistKey ? <script dangerouslySetInnerHTML={{ __html: draftGateScript(persistKey) }} /> : null}
       {Heading ? (
         <Heading

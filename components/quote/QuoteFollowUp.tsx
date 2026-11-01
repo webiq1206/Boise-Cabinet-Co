@@ -200,7 +200,9 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
   );
 
   return (
-    <div className={cn("space-y-6", className)} data-quote-follow-up="">
+    // data-family-bar-yield: the family mobile bar steps aside while this success screen and its
+    // Step 2 are on screen (components/family/MobileActionBar.tsx), as it does for the form.
+    <div className={cn("space-y-6", className)} data-quote-follow-up="" data-family-bar-yield="">
       <div
         ref={successRef}
         tabIndex={-1}
