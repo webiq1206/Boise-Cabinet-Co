@@ -7,8 +7,11 @@ import { THIN_POST_META, THIN_POST_WORDS, linksRoomOrService } from "../shared/c
 
 const thin = BLOG_POSTS.filter((post) => countWords(post.content) < THIN_POST_WORDS);
 
+// The blog merge release (2026-11-01, shared/content/blogMerges.ts) 301ed 34
+// of the 50 thin posts into stronger pages. The 16 left are the 14 "improve in
+// place" posts plus the two Search Console kept (docs/blog-merge-map.md).
 test("the thin-post programme still has posts to cover", () => {
-  assert.ok(thin.length >= 40, `${thin.length} thin posts`);
+  assert.ok(thin.length >= 10, `${thin.length} thin posts`);
 });
 
 test("every thin post links its pillar guide and a room or service page in the body", () => {

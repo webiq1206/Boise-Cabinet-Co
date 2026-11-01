@@ -20,31 +20,31 @@ export interface CityData {
 export const SERVICES: ServiceData[] = [
   {
     slug: 'kitchen-remodel',
-    name: 'Kitchen Cabinets',
+    name: 'Kitchen cabinets',
     shortDescription: 'Custom kitchen cabinets from layout design through installation, frameless construction options, hundreds of finishes.',
     url: '/cabinets/kitchen',
   },
   {
     slug: 'bathroom-remodel',
-    name: 'Bathroom Vanities',
+    name: 'Bathroom vanities',
     shortDescription: 'Vanity cabinets, linen towers, and bath storage designed for your space and style.',
     url: '/cabinets/bathroom',
   },
   {
     slug: 'whole-home-remodel',
-    name: 'Whole-Home Cabinetry',
+    name: 'Whole-home cabinetry',
     shortDescription: 'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins.',
     url: '/catalog',
   },
   {
     slug: 'room-addition',
-    name: 'Built-In Storage',
+    name: 'Built-in storage',
     shortDescription: 'Custom built-ins, entertainment centers, and specialty storage for any room.',
     url: '/cabinets/built-ins',
   },
   {
     slug: 'adu',
-    name: 'Closet & Garage Storage',
+    name: 'Closet & garage storage',
     shortDescription: 'Closet systems, garage storage, and organizational solutions made to last.',
     url: '/cabinets/closet',
   },

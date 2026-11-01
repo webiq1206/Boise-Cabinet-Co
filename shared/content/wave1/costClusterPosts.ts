@@ -84,7 +84,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'Related cost guides',
     paragraphs: [
-      'Compare <a href="/blog/bathroom-vanity-cost-boise">bathroom vanity costs</a>, <a href="/blog/whole-home-cabinet-cost-boise">whole-home ranges</a>, and <a href="/blog/what-impacts-cabinet-costs-boise">cost drivers</a> in our cost hub.',
+      'Compare <a href="/blog/bathroom-vanity-cost-boise">bathroom vanity costs</a>, whole-home ranges, and cost drivers in the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
     ],
   },
 ];
@@ -123,7 +123,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'Budgeting tips',
     paragraphs: [
-      'Bundle vanity fixtures at one finish level. Match cabinet hardware across baths. See <a href="/blog/how-to-budget-cabinets-boise">cabinet budgeting guide</a>.',
+      'Bundle vanity fixtures at one finish level. Match cabinet hardware across baths. See <a href="/guides/boise-cabinet-cost-guide">cabinet budgeting guide</a>.',
     ],
   },
 ];

@@ -25,14 +25,14 @@ export const metadata = withBrandPageMetadata({
 export default function EstimatePage() {
   const schemas = [
     generateWebPageSchema({
-      title: "Get an Estimate",
+      title: "Request a cabinet quote",
       description:
         "Share your cabinet project, photos or plans for team review before an estimate is prepared.",
       url: "/estimate",
     }),
     generateBreadcrumbSchema([
       { name: "Home", url: "/" },
-      { name: "Get an Estimate", url: "/estimate" },
+      { name: "Request a cabinet quote", url: "/estimate" },
     ]),
   ];
 
@@ -45,11 +45,13 @@ export default function EstimatePage() {
           so the first field sits clear of that bar at 360x640. */}
       <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-4">
         {/* The keyword line sits inside the H1 as a small eyebrow, so the heading
-            names the page ("Boise cabinet estimate") while the approved first-screen
-            headline "Get an Estimate" stays exactly as pinned. */}
+            names the page ("Boise cabinet estimate") while the first-screen headline
+            uses the site's one primary action wording, "Request a cabinet quote"
+            (owner call, 2026-11-01). The title tag and description keep the search
+            terms. */}
         <h1 className="text-3xl font-serif">
           <span className="mb-1 block font-sans text-sm uppercase tracking-[0.06em] text-muted-foreground">Boise cabinet estimate</span>
-          Get an Estimate</h1>
+          Request a cabinet quote</h1>
         <p className="mt-2">Share your project details for our team to review. Prefer to talk it through?</p>
         <AboveFoldActions />
         <div id="estimate-request" tabIndex={-1} className="mt-2 scroll-mt-28">

@@ -15,7 +15,9 @@ test("each first-screen page has one swappable headline and the existing wording
   assert.equal(CABINETS_HUB_HEADLINE, "Cabinets by room");
   assert.equal(KITCHEN_CABINETS_HEADLINE, "Kitchen cabinets");
   assert.equal(BUILT_INS_CABINETS_HEADLINE, "Built-In cabinets");
-  assert.equal(ESTIMATE_HEADLINE, "Get an Estimate");
+  // Owner call (2026-11-01): the /estimate headline uses the site's primary
+  // action wording in sentence case instead of "Get an Estimate".
+  assert.equal(ESTIMATE_HEADLINE, "Request a cabinet quote");
 
   const headlines = read("lib/aboveFoldHeadlines.ts");
   assert.equal(headlines.match(/export const /g)?.length, 4);
@@ -23,7 +25,7 @@ test("each first-screen page has one swappable headline and the existing wording
   assert.match(read("app/cabinets/page.tsx"), /title=\{CABINETS_HUB_HEADLINE\}/);
   assert.match(read("app/cabinets/[room]/page.tsx"), /roomCopy.h1Lead/);
   assert.match(read("app/cabinets/[room]/page.tsx"), /roomCopy.h1Accent/);
-  assert.match(read("app/estimate/page.tsx"), /Get an Estimate<\/h1>/);
+  assert.match(read("app/estimate/page.tsx"), /Request a cabinet quote<\/h1>/);
   assert.match(read("app/estimate/page.tsx"), /KitchenCabinetsQuoteForm/);
   assert.match(read("app/estimate/page.tsx"), /Prefer a step-by-step planning range/);
   assert.match(read("app/estimate/page.tsx"), /EstimateCalculatorWizard/);

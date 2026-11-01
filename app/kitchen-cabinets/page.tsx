@@ -145,7 +145,7 @@ export default function KitchenCabinetsPage() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,31,30,0.92), rgba(28,31,30,0.72) 55%, rgba(28,31,30,0.60))" }} aria-hidden="true" />
         <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
           <h1 className="max-w-[16ch] font-serif">
-            Boise Cabinets for Kitchens, Baths &amp; Built-Ins
+            Boise cabinets for kitchens, baths &amp; built-ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
             Kitchen cabinets, bathroom vanities and built-ins, installed as fast as 3 weeks.

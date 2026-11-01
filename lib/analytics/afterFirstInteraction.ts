@@ -2,9 +2,9 @@
  * Inline-script helper that holds a third-party tag back until the visitor
  * interacts with the page (pointerdown, keydown, scroll or touchstart), or
  * until THIRD_PARTY_FALLBACK_MS after the window load event, whichever comes
- * first. Google's gtag is the only third-party script allowed before
- * interaction; Meta Pixel and Microsoft Clarity wait behind this gate so
- * their parse and execution cost stays out of the first-load main thread.
+ * first. Microsoft Clarity waits behind this gate so its parse and execution
+ * cost stays out of the first-load main thread. Meta Pixel does not: it loads
+ * at the window load event (AT_WINDOW_LOAD below, owner call B).
  *
  * The value is a JavaScript function expression for inline scripts:
  * `(${AFTER_FIRST_INTERACTION})(function () { ...load the tag... })`.
@@ -24,4 +24,20 @@ export const AFTER_FIRST_INTERACTION = `function(run){
   function arm(){w.setTimeout(go,${THIRD_PARTY_FALLBACK_MS});}
   if(d.readyState==="complete")arm();
   else w.addEventListener("load",arm,{once:true});
+}`;
+
+/**
+ * Inline-script helper that runs a callback once, at the window load event
+ * (or straight away when the page has already loaded). No interaction wait
+ * and no extra delay.
+ *
+ * Owner call B (2026-11-01): paid-ad Landing Page View counts matter more than
+ * the small blocking-time saving, so the Meta Pixel vendor script (fbevents.js)
+ * loads here instead of behind AFTER_FIRST_INTERACTION. A visitor who bounces
+ * before interacting is still counted. Clarity stays behind the gate.
+ */
+export const AT_WINDOW_LOAD = `function(run){
+  var w=window,d=document;
+  if(d.readyState==="complete")run();
+  else w.addEventListener("load",function(){run();},{once:true});
 }`;

@@ -60,7 +60,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Bring this checklist to every consultation',
       paragraphs: [
         'Print or save these questions and leave space for written answers. Companies that hesitate on box construction, warranty terms, or installation scope are saving those details for change orders later.',
-        'After interviews, compare responses with <a href="/blog/how-to-compare-cabinet-quotes">how to compare cabinet quotes</a> and <a href="/blog/cabinet-company-red-flags">cabinet company red flags</a> before you sign.',
+        'After interviews, compare responses with <a href="/blog/how-to-compare-cabinet-quotes">how to compare cabinet quotes</a> before you sign.',
       ],
     },
   ],
@@ -142,7 +142,6 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Normalize the timeline too',
       paragraphs: [
         'A quote with a 16-week lead time and a quote with 6 weeks are different products. Ask what drives each company\'s lead time and what happens to your schedule if fabrication slips.',
-        'Background reading: <a href="/blog/why-cabinet-quotes-vary">why cabinet quotes vary</a> and <a href="/blog/fixed-price-vs-cost-plus">fixed price vs cost plus</a>.',
       ],
     },
     {
@@ -306,7 +305,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Blended strategies',
       paragraphs: [
-        'Some projects sensibly blend: custom perimeter where fit shows, simpler storage in the garage or laundry. We will tell you when a simpler product serves a space; see <a href="/blog/custom-cabinet-shop-vs-big-box">custom shop vs big box</a> for the vendor-level comparison.',
+        'Some projects sensibly blend: custom perimeter where fit shows, simpler storage in the garage or laundry. We will tell you when a simpler product serves a space; see <a href="/blog/stock-vs-custom-cabinets-boise">custom shop vs big box</a> for the vendor-level comparison.',
       ],
     },
     {
@@ -388,7 +387,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Your role in the design phase',
       paragraphs: [
         'Review drawings against how you actually cook and store: does every base have the drawer-vs-door choice you want, is the trash pull-out beside the prep zone, do appliance panels match confirmed models? Drawing changes are free; post-release changes restart lead time.',
-        'Continue with <a href="/blog/cabinet-design-development">design development</a> for the drawing-to-approval stage.',
+        'Continue with <a href="/guides/cabinet-project-process-guide">design development</a> for the drawing-to-approval stage.',
       ],
     },
   ],
@@ -414,7 +413,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Locking selections',
       paragraphs: [
         'Door style, finish, and hardware lock at drawing approval because fabrication purchases materials from those selections. We require physical sample review at home before this gate, the step that prevents nearly every finish regret.',
-        'Next in the series: <a href="/blog/cabinet-fabrication-installation">fabrication and installation</a>.',
+        'Next in the series: <a href="/guides/cabinet-project-process-guide">fabrication and installation</a>.',
       ],
     },
   ],
@@ -435,7 +434,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'After cabinets land',
       paragraphs: [
-        'Counter templating follows base installation, with fabrication and install adding 1 to 2 weeks before full kitchen function. Final adjustment and the punch-list walkthrough close the project; see the <a href="/blog/cabinet-installation-punch-list">punch list article</a> for that stage.',
+        'Counter templating follows base installation, with fabrication and install adding 1 to 2 weeks before full kitchen function. Final adjustment and the punch-list walkthrough close the project; see the <a href="/guides/cabinet-project-process-guide">punch list article</a> for that stage.',
       ],
     },
   ],
@@ -455,7 +454,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Seasonal settling',
       paragraphs: [
-        'Idaho\'s humidity swing means doors may need one alignment touch-up after a season or two, normal wood and hardware behavior, covered under workmanship warranty. See the <a href="/blog/cabinet-warranty-guide">cabinet warranty guide</a> for what is covered long-term.',
+        'Idaho\'s humidity swing means doors may need one alignment touch-up after a season or two, normal wood and hardware behavior, covered under workmanship warranty. See the <a href="/warranty">cabinet warranty guide</a> for what is covered long-term.',
       ],
     },
   ],
@@ -510,7 +509,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Cost vs. Value context for Idaho homeowners',
       paragraphs: [
         'Remodeling Magazine\'s Cost vs. Value report for the Mountain region is the most cited benchmark for kitchen and bath returns. Minor kitchen remodels with cabinet-forward scopes have recently recouped roughly 85 to 96 percent at resale, while you still capture years of daily use if you are staying put.',
-        'Treat ROI as a positioning tool, not a guarantee: list when the kitchen is the objection, stay when the layout fails your family every morning. Pair numbers with <a href="/blog/cabinets-for-long-term-living">cabinets for long-term living</a> if you are not selling soon.',
+        'Treat ROI as a positioning tool, not a guarantee: list when the kitchen is the objection, stay when the layout fails your family every morning. Pair numbers with <a href="/blog/cabinet-upgrades-before-selling">cabinets for long-term living</a> if you are not selling soon.',
       ],
     },
   ],
@@ -571,7 +570,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Sizing the spend',
       paragraphs: [
-        'A grill run with storage and counter space captures most of the buyer impression at a fraction of a full outdoor-room budget. Scale up only when the neighborhood supports it; <a href="/blog/premium-outdoor-cabinetry">premium outdoor cabinetry</a> covers the high end.',
+        'A grill run with storage and counter space captures most of the buyer impression at a fraction of a full outdoor-room budget. Scale up only when the neighborhood supports it; <a href="/blog/outdoor-kitchen-cabinets-boise">premium outdoor cabinetry</a> covers the high end.',
       ],
     },
   ],

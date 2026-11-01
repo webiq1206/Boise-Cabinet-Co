@@ -15,6 +15,7 @@ import { ALL_HUB_PILLARS } from './content/allHubsContent';
 import { CITY_CABINET_GUIDES } from './content/cityCabinetGuides';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
+import { isMergedBlogSlug, resolveMergedPath, withMergedContent } from './content/blogMerges';
 
 export type GuideType = 'hub-pillar' | 'location' | 'neighborhood' | 'master';
 
@@ -120,10 +121,10 @@ const costPillarFaqs = [
   },
 ];
 
-export const GUIDE_PAGES: GuidePageData[] = [
+const GUIDE_PAGE_SOURCES: GuidePageData[] = [
   {
     slug: 'boise-cabinet-cost-guide',
-    title: 'Boise Cabinet Cost Guide (2026 Planning Ranges)',
+    title: 'Boise cabinet cost guide (2026 planning ranges)',
     seoTitle: 'Boise Cabinet Cost Guide | Treasure Valley',
     metaDescription:
       '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
@@ -159,7 +160,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
   },
   {
     slug: 'treasure-valley-cabinet-guide',
-    title: 'Treasure Valley Custom Cabinet Guide',
+    title: 'Treasure Valley custom cabinet guide',
     seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
       'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell, room guides, collections, catalog, and delivery.',
@@ -256,7 +257,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
   },
   {
     slug: 'boise-cabinet-guide',
-    title: 'Boise Custom Cabinet Guide',
+    title: 'Boise custom cabinet guide',
     seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods',
     metaDescription:
       'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and kitchen, bath, and built-in cabinetry for Treasure Valley homes.',
@@ -333,6 +334,23 @@ export const GUIDE_PAGES: GuidePageData[] = [
   ...CITY_CABINET_GUIDES,
   ...ALL_HUB_PILLARS,
 ];
+
+/**
+ * Guides that received a merged post (docs/blog-merge-map.md) carry its folded
+ * section; every guide links merged posts' destinations, not the 301s.
+ */
+export const GUIDE_PAGES: GuidePageData[] = GUIDE_PAGE_SOURCES.map((guide) => {
+  const selfPath = `/guides/${guide.slug}`;
+  const seen = new Set<string>();
+  return {
+    ...guide,
+    content: withMergedContent(guide.content, selfPath),
+    linkedClusterSlugs: guide.linkedClusterSlugs?.filter((slug) => !isMergedBlogSlug(slug)),
+    relatedLinks: guide.relatedLinks
+      ?.map((link) => ({ ...link, url: resolveMergedPath(link.url) }))
+      .filter((link) => link.url !== selfPath && !seen.has(link.url) && seen.add(link.url)),
+  };
+});
 
 export function getGuideBySlug(slug: string): GuidePageData | undefined {
   return GUIDE_PAGES.find((g) => g.slug === slug);

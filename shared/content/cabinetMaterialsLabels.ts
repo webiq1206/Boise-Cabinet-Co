@@ -43,7 +43,7 @@ const content = `
   <li><strong>Do the composite panels carry TSCA Title VI compliance labeling, and can you show me the documentation?</strong></li>
   <li><strong>Are any parts of this line KCMA-certified?</strong> If not, what testing or warranty stands behind them?</li>
   <li><strong>Is all of this in my written scope before the build starts?</strong> Materials belong in the same written document as door style, finish, and hardware, so there's nothing to reinterpret later.</li>
-  <li><strong>What does the <a href="/blog/cabinet-warranty-guide">warranty</a> cover for the box itself,</strong> as opposed to doors, hardware, and finish?</li>
+  <li><strong>What does the <a href="/warranty">warranty</a> cover for the box itself,</strong> as opposed to doors, hardware, and finish?</li>
 </ol>
 
 <h2>The short version</h2>

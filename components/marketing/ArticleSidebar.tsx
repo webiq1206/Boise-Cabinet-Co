@@ -31,7 +31,7 @@ export function ArticleSidebarCta({ description }: { description: string }) {
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10">
             <Wrench className="h-5 w-5 text-inverse-foreground/60" />
           </div>
-          <h3 className="font-medium text-sm text-inverse-foreground">Free Consultation</h3>
+          <h3 className="font-medium text-sm text-inverse-foreground">Free consultation</h3>
         </div>
         <p className="text-sm text-inverse-muted">{description}</p>
         <CtaButton variant="brand" size="sm" className="h-auto min-h-11 w-full gap-2 whitespace-normal px-3 py-3 text-center">

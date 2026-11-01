@@ -1,6 +1,8 @@
 # Kitchen overlap with Boise Remodeling Co (proposal, no changes made)
 
-Status: proposal for the owner. Phase 4 changes none of these URLs, titles or redirects on either site. Written 2026-10-31 by comparing `shared/blogContent.ts` and `shared/guideContent.ts` in this repo with the same files in `boise-remodeling-co` (main at `3ec53592`), plus `seo-notes-cabinet.md` section 2.
+Status: the Cabinet side was EXECUTED on 2026-11-01 (owner rule: Boise Cabinet Co owns kitchen cabinets and cabinetry, Boise Remodeling Co owns kitchen remodeling). `kitchen-layout-ideas-boise-homes`, `walk-in-pantry-design-guide`, `open-kitchen-cabinet-storage` and `fixed-price-vs-cost-plus` merged and 301 as mapped (each under 15 impressions, 0 clicks); `kitchen-island-design-guide` keeps its URL, retitled "Kitchen island cabinet design guide" (title tag "Kitchen Island Cabinets: Sizing & Storage"); `/guides/boise-kitchen-cabinet-guide` now links `https://boiseremodeling.co/services/kitchen-remodel` (followed) where it says opening a kitchen is more than cabinetry. The Remodeling-side items (its two trend posts) are a change in `boise-remodeling-co` and were not made here.
+
+Original proposal follows. Phase 4 changed none of these URLs, titles or redirects on either site. Written 2026-10-31 by comparing `shared/blogContent.ts` and `shared/guideContent.ts` in this repo with the same files in `boise-remodeling-co` (main at `3ec53592`), plus `seo-notes-cabinet.md` section 2.
 
 ## The rule that decides ownership
 

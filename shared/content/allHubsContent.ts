@@ -15,7 +15,7 @@ const out = '/cabinets/outdoor';
 // , ,  Kitchen cabinets , , 
 export const KITCHEN_PILLAR = buildPillarGuide({
   slug: 'boise-kitchen-cabinet-guide',
-  title: 'Boise Kitchen Cabinet Guide',
+  title: 'Boise kitchen cabinet guide',
   seoTitle: 'Boise Kitchen Cabinet Guide | Treasure Valley',
   metaDescription:
     'Definitive kitchen cabinet guide for Boise and the Treasure Valley: layouts, door styles, finishes, timelines, and custom cabinetry planning.',
@@ -46,11 +46,11 @@ export const KITCHEN_PILLAR = buildPillarGuide({
 });
 
 const kitchenClusters = [
-  ['kitchen-cabinet-timeline-boise', 'Kitchen Cabinet Timeline Boise', 'Typical kitchen cabinet phases in Boise from design through installation.'],
+  ['kitchen-cabinet-timeline-boise', 'Kitchen cabinet timeline Boise', 'Typical kitchen cabinet phases in Boise from design through installation.'],
   ['kitchen-layout-ideas-boise-homes', 'Kitchen Layout Ideas for Boise Homes', 'Layouts for ranches, split-levels, and open kitchens in the Treasure Valley.'],
-  ['kitchen-cabinet-trends', 'Kitchen Cabinet Trends', 'Cabinet styles and storage trends popular in Meridian, Eagle, and Boise.'],
+  ['kitchen-cabinet-trends', 'Kitchen cabinet trends', 'Cabinet styles and storage trends popular in Meridian, Eagle, and Boise.'],
   ['open-kitchen-cabinet-storage', 'Open Kitchen Cabinet Storage', 'Cabinet planning when opening kitchen to living space, storage, islands, and sight lines.'],
-  ['kitchen-island-design-guide', 'Kitchen Island Design Guide', 'Sizing islands for Boise ranches and newer Meridian floor plans.'],
+  ['kitchen-island-design-guide', 'Kitchen island cabinet design guide', 'Sizing islands for Boise ranches and newer Meridian floor plans.'],
   ['walk-in-pantry-design-guide', 'Walk-In Pantry Design Guide', 'Pantry cabinet layouts, shelving, and traffic flow for Idaho homes.'],
 ] as const;
 
@@ -72,7 +72,7 @@ export const KITCHEN_CLUSTER_POSTS: BlogPostData[] = kitchenClusters.map(([slug,
 // , ,  Bathroom vanities , , 
 export const BATHROOM_PILLAR = buildPillarGuide({
   slug: 'boise-bathroom-vanity-guide',
-  title: 'Boise Bathroom Vanity Guide',
+  title: 'Boise bathroom vanity guide',
   seoTitle: 'Boise Bathroom Vanity Guide | Treasure Valley',
   metaDescription:
     'Master and guest bath vanity cabinets in Boise: layouts, storage, finishes, aging-in-place, and local installation.',
@@ -97,9 +97,9 @@ export const BATHROOM_PILLAR = buildPillarGuide({
 
 const bathSlugs = [
   ['luxury-bathroom-vanity-guide', 'Luxury Bathroom Vanity Guide'],
-  ['small-bathroom-vanity-ideas', 'Small Bathroom Vanity Ideas'],
-  ['accessible-bathroom-vanity-guide', 'Accessible Bathroom Vanity Guide'],
-  ['bathroom-vanity-layout-guide', 'Bathroom Vanity Layout Guide'],
+  ['small-bathroom-vanity-ideas', 'Small bathroom vanity ideas'],
+  ['accessible-bathroom-vanity-guide', 'Accessible bathroom vanity guide'],
+  ['bathroom-vanity-layout-guide', 'Bathroom vanity layout guide'],
 ] as const;
 
 export const BATHROOM_CLUSTER_POSTS: BlogPostData[] = bathSlugs.map(([slug, title]) =>
@@ -120,7 +120,7 @@ export const BATHROOM_CLUSTER_POSTS: BlogPostData[] = bathSlugs.map(([slug, titl
 // , ,  Built-ins & storage , , 
 export const BUILT_INS_PILLAR = buildPillarGuide({
   slug: 'built-in-cabinet-guide',
-  title: 'Built-In Cabinet Guide',
+  title: 'Built-in cabinet guide',
   seoTitle: 'Built-In Cabinet Guide | Boise Treasure Valley',
   metaDescription:
     'Entertainment centers, mudroom lockers, closets, garage storage, and outdoor kitchen cabinets in Boise and the Treasure Valley.',
@@ -149,7 +149,7 @@ const builtInSlugs = [
   ['primary-suite-closet-cabinets', 'Primary Suite Closet Cabinets'],
   ['garage-storage-cabinet-systems', 'Garage Storage Cabinet Systems'],
   ['multi-room-cabinet-planning', 'Multi-Room Cabinet Planning'],
-  ['outdoor-kitchen-cabinets-boise', 'Outdoor Kitchen Cabinets Boise'],
+  ['outdoor-kitchen-cabinets-boise', 'Outdoor kitchen cabinets Boise'],
   ['outdoor-bar-cabinet-storage', 'Outdoor Bar Cabinet Storage'],
   ['premium-outdoor-cabinetry', 'Premium Outdoor Cabinetry'],
 ] as const;
@@ -172,7 +172,7 @@ export const BUILT_INS_CLUSTER_POSTS: BlogPostData[] = builtInSlugs.map(([slug, 
 // , ,  Whole-home cabinetry , , 
 export const WHOLE_HOME_PILLAR = buildPillarGuide({
   slug: 'whole-home-cabinetry-guide',
-  title: 'Whole-Home Cabinetry Guide',
+  title: 'Whole-home cabinetry guide',
   seoTitle: 'Whole-Home Cabinetry Guide Boise',
   metaDescription:
     'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins in Idaho.',
@@ -200,12 +200,12 @@ export const WHOLE_HOME_PILLAR = buildPillarGuide({
 
 const wholeSlugs = [
   ['cabinet-project-planning-guide', 'Cabinet Project Planning Guide'],
-  ['cabinet-buying-mistakes', 'Cabinet Buying Mistakes to Avoid'],
+  ['cabinet-buying-mistakes', 'Cabinet buying mistakes to avoid'],
   ['whole-home-cabinet-timeline', 'Whole Home Cabinet Timeline'],
-  ['living-through-cabinet-installation', 'Living Through Cabinet Installation'],
+  ['living-through-cabinet-installation', 'Living through cabinet installation'],
   ['cabinet-refresh-vs-replace-vs-moving', 'Cabinet Refresh vs Replace vs Moving'],
   ['custom-cabinet-design-process', 'Custom Cabinet Design Process'],
-  ['cabinet-planning-checklist', 'Cabinet Planning Checklist'],
+  ['cabinet-planning-checklist', 'Cabinet planning checklist'],
 ] as const;
 
 const wholeHomeAnswers:Record<string,string>={
@@ -235,7 +235,7 @@ export const WHOLE_HOME_CLUSTER_POSTS: BlogPostData[] = wholeSlugs.map(([slug, t
 // , ,  Choosing a cabinet company , , 
 export const CONTRACTOR_PILLAR = buildPillarGuide({
   slug: 'choose-cabinet-company-boise',
-  title: 'How to Choose a Cabinet Company in Boise',
+  title: 'How to choose a cabinet company in Boise',
   seoTitle: 'Choose a Cabinet Company Boise | Treasure Valley',
   metaDescription:
     'Vet custom cabinet companies in Boise: shop vs dealer, quotes, red flags, consultations, and written scope.',
@@ -267,12 +267,12 @@ export const CONTRACTOR_PILLAR = buildPillarGuide({
 });
 
 const contractorSlugs = [
-  ['questions-to-ask-cabinet-company', 'Questions to Ask a Cabinet Company'],
+  ['questions-to-ask-cabinet-company', 'Questions to ask a cabinet company'],
   ['cabinet-company-red-flags', 'Cabinet Company Red Flags'],
   ['what-makes-great-cabinet-company', 'What Makes a Great Cabinet Company'],
-  ['how-to-compare-cabinet-quotes', 'How to Compare Cabinet Quotes'],
+  ['how-to-compare-cabinet-quotes', 'How to compare cabinet quotes'],
   ['why-cabinet-quotes-vary', 'Why Cabinet Quotes Vary So Much'],
-  ['cabinet-consultation-process', 'Cabinet Consultation Process'],
+  ['cabinet-consultation-process', 'Cabinet consultation process'],
   ['custom-cabinet-shop-vs-big-box', 'Custom Cabinet Shop vs Big Box'],
   ['fixed-price-vs-cost-plus', 'Fixed Price vs Cost Plus Cabinet Quotes'],
 ] as const;
@@ -295,7 +295,7 @@ export const CONTRACTOR_CLUSTER_POSTS: BlogPostData[] = contractorSlugs.map(([sl
 // , ,  Cabinet project process , , 
 export const PROCESS_PILLAR = buildPillarGuide({
   slug: 'cabinet-project-process-guide',
-  title: 'Boise Cabinet Project Process Guide',
+  title: 'Boise cabinet project process guide',
   seoTitle: 'Boise Cabinet Project Process Guide',
   metaDescription:
     'End-to-end cabinet process: consultation, design, fabrication, delivery, installation, punch list, and warranty in Idaho.',
@@ -386,7 +386,7 @@ export const PROCESS_CLUSTER_POSTS: BlogPostData[] = processSlugs.map(([slug, ti
 // , ,  Cabinet ROI , , 
 export const ROI_PILLAR = buildPillarGuide({
   slug: 'cabinet-roi-guide-boise',
-  title: 'Best Cabinet Upgrades for ROI in Boise',
+  title: 'Best cabinet upgrades for ROI in Boise',
   seoTitle: 'Cabinet ROI Boise | Treasure Valley',
   metaDescription: 'Which cabinet upgrades return value in Boise, Meridian, and Eagle resale markets.',
   excerpt: 'ROI-focused cabinet guidance for Treasure Valley homeowners.',
@@ -411,11 +411,11 @@ export const ROI_PILLAR = buildPillarGuide({
 });
 
 const roiSlugs = [
-  ['kitchen-cabinet-roi-boise', 'Kitchen Cabinet ROI Boise'],
+  ['kitchen-cabinet-roi-boise', 'Kitchen cabinet ROI Boise'],
   ['bathroom-vanity-roi-boise', 'Bathroom Vanity ROI Boise'],
   ['built-in-storage-roi', 'Built-In Storage ROI'],
   ['outdoor-cabinet-roi', 'Outdoor Cabinet ROI'],
-  ['cabinet-upgrades-before-selling', 'Cabinet Upgrades Before Selling'],
+  ['cabinet-upgrades-before-selling', 'Cabinet upgrades before selling'],
   ['cabinets-for-long-term-living', 'Cabinets for Long-Term Living'],
 ] as const;
 

@@ -97,7 +97,7 @@ export const WAVE1_COST_CLUSTERS: BlogPostData[] = [
   ),
   makeCostCluster(
     'bathroom-vanity-cost-boise',
-    'Bathroom Vanity Cost Boise: Guest vs Master',
+    'Bathroom vanity cost Boise: guest vs master',
     'Bathroom Vanity Cost Boise Idaho',
     'Bathroom vanity cabinet cost in Boise and the Treasure Valley: guest baths, master suites, and storage options.',
     'Guest and master vanity cabinets sit on different budgets, plan with realistic Treasure Valley ranges.',

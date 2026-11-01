@@ -56,7 +56,7 @@
         "links": [
           { "label": "Kitchen cabinets", "href": "/cabinets/kitchen" },
           { "label": "Boise kitchen cabinet guide", "href": "/guides/boise-kitchen-cabinet-guide" },
-          { "label": "Kitchen cabinet cost in Boise", "href": "/blog/kitchen-cabinet-cost-boise" }
+          { "label": "Kitchen cabinet cost in Boise", "href": "/blog/custom-kitchen-cabinet-cost" }
         ]
       }
     },
@@ -139,7 +139,7 @@
         ],
         "links": [
           { "label": "Whole-home cabinetry guide", "href": "/guides/whole-home-cabinetry-guide" },
-          { "label": "Whole-home cabinet cost", "href": "/blog/whole-home-cabinet-cost-boise" },
+          { "label": "Whole-home cabinet cost", "href": "/guides/boise-cabinet-cost-guide" },
           { "label": "Eagle cabinet guide", "href": "/locations/eagle" }
         ]
       }

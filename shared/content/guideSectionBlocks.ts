@@ -38,8 +38,8 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
         {
           h2: 'Kitchen layouts that work in Boise homes',
           paragraphs: [
-            'Ranches, split-levels, and 1990s subdivisions each have different wall and panel constraints. Opening a kitchen often means beams, Ada County sheets, and revised electrical, not just cabinetry.',
-            '<a href="/blog/kitchen-layout-ideas-boise-homes">Layout ideas</a> · <a href="/blog/open-kitchen-cabinet-storage">Open kitchen storage</a>.',
+            'Ranches, split-levels, and 1990s subdivisions each have different wall and panel constraints. Opening a kitchen often means beams, Ada County sheets, and revised electrical, not just cabinetry. That is a full remodel, which our sister company Boise Remodeling Co handles: see <a href="https://boiseremodeling.co/services/kitchen-remodel">kitchen remodeling in Boise</a>. We build and install the cabinets inside it.',
+            '<a href="/blog/kitchen-cabinet-organization-ideas">Kitchen cabinet organization</a> · <a href="/blog/kitchen-island-design-guide">Kitchen island cabinets</a>.',
           ],
         },
         {
@@ -69,7 +69,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
             ],
           },
           paragraphs: [
-            '<a href="/blog/kitchen-cabinet-timeline-boise">Kitchen cabinet timeline</a> · <a href="/blog/kitchen-cabinet-cost-boise">Kitchen cabinet cost in Boise</a>.',
+            '<a href="/blog/kitchen-cabinet-timeline-boise">Kitchen cabinet timeline</a> · <a href="/blog/custom-kitchen-cabinet-cost">Kitchen cabinet cost in Boise</a>.',
           ],
         },
       ];
@@ -129,7 +129,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Garage and outdoor cabinets need different materials',
           paragraphs: [
             'Treasure Valley garages swing from freezing cold to summer heat, so garage cabinets use durable finishes over plywood or melamine boxes. Covered patio kitchens need weather-rated cabinet boxes and stainless hardware rather than indoor materials.',
-            '<a href="/cabinets/garage">Garage cabinets</a> · <a href="/cabinets/outdoor">Outdoor kitchen cabinets</a> · <a href="/blog/garage-storage-cabinet-systems">Garage storage systems</a> · <a href="/blog/outdoor-kitchen-cabinets-boise">Outdoor kitchen cabinets in Boise</a>.',
+            '<a href="/cabinets/garage">Garage cabinets</a> · <a href="/cabinets/outdoor">Outdoor kitchen cabinets</a> · <a href="/blog/outdoor-kitchen-cabinets-boise">Outdoor kitchen cabinets in Boise</a>.',
           ],
         },
         {
@@ -160,7 +160,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'How to sequence a whole-home cabinet program',
           paragraphs: [
             'Plan every room\'s layout first, then choose one door style and one finish family for the whole house before any order goes in. Rooms ordered apart can drift in finish, door style, and quality; one written selections schedule keeps the kitchen, baths, laundry, mudroom, and built-ins matched.',
-            '<a href="/blog/multi-room-cabinet-planning">Multi-room cabinet planning</a> · <a href="/blog/whole-home-cabinet-cost-boise">Whole-home cabinet cost</a>.',
+            '<a href="/guides/boise-cabinet-cost-guide">Whole-home cabinet cost</a>.',
           ],
         },
         {
@@ -216,7 +216,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Permits and selections order',
           paragraphs: [
             'Submit permits when layout is stable; order long-lead items after rough-in requirements are known.',
-            '<a href="/guides/cabinet-project-process-guide">Cabinet process guide</a> · <a href="/blog/cabinet-fabrication-installation">Fabrication & installation</a>.',
+            '<a href="/warranty">Cabinet warranty</a> · <a href="/services/cabinet-installation">Cabinet installation</a>.',
           ],
         },
         {
@@ -238,7 +238,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Pre-sale vs long-term living',
           paragraphs: [
             'Pre-sale updates should mirror buyer expectations. Long-term owners may accept lower resale payback for layout and comfort wins.',
-            '<a href="/blog/kitchen-cabinet-roi-boise">Kitchen cabinet ROI</a> · <a href="/blog/bathroom-vanity-roi-boise">Bathroom vanity ROI</a>.',
+            '<a href="/blog/kitchen-cabinet-roi-boise">Kitchen cabinet ROI</a> · <a href="/blog/cabinet-upgrades-before-selling">Cabinet upgrades before selling</a>.',
           ],
         },
         {

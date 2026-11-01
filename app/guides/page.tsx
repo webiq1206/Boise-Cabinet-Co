@@ -16,6 +16,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { getBlogImageAlt,getBlogThumbnail } from '@/shared/blogImages';
 import { locationPath } from '@/shared/contentData';
+import { BLOG_POSTS } from '@/shared/blogContent';
 import { CONTENT_HUBS,guidePath } from '@/shared/contentHubs';
 import { GUIDE_PAGES,type GuidePageData } from '@/shared/guideContent';
 import { ArrowRight,BookOpen,MapPin } from 'lucide-react';
@@ -63,6 +64,9 @@ export default function GuidesIndexPage() {
     (g) => g.guideType === 'location' || g.guideType === 'neighborhood',
   );
   const sortedHubs = [...CONTENT_HUBS].sort((a, b) => a.priorityTier - b.priorityTier);
+  // A hub with no posts left (e.g. cabinet-project-process after the blog merge)
+  // redirects to /blog, so it gets no "Related articles" link.
+  const hubsWithPosts = new Set(BLOG_POSTS.map((post) => post.hubSlug));
 
   const webPageSchema = generateWebPageSchema({
     title: 'Cabinet Design Guides',
@@ -125,7 +129,7 @@ export default function GuidesIndexPage() {
             Treasure Valley authority
           </p>
           <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
-            Cabinet Design Guides
+            Cabinet design guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley, costs,
@@ -222,7 +226,7 @@ export default function GuidesIndexPage() {
                         <ArrowRight className="ml-1 h-3 w-3" />
                       </Link>
                     )}
-                    {hasPillar && (
+                    {hasPillar && hubsWithPosts.has(hub.hubSlug) && (
                       <Link
                         href={`/blog/category/${hub.hubSlug}`}
                         className="tap-target inline-flex items-center text-muted-foreground hover:text-accent hover:underline"

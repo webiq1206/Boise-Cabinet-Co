@@ -29,7 +29,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
           'Yes. Islands, tall pantries, and appliance walls are planned in our Design Studio with clearances verified before order.',
       },
       {
-        question: 'What makes your Custom Cabinets different?',
+        question: 'What makes your custom cabinets different?',
         answer:
           'Custom Cabinets are built to your exact dimensions, details, and finish specifications, with hundreds of finishes and Shaker, slab and more door styles to choose from.',
       },
