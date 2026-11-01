@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { CabinetProduct } from "@/shared/catalog";
-import { getProductImages } from "@/shared/catalog/entityImages";
 import { cn } from "@/lib/utils";
 
 export interface ProductConfigGalleryProps {
@@ -12,7 +11,11 @@ export interface ProductConfigGalleryProps {
 }
 
 export function ProductConfigGallery({ product, className }: ProductConfigGalleryProps) {
-  const images = getProductImages(product);
+  // Same result as entityImages.getProductImages: every catalog product carries its
+  // generated boxImage, so the by-slug lookup there (which imports the whole
+  // product catalog into this client bundle) never changes the answer here.
+  const box = product.boxImage ?? `/generated/cabinets/${product.slug}.svg`;
+  const images = { hero: box, diagram: box };
   const [active, setActive] = useState<"hero" | "diagram">("hero");
   const [failed, setFailed] = useState(false);
 

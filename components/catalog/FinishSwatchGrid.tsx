@@ -1,13 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Finish, FinishCategory } from "@/shared/catalog";
-import { FINISHES, formatPriceTier, finishAlt } from "@/shared/catalog";
+// Direct modules, not the @/shared/catalog barrel: this is a client component and
+// the barrel also loads every cabinet product.
+import { FINISHES } from "@/shared/catalog/finishes";
+import { formatPriceTier } from "@/shared/catalog/priceTier";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { cn } from "@/lib/utils";
+import { FinishSwatch } from "./FinishSwatch";
+
+export { FinishSwatch };
 
 const CATEGORY_LABELS: Record<FinishCategory, string> = {
   matte: "Matte",
@@ -21,40 +26,6 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
   { id: "gloss", label: "Gloss" },
   { id: "woodgrain", label: "Woodgrain" },
 ];
-
-export function FinishSwatch({ finish }: { finish: Finish }) {
-  const [imageFailed, setImageFailed] = useState(false);
-  const showImage = Boolean(finish.imagePath) && !imageFailed;
-  const alt = finishAlt(finish);
-
-  return (
-    <div
-      className={cn(
-        "aspect-square rounded-sm border border-border shadow-sm overflow-hidden relative",
-        finish.category === "woodgrain" && "ring-1 ring-inset ring-black/5",
-      )}
-      role="img"
-      aria-label={alt}
-    >
-      {/* Flat color tile always renders beneath, so there is never a blank or
-          broken swatch; a real image (when one exists) layers on top. */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: finish.hexColor || "hsl(var(--muted))" }}
-      />
-      {showImage && (
-        <Image
-          src={finish.imagePath!}
-          alt={alt}
-          fill
-          sizes="120px"
-          className="object-cover"
-          onError={() => setImageFailed(true)}
-        />
-      )}
-    </div>
-  );
-}
 
 export interface FinishSwatchGridProps {
   finishes?: Finish[];

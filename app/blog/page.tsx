@@ -53,7 +53,11 @@ export default function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      <BlogIndexClient />
+      <BlogIndexClient
+        posts={BLOG_POSTS.map(({ slug, thumbnail, title, excerpt, category, hubSlug, publishedAt }) => ({
+          slug, thumbnail, title, excerpt, category, hubSlug, publishedAt,
+        }))}
+      />
     </></InteriorPage>
   );
 }

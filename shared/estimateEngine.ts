@@ -1,7 +1,9 @@
 import { DOOR_STYLES } from "./catalog/doorStyles";
 import { FINISH_BY_SLUG } from "./catalog/finishes";
-import { getDoorStyleImages, getFinishImages } from "./catalog/entityImages";
-import { getFinishesForDoorStyle } from "./catalog/queries";
+// The light modules, not entityImages/queries: those import the generated
+// cabinet product catalog, and this engine runs in the browser.
+import { getDoorStyleImages, getFinishImages } from "./catalog/entityImagePaths";
+import { getFinishesForDoorStyle } from "./catalog/finishCompatibility";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
 
 /**
@@ -725,11 +727,7 @@ export function emptySelectionsForProject(project: ProjectType): EstimateSelecti
 
 // ── Pricing ──────────────────────────────────────────────────────────────────
 
-export function formatPlanningCurrency(n: number): string {
-  if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
-  if (n >= 1000) return `$${Math.round(n / 1000)}k`;
-  return `$${n.toLocaleString()}`;
-}
+export { formatPlanningCurrency } from "./planningCurrency";
 
 function clampSize(project: ProjectType, size: number | null): number {
   const cfg = PROJECT_SIZE_CONFIG[project];

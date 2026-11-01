@@ -4,7 +4,7 @@ import { formatCabinetDimensions, getCabinetNeedLabel } from "@/shared/catalog";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { CatalogActionBar } from "@/components/catalog/CatalogActionBar";
 import { Chip } from "@/components/marketing/Chip";
-import { ProductConfigGallery } from "@/components/catalog/visual";
+import { ProductConfigGallery } from "@/components/catalog/visual/ProductConfigGallery";
 
 export interface ProductConfigurationCardProps {
   product: CabinetProduct;
