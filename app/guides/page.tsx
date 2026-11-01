@@ -125,7 +125,7 @@ export default function GuidesIndexPage() {
             Treasure Valley authority
           </p>
           <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-foreground mb-4">
-            Cabinet Design Guides
+            Cabinet design guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley, costs,

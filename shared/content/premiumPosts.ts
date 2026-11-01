@@ -1709,7 +1709,7 @@ const cleanCabinetsContent = `
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
-    title: 'Framed vs Frameless Cabinets: The Complete Guide',
+    title: 'Framed vs frameless cabinets: the complete guide',
     seoTitle: 'Framed vs Frameless Cabinets: Pros, Cons & Cost',
     metaDescription:
       'Framed vs frameless (European) cabinets compared: usable space, drawer access, look, durability, and cost, plus how to choose for your Treasure Valley kitchen.',
@@ -1780,7 +1780,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-door-styles-guide',
-    title: 'Cabinet Door Styles: The Complete Visual Guide',
+    title: 'Cabinet door styles: the complete visual guide',
     seoTitle: 'Cabinet Door Styles Guide: Shaker, Slab & More',
     metaDescription:
       'The complete guide to cabinet door styles - Shaker, slab, raised-panel, beadboard, and inset - with a comparison table and how to choose for your Treasure Valley kitchen.',
@@ -1821,7 +1821,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-hardware-guide',
-    title: 'Cabinet Hardware Guide: Knobs, Pulls & Placement',
+    title: 'Cabinet hardware guide: knobs, pulls & placement',
     seoTitle: 'Cabinet Hardware Guide: Knobs vs Pulls & Sizing',
     metaDescription:
       'How to choose cabinet hardware: knobs vs pulls, sizing, placement, finishes, and matching to your door style - a complete guide for Treasure Valley kitchens.',
@@ -1862,7 +1862,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-finishes-colors-guide',
-    title: 'Cabinet Finishes and Colors: The Complete Guide',
+    title: 'Cabinet finishes and colors: the complete guide',
     seoTitle: 'Cabinet Finishes & Colors Guide: Paint, Stain & Trends',
     metaDescription:
       'Painted vs stained vs specialty cabinet finishes, the most popular colors, two-tone kitchens, sheen, and how to choose - a complete guide for Treasure Valley homes.',
@@ -1903,7 +1903,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'stock-vs-custom-cabinets-boise',
-    title: 'Stock vs Custom Cabinets: Which Is Right for You?',
+    title: 'Stock vs custom cabinets: which is right for you?',
     seoTitle: 'Stock vs Custom Cabinets: Cost, Fit & How to Choose',
     metaDescription:
       'Stock vs semi-custom vs custom cabinets compared - cost, fit, quality, and lead time - plus how to choose for your Treasure Valley kitchen.',
@@ -1944,7 +1944,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-construction-quality-guide',
-    title: 'Cabinet Construction Quality: How to Judge a Well-Built Cabinet',
+    title: 'Cabinet construction quality: how to judge a well-built cabinet',
     seoTitle: 'Cabinet Construction Quality: How to Judge a Cabinet',
     metaDescription:
       'How to judge cabinet quality - plywood boxes, dovetailed drawers, soft-close hinges, and joinery. A hands-on inspection guide for Treasure Valley homeowners.',
@@ -1986,7 +1986,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-cost-per-linear-foot',
-    title: 'Cabinet Cost Per Linear Foot in Boise: What It Really Means',
+    title: 'Cabinet cost per linear foot in Boise: what it really means',
     seoTitle: 'Cabinet Cost Per Linear Foot in Boise (2026 Ranges)',
     metaDescription:
       'What cabinet cost per linear foot means, Treasure Valley ranges by tier, why it varies, and how to estimate your kitchen accurately (not just a per-foot guess).',
@@ -2027,7 +2027,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'what-are-rta-cabinets',
-    title: 'What Are RTA Cabinets? (Pros, Cons & Alternatives)',
+    title: 'What are RTA cabinets? (Pros, cons & alternatives)',
     seoTitle: 'What Are RTA Cabinets? Pros, Cons & How to Choose',
     metaDescription:
       'RTA (ready-to-assemble) cabinets explained: what they are, the pros and cons, how to judge quality, cost, and when custom is the better choice.',
@@ -2068,7 +2068,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'custom-kitchen-cabinet-cost',
-    title: 'How Much Do Custom Kitchen Cabinets Cost? (2026 Guide)',
+    title: 'How much do custom kitchen cabinets cost? (2026 guide)',
     seoTitle: 'How Much Do Custom Kitchen Cabinets Cost? (2026)',
     metaDescription:
       'Custom kitchen cabinets cost about $500–$1,200+ per linear foot, or $15,000–$45,000+ for a kitchen. What drives the price, tier comparison, and how to estimate.',
@@ -2109,7 +2109,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'standard-kitchen-cabinet-sizes',
-    title: 'Standard Kitchen Cabinet Sizes and Dimensions (Charts)',
+    title: 'Standard kitchen cabinet sizes and dimensions (charts)',
     seoTitle: 'Standard Kitchen Cabinet Sizes & Dimensions (Charts)',
     metaDescription:
       'Standard kitchen cabinet sizes: base, wall, and tall cabinet dimensions, widths, mounting heights, and clearances - with charts and when to go custom.',
@@ -2150,7 +2150,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'bathroom-vanity-buying-guide',
-    title: 'Bathroom Vanity Buying Guide: Sizes, Styles & Cost',
+    title: 'Bathroom vanity buying guide: sizes, styles & cost',
     seoTitle: 'Bathroom Vanity Buying Guide: Sizes, Styles & Cost',
     metaDescription:
       'How to choose a bathroom vanity: standard sizes, single vs double, floating vs floor-standing, storage, styles, tops, quality, and cost for Treasure Valley homes.',
@@ -2192,7 +2192,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'cabinet-refacing-vs-refinishing-vs-replacing',
-    title: 'Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?',
+    title: 'Cabinet refacing vs refinishing vs replacing: which is right?',
     seoTitle: 'Refacing vs Refinishing vs Replacing Cabinets: Guide',
     metaDescription:
       'Cabinet refacing vs refinishing vs replacing compared - cost, what changes, and how to decide based on your boxes, layout, and timeline.',
@@ -2233,7 +2233,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'kitchen-cabinet-organization-ideas',
-    title: 'Kitchen Cabinet Organization Ideas (Room-by-Room)',
+    title: 'Kitchen cabinet organization ideas (room-by-room)',
     seoTitle: 'Kitchen Cabinet Organization Ideas That Actually Work',
     metaDescription:
       'Kitchen cabinet organization ideas - zones, drawers over doors, the best pull-outs and inserts, corner solutions, and pantry tips for a kitchen that runs itself.',
@@ -2274,7 +2274,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'what-are-shaker-cabinets',
-    title: "What Are Shaker Cabinets? (And Why They're Timeless)",
+    title: "What are Shaker cabinets? (And why they're timeless)",
     seoTitle: 'What Are Shaker Cabinets? The Timeless Door Style Explained',
     metaDescription:
       'Shaker cabinets are a flat recessed panel in a square frame - clean, versatile, and never dated. Learn what defines them, why they last, and how to choose colors and finishes.',
@@ -2315,7 +2315,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'how-to-paint-kitchen-cabinets',
-    title: 'How to Paint Kitchen Cabinets (Pro-Level Guide)',
+    title: 'How to paint kitchen cabinets (pro-level guide)',
     seoTitle: 'How to Paint Kitchen Cabinets: Pro Steps for a Finish That Lasts',
     metaDescription:
       'How to paint kitchen cabinets so the finish lasts: degrease, sand, prime, and apply thin coats of cabinet enamel. The full pro-level process, plus when a factory finish is smarter.',
@@ -2356,7 +2356,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'pantry-cabinet-ideas',
-    title: 'Pantry Cabinet Ideas & Storage Solutions',
+    title: 'Pantry cabinet ideas & storage solutions',
     seoTitle: 'Pantry Cabinet Ideas & Storage Solutions That Actually Work',
     metaDescription:
       'Pantry cabinet ideas that keep nothing hidden in the back: roll-outs, shallow adjustable shelves, door racks, and zones. Solutions for tall pantries, pull-outs, and small kitchens.',
@@ -2397,7 +2397,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'how-to-make-oak-cabinets-look-modern',
-    title: 'How to Make Oak Cabinets Look Modern (Without Replacing Them)',
+    title: 'How to make oak cabinets look modern (without replacing them)',
     seoTitle: 'How to Make Oak Cabinets Look Modern: 6 Proven Updates',
     metaDescription:
       'Make oak cabinets look modern without replacing them: update the finish, hardware, counters, and grain. Paint or re-stain, add linear pulls, and simplify surroundings.',
@@ -2438,7 +2438,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'best-wood-for-kitchen-cabinets',
-    title: 'Best Wood for Kitchen Cabinets (Maple, Oak, Cherry, Hickory & More)',
+    title: 'Best wood for kitchen cabinets (maple, oak, cherry, hickory & more)',
     seoTitle: 'Best Wood for Kitchen Cabinets: Compare Maple, Oak, Cherry & Hickory',
     metaDescription:
       'The best wood for kitchen cabinets compared: maple, oak, cherry, hickory, and walnut on hardness, grain, cost, and best use - plus how to choose for painted vs stained cabinets.',
@@ -2479,7 +2479,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'two-tone-kitchen-cabinets',
-    title: 'Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off',
+    title: 'Two-tone kitchen cabinets: ideas & how to pull it off',
     seoTitle: 'Two-Tone Kitchen Cabinets: Ideas, Combinations & How to Choose',
     metaDescription:
       'Two-tone kitchen cabinets add depth and a focal point. Here are the best color combinations, which cabinets get which tone, and how to tie it all together so it looks designed.',
@@ -2520,7 +2520,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'best-kitchen-cabinet-colors',
-    title: 'Best Kitchen Cabinet Colors (2026 Trends + How to Choose)',
+    title: 'Best kitchen cabinet colors (2026 trends + how to choose)',
     seoTitle: 'Best Kitchen Cabinet Colors for 2026: Trends & How to Choose',
     metaDescription:
       'The best kitchen cabinet colors for 2026: warm whites, greige, navy, green, sage, charcoal, and natural wood. How to choose a color you will still love in ten years.',
@@ -2562,7 +2562,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'sage-green-kitchen-cabinets',
-    title: "Sage Green Kitchen Cabinets: A Designer's Guide",
+    title: "Sage green kitchen cabinets: a designer's guide",
     seoTitle: 'Sage Green Kitchen Cabinets: Shades, Hardware & How to Style',
     metaDescription:
       'Sage green kitchen cabinets are a warm, timeless neutral. How to choose the right shade, the best hardware and counters, and whether to go full-kitchen or island only.',
@@ -2603,7 +2603,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'home-office-built-ins',
-    title: 'Home Office Built-Ins: Design, Storage & Cost',
+    title: 'Home office built-ins: design, storage & cost',
     seoTitle: 'Home Office Built-Ins: Design Ideas, Storage & How to Plan',
     metaDescription:
       'Custom home office built-ins maximize space and are tailored to how you work - desk height, hidden storage, display shelving, and cable management. How to plan yours.',
@@ -2644,7 +2644,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'laundry-room-cabinet-ideas',
-    title: 'Laundry Room Cabinet Ideas & Storage Solutions',
+    title: 'Laundry room cabinet ideas & storage solutions',
     seoTitle: 'Laundry Room Cabinet Ideas: Storage, Counters & Layout',
     metaDescription:
       'Laundry room cabinet ideas that hide clutter and make laundry easier: folding counters, hidden supply storage, hanging rods, utility sinks, and smart layouts for rooms and closets.',
@@ -2685,7 +2685,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'how-to-plan-a-kitchen-cabinet-project',
-    title: 'How to Plan a Kitchen Cabinet Project (Step-by-Step)',
+    title: 'How to plan a kitchen cabinet project (step-by-step)',
     seoTitle: 'How to Plan a Kitchen Cabinet Project: A Step-by-Step Guide',
     metaDescription:
       'How to plan a kitchen cabinet project in the right order: budget, layout and work triangle, storage, construction quality, door style and finishes, then precise measurements.',
@@ -2727,7 +2727,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'how-deep-are-kitchen-cabinets',
-    title: 'How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)',
+    title: 'How deep are kitchen cabinets? (Upper, base & pantry depths)',
     seoTitle: 'How Deep Are Kitchen Cabinets? Standard Depths Explained',
     metaDescription:
       'How deep are kitchen cabinets? Base cabinets are 24 inches, uppers 12 inches, tall/pantry cabinets 24 inches, with counters overhanging to ~25–26 inches. Full depth breakdown and when to customize.',
@@ -2768,7 +2768,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'mudroom-cabinets',
-    title: 'Mudroom Cabinets & Built-In Lockers: Ideas & Storage',
+    title: 'Mudroom cabinets & built-in lockers: ideas & storage',
     seoTitle: 'Mudroom Cabinets & Built-In Lockers: Ideas, Storage & Layout',
     metaDescription:
       'Mudroom cabinet ideas that control clutter: built-in lockers, a bench with shoe storage, hooks and cubbies, and closed cabinets. How to design a drop zone for your family.',
@@ -2809,7 +2809,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
   },
   {
     slug: 'how-to-clean-kitchen-cabinets',
-    title: 'How to Clean Kitchen Cabinets (Without Ruining the Finish)',
+    title: 'How to clean kitchen cabinets (without ruining the finish)',
     seoTitle: 'How to Clean Kitchen Cabinets Without Ruining the Finish',
     metaDescription:
       'How to clean kitchen cabinets safely: warm water and mild dish soap on a soft cloth, wipe with the grain, dry immediately. How to remove grease and what to avoid by finish type.',

@@ -17,7 +17,7 @@
   {
     "route": "/blog/category/[hubSlug]",
     "file": "app/blog/category/[hubSlug]/page.tsx",
-    "seoSignature": "2c9538ec9725b8544e6ce3fc1c568476265fc4c9e685efee72db54460723efff"
+    "seoSignature": "eff27d14f95bfd3ef674d3c440be3f0019d13813ed6d3851fcfef5b4d948e1d3"
   },
   {
     "route": "/blog",

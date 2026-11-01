@@ -26,17 +26,17 @@ function buildFooterGroups(reviewLink: FooterLink | null): { title: string; link
 
   return [
     {
-      // Six rooms, not twelve: the full room list lives in the Shop by Room
+      // Six rooms, not twelve: the full room list lives in the Shop by room
       // menu on every page and on /cabinets, so the footer names the rooms
       // people ask for most and the catalogue entry points.
       title: "Services",
       links: [
-        { label: "All Rooms", href: "/cabinets" },
+        { label: "All rooms", href: "/cabinets" },
         ...FOOTER_CABINET_LINKS.slice(0, 6),
-        { label: "Cabinet Installation", href: "/services/cabinet-installation" },
-        { label: "Full Catalog", href: "/catalog" },
-        { label: "Shaker Cabinets", href: "/shaker-cabinets" },
-        { label: "For Builders", href: "/builders" },
+        { label: "Cabinet installation", href: "/services/cabinet-installation" },
+        { label: "Full catalog", href: "/catalog" },
+        { label: "Shaker cabinets", href: "/shaker-cabinets" },
+        { label: "For builders", href: "/builders" },
       ],
     },
     {
@@ -44,8 +44,8 @@ function buildFooterGroups(reviewLink: FooterLink | null): { title: string; link
       links: [
         { label: "About", href: "/about" },
         ...(reviewLink ? [reviewLink] : [{ label: "Design ideas", href: "/design-ideas" }]),
-        { label: "Why Choose Us", href: "/#why-us" },
-        { label: "How We Work", href: "/construction" },
+        { label: "Why choose us", href: "/#why-us" },
+        { label: "How we work", href: "/construction" },
         { label: "Warranty", href: "/warranty" },
         { label: "Contact", href: "/contact" },
       ],
@@ -53,11 +53,11 @@ function buildFooterGroups(reviewLink: FooterLink | null): { title: string; link
     {
       title: "Resources",
       links: [
-        { label: "Cabinet Guides", href: "/guides" },
-        { label: "Planning Downloads", href: "/resources" },
+        { label: "Cabinet guides", href: "/guides" },
+        { label: "Planning downloads", href: "/resources" },
         { label: "Blog", href: "/blog" },
         ...topHubLinks,
-        { label: "Treasure Valley Overview", href: guidePath("treasure-valley-cabinet-guide") },
+        { label: "Treasure Valley overview", href: guidePath("treasure-valley-cabinet-guide") },
       ],
     },
   ];

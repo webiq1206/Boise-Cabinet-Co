@@ -770,7 +770,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
 
 export const CITY_CABINET_GUIDES: GuidePageData[] = CITY_GUIDE_SPECS.map((spec) => ({
   slug: spec.slug,
-  title: `${spec.cityName} Custom Cabinet Guide`,
+  title: `${spec.cityName} custom cabinet guide`,
   seoTitle: spec.seoTitle,
   metaDescription: spec.metaDescription,
   excerpt: spec.excerpt,

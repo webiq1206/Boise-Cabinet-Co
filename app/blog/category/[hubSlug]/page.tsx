@@ -46,7 +46,7 @@ export async function generateMetadata(
 
   const posts = BLOG_POSTS.filter((p) => p.hubSlug === params.hubSlug);
   const indexable = isCategoryHubIndexable(params.hubSlug, posts.length);
-  const title = `${hub.title} Articles`;
+  const title = `${hub.title} articles`;
   const description = clampMetaDescription(
     `Articles about ${hub.title.toLowerCase()} for Treasure Valley homeowners.`,
   );

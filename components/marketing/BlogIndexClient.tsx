@@ -90,7 +90,7 @@ export function BlogIndexClient() {
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog" }]} />
           <PageHeader
             eyebrow="Blog"
-            title="Cabinet Planning Insights"
+            title="Cabinet planning insights"
             description="Honest advice for Idaho homeowners planning kitchen cabinets, vanities, and storage."
           />
         </div>

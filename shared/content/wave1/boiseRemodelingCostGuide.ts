@@ -29,7 +29,7 @@ const sections: ContentSection[] = [
     },
   },
   {
-    h2: 'Boise Cabinet Cost Index (June 2026 planning bands)',
+    h2: 'Boise cabinet cost index (June 2026 planning bands)',
     /* ONE `paragraphs` key only. This section carried two, so the object
        literal silently kept the last and dropped the first - taking the
        index's own source line and its "Last updated June 2026" attribution

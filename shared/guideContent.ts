@@ -123,7 +123,7 @@ const costPillarFaqs = [
 export const GUIDE_PAGES: GuidePageData[] = [
   {
     slug: 'boise-cabinet-cost-guide',
-    title: 'Boise Cabinet Cost Guide (2026 Planning Ranges)',
+    title: 'Boise cabinet cost guide (2026 planning ranges)',
     seoTitle: 'Boise Cabinet Cost Guide | Treasure Valley',
     metaDescription:
       '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
@@ -159,7 +159,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
   },
   {
     slug: 'treasure-valley-cabinet-guide',
-    title: 'Treasure Valley Custom Cabinet Guide',
+    title: 'Treasure Valley custom cabinet guide',
     seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
       'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell, room guides, collections, catalog, and delivery.',
@@ -256,7 +256,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
   },
   {
     slug: 'boise-cabinet-guide',
-    title: 'Boise Custom Cabinet Guide',
+    title: 'Boise custom cabinet guide',
     seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods',
     metaDescription:
       'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and kitchen, bath, and built-in cabinetry for Treasure Valley homes.',

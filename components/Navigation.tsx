@@ -45,7 +45,7 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
   const pathname = usePathname();
   const mobileActionsVisible = useP5MobileActions(pathname);
   const nav = PRIMARY_NAV.map((item) =>
-    reviewLink && item.label === "How It Works" && "children" in item && item.children
+    reviewLink && item.label === "How it works" && "children" in item && item.children
       ? { ...item, children: [...item.children, reviewLink] }
       : item,
   );
