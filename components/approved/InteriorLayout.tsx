@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import { familyButtonClass } from '@/components/family/Button';
 import type { ReactNode } from 'react';
 import { IMAGE_VARIANTS } from '@/shared/generated/imageVariants';
 
@@ -57,7 +58,8 @@ export function InteriorPage({children,kind='detail'}:{children:ReactNode;kind?:
 }
 
 export function InteriorEstimateLink({label='Request a quote'}:{label?:string}) {
-  return <a className="interior-estimate-link" href="/estimate">{label}<ArrowUpRight size={18} aria-hidden="true"/></a>;
+  // The family primary button face; interior-estimate-link keeps the layout hooks (full width in asides and the document index).
+  return <a className={familyButtonClass({variant:'primary',size:'lg',className:'interior-estimate-link'})} href="/estimate">{label}</a>;
 }
 
 /** The approved split-detail and editorial-introduction compositions.
