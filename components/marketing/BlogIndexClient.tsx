@@ -8,9 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { BlogCard } from "@/components/marketing/BlogCard";
+import { BlogCard, type BlogCardPost } from "@/components/marketing/BlogCard";
 import { Chip } from "@/components/marketing/Chip";
-import { BLOG_POSTS } from "@/shared/blogContent";
 import {
   CONTENT_HUBS,
   categoryHubPath,
@@ -25,13 +24,19 @@ function formatDate(dateString: string): string {
   });
 }
 
-export function BlogIndexClient() {
+/**
+ * The page passes post summaries from the server. Importing BLOG_POSTS here
+ * shipped every article body to the browser, and because a visible Link
+ * prefetches its route's client modules, every page with a "Blog" link in
+ * view downloaded and evaluated all of it.
+ */
+export function BlogIndexClient({ posts }: { posts: BlogCardPost[] }) {
   const sortedPosts = useMemo(
     () =>
-      [...BLOG_POSTS].sort(
+      [...posts].sort(
         (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       ),
-    []
+    [posts]
   );
 
   const indexableHubs = useMemo(

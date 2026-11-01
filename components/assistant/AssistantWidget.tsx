@@ -8,7 +8,7 @@ import { ImagePlus, Loader2, MessageCircle, Send, X } from "lucide-react";
 import {loadBrowserDraft,persistBrowserDraft,loadCachedFiles,cacheFiles} from '@/lib/p5/browserDraft';
 import {SCOPE_TEXT_LIMIT,SCOPE_BATCH_LIMIT,SCOPE_FILE_LIMIT} from '@/lib/p5/scope';
 import type { CombinedEstimateResult, EstimateSelections } from "@/shared/estimateEngine";
-import { formatPlanningCurrency } from "@/shared/estimateEngine";
+import { formatPlanningCurrency } from "@/shared/planningCurrency";
 import { loadWizardState, saveWizardState } from "@/lib/estimate/wizardPersistence";
 import { track } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { DoorStyle, Finish } from "@/shared/catalog";
 import { finishAlt, getDoorStyleImages, getFinishesForDoorStyle } from "@/shared/catalog";
-import { FinishSwatch } from "@/components/catalog/FinishSwatchGrid";
+import { FinishSwatch } from "@/components/catalog/FinishSwatch";
 
 /**
  * Compact catalog reference for use inside an article. The full explorers

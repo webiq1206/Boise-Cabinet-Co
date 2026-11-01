@@ -8,8 +8,11 @@ import type { BlogPostData } from "@/shared/blogContent";
 import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
 import { getHubBySlug } from "@/shared/contentHubs";
 
+/** The fields a card shows; callers pass summaries, not whole articles. */
+export type BlogCardPost = Pick<BlogPostData, "slug" | "thumbnail" | "title" | "excerpt" | "category" | "hubSlug" | "publishedAt">;
+
 export interface BlogCardProps {
-  post: BlogPostData;
+  post: BlogCardPost;
   featured?: boolean;
   formatDate: (date: string) => string;
 }

@@ -4,7 +4,7 @@ import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinets
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
+import { LazyEstimateCalculatorWizard as EstimateCalculatorWizard } from "@/components/estimate/LazyEstimateCalculatorWizard";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";

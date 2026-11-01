@@ -1,5 +1,10 @@
-"use client";
-
+/**
+ * Article HTML with catalog embeds spliced in. A server component on purpose:
+ * it has no state or effects, and as a client component it shipped the whole
+ * generated product catalog to every article and location page only to redraw
+ * markup the server had already rendered. The swatch, gallery and action-bar
+ * islands inside an embed stay client components.
+ */
 import { CatalogEmbed } from "@/components/catalog/CatalogEmbed";
 import { splitCatalogEmbeds } from "@/lib/catalog/parseCatalogEmbeds";
 import { cn } from "@/lib/utils";

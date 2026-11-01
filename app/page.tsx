@@ -1,4 +1,4 @@
-import { ConsultationForm } from "@/components/ConsultationForm";
+import { LazyConsultationForm as ConsultationForm } from "@/components/LazyConsultationForm";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { Reveal } from "@/components/Reveal";
 import { ApprovedHome } from "@/components/approved/ApprovedHome";
