@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { Section } from "@/components/marketing";
+import { Section } from "@/components/marketing/Section";
 import { publicText } from "@/shared/claims";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { MARKETING_IMAGES } from "@/shared/siteImages";

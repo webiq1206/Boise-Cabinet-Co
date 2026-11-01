@@ -56,7 +56,7 @@ import { trackMetaLead } from "@/lib/analytics/metaPixel";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { consultationReferenceId } from "@/lib/consultationReferenceId";
-import { DisplayNum } from "@/components/marketing";
+import { DisplayNum } from "@/components/marketing/DisplayNum";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress } from "@/shared/propertyProfile";

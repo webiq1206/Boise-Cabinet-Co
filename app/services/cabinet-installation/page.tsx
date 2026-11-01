@@ -1,6 +1,6 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { ConsultationForm } from "@/components/ConsultationForm";
-import { Section } from "@/components/marketing";
+import { Section } from "@/components/marketing/Section";
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SectionHeader } from "@/components/marketing/SectionHeader";

@@ -1,5 +1,5 @@
 import { EstimateCalculator } from '@/components/EstimateCalculator';
-import { Section } from '@/components/marketing';
+import { Section } from '@/components/marketing/Section';
 
 /** Use the same immediately available form as /estimate, including direct
  * #calculator visits. Do not wait for a viewport observer to expose it. */

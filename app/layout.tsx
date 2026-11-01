@@ -8,7 +8,8 @@ import { MetaPixel } from '@/components/seo/MetaPixel'
 import { AnalyticsBridge } from '@/components/seo/AnalyticsBridge'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
-import { AssistantWidget } from '@/components/assistant/AssistantWidget'
+import { Footer } from '@/components/Footer'
+import { LazyAssistantWidget } from '@/components/assistant/LazyAssistantWidget'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
 import { ScrollToTop } from '@/components/ScrollToTop'
@@ -161,9 +162,11 @@ export default function RootLayout({
             <main id="main-content" className="flex-1">
               {children}
             </main>
-            <ConditionalFooter reviewLink={reviewFooterLink} />
+            {/* Footer renders on the server and is handed to the client switch, so its guide and
+                hub link data never ships in the JavaScript bundle of every page. */}
+            <ConditionalFooter footer={<Footer reviewLink={reviewFooterLink} />} />
           </div></ApprovedShell>
-          <AssistantWidget />
+          <LazyAssistantWidget />
           <Toaster />
         </Providers>
       </body>

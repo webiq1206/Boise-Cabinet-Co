@@ -3,7 +3,7 @@
 import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
+import type { ReactNode } from "react";
 
 function FunnelFooter() {
   return (
@@ -22,7 +22,8 @@ function FunnelFooter() {
   );
 }
 
-export function ConditionalFooter({reviewLink=null}: {reviewLink?: {label:string;href:string}|null}) {
+/** `footer` is the full site footer, rendered on the server by the root layout. */
+export function ConditionalFooter({footer}: {footer: ReactNode}) {
   const pathname = usePathname();
   if (pathname === "/kitchen-cabinets") return <FunnelFooter />;
   const hideFooter =
@@ -33,5 +34,5 @@ export function ConditionalFooter({reviewLink=null}: {reviewLink?: {label:string
   // The estimator owns the whole screen as a one-page app; a footer below it
   // would be the one thing on the page that forces a scroll.
   if (hideFooter || isEstimatorPath(pathname)) return null;
-  return <Footer reviewLink={reviewLink} />;
+  return <>{footer}</>;
 }

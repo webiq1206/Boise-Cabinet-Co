@@ -1,7 +1,7 @@
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { ConsultationForm } from '@/components/ConsultationForm';
-import { Section } from '@/components/marketing';
+import { Section } from '@/components/marketing/Section';
 import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
 import { Hairline } from '@/components/marketing/Hairline';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
