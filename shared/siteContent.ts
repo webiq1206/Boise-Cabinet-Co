@@ -252,9 +252,16 @@ export const PRINCIPLES = [
   },
 ];
 
+/**
+ * "Included on every {room} project" on the 13 room pages. Each line is a
+ * cabinet fact the site already states elsewhere (/compare, /shaker-cabinets,
+ * the homepage hero). The remodel-era "All permits pulled in-house" and
+ * "Dedicated project manager" lines were removed: neither is stated anywhere
+ * as a cabinet fact.
+ */
 export const STANDARD_INCLUSIONS = [
-  "All permits pulled in-house",
-  "Dedicated project manager",
+  "Free in-home design consultation",
+  "Installed by our own Treasure Valley crew",
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
   "Written workmanship guarantee",
