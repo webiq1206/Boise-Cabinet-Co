@@ -14,7 +14,13 @@ import { HeroPhoto } from '@/components/family/HeroPhoto';
 import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
 import { DOPL_LICENSE_SEARCH } from '@/lib/familyBrand';
 import {steps,differentiators,additionalRooms,doorStyles} from './cabinet-content';
-import {KitchenPlanningRange} from './KitchenPlanningRange';
+import dynamic from 'next/dynamic';
+// The planning range runs the estimate engine, which carries the full finish
+// library. Server-rendered as before, but its own chunk: the homepage hydrates
+// first, and the logo link's prefetch of "/" on every other page no longer
+// downloads and evaluates the finish library.
+const KitchenPlanningRange = dynamic(() => import('./KitchenPlanningRange').then((m) => m.KitchenPlanningRange));
+
 const rooms = [
  {name:'Kitchen',title:'The heart of your home.',image:'kitchen.webp',desc:'Base cabinets, uppers, pantries, and appliance panels designed as one coordinated kitchen.',details:'Bring storage, appliances, and everyday routines into one thoughtful layout. Explore pantry cabinets, deep drawers, island storage, and finishes that work together.',features:['Storage planned around the way you cook','Coordinated island and perimeter cabinetry','Door, finish, and hardware selections']},
  {name:'Bathroom',title:'A better start to your day.',image:'bathroom.webp',desc:'Vanities and drawer storage sized for your daily routine, with moisture-resistant options.',details:'Make your bathroom easier to use with a vanity planned around your space, storage needs, and plumbing. Coordinate drawer layouts, door styles, and finishes with the rest of the room.',features:['Single and double vanity configurations','Storage that keeps counters clear','Finish guidance for your room']},

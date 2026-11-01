@@ -10,6 +10,7 @@ import { FINISH_BY_SLUG } from "./generated/finishes";
 import { CABINET_PRODUCTS } from "./cabinetProducts";
 import { OSC_CONSTRUCTION } from "./construction";
 import { pickSearchResultImage } from "./entityImages";
+import { getFinishesForDoorStyle } from "./finishCompatibility";
 import type {
   CabinetCollection,
   CabinetProduct,
@@ -33,11 +34,7 @@ function getFinishBySlug(slug: string) {
   return FINISH_BY_SLUG[slug];
 }
 
-export function getFinishesForDoorStyle(doorStyleSlug: string): Finish[] {
-  const doorStyle = getDoorStyleBySlug(doorStyleSlug);
-  if (!doorStyle) return [];
-  return FINISHES.filter((f) => f.compatibleDoorStyleIds.includes(doorStyle.id));
-}
+export { getFinishesForDoorStyle };
 
 export function getDoorStylesForFinish(finishSlug: string): DoorStyle[] {
   const finish = getFinishBySlug(finishSlug);

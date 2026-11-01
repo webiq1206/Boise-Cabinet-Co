@@ -1,6 +1,6 @@
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
-import { ConsultationForm } from '@/components/ConsultationForm';
+import { LazyConsultationForm as ConsultationForm } from '@/components/LazyConsultationForm';
 import { Section } from '@/components/marketing/Section';
 import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
 import { Hairline } from '@/components/marketing/Hairline';

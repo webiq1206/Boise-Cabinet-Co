@@ -1,4 +1,6 @@
-import { CATALOG_CONTENT } from "@/shared/catalog";
+// The generated content module directly: the @/shared/catalog barrel also loads
+// every cabinet product, and this list ships to the browser with FAQSection.
+import { CATALOG_CONTENT } from "@/shared/catalog/generated/content";
 
 export interface HomepageFaq {
   q: string;

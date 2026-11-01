@@ -1,5 +1,5 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
-import { ConsultationForm } from "@/components/ConsultationForm";
+import { LazyConsultationForm as ConsultationForm } from "@/components/LazyConsultationForm";
 import { Section } from "@/components/marketing/Section";
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { MarketingCard } from "@/components/marketing/MarketingCard";

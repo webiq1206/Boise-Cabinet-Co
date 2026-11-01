@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { Finish } from "@/shared/catalog";
-import { getFinishImages } from "@/shared/catalog/entityImages";
+import { getFinishImages } from "@/shared/catalog/entityImagePaths";
 import { cn } from "@/lib/utils";
 
 export interface FinishDualPreviewProps {
