@@ -1,0 +1,21 @@
+/*
+  Boise Cabinet Co adoption of the shared family chrome. BRAND-OWNED: the shared
+  styles live in styles/family-*.css and are never edited here.
+*/
+
+/* Page-content buttons take the family faces too (components/ui/button.tsx brand
+   variants, the interior estimate link), so they need the brand accent for the
+   leading bar. The chrome components set it on their own roots from lib/familyBrand.ts;
+   these are the same two values (teal and its AA ink). */
+.approved-shell {
+  --color-accent: #659b9a;
+  --color-accent-ink: #356463;
+}
+
+/* The interior estimate link keeps its layout hooks (full width in asides and the
+   document index) but takes the family button face: centred 16px label, no arrow. */
+.approved-shell .fam-btn.interior-estimate-link {
+  justify-content: center;
+  gap: var(--icon-gap);
+  font-size: var(--fs-button);
+}

@@ -1,13 +1,18 @@
 'use client';
 import {useState, type ReactNode} from 'react';
-import {ArrowUpRight,ArrowRight,Check} from 'lucide-react';
+import {ArrowUpRight,Check} from 'lucide-react';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/components/ui/accordion';
 import {RadioGroup,RadioGroupItem} from '@/components/ui/radio-group';
 import {FAQSection} from '@/components/FAQSection';
 import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
-import { CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
+import { CTA_QUOTE_HREF, CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
+import { SITE_CONFIG } from '@/shared/siteConfig';
+import { FamilyButton } from '@/components/family/Button';
+import { HeroPhoto } from '@/components/family/HeroPhoto';
+import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
+import { DOPL_LICENSE_SEARCH } from '@/lib/familyBrand';
 import {steps,differentiators,additionalRooms,doorStyles} from './cabinet-content';
 import {KitchenPlanningRange} from './KitchenPlanningRange';
 const rooms = [
@@ -17,30 +22,33 @@ const rooms = [
 ];
 const finishes=[{name:'Bitter',family:'Warm neutral',image:'bitter.webp',code:''},{name:'Macaron Green',family:'Soft color',image:'green.webp',code:''},{name:'Breeze Beige',family:'Light neutral',image:'beige.webp',code:''},{name:'Pearl Black',family:'Deep contrast',image:'black.webp',code:''}];
 
+/** The kitchen photograph the homepage has opened on since the approved October design. */
+const HERO_SRC = '/images/approved/hero-p5-v2.webp';
+
+/** Sourced facts only, all already published on this site: the catalog count, the door profiles, the free consultation and the DOPL registration. */
+const PROOF: ProofItem[] = [
+ {label:'Finishes',text:'299 finish options'},
+ {label:'Door styles',text:'6 door styles'},
+ {label:'Consultation',text:'Free in-home design consultation',href:'#contact'},
+ {label:'Registered',text:IDAHO_REGISTERED_CONTRACTOR,href:DOPL_LICENSE_SEARCH,linkTitle:'Look up registration 8381215 on Idaho DOPL',linkLabel:'Verify with Idaho DOPL: look up registration 8381215, opens in a new tab',newTab:true},
+];
+
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);const [door,setDoor]=useState('Help me choose');return <div className="cabinet-approved">
-  <section className="hero" aria-labelledby="hero-title" data-p5-hero>
-   <img className="hero-image" src="/images/approved/hero-p5-v2.webp" srcSet="/images/approved/hero-mobile.webp 960w, /images/approved/hero-p5-v2.webp 1672w" sizes="100vw" alt="Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details" width="1672" height="941" fetchPriority="high"/>
-   <div className="hero-shade" aria-hidden="true"/>
-   <div className="hero-content">
-     <p className="eyebrow"><span/> CUSTOM CABINETS · TREASURE VALLEY, IDAHO</p>
-     <h1 id="hero-title">Custom cabinets in Boise,<br/><em>Idaho</em></h1>
-     <p className="hero-summary">{IDENTITY}</p>
-     <p className="hero-support">Kitchen cabinets, vanities, and built-ins. Free in-home design consultation.</p>
-     <div className="hero-actions">
-       <a className="button" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={20}/></a>
-       <a className="text-link light hero-secondary" href="#process">See how it works <ArrowRight size={18}/></a>
-     </div>
-     <div className="hero-reassurance" data-testid="hero-reassurance">
-       <span data-reassurance="primary"><Check size={15}/> Written price before work</span>
-       <span data-reassurance="secondary"><Check size={15}/> {CABINET_WORKMANSHIP_WARRANTY}</span>
-     </div>
-     <p className="hero-tagline">Designed around your life. Built around your space.</p>
-   </div>
-  </section>
-  <section className="proof-bar" aria-label="The Boise Cabinet Co difference"><div><strong>299</strong><span>Finish options</span></div><div><strong>6</strong><span>Door styles</span></div><div><strong>Free</strong><a href="#contact">In-home design consultation <ArrowUpRight size={14}/></a></div><div><strong>ID</strong><a href="https://edopl.idaho.gov/OnlineServices/?link=PubSearch" target="_blank" rel="noopener noreferrer">{IDAHO_REGISTERED_CONTRACTOR} <ArrowUpRight size={14}/></a></div></section>
+  <HeroPhoto
+   image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%'}}
+   phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%'}}
+   eyebrow="Custom cabinets · Treasure Valley, Idaho"
+   title="Custom cabinets in Boise,"
+   titleAccent="Idaho"
+   support="Kitchen cabinets, vanities, and built-ins. Free in-home design consultation."
+   primary={{label:CTA_REQUEST_QUOTE,href:CTA_QUOTE_HREF}}
+   link={{label:`Call or text ${SITE_CONFIG.phone}`,href:SITE_CONFIG.phoneHref}}
+   microcopy="Written price before work."
+  />
+  <ProofStrip label="The Boise Cabinet Co difference" items={PROOF}/>
   <section id="cabinetry" className="section wrap room-editorial">
  <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew.</p></div>
  <Tabs defaultValue="kitchen" className="room-explorer"><TabsList className="room-tabs"><TabsTrigger value="kitchen">Kitchens</TabsTrigger><TabsTrigger value="bathroom">Bathrooms</TabsTrigger><TabsTrigger value="storage">Built-ins</TabsTrigger><TabsTrigger value="more">More rooms</TabsTrigger></TabsList>
@@ -76,7 +84,7 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
     </div>
   </section>
   {reviews}
-  <section className="builder-band wrap"><div><p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p><h2>Your plans.<br/><em>Our cabinet expertise.</em></h2></div><div><p>One home or a full project pipeline. Let&apos;s coordinate the cabinet package, selections, and installation scope around your plans.</p><a className="button dark" href="/estimate" data-cta="primary">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a><button className="text-link estimate-secondary" onClick={()=>window.location.assign("/builders")}>Let&apos;s work together <ArrowUpRight size={18}/></button></div></section>
+  <section className="builder-band wrap"><div><p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p><h2>Your plans.<br/><em>Our cabinet expertise.</em></h2></div><div><p>One home or a full project pipeline. Let&apos;s coordinate the cabinet package, selections, and installation scope around your plans.</p><FamilyButton href="/estimate" data-cta="primary" variant="primary" size="lg">{CTA_REQUEST_QUOTE}</FamilyButton><button className="text-link estimate-secondary" onClick={()=>window.location.assign("/builders")}>Let&apos;s work together <ArrowUpRight size={18}/></button></div></section>
   <KitchenPlanningRange />
   <FAQSection/>
  </div>;}
