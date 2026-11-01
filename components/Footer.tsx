@@ -1,6 +1,6 @@
 import { SiteFooter } from "@/components/family/SiteFooter";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
-import { FAMILY_BRAND, P5_GOOGLE_PROFILE_URL } from "@/lib/familyBrand";
+import { FAMILY_BRAND } from "@/lib/familyBrand";
 
 /**
  * Boise Cabinet Co footer: the shared family SiteFooter, set up by
@@ -11,24 +11,19 @@ import { FAMILY_BRAND, P5_GOOGLE_PROFILE_URL } from "@/lib/familyBrand";
  * downloads, blog, the three pillar guides and the Treasure Valley overview;
  * every service area; call, text and email; Save our contact; the public NAP
  * line with hours; the DOPL-linked registration line; the DBA disclosure; the
- * legal links; and the P5 Home Co family row.
+ * legal links; P5 Home Co's Facebook page and Google profile (owner call A:
+ * wherever the Facebook page is linked); and the P5 Home Co family row.
  *
- * The brand column adds P5 Home Co's Google profile next to its Facebook page
- * (owner call A: wherever the Facebook page is linked) and keeps the footer's
- * "Request a quote" link with its primary_cta_clicked event. The family header
- * has no slot for the signed-in customer's project link the old header showed,
- * so the portal entry lives here for every visitor; /portal handles sign-in.
+ * The brand column keeps the footer's "Request a quote" link with its
+ * primary_cta_clicked event. The family header has no slot for the signed-in
+ * customer's project link the old header showed, so the portal entry lives
+ * here for every visitor; /portal handles sign-in.
  */
 export function Footer() {
   return (
     <SiteFooter
       brandExtra={
         <ul className="fam-footer-contact">
-          <li>
-            <a href={P5_GOOGLE_PROFILE_URL} rel="noopener" target="_blank" data-testid="link-footer-google">
-              P5 Home Co on Google
-            </a>
-          </li>
           <li>
             <a href="/portal" data-testid="link-footer-portal">
               Customer project portal
