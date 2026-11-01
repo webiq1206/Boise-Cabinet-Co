@@ -15,7 +15,9 @@ import { FAMILY_BRAND, P5_GOOGLE_PROFILE_URL } from "@/lib/familyBrand";
  *
  * The brand column adds P5 Home Co's Google profile next to its Facebook page
  * (owner call A: wherever the Facebook page is linked) and keeps the footer's
- * "Request a quote" link with its primary_cta_clicked event.
+ * "Request a quote" link with its primary_cta_clicked event. The family header
+ * has no slot for the signed-in customer's project link the old header showed,
+ * so the portal entry lives here for every visitor; /portal handles sign-in.
  */
 export function Footer() {
   return (
@@ -25,6 +27,11 @@ export function Footer() {
           <li>
             <a href={P5_GOOGLE_PROFILE_URL} rel="noopener" target="_blank" data-testid="link-footer-google">
               P5 Home Co on Google
+            </a>
+          </li>
+          <li>
+            <a href="/portal" data-testid="link-footer-portal">
+              Customer project portal
             </a>
           </li>
           <li>
