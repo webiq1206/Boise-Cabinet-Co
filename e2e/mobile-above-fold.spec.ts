@@ -7,7 +7,7 @@ const PAGES = [
   { path: "/cabinets/kitchen", headline: "Kitchen cabinets in Boise, Idaho" },
   { path: "/cabinets/built-ins", headline: "Built-In cabinets" },
   { path: "/cabinets", headline: "Cabinets by room" },
-  { path: "/estimate", headline: "Get an Estimate" },
+  { path: "/estimate", headline: "Request a cabinet quote" },
 ] as const;
 
 async function assertAboveFold(page: Page, width: number, height: number, headline: string, path: string) {
