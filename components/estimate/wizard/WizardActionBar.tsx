@@ -55,6 +55,11 @@ export function WizardActionBar({
   const spacerRef = useRef<HTMLDivElement | null>(null);
   const [barHeight, setBarHeight] = useState(112);
   const [wizardInView, setWizardInView] = useState(true);
+  // The form itself (not just the end of the step) has to own the lower part of the screen
+  // before the bar docks. Without this, a short step whose end sat within reach of the first
+  // screen docked the bar on load, over the section heading and intro above the form (/contact
+  // at 768 and 1440). Starts true so pages where the form opens the page (/estimate) dock at once.
+  const [formEngaged, setFormEngaged] = useState(true);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -72,7 +77,24 @@ export function WizardActionBar({
     return () => observer.disconnect();
   }, [pinned]);
 
-  const docked = pinned && (wizardInView || keyboardInset > 0);
+  useEffect(() => {
+    if (!pinned) return;
+    const spacer = spacerRef.current;
+    const form = spacer?.closest("form") ?? spacer?.parentElement ?? null;
+    if (!form || typeof IntersectionObserver === "undefined") return;
+    // Shrinking the root by 40% from the bottom: the form counts as engaged only once its top
+    // has risen above 60% of the viewport height, and until it has scrolled away above.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setFormEngaged(entry.isIntersecting);
+      },
+      { root: null, threshold: 0, rootMargin: "0px 0px -40% 0px" },
+    );
+    observer.observe(form);
+    return () => observer.disconnect();
+  }, [pinned]);
+
+  const docked = pinned && ((wizardInView && formEngaged) || keyboardInset > 0);
 
   useEffect(() => {
     if (!ownsBottomEdge || !docked) return;

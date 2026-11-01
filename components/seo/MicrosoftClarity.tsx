@@ -16,7 +16,15 @@
  * name taken from what was typed, and the email confirmation), plus address
  * suggestion lists that sit outside that thread. The shared estimator files
  * stay unchanged.
+ *
+ * The snippet itself only runs after the visitor's first interaction
+ * (pointerdown, keydown, scroll or touchstart) or 5 seconds after the load
+ * event, so the tag never competes with first-load work (owner rule: no
+ * third-party script before interaction except gtag). Masking still runs
+ * before the tag is inserted, because both happen inside the snippet.
  */
+import { AFTER_FIRST_INTERACTION } from '@/lib/analytics/afterFirstInteraction'
+
 const CLARITY_ID = 'x5wv0z61ij'
 
 const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
@@ -112,6 +120,9 @@ export function MicrosoftClarity() {
   if (process.env.NODE_ENV !== 'production') return null
 
   return (
-    <script id="ms-clarity" dangerouslySetInnerHTML={{ __html: CLARITY_SNIPPET }} />
+    <script
+      id="ms-clarity"
+      dangerouslySetInnerHTML={{ __html: `(${AFTER_FIRST_INTERACTION})(function(){${CLARITY_SNIPPET}});` }}
+    />
   )
 }

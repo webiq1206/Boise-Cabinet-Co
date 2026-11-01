@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowRight, Phone } from "lucide-react";
-import { DisplayNum } from "@/components/marketing";
+import { DisplayNum } from "@/components/marketing/DisplayNum";
 import { showFoundingYear, SITE_CONFIG } from "@/shared/siteConfig";
 
 export const metadata: Metadata = {

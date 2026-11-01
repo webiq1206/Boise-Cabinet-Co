@@ -12,7 +12,7 @@ NavigationMenuLink,
 NavigationMenuList,
 NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Sheet,SheetClose,SheetContent,SheetHeader,SheetTitle } from "@/components/ui/sheet";
+import { Sheet,SheetClose,SheetContent,SheetHeader,SheetTitle,SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
 import { track } from "@/lib/analytics/track";
 import { isEstimatorPath } from "@/lib/p5/estimatorRoutes";
@@ -145,7 +145,9 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
   };
 
   return (
-    <>
+    // The Sheet root wraps the header so the menu button can be its real trigger: Radix then
+    // sets aria-expanded and aria-controls and returns focus to the button when the menu closes.
+    <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
       <header data-approved-navigation
         className={cn(
           "fixed top-0 z-[100] w-full transition-[background-color,border-color] duration-300",
@@ -264,20 +266,20 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
           </div>
 
           <div className="flex min-[1180px]:hidden items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-11 w-11 shrink-0"
-              aria-label="Open navigation menu"
-              onClick={() => setMobileOpen(true)}
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-11 w-11 shrink-0"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
           </div>
         </nav>
       </header>
 
-      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent
           side="right"
           showClose={false}
@@ -408,7 +410,6 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
             </Button>
           </div>
         </SheetContent>
-      </Sheet>
 
       <div
         data-mobile-nav-bar=""
@@ -439,6 +440,6 @@ function MarketingNavigation({ reviewLink }: { reviewLink: ReviewLink | null }) 
           </Link>
         </div>
       </div>
-    </>
+    </Sheet>
   );
 }

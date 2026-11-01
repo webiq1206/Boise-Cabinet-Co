@@ -33,7 +33,7 @@ import {
 import Image from "next/image";
 import { LAYOUT_DIAGRAM_SVG } from "@/shared/catalog/generated/layoutDiagrams";
 import { cn } from "@/lib/utils";
-import { DisplayNum } from "@/components/marketing";
+import { DisplayNum } from "@/components/marketing/DisplayNum";
 import { Button } from "@/components/ui/button";
 import { AnimatedPrice, EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import {

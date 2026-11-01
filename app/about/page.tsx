@@ -1,5 +1,5 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
-import { Section } from '@/components/marketing';
+import { Section } from '@/components/marketing/Section';
 import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
 import { HeroFollowOn } from '@/components/marketing/HeroFollowOn';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
