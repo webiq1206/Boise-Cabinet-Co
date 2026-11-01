@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { searchCatalog, type CatalogSearchResult } from "@/shared/catalog";
+import type { CatalogSearchResult } from "@/shared/catalog";
 import { catalogResultHref } from "@/lib/catalog-routes";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,14 @@ const TYPE_LABELS: Record<CatalogSearchResult["type"], string> = {
   cabinetType: "Cabinet type",
   cabinetProduct: "Cabinet product",
 };
+
+/**
+ * The catalog index (every product, finish and door style) loads on the first
+ * search instead of with the page. Imported statically it rode along with
+ * /cabinets and /accessories, and every page with a visible "/cabinets" link
+ * evaluated the whole product catalog when the link prefetched.
+ */
+const loadSearchCatalog = () => import("@/shared/catalog").then((m) => m.searchCatalog);
 
 export interface CatalogSearchProps {
   placeholder?: string;
@@ -34,17 +42,24 @@ export function CatalogSearch({
   const [results, setResults] = useState<CatalogSearchResult[]>([]);
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  // The query a pending search belongs to, so a slow first load never shows
+  // results for text the visitor has already changed.
+  const latestQuery = useRef("");
 
   const runSearch = useCallback(
     (value: string) => {
       const trimmed = value.trim();
+      latestQuery.current = trimmed;
       if (!trimmed) {
         setResults([]);
         setOpen(false);
         return;
       }
-      setResults(searchCatalog(trimmed).slice(0, maxResults));
-      setOpen(true);
+      void loadSearchCatalog().then((searchCatalog) => {
+        if (latestQuery.current !== trimmed) return;
+        setResults(searchCatalog(trimmed).slice(0, maxResults));
+        setOpen(true);
+      });
     },
     [maxResults],
   );
