@@ -227,10 +227,9 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             ))}
           </HeroFollowOn>
         )}
-        {room.slug === "built-ins" && <section id="built-in-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
-          <h2 className="text-2xl font-serif">Your room, your storage goals</h2>
-          <p className="my-4">Share your ideas for team review. Dimensions and photos can follow; they are not required to get in touch.</p>
-          <KitchenCabinetsQuoteForm context="built-ins" projectPrompt="Which room, and what would you like to store?" submitLabel="Send Built-In Request" />
+        {room.slug === "built-ins" && <section id="built-in-inquiry" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">
+          <KitchenCabinetsQuoteForm context="built-ins" idPrefix="builtins-quote" projectPrompt="Which room, and what would you like to store?" />
+          <p className="mt-4 text-sm text-muted-foreground">Dimensions and photos can follow; they are not required to get in touch.</p>
         </section>}
 
         {phaseAnswer && (

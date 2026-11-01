@@ -1,4 +1,5 @@
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
+import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -168,10 +169,12 @@ export default function BuildersPage() {
             <a href={SITE_CONFIG.phoneHref}>Call {SITE_CONFIG.phone}</a>
           </Button>
         </CinematicHero>
-        <section id="builder-inquiry" tabIndex={-1} className="mx-auto w-full max-w-3xl scroll-mt-28 px-6 py-8">
-          <h2 className="text-2xl font-serif">Tell us about your cabinet project</h2>
-          <p className="my-4">Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
-          <KitchenCabinetsQuoteForm context="builder-contractor" projectPrompt="Company, location and cabinet scope" submitLabel="Send Builder Project Request" />
+        {/* "#builder-inquiry" lands on the form: its heading and first field come
+            first, and the guidance that used to introduce it follows the form. */}
+        <section id="builder-inquiry" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">
+          <KitchenCabinetsQuoteForm context="builder-contractor" idPrefix="builder-quote" projectPrompt="Company, location and cabinet scope" />
+          <p className="mt-4 text-sm text-muted-foreground">Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
+          <QuoteFormAnchor id="builder-inquiry" />
         </section>
 
         <Section variant="greige" divider>

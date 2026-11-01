@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import { saveConsultationOnce, ConsultationReplayConflict, CONSULTATION_KEY } from "@/lib/consultationReplay";
 import { after, NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { db } from "@/lib/db";
 import { consultationRequests, leads, submissions, leadQuotes } from "@/shared/schema";
 import { deriveEmailable, matchServiceArea } from "@/lib/crm/leads";
@@ -24,113 +23,23 @@ import {
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress, parseAddressParts } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
-import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 import { forwardConsultationToP5Intake } from "@/server/services/p5IntakeBridge";
 import type { EstimateRecord } from "@/shared/estimateRecord";
+import {
+  buildLeadNotes,
+  consultationBodySchema,
+  internalSubject,
+  resolveProjectType,
+} from "@/server/services/consultationRequest";
 
 const PER_IP_LIMIT = 8;
 const PER_IP_WINDOW_MS = 15 * 60 * 1000;
 
-const propertyProfileSchema = z
-  .object({
-    formattedAddress: z.string(),
-    city: z.string(),
-    state: z.string(),
-    zip: z.string(),
-  })
-  .passthrough()
-  .optional()
-  .nullable();
-
-const bodySchema = z.object({
-  name: z.string().min(2),
-  phone: z.string().refine(phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE),
-  email: z.string().email(),
-  address: z.string().optional().default(""),
-  zip: z.string().optional().default(""),
-  projectType: z.string().min(1),
-  message: z.string().optional(),
-  propertyProfile: propertyProfileSchema,
-  estimate: z
-    .object({
-      project: z.string(),
-      finish: z.string(),
-      priceLow: z.number(),
-      priceHigh: z.number(),
-      roi: z.number(),
-      sizeLabel: z.string().optional(),
-      confidenceLabel: z.string().optional(),
-      // Per-room breakdown when the visitor planned multiple rooms at once.
-      // Without this the multi-room detail is silently dropped by zod.
-      rooms: z
-        .array(
-          z.object({
-            project: z.string(),
-            finish: z.string(),
-            sizeLabel: z.string(),
-            priceLow: z.number(),
-            priceHigh: z.number(),
-          }),
-        )
-        .optional(),
-    })
-    .optional()
-    .nullable(),
-  /** Homeowner's stated budget band, when they chose one. */
-  budget: z.string().optional().default(""),
-  /** When they want to start; required by the estimator, optional elsewhere. */
-  timeline: z.string().optional().default(""),
-  /**
-   * The complete record of what the homeowner selected and was shown in the
-   * estimator. Declared explicitly (and permissively) because zod strips
-   * unknown keys - anything not named here would be silently dropped before it
-   * ever reached the CRM, which is exactly the failure this record exists to
-   * prevent. Kept loose so adding a field to the record never 400s a real lead.
-   */
-  estimateRecord: z
-    .object({
-      version: z.number(),
-      capturedAt: z.string(),
-      rangeLow: z.number(),
-      rangeHigh: z.number(),
-      rangeFormatted: z.string(),
-      confidenceLabel: z.string(),
-      confidencePercent: z.number(),
-      roomCount: z.number(),
-      rooms: z.array(z.record(z.any())),
-      included: z.array(z.string()),
-      excluded: z.array(z.string()),
-      assumptions: z.array(z.string()),
-      disclaimers: z.array(z.string()),
-      budget: z.string().nullable(),
-      notes: z.string().nullable(),
-      propertyAddress: z.string().nullable(),
-    })
-    .passthrough()
-    .optional()
-    .nullable(),
-  /**
-   * Lead origin. Whitelisted: the estimating assistant submits through this
-   * same route so its leads flow into the identical pipeline, distinguished
-   * only by source for CRM filtering.
-   */
-  source: z.enum(["consultation", "assistant"]).optional().default("consultation"),
-  sourceDetail: z
-    .enum(["consultation_form", "assistant_chat", "assistant_handoff"])
-    .optional(),
-  /**
-   * Plain-text transcript of the assistant conversation that produced this
-   * lead. Stored in the submission's raw payload (top-level string, so the
-   * admin lead detail renders it directly) - never parsed or acted on.
-   */
-  conversationTranscript: z.string().max(60_000).optional(),
-  /** Shared event id for Meta pixel + Conversions API deduplication. */
-  metaEventId: z.string().optional(),
-  /** Honeypot - must be empty; bots often fill hidden fields. */
-  companyWebsite: z.string().optional().default(""),
-});
+// The body schema lives in server/services/consultationRequest.ts so the full
+// request and the "Have us call you" callback shape are tested without a database.
+const bodySchema = consultationBodySchema;
 
 export async function POST(request: NextRequest) {
   try {
@@ -154,6 +63,10 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
+    // What every destination stores: the visitor's project type or a sortable
+    // default, and their own words led by the callback marker or reply channel.
+    const projectType = resolveProjectType(data);
+    const notes = buildLeadNotes(data);
     const requestKey = request.headers.get("Idempotency-Key");
     if (requestKey !== null && !CONSULTATION_KEY.test(requestKey)) {
       return NextResponse.json({ accepted: false, message: "Invalid request key." }, { status: 400 });
@@ -196,8 +109,8 @@ export async function POST(request: NextRequest) {
           address: data.address || null,
           city: city || null,
           propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? null,
-          projectType: data.projectType,
-          message: data.message || null,
+          projectType: projectType,
+          message: notes || null,
           estimateProject: data.estimate?.project || null,
           estimateFinish: data.estimate?.finish || null,
           estimateLow: data.estimate?.priceLow?.toString() || null,
@@ -230,8 +143,8 @@ export async function POST(request: NextRequest) {
           address: data.address,
           city: leadCity || city || null,
           zip: zip || null,
-          projectType: data.projectType,
-          message: data.message,
+          projectType: projectType,
+          message: notes,
           inquiryId: persistedRequestId,
         });
         after(() => bridge);
@@ -261,7 +174,7 @@ export async function POST(request: NextRequest) {
             leadType: "homeowner",
             emailable,
             name: data.name,
-            email: data.email,
+            email: data.email || null,
             phone: data.phone,
             address: data.address || null,
             city: city || "Unknown",
@@ -271,8 +184,8 @@ export async function POST(request: NextRequest) {
             fullAddress: (profile?.formattedAddress as string) || data.address || null,
             propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? undefined,
             propertyType: "residential",
-            serviceType: data.projectType,
-            selectedServices: [data.projectType],
+            serviceType: projectType,
+            selectedServices: [projectType],
             finalQuote,
             serviceData: data.estimate
               ? {
@@ -287,7 +200,7 @@ export async function POST(request: NextRequest) {
                   },
                 }
               : null,
-            message: data.message || null,
+            message: notes || null,
             status: "pending_admin",
             source: data.source,
             sourceDetail:
@@ -333,9 +246,9 @@ export async function POST(request: NextRequest) {
             name: data.name,
             phone: data.phone,
             email: data.email,
-            projectType: data.projectType,
+            projectType: projectType,
             city: city || null,
-            message: data.message || null,
+            message: notes || null,
             estimate: data.estimate ?? null,
           }, { sendAdminEmail: false });
         }
@@ -365,20 +278,20 @@ export async function POST(request: NextRequest) {
       // The dashboard shows projectGoals next to projectScope, so the
       // homeowner's own words land in a field of their own rather than only
       // inside the generated block.
-      projectGoals: data.message || undefined,
+      projectGoals: notes || undefined,
       // A multi-room estimate spans several project types; send them all rather
       // than the single collapsed "other".
       projectTypes: rec?.rooms?.length
         ? Array.from(new Set(rec.rooms.map((r) => String(r.projectLabel)).filter(Boolean)))
-        : data.projectType
-          ? [data.projectType]
+        : projectType
+          ? [projectType]
           : undefined,
       budgetRange: data.budget || rec?.budget || undefined,
       estimateLow: rec?.rangeLow ?? data.estimate?.priceLow,
       estimateHigh: rec?.rangeHigh ?? data.estimate?.priceHigh,
       estimateRange: rec?.rangeFormatted,
       estimate: rec,
-      notes: data.message || undefined,
+      notes: notes || undefined,
     });
 
 
@@ -423,15 +336,15 @@ export async function POST(request: NextRequest) {
           <table class="info-table">
             <tr><td class="label">Name:</td><td class="value">${escapeHtml(data.name)}</td></tr>
             <tr><td class="label">Phone:</td><td class="value"><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
-            <tr><td class="label">Email:</td><td class="value"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
+            <tr><td class="label">Email:</td><td class="value">${data.email ? `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>` : "Not provided"}</td></tr>
             ${zip ? `<tr><td class="label">ZIP:</td><td class="value">${escapeHtml(zip)}</td></tr>` : ""}
-            <tr><td class="label">Project:</td><td class="value">${escapeHtml(data.projectType)}</td></tr>
+            <tr><td class="label">Project:</td><td class="value">${escapeHtml(projectType)}</td></tr>
           </table>
           ${propertyBlock}
           ${estimateDetailBlock}
           <div class="highlight-box">
             <p><strong>Notes from the lead:</strong></p>
-            <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
+            <p style="margin-top:8px;">${escapeHtml(notes || "(none)").replace(/\n/g, "<br>")}</p>
           </div>
           <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
           ${buildLeadDashboardButton(capturedLeadId)}
@@ -445,9 +358,9 @@ export async function POST(request: NextRequest) {
         await client.emails.send({
           from,
           // Reply from the admin's inbox goes straight to the lead.
-          replyTo: buildLeadReplyTo(data.name, data.email),
+          replyTo: data.email ? buildLeadReplyTo(data.name, data.email) : getReplyToAddress(),
           to: adminEmail,
-          subject: `New consultation request: ${data.name}`,
+          subject: internalSubject(data),
           html: adminHtml,
           text: htmlToPlainText(adminHtml),
         });
@@ -468,14 +381,18 @@ export async function POST(request: NextRequest) {
         `,
       });
 
-      await client.emails.send({
-        from,
-        replyTo: getReplyToAddress(),
-        to: data.email,
-        subject: "We received your request | Boise Cabinet Co",
-        html: customerHtml,
-        text: htmlToPlainText(customerHtml),
-      });
+      // A callback or a call/text-only request may come without an email; the
+      // team's own email above still goes out.
+      if (data.email) {
+        await client.emails.send({
+          from,
+          replyTo: getReplyToAddress(),
+          to: data.email,
+          subject: "We received your request | Boise Cabinet Co",
+          html: customerHtml,
+          text: htmlToPlainText(customerHtml),
+        });
+      }
       emailSent = true;
     } catch (emailErr) {
       console.error("[consultation] Email send failed:", emailErr);
@@ -497,7 +414,7 @@ export async function POST(request: NextRequest) {
     await sendCapiLead({
       eventId: data.metaEventId,
       eventSourceUrl: request.headers.get("referer") || `${SITE_CONFIG.siteUrl}/contact`,
-      email: data.email,
+      email: data.email || undefined,
       phone: data.phone,
       name: data.name,
       zip,

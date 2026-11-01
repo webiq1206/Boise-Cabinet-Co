@@ -163,6 +163,20 @@ export function AssistantWidget() {
     };
   }, []);
 
+  // Tell the quote forms whether "Chat" can open anything on this page: they
+  // offer it beside Call and Text only while this assistant is mounted and
+  // answering (components/quote/QuoteRequestForm.tsx).
+  useEffect(() => {
+    const root = document.documentElement;
+    if (available && !isSuppressedRoute(pathname)) root.dataset.assistantAvailable = "true";
+    else delete root.dataset.assistantAvailable;
+    window.dispatchEvent(new Event("p5:assistant-availability"));
+    return () => {
+      delete root.dataset.assistantAvailable;
+      window.dispatchEvent(new Event("p5:assistant-availability"));
+    };
+  }, [available, pathname]);
+
   // The first-screen Call and Text row must stay clickable. Hide the launcher
   // only while its corner would cover that row.
   useEffect(() => {
