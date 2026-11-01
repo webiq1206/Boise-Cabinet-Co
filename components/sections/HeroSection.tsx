@@ -42,11 +42,11 @@ export function HeroSection() {
                   negative tracking. The hero heading is the one line the whole
                   site is judged on in the first second. */}
               <h1 className="ed-display text-inverse-foreground mb-8 max-w-[16ch]">
-                Idaho&apos;s premier{" "}
+                Custom{" "}
                 <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
-                  cabinet
+                  cabinets
                 </em>{" "}
-                company.
+                for the Treasure Valley.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground">
                 {HERO_SUBHEAD}

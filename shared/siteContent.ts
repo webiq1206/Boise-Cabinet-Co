@@ -10,7 +10,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
 
-export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
+export const SITE_TAGLINE = "Custom cabinets for Boise and the Treasure Valley";
 
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 

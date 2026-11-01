@@ -57,7 +57,7 @@ export const SITE_CONFIG = {
    * records, so the two are deliberately different values.
    */
   legalName: "P5 Home Co LLC",
-  tagline: "Idaho's premier custom cabinet company",
+  tagline: "Custom cabinets for Boise and the Treasure Valley",
   phone: process.env.NEXT_PUBLIC_PHONE ?? DEFAULT_PHONE,
   phoneTel: PHONE_TEL,
   phoneHref: `tel:${PHONE_E164}`,
