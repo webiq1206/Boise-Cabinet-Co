@@ -24,14 +24,18 @@ const buttonVariants = cva(
         secondary: "border bg-secondary text-secondary-foreground border border-secondary-border ",
         // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
         ghost: "border border-transparent",
+        /** P5 Home Co family button faces (styles/family-chrome.css .fam-btn): 48px, 16px
+            sentence-case label, square corners. brand is the primary: filled with a 3px
+            brand-accent bar on the leading edge (charcoal on paper, paper on dark grounds,
+            because --primary flips there). */
         brand:
-          "rounded-none bg-primary text-primary-foreground border border-primary-border min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5",
+          "rounded-none bg-primary text-primary-foreground border border-primary-border min-h-12 px-6 text-base font-semibold leading-none normal-case tracking-normal gap-2 shadow-[inset_3px_0_0_var(--color-accent)] hover:shadow-[inset_6px_0_0_var(--color-accent)]",
+        /** The family secondary: an outline in the current text colour. */
         brandOutline:
-          "rounded-none border border-foreground/80 bg-transparent text-foreground min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-foreground hover:text-background",
-        /** The hero's secondary CTA: same 58px uppercase format as `brand` so the
-            pair reads as a pair, with inverse colours for use over photography. */
+          "rounded-none border border-foreground/45 bg-transparent text-foreground min-h-12 px-6 text-base font-semibold leading-none normal-case tracking-normal gap-2 hover:border-foreground hover:bg-foreground/5",
+        /** The family secondary over photography: the same outline in paper. */
         heroOutline:
-          "rounded-none border border-inverse-foreground/70 bg-inverse-foreground/[0.08] text-inverse-foreground backdrop-blur-sm min-h-[58px] px-8 text-[12px] font-bold uppercase tracking-[0.16em] gap-5 hover:bg-inverse-foreground hover:text-inverse",
+          "rounded-none border border-inverse-foreground/50 bg-transparent text-inverse-foreground min-h-12 px-6 text-base font-semibold leading-none normal-case tracking-normal gap-2 hover:border-inverse-foreground hover:bg-inverse-foreground/[0.08]",
       },
       // Heights are set as "min" heights, because sometimes Ai will place large amount of content
       // inside buttons. With a min-height they will look appropriate with small amounts of content,

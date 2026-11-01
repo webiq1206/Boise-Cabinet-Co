@@ -7,6 +7,14 @@ import { PHASE1_DESCRIPTIONS, PHASE1_TITLES } from "../lib/phase1SearchCopy";
 import { CABINET_PRODUCTS } from "../shared/catalog";
 import { ROOM_SEO } from "../shared/catalog/roomSeo";
 import { LLMS_TXT } from "../shared/llmsTxt";
+import { SITE_CONFIG } from "../shared/siteConfig";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Footer } from "../components/Footer.tsx";
+
+(globalThis as typeof globalThis & { React: typeof React }).React = React;
+/** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
+const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
 
 const BRAND = " | Boise Cabinet Co";
 const C13_PATHS = new Set([
@@ -171,17 +179,21 @@ test("llms files and the footer publish the public email, address, and represent
   assert.equal(LLMS_TXT.includes("Jared"), false);
   const full = readFileSync("app/llms-full.txt/route.ts", "utf8");
   assert.equal(full.includes("LLMS_TXT.trim()"), true);
-  const footer = readFileSync("components/Footer.tsx", "utf8");
-  assert.equal(footer.includes("mailto:${SITE_CONFIG.email}"), true);
-  assert.equal(footer.includes("{SITE_CONFIG.email}"), true);
+  // Phase 2 family chrome: the footer is the shared SiteFooter, so the rendered HTML is checked.
+  // The family row names every company with a site; Boise ADU Co is left out until its own site
+  // exists (family rollout brief), so the old "Boise ADU Co (projects currently run through Boise
+  // Construction Co)" line is intentionally gone.
+  const footer = renderFooter();
+  assert.equal(footer.includes(`href="mailto:${SITE_CONFIG.email}"`), true);
+  assert.equal(footer.includes(`>${SITE_CONFIG.email}</a>`), true);
   assert.equal(footer.includes("Public representative: Nick Perkins · 4031 W Wapoot St, Meridian, ID 83646 · Service-area business, not a staffed storefront"), true);
-  assert.equal(footer.includes("Part of"), true);
-  assert.equal(footer.includes("https://boiseconstruction.co"), true);
-  assert.equal(footer.includes("https://boiseremodeling.co"), true);
-  assert.equal(footer.includes("https://boisehandyman.co"), true);
-  assert.equal(footer.includes("https://boisecabinet.co"), true);
-  assert.match(footer, /href="https:\/\/boiseconstruction\.co"[^>]*>Boise ADU Co<\/a>/);
-  assert.equal(footer.includes("projects currently run through Boise Construction Co; site coming"), true);
+  assert.equal(footer.includes("The P5 Home Co family"), true);
+  assert.equal(footer.includes('href="https://p5homeco.com" rel="noopener">P5 Home Co</a>'), true);
+  assert.equal(footer.includes('href="https://boiseconstruction.co" rel="noopener">Boise Construction Co</a>'), true);
+  assert.equal(footer.includes('href="https://boiseremodeling.co" rel="noopener">Boise Remodeling Co</a>'), true);
+  assert.equal(footer.includes('href="https://boisehandyman.co" rel="noopener">Boise Handyman Co</a>'), true);
+  assert.match(footer, /<span class="fam-footer-current" aria-current="true">Boise Cabinet Co<\/span>/);
+  assert.equal(footer.includes("Boise ADU Co"), false);
   assert.equal(footer.includes("https://boiseadu"), false);
   const contact = readFileSync("app/contact/page.tsx", "utf8");
   assert.equal(contact.includes("{SITE_CONFIG.email}"), true);
@@ -200,7 +212,8 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
     "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
-  assert.match(hero, /<h1[^>]*>Custom cabinets in Boise,<br\/><em>Idaho<\/em><\/h1>/);
+  // Phase 2: the hero is the family HeroPhoto. Same H1 words, the second line in the accent.
+  assert.match(hero, /title="Custom cabinets in Boise,"\s+titleAccent="Idaho"/);
   assert.equal(hero.includes("designs custom cabinets to your measurements"), true);
   assert.equal(hero.includes("Written price before work"), true);
   assert.equal(hero.includes("IDAHO_REGISTERED_CONTRACTOR"), true);

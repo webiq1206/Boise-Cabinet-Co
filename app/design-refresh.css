@@ -91,36 +91,8 @@
 .approved-shell [data-slot=accordion-trigger] > span:not(.f-number):not(.process-index) { flex: 1; min-width: 0; text-align: left; }
 .approved-shell .f-accordion .f-number { flex: none; min-width: 2.5rem; }
 
-/* Footer clearance for the sticky bar lives here and nowhere else: page
-   wrappers no longer pad themselves, and the footer pads only while the bar
-   can show (below 1180px). The last footer line sits about 24px above the bar.
-   (BRC-05, BRC-06, BCONC-07, BCONC-38, BHC-03, BCC-04) */
-@media (max-width: 1179px) {
-  .approved-shell .site-footer > .container { padding-bottom: 24px; }
-  .approved-shell .site-footer { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
-}
-@media (min-width: 768px) and (max-width: 1179px) {
-  .approved-shell .site-footer { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
-}
-/* Cabinet's bar is 12px taller (larger buttons), so its footer clears 12px more. */
-@media (max-width: 767px) {
-  .site-cabinet .site-footer { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
-}
-@media (min-width: 768px) and (max-width: 1179px) {
-  .site-cabinet .site-footer { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
-}
-
-/* Tablet range: a compact floating bar at the right, not a phone bar stretched
-   across the screen. (BHC-26, BCC-30, BRC-47) */
-@media (min-width: 768px) and (max-width: 1179px) {
-  .approved-shell [data-mobile-nav-bar] {
-    left: auto; right: 16px; bottom: 16px;
-    width: min(520px, calc(100% - 32px));
-    border: 1px solid rgba(251, 250, 246, .16);
-    box-shadow: 0 12px 32px rgba(28, 31, 30, .28);
-  }
-  .approved-shell .site-footer > .container { width: 88%; max-width: none; padding-inline: 0; }
-}
+/* Footer clearance and the bottom bar are the shared family chrome: the bar renders its own
+   spacer after the footer (styles/family-chrome.css), so no wrapper pads for it here. */
 
 /* Section rhythm at desktop widths. Phone values are unchanged. Two neighbouring
    sections on the same ground share one gap and a hairline instead of doubling
@@ -171,16 +143,6 @@
 .approved-shell :is(h1, h2, h3, h4, .ed-h2, .ed-h3, .ed-h4) { text-wrap: balance; font-variant-numeric: lining-nums; }
 .approved-shell :is(p, li, blockquote, figcaption) { text-wrap: pretty; }
 .approved-shell :is([data-slot=accordion-trigger], .ed-lede) { font-variant-numeric: lining-nums; }
-
-/* Cabinet desktop nav, 1180 to 1365px: one line per item. The phone number
-   collapses to its icon until there is room for it. (BCC-57) */
-.site-cabinet [data-approved-navigation] nav li > :is(a, button) { white-space: nowrap; }
-@media (min-width: 1180px) and (max-width: 1365px) {
-  .site-cabinet [data-approved-navigation] nav li > :is(a, button) { padding-inline: 8px; }
-  .site-cabinet [data-approved-navigation] > nav { gap: 14px; }
-  .site-cabinet [data-header-phone] .header-phone-number { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .site-cabinet [data-header-phone] .header-phone-icon { display: block; }
-}
 
 /* Cabinet home: the estimator reads as its own tool band on the bone ground,
    with one card instead of a card inside an outlined box, and same-ground

@@ -35,7 +35,7 @@ test("live routes render no seed reviews, stars, counts, or review schema", asyn
     expect(html, path).not.toContain("out of 5");
     expect(html, path).not.toContain("Homeowner reviews");
     expect(html, path).not.toContain("homeowners say");
-    await expect(page.locator("header[data-approved-navigation] a[href='/testimonials']"), path).toHaveCount(0);
+    await expect(page.locator("header[data-family-header] a[href='/testimonials']"), path).toHaveCount(0);
     await expect(page.locator("footer a[href='/testimonials']"), path).toHaveCount(0);
     if (path === "/testimonials") {
       await expect(page).toHaveURL(/\/design-ideas$/);

@@ -6,7 +6,9 @@ import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
 import { MetaPixel } from '@/components/seo/MetaPixel'
 import { AnalyticsBridge } from '@/components/seo/AnalyticsBridge'
-import { Navigation } from '@/components/Navigation'
+import { Navigation, SiteActionBar } from '@/components/Navigation'
+import { SkipLink } from '@/components/family/SkipLink'
+import { StickyCtaYield } from '@/components/StickyCtaYield'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Footer } from '@/components/Footer'
 import { LazyAssistantWidget } from '@/components/assistant/LazyAssistantWidget'
@@ -24,6 +26,11 @@ import './approved-system.css'
 import './approved-interiors.css'
 import './audit-accessibility.css'
 import './design-refresh.css'
+// Shared P5 Home Co family tokens and chrome (header, menu, bar, footer, hero),
+// synced byte-identical across the family; brand values come from lib/familyBrand.ts.
+import '@/styles/family-tokens.css'
+import '@/styles/family-chrome.css'
+import './family-adoption.css'
 
 // P5 family typefaces, self-hosted from the same two OFL variable files P5 Home Co serves.
 const manrope = localFont({
@@ -108,13 +115,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const showReviewLinks = process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true";
-  const reviewNavLink = showReviewLinks
-    ? { label: "Projects & reviews", href: "/testimonials" }
-    : null;
-  const reviewFooterLink = showReviewLinks
-    ? { label: "Projects & Reviews", href: "/testimonials" }
-    : null;
   return (
     <html lang="en" className={`dark ${manrope.variable} ${cormorant.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
@@ -149,23 +149,20 @@ export default function RootLayout({
             next/script queues PageView after hydration; fbevents.js waits for the first interaction. */}
         <MetaPixel />
         <AnalyticsBridge />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:text-foreground focus:shadow-lg"
-        >
-          Skip to main content
-        </a>
+        <SkipLink target="main-content" label="Skip to main content" />
         <Providers>
           <ScrollToTop />
           <ApprovedShell><div className="flex flex-col min-h-screen">
-            <Navigation reviewLink={reviewNavLink} />
-            <main id="main-content" className="flex-1">
+            <Navigation />
+            <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
               {children}
             </main>
             {/* Footer renders on the server and is handed to the client switch, so its guide and
                 hub link data never ships in the JavaScript bundle of every page. */}
-            <ConditionalFooter footer={<Footer reviewLink={reviewFooterLink} />} />
+            <ConditionalFooter footer={<Footer />} />
+            <SiteActionBar />
           </div></ApprovedShell>
+          <StickyCtaYield />
           <LazyAssistantWidget />
           <Toaster />
         </Providers>
