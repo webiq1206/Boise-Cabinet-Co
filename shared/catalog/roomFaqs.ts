@@ -130,6 +130,12 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
       answer:
         "Yes. Replacing wire shelving with a custom system is one of the highest-impact storage upgrades in newer Treasure Valley homes, especially primary suites.",
     },
+    // Folded in from the merged post /blog/primary-suite-closet-cabinets.
+    {
+      question: "How do you size a closet system to my wardrobe?",
+      answer:
+        "We inventory by category: how much double-hang, long-hang, folded storage, and shoes you own, then size sections to the real numbers plus growth room. Islands with drawers work in walk-ins over roughly 7 by 10 feet.",
+    },
   ],
   garage: [
     {
@@ -141,6 +147,12 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
       question: "Can you include a workbench in a garage system?",
       answer:
         "Yes. Workbench counters, tall storage for ladders and seasonal gear, and locking cabinets for chemicals are common parts of our garage programs.",
+    },
+    // Folded in from the merged post /blog/garage-storage-cabinet-systems.
+    {
+      question: "How do garage cabinets handle snowmelt and wet floors?",
+      answer:
+        "Mount cabinets on legs or raised bases so snowmelt and hose water never wick into boxes. A 4-inch toe clearance also keeps sweeping and floor coatings simple.",
     },
   ],
   outdoor: [

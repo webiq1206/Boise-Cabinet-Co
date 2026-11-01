@@ -101,7 +101,7 @@ const tier1Articles = [
     ],
     tags: ['cost', 'linear foot', 'boise'],
     extraParagraph:
-      'Pair with <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a> and <a href="/blog/kitchen-cabinet-cost-boise">kitchen cabinet cost</a> for full context.',
+      'Pair with <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a> and <a href="/blog/custom-kitchen-cabinet-cost">kitchen cabinet cost</a> for full context.',
   },
   {
     slug: 'stock-vs-custom-cabinets-boise',

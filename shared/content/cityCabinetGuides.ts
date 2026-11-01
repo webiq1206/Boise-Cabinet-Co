@@ -193,7 +193,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Eagle cabinet costs and planning',
         paragraphs: [
-          `Eagle budgets skew higher because of finish level and scale, not labor rates. Luxury kitchens commonly exceed the valley-typical band; planning detail lives in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> and our luxury cost article on the <a href="/blog/luxury-custom-cabinet-cost-boise">blog</a>.`,
+          `Eagle budgets skew higher because of finish level and scale, not labor rates. Luxury kitchens commonly exceed the valley-typical band; planning detail lives in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
         ],
       },
       {

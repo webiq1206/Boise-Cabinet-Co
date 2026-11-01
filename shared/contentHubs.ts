@@ -1,6 +1,7 @@
 /**
  * Topical authority registry, single source of truth for hubs and content manifest.
  */
+import { isMergedBlogSlug } from './content/blogMerges';
 
 export type ContentType = 'pillar' | 'cluster' | 'location' | 'neighborhood' | 'master';
 export type ContentStatus = 'planned' | 'draft' | 'published';
@@ -182,7 +183,7 @@ function guide(
 }
 
 /** Cabinet-focused content manifest (published only, new slugs) */
-export const CONTENT_MANIFEST: ContentManifestEntry[] = [
+const CONTENT_MANIFEST_SOURCE: ContentManifestEntry[] = [
   // Hub 1, Cabinet costs
   { slug: 'boise-cabinet-cost-guide', title: 'Boise Cabinet Cost Guide', ...hubPillar('cabinet-costs'), status: PUBLISHED, replacesSlug: 'boise-cabinet-cost-guide' },
   cluster('kitchen-cabinet-cost-boise', 'Kitchen Cabinet Cost Boise', 'cabinet-costs', PUBLISHED, 'kitchen-remodel-cost-boise'),
@@ -275,6 +276,11 @@ export const CONTENT_MANIFEST: ContentManifestEntry[] = [
   guide('caldwell-cabinet-guide', 'Caldwell Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED),
   guide('middleton-cabinet-guide', 'Middleton Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'middleton-remodeling-guide'),
 ];
+
+/** Merged posts (shared/content/blogMerges.ts) leave the manifest; they 301. */
+export const CONTENT_MANIFEST: ContentManifestEntry[] = CONTENT_MANIFEST_SOURCE.filter(
+  (entry) => !(entry.route === 'blog' && isMergedBlogSlug(entry.slug)),
+);
 
 export function getHubBySlug(hubSlug: string): ContentHub | undefined {
   return CONTENT_HUBS.find((h) => h.hubSlug === hubSlug);

@@ -15,6 +15,7 @@ import { ALL_HUB_PILLARS } from './content/allHubsContent';
 import { CITY_CABINET_GUIDES } from './content/cityCabinetGuides';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
+import { isMergedBlogSlug, resolveMergedPath, withMergedContent } from './content/blogMerges';
 
 export type GuideType = 'hub-pillar' | 'location' | 'neighborhood' | 'master';
 
@@ -120,7 +121,7 @@ const costPillarFaqs = [
   },
 ];
 
-export const GUIDE_PAGES: GuidePageData[] = [
+const GUIDE_PAGE_SOURCES: GuidePageData[] = [
   {
     slug: 'boise-cabinet-cost-guide',
     title: 'Boise cabinet cost guide (2026 planning ranges)',
@@ -333,6 +334,23 @@ export const GUIDE_PAGES: GuidePageData[] = [
   ...CITY_CABINET_GUIDES,
   ...ALL_HUB_PILLARS,
 ];
+
+/**
+ * Guides that received a merged post (docs/blog-merge-map.md) carry its folded
+ * section; every guide links merged posts' destinations, not the 301s.
+ */
+export const GUIDE_PAGES: GuidePageData[] = GUIDE_PAGE_SOURCES.map((guide) => {
+  const selfPath = `/guides/${guide.slug}`;
+  const seen = new Set<string>();
+  return {
+    ...guide,
+    content: withMergedContent(guide.content, selfPath),
+    linkedClusterSlugs: guide.linkedClusterSlugs?.filter((slug) => !isMergedBlogSlug(slug)),
+    relatedLinks: guide.relatedLinks
+      ?.map((link) => ({ ...link, url: resolveMergedPath(link.url) }))
+      .filter((link) => link.url !== selfPath && !seen.has(link.url) && seen.add(link.url)),
+  };
+});
 
 export function getGuideBySlug(slug: string): GuidePageData | undefined {
   return GUIDE_PAGES.find((g) => g.slug === slug);

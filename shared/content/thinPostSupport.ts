@@ -1,7 +1,8 @@
 /**
- * Phase 4 support for the thin May 2026 posts (body under 700 words), ahead of
- * the owner-approved merge release in docs/blog-merge-map.md. No post is
- * deleted or redirected here. Two things change:
+ * Phase 4 support for the thin May 2026 posts (body under 700 words). The
+ * merge release in docs/blog-merge-map.md (shared/content/blogMerges.ts) has
+ * since retired 34 of them; entries for those posts were removed here. Two
+ * things change for the posts that remain:
  *
  * 1. Metadata for posts whose title or description was a template ("{Title}
  *    ... Serving Boise, Meridian, Eagle, Nampa, and the Treasure Valley.").
@@ -24,36 +25,22 @@ export const THIN_POST_META: Record<string, { seoTitle?: string; metaDescription
     metaDescription:
       'Kitchen cabinet timeline in Boise, phase by phase: design, approval, fabrication, delivery and installation, what slows a project, and how to protect it.',
   },
-  'kitchen-layout-ideas-boise-homes': {
-    metaDescription:
-      'Kitchen layout ideas for Boise homes: cabinet plans by housing era, galley, L-shaped and island kitchens, and ways to use corner dead space.',
-  },
   'kitchen-cabinet-trends': {
     seoTitle: 'Kitchen Cabinet Trends in Boise Homes',
     metaDescription:
       'Kitchen cabinet trends Treasure Valley homeowners are choosing: shaker and slab doors, storage that outlasts color trends, and trends worth skipping.',
   },
-  'open-kitchen-cabinet-storage': {
-    seoTitle: 'Open Kitchen Cabinet Storage | Planning',
-    metaDescription:
-      'Open kitchen cabinet storage: replacing lost wall cabinets with working storage, islands as the new anchor, sight lines, and checks before demo.',
-  },
+  // docs/kitchen-overlap.md: Boise Remodeling Co owns island layout and the
+  // remodel; this post keeps the island-cabinet angle (sizing, storage, finish).
   'kitchen-island-design-guide': {
-    seoTitle: 'Kitchen Island Design Guide | Sizing',
+    seoTitle: 'Kitchen Island Cabinets: Sizing & Storage',
     metaDescription:
-      'Kitchen island design guide: the sizing rules that matter, what goes inside the island, finish strategy, and when a kitchen should skip the island.',
-  },
-  'walk-in-pantry-design-guide': {
-    seoTitle: 'Walk-In Pantry Design Guide | Cabinets',
-    metaDescription:
-      'Walk-in pantry design: layout basics, shelving, counters and appliance garages, and pantry cabinet walls for kitchens where a walk-in does not fit.',
+      'Kitchen island cabinet design: the sizing rules that matter, what goes inside the island, finish strategy, and when a kitchen should skip the island.',
   },
   // bathroom-vanity-layout-guide keeps its title: 19 impressions at 11.7 in
   // Search Console (June to October 2026), too close to page one to reword.
-  'multi-room-cabinet-planning': { seoTitle: 'Multi-Room Cabinet Planning | One Plan' },
   // Was "Outdoor Kitchen Cabinets Boise", the exact query /cabinets/outdoor owns.
   'outdoor-kitchen-cabinets-boise': { seoTitle: 'Outdoor Cabinet Planning | Weather, Cost' },
-  'whole-home-cabinet-timeline': { seoTitle: 'Whole-Home Cabinet Timeline' },
 };
 
 type PlanningLink = { href: string; sentence: string };
@@ -83,33 +70,14 @@ const INSTALLATION: PlanningLink = {
 const PLANNING_LINKS: Record<string, PlanningLink> = {
   'kitchen-cabinet-trends': KITCHEN,
   'accessible-bathroom-vanity-guide': BATHROOM,
-  'bathroom-vanity-roi-boise': BATHROOM,
-  'multi-room-cabinet-planning': BUILT_INS,
-  'cabinet-project-planning-guide': KITCHEN,
   'cabinet-buying-mistakes': KITCHEN,
-  'whole-home-cabinet-timeline': INSTALLATION,
   'living-through-cabinet-installation': INSTALLATION,
-  'cabinet-refresh-vs-replace-vs-moving': KITCHEN,
-  'custom-cabinet-design-process': KITCHEN,
   'cabinet-planning-checklist': KITCHEN,
   'questions-to-ask-cabinet-company': INSTALLATION,
-  'cabinet-company-red-flags': INSTALLATION,
-  'what-makes-great-cabinet-company': INSTALLATION,
   'how-to-compare-cabinet-quotes': KITCHEN,
-  'why-cabinet-quotes-vary': KITCHEN,
   'cabinet-consultation-process': KITCHEN,
-  'custom-cabinet-shop-vs-big-box': INSTALLATION,
-  'fixed-price-vs-cost-plus': KITCHEN,
-  'cabinet-finishes-door-styles-guide': KITCHEN,
-  'cabinet-measurement-design-phase': KITCHEN,
-  'cabinet-design-development': KITCHEN,
-  'cabinet-fabrication-installation': INSTALLATION,
-  'cabinet-installation-punch-list': INSTALLATION,
-  'cabinet-warranty-guide': INSTALLATION,
   'kitchen-cabinet-roi-boise': KITCHEN,
   'cabinet-upgrades-before-selling': KITCHEN,
-  'cabinets-for-long-term-living': KITCHEN,
-  'custom-vs-reserve-cabinets': KITCHEN,
 };
 
 /** Does this HTML link a room page (/cabinets/{room}) or a /services/ page? */

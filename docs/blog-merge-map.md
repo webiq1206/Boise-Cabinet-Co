@@ -1,6 +1,15 @@
 # Blog merge map (proposal, needs owner approval)
 
-Status: proposal only. Nothing in this file has been executed. Phase 4 deliberately deletes and redirects no posts; it improves the thin posts' metadata and internal links in place (shared/content/thinPostSupport.ts) so they keep earning while the owner decides.
+Status: merges EXECUTED on 2026-11-01, guarded by Search Console data. The owner's rule: merge only a post with under 15 impressions and 0 clicks (1 June to 29 October 2026). 34 of the 36 merges below passed and now 301 to their destination; the list, the guard and the folded sections live in `shared/content/blogMerges.ts`. Two did not pass and keep their URLs:
+
+- `/blog/bathroom-vanity-layout-guide`: 19 impressions, position 11.7.
+- `/blog/cabinet-consultation-process`: 15 impressions, position 12.4 (not under 15).
+
+What shipped: each merged post left `BLOG_POSTS` and `CONTENT_MANIFEST` (so its page, sitemap entry and hub cards went), got one 301 straight to its destination, and every source link to it was rewritten to the destination (`npm run verify:redirect-collisions` passes). Legacy redirects that pointed at a merged post now go straight to the merge destination. Where a merged post had a useful section its destination did not already cover, that section was folded in, in the post's own words (`FOLDED_SECTIONS`; the garage and closet posts became one FAQ each on `/cabinets/garage` and `/cabinets/closet`). Nothing was folded from the four remodel-era cost posts, `what-makes-great-cabinet-company` (it promises a dedicated project manager, which is not a stated cabinet fact), `custom-vs-reserve-cabinets` (/compare already covers it), `custom-cabinet-design-process`, `multi-room-cabinet-planning` (the whole-home guide already covers it) or `cabinet-warranty-guide` (/warranty already states the terms). After the merges `cabinet-project-process` (0 posts) and `cabinet-roi` (2 posts) fall under `CATEGORY_HUB_MIN_POSTS` and turn noindex,follow; both URLs stay.
+
+The 14 "improve in place" rewrites (1,000+ words each) were not done in that release: they need new content and figures the business facts do not yet cover. `kitchen-island-design-guide` was retitled around island cabinets instead (docs/kitchen-overlap.md).
+
+Original proposal follows.
 
 Generated on 2026-10-31 from `shared/blogContent.ts`. A post is thin when its body (`content`, excluding FAQs) is under 700 words by `countWords` in `lib/content-utils.ts`: 50 of 78 posts today. The audit counted 48 with a different word counter; this table lists every post under the line by the counter above, so none is missed. Dispositions follow `seo-notes-cabinet.md` section 3.
 

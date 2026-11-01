@@ -3,6 +3,8 @@
  * Consumed by next.config.js and available to other build scripts.
  */
 
+import { MERGED_BLOG_POSTS, resolveMergedPath } from './content/blogMerges';
+
 export type ContentRedirect = { source: string; destination: string };
 
 const guide = (slug: string) => `/guides/${slug}`;
@@ -149,6 +151,15 @@ export const CATALOG_FINISH_REDIRECTS: Record<string, string> = {
   "/door-styles/shaker": "/catalog",
 };
 
+/**
+ * Thin posts merged into a stronger page (docs/blog-merge-map.md, guarded by
+ * Search Console data in shared/content/blogMerges.ts). One 301 each, straight
+ * to the destination.
+ */
+export const BLOG_MERGE_REDIRECTS: Record<string, string> = Object.fromEntries(
+  Object.entries(MERGED_BLOG_POSTS).map(([slug, destination]) => [blog(slug), destination]),
+);
+
 export function allContentRedirects(): ContentRedirect[] {
   const maps = [
     GUIDE_REDIRECTS,
@@ -156,11 +167,14 @@ export function allContentRedirects(): ContentRedirect[] {
     BLOG_REMOVAL_REDIRECTS,
     CATEGORY_REDIRECTS,
     CATALOG_FINISH_REDIRECTS,
+    BLOG_MERGE_REDIRECTS,
   ];
   const out: ContentRedirect[] = [];
   for (const map of maps) {
     for (const [source, destination] of Object.entries(map)) {
-      out.push({ source, destination });
+      // A legacy rule whose target was later merged goes straight to the
+      // merge destination, so no visitor pays two hops.
+      out.push({ source, destination: resolveMergedPath(destination) });
     }
   }
   return out;

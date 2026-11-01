@@ -61,7 +61,7 @@ const sections: ContentSection[] = [
       '[[catalog door modern-shaker]]',
       '[[catalog finish woodgrain-canyon-oak]]',
       'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$25,000 for a full appliance suite.',
-      'Read our dedicated article: <a href="/blog/kitchen-cabinet-cost-boise">Kitchen Cabinet Cost Boise</a>. Explore <a href="/cabinets/kitchen">kitchen cabinet catalog</a> and <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.',
+      'Read our dedicated article: <a href="/blog/custom-kitchen-cabinet-cost">How much do custom kitchen cabinets cost?</a>. Explore <a href="/cabinets/kitchen">kitchen cabinet catalog</a> and <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.',
     ],
   },
   {
@@ -77,7 +77,7 @@ const sections: ContentSection[] = [
     paragraphs: [
       'Whole-home programs coordinate door style, finish, and hardware across kitchen, baths, laundry, mudroom, and built-ins under one specification. Sequencing matters: lock the master palette before fabrication starts on the first room.',
       'Older Treasure Valley homes may need field scribing and filler strategies when walls are out of plumb, hold contingency for adjustments at install.',
-      'Our <a href="/blog/whole-home-cabinet-cost-boise">whole-home cabinet cost guide</a> and <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a> go deeper.',
+      'Our <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a> goes deeper.',
     ],
   },
   {
@@ -85,7 +85,7 @@ const sections: ContentSection[] = [
     paragraphs: [
       'Entertainment centers, mudroom lockers, pantry systems, and closet built-ins scale with linear footage and hardware. Matching existing trim profiles in Eagle and Boise Bench homes adds shop time.',
       'Outdoor kitchen and bar cabinets need weather-rated materials and often longer lead times.',
-      'Review <a href="/guides/built-in-cabinet-guide">built-in cabinet guide</a>, <a href="/cabinets/built-ins">built-in catalog</a>, and <a href="/blog/luxury-custom-cabinet-cost-boise">luxury custom cabinet costs</a>.',
+      'Review the <a href="/guides/built-in-cabinet-guide">built-in cabinet guide</a> and the <a href="/cabinets/built-ins">built-in catalog</a>.',
     ],
   },
   {
@@ -93,7 +93,6 @@ const sections: ContentSection[] = [
     paragraphs: [
       'Luxury cabinet programs emphasize fully custom construction, specialty finishes, integrated lighting, and meticulous install in occupied homes. HOA design review in Harris Ranch and Eagle Foothills adds weeks to front-end scheduling.',
       'Expect dedicated design development, sample doors, and white-glove protection of finished floors. A single luxury kitchen can exceed mid-range whole-home cabinet budgets when millwork and hardware are complex.',
-      'Read <a href="/blog/luxury-custom-cabinet-cost-boise">luxury custom cabinet cost in Boise</a> for finish-level breakdowns.',
     ],
   },
   {
@@ -118,7 +117,6 @@ const sections: ContentSection[] = [
     paragraphs: [
       'Local drivers include: shop capacity, material lead times, field conditions at measure, door style and finish tier, and whether you buy through a dealer or a local custom shop.',
       'Layout changes, soffit removal, and panel upgrades add design and install time. Interior accessories (pull-outs, spice trays, appliance garages) move budget without changing room size.',
-      'Our article <a href="/blog/what-impacts-cabinet-costs-boise">what impacts cabinet costs in Boise</a> ranks the top variables homeowners control.',
     ],
   },
   {
@@ -126,7 +124,6 @@ const sections: ContentSection[] = [
     paragraphs: [
       'Start with priorities: which rooms are must-haves vs phased later. Allocate design, fabrication, delivery, installation, hardware, and contingency separately instead of one opaque number.',
       'Temporary kitchen setups and storage are often overlooked during a full kitchen cabinet replacement. Phased room delivery can reduce disruption but may extend calendar time.',
-      'Follow the step-by-step framework in <a href="/blog/how-to-budget-cabinets-boise">how to budget for cabinets in Boise</a>.',
     ],
     list: [
       'Define must-have rooms and phased work',

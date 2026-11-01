@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-10-26";
+export const PROJECTS_GENERATED_ON = "2026-11-01";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -70,7 +70,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Kitchen cabinet cost in Boise",
-          "href": "/blog/kitchen-cabinet-cost-boise"
+          "href": "/blog/custom-kitchen-cabinet-cost"
         }
       ]
     }
@@ -200,7 +200,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Whole-home cabinet cost",
-          "href": "/blog/whole-home-cabinet-cost-boise"
+          "href": "/guides/boise-cabinet-cost-guide"
         },
         {
           "label": "Eagle cabinet guide",

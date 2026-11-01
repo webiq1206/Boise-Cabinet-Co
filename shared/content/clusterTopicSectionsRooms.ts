@@ -227,7 +227,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Aging-in-place without the clinical look',
       paragraphs: [
         'The best accessible vanities look like furniture: a seated makeup-height section doubles as roll-under clearance, and drawer bases put contents at reachable height for everyone. We design these details into the original plan rather than retrofitting later.',
-        'Pair this with our <a href="/blog/cabinets-for-long-term-living">cabinets for long-term living</a> article when planning a whole-home approach.',
+        'Pair this with our <a href="/blog/cabinet-upgrades-before-selling">cabinets for long-term living</a> article when planning a whole-home approach.',
       ],
     },
     {
@@ -335,7 +335,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Designing around grill and appliances',
       paragraphs: [
         'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We build cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
-        'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> and pair with <a href="/blog/outdoor-bar-cabinet-storage">outdoor bar storage</a> for entertaining zones.',
+        'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> for entertaining zones.',
       ],
     },
     {
@@ -410,7 +410,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Investment perspective',
       paragraphs: [
-        'Premium outdoor programs are entertainment infrastructure. Our <a href="/blog/outdoor-cabinet-roi">outdoor cabinet ROI</a> article covers where the value holds in the Treasure Valley market.',
+        'Premium outdoor programs are entertainment infrastructure. Our <a href="/guides/cabinet-roi-guide-boise">outdoor cabinet ROI</a> article covers where the value holds in the Treasure Valley market.',
       ],
     },
   ],
@@ -513,7 +513,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Daily rhythm with our crew',
       paragraphs: [
-        'You will know each day\'s plan in advance, who is coming, what gets installed, and any decisions needed. Punch-list items get logged through your client portal so nothing rides on a hallway conversation. See the <a href="/blog/cabinet-installation-punch-list">punch list article</a> for closeout details.',
+        'You will know each day\'s plan in advance, who is coming, what gets installed, and any decisions needed. Punch-list items get logged through your client portal so nothing rides on a hallway conversation. See the <a href="/guides/cabinet-project-process-guide">punch list article</a> for closeout details.',
       ],
     },
   ],
@@ -560,7 +560,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Shop drawings and sign-off',
       paragraphs: [
-        'Dimensioned elevations show every cabinet, filler, and panel before fabrication. Changes at the drawing stage cost nothing; changes after release restart lead time. Read the <a href="/blog/cabinet-measurement-design-phase">measurement and design phase article</a> for what to check on your drawings.',
+        'Dimensioned elevations show every cabinet, filler, and panel before fabrication. Changes at the drawing stage cost nothing; changes after release restart lead time. Read the <a href="/guides/cabinet-project-process-guide">measurement and design phase article</a> for what to check on your drawings.',
       ],
     },
   ],
@@ -597,7 +597,6 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'Contingency held: 5 to 10 percent, more for older Boise homes',
       ],
       paragraphs: [
-        'Print this against our <a href="/blog/cabinet-project-planning-guide">project planning guide</a> for the full narrative version.',
       ],
     },
   ],
