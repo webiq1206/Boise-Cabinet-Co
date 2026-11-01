@@ -155,7 +155,7 @@ function draftGateScript(key: string): string {
 }
 
 const PILL_CLASS =
-  "flex min-h-12 cursor-pointer items-center justify-center border border-foreground/45 px-2 text-center text-base font-medium text-foreground transition-colors hover:border-foreground has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background";
+  "flex min-h-12 cursor-pointer items-center justify-center border border-foreground/45 px-1.5 text-center text-[0.9375rem] font-medium sm:px-2 sm:text-base text-foreground transition-colors hover:border-foreground has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background";
 
 /**
  * "Send a request" | "Have us call you": two native radios styled as one
@@ -514,8 +514,9 @@ export function QuoteRequestForm({
         </p>
         <p className="text-base leading-relaxed text-foreground/85">
           {done.kind === "callback"
-            ? `We will call you at ${done.phone}${when} within one business day.`
-            : "Our team reviews your project and replies within one business day."}{" "}
+            ? `We will call you at ${done.phone}${when}`
+            : "Our team reviews your project and replies"}{" "}
+          within one business day.{" "}
           <PreferToTextLine />
         </p>
         <p className="text-base leading-relaxed text-foreground/85">
