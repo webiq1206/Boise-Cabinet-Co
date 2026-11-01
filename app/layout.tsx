@@ -145,7 +145,7 @@ export default function RootLayout({
           <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
         </noscript>
         {/* In <body>: the pixel's <noscript> fallback img is invalid inside <head>.
-            next/script (lazyOnload) injects the existing pixel after the page loads. */}
+            next/script queues PageView after hydration; fbevents.js waits for the first interaction. */}
         <MetaPixel />
         <AnalyticsBridge />
         <a
