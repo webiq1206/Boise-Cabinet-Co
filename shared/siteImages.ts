@@ -14,7 +14,7 @@ export const MARKETING_IMAGES = {
   processContact: "/images/marketing/drawers-black-pulls-oak.webp",
   /** The process panel on room and location pages (ProcessSection). */
   processPanel: "/images/marketing/drawers-black-pulls-oak.webp",
-  hardware: "/images/marketing/warranty-hardware.webp",
+  hardware: "/images/marketing/kitchen-wood-island.webp",
   construction: "/images/marketing/kitchen-wood-island.webp",
   catalogDefault: "/images/marketing/catalog-default.webp",
   statementBand: "/images/marketing/great-room-oak-built-ins.webp",
@@ -27,7 +27,7 @@ export const ENRICHMENT_IMAGES = {
   constructionDetail: "/images/enrichment/construction-box-detail.webp",
   aboutMaterials: "/images/enrichment/about-lean-materials.webp",
   workshop: "/images/marketing/hero-construction.webp",
-  drawerHardware: "/images/marketing/warranty-hardware.webp",
+  drawerHardware: "/images/approved/drawer-oak.webp",
   oakBuiltIns: "/images/marketing/great-room-oak-built-ins.webp",
 } as const;
 

@@ -206,9 +206,9 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <MarketingCard className="interior-contact-form md:col-span-3 p-4 sm:p-6 md:p-8" padding="lg" data-c10-contact-form="" id="consult" data-quote-anchor="">
+            <div className="fr-request-card interior-contact-form md:col-span-3" style={{ '--f-accent': '#659b9a' } as React.CSSProperties} data-c10-contact-form="" id="consult" data-quote-anchor="">
               <ConsultationForm idPrefix="contact-quote" />
-            </MarketingCard>
+            </div>
             <QuoteFormAnchor id="consult" />
           </div>
         </Section>

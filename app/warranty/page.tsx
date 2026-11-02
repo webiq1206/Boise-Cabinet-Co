@@ -86,7 +86,7 @@ export default function WarrantyPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
-          alt="Oak drawers with round brass knobs above walnut doors with black knobs"
+          alt="White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
           title={showLifetimeWarranty() ? <>
@@ -107,51 +107,48 @@ export default function WarrantyPage() {
               </Button>
         </CinematicHero>
 
+        {/* Coverage as a hairline matrix under the heading: three cells across the
+            full shell, so each list has room instead of three squeezed cards beside
+            a heading column. */}
         <Section variant="greige" divider>
-          <SplitSection header={<SectionHeader
-              eyebrow="Coverage"
-              title={<>What the warranty covers</>}
-              className="mb-0"
-            />}>
-            <div className="grid md:grid-cols-3 gap-6">
-              <MarketingCard>
-                <h3 className="text-lg font-serif tracking-tight mb-3">Covered</h3>
-                <ul className="space-y-2">
+          <div className="ed-shell">
+            <p className="ed-eyebrow">Coverage</p>
+            <h2 className="ed-h2 ed-statement">What the warranty covers</h2>
+            <div className="ed-matrix mt-10" style={{ '--ed-cols': '3', '--ed-cell-h': '0' } as React.CSSProperties}>
+              <div>
+                <h3 className="ed-h3 mb-5">Covered</h3>
+                <ul className="grid gap-3">
                   {COVERED.filter((item) => publicText(item)).map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <Check className="h-4 w-4 mt-0.5 flex-shrink-0 text-accent" />
-                      {item}
+                    <li key={item} className="ed-body flex items-start gap-3 text-[0.9375rem]">
+                      <Check className="h-4 w-4 mt-1 flex-shrink-0 text-accent" aria-hidden="true" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              </MarketingCard>
-              <MarketingCard>
-                <h3 className="text-lg font-serif tracking-tight mb-3">Conditions</h3>
-                <ul className="space-y-2">
+              </div>
+              <div>
+                <h3 className="ed-h3 mb-5">Conditions</h3>
+                <ul className="grid gap-3">
                   {CONDITIONS.map((item) => (
-                    <li key={item} className="text-base text-muted-foreground leading-relaxed">
-                      {item}
-                    </li>
+                    <li key={item} className="ed-body text-[0.9375rem]">{item}</li>
                   ))}
                 </ul>
-              </MarketingCard>
-              <MarketingCard>
-                <h3 className="text-lg font-serif tracking-tight mb-3">Not covered</h3>
-                <ul className="space-y-2">
+              </div>
+              <div>
+                <h3 className="ed-h3 mb-5">Not covered</h3>
+                <ul className="grid gap-3">
                   {EXCLUDED.map((item) => (
-                    <li key={item} className="text-base text-muted-foreground leading-relaxed">
-                      {item}
-                    </li>
+                    <li key={item} className="ed-body text-[0.9375rem]">{item}</li>
                   ))}
                 </ul>
-              </MarketingCard>
+              </div>
             </div>
-          </SplitSection>
+          </div>
         </Section>
 
         <PhotoBreak
-          src={ENRICHMENT_IMAGES.drawerHardware}
-          alt="Finished oak drawers and cabinet doors with quality hardware covered under warranty"
+          src="/images/approved/drawer-oak.webp"
+          alt="Natural oak drawer with organized utensil storage, the everyday detail the warranty covers"
           caption="Coverage is tied to the finishes and hardware on your approved shop drawings."
         />
 

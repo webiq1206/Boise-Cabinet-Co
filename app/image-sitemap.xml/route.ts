@@ -55,7 +55,7 @@ export function GET() {
   entries.push({
     page: `${BASE}/warranty`,
     images: [
-      { loc: abs(MARKETING_IMAGES.hardware), title: 'Oak drawers with round brass knobs above walnut doors with black knobs' },
+      { loc: abs(MARKETING_IMAGES.hardware), title: 'White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants' },
     ],
   });
 

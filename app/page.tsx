@@ -3,18 +3,14 @@ import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { Reveal } from "@/components/Reveal";
 import { ApprovedHome } from "@/components/approved/ApprovedHome";
 import { HomeTestimonials } from "@/components/sections/HomeTestimonials";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { Section } from "@/components/marketing/Section";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
 import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { publicText } from "@/shared/claims";
 import { CONSULT_BULLETS } from "@/shared/siteContent";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowUpRight, Check } from "lucide-react";
-import Image from "next/image";
 
 export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home", path: "/" })), "/");
 
@@ -29,87 +25,43 @@ export default function HomePage() {
         {publicText("Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. Kitchen cabinets, bathroom vanities, and built-in storage across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, with 299 finishes, six door styles, a free design consultation, and a 2-year workmanship warranty on installation.")}
       </p>
       <div id="contact" className="scroll-mt-24" aria-hidden="true" />
-      <Section
-        divider
-        data-suppress-sticky-cta=""
-        className="relative overflow-hidden pb-28 md:pb-28"
-      >
-        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <Image
-            src={MARKETING_IMAGES.heroHome}
-            alt=""
-            aria-hidden="true"
-            fill
-            sizes="100vw"
-            className="object-cover img-brand-grade"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-        </div>
-        {/* The ask. Full measure, heading at h2 scale, the form kept in its
-            card because a form needs a defined field to sit in - this is one of
-            the places a card is actually the right answer. */}
-        <div className="ed-shell relative z-10">
-          <div className="grid gap-[var(--ed-gutter)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            {/* "#consult" lands on the form card itself (owner, 1 November): on
-                phones the form comes first and this introduction follows it; on
-                wide screens it sits beside the form. */}
-            <div className="order-last lg:order-first lg:sticky lg:top-28">
+      {/* The ask. A bone band with the form as the one bright object on the screen:
+          white card, accent top rule, deep shadow. "#consult" lands on the form card
+          itself (owner, 1 November): on phones the form comes first and the
+          introduction follows it; on wide screens it sits beside the form. */}
+      <section className="fr-request cabinet-approved" data-suppress-sticky-cta="" aria-label="Request a quote">
+        <div className="section wrap">
+          <div className="fr-request-grid">
+            <div className="order-1 lg:order-2 lg:col-start-2 lg:row-start-1">
+              <div className="fr-request-card" id="consult" data-quote-anchor="">
+                <ConsultationForm idPrefix="home-quote" />
+              </div>
+              <QuoteFormAnchor id="consult" />
+            </div>
+            <div className="fr-request-copy order-2 lg:order-1 lg:col-start-1 lg:row-start-1">
               <Reveal>
-                <p className="ed-eyebrow">Begin a conversation</p>
-                <h2 className="ed-h2 ed-statement">
-                  Tell us about your{" "}
-                  <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
-                    project
-                  </em>
-                  .
-                </h2>
-                <p className="ed-lede mt-8 max-w-[40ch]">
-                  We will reach out within one business day to schedule your free
-                  design consultation.
-                </p>
-                <p className="ed-body mt-3">
-                  <PreferToTextLine />
-                </p>
-                <p className="ed-body mt-4">
-                  You will leave with planning guidance and no obligation.
-                </p>
-                {/* Reassurance bullets are desktop-only; the form repeats the key
-                    reassurance under its submit button, so on mobile we drop them
-                    to keep the fields above the fold. */}
-                <ul
-                  className="mt-8 hidden list-none gap-3 border-t p-0 pt-6 md:grid"
-                  style={{ borderColor: "var(--ed-line)" }}
-                >
+                <p className="eyebrow">BEGIN A CONVERSATION</p>
+                <h2>Tell us about<br /><em style={{ color: "var(--f-accent)" }}>your project.</em></h2>
+                <p>We will reach out within one business day to schedule your free design consultation.</p>
+                <p><PreferToTextLine /></p>
+                <p>You will leave with planning guidance and no obligation.</p>
+                <ul className="fr-request-list">
                   {CONSULT_BULLETS.map((item) => (
-                    <li key={item} className="ed-body flex items-center gap-3 text-[0.875rem]">
-                      <Check
-                        className="h-4 w-4 flex-shrink-0"
-                        style={{ color: "var(--ed-accent)" }}
-                        aria-hidden="true"
-                      />
-                      {item}
+                    <li key={item}>
+                      <Check className="h-4 w-4" aria-hidden="true" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 grid border-t" style={{ borderColor: "var(--ed-line)" }}>
-                  <a href={SITE_CONFIG.phoneHref} className="flex min-h-12 items-center justify-between gap-4 border-b text-[0.9375rem] font-medium transition-colors hover:[color:var(--ed-accent)]" style={{ borderColor: "var(--ed-line)" }}>
-                    Call {SITE_CONFIG.phone}
-                    <ArrowUpRight className="h-4 w-4 shrink-0" style={{ color: "var(--ed-accent)" }} aria-hidden="true" />
-                  </a>
-                  <a href={SITE_CONFIG.phoneSmsHref} className="flex min-h-12 items-center justify-between gap-4 border-b text-[0.9375rem] font-medium transition-colors hover:[color:var(--ed-accent)]" style={{ borderColor: "var(--ed-line)" }}>
-                    Send a text
-                    <ArrowUpRight className="h-4 w-4 shrink-0" style={{ color: "var(--ed-accent)" }} aria-hidden="true" />
-                  </a>
-                </div>
+                <ul className="fr-request-list" style={{ borderTop: 0, paddingTop: 0 }}>
+                  <li><a href={SITE_CONFIG.phoneHref} className="text-link">Call {SITE_CONFIG.phone} <ArrowUpRight size={16} aria-hidden="true" /></a></li>
+                  <li><a href={SITE_CONFIG.phoneSmsHref} className="text-link">Send a text <ArrowUpRight size={16} aria-hidden="true" /></a></li>
+                </ul>
               </Reveal>
             </div>
-            <MarketingCard padding="lg" id="consult" data-quote-anchor="">
-              <ConsultationForm idPrefix="home-quote" />
-            </MarketingCard>
-            <QuoteFormAnchor id="consult" />
           </div>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }

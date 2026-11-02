@@ -170,9 +170,23 @@ export default function KitchenCabinetsPage() {
       </section>
 
         {/* "#quick-quote" lands on the form: heading and first field first. */}
-        <section id="quick-quote" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">
-          <KitchenCabinetsQuoteForm idPrefix="kitchen-quote" projectPrompt="Your kitchen: a full set, a refresh, an island, or not sure yet" />
-          <QuoteFormAnchor id="quick-quote" />
+        <section id="quick-quote" data-quote-anchor="" data-suppress-sticky-cta="" className="fr-request cabinet-approved" aria-label="Request a quote">
+          <div className="section wrap">
+            <div className="fr-request-grid">
+              <div className="order-1 lg:order-2 lg:col-start-2 lg:row-start-1">
+                <div className="fr-request-card">
+                  <KitchenCabinetsQuoteForm idPrefix="kitchen-quote" projectPrompt="Your kitchen: a full set, a refresh, an island, or not sure yet" />
+                </div>
+                <QuoteFormAnchor id="quick-quote" />
+              </div>
+              <div className="fr-request-copy order-2 lg:order-1 lg:col-start-1 lg:row-start-1">
+                <p className="eyebrow">FREE DESIGN CONSULTATION</p>
+                <h2>Tell us about<br /><em style={{ color: 'var(--f-accent)' }}>your kitchen.</em></h2>
+                <p>A full set, a refresh, an island, or not sure yet. Send a few details and we reply within one business day to schedule a free in-home design consultation.</p>
+                <p>You will leave with a layout direction, door and finish guidance, and a written proposal with drawings before anything is ordered.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
       <section className="mx-auto grid max-w-5xl gap-4 px-5 py-8 sm:grid-cols-3 sm:px-8" aria-label="Cabinet types">

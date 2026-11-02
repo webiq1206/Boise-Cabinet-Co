@@ -171,10 +171,23 @@ export default function BuildersPage() {
         </CinematicHero>
         {/* "#builder-inquiry" lands on the form: its heading and first field come
             first, and the guidance that used to introduce it follows the form. */}
-        <section id="builder-inquiry" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">
-          <KitchenCabinetsQuoteForm context="builder-contractor" idPrefix="builder-quote" projectPrompt="Company, location and cabinet scope" />
-          <p className="mt-4 text-sm text-muted-foreground">Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
-          <QuoteFormAnchor id="builder-inquiry" />
+        <section id="builder-inquiry" data-quote-anchor="" data-suppress-sticky-cta="" className="fr-request cabinet-approved" aria-label="Request builder pricing">
+          <div className="section wrap">
+            <div className="fr-request-grid">
+              <div className="order-1 lg:order-2 lg:col-start-2 lg:row-start-1">
+                <div className="fr-request-card">
+                  <KitchenCabinetsQuoteForm context="builder-contractor" idPrefix="builder-quote" projectPrompt="Company, location and cabinet scope" />
+                </div>
+                <QuoteFormAnchor id="builder-inquiry" />
+              </div>
+              <div className="fr-request-copy order-2 lg:order-1 lg:col-start-1 lg:row-start-1">
+                <p className="eyebrow">BUILDER PRICING</p>
+                <h2>Tell us about<br /><em style={{ color: 'var(--f-accent)' }}>the project.</em></h2>
+                <p>Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
+                <p>One approved finish schedule, one set of shop drawings, and one point of contact from the first unit to the last.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <Section variant="greige" divider>

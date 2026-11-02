@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const ALT =
-  "Oak drawers with round brass knobs above walnut doors with black knobs";
+  "White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants";
 
 /**
  * Full-bleed cabinet-detail band with an overlaid statement. Breaks the lower,

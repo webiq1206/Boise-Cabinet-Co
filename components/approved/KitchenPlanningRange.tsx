@@ -57,10 +57,11 @@ export function KitchenPlanningRange() {
   return (
     <section
       id="ranges"
-      className="section wrap kitchen-planning-range"
+      className="kitchen-planning-range fr-band"
       aria-labelledby={headingId}
       data-testid="kitchen-planning-range"
     >
+      <div className="section wrap">
       <div className="section-heading">
         <div>
           <p className="eyebrow">PLANNING RANGES</p>
@@ -140,7 +141,7 @@ export function KitchenPlanningRange() {
           </div>
         </div>
 
-        <aside className="kitchen-planning-result" aria-live="polite" data-testid="kitchen-planning-result">
+        <aside className="kitchen-planning-result fr-range-result" aria-live="polite" data-testid="kitchen-planning-result">
           <p className="eyebrow">PLANNING RANGE (INSTALLED CABINETRY)</p>
           {rangeLabel ? (
             <p className="kitchen-planning-figure" data-testid="kitchen-planning-figure">
@@ -158,6 +159,7 @@ export function KitchenPlanningRange() {
             {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} aria-hidden="true" />
           </a>
         </aside>
+      </div>
       </div>
     </section>
   );
