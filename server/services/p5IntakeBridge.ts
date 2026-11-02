@@ -10,8 +10,11 @@
  *
  * Project strings are rewritten only when p5 already accepts them: either as
  * a HUBSPOT_PROJECT_TYPES value or as a PROJECT_TYPE_ALIASES key. Unknown
- * visitor labels are forwarded unchanged so p5 can omit p5_project_type
- * instead of rejecting the deal.
+ * short labels are forwarded unchanged so p5 can omit p5_project_type
+ * instead of rejecting the deal. The visitor's own words (a page context
+ * followed by what they need, or a long free-text answer) are never sent as
+ * the project type: p5 builds the HubSpot deal name from it, and the words
+ * already arrive as the summary.
  */
 
 export const P5_INTAKE_URL = "https://p5homeco.com/api/leads/intake";
@@ -146,10 +149,38 @@ function reachablePhone(raw: string | null | undefined): string | null {
   return trimmed;
 }
 
+/**
+ * Page contexts the quote form puts in front of the visitor's words
+ * ("built-ins: walk-in pantry shelving"). A context maps to the p5 project
+ * type it implies, or to none when the page does not name a project.
+ */
+export const P5_PROJECT_TYPE_BY_CONTEXT: Readonly<Record<string, string | null>> = {
+  "built-ins": "Built-ins or storage",
+  "builder-contractor": null,
+  "cabinet-project": null,
+};
+
+/** Longest unmapped label still forwarded; anything longer is the visitor's own words. */
+export const MAX_FORWARDED_PROJECT_LABEL = 40;
+
 export function p5ProjectType(visitorType: string | null | undefined): string | null {
   const trimmed = visitorType?.trim() ?? "";
   if (!trimmed) return null;
-  return P5_PROJECT_TYPE_BY_VISITOR_LABEL[trimmed] ?? trimmed;
+  const mapped = P5_PROJECT_TYPE_BY_VISITOR_LABEL[trimmed];
+  if (mapped) return mapped;
+  // "context: what they need". The words already reach p5 as the summary, so
+  // they never become the project type (p5 puts it in the HubSpot deal name).
+  const colon = trimmed.indexOf(":");
+  if (colon > 0) {
+    const context = trimmed.slice(0, colon).trim();
+    if (Object.prototype.hasOwnProperty.call(P5_PROJECT_TYPE_BY_CONTEXT, context)) {
+      const rest = trimmed.slice(colon + 1).trim();
+      return P5_PROJECT_TYPE_BY_VISITOR_LABEL[rest] ?? P5_PROJECT_TYPE_BY_CONTEXT[context];
+    }
+  }
+  // A free-text answer sent as the project type: same rule, it stays in the summary.
+  if (trimmed.length > MAX_FORWARDED_PROJECT_LABEL || /[\r\n]/.test(trimmed)) return null;
+  return trimmed;
 }
 
 function composeAddress(address?: string | null, zip?: string | null): string | null {

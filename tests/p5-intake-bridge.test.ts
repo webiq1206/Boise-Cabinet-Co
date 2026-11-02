@@ -68,6 +68,31 @@ test("known consultation choices map onto p5 project types, and unknown ones pas
   assert.equal(p5ProjectType(""), null);
 });
 
+// Live form check, 2 November 2026: /estimate sent "cabinet-project: <the visitor's
+// message>" and the whole message became the HubSpot deal name. The words already
+// reach p5 as the summary; the project type carries only a real project.
+test("the visitor's own words never become the project type", () => {
+  const words = "TEST, please ignore. Form check by Claude, will be deleted.";
+  assert.equal(p5ProjectType(`cabinet-project: ${words}`), null);
+  assert.equal(p5ProjectType(`builder-contractor: ${words}`), null);
+  assert.equal(p5ProjectType(`built-ins: ${words}`), "Built-ins or storage");
+  assert.equal(p5ProjectType("cabinet-project: kitchen"), "Kitchen cabinets");
+  assert.equal(p5ProjectType("built-ins: Pantry"), "Built-ins or storage");
+  assert.equal(p5ProjectType("cabinet-project: Callback request"), null);
+  assert.equal(p5ProjectType(words), null);
+  assert.equal(p5ProjectType("New doors\nand a pantry"), null);
+  assert.equal(p5ProjectType("Pantry refresh"), "Pantry refresh");
+
+  const body = buildP5IntakeBody({
+    name: "Ada Example",
+    email: "ada@example.com",
+    projectType: `cabinet-project: ${words}`,
+    message: words,
+  });
+  assert.equal(body.projectType, undefined);
+  assert.equal(body.summary, words);
+});
+
 test("intake body uses the fields the p5 route already reads", () => {
   const body = buildP5IntakeBody({
     name: "  Ada Example  ",
