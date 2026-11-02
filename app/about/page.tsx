@@ -1,10 +1,10 @@
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Section } from '@/components/marketing/Section';
 import { AboveFoldActions } from '@/components/marketing/AboveFoldActions';
-import { HeroFollowOn } from '@/components/marketing/HeroFollowOn';
 import { SectionHeader } from '@/components/marketing/SectionHeader';
 import { CtaButton } from '@/components/modals/CtaButton';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { Reveal } from '@/components/Reveal';
 import { SaveContactLink } from '@/components/SaveContactLink';
 import {
 Accordion,
@@ -24,7 +24,7 @@ import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from '@/shared/claims';
 import { differentiators } from '@/components/approved/cabinet-content';
-import { ArrowRight,Check,ChevronRight } from 'lucide-react';
+import { ArrowRight,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -131,7 +131,7 @@ export default function AboutPage() {
     <InteriorPage kind="about"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        <InteriorHero uncropped layout="editorial" className="interior-hero-fit" imageSrc="/images/about/perkins-family-meridian-idaho.webp" imageAlt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho">
+        <InteriorHero layout="editorial">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}
@@ -154,86 +154,78 @@ export default function AboutPage() {
             </div>
           </InteriorHero>
 
-        <HeroFollowOn>
-          <p>
-            It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
-            <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
-          </p>
-          <p>
-            {IDAHO_REGISTERED_CONTRACTOR}. Insured; certificate on request. {CABINET_WORKMANSHIP_WARRANTY}.
-          </p>
-          <p>
-            <Link href="/catalog" className="underline underline-offset-2">{CTA_EXPLORE_COLLECTIONS}</Link>
-          </p>
-        </HeroFollowOn>
-
-        <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="Who you meet"
-              title={<>Nick Perkins, <em className="brc-accent text-accent">founder</em></>}
-              description="Husband, father of five, Meridian. Construction project manager with a bachelor's degree in Construction with an emphasis in Project Management and more than a decade leading custom homes, remodels and developments."
-              className="mb-6"
-            />
-            <figure className="people-safe-photo mb-6">
-              <Image
-                src="/images/about/perkins-family-meridian-idaho.webp"
-                alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho"
-                width={2560}
-                height={1920}
-                className="people-safe-photo w-full h-auto rounded-sm"
-                sizes="(max-width: 768px) 100vw, 720px"
-                priority
-              />
-              <figcaption className="mt-3 text-sm text-muted-foreground">
-                The Perkins family in Meridian.
-              </figcaption>
-            </figure>
-            <p className="text-base text-muted-foreground leading-relaxed mb-4">
-              &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
-            </p>
-            <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
+        {/* Who runs it: the lede beside the one family photograph (full, never cropped),
+            capped to the copy's height instead of a 2560px frame across the shell. */}
+        <Section divider className="pt-0">
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow ed-split-center">
+              <Reveal>
+                <p className="ed-eyebrow">Who you meet</p>
+                <h2 className="ed-h2 ed-statement">Nick Perkins, <em className="brc-accent text-accent">founder</em></h2>
+                <p className="ed-lede mt-6">
+                  It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
+                  <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
+                </p>
+                <blockquote className="mt-8 border-l-2 pl-6 ed-h3" style={{ borderColor: 'var(--ed-accent)' }}>
+                  &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
+                </blockquote>
+                <p className="ed-small mt-6">
+                  {IDAHO_REGISTERED_CONTRACTOR}. Insured; certificate on request. {CABINET_WORKMANSHIP_WARRANTY}.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                  <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
+                  <Link href="/catalog" className="text-sm underline underline-offset-2">{CTA_EXPLORE_COLLECTIONS}</Link>
+                </div>
+              </Reveal>
+              <figure className="people-safe-photo m-0">
+                <Image
+                  src="/images/about/perkins-family-meridian-idaho.webp"
+                  alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho"
+                  width={2560}
+                  height={1920}
+                  className="people-safe-photo w-full h-auto rounded-sm"
+                  sizes="(max-width: 1024px) 100vw, 640px"
+                  priority
+                />
+                <figcaption className="mt-3 text-sm text-muted-foreground">The Perkins family in Meridian.</figcaption>
+              </figure>
+            </div>
           </div>
         </Section>
-
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="What we do"
-              title={<>Custom cabinets, <em className="brc-accent text-accent">built to order</em></>}
-              description={IDENTITY}
-              className="mb-6"
-            />
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-4">
-              We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
-            </p>
-            <p className="text-base leading-relaxed text-muted-foreground">
-              Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
-            </p>
+          <div className="ed-shell">
+            <div className="ed-split ed-split-narrow">
+              <div className="lg:sticky lg:top-28 lg:self-start">
+                <p className="ed-eyebrow">What we do</p>
+                <h2 className="ed-h2 ed-statement">Custom cabinets, <em className="brc-accent text-accent">built to order</em></h2>
+              </div>
+              <div>
+                <p className="ed-lede">{IDENTITY}</p>
+                <p className="ed-body mt-6">
+                  We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
+                </p>
+                <p className="ed-body mt-4">
+                  Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
+                </p>
+              </div>
+            </div>
           </div>
         </Section>
-
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="What you can count on"
-              title={<>Five promises on <em className="brc-accent text-accent">every cabinet job</em></>}
-              className="mb-8"
-            />
-            <ul className="space-y-4">
-              {differentiators.map(([title, desc]) => (
-                <li key={title} className="flex items-start gap-3">
-                  <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-medium text-foreground">{title}</p>
-                    <p className="text-base text-muted-foreground leading-relaxed">{desc}</p>
-                  </div>
+          <div className="ed-shell">
+            <p className="ed-eyebrow">What you can count on</p>
+            <h2 className="ed-h2 ed-statement">Five promises on <em className="brc-accent text-accent">every cabinet job</em></h2>
+            <ul className="ed-matrix mt-10 list-none p-0" style={{ '--ed-cell-h': '220px' } as React.CSSProperties}>
+              {differentiators.map(([title, desc], i) => (
+                <li key={title} className="flex flex-col gap-4">
+                  <span className="ed-step-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="ed-h4">{title}</span>
+                  <span className="ed-body text-[0.9375rem]">{desc}</span>
                 </li>
               ))}
             </ul>
           </div>
         </Section>
-
         <Section variant="inverse" divider>
           <div className="container px-4 max-w-3xl">
             <SectionHeader

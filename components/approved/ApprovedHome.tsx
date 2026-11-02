@@ -3,7 +3,6 @@ import {useState, type ReactNode} from 'react';
 import {ArrowUpRight,Check} from 'lucide-react';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/components/ui/accordion';
-import {RadioGroup,RadioGroupItem} from '@/components/ui/radio-group';
 import {FAQSection} from '@/components/FAQSection';
 import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
@@ -13,7 +12,7 @@ import { FamilyButton } from '@/components/family/Button';
 import { HeroPhoto } from '@/components/family/HeroPhoto';
 import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
 import { DOPL_LICENSE_SEARCH } from '@/lib/familyBrand';
-import {steps,differentiators,additionalRooms,doorStyles} from './cabinet-content';
+import {steps,differentiators,additionalRooms} from './cabinet-content';
 import dynamic from 'next/dynamic';
 // The planning range runs the estimate engine, which carries the full finish
 // library. Server-rendered as before, but its own chunk: the homepage hydrates
@@ -47,7 +46,7 @@ const PROOF: ProofItem[] = [
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
-export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);const [door,setDoor]=useState('Help me choose');return <div className="cabinet-approved">
+export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);return <div className="cabinet-approved">
   <HeroPhoto
    image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%',unoptimized:true}}
    phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%',unoptimized:true}}
@@ -66,32 +65,39 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
  {rooms.map((r,i)=><TabsContent key={r.name} value={['kitchen','bathroom','storage'][i]}><div className="room-scene"><button className="room-scene-image" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])} aria-label={'Explore '+r.name.toLowerCase()+' cabinetry'}><img src={'/images/approved/'+r.image} alt={r.name+' cabinetry'} loading="lazy" width="1080" height="810"/><span className="scene-explore">Explore this space <ArrowUpRight size={18}/></span></button><div className="room-scene-copy"><span className="eyebrow">0{i+1} / {r.name}</span><h3>{r.title}</h3><p>{r.desc}</p><button className="text-link" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])}>Explore {r.name.toLowerCase()} <ArrowUpRight size={18}/></button></div></div></TabsContent>)}
  <TabsContent value="more"><div className="room-scene"><div className="room-scene-image"><img src="/images/approved/laundry-charcoal.webp" alt="Laundry cabinetry with charcoal cabinets and oak shelving" loading="lazy" width="1448" height="1086"/></div><div className="room-scene-copy"><span className="eyebrow">THINK BEYOND THE KITCHEN</span><h3>Every inch.<br/>Put to good use.</h3><Accordion type="single" collapsible className="other-room-list">{additionalRooms.map(([name,desc,url])=><AccordionItem value={name} key={name}><AccordionTrigger>{name}</AccordionTrigger><AccordionContent><p>{desc}</p><a className="text-link" href={''+url}>Explore {name.toLowerCase()} <ArrowUpRight size={16}/></a></AccordionContent></AccordionItem>)}</Accordion></div></div></TabsContent>
  </Tabs></section>
-  <section id="projects-honest" className="section wrap" aria-labelledby="projects-heading">
-    <div className="section-heading"><div><p className="eyebrow">OUR WORK</p><h2 id="projects-heading">Finished work,<br/><em>when it is ready.</em></h2></div>
-    <p>We publish only our own completed work, and our first projects as Boise Cabinet Co are finishing now. Ask us for references and we will connect you with past clients. For layout and finish ideas, see <a className="text-link" href="/design-ideas">design ideas</a>.</p></div>
+  {/* The showroom moment: the six door profiles the catalog carries, as a row of
+      samples. The honesty note about finished work sits beside the catalog link. */}
+  <section id="door-styles" className="section wrap" aria-labelledby="door-styles-heading">
+    <div className="section-heading"><div><p className="eyebrow">DOOR STYLES</p><h2 id="door-styles-heading">Six profiles.<br/><em>One of them is yours.</em></h2></div>
+    <p>From clean slab doors to distinctive shaker details, in 299 finishes. We will help you compare the construction and proportions in your own kitchen.</p></div>
+    <div className="fr-doors">
+      {DOOR_STYLES.map((d)=><a className="fr-door" key={d.name} href="/catalog"><span className="fr-door-media"><img src={`/generated/door-styles/${d.slug}.svg`} alt={`${d.name} cabinet door profile`} loading="lazy" width="320" height="400"/></span><b>{d.name}</b><span>Door profile</span></a>)}
+    </div>
+    <div className="fr-cards-more" id="projects-honest" aria-labelledby="projects-heading">
+      <span id="projects-heading">We publish only our own completed work, and our first projects as Boise Cabinet Co are finishing now. Ask us for references.</span>
+      <a className="text-link" href="/design-ideas">Design ideas <ArrowUpRight size={18}/></a>
+      <a className="text-link" href="/catalog">Explore the full catalog <ArrowUpRight size={18}/></a>
+    </div>
   </section>
   <section id="finishes" className="finish-section">
-   <div className="finish-photo"><img src="/images/approved/design-optimized.webp" alt="Cabinet door samples, finish swatches, and kitchen design plans" loading="lazy" width="1536" height="1024"/><div className="photo-label"><span>THE DETAILS MAKE IT YOURS.</span><span>Design & selections</span></div></div>
+   <div className="finish-photo"><img src="/images/approved/hardware.webp" alt="Cabinet door and drawer hardware in brushed finishes on a sample board" loading="lazy" width="1536" height="1024"/><div className="photo-label"><span>THE DETAILS MAKE IT YOURS.</span><span>Design & selections</span></div></div>
    <div className="finish-copy"><p className="eyebrow">FIND YOUR POINT OF VIEW</p><h2>A little texture.<br/>A little contrast.<br/><em>All you.</em></h2><p>299 finishes. Shaker, slab and more door styles. Matte solids, high-gloss colors, and woodgrain textures. Find the combination that makes your home feel like you.</p>
-   <Tabs defaultValue="finishes"><TabsList className="selection-tabs"><TabsTrigger value="finishes">Explore finishes</TabsTrigger><TabsTrigger value="doors">Door styles</TabsTrigger></TabsList><TabsContent value="finishes"><div className="swatches">{finishes.map((f,i)=><button key={f.name} onClick={()=>setFinish(i)} aria-label={`Select ${f.name}`} aria-pressed={finish===i} className={finish===i?'selected':''}><span className="swatch-image"><img src={'/images/approved/'+f.image} alt={f.name} width="480" height="480"/></span>{finish===i&&<span><Check size={14}/></span>}</button>)}</div><div className="swatch-info" aria-live="polite"><b>{finish===null?'Find your finish':finishes[finish].name}</b><span>{finish===null?'Select a sample to explore':finishes[finish].code?`${finishes[finish].family} · ${finishes[finish].code}`:finishes[finish].family}</span></div><p className="sample-note">Explore a selection from our catalog. Confirm your finish with a physical sample.</p></TabsContent><TabsContent value="doors"><RadioGroup value={door} onValueChange={setDoor} className="door-choices" aria-label="Door style preference">{doorStyles.map(d=>{const reference=DOOR_STYLES.find(style=>style.name===d);return <label key={d}>{reference&&<img className="door-reference" src={reference.imagePath} alt={`${d} door profile reference`} width="320" height="370" loading="lazy"/>}<span className="door-choice-control"><RadioGroupItem value={d}/><span>{d}</span></span></label>;})}</RadioGroup><p className="sample-note">Six profiles, from clean slab doors to distinctive shaker details. We will help you compare the construction and proportions.</p></TabsContent></Tabs>
+   <div className="finish-swatches"><div className="swatches">{finishes.map((f,i)=><button key={f.name} onClick={()=>setFinish(i)} aria-label={`Select ${f.name}`} aria-pressed={finish===i} className={finish===i?'selected':''}><span className="swatch-image"><img src={'/images/approved/'+f.image} alt={f.name} width="480" height="480"/></span>{finish===i&&<span><Check size={14}/></span>}</button>)}</div><div className="swatch-info" aria-live="polite"><b>{finish===null?'Find your finish':finishes[finish].name}</b><span>{finish===null?'Select a sample to explore':finishes[finish].code?`${finishes[finish].family} · ${finishes[finish].code}`:finishes[finish].family}</span></div><p className="sample-note">Explore a selection from our catalog. Confirm your finish with a physical sample.</p></div>
    <div className="finish-links"><a className="text-link light" href="/catalog">Explore the full catalog <ArrowUpRight size={18}/></a></div></div>
   </section>
   <section id="why-us" className="why-section section"><div className="wrap why-layout"><div className="sticky-intro"><p className="eyebrow">WHY BOISE CABINET CO</p><h2>Great cabinets.<br/><em>A better experience.</em></h2><p>One accountable team. A written scope before order. A job site that respects your home. Five things you can count on.</p></div><Accordion type="single" collapsible defaultValue="standard-0" className="standard-accordion">{differentiators.map(([title,desc],i)=><AccordionItem value={"standard-"+i} key={title}><AccordionTrigger>{title}</AccordionTrigger><AccordionContent>{desc}</AccordionContent></AccordionItem>)}</Accordion></div><div className="value-panel wrap"><figure className="value-photo"><img src="/images/approved/kitchen-charcoal.webp" alt="Kitchen combining charcoal cabinetry, a white oak island, and ivory stone" loading="lazy" width="1672" height="941"/><figcaption>CHARCOAL & OAK</figcaption></figure><div className="value-copy"><p className="eyebrow">WHERE YOUR MONEY GOES</p><h2>Don&apos;t pay for our overhead.<br/><em>Pay for the cabinets.</em></h2><p>Big offices, fancy showrooms, truck fleets, and layers of management add cost. We keep the operation lean so more of your budget goes into better materials and the cabinetry in your home.</p><a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a></div></div></section>
   <section id="process" className="section wrap process-editorial"><div className="process-overview"><p className="eyebrow">FROM IDEA TO INSTALLATION</p><h2>A clear plan.<br/><em>At every step.</em></h2><p>{IDENTITY} Know what happens next, what needs your approval, and where your project stands.</p><a className="text-link" href="/estimate">{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a></div><Accordion type="single" collapsible defaultValue="step-0" className="process-accordion">{steps.map((s,i)=><AccordionItem value={'step-'+i} key={s.tag}><AccordionTrigger><span className="process-index">0{i+1}</span><span>{s.title}</span></AccordionTrigger><AccordionContent><p>{s.desc}</p></AccordionContent></AccordionItem>)}</Accordion></section>
   <section id="inspiration" className="craft-section"><div className="craft-photo"><img src="/images/approved/drawer-oak.webp" alt="Natural oak drawer and organized utensil storage" loading="lazy" width="1448" height="1086"/><span className="craft-caption">THE BEAUTY IS IN THE EVERYDAY DETAILS</span></div><div className="craft-copy"><p className="eyebrow">WHAT YOU ARE BUYING</p><h2>Beautiful outside.<br/><em>Thoughtful inside.</em></h2><p>Frameless Euro construction. Soft-close hardware. Hand-checked finishes. Made to order for everyday life.</p><Accordion type="single" collapsible className="craft-details"><AccordionItem value="construction"><AccordionTrigger>Box and drawer construction</AccordionTrigger><AccordionContent>Frameless boxes with plywood or melamine-faced cores by line, full-extension drawers, and soft-close hinges. See the <a href="/construction">construction page</a> for the specification of each line.</AccordionContent></AccordionItem><AccordionItem value="hardware"><AccordionTrigger>Hardware you feel every day</AccordionTrigger><AccordionContent>Soft-close doors and full-extension drawer storage, with selections coordinated around your routines.</AccordionContent></AccordionItem><AccordionItem value="warranty"><AccordionTrigger>Warranty claims handled by us</AccordionTrigger><AccordionContent>{MANUFACTURER_WARRANTY_PASS_THROUGH}. {CABINET_WORKMANSHIP_WARRANTY}. <a href="/warranty">See the warranty page</a> for current terms.</AccordionContent></AccordionItem></Accordion><button className="text-link" onClick={()=>window.location.assign("/catalog")}>Explore design inspiration <ArrowUpRight size={18}/></button></div></section>
   <section id="who-hiring" className="section wrap" aria-labelledby="who-hiring-heading">
-    <div className="who-hiring-layout" style={{display:'grid',gap:'1.5rem',alignItems:'start'}}>
+    <div className="fr-founder">
+      <img className="people-safe-photo" src="/images/about/perkins-family-meridian-idaho.webp" alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho" width={2560} height={1920} loading="lazy" style={{objectFit:'contain',aspectRatio:'4 / 3'}}/>
       <div>
         <p className="eyebrow">WHO YOU ARE HIRING</p>
-        <h2 id="who-hiring-heading">Nick Perkins, founder</h2>
+        <h2 id="who-hiring-heading">Nick Perkins, founder.</h2>
         <p>Construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of custom homes, remodels and developments. Husband, father of five. The family moved to the Treasure Valley in 2025.</p>
-        <p>&ldquo;Work hard. Keep your word. Treat people right.&rdquo;</p>
-        <a className="text-link" href="/about">Read Nick&apos;s story <ArrowUpRight size={18}/></a>
+        <blockquote>&ldquo;Work hard. Keep your word. Treat people right.&rdquo;</blockquote>
+        <p><a className="text-link" href="/about">Read Nick&apos;s story <ArrowUpRight size={18}/></a></p>
       </div>
-      <figure className="people-safe-photo" style={{margin:0}}>
-        <img className="people-safe-photo" src="/images/about/perkins-family-meridian-idaho.webp" alt="Nick Perkins with his wife and five children at a pumpkin patch in Meridian, Idaho" width={2560} height={1920} loading="lazy" style={{width:'100%',height:'auto',borderRadius:4,objectFit:'contain'}}/>
-        <figcaption style={{marginTop:'0.75rem',fontSize:'0.875rem',opacity:0.75}}>The Perkins family in Meridian.</figcaption>
-      </figure>
     </div>
   </section>
   {reviews}

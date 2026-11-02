@@ -135,7 +135,7 @@ export default function ConstructionPage() {
 
         <PhotoBreak
           src={ENRICHMENT_IMAGES.drawerHardware}
-          alt="Oak drawers with black pulls showing soft-close hardware and finish quality"
+          alt="Natural oak dovetail drawer with soft-close slide and organized utensil storage"
           caption="Hardware you feel every day, checked before installation."
         />
 
