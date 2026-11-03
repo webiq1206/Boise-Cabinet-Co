@@ -1,4 +1,5 @@
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
+import { Button } from "@/components/ui/button";
 import { ApprovedBrand } from "@/components/approved/ApprovedBrand";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
@@ -70,6 +71,14 @@ export default function EstimatePage() {
         <summary className="min-h-11 cursor-pointer py-3 underline">
           Prefer a step-by-step planning range?
         </summary>
+        <Button asChild variant="brandOutline" className="min-h-14 whitespace-normal">
+        <a
+          href="/estimate#estimate-request"
+          data-testid="planning-contact-cta"
+        >
+          Request a cabinet quote
+        </a>
+        </Button>
         <div className="pt-4" data-estimate-wizard="">
           <EstimateCalculatorWizard fitViewport />
         </div>
@@ -77,3 +86,4 @@ export default function EstimatePage() {
     </>
   );
 }
+
