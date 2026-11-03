@@ -71,10 +71,14 @@
   /* B4 shared colour roles. Brand accents arrive from the brand config. */
   --color-paper: #fbfaf6;
   --color-bone: #f1ede4;
-  --color-ink: #20231f;
-  --color-ink-2: #343934;
+  --color-ink: #383837;
+  --color-ink-2: #4a4a48;
   --color-charcoal: #383837;
-  --color-moss: #233029;
+  /* Pressed and hovered charcoal controls. A token, one step under the page. */
+  --color-press: #2f2f2e;
+  /* Borders and outlines. #979794 is 4.01:1 on #383837 and 3.13:1 on the raised card. */
+  --color-line: #979794;
+  --color-moss: #383837;
   --color-forest: #383837;
   --color-bg: var(--color-paper);
   --color-bg-alt: var(--color-bone);
