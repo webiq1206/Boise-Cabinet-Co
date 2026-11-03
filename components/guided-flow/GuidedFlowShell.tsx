@@ -437,7 +437,7 @@ export function GuidedFlowShell({
               size="icon"
               onClick={onBack}
               disabled={isFirst}
-              className="min-h-11 min-w-11 shrink-0"
+              className="h-11 w-11 min-h-11 min-w-11 shrink-0 px-0"
               aria-label="Back"
             >
               <ChevronLeft className="h-4 w-4" />

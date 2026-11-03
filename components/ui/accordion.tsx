@@ -19,6 +19,22 @@ const AccordionItem = React.forwardRef<
 ))
 AccordionItem.displayName = "AccordionItem"
 
+/** Keep a heading's last two words on one line without changing the words. */
+function keepLastTwoWords(children: React.ReactNode): React.ReactNode {
+  if (typeof children !== "string") return children
+  const words = children.trim().split(/\s+/)
+  if (words.length < 2) return children
+  const tail = words.slice(-2).join(" ")
+  const head = words.slice(0, -2).join(" ")
+  return head ? (
+    <>
+      {head} <span className="mobile-keep">{tail}</span>
+    </>
+  ) : (
+    <span className="mobile-keep">{tail}</span>
+  )
+}
+
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
@@ -33,7 +49,7 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...props}
     >
-      {children}
+      {keepLastTwoWords(children)}
       <ChevronDown className="h-4 w-4 shrink-0 text-accent transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
