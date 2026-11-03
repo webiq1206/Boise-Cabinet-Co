@@ -88,7 +88,7 @@
   --color-on-dark: var(--color-paper);
   --color-on-dark-muted: rgba(251, 250, 246, 0.8);
   --color-border-on-dark: rgba(251, 250, 246, 0.18);
-  --color-scrim-rgb: 13, 24, 18;
+  --color-scrim-rgb: 56, 56, 55;
   --color-success: #3f6b4a;
   --color-warning: #8a6a1f;
   --color-error: #a33a2c;

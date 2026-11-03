@@ -312,7 +312,7 @@ export default function ContactPage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#383837]/80 via-[#383837]/40 to-transparent" />
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}

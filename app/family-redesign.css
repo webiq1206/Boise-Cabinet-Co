@@ -211,7 +211,7 @@
   border-top: 6px solid var(--f-accent);
   background: var(--fr-paper);
   color: var(--fr-ink);
-  box-shadow: 0 40px 70px -40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 40px 70px -40px rgba(56, 56, 55, 0.6);
 }
 .fr-range-result-label {
   color: var(--fr-ink-soft);
@@ -570,7 +570,7 @@ html .approved-interior .interior-detail-body h2 { font-size: clamp(2.5rem, 4.4v
   right: 0;
   bottom: 0;
   padding: 40px 18px 14px;
-  background: linear-gradient(180deg, transparent, rgba(20, 22, 21, 0.55));
+  background: linear-gradient(180deg, transparent, rgba(56, 56, 55, 0.55));
   color: #fbfaf6;
   font-size: 12px;
   font-weight: 600;

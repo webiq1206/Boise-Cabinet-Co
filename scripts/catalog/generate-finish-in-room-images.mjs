@@ -27,7 +27,7 @@ function inRoomSvg(name, hex, category) {
   const isWood = category === "woodgrain";
   const grain = isWood
     ? `<defs><pattern id="g" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
-        <line x1="0" y1="0" x2="0" y2="12" stroke="#00000018" stroke-width="2"/>
+        <line x1="0" y1="0" x2="0" y2="12" stroke="#38383718" stroke-width="2"/>
       </pattern></defs>`
     : "";
   const doorFill = isWood ? 'fill="url(#g)"' : `fill="${hex}"`;

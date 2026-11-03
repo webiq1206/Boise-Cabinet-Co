@@ -240,8 +240,8 @@
     width: auto;
   }
 
-  /* Every control is at least 44px in both directions. The skip link stays hidden. */
-  :is(button, summary, [role="tab"], [role="button"], a):not(.fam-skip):not(.interior-service-card):not(.fr-door):not(.room-scene-image) {
+  /* Standalone controls are at least 44px. Links inside a paragraph stay inline text. */
+  :is(button, summary, [role="tab"], [role="button"], a):not(.fam-skip):not(.interior-service-card):not(.fr-door):not(.room-scene-image):not(p a) {
     min-height: 44px !important;
     min-width: 44px !important;
     box-sizing: border-box;
@@ -256,11 +256,11 @@
     min-width: 44px !important;
     min-height: 44px !important;
   }
-  :is(p, li) a {
+  :is(li) a:not(p a) {
     display: inline-flex;
     align-items: center;
   }
-  .approved-shell :is(button, summary, label, [role="tab"], a.tap-target, a.text-link, p a, li a, nav a) {
+  .approved-shell :is(button, summary, label, [role="tab"], a.tap-target, a.text-link, li a, nav a):not(p a) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -313,16 +313,26 @@
   .f-hero-copy {
     text-align: center;
   }
+}
 
-  /* Any consent banner is a short bar, under 20% of the screen. */
-  :is([data-consent-banner], [data-cookie-consent], [data-cookie-banner], #cookie-banner, #cookie-consent, #onetrust-banner-sdk, #CybotCookiebotDialog) {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    max-height: 20vh;
-    overflow: auto;
-    z-index: 80;
-  }
+/* Consent and privacy bars stay under 20% of the viewport at every width. */
+:is([data-consent-banner], [data-cookie-consent], [data-cookie-banner], [data-privacy-bar], #cookie-banner, #cookie-consent, #onetrust-banner-sdk, #CybotCookiebotDialog, .consent-bar, .privacy-bar) {
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 20vh;
+  overflow: auto;
+  z-index: 80;
+  line-height: 1.35;
+}
+:is([data-consent-banner], [data-cookie-consent], [data-cookie-banner], [data-privacy-bar], #cookie-banner, #cookie-consent, #onetrust-banner-sdk, #CybotCookiebotDialog, .consent-bar, .privacy-bar) :is(h1, h2, h3, h4, [class*="heading"], [class*="title"]) {
+  margin-bottom: 8px !important;
+  line-height: 1.35;
+}
+:is([data-consent-banner], [data-cookie-consent], [data-cookie-banner], [data-privacy-bar], #cookie-banner, #cookie-consent, #onetrust-banner-sdk, #CybotCookiebotDialog, .consent-bar, .privacy-bar) :is(button, [role="button"]) {
+  white-space: normal;
+  height: auto;
+  max-width: 100%;
 }

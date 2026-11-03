@@ -167,10 +167,10 @@ function finishTileSvg(hex, isWood) {
     // faint horizontal woodgrain lines
     for (let i = 1; i <= 9; i++) {
       const yy = (S * i) / 10;
-      els.push(`<line x1="0" y1="${yy}" x2="${S}" y2="${yy}" stroke="#000000" stroke-opacity="0.06" stroke-width="2"/>`);
+      els.push(`<line x1="0" y1="${yy}" x2="${S}" y2="${yy}" stroke="#383837" stroke-opacity="0.06" stroke-width="2"/>`);
     }
   }
-  els.push(`<rect x="0.5" y="0.5" width="${S - 1}" height="${S - 1}" fill="none" stroke="#000000" stroke-opacity="0.08"/>`);
+  els.push(`<rect x="0.5" y="0.5" width="${S - 1}" height="${S - 1}" fill="none" stroke="#383837" stroke-opacity="0.08"/>`);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" role="img" aria-label="finish color tile">
   ${els.join("\n  ")}
