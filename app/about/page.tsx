@@ -162,10 +162,12 @@ export default function AboutPage() {
               <Reveal>
                 <p className="ed-eyebrow">Who you meet</p>
                 <h2 className="ed-h2 ed-statement">Nick Perkins, <em className="brc-accent text-accent">founder</em></h2>
-                <p className="ed-lede mt-6">
-                  It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management and more than a decade of work from small renovations to multimillion-dollar custom homes. He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
-                  <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.
-                </p>
+                <ul className="ed-lede mt-6">
+                  <li>It is run by Nick Perkins, a construction project manager with a bachelor&apos;s degree in Construction with an emphasis in Project Management.</li>
+                  <li>He has more than a decade of work from small renovations to multimillion-dollar custom homes.</li>
+                  <li>He founded P5 in Colorado in 2020 and moved to the Treasure Valley in 2025. Read the full story on{' '}
+                  <a href="https://p5homeco.com/about" className="underline underline-offset-2">p5homeco.com/about</a>.</li>
+                </ul>
                 <blockquote className="mt-8 border-l-2 pl-6 ed-h3" style={{ borderColor: 'var(--ed-accent)' }}>
                   &ldquo;Work hard. Keep your word. Treat people right.&rdquo;
                 </blockquote>
@@ -201,9 +203,11 @@ export default function AboutPage() {
               </div>
               <div>
                 <p className="ed-lede">{IDENTITY}</p>
-                <p className="ed-body mt-6">
-                  We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes. We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom. Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.
-                </p>
+                <ul className="ed-body mt-6">
+                  <li>We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes.</li>
+                  <li>We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom.</li>
+                  <li>Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.</li>
+                </ul>
                 <p className="ed-body mt-4">
                   Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
                 </p>

@@ -150,11 +150,10 @@ export function KitchenPlanningRange() {
           ) : (
             <p className="kitchen-planning-figure-empty">Adjust size to see a range.</p>
           )}
-          <p className="kitchen-planning-disclaimer">
-            Modeled Treasure Valley planning figures from our estimator engine (linear feet, door,
-            finish, and construction). Countertops, plumbing, electrical, demolition, and haul-away
-            are scoped separately when needed. Not a firm bid.
-          </p>
+          <ul className="kitchen-planning-disclaimer">
+            <li>Modeled Treasure Valley planning figures from our estimator engine (linear feet, door, finish, and construction).</li>
+            <li>Countertops, plumbing, electrical, demolition, and haul-away are scoped separately when needed. Not a firm bid.</li>
+          </ul>
           <a className="text-link" href="/estimate" data-testid="kitchen-planning-cta">
             {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} aria-hidden="true" />
           </a>

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export interface PageHeaderProps {
   eyebrow?: string;
   title: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   meta?: React.ReactNode;
   align?: "left" | "center";
   className?: string;
@@ -36,7 +36,11 @@ export function PageHeader({
     >
       {eyebrow && <p className="ed-eyebrow">{eyebrow}</p>}
       <h1 className="ed-display ed-statement-display">{title}</h1>
-      {description && <p className="ed-lede mt-8 max-w-[44ch]">{description}</p>}
+      {description && (
+        typeof description === "string"
+          ? <p className="ed-lede mt-8 max-w-[44ch]">{description}</p>
+          : <div className="ed-lede mt-8 max-w-[44ch]">{description}</div>
+      )}
       {meta && (
         <div className={cn("ed-small mt-6 flex flex-wrap items-center gap-4", centered && "justify-center")}>
           {meta}

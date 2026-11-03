@@ -19,6 +19,7 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ENRICHMENT_IMAGES } from "@/shared/siteImages";
+import { ShortCopy } from "@/components/marketing/ShortCopy";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
@@ -205,7 +206,7 @@ export default function BuildersPage() {
               {REASONS.map((r) => (
                 <MarketingCard key={r.title} className="h-full">
                   <h3 className="ed-h3 mb-3">{r.title}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{r.body}</p>
+                  <ShortCopy className="text-base leading-relaxed text-muted-foreground" text={r.body} />
                 </MarketingCard>
               ))}
             </div>

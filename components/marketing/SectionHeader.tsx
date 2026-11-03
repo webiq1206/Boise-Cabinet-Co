@@ -49,7 +49,11 @@ export function SectionHeader({
       <Heading className={cn(size === "display" ? "ed-h2" : "ed-h2-sm", "ed-statement-wide")}>
         {title}
       </Heading>
-      {description && <p className="ed-body mt-6">{description}</p>}
+      {description && (
+        typeof description === "string"
+          ? <p className="ed-body mt-6">{description}</p>
+          : <div className="ed-body mt-6">{description}</div>
+      )}
     </div>
   );
 

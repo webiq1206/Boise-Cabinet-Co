@@ -199,8 +199,11 @@ export default function ContactPage() {
                 }
                 description={
                   <>
-                    We respond within one business day. Share your goals and we will schedule a free in-home design consultation.{" "}
-                    <PreferToTextLine />
+                    <ul>
+                      <li>We respond within one business day.</li>
+                      <li>Share your goals and we will schedule a free in-home design consultation.</li>
+                      <li><PreferToTextLine /></li>
+                    </ul>
                   </>
                 }
                 className="max-w-none"
@@ -227,8 +230,11 @@ export default function ContactPage() {
               }
               description={
                 <>
-                  Call, email, or visit, we respond within one business day and never use high-pressure sales tactics.{" "}
-                  <PreferToTextLine />
+                  <ul>
+                    <li>Call, email, or visit.</li>
+                    <li>We respond within one business day and never use high-pressure sales tactics.</li>
+                    <li><PreferToTextLine /></li>
+                  </ul>
                 </>
               }
               className="max-w-3xl"
