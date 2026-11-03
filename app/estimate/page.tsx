@@ -70,6 +70,13 @@ export default function EstimatePage() {
         <summary className="min-h-11 cursor-pointer py-3 underline">
           Prefer a step-by-step planning range?
         </summary>
+        <a
+          className="inline-flex min-h-14 items-center py-3 text-sm font-medium underline underline-offset-4"
+          href="/estimate#estimate-request"
+          data-testid="planning-contact-cta"
+        >
+          Request a cabinet quote
+        </a>
         <div className="pt-4" data-estimate-wizard="">
           <EstimateCalculatorWizard fitViewport />
         </div>
@@ -77,3 +84,4 @@ export default function EstimatePage() {
     </>
   );
 }
+
