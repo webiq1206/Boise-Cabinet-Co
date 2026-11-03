@@ -109,6 +109,7 @@ export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterP
             {brandExtra}
           </div>
 
+          <div className="fam-footer-groups">
           {footer.groups.map((group) => (
             <div className="fam-footer-group" key={group.title}>
               <p className="fam-footer-label">{group.title}</p>
@@ -121,6 +122,7 @@ export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterP
               </ul>
             </div>
           ))}
+          </div>
         </div>
 
         <div className="fam-footer-row fam-footer-areas">
