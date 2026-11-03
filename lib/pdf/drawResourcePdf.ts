@@ -139,7 +139,7 @@ const LIGHT_THEME: Theme = {
 /** Boise Cabinet Co dark brand system (matches the brand-system document). */
 const DARK_THEME: Theme = {
   dark: true,
-  pageBg: hex('1C1F1E'), // charcoal page base
+  pageBg: hex('383837'), // brand charcoal
   title: hex('F7F5F3'), // bone
   heading: hex('F7F5F3'),
   body: hex('E6E3DE'), // warm text
@@ -155,8 +155,8 @@ const DARK_THEME: Theme = {
   // Product line-drawings are black-on-white, so cards stay a light bone tile.
   cardBg: hex('F5F3EF'),
   cardBorder: hex('4A4F4C'),
-  placeholderBg: hex('2C302F'), // charcoal tile
-  tableHeaderBg: hex('2C302F'),
+  placeholderBg: hex('383837'), // brand charcoal tile
+  tableHeaderBg: hex('383837'),
   tableHeaderText: hex('F7F5F3'),
 };
 

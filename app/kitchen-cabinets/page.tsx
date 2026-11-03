@@ -93,7 +93,7 @@ function CallTextButtons({ onDark = false }: { onDark?: boolean }) {
         href={TEL_HREF}
         className={
           onDark
-            ? `${linkClass} bg-[#fbfaf6] text-[#2c302f] focus-visible:ring-[#fbfaf6]`
+            ? `${linkClass} bg-[#fbfaf6] text-[var(--color-charcoal)] focus-visible:ring-[#fbfaf6]`
             : `${linkClass} bg-primary text-primary-foreground focus-visible:ring-ring`
         }
       >
@@ -143,7 +143,7 @@ export default function KitchenCabinetsPage() {
           sizes="100vw"
           className="object-cover object-[62%_center]"
         />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,31,30,0.92), rgba(28,31,30,0.72) 55%, rgba(28,31,30,0.60))" }} aria-hidden="true" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-forest) 92%, transparent), color-mix(in srgb, var(--color-forest) 72%, transparent) 55%, color-mix(in srgb, var(--color-forest) 60%, transparent))" }} aria-hidden="true" />
         <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
           <h1 className="max-w-[16ch] font-serif">
             Boise cabinets for kitchens, baths &amp; built-ins
@@ -159,7 +159,7 @@ export default function KitchenCabinetsPage() {
             {TRUST.map(({ icon: Icon, label }) => (
               <li
                 key={label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#fbfaf6]/35 bg-[#1c1f1e]/55 px-3 py-1.5 text-[13px] leading-tight text-[#fbfaf6]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#fbfaf6]/35 bg-[color-mix(in_srgb,var(--color-forest)_55%,transparent)] px-3 py-1.5 text-[13px] leading-tight text-[#fbfaf6]"
               >
                 <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 <span>{label}</span>
