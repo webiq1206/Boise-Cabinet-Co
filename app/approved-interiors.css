@@ -897,12 +897,18 @@
   line-height: var(--lh-display);
   letter-spacing: var(--tracking-display);
 }
-.approved-shell.site-cabinet .cabinet-approved :is(.fr-cta-strip, .fr-request-copy) h2:not(.sr-only),
-.approved-shell.site-cabinet .ed-h2-sm:not(.sr-only) {
+.approved-shell.site-cabinet .cabinet-approved :is(.fr-cta-strip, .fr-request-copy) h2:not(.sr-only) {
   font-size: var(--fs-h1);
   font-weight: var(--weight-display);
   line-height: var(--lh-h1);
   letter-spacing: var(--tracking-display);
+}
+.approved-shell.site-cabinet .ed-h2-sm:not(.sr-only) {
+  font-size: var(--fs-h2);
+  font-weight: var(--weight-display);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--tracking-heading);
+  font-family:var(--font-display);
 }
 .approved-shell.site-cabinet .approved-interior :is(.ed-h3, .ed-matrix h3) {
   font-size: var(--fs-h3);

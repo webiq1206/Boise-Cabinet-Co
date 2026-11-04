@@ -21,7 +21,7 @@ Use self-hosted Cormorant Garamond headings/display and Manrope body/UI. The own
 | Eyebrow | 13 | 13 | 13 | 1.3 / +.06em |
 | Navigation / button | 15 / 16 | 15 / 16 | 15 / 16 | 1 / 0 |
 
-Use exact tokens/weights/measures in the profile. `ed-h2` is editorial display; `ed-h2-sm` is H1/feature; ordinary article headings retain their role. Replace conflicting declarations rather than universal `!important` floors. Marketing roles do not target protected estimator/admin/portal/input geometry.
+Use exact tokens/weights/measures in the profile. `ed-h2` is editorial display; `ed-h2-sm` uses the ordinary H2 role, matching the sibling SectionHeader component; named request/room feature titles retain the H1/feature role; ordinary article headings retain their role. Replace conflicting declarations rather than universal `!important` floors. Marketing roles do not target protected estimator/admin/portal/input geometry.
 
 Spacing uses the 4–128px scale, 20/32/48px gutters (16 below 360px), 1280px content maximum, 65ch copy measure, 64/80/96px standard sections and role-specific stacks. The 1180px navigation threshold does not redefine type tiers. Photography may bleed while text follows the grid. Split/matrix/panel/card primitives are optional; choose grids by real count, four-item balance and intentional incomplete rows.
 

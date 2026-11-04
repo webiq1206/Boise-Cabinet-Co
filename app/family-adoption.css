@@ -19,3 +19,29 @@
   gap: var(--icon-gap);
   font-size: var(--fs-button);
 }
+/*
+  Reviewed marketing typography roles, November 4. Dedicated tool and form controls retain their own rules.
+*/
+.cabinet-approved > :is(#cabinetry, #door-styles, #finishes, #why-us, #process, #inspiration, #who-hiring, .builder-band) .eyebrow,
+.cabinet-approved.fr-request .fr-request-copy .eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+}
+.cabinet-approved #who-hiring-heading + p {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.cabinet-approved > :is(#cabinetry, #door-styles, #finishes, #why-us, #process, #inspiration, #who-hiring, .builder-band) .text-link,
+.cabinet-approved.fr-request .fr-request-copy .text-link {
+  font-family: var(--font-sans);
+  font-size: var(--fs-button);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0;
+}

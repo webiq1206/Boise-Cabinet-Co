@@ -70,7 +70,7 @@ Use the current owner-selected role map. Values are CSS px; phone <640, tablet 6
 | Uppercase eyebrow | 13 | 13 | 13 | 1.3 | +.06em | Heading column |
 | Navigation / button | 15 / 16 | 15 / 16 | 15 / 16 | 1 | 0 | Control; allow growth |
 
-`ed-h2` is editorial display; `ed-h2-sm` is H1/feature. Article/legal headings keep their content role. Use `--fs-*`, `--lh-*`, weight/tracking tokens; replace conflicting declarations instead of universal `!important` floors. Marketing rules must not leak into estimator/admin/portal/application inputs. The shared fluid hero is an explicit retained role decision. Legacy oversized clamps are implementation debt, not exceptions. Actual loaded fonts, wrapping, 200% text and equivalent-role equality require rendered checks. [S3, S5, S12]
+`ed-h2` is editorial display; `ed-h2-sm` uses the ordinary H2 role, matching the sibling SectionHeader component; named request/room feature titles retain the H1/feature role. Article/legal headings keep their content role. Use `--fs-*`, `--lh-*`, weight/tracking tokens; replace conflicting declarations instead of universal `!important` floors. Marketing rules must not leak into estimator/admin/portal/application inputs. The shared fluid hero is an explicit retained role decision. Legacy oversized clamps are implementation debt, not exceptions. Actual loaded fonts, wrapping, 200% text and equivalent-role equality require rendered checks. [S3, S5, S12]
 
 ### Spacing and layout
 
