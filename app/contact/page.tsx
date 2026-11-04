@@ -98,7 +98,7 @@ function ContactChannel({
       } ${featured ? 'md:p-10' : ''}`}
       padding={featured ? 'lg' : 'default'}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col items-start gap-4 sm:flex-row">
         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-sm bg-accent/10 text-accent">
           {icon}
         </div>
@@ -231,7 +231,7 @@ export default function ContactPage() {
               description={
                 <>
                   <ul>
-                    <li>Call, email, or visit.</li>
+                    <li>Call, text, or email our team.</li>
                     <li>We respond within one business day and never use high-pressure sales tactics.</li>
                     <li><PreferToTextLine /></li>
                   </ul>
@@ -239,7 +239,7 @@ export default function ContactPage() {
               }
               className="max-w-3xl"
             />
-            <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
+            <div className="ed-grid-balance grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Reveal>
                 <ContactChannel
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
@@ -272,7 +272,7 @@ export default function ContactPage() {
                 >
                   <a
                     href={`mailto:${SITE_CONFIG.email}`}
-                    className="tap-target text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
+                    className="tap-target max-w-full [overflow-wrap:anywhere] text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
                   >
                     {SITE_CONFIG.email}
                   </a>

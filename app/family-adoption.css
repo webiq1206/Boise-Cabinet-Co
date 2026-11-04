@@ -46,19 +46,26 @@
   letter-spacing: 0;
 }
 
-/* Exact Cabinet heading teal needs a neutral surround on paper/bone and photos.
-   The existing H1/H2 accent text is at least 24px; a one-pixel charcoal glyph
-   surround preserves its fill, type and flow. It does not style UI icons or
-   ordinary accent text. Verify the loaded thin-serif pixels independently. */
+/* Preserve the thin serif with a light neutral context on paper and bone.
+   White already appears on the site's form cards. Dark compositions retain
+   their charcoal context; neither treatment changes the exact teal fill. */
+:is(.approved-shell,.cabinet-design-studio) {
+  --cabinet-heading-context: #fff;
+}
+.approved-shell :is(.f-hero,.f-value,.f-contact,.interior-hero-contact,.ed-on-dark,.ed-on-deep,.ed-on-gradient,.bg-inverse,.finish-copy),
+.cabinet-approved :is(.value-panel,.kitchen-planning-range.fr-band),
+.cabinet-approved .fam-hero[data-family-hero] {
+  --cabinet-heading-context: var(--color-charcoal);
+}
 :is(.approved-shell,.cabinet-design-studio) :is(h1,h2) :is(em,.brc-accent,.text-accent:not(svg)),
 .cabinet-approved .fam-hero[data-family-hero] .fam-hero-copy .fam-hero-accent {
   text-shadow:
-    -1px -1px 0 var(--color-charcoal),
-     0 -1px 0 var(--color-charcoal),
-     1px -1px 0 var(--color-charcoal),
-     1px  0 0 var(--color-charcoal),
-     1px  1px 0 var(--color-charcoal),
-     0  1px 0 var(--color-charcoal),
-    -1px  1px 0 var(--color-charcoal),
-    -1px  0 0 var(--color-charcoal);
+    -1px -1px 0 var(--cabinet-heading-context),
+     0 -1px 0 var(--cabinet-heading-context),
+     1px -1px 0 var(--cabinet-heading-context),
+     1px  0 0 var(--cabinet-heading-context),
+     1px  1px 0 var(--cabinet-heading-context),
+     0  1px 0 var(--cabinet-heading-context),
+    -1px  1px 0 var(--cabinet-heading-context),
+    -1px  0 0 var(--cabinet-heading-context);
 }
