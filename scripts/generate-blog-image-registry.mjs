@@ -185,7 +185,7 @@ const ENTRIES = {
   },
   "how-to-budget-cabinets-boise": {
     hero: "/images/marketing/hero-home.webp",
-    alt: "Warm interior cabinetry illustrating thoughtful budgeting for a Boise cabinet project",
+    alt: "Warm interior cabinetry with coordinated finishes",
     topicTags: ["cost", "budget", "planning"],
     source: "services",
   },
@@ -312,7 +312,7 @@ const ENTRIES = {
   },
   "cabinet-buying-mistakes": {
     hero: cs("whole-home-remodel", "caldwell"),
-    alt: "Quality whole-home cabinetry illustrating proper specification in Caldwell",
+    alt: "Coordinated whole-home cabinetry",
     topicTags: ["whole-home", "planning", "caldwell"],
     source: "city-service",
   },
@@ -378,7 +378,7 @@ const ENTRIES = {
   },
   "why-cabinet-quotes-vary": {
     hero: cs("bathroom-remodel", "star"),
-    alt: "Finished bathroom vanity illustrating scope differences between cabinet quotes",
+    alt: "Bathroom vanity with drawer storage",
     topicTags: ["contractor", "pricing"],
     source: "city-service",
   },
@@ -397,7 +397,7 @@ const ENTRIES = {
   },
   "fixed-price-vs-cost-plus": {
     hero: "/images/blog/how-to-compare-remodeling-estimates.webp",
-    alt: "Illustrative kitchen and bathroom scope documents arranged for comparison",
+    alt: "Kitchen and bathroom scope documents arranged for comparison",
     topicTags: ["contractor", "pricing"],
     source: "gallery",
   },
