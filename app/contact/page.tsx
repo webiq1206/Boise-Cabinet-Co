@@ -121,7 +121,7 @@ function ContactChannel({
     return (
       <a
         href={href}
-        className="block h-full group"
+        className="contact-channel-link block h-full group"
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {inner}

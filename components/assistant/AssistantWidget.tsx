@@ -132,11 +132,6 @@ export function AssistantWidget() {
   const formInView = useFormInView(pathname, true);
   const [available, setAvailable] = useState(false);
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const openFromBar = () => setOpen(true);
-    window.addEventListener("p5:assistant-open", openFromBar);
-    return () => window.removeEventListener("p5:assistant-open", openFromBar);
-  }, []);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [photos, setPhotos] = useState<string[]>([]);
@@ -145,9 +140,23 @@ export function AssistantWidget() {
   const [estimate, setEstimate] = useState<CombinedEstimateResult | null>(null);
   const [wizardBarActive, setWizardBarActive] = useState(false);
   const [contactClear, setContactClear] = useState(true);
+  const [footerInView, setFooterInView] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  // The footer already offers Chat; its links must stay clear of the launcher.
+  useEffect(() => {
+    const footer = document.querySelector("footer[data-family-footer]");
+    if (!footer) {
+      setFooterInView(false);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => setFooterInView(entry.isIntersecting));
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [available, pathname]);
 
   // Only offer the assistant when the server says it's configured.
   useEffect(() => {
@@ -217,6 +226,8 @@ export function AssistantWidget() {
   }, [messages, open, pending]);
 
   const handleOpen = useCallback(() => {
+    const active = document.activeElement;
+    openerRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
     setOpen(true);
     track("assistant_opened", { page_type: pathname ?? "unknown" });
     setMessages((prev) => {
@@ -236,8 +247,33 @@ export function AssistantWidget() {
       }
       return [GREETING];
     });
-    setTimeout(() => inputRef.current?.focus(), 50);
   }, [pathname]);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [available, open, pathname]);
+
+  useEffect(() => {
+    window.addEventListener("p5:assistant-open", handleOpen);
+    return () => window.removeEventListener("p5:assistant-open", handleOpen);
+  }, [handleOpen]);
+
+  const handleClose = useCallback(() => {
+    const opener = openerRef.current;
+    setOpen(false);
+    window.requestAnimationFrame(() => {
+      const launcher = opener?.dataset.testid === "button-assistant-open"
+        ? document.querySelector<HTMLElement>('[data-testid="button-assistant-open"]')
+        : null;
+      const target = [
+        opener,
+        launcher,
+        document.querySelector<HTMLElement>('[data-testid="button-mobile-menu-open"]'),
+        document.querySelector<HTMLElement>('[data-testid="button-chat-mobile-header"]'),
+      ].find((element) => element?.isConnected && element.getClientRects().length > 0);
+      target?.focus();
+    });
+  }, []);
 
   const send = useCallback(async () => {
     const text = input.trim();
@@ -334,7 +370,7 @@ export function AssistantWidget() {
 
   return (
     <>
-      {!open && !formInView && !wizardBarActive && contactClear && (
+      {!open && !formInView && !wizardBarActive && contactClear && !footerInView && (
         <button
           type="button"
           onClick={handleOpen}
@@ -353,7 +389,7 @@ export function AssistantWidget() {
           aria-label="Boise Cabinet Co virtual estimating assistant"
           className="fixed inset-x-0 bottom-0 z-[110] flex h-[85dvh] flex-col rounded-t-xl border border-border bg-background shadow-2xl md:inset-x-auto md:bottom-6 md:right-6 md:h-[600px] md:max-h-[80dvh] md:w-[400px] md:rounded-xl"
           onKeyDown={(e) => {
-            if (e.key === "Escape") setOpen(false);
+            if (e.key === "Escape") handleClose();
           }}
         >
           <div className="flex items-start justify-between gap-3 border-b border-border px-4 py-3">
@@ -367,7 +403,7 @@ export function AssistantWidget() {
             </div>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={handleClose}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground"
               aria-label="Close the assistant"
               data-testid="button-assistant-close"

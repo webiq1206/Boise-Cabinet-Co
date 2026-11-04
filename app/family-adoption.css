@@ -69,3 +69,8 @@
     -1px  1px 0 var(--cabinet-heading-context),
     -1px  0 0 var(--cabinet-heading-context);
 }
+
+/* Native keyboard scrolling keeps the complete contact action above the bar. */
+.approved-interior.interior-contact .contact-channel-link {
+  scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+}
