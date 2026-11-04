@@ -52,8 +52,8 @@
 :is(.approved-shell,.cabinet-design-studio) {
   --cabinet-heading-context: #fff;
 }
-.approved-shell :is(.f-hero,.f-value,.f-contact,.interior-hero-contact,.ed-on-dark,.ed-on-deep,.ed-on-gradient,.bg-inverse,.finish-copy),
-.cabinet-approved :is(.value-panel,.kitchen-planning-range.fr-band),
+.approved-shell :is(.f-hero,.f-value,.f-contact,.interior-hero-contact,.ed-on-gradient,.bg-inverse,.finish-copy,.fr-band),
+.cabinet-approved .value-panel,
 .cabinet-approved .fam-hero[data-family-hero] {
   --cabinet-heading-context: var(--color-charcoal);
 }
