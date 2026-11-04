@@ -48,19 +48,20 @@ const IDENTITY =
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);return <div className="cabinet-approved">
   <HeroPhoto
+   fit="viewport"
    image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%',unoptimized:true}}
    phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%',unoptimized:true}}
    eyebrow="Custom cabinets · Treasure Valley, Idaho"
    title="Custom cabinets in Boise,"
    titleAccent="Idaho"
-   support="Kitchen cabinets, vanities, and built-ins. Free in-home design consultation."
+   support="Kitchen cabinets, vanities, and built-ins."
    primary={{label:CTA_REQUEST_QUOTE,href:CTA_QUOTE_HREF}}
    link={{label:`Call or text ${SITE_CONFIG.phone}`,href:SITE_CONFIG.phoneHref}}
    microcopy="Written price before work."
   />
   <ProofStrip label="The Boise Cabinet Co difference" items={PROOF}/>
   <section id="cabinetry" className="section wrap room-editorial">
- <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew.</p></div>
+ <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew. Free in-home design consultation.</p></div>
  <Tabs defaultValue="kitchen" className="room-explorer"><TabsList className="room-tabs"><TabsTrigger value="kitchen">Kitchens</TabsTrigger><TabsTrigger value="bathroom">Bathrooms</TabsTrigger><TabsTrigger value="storage">Built-ins</TabsTrigger><TabsTrigger value="more">More rooms</TabsTrigger></TabsList>
  {rooms.map((r,i)=><TabsContent key={r.name} value={['kitchen','bathroom','storage'][i]}><div className="room-scene"><button className="room-scene-image" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])} aria-label={'Explore '+r.name.toLowerCase()+' cabinetry'}><img src={r.image} alt={r.alt} loading="lazy" width="1200" height="628"/><span className="scene-explore">Explore this space <ArrowUpRight size={18}/></span></button><div className="room-scene-copy"><span className="eyebrow">0{i+1} / {r.name}</span><h3>{r.title}</h3><p>{r.desc}</p><button className="text-link" onClick={()=>window.location.assign(["/cabinets/kitchen","/cabinets/bathroom","/cabinets/mudroom"][i])}>Explore {r.name.toLowerCase()} <ArrowUpRight size={18}/></button></div></div></TabsContent>)}
  <TabsContent value="more"><div className="room-scene"><div className="room-scene-image"><img src="/family/drive/square-2-pantry-cabinet-with-open-shelves.webp" alt="Cream pantry cabinets with white oak open shelves holding glass storage jars" loading="lazy" width="1200" height="1200"/></div><div className="room-scene-copy"><span className="eyebrow">THINK BEYOND THE KITCHEN</span><h3>Every inch.<br/>Put to good use.</h3><Accordion type="single" collapsible className="other-room-list">{additionalRooms.map(([name,desc,url])=><AccordionItem value={name} key={name}><AccordionTrigger>{name}</AccordionTrigger><AccordionContent><p>{desc}</p><a className="text-link" href={''+url}>Explore {name.toLowerCase()} <ArrowUpRight size={16}/></a></AccordionContent></AccordionItem>)}</Accordion></div></div></TabsContent>
