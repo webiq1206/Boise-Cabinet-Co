@@ -17,7 +17,7 @@ export function FeaturedProjectSection() {
       <div className="ed-shell pt-[var(--ed-pad)] pb-[clamp(32px,4vw,56px)]">
         <div className="ed-split ed-split-end">
           <Reveal>
-            <p className="ed-eyebrow">{isConcept ? "Cabinet design example" : "Featured project"}</p>
+            <p className="ed-eyebrow">{isConcept ? "Kitchen cabinetry" : "Featured project"}</p>
             <h2 className="ed-h2 ed-statement">
               See what quality cabinetry can{" "}
               <em className="not-italic" style={{ color: "var(--ed-accent)" }}>
@@ -83,7 +83,7 @@ export function FeaturedProjectSection() {
           <Reveal delay={80}>
             <ProjectDetailStrip
               images={project.detail}
-              label={`${project.area} property views`}
+              label="Design details"
             />
           </Reveal>
         </div>

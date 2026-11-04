@@ -12,10 +12,6 @@ import type { SiteProject } from "./projects/types";
 export type { SiteProject } from "./projects/types";
 export { PROJECTS } from "./generated/projects.generated";
 
-/** Shown wherever illustrative design concepts appear. */
-export const DESIGN_CONCEPT_DISCLOSURE =
-  "Illustrative design renderings, not photographs of specific completed homes. We build to your space and selections.";
-
 /** Back-compat flat shape for simpler consumers (JSON-LD, image sitemap, API). */
 export interface DesignConcept {
   serviceType: string;

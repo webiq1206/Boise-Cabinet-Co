@@ -414,7 +414,7 @@ export function RoomPhotoOverlay({
                   opacity,
                   transform: `translate(-50%, -50%) scale(${transform.scale}) rotateX(${transform.tilt}deg) rotateY(${transform.turn}deg)`,
                   transformOrigin: "center center",
-                  filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.28))",
+                  filter: "drop-shadow(0 12px 24px rgba(56,56,55,0.28))",
                 }}
                 data-testid="img-cabinet-overlay"
               />

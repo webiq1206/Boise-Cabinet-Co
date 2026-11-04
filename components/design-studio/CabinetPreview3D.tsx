@@ -657,7 +657,7 @@ export function CabinetScene3D(props: SceneProps) {
         preserveDrawingBuffer: true,
         powerPreference: props.mobileQuality ? "low-power" : "high-performance",
       }}
-      style={{ background: "linear-gradient(180deg, #262B29 0%, #1C1F1E 100%)" }}
+      style={{ background: "linear-gradient(180deg, var(--color-charcoal) 0%, var(--color-forest) 100%)" }}
       onPointerMissed={() => props.onSelect(null)}
     >
       <Scene {...props} />

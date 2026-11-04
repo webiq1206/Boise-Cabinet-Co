@@ -54,7 +54,7 @@ export function buildFloorPlanSvg(input: {
     const fill = m.isWall ? "#d4cfc8" : "#c4a882";
     body += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#3A3E3D" stroke-width="1.5"/>`;
     if (w > 28 && h > 18) {
-      body += `<text x="${x + w / 2}" y="${y + h / 2 + 4}" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1a1a">${esc(cabinetCode(m))}</text>`;
+      body += `<text x="${x + w / 2}" y="${y + h / 2 + 4}" text-anchor="middle" font-size="9" font-weight="600" fill="#383837">${esc(cabinetCode(m))}</text>`;
     }
   }
 

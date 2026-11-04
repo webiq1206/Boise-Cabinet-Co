@@ -19,13 +19,13 @@ export const EMAIL_BRAND = {
   charcoal: "#EDEAE4", // primary text (light-on-dark)
   charcoalLight: "#9AA098", // mist / muted text
   sage: "#7AAAAA", // decorative accent (brand teal); key name kept for compat
-  canvas: "#1C1F1E", // body ground (darkest)
-  white: "#222624", // card / content surface
+  canvas: "#383837", // body ground (darkest)
+  white: "#383837", // card / content surface
   border: "#39403D", // hairline
-  highlightBg: "#262B29", // raised surface (boxes, badges)
+  highlightBg: "#383837", // raised surface (boxes, badges)
   accentDark: "#8FBEBE", // readable accent (lighter teal) for links
   bone: "#F7F5F3", // headings + CTA button background
-  onAccent: "#1C1F1E", // text on the bone button
+  onAccent: "#383837", // text on the bone button
 } as const;
 
 export const SITE_BASE_URL = SITE_CONFIG.siteUrl;

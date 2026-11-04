@@ -1,52 +1,52 @@
-# P5 family design system (shared rules and permitted brand variation)
+# Boise Cabinet Co design-system adoption
 
-The four brand sites share one editorial layer, `app/family.css`, kept byte-identical across repositories (`md5 -q app/family.css` on each repo must match). It carries no brand colour: every hue resolves from the site's own tokens (`--background`, `--foreground`, `--heading`, `--primary`, `--accent`, `--accent-legible`, `--accent-on-light`, `--muted-foreground`, `--border`, `--inverse`). The reference is p5homeco.com's own stylesheet.
+The authoritative complete E1 specification is [brand-profile.md](brand-profile.md), version 1.0. Read it with the complete Website Design Quality 2.3 master/implementation/review resources and Organic and AI Search Visibility 1.0.2. This file is an implementation/migration note, not a second profile or a visual acceptance record.
 
-## Shared rules (do not vary per brand)
-- Measure: `ed-shell` = min(100% - 48px, 1380px); narrow 1080px; prose 720px. Breakpoints 1100 / 820 / 560.
-- Rhythm: `Section` with `spacing="default" | "sm" | "lg" | "xl"` (fluid clamp paddings) and `surface="dark" | "deep" | "bone" | "muted" | "gradient"`. Dark-dominant pages with several light (`bone`) bands spaced apart; closing asks are gradient statement bands, never cards.
-- Type: Cormorant Garamond display/headings (`ed-display`, `ed-h2`, `ed-h2-sm`, `ed-h3`, `ed-h4`), Manrope body at 15px/1.75 (`ed-body`), `ed-lede`, tracked uppercase `ed-eyebrow` with a 28px rule. Statement measures live on the heading (`ed-statement*`), never on a wrapper.
-- Layout primitives: `ed-split` (1.35fr/.65fr, `-even`, `-narrow`, `-end`, `-center`), `ed-matrix` (hairline grid; column count via `--ed-cols`, collapses to 2 columns under 1100px and 1 under 560px by track list, so an inline `--ed-cols` cannot override it), `ed-panel` (57/43 image + copy, `-reverse`), `ed-rail` (horizontal scroller), `ed-inset`, `ed-card`, `ed-steps`/`ed-step`/`ed-step-n`, `ed-link` + `ed-arrow`.
-- Buttons: `brand` (58px, uppercase, 11px/700, tracked), `brandOutline`, `heroOutline` (same format in inverse colours over photography). CTA pairs stack full width under 640px. `heroGhost` is wizard chrome only.
-- Motion: `ed-rise` reveal and `ed-zoom` 850ms on the shared curve; everything respects `prefers-reduced-motion`.
-- Light bands re-point the semantic tokens for their subtree (including `--heading`, `--primary` and `--primary-foreground` so `brand` buttons are ink on bone) and leave `--inverse` alone so photo badges stay dark.
-- Estimators: `/estimate` is a fixed one-screen `AppFrame` (Cabinet: `GuidedFlowShell fitViewport`) with the step body between a compact header and a pinned footer; every step fits 390x844 without page scroll. Dialogs render above the frame (`z-[210]/[220]`).
-- Mobile: hero stat cards become a three-cell strip; trust strips are left-aligned rows with an inline dot; phone layouts are checked by `scripts/verify-mobile-layout.mjs` and contrast by `npm run verify:contrast`.
+## Current rules
 
-## Permitted brand variation
-- Colour tokens and accent (Remodeling sage, Construction ochre, Handyman blue, Cabinet teal), logos and wordmarks, photography, copy, service data, section order per page, and which sections a page uses. Header and footer structure follow the same pattern with brand-specific links.
-- Nothing else: type scale, spacing, primitives, button formats and estimator chrome stay shared so the sites read as one family.
+Cabinet retains paper `#FBFAF6`, bone `#F1EDE4`, charcoal controls, teal `#659B9A` and readable teal ink `#356463`. Header, menu and footer use the owner-selected common chrome charcoal `#383837`. Do not transfer sibling accents. Use complete `public/brand/approved-lockup-dark.svg` and `approved-lockup-light.svg` artwork. Current web teal supersedes the archived kit’s `#7AAAAA` for web UI.
 
-## Grid balance (2026-09-08)
+Use self-hosted Cormorant Garamond headings/display and Manrope body/UI. The owner’s all-site comparison selected these equivalent roles; Cabinet is not reduced in isolation:
 
-A row that ends with one lonely cell reads as unfinished, so every grid picks
-its shape from its item count instead of a fixed column number.
+| Role | Phone <640 | Tablet 640–1023 | Desktop ≥1024 | Line height / tracking |
+| --- | --- | --- | --- | --- |
+| Shared photo hero | Fluid 42–56 | Fluid 56–80 | Fluid 68–116 | 1.02 / 1.02 / .98; -.03em |
+| Editorial section display | 36 | 52 | 64 | 1.05 / -.02em |
+| Interior H1 / feature | 32 | 44 | 52 | 1.1 / -.02em |
+| Ordinary article/legal H2 | 28 | 36 | 40 | 1.15 / -.01em |
+| Content/card H3 | 22 | 26 | 28 | 1.2 / -.01em |
+| H4 | 18 | 20 | 20 | 1.3 / 0 |
+| Body | 17 | 18 | 18 | 1.6 / 0 |
+| Caption | 14 | 15 | 15 | 1.5 / 0 |
+| Eyebrow | 13 | 13 | 13 | 1.3 / +.06em |
+| Navigation / button | 15 / 16 | 15 / 16 | 15 / 16 | 1 / 0 |
 
-- `.ed-matrix`: five items lay out as three then two, seven as four then three
-  (span rules in `family.css`, desktop only). In the two-column range
-  (561 to 1100 px) an odd last item takes the full row.
-- `.ed-cards-3`: the card grid for posts, guides, projects and services. One
-  column on phones, two on tablets (an odd last card is centred), three on
-  laptops and up (a lone last card is centred, a pair widens to halves).
-  Use it instead of `grid sm:grid-cols-2 lg:grid-cols-3`.
-- `.ed-grid-balance`: opt-in for one or two column Tailwind grids (option
-  cards, checklists, contact channels): the last odd item spans the row.
-- Fixed counts: nine cities use three columns; four benefits use four.
-- Two-column sections never leave a column empty. The long-form prose measure
-  carries a sticky "In this guide" index; a lone local note or timeline is a
-  split with the heading on the left; "what sets us apart" carries a photo
-  under its sticky intro.
+Use exact tokens/weights/measures in the profile. `ed-h2` is editorial display; `ed-h2-sm` uses the ordinary H2 role, matching the sibling SectionHeader component; named request/room feature titles retain the H1/feature role; ordinary article headings retain their role. Replace conflicting declarations rather than universal `!important` floors. Marketing roles do not target protected estimator/admin/portal/input geometry.
 
-The section audit that found these lives at `scripts/_section-audit.mjs` in
-the Remodeling repo (Playwright; nine viewports; flags orphans, one-sided
-sections, sparse bands, text-only sections, overflow) with `scripts/section-sheets.py` for
-contact sheets.
+Spacing uses the 4–128px scale, 20/32/48px gutters (16 below 360px), 1280px content maximum, 65ch copy measure, 64/80/96px standard sections and role-specific stacks. The 1180px navigation threshold does not redefine type tiers. Photography may bleed while text follows the grid. Split/matrix/panel/card primitives are optional; choose grids by real count, four-item balance and intentional incomplete rows.
 
-## Header clearance (2026-09-08)
+Canonical buttons: 16px Manrope labels, 48px large/44px medium minimum heights, square neutral faces with teal leading detail, outline/text secondary hierarchy. Inputs ≥48px; touch targets ≥44×44px; choices ≥56px. Radius roles: 0px, 4px, full. Motion: 200/300ms with reduced-motion support. Shared unboxed Call/Text/Chat controls use one icon vocabulary and actual destinations; omit unavailable Chat routes.
 
-The header is fixed and transparent over the page. `family.css` gives the first
-section of every route `padding-top: var(--ed-hero-top)` (header height plus
-48px) so breadcrumbs and eyebrows never sit under the menu. A hero that must
-run flush to the top (image first) opts out with `pt-0`; the fixed estimator
-frame is excluded. `scripts/_hero-gap.mjs` in the Remodeling repo measures the
-gap on every template at 1440, 834 and 390 and lists anything under 32px.
+## Superseded guidance
+
+The previous document described an older editorial layer. These statements are superseded, not current Cabinet requirements:
+
+- Sibling blue or another company’s palette as Cabinet identity.
+- Universal dark-dominant pages, alternating dark/bone stripes or mandatory gradient closing bands. Cabinet keeps its warm image-led paper/bone composition.
+- 58px uppercase buttons with 11px labels. Use current 16px roles/control tokens.
+- 850ms reveals as the general rule. Use current motion/reduced-motion tokens.
+- Historical 1380/1080/720 shells and 1100/820/560 queries replacing current shared tiers. Existing local declarations are implementation debt to reconcile, not new approved exceptions.
+- Fixed transparent headers everywhere or universal first-section padding. Use canonical sticky chrome, actual measured clearance and task-specific layouts.
+- Mandatory sticky introductions or automatic full-width odd grid leftovers. Sticky is optional; compose rows deliberately.
+- Assertions that every estimator step already fits a viewport. Source configuration/historical samples do not establish current C10/D2, keyboard, 200% text or all-route passes.
+- Instructions to copy entire `app/family.css` or `family-redesign.css` files across brands. Shared ownership is the canonical 17-file manifest; site-owned presentation remains scoped unless explicitly coordinated.
+
+Historical material remains in [the approved handoff](approved-design-handoff.md), [older brand kit](brand/BRAND.md) and Git history. Newer explicit owner direction and [the current profile](brand-profile.md) resolve conflicts. No approval date or screenshot acceptance is invented.
+
+## Ownership, preservation, and review
+
+Family components/types, `styles/family-*.css` and their manifest are canonically owned by `boise-remodeling-co`; check `scripts/verify-family-chrome.mjs`. Cabinet facts/capabilities live in `lib/familyBrand.ts`. The estimator has separate protected ownership; no bypass or broad engine sync.
+
+Preserve useful content, URLs/indexing/metadata/schema, contacts/geography/registration, safety/legal/pricing/scope qualifiers, catalog/planning behavior, consent, analytics, routing, uploads, saved state, PDFs and authentication. Generic design imagery needs no routine concept labels, but cannot become invented staff/customer/project evidence. Public surfaces omit private street addresses and administrative/status explanations. Correct private verification records stay with their owner.
+
+Record implemented, tested, independently reviewed, approved, deployed and live-verified states separately. Build/rendered/interaction/independent gates remain in the existing ledger. Jared owns import/publication. Updating docs does not itself build, deploy or change UI.

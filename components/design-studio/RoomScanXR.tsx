@@ -341,12 +341,12 @@ export function RoomScanXR({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col bg-black"
+      className="fixed inset-0 z-[100] flex flex-col bg-[#383837]"
       data-testid="room-scan-xr"
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       <div className="relative z-10 flex flex-col h-full pointer-events-none">
-        <div className="flex items-center justify-between p-4 pointer-events-auto bg-gradient-to-b from-black/70 to-transparent">
+        <div className="flex items-center justify-between p-4 pointer-events-auto bg-gradient-to-b from-[#383837]/70 to-transparent">
           <p className="text-white text-sm font-medium max-w-[70%]">{message}</p>
           <Button
             type="button"
@@ -368,7 +368,7 @@ export function RoomScanXR({
           </div>
         )}
         <div className="flex-1" />
-        <div className="p-4 pb-8 pointer-events-auto bg-gradient-to-t from-black/80 to-transparent space-y-3">
+        <div className="p-4 pb-8 pointer-events-auto bg-gradient-to-t from-[#383837]/80 to-transparent space-y-3">
           {status === "scanning" && (
             <p className="text-white/90 text-center text-sm">
               {scanCopy.cornerProgress(cornerCount, requiredPoints)}

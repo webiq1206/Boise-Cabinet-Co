@@ -4,6 +4,7 @@ import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogPreview } from "@/components/catalog/CatalogPreview";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { ShortCopy } from "@/components/marketing/ShortCopy";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Section } from "@/components/marketing/Section";
 import Link from "next/link";
@@ -128,9 +129,13 @@ export default function CatalogPage() {
                     The complete <em className="brc-accent text-accent">catalog</em>
                   </>
                 }
-                description={catalogDescription(
-                  "Every door style, finish, cabinet, hardware option, and accessory we offer - in one interactive catalog. Flip through it below like a magazine, or switch to continuous scrolling. No download needed.",
-                )}
+                description={
+                  <ShortCopy
+                    text={catalogDescription(
+                      "Every door style, finish, cabinet, hardware option, and accessory we offer - in one interactive catalog. Flip through it below like a magazine, or switch to continuous scrolling. No download needed.",
+                    )}
+                  />
+                }
                 meta={
                   <span>
                     {DOOR_STYLES.length} door styles · {FINISHES.length} finishes ·{" "}

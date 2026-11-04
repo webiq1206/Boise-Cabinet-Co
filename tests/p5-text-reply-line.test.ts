@@ -67,8 +67,10 @@ test("each customer one-business-day line stays and is followed by Prefer to tex
   }
 
   const contact = readFileSync("app/contact/page.tsx", "utf8");
-  assert.match(contact, /We respond within one business day\. Share your goals and we will schedule a free in-home design consultation\./);
-  assert.match(contact, /Call, email, or visit, we respond within one business day and never use high-pressure sales tactics\./);
+  const contactCopy = contact.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  assert.match(contactCopy, /We respond within one business day\. Share your goals and we will schedule a free in-home design consultation\./);
+  assert.match(contactCopy, /Call, text, or email our team\. We respond within one business day and never use high-pressure sales tactics\./);
+  assert.doesNotMatch(contactCopy, /Call, email, or visit/);
   assert.match(contact, /Response within one business day/);
   assert.equal(contact.includes("link-hero-text"), false);
 

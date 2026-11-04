@@ -21,7 +21,7 @@ const CAB = "var(--cab-fill, #9F4F2D)";
 const CAB_TOP = "var(--cab-stroke, #7E3E22)";
 const ISLAND = "var(--cab-island, #B5673F)";
 const SINK_STROKE = "#5A4E3E";
-const DIVIDER = "#00000022";
+const DIVIDER = "#38383722";
 
 const FR = 14; // wall frame inset
 const GAP = 8; // cabinet offset from the wall

@@ -201,7 +201,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         <Section variant="greige" divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={cityProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              eyebrow={cityProjects.every((project) => project.kind === "concept") ? "Cabinet styles" : "Project gallery"}
               title={<>Cabinet ideas for {city.name} homes</>}
               align="left"
               className="mb-6"
@@ -219,7 +219,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                       />
                     </div>
                     <div className="p-5">
-                      <h3 className="ed-h4">
+                      <h3 className="ed-h3">
                         {project.title}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -250,7 +250,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   href={service.url}
                   className="group block rounded-sm border border-border bg-card p-5 brc-lift transition-colors hover:border-accent/60"
                 >
-                  <h3 className="ed-h4">
+                  <h3 className="ed-h3">
                     {service.name}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -341,7 +341,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   ) : null}
                   {guide.keyTakeaways?.length ? (
                     <div className="mb-8">
-                      <h3 className="ed-h4">Key takeaways for {city.name}</h3>
+                      <h3 className="ed-h3">Key takeaways for {city.name}</h3>
                       <ul className="mt-3 grid list-none gap-2 p-0">
                         {guide.keyTakeaways.map((item) => (
                           <li key={item} className="flex items-start gap-3 text-[0.9375rem] text-foreground/90">

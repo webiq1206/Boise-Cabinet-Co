@@ -139,24 +139,26 @@ const LIGHT_THEME: Theme = {
 /** Boise Cabinet Co dark brand system (matches the brand-system document). */
 const DARK_THEME: Theme = {
   dark: true,
-  pageBg: hex('1C1F1E'), // charcoal page base
+  pageBg: hex('383837'), // brand charcoal
   title: hex('F7F5F3'), // bone
   heading: hex('F7F5F3'),
   body: hex('E6E3DE'), // warm text
-  subtitle: hex('9AA098'), // mist
-  meta: hex('9AA098'),
-  coverSubtitle: hex('9AA098'),
-  imageSub: hex('9AA098'),
-  footer: hex('9AA098'),
+  // Small copy retains the existing warm text color on the lighter charcoal.
+  // The former mist foreground falls below 4.5:1 on #383837.
+  subtitle: hex('E6E3DE'),
+  meta: hex('E6E3DE'),
+  coverSubtitle: hex('E6E3DE'),
+  imageSub: hex('E6E3DE'),
+  footer: hex('E6E3DE'),
   hairline: hex('7AAAAA'), // teal - the palette's reserved 'rules' role
-  numeral: hex('9AA098'), // Libre Baskerville italic section numbers, mist
+  numeral: hex('E6E3DE'), // Small Libre Baskerville section numbers remain readable.
   accent: hex('7AAAAA'), // teal
   ink: hex('E6E3DE'),
   // Product line-drawings are black-on-white, so cards stay a light bone tile.
   cardBg: hex('F5F3EF'),
   cardBorder: hex('4A4F4C'),
-  placeholderBg: hex('2C302F'), // charcoal tile
-  tableHeaderBg: hex('2C302F'),
+  placeholderBg: hex('383837'), // brand charcoal tile
+  tableHeaderBg: hex('383837'),
   tableHeaderText: hex('F7F5F3'),
 };
 

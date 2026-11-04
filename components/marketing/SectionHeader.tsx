@@ -20,13 +20,10 @@ export interface SectionHeaderProps {
 /**
  * The family section head: eyebrow, heading, one paragraph.
  *
- * This one component heads most inner-page sections on all four sites, so it
- * is the single biggest lever on how those pages read. It was a 52px heading
- * at its "display" size over 16px body in a 672px column. It now uses the
- * family type scale - `display` at the 72px h2, `default` at the 52px h2-sm -
- * with the eyebrow-and-rule and the 15px/1.75 body, and the measure set on the
- * heading itself so the heading can run wide while the paragraph stays at a
- * readable line length.
+ * This component assigns purpose-specific family roles: `display` uses the
+ * editorial section display and `default` uses the compact feature-title role.
+ * The site-owned presentation layer maps those roles to the approved shared
+ * responsive tokens. Body copy and eyebrows retain their own text roles.
  */
 export function SectionHeader({
   eyebrow,
@@ -49,7 +46,11 @@ export function SectionHeader({
       <Heading className={cn(size === "display" ? "ed-h2" : "ed-h2-sm", "ed-statement-wide")}>
         {title}
       </Heading>
-      {description && <p className="ed-body mt-6">{description}</p>}
+      {description && (
+        typeof description === "string"
+          ? <p className="ed-body mt-6">{description}</p>
+          : <div className="ed-body mt-6">{description}</div>
+      )}
     </div>
   );
 

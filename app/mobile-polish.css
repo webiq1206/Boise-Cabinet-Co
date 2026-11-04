@@ -1,0 +1,26 @@
+/* Cabinet phone refinements. Typography, hero composition, shared chrome and
+   task controls retain their approved component rules. */
+@media (max-width: 767px) {
+  /* Keep an accordion's short final phrase together when space permits. */
+  .mobile-keep {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: bottom;
+  }
+
+  /* Standalone marketing links have a usable target without changing inline
+     sentence links, shared contact icons or estimator controls. */
+  .approved-shell :is(a.text-link, a.brc-text-link, a.tap-target) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    box-sizing: border-box;
+  }
+
+  .approved-shell :is(.interior-service-card, .fr-door) {
+    min-width: 0;
+    min-height: 44px;
+    max-width: 100%;
+  }
+}

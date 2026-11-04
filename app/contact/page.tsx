@@ -98,7 +98,7 @@ function ContactChannel({
       } ${featured ? 'md:p-10' : ''}`}
       padding={featured ? 'lg' : 'default'}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col items-start gap-4 sm:flex-row">
         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-sm bg-accent/10 text-accent">
           {icon}
         </div>
@@ -121,7 +121,7 @@ function ContactChannel({
     return (
       <a
         href={href}
-        className="block h-full group"
+        className="contact-channel-link block h-full group"
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {inner}
@@ -199,8 +199,11 @@ export default function ContactPage() {
                 }
                 description={
                   <>
-                    We respond within one business day. Share your goals and we will schedule a free in-home design consultation.{" "}
-                    <PreferToTextLine />
+                    <ul>
+                      <li>We respond within one business day.</li>
+                      <li>Share your goals and we will schedule a free in-home design consultation.</li>
+                      <li><PreferToTextLine /></li>
+                    </ul>
                   </>
                 }
                 className="max-w-none"
@@ -227,13 +230,16 @@ export default function ContactPage() {
               }
               description={
                 <>
-                  Call, email, or visit, we respond within one business day and never use high-pressure sales tactics.{" "}
-                  <PreferToTextLine />
+                  <ul>
+                    <li>Call, text, or email our team.</li>
+                    <li>We respond within one business day and never use high-pressure sales tactics.</li>
+                    <li><PreferToTextLine /></li>
+                  </ul>
                 </>
               }
               className="max-w-3xl"
             />
-            <div className="ed-grid-balance grid sm:grid-cols-2 gap-4">
+            <div className="ed-grid-balance grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Reveal>
                 <ContactChannel
                   icon={<Phone className="h-5 w-5" strokeWidth={1.5} />}
@@ -266,7 +272,7 @@ export default function ContactPage() {
                 >
                   <a
                     href={`mailto:${SITE_CONFIG.email}`}
-                    className="tap-target text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
+                    className="tap-target max-w-full [overflow-wrap:anywhere] text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
                   >
                     {SITE_CONFIG.email}
                   </a>
@@ -282,7 +288,6 @@ export default function ContactPage() {
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}
                     <br />
                     We come to you: free in-home consultations by appointment.
-                    No public showroom.
                   </address>
                 </ContactChannel>
               </Reveal>
@@ -306,7 +311,7 @@ export default function ContactPage() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#383837]/80 via-[#383837]/40 to-transparent" />
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}

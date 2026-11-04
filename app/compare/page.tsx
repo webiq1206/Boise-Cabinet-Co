@@ -167,7 +167,7 @@ export default function ComparePage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Catalog", href: "/catalog" }, { name: "Compare" }]}
           eyebrow="Compare your options"
           title={<>
-                  Custom cabinet <em className="brc-accent text-accent">comparison</em>
+                  Custom <span className="mobile-keep">cabinet <em className="brc-accent text-accent">comparison</em></span>
                 </>}
           description={`How ${SITE_CONFIG.name} custom cabinets compare with stock and semi-custom lines, plus our ${DOOR_STYLES.length} door styles and ${FINISHES.length} finishes side by side.`}
         >

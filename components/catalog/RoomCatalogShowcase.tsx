@@ -50,7 +50,7 @@ export function RoomCatalogShowcase({
                 name={door.name}
                 description={door.description.slice(0, 120)}
                 imageSrc={imgs.primary}
-                imageAlt={`${door.name} door profile illustration`}
+                imageAlt={`${door.name} door profile`}
                 aspectRatio="4/3"
                 primaryHref="/catalog"
                 primaryLabel="View door style"

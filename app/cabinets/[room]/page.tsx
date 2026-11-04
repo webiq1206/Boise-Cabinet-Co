@@ -307,7 +307,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Design inspiration" : "Project gallery"}
+              eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Cabinet styles" : "Project gallery"}
               title={<>{sentenceStart(seo.phrase)} ideas</>}
               align="left"
               className="mb-6"
@@ -325,7 +325,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                       />
                     </div>
                     <div className="p-5">
-                      <h3 className="ed-h4">
+                      <h3 className="ed-h3">
                         {project.title}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">

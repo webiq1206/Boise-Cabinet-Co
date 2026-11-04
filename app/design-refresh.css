@@ -24,19 +24,19 @@
    Tailwind colour utilities (button, accents) follow. (BRC-01, BCONC-01) */
 #budget.ed-photo-copy {
   --foreground: 48 38% 97.5%;
-  --background: 165 4% 12%;
+  --background: 60 0.2% 21.75%;
   --muted-foreground: 60 6% 84%;
   --border: 48 38% 97.5%;
   --ed-ink: #fbfaf6;
   --ed-muted-ink: #dddfd5;
   --ed-line: rgba(251, 250, 246, .22);
   --ed-accent: var(--f-accent, #b9bfb4);
-  background: #1c1f1e;
+  background: var(--color-forest);
   color: #fbfaf6;
 }
 #budget.ed-photo-copy > [aria-hidden="true"] img { opacity: .5; }
 #budget.ed-photo-copy > [aria-hidden="true"] > div {
-  background: linear-gradient(180deg, rgba(28, 31, 30, .82) 0%, rgba(28, 31, 30, .66) 45%, rgba(28, 31, 30, .86) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-forest) 82%, transparent) 0%, color-mix(in srgb, var(--color-forest) 66%, transparent) 45%, color-mix(in srgb, var(--color-forest) 86%, transparent) 100%);
 }
 #budget.ed-photo-copy :is(h2, h3, h4, .ed-h2, .ed-h3, .ed-h4) { color: #fbfaf6; }
 #budget.ed-photo-copy :is(p, li, .ed-body, .ed-small) { color: #e7e6df; }
@@ -104,7 +104,7 @@
 .approved-shell .ed-on-dark + .ed-on-dark,
 .approved-shell :is(.ed-on-deep, .ed-on-bone, .ed-on-muted):not(.ed-photo-copy) + :is(.ed-on-deep, .ed-on-bone, .ed-on-muted):not(.ed-photo-copy) {
   padding-top: clamp(40px, 4vw, 56px);
-  border-top: 1px solid var(--ed-line, rgba(44, 48, 47, .12));
+  border-top: 1px solid var(--ed-line, color-mix(in srgb, var(--color-charcoal) 12%, transparent));
 }
 /* Home pages: the budget band is the first <section> in its wrapper, so the
    "first section clears the header" rule gave it 109px of hero padding in the
@@ -117,7 +117,7 @@
 /* Home pages: consecutive paper sections ("Good work" then "A clear plan"). */
 .approved-shell .family-site .f-section.f-section + .f-section {
   padding-top: clamp(40px, 4vw, 56px);
-  border-top: 1px solid rgba(44, 48, 47, .12);
+  border-top: 1px solid color-mix(in srgb, var(--color-charcoal) 12%, transparent);
 }
 
 /* Article rail: the contents list is never height-capped on its own. The

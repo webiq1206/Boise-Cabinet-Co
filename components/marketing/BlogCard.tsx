@@ -49,10 +49,10 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
               {formatDate(post.publishedAt)}
             </span>
           </div>
-          <h2 className="font-serif text-2xl md:text-3xl tracking-tight text-foreground mb-3">
+          <h2 className="ed-h2-sm text-foreground mb-3">
             {post.title}
           </h2>
-          {hasSummary && <p className="text-muted-foreground leading-relaxed line-clamp-2 max-w-2xl">
+          {hasSummary && <p className="ed-body text-muted-foreground line-clamp-2 max-w-2xl">
             {post.excerpt}
           </p>}
           <TextLink href={href} className="mt-auto pt-4 relative z-10" showArrow>
@@ -83,10 +83,10 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
             {formatDate(post.publishedAt)}
           </span>
         </div>
-        <h3 className="text-lg font-serif tracking-tight text-foreground text-balance mb-2">
+        <h3 className="ed-h3 text-foreground mb-2">
           {post.title}
         </h3>
-        {hasSummary && <p className="text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>}
+        {hasSummary && <p className="ed-body text-muted-foreground line-clamp-3">{post.excerpt}</p>}
         <TextLink href={href} className="mt-auto pt-4 relative z-10" showArrow>
           Read article
         </TextLink>

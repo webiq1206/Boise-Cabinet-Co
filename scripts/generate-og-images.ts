@@ -50,10 +50,10 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
   const titleSize = title.length > 84 ? 42 : title.length > 62 ? 48 : title.length > 44 ? 54 : 60;
   const tree = h(
     'div',
-    { style: { width: 1200, height: 630, display: 'flex', position: 'relative', backgroundColor: '#1C1F1E' } },
+    { style: { width: 1200, height: 630, display: 'flex', position: 'relative', backgroundColor: '#383837' } },
     bg ? h('img', { src: bg, width: 1200, height: 630, style: { position: 'absolute', top: 0, left: 0 } }) : null,
     // Uniform dark overlay so centered white text stays legible over any photo.
-    h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(18,20,19,0.62)' } }),
+    h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(56,56,55,0.62)' } }),
     // Teal top accent line
     h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#7AAAAA' } }),
     // CENTERED content kept inside the middle ~600px (300px side padding). A

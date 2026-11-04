@@ -19,3 +19,58 @@
   gap: var(--icon-gap);
   font-size: var(--fs-button);
 }
+/*
+  Reviewed marketing typography roles, November 4. Dedicated tool and form controls retain their own rules.
+*/
+.cabinet-approved > :is(#cabinetry, #door-styles, #finishes, #why-us, #process, #inspiration, #who-hiring, .builder-band) .eyebrow,
+.cabinet-approved.fr-request .fr-request-copy .eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+}
+.cabinet-approved #who-hiring-heading + :is(p,ul) {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.cabinet-approved > :is(#cabinetry, #door-styles, #finishes, #why-us, #process, #inspiration, #who-hiring, .builder-band) .text-link,
+.cabinet-approved.fr-request .fr-request-copy .text-link {
+  font-family: var(--font-sans);
+  font-size: var(--fs-button);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Preserve the thin serif with a light neutral context on paper and bone.
+   White already appears on the site's form cards. Dark compositions retain
+   their charcoal context; neither treatment changes the exact teal fill. */
+:is(.approved-shell,.cabinet-design-studio) {
+  --cabinet-heading-context: #fff;
+}
+.approved-shell :is(.f-hero,.f-value,.f-contact,.interior-hero-contact,.ed-on-gradient,.bg-inverse,.finish-copy,.fr-band),
+.cabinet-approved .value-panel,
+.cabinet-approved .fam-hero[data-family-hero] {
+  --cabinet-heading-context: var(--color-charcoal);
+}
+:is(.approved-shell,.cabinet-design-studio) :is(h1,h2) :is(em,.brc-accent,.text-accent:not(svg)),
+.cabinet-approved .fam-hero[data-family-hero] .fam-hero-copy .fam-hero-accent {
+  text-shadow:
+    -1px -1px 0 var(--cabinet-heading-context),
+     0 -1px 0 var(--cabinet-heading-context),
+     1px -1px 0 var(--cabinet-heading-context),
+     1px  0 0 var(--cabinet-heading-context),
+     1px  1px 0 var(--cabinet-heading-context),
+     0  1px 0 var(--cabinet-heading-context),
+    -1px  1px 0 var(--cabinet-heading-context),
+    -1px  0 0 var(--cabinet-heading-context);
+}
+
+/* Native keyboard scrolling keeps the complete contact action above the bar. */
+.approved-interior.interior-contact .contact-channel-link {
+  scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+}
