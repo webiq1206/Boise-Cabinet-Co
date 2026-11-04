@@ -16,7 +16,6 @@
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
-import { BUSINESS_INFO } from "@/lib/seo";
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
 import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
@@ -27,8 +26,6 @@ import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG, showFoundingYear } from "@/shared/siteConfig";
 
 const FOUNDED_LINE = "- Founded: 2020";
-/** The person who answers for the business in public listings. */
-const PUBLIC_REPRESENTATIVE = "Nick Perkins";
 
 const BASE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
 const url = (path: string) => (path === "/" ? BASE : `${BASE}${path}`);
@@ -41,8 +38,6 @@ const list = (items: string[]) =>
 export const LLMS_LAST_UPDATED = new Date().toISOString().slice(0, 10);
 
 const name = SITE_CONFIG.name;
-const a = BUSINESS_INFO.address;
-const ADDRESS = `${a.street}, ${a.city}, ${a.state} ${a.postalCode}`;
 const cityNames = CITIES.map((city) => city.name);
 const finishFamilies = ["matte", "gloss", "woodgrain"].map(
   (family) => `${FINISHES.filter((finish) => finish.category === family).length} ${family}`,
@@ -65,7 +60,7 @@ function buildLlmsTxt(): string {
   );
   push(`Last updated: ${LLMS_LAST_UPDATED}`, "");
   push(
-    `Public representative: ${PUBLIC_REPRESENTATIVE}. Service-area business based at ${ADDRESS}; no public showroom. ${SITE_CONFIG.phone}. ${SITE_CONFIG.email}.`,
+    `${SITE_CONFIG.phone}. ${SITE_CONFIG.email}.`,
     "",
   );
   push(
@@ -77,8 +72,6 @@ function buildLlmsTxt(): string {
   push(`- Company: ${name}, a DBA of ${SITE_CONFIG.legalName}`);
   if (showFoundingYear()) push(FOUNDED_LINE);
   push(`- Registration: ${IDAHO_REGISTERED_CONTRACTOR}`);
-  push(`- Based in ${a.city}, Idaho (service-area business; consultations happen in your home)`);
-  push(`- Address: ${ADDRESS} (service-area business; no public showroom)`);
   push(`- Service area: ${list(cityNames)} (Ada and Canyon Counties, Treasure Valley)`);
   push(`- Catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes (${list(finishFamilies)}), ${HARDWARE_OPTIONS.length} hardware options, ${ACCESSORY_FAMILIES.length} accessory families`);
   push("- Construction: frameless cabinet boxes built to order, soft-close hinge and drawer-slide options");
@@ -86,7 +79,6 @@ function buildLlmsTxt(): string {
   push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}`);
   push("- Free in-home design consultation; a written proposal with drawings before anything is ordered");
   push("- Also serve builders, general contractors, and multi-family developers with volume pricing");
-  push(`- Public representative: ${PUBLIC_REPRESENTATIVE}`);
   push(`- Phone: ${SITE_CONFIG.phone}`);
   push(`- Email: ${SITE_CONFIG.email}`, "");
 
@@ -135,8 +127,6 @@ function buildLlmsTxt(): string {
   push("## Contact", "");
   push(`- ${link("Website", "/")}`);
   push(`- ${link("Contact page", "/contact")}`);
-  push(`- Address: ${ADDRESS} (service-area business; no public showroom)`);
-  push(`- Public representative: ${PUBLIC_REPRESENTATIVE}`);
   push(`- Phone: ${SITE_CONFIG.phone}`);
   push(`- Email: ${SITE_CONFIG.email}`);
 

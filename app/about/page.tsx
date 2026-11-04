@@ -89,8 +89,8 @@ export default function AboutPage() {
       answer: `We serve the Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, across Ada and Canyon Counties. Design consultations happen in your home by appointment.`,
     },
     {
-      question: `Does ${SITE_CONFIG.name} have a showroom?`,
-      answer: `We are a service-area business with no public showroom. We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
+      question: `How do design consultations work?`,
+      answer: `We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
     },
     {
       question: `Is ${SITE_CONFIG.name} a registered contractor and insured?`,
@@ -232,7 +232,7 @@ export default function AboutPage() {
               eyebrow="Credentials"
               inverse
               title={<>Registered, insured, <em className="brc-accent text-accent">accountable</em></>}
-              description={`${IDAHO_REGISTERED_CONTRACTOR}. Look it up at the Idaho DOPL. Boise Cabinet Co is a DBA of P5 Home Co LLC. ${CABINET_WORKMANSHIP_WARRANTY}.`}
+              description={`${IDAHO_REGISTERED_CONTRACTOR}. Boise Cabinet Co is a DBA of P5 Home Co LLC. ${CABINET_WORKMANSHIP_WARRANTY}.`}
               className="mb-0"
             />
             <p className="mt-6 text-inverse-muted text-base leading-relaxed">

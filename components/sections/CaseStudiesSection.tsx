@@ -6,22 +6,17 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CASE_STUDIES } from "@/shared/caseStudies";
 
 export function CaseStudiesSection() {
-  const hasConcept = CASE_STUDIES.some((s) => s.kind === "concept");
-  const allVerified = CASE_STUDIES.length > 0 && !hasConcept;
-  const description = allVerified
-    ? "Detailed kitchen, bath, and whole-home projects completed for Treasure Valley homeowners, with scope, timeline, and finish details."
-    : "Kitchen, bath, and whole-home cabinet examples with scope, timeline, and finish details drawn from typical Treasure Valley planning.";
+  const description = "Compare cabinet layouts, materials, storage, and planning ranges for kitchens, bathrooms, and whole-home cabinetry.";
 
   return (
     <Section divider>
       <div className="container px-4 max-w-5xl">
         <SectionHeader
-          eyebrow={allVerified ? "Project case studies" : "Cabinet design examples"}
+          eyebrow="Design details"
           title={
             <>
-              Detailed looks at{" "}
-              <em className="brc-accent text-accent">Treasure Valley</em> cabinet
-              work
+              Cabinetry for{" "}
+              <em className="brc-accent text-accent">Treasure Valley</em> homes
             </>
           }
           description={description}
@@ -47,26 +42,26 @@ export function CaseStudiesSection() {
                 {study.detailImages.length > 0 ? (
                   <ProjectDetailStrip
                     images={study.detailImages}
-                    label="Same property views"
+                    label="Design details"
                   />
                 ) : null}
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">
-                  {study.area}, Idaho · {study.service}
+                  {study.service}
                 </p>
-                <h3 className="text-xl font-serif font-medium text-foreground mb-2">
+                <h3 className="ed-h3 text-foreground mb-2">
                   {study.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4">{study.scope}</p>
-                <p className="text-sm text-foreground/90 mb-3">
-                  <strong>Challenge:</strong> {study.challenge}
+                <p className="ed-body text-muted-foreground mb-4">{study.scope}</p>
+                <p className="ed-body text-foreground/90 mb-3">
+                  <strong>Planning consideration:</strong> {study.challenge}
                 </p>
-                <p className="text-sm text-foreground/90 mb-3">
-                  <strong>Approach:</strong> {study.approach}
+                <p className="ed-body text-foreground/90 mb-3">
+                  <strong>Cabinet layout:</strong> {study.approach}
                 </p>
-                <p className="text-sm text-foreground/90 mb-4">
-                  <strong>Outcome:</strong> {study.outcome}
+                <p className="ed-body text-foreground/90 mb-4">
+                  <strong>Storage and finish details:</strong> {study.outcome}
                 </p>
                 <dl className="ed-grid-balance grid grid-cols-2 gap-x-4 gap-y-2 text-sm mb-4">
                   {study.details.map((d) => (

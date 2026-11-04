@@ -7,10 +7,8 @@ import { SITE_CONFIG } from "../shared/siteConfig";
 
 const MERIDIAN_ADDRESS = {
   "@type": "PostalAddress",
-  streetAddress: "4031 W Wapoot St",
   addressLocality: "Meridian",
   addressRegion: "ID",
-  postalCode: "83646",
   addressCountry: "US",
 };
 
@@ -18,7 +16,7 @@ function assertMeridianAddress(address: unknown) {
   assert.deepEqual(address, MERIDIAN_ADDRESS);
 }
 
-test("every business postal address is the Meridian locality", () => {
+test("public business schema contains only the Meridian locality", () => {
   const organization = generateOrganizationSchema();
   const home = generateLocalBusinessSchema();
   const area = generateLocalBusinessSchema("Eagle");
@@ -45,11 +43,11 @@ test("area pages name the city in areaServed and use HomeAndConstructionBusiness
   assert.equal(provider.address.addressLocality, "Meridian");
 });
 
-test("schema NAP matches repo records and does not imply a showroom name", () => {
-  assert.equal(SITE.address.street, MERIDIAN_ADDRESS.streetAddress);
+test("public contacts retain facts while verification records keep the address", () => {
+  assert.equal(SITE.address.street, "4031 W Wapoot St");
   assert.equal(SITE.address.city, MERIDIAN_ADDRESS.addressLocality);
   assert.equal(SITE.address.region, MERIDIAN_ADDRESS.addressRegion);
-  assert.equal(SITE.address.postalCode, MERIDIAN_ADDRESS.postalCode);
+  assert.equal(SITE.address.postalCode, "83646");
   assert.equal(SITE.address.country, MERIDIAN_ADDRESS.addressCountry);
   assert.equal(SITE.phone, "(208) 477-1169");
   assert.equal(SITE_CONFIG.phone, SITE.phone);
@@ -105,9 +103,9 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
     assert.equal(employee["@type"], "Person");
     assert.equal(employee["@id"], "https://p5homeco.com/#nick-perkins");
     assert.equal(employee.name, "Nick Perkins");
-    assert.equal(employee.jobTitle, "Public representative");
+    assert.equal(employee.jobTitle, "Founder");
     assert.deepEqual(employee.worksFor, { "@id": "https://p5homeco.com/#organization" });
-    assert.equal(contact.contactType, "Public representative");
+    assert.equal(contact.contactType, "customer service");
     assert.equal(contact.telephone, "+1-208-477-1169");
     assert.equal(contact.email, "hello@boisecabinet.co");
     assert.equal(schema.email, "hello@boisecabinet.co");
@@ -124,16 +122,17 @@ test("schema NAP matches repo records and does not imply a showroom name", () =>
   };
   assert.equal(provider.founder, undefined);
   assert.equal(provider.employee.name, "Nick Perkins");
-  assert.equal(provider.employee.jobTitle, "Public representative");
+  assert.equal(provider.employee.jobTitle, "Founder");
   assert.equal(provider.contactPoint.name, "Nick Perkins");
-  assert.equal(provider.contactPoint.contactType, "Public representative");
+  assert.equal(provider.contactPoint.contactType, "customer service");
 });
 
-test("area-page geo stays on the Meridian locality", () => {
+test("public business schema does not expose a private street or home coordinates", () => {
   const home = generateLocalBusinessSchema();
   const area = generateLocalBusinessSchema("Boise");
-  assert.deepEqual(area.geo, home.geo);
-  const geo = area.geo as { latitude: number; longitude: number };
-  assert.equal(geo.latitude, 43.6515);
-  assert.equal(geo.longitude, -116.4444);
+  assert.equal(area.geo, undefined);
+  assert.equal(home.geo, undefined);
+  for (const schema of [home, area, generateOrganizationSchema(), generateServiceSchema("Cabinets", "Built to order.")]) {
+    assert.equal(/Wapoot|4031|streetAddress|43\.6515|-116\.4444|Public representative/.test(JSON.stringify(schema)), false);
+  }
 });

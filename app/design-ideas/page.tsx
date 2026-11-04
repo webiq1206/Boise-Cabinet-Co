@@ -18,7 +18,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   path: '/design-ideas',
   titleOverride: 'Cabinet Design Ideas for Boise Homes',
   descriptionOverride:
-    'Cabinet design ideas for Treasure Valley homes: a modern shaker kitchen, a double vanity, mudroom storage, a wet bar and a covered outdoor kitchen concept.',
+    'Cabinet design ideas for Treasure Valley homes: a modern shaker kitchen, a double vanity, mudroom storage, a wet bar and a covered outdoor kitchen.',
 })), "/design-ideas");
 
 export default function DesignIdeasPage() {
@@ -46,7 +46,7 @@ export default function DesignIdeasPage() {
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Design ideas' }]}
         eyebrow="Cabinet design inspiration"
         title="Cabinet design ideas for Treasure Valley homes"
-        description="Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes. Captions describe the design shown; they are not records of completed client projects."
+        description="Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes. Compare door styles, finishes, layouts, and storage details."
       >
         <CtaButton variant="brand">
           {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />

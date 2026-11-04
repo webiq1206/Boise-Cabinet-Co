@@ -422,16 +422,10 @@ export const BUSINESS_INFO = {
   legalName: SITE_CONFIG.legalName,
   phone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
-  // Service-area business, not a staffed storefront. The street and ZIP are
-  // published in the footer NAP line, llms.txt and backlink-engine/config.ts, so
-  // they live here too and the JSON-LD PostalAddress reads this one object
-  // (lib/schema.ts serviceAreaPostalAddress). Owner to confirm the street is
-  // the address of record (family plan Phase 1 report).
+  // Public locality only. Street-address verification records stay outside public site data.
   address: {
-    street: '4031 W Wapoot St',
     city: SITE_CONFIG.address.city,
     state: 'ID',
-    postalCode: '83646',
     country: 'United States',
     countryCode: 'US',
   },

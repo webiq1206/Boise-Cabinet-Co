@@ -11,20 +11,20 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "kitchen-cabinets",
     "area": "Boise",
-    "title": "Modern shaker kitchen concept",
+    "title": "Modern Shaker kitchen",
     "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
     "hero": {
       "src": "/images/projects/modern-shaker-kitchen/after.webp",
-      "alt": "Design concept: custom shaker kitchen cabinets with a quartz island and satin nickel hardware"
+      "alt": "Custom Shaker kitchen cabinets with a quartz island and satin nickel hardware"
     },
     "detail": [
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-exterior.webp",
-        "alt": "Boise Bench ranch exterior with modern shaker kitchen visible through windows"
+        "alt": "Ranch-style home exterior with kitchen cabinetry visible through windows"
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-island.webp",
-        "alt": "Island drawers and quartz countertop detail matching the modern shaker kitchen concept"
+        "alt": "Island drawers and quartz countertop detail"
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-pantry.webp",
@@ -33,15 +33,11 @@ export const PROJECTS: SiteProject[] = [
     ],
     "showBeforeAfter": false,
     "scenario": {
-      "scope": "Full kitchen cabinet replacement with island in a Boise Bench ranch",
-      "challenge": "A 1960s Boise Bench ranch with original boxes, a soffit-wrapped perimeter, and walls nearly an inch out of plumb across the main run. The owners wanted a current shaker kitchen with real drawer storage and an island, without moving plumbing or walls.",
-      "approach": "Field measurement mapped the wall lean so cabinets could be dimensioned to absorb it invisibly. Soffits came down to allow ceiling-height uppers, the base run converted from doors to full-extension drawers, and a new island added prep storage and a trash pull-out. Modern shaker doors in a matte painted finish with soft-close hardware throughout.",
-      "outcome": "A typical project like this installs in about four days after a six-week production window, with owners gaining roughly a third more usable storage in the same footprint and scribed fillers that read as intentional trim.",
+      "scope": "Kitchen cabinets with an island and full-extension drawer storage",
+      "challenge": "Confirm wall alignment, ceiling height, appliance clearances, and the locations of existing plumbing before finalizing the cabinet layout.",
+      "approach": "Combine ceiling-height uppers, full-extension base drawers, an island with a trash pull-out, and modern Shaker doors in a matte painted finish.",
+      "outcome": "Coordinate drawer storage, scribed fillers, soft-close hardware, and the quartz island in one cabinet plan.",
       "details": [
-        {
-          "label": "Location",
-          "value": "Boise Bench area, Ada County"
-        },
         {
           "label": "Scope",
           "value": "Perimeter + island, ~24 linear feet"
@@ -80,16 +76,16 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "bathroom-vanities",
     "area": "Meridian",
-    "title": "Double vanity suite concept",
+    "title": "White Shaker double vanity",
     "description": "White Shaker double vanity with central drawer storage, paired mirrors, and matte black faucets.",
     "hero": {
       "src": "/images/projects/double-vanity-suite/after.webp",
-      "alt": "Design concept: white double bathroom vanity with central drawers, paired mirrors and black faucets"
+      "alt": "White double bathroom vanity with central drawers, paired mirrors and black faucets"
     },
     "detail": [
       {
         "src": "/images/projects/double-vanity-suite/detail-exterior.webp",
-        "alt": "Meridian subdivision home exterior with primary bath vanity visible through the window"
+        "alt": "Home exterior with a bathroom vanity visible through the window"
       },
       {
         "src": "/images/projects/double-vanity-suite/detail-linen.webp",
@@ -98,15 +94,11 @@ export const PROJECTS: SiteProject[] = [
     ],
     "showBeforeAfter": false,
     "scenario": {
-      "scope": "Builder-grade single vanity to a double vanity suite with linen tower",
-      "challenge": "A 2000s Meridian subdivision primary bath with a cultured-marble single vanity, one bank of shallow drawers, and two adults sharing one sink every morning. The room had the wall length for a double vanity but the plumbing for one.",
-      "approach": "The layout runs a 72-inch double vanity with a drawer stack between sinks and a full-height linen tower at the end wall. Plumbing extends for the second sink during a short rough-in window, and drawer interiors are configured for hair tools with in-drawer outlets. Finish and hardware match the home's existing trim palette so the bath reads original to the house.",
-      "outcome": "A project like this installs in about two days after production, turning the morning bottleneck into a two-station bath with roughly triple the drawer storage, and a linen tower that ends the hallway closet shuffle.",
+      "scope": "Double vanity with central drawers and a linen tower",
+      "challenge": "Confirm available wall length, sink locations, electrical requirements, and clearance for drawers before choosing a vanity layout.",
+      "approach": "A 72-inch double vanity pairs a drawer stack between the sinks with a full-height linen tower. Coordinate the finish and hardware with the room's trim.",
+      "outcome": "Plan storage for grooming tools, towels, and daily routines, with any in-drawer outlets and plumbing changes included in the written scope.",
       "details": [
-        {
-          "label": "Location",
-          "value": "Meridian, Ada County"
-        },
         {
           "label": "Scope",
           "value": "72\" double vanity + linen tower"
@@ -145,16 +137,16 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "whole-home-cabinets",
     "area": "Eagle",
-    "title": "Whole-home finish schedule concept",
+    "title": "Coordinated whole-home cabinetry",
     "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
     "hero": {
       "src": "/images/projects/whole-home-finish-schedule/after.webp",
-      "alt": "Design concept: Eagle foothills kitchen with painted perimeter cabinets and a woodgrain accent island"
+      "alt": "Kitchen with painted perimeter cabinets and a woodgrain accent island"
     },
     "detail": [
       {
         "src": "/images/projects/whole-home-finish-schedule/detail-exterior.webp",
-        "alt": "Eagle Idaho foothills home exterior with coordinated cabinetry visible through kitchen windows"
+        "alt": "Home exterior with cabinetry visible through kitchen windows"
       },
       {
         "src": "/images/projects/whole-home-finish-schedule/detail-mudroom.webp",
@@ -167,15 +159,11 @@ export const PROJECTS: SiteProject[] = [
     ],
     "showBeforeAfter": false,
     "scenario": {
-      "scope": "Kitchen, two baths, mudroom, and office under one finish schedule",
-      "challenge": "An Eagle family wants to replace piecemeal builder cabinetry across five rooms while living in the house, and to end up with one coherent palette instead of five mismatched vendor finishes accumulated over the years.",
-      "approach": "All selections lock once: a single door profile, a two-finish schedule (painted perimeter tones with a woodgrain accent), and one hardware family across every room. Orders batch together, and installation stages room by room, kitchen first on a temporary-kitchen plan, baths one at a time so a working bathroom always exists, then mudroom lockers and the office wall.",
-      "outcome": "A program like this completes in under four months with the family home throughout. One finish schedule means every future touch-up and addition has a documented spec, and resale presentation reads designed, not assembled.",
+      "scope": "Kitchen, bath, mudroom and office cabinetry under one finish schedule",
+      "challenge": "Choose a door profile, complementary finishes, and a hardware family across the rooms before ordering.",
+      "approach": "Combine painted perimeter cabinetry with a woodgrain accent, then document each room in one coordinated finish schedule.",
+      "outcome": "Plan installation room by room and agree on access to a working kitchen and bathroom during the project.",
       "details": [
-        {
-          "label": "Location",
-          "value": "Eagle, Ada County"
-        },
         {
           "label": "Scope",
           "value": "5 rooms, one specification"
@@ -214,11 +202,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "built-in-storage",
     "area": "Nampa",
-    "title": "Mudroom storage concept",
+    "title": "Mudroom bench and cubbies",
     "description": "Wood cabinetry, a cushioned bench, coat hooks, and open cubbies keep an entry organized.",
     "hero": {
       "src": "/images/catalog/rooms/mudroom-1080.webp",
-      "alt": "Design concept: wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
+      "alt": "Wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -228,11 +216,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "bar-cabinets",
     "area": "Boise",
-    "title": "Wet bar cabinetry concept",
+    "title": "Dark Shaker wet bar",
     "description": "Dark Shaker cabinets combine a compact sink, wine storage, illuminated shelving, and a beverage refrigerator.",
     "hero": {
       "src": "/images/catalog/rooms/wet-bar-1080.webp",
-      "alt": "Design concept: dark Shaker wet bar cabinets with a sink and beverage refrigerator"
+      "alt": "Dark Shaker wet bar cabinets with a sink and beverage refrigerator"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -242,11 +230,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "outdoor-cabinets",
     "area": "Meridian",
-    "title": "Covered outdoor kitchen concept",
+    "title": "Covered outdoor kitchen",
     "description": "A covered cooking area with dark cabinetry, stone counters, a built-in grill, and a sink.",
     "hero": {
       "src": "/images/catalog/rooms/outdoor-1080.webp",
-      "alt": "Design concept: covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
+      "alt": "Covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
     },
     "detail": [],
     "showBeforeAfter": false

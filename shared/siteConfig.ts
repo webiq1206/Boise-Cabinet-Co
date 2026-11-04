@@ -78,9 +78,8 @@ export const SITE_CONFIG = {
   },
   senderDisplayName:
     process.env.EMAIL_SENDER_NAME ?? "Nick from Boise Cabinet Co",
-  // Service-area business, not a staffed storefront. The street is published
-  // in the family footer line. This object stays city and region for the
-  // shorter lines already used on legal pages and in email.
+  // Public locality and region. Street-address verification records are kept
+  // outside the public website data.
   address: {
     city: "Meridian",
     state: "ID",

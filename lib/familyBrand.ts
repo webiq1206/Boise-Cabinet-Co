@@ -77,8 +77,8 @@ export const FAMILY_BRAND: FamilyBrand = {
     // The approved C7 check (scripts/verify-p5-mobile-seo.mjs) keeps the bottom bar on screen
     // below 1180px, and the site's navigation has always folded into the menu there.
     desktopFrom: 1180,
-    // Call with its label, then Text: the two ways to reach us on every page today.
-    phoneActions: ['call', 'text'],
+    // Shared contact actions use the same call, text and chat icons across the family.
+    phoneActions: ['call', 'text', 'chat'],
   },
   nav: [
     { label: 'Shop by room', href: '/cabinets' },
@@ -90,8 +90,13 @@ export const FAMILY_BRAND: FamilyBrand = {
   // One label, one destination (family plan Phase 1): "Request a quote" to /estimate.
   cta: { label: CTA_REQUEST_QUOTE, href: CTA_QUOTE_HREF },
   phone: { display: SITE_CONFIG.phone, telHref: SITE_CONFIG.phoneHref, smsHref: SITE_CONFIG.phoneSmsHref },
-  // The estimating assistant opens from its own desktop launcher only; phones have no chat entry today.
-  chat: { enabled: false, label: 'Chat', openEvent: 'p5:assistant-open' },
+  // The existing assistant listens for this event. Match its route suppression exactly.
+  chat: {
+    enabled: true,
+    label: 'Chat',
+    openEvent: 'p5:assistant-open',
+    hiddenOn: ['/admin*', '/portal*', '/design-studio*', '/estimate*', '/kitchen-cabinets'],
+  },
   bar: {
     // Approved C7 decision (scripts/verify-p5-mobile-seo.mjs): the bar is on the first screen, over the hero.
     showOverHero: true,
@@ -173,13 +178,13 @@ export const FAMILY_BRAND: FamilyBrand = {
       { name: 'Boise Cabinet Co', href: 'https://boisecabinet.co' },
     ],
   },
-  nap: { line: 'Public representative: Nick Perkins · 4031 W Wapoot St, Meridian, ID 83646 · Service-area business, not a staffed storefront' },
+  nap: { line: 'Serving Boise and the Treasure Valley' },
   hours: PUBLIC_HOURS_LINE,
   registration: {
     text: IDAHO_REGISTERED_CONTRACTOR,
     href: DOPL_LICENSE_SEARCH,
-    title: 'Look up registration 8381215 on Idaho DOPL',
-    ariaLabel: 'Verify with Idaho DOPL: look up registration 8381215, opens in a new tab',
+    title: 'Idaho contractor registration 8381215',
+    ariaLabel: 'Idaho contractor registration 8381215 (opens in a new tab)',
     rel: 'noopener noreferrer',
   },
   parentFacebook: { href: P5_FACEBOOK_URL, label: 'P5 Home Co on Facebook' },

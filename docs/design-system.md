@@ -5,7 +5,7 @@ The four brand sites share one editorial layer, `app/family.css`, kept byte-iden
 ## Shared rules (do not vary per brand)
 - Measure: `ed-shell` = min(100% - 48px, 1380px); narrow 1080px; prose 720px. Breakpoints 1100 / 820 / 560.
 - Rhythm: `Section` with `spacing="default" | "sm" | "lg" | "xl"` (fluid clamp paddings) and `surface="dark" | "deep" | "bone" | "muted" | "gradient"`. Dark-dominant pages with several light (`bone`) bands spaced apart; closing asks are gradient statement bands, never cards.
-- Type: Cormorant Garamond display/headings (`ed-display`, `ed-h2`, `ed-h2-sm`, `ed-h3`, `ed-h4`), Manrope body at 15px/1.75 (`ed-body`), `ed-lede`, tracked uppercase `ed-eyebrow` with a 28px rule. Statement measures live on the heading (`ed-statement*`), never on a wrapper.
+- Type: Cormorant Garamond display/headings and Manrope body follow the approved family role table below. `ed-h2` is an editorial section display, `ed-h2-sm` is a compact feature title, and article/legal H2 stays an ordinary content heading. Statement measures live on the heading (`ed-statement*`), never on a wrapper.
 - Layout primitives: `ed-split` (1.35fr/.65fr, `-even`, `-narrow`, `-end`, `-center`), `ed-matrix` (hairline grid; column count via `--ed-cols`, collapses to 2 columns under 1100px and 1 under 560px by track list, so an inline `--ed-cols` cannot override it), `ed-panel` (57/43 image + copy, `-reverse`), `ed-rail` (horizontal scroller), `ed-inset`, `ed-card`, `ed-steps`/`ed-step`/`ed-step-n`, `ed-link` + `ed-arrow`.
 - Buttons: `brand` (58px, uppercase, 11px/700, tracked), `brandOutline`, `heroOutline` (same format in inverse colours over photography). CTA pairs stack full width under 640px. `heroGhost` is wizard chrome only.
 - Motion: `ed-rise` reveal and `ed-zoom` 850ms on the shared curve; everything respects `prefers-reduced-motion`.
@@ -50,3 +50,24 @@ section of every route `padding-top: var(--ed-hero-top)` (header height plus
 run flush to the top (image first) opts out with `pt-0`; the fixed estimator
 frame is excluded. `scripts/_hero-gap.mjs` in the Remodeling repo measures the
 gap on every template at 1440, 834 and 390 and lists anything under 32px.
+
+## Approved family typography roles (2026-11-04)
+
+Source: current master Website Design Quality 2.3, `styles/family-tokens.css`, and the owner's family comparison decision. The comparison found matching child-homepage scales; Cabinet is not being reduced in isolation. Canonical shared files stay under the manifest owner. This brand-owned record does not claim rollout or visual acceptance on other sites.
+
+| Role | Phone | Tablet | Desktop | Line height / tracking |
+| --- | --- | --- | --- | --- |
+| Shared photo hero | Existing fluid 42–56 | Existing fluid 56–80 | Existing fluid 68–116 | Existing shared hero rule |
+| Editorial section display | 36 | 52 | 64 | 1.05 / -0.02em |
+| Interior H1 / feature title | 32 | 44 | 52 | 1.1 / -0.02em |
+| Ordinary article/legal H2 | 28 | 36 | 40 | 1.15 / -0.01em |
+| Content/card H3 | 22 | 26 | 28 | 1.2 / -0.01em |
+| H4 | 18 | 20 | 20 | 1.3 / 0 |
+| Body | 17 | 18 | 18 | 1.6 / 0 |
+| Caption | 14 | 15 | 15 | 1.5 / 0 |
+| Eyebrow | 13 | 13 | 13 | 1.3 / +0.06em |
+| Navigation / button | 15 / 16 | 15 / 16 | 15 / 16 | 1 / 0 |
+
+Phone is below 640px; tablet 640–1023px; desktop 1024px and above. Use the existing `--fs-*`, `--lh-*`, tracking, `--stack-heading` and `--stack-cta` tokens. Cabinet's site-owned presentation rules map marketing and content roles; estimator/application input geometry and the shared hero scale remain outside those selectors. Keep the two fonts, teal accent, approved imagery, full-head treatment, content and workflows.
+
+Final rendered role equality, fonts, wrapping, enlarged text, hero/action clearance, relevant input states and independent review remain required before release. This profile update and source checks alone do not establish those passes.

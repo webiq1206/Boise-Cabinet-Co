@@ -40,7 +40,7 @@ const PROOF: ProofItem[] = [
  {label:'Finishes',text:'299 finish options'},
  {label:'Door styles',text:'6 door styles'},
  {label:'Consultation',text:'Free in-home design consultation',href:'#contact'},
- {label:'Registered',text:IDAHO_REGISTERED_CONTRACTOR,href:DOPL_LICENSE_SEARCH,linkTitle:'Look up registration 8381215 on Idaho DOPL',linkLabel:'Verify with Idaho DOPL: look up registration 8381215, opens in a new tab',newTab:true},
+ {label:'Registered',text:IDAHO_REGISTERED_CONTRACTOR,href:DOPL_LICENSE_SEARCH,linkTitle:'Idaho contractor registration 8381215',linkLabel:'Idaho contractor registration 8381215 (opens in a new tab)',newTab:true},
 ];
 
 const IDENTITY =
@@ -74,7 +74,7 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
       {DOOR_STYLES.map((d)=><a className="fr-door" key={d.name} href="/catalog"><span className="fr-door-media"><img src={`/generated/door-styles/${d.slug}.svg`} alt={`${d.name} cabinet door profile`} loading="lazy" width="320" height="400"/></span><b>{d.name}</b><span>Door profile</span></a>)}
     </div>
     <div className="fr-cards-more" id="projects-honest" aria-labelledby="projects-heading">
-      <span id="projects-heading">We publish only our own completed work, and our first projects as Boise Cabinet Co are finishing now. Ask us for references.</span>
+      <span id="projects-heading">Compare cabinet styles, finishes, and layouts for your home.</span>
       <a className="text-link" href="/design-ideas">Design ideas <ArrowUpRight size={18}/></a>
       <a className="text-link" href="/catalog">Explore the full catalog <ArrowUpRight size={18}/></a>
     </div>
