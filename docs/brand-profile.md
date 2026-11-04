@@ -1,6 +1,6 @@
 ## Brand: Boise Cabinet Co
 
-Profile version: 1.0 | Recorded: 2026-11-04 | Last approved: no separate approval date established for this consolidated profile | Source of truth: this file and its source register below.
+Profile version: 1.1 | Recorded: 2026-11-04 | Last approved: no separate approval date established for this consolidated profile | Source of truth: this file and its source register below.
 
 This is Cabinet’s authoritative Website Design Quality 2.3 E1 profile. It consolidates existing identity and current owner directions; it does not approve a new identity or certify existing CSS, final visual acceptance, deployment or live verification. Read the complete Website Design Quality 2.3 master, implementation rules and review record, plus Organic and AI Search Visibility 1.0.2 and applicable references. Latest explicit owner instructions and functional, accessibility and factual protections take precedence. Do not infer new permission from this document.
 
@@ -25,7 +25,7 @@ Use the complete outlined October 28 lockups, preserving artwork, embedded spaci
 | Light surface | `public/brand/approved-lockup-dark.svg` | `c427b8281284d96530f19ac7e38cc29163ddeeaa76effd2dc3693f64bdac21ef` |
 | Charcoal header/menu/footer | `public/brand/approved-lockup-light.svg` | `70f21a18cbd695c9f4946b047700c6c6f4716bc5393aa3d763b90c763f2adf3e` |
 
-ViewBox approximately 339.147 × 50; configured artwork 339 × 50. Current shared header/menu maximum image height is 28px phone, 32px from 640px; footer maximum is 32px. Below 360px the canonical header uses its accessible brand-name treatment. These are observed responsive rules, not an invented universal logo minimum. No separate approved numerical minimum or external clear-space rule for this compound lockup was located: preserve its viewBox/current container clearance and review optical legibility. [S1, S4, S5]
+ViewBox approximately 339.147 × 50; configured artwork 339 × 50. Current shared header/menu maximum image height is 28px phone, 32px from 640px; footer maximum is 32px. Below360px the canonical header preserves the complete approved SVG in its own44px row above the contact/menu row, rather than a live-text replacement. These are observed responsive rules, not an invented universal logo minimum. No separate approved numerical minimum or external clear-space rule for this compound lockup was located: preserve its viewBox/current container clearance and review optical legibility. [S1, S4, S5]
 
 The older seal kit’s 8%-of-diameter clearance and 160px minimum apply to those archived seals. Its B-cap-height wordmark clearance, 600px minimum, `#7AAAAA` accent and disc-over-photo advice are historical artwork guidance, not instructions to resize/recolor the current website lockup. Keep original assets. The kit’s `../../BRAND-SYSTEM.md` is absent in this checkout and is not treated as loaded authority. [S6]
 
@@ -186,3 +186,10 @@ Cabinet owns its name, teal, cabinetry imagery/products/copy and service journey
 | S12 | Current owner directions, actual reference inspections and role decision in existing private task evidence: `portfolio-six-site-authority.md`, `reference-image-observations.md`, `portfolio-typography-decision.md`, `portfolio-labels/cabinet*.{json,md}`. These are not publicly served assets or final acceptance. |
 
 Complete Website Design Quality 2.3 resources and Organic 1.0.2/all six current references were loaded for this consolidation; cached Organic 1.0.0 guidance is superseded. Documentation alone does not pass the exact-revision normal build, rendered route/state/keyboard, independent review or live gates. Reuse the existing inventory/recovery records; no competing generic audit or assumed analytics/search access.
+
+
+### November4 narrow-header and menu implementation record
+
+Canonical source `boise-remodeling-co` revision `fa720a579b696af92861fb571fa0aff043e734b0` restores the complete approved SVG below360px in a logo row above the unboxed contact/menu controls. Normal320px prototype height is89px including the border; use the actual measured header/safe-area height, not a fixed clearance. Enlarged text may grow it. Normal360px-and-up header geometry is unchanged. Mobile-menu Call/Text/Chat contact controls are transparent and borderless at rest, retain visible focus and existing destinations/capability, and use the same icons as header/footer. This records the owner-requested consistency repair, not a new identity or approval exception. The independently reviewed prototype is narrower evidence than each final built site; retain exact-head rendering and functional gates.
+
+The homepage uses the existing viewport-fit HeroPhoto composition. Its support keeps the cabinetry scope; the unchanged free in-home design-consultation sentence follows in the next cabinetry-section intro. Primary/secondary destinations, reassurance, image, H1 and approved type/padding remain. `/kitchen-cabinets` now uses the common family footer; Chat remains omitted there under its existing capability policy. The `/estimate` task-footer exclusion is unchanged.
