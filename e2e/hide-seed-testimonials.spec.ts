@@ -40,7 +40,9 @@ test("live routes render no seed reviews, stars, counts, or review schema", asyn
     if (path === "/testimonials") {
       await expect(page).toHaveURL(/\/design-ideas$/);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://boisecabinet.co/design-ideas");
-      expect(html, path).toContain("they are not records of completed client projects.");
+      await expect(page.getByRole("heading", { level: 1, name: "Cabinet design ideas for Treasure Valley homes" })).toBeVisible();
+      expect(html, path).toContain("Compare door styles, finishes, layouts, and storage details.");
+      expect(html, path).not.toContain("they are not records of completed client projects.");
     }
   }
 });

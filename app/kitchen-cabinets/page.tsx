@@ -1,4 +1,5 @@
 import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
+import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
@@ -183,6 +184,7 @@ export default function KitchenCabinetsPage() {
                 <p className="eyebrow">FREE DESIGN CONSULTATION</p>
                 <h2>Tell us about<br /><em style={{ color: 'var(--f-accent)' }}>your kitchen.</em></h2>
                 <p>A full set, a refresh, an island, or not sure yet. Send a few details and we reply within one business day to schedule a free in-home design consultation.</p>
+                <p><PreferToTextLine /></p>
                 <p>You will leave with a layout direction, door and finish guidance, and a written proposal with drawings before anything is ordered.</p>
               </div>
             </div>
