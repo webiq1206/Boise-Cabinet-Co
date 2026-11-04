@@ -27,11 +27,74 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: mkdir -p test-results/planning-contact && ./node_modules/.bin/tailwindcss -i app/globals.css -o test-results/planning-contact/tailwind.css
       - run: node scripts/verify-planning-contact.cjs cabinet
-      - uses: actions/upload-artifact@v4
+      - name: Package complete planning evidence within storage limit
+        id: evidence
         if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import { lstat, readdir, readFile, writeFile, appendFile, mkdir, rm, rename } from 'node:fs/promises';
+          import path from 'node:path';
+          import { createHash } from 'node:crypto';
+          import { execFileSync } from 'node:child_process';
+          const LIMIT = 100 * 1024 * 1024;
+          const source = 'test-results/planning-contact';
+          const out = 'ci-evidence-artifacts';
+          const staging = `${out}/planning-staging`;
+          const archive = `${out}/planning.tar.gz`;
+          const temporary = `${out}/planning.pending.tar.gz`;
+          await mkdir(out, { recursive: true });
+          const outputStat = await lstat(out);
+          if (!outputStat.isDirectory() || outputStat.isSymbolicLink()) throw new Error('Unsafe evidence output directory');
+          await rm(archive, { force: true });
+          await rm(temporary, { force: true });
+          await rm(staging, { recursive: true, force: true });
+          await mkdir(staging);
+          const files = [];
+          let total = 0;
+          async function collect(file, name) {
+            if (/[\r\n]/.test(name) || name.split('/').some(part => part.startsWith('.'))) throw new Error('Unsafe evidence path');
+            const stat = await lstat(file);
+            if (stat.isSymbolicLink()) throw new Error(`Symlink evidence rejected: ${name}`);
+            if (stat.isDirectory()) {
+              for (const child of (await readdir(file)).sort()) await collect(path.join(file, child), `${name}/${child}`);
+              return;
+            }
+            if (!stat.isFile()) throw new Error(`Non-file evidence rejected: ${name}`);
+            if (files.length >= 10000 || total + stat.size > LIMIT) throw new Error('Evidence exceeds raw size or file-count limit');
+            const bytes = await readFile(file);
+            if (total + bytes.length > LIMIT) throw new Error('Evidence grew beyond raw size limit');
+            total += bytes.length;
+            const destination = path.join(staging, name);
+            await mkdir(path.dirname(destination), { recursive: true });
+            await writeFile(destination, bytes);
+            files.push({ path: name, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') });
+          }
+          try {
+            let sourcePresent = true;
+            try { await lstat(source); }
+            catch (error) { if (error.code !== 'ENOENT') throw error; sourcePresent = false; }
+            if (sourcePresent) await collect(source, source);
+            const required = ['tailwind.css', 'source-report.json', 'browser-report.json'];
+            const missingOrEmpty = required.filter(name => !files.some(file => file.path === `${source}/${name}` && file.bytes > 0));
+            await writeFile(`${staging}/manifest.json`, JSON.stringify({ group: 'planning', testedCommit: process.env.GITHUB_SHA, valid: missingOrEmpty.length === 0, missingOrEmpty, totalBytes: total, files }, null, 2) + '\n');
+            execFileSync('tar', ['-czf', temporary, '-C', staging, '.'], { stdio: 'pipe' });
+            const archiveStat = await lstat(temporary);
+            if (!archiveStat.isFile() || archiveStat.isSymbolicLink() || archiveStat.size > LIMIT) throw new Error('Evidence archive exceeds size limit or is not a regular file');
+            await rename(temporary, archive);
+            await appendFile(process.env.GITHUB_OUTPUT, 'archive_ready=true\n');
+            console.log(JSON.stringify({ archive, archiveBytes: archiveStat.size, totalBytes: total, files: files.length, missingOrEmpty }));
+            if (missingOrEmpty.length) process.exitCode = 1;
+          } finally {
+            await rm(staging, { recursive: true, force: true });
+            await rm(temporary, { force: true });
+          }
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.evidence.outputs.archive_ready == 'true'
         with:
           name: cabinet-planning-contact-${{ github.sha }}
-          path: test-results/planning-contact/
+          path: ci-evidence-artifacts/planning.tar.gz
           retention-days: 14
+          compression-level: 0
           if-no-files-found: error
 
