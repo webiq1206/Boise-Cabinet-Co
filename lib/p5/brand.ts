@@ -1,3 +1,6 @@
+/** Shared neutral for presentation; brand facts and accents stay site-owned. */
+export const BRAND_CHARCOAL = "#383837";
+
 export const ESTIMATOR_BRAND = {
   "id": "cabinet",
   "name": "Boise Cabinet Co",
@@ -14,7 +17,7 @@ export const ESTIMATOR_BRAND = {
   "defaultService": "",
   "email": "hello@boisecabinet.co",
   "phone": "(208) 477-1169",
-  "ink": "#383837",
+  "ink": BRAND_CHARCOAL,
   "paper": "#FBFAF6",
   "logo": "/brand/png/wordmark/light/boise-cabinet-co-wordmark-charcoal-accent-1200w.png",
   "font": "/fonts/p5-estimator-sans.ttf",

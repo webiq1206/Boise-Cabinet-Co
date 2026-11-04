@@ -43,7 +43,7 @@ function DesignStudioContent() {
         </div>
       </header>
 
-      <main className="flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
+      <main className="cabinet-design-studio flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
         {/* Slim, app-style intro so the wizard sits near the top of the screen. */}
         <div className="mb-5">
           <p className="ed-eyebrow">Design Studio</p>
@@ -64,7 +64,7 @@ function DesignStudioContent() {
 
 function DesignStudioLoading() {
   return (
-    <main className="flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
+    <main className="cabinet-design-studio flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
       <div className="mb-5">
         <p className="ed-eyebrow">Design Studio</p>
         <h1 className="text-2xl md:text-3xl font-serif tracking-tight">

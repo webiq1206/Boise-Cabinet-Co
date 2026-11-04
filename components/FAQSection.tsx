@@ -36,7 +36,7 @@ export function FAQSection() {
             initialCount={6}
             idPrefix="faq"
             itemClassName="border-0 border-t [border-color:var(--ed-line)]"
-            triggerClassName="ed-h4 py-6 text-left hover:no-underline [&[data-state=open]]:[color:var(--ed-accent)]"
+            triggerClassName="ed-h4 py-6 text-left hover:no-underline [&[data-state=open]]:underline [&[data-state=open]]:underline-offset-4"
             contentClassName="ed-body pb-7 text-[0.9375rem]"
           />
           </div>

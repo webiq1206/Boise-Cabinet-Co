@@ -165,6 +165,8 @@ html, body {
      On brand charcoal #383837 the accent is a large-text and UI color (about 3.8:1).
      Body copy on that ground uses bone or paper, which clears WCAG AA. */
   --accent: 178.89 21.26% 50.20%;
+  /* Exact heading fill from the approved Cabinet logo/icon, independent of UI ink. */
+  --color-heading-accent: #659B9A;
   --accent-text: 180 24% 64%;
   /* The same teal, darkened for use as TEXT on a light (bone) band. The site
      was built dark, so --accent-text is tuned for a charcoal ground and falls
@@ -558,14 +560,28 @@ html, body {
 
 /* Accent TEXT uses --accent-text, a lighter teal tuned to meet WCAG AA contrast
    on the charcoal grounds, while the brand --accent (#659B9A) stays
-   for decorative borders/fills. Both the heading accent word and any `.text-accent`
-   text (eyebrows, chips, links) resolve to the accessible teal. These unlayered
-   rules outrank the layered Tailwind `.text-accent` utility. */
+   for decorative borders/fills. Normal `.text-accent` text (eyebrows, chips,
+   links) keeps this accessible ink. Heading emphasis uses the exact logo fill
+   through --color-heading-accent below. These unlayered rules outrank the
+   layered Tailwind `.text-accent` utility. */
 .text-accent {
   color: hsl(var(--accent-text));
 }
 .brc-accent.text-accent {
   color: hsl(var(--accent-text));
+}
+
+/* Heading roles use the supplied logo hue, independent of ordinary text/focus ink.
+   Local aliases also cover existing inline --ed-accent/--f-accent consumers. */
+:is(.approved-shell,.cabinet-design-studio) :is(h1,h2,h3,h4,h5,h6) {
+  --ed-accent: var(--color-heading-accent);
+  --f-accent: var(--color-heading-accent);
+}
+:is(.approved-shell,.cabinet-design-studio) :is(h1,h2,h3,h4,h5,h6) :is(em,.brc-accent,.text-accent:not(svg)) {
+  color: var(--color-heading-accent);
+}
+.approved-shell :is(h1,h2,h3,h4,h5,h6) .brc-accent {
+  color: var(--color-heading-accent);
 }
 
 /* ─── Decorative display numerals (Libre Baskerville: stats, prices, step markers) ─── */

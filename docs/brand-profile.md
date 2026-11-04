@@ -43,7 +43,8 @@ Use semantic roles. Brand roots override the shared fallback accent through `FAM
 | `--color-text-muted` | `#343934`, canonical secondary ink |
 | `--color-primary` | `#383837`, owner-selected primary dark control/brand ground |
 | `--color-accent` | `#659B9A`, Cabinet teal detail/interaction |
-| `--color-accent-ink` | `#356463`, light-ground teal text/focus |
+| `--color-accent-ink` | `#356463`, ordinary light-ground teal text/focus |
+| `--color-heading-accent` | `#659B9A`, exact approved logo/icon fill for heading emphasis |
 | Secondary accent | None appointed; no competing brand accent |
 | `--color-success` / warning / error | `#3F6B4A` / `#8A6A1F` / `#A33A2C`, status only |
 | `--color-chrome` | `#383837`, owner-selected header/menu/footer charcoal |
@@ -195,3 +196,15 @@ Complete Website Design Quality 2.3 resources and Organic 1.0.2/all six current 
 Canonical source `boise-remodeling-co` revision `fa720a579b696af92861fb571fa0aff043e734b0` restores the complete approved SVG below360px in a logo row above the unboxed contact/menu controls. Normal320px prototype height is89px including the border; use the actual measured header/safe-area height, not a fixed clearance. Enlarged text may grow it. Normal360px-and-up header geometry is unchanged. Mobile-menu Call/Text/Chat contact controls are transparent and borderless at rest, retain visible focus and existing destinations/capability, and use the same icons as header/footer. This records the owner-requested consistency repair, not a new identity or approval exception. The independently reviewed prototype is narrower evidence than each final built site; retain exact-head rendering and functional gates.
 
 The homepage uses the existing viewport-fit HeroPhoto composition. Its support keeps the cabinetry scope; the unchanged free in-home design-consultation sentence follows in the next cabinetry-section intro. Primary/secondary destinations, reassurance, image, H1 and approved type/padding remain. `/kitchen-cabinets` now uses the common family footer; Chat remains omitted there under its existing capability policy. The `/estimate` task-footer exclusion is unchanged.
+
+### November 4 heading accent alignment
+
+The latest explicit owner direction requires each site’s heading pop to match its approved logo/icon. Cabinet uses exact `#659B9A`, verified from both approved lockups and both P5 family icons against `docs/branding-20261028.json`. `--color-heading-accent` is separate from the ordinary text/focus inks `#356463` and `#356363`; headings no longer substitute these inks, legacy brown, HSL text tints or paper-mixed teal. Existing inline heading `--ed-accent`/`--f-accent` consumers inherit the exact heading role. Canonical shared hero transport must use this role without a tint.
+
+Exact teal is 2.997:1 on paper and 2.679:1 on bone, so those combinations cannot be rounded into a large-text pass. On the existing `#383837` charcoal the ratio is 3.750:1. The source prototype gives only existing H1/H2 accent glyphs a one-pixel surround in that existing neutral, preserving fill, fonts, sizes, line boxes and page flow. This is the scoped neutral-context prototype authorized for this correction; it adds no heading container or section background. Source inspection found current accented H1/H2 text at least 24px and no accented H3–H6 text; the small H3 icon in RoomScanPanel retains its UI text-accent role. Do not generalize the surround to body/UI text, change weights or assume it establishes a pass for future smaller accented headings.
+
+The surround follows the neutral-context approach documented in WCAG G18 (https://www.w3.org/WAI/WCAG22/Techniques/general/G18.html). Actual loaded thin-serif edges, photography, mobile wrapping, focus and all affected template/route states still require exact-revision rendering and independent review. This source implementation is not a visual, contrast, all-page, build, deployment or live acceptance record.
+
+Existing small FAQ question open states and related-post title hover states retain neutral
+text with underline/chevron affordances. Their font roles/weights are unchanged; the
+large-heading glyph-context prototype is not a contrast pass for these small titles.

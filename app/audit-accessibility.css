@@ -2,9 +2,9 @@
 .approved-shell { --audit-accent-ink:#356363; }
 .approved-shell :target { scroll-margin-top:112px; }
 .approved-estimate { scroll-margin-top:112px; }
-.cabinet-approved .section-heading h2 em { color:var(--audit-accent-ink); }
+.cabinet-approved .section-heading h2 em { color:var(--color-heading-accent); }
 .approved-interior .interior-hero-copy h1 em,
-.approved-interior .interior-document-heading h1 em { color:var(--audit-accent-ink); }
+.approved-interior .interior-document-heading h1 em { color:var(--color-heading-accent); }
 .approved-shell :is(a,button,input,select,textarea,summary):not(.fam-btn):focus-visible { outline:3px solid currentColor; outline-offset:4px; }
 @media(prefers-reduced-motion:reduce) {
   .approved-shell *, .approved-shell *::before, .approved-shell *::after { animation:none!important; scroll-behavior:auto!important; transition:none!important; }
@@ -12,10 +12,10 @@
 
 /* Surface-aware text tokens: decorative brand accents stay unchanged. */
 .approved-shell { --accent-legible:var(--accent-on-light); --ed-accent:var(--audit-accent-ink); }
-.approved-shell :is(.family-site,.approved-interior) :is(h1,h2,h3,h4) em,
+.approved-shell :is(.family-site,.approved-interior) :is(h1,h2,h3,h4) em { color:var(--color-heading-accent); }
 .approved-shell .brc-accent { color:var(--audit-accent-ink); }
 .approved-shell :is(.f-hero,.f-value,.f-contact,.interior-hero-contact,.ed-on-gradient,.bg-inverse) :is(h1,h2,h3,h4) em {
-  color:var(--approved-accent);
+  color:var(--color-heading-accent);
 }
 .approved-shell a.text-accent-legible { text-decoration:underline; text-underline-offset:3px; }
 .approved-shell [data-testid="link-save-contact"] { display:inline-flex; align-items:center; min-height:32px; }
@@ -35,8 +35,9 @@
 .approved-shell a[href$="contact.vcf"] { display:inline-flex; align-items:center; min-height:32px; }
 .approved-shell .blog-content .callout.warning .callout-label { color:var(--audit-accent-ink); }
 
-.cabinet-approved :is(.sticky-intro,.process-overview,.craft-copy,.builder-band) h2 em,
+.cabinet-approved :is(.sticky-intro,.process-overview,.craft-copy,.builder-band) h2 em { color:var(--color-heading-accent); }
 .approved-interior.interior-blog .text-accent { color:var(--audit-accent-ink); }
+.approved-interior.interior-blog :is(h1,h2,h3,h4,h5,h6) .text-accent { color:var(--color-heading-accent); }
 .cabinet-approved .selection-tabs [role="tab"][data-state="inactive"] { color:#dddfd5; }
 .approved-interior { --accent-text:180 30% 30%; }
 .approved-interior :is(.bg-inverse,.ed-on-gradient,.interior-hero-contact) { --accent-text:180 24% 64%; }

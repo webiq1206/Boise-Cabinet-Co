@@ -45,3 +45,20 @@
   font-weight: 600;
   letter-spacing: 0;
 }
+
+/* Exact Cabinet heading teal needs a neutral surround on paper/bone and photos.
+   The existing H1/H2 accent text is at least 24px; a one-pixel charcoal glyph
+   surround preserves its fill, type and flow. It does not style UI icons or
+   ordinary accent text. Verify the loaded thin-serif pixels independently. */
+:is(.approved-shell,.cabinet-design-studio) :is(h1,h2) :is(em,.brc-accent,.text-accent:not(svg)),
+.cabinet-approved .fam-hero[data-family-hero] .fam-hero-copy .fam-hero-accent {
+  text-shadow:
+    -1px -1px 0 var(--color-charcoal),
+     0 -1px 0 var(--color-charcoal),
+     1px -1px 0 var(--color-charcoal),
+     1px  0 0 var(--color-charcoal),
+     1px  1px 0 var(--color-charcoal),
+     0  1px 0 var(--color-charcoal),
+    -1px  1px 0 var(--color-charcoal),
+    -1px  0 0 var(--color-charcoal);
+}

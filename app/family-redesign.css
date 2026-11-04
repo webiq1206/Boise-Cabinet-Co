@@ -27,7 +27,7 @@
   --fr-bone: #f1ede4;
   --fr-line: color-mix(in srgb, var(--color-charcoal) 16%, transparent);
   --fr-line-on-dark: rgba(251, 250, 246, 0.24);
-  --fr-accent-on-dark: color-mix(in srgb, var(--f-accent) 68%, #fbfaf6);
+  --fr-accent-on-dark: var(--color-heading-accent);
 }
 .family-site { font-size: var(--fs-body); line-height: var(--lh-body); }
 /* A band that sits outside the family frame still gets its heading and label colours. */
@@ -155,7 +155,7 @@
 .fr-band .f-eyebrow { color: #d9dbd4; }
 .fr-band h2,
 .fr-band h3 { color: var(--fr-paper); }
-.fr-band h2 em { color: var(--fr-accent-on-dark); }
+.fr-band h2 em { color:var(--color-heading-accent); }
 .fr-band .fr-range-intro > p:not(.f-eyebrow),
 .fr-band > .f-container > p:not(.f-eyebrow) { color: #d9dbd4; }
 .fr-band .f-link { color: var(--fr-paper); }
@@ -495,8 +495,8 @@ html .family-site .f-section-top { align-items: end; }
   html .fr-cards:has(> :last-child:nth-child(odd)) > :first-child { grid-column: 1 / -1; }
   html .fr-cards:has(> :last-child:nth-child(odd)) > :first-child .fr-card-media { aspect-ratio: 2 / 1; }
 }
-/* The accent second line on a dark band: a brighter step of the brand hue. */
-.family-site, .fr-band { --fr-accent-on-dark: color-mix(in srgb, var(--f-accent) 55%, #fbfaf6); }
+/* Heading emphasis keeps the exact logo hue on dark bands too. */
+.family-site, .fr-band { --fr-accent-on-dark: var(--color-heading-accent); }
 
 /* A force-mounted accordion keeps closed answers in the server HTML for crawlers;
    Radix does not add `hidden` to a force-mounted panel, so the closed state must
@@ -539,7 +539,7 @@ html .approved-interior .interior-detail-body h2 { font-size: var(--fs-h2); line
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
-.fr-gallery h2 em { font-style: normal; color: var(--f-accent, currentColor); }
+.fr-gallery h2 em { font-style: normal; color:var(--color-heading-accent); }
 .fr-gallery-intro { margin: 0; max-width: 46ch; color: var(--fr-ink-soft, #484c47); font-size: var(--fs-body); line-height: var(--lh-body); }
 .fr-mosaic {
   display: grid;
