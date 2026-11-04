@@ -16,6 +16,7 @@ import { FAMILY_BRAND } from '@/lib/familyBrand';
 import { isExternal, type FamilyLink } from '@/lib/family/types';
 import { brandStyle } from './brandStyle';
 import { ContactCardIcon } from './Icons';
+import { ContactActions } from './ContactActions';
 
 function FooterAnchor({ link, className }: { link: FamilyLink; className?: string }) {
   if (isExternal(link.href)) {
@@ -72,12 +73,8 @@ export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterP
             <a href={brand.phone.telHref} className="fam-footer-phone" data-testid="link-footer-phone">
               {brand.phone.display}
             </a>
+            <ContactActions surface="footer" />
             <ul className="fam-footer-contact">
-              <li>
-                <a href={brand.phone.smsHref} data-testid="link-footer-text">
-                  Text {brand.phone.display}
-                </a>
-              </li>
               <li>
                 <a href={`mailto:${brand.email}`} data-testid="link-footer-email">
                   {brand.email}
@@ -109,7 +106,6 @@ export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterP
             {brandExtra}
           </div>
 
-          <div className="fam-footer-groups">
           {footer.groups.map((group) => (
             <div className="fam-footer-group" key={group.title}>
               <p className="fam-footer-label">{group.title}</p>
@@ -122,7 +118,6 @@ export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterP
               </ul>
             </div>
           ))}
-          </div>
         </div>
 
         <div className="fam-footer-row fam-footer-areas">

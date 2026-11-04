@@ -69,19 +69,12 @@ function contractorCredential() {
   };
 }
 
-/**
- * Postal address for the Meridian service-area business record, read from
- * BUSINESS_INFO (lib/seo.ts) so schema and the visible NAP have one source.
- * This is not a public showroom: the footer prints the same street with the
- * not-a-storefront line.
- */
-function serviceAreaPostalAddress() {
+/** Public service locality; no street address or private premises coordinates. */
+function serviceAreaLocality() {
   return {
     '@type': 'PostalAddress' as const,
-    streetAddress: BUSINESS_INFO.address.street,
     addressLocality: BUSINESS_INFO.address.city,
     addressRegion: BUSINESS_INFO.address.state,
-    postalCode: BUSINESS_INFO.address.postalCode,
     addressCountry: BUSINESS_INFO.address.countryCode,
   };
 }
@@ -99,23 +92,18 @@ const BRAND_LOGO_PATH = '/brand/png/wordmark/light/boise-cabinet-co-wordmark-cha
  * at the parent organization, the same @id parentOrganization uses.
  * Visible email sender names stay "Nick".
  */
-const PUBLIC_REPRESENTATIVE_NAME = 'Nick Perkins';
+const FOUNDER_NAME = 'Nick Perkins';
 const PUBLIC_EMAIL = 'hello@boisecabinet.co';
 const P5_PERSON_ID = `${P5_ORIGIN}/#nick-perkins`;
 /** Schema telephone is E.164. Visible pages keep (208) 477-1169. */
 const SCHEMA_TELEPHONE = '+1-208-477-1169';
-/**
- * Nominatim point for 4031 W Wapoot St, Meridian, ID 83646.
- * Not the Meridian city centroid.
- */
-const HQ_GEO = { latitude: 43.6515, longitude: -116.4444 } as const;
 
-function publicRepresentative() {
+function founderPerson() {
   return {
     '@type': 'Person' as const,
     '@id': P5_PERSON_ID,
-    name: PUBLIC_REPRESENTATIVE_NAME,
-    jobTitle: 'Public representative' as const,
+    name: FOUNDER_NAME,
+    jobTitle: 'Founder' as const,
     worksFor: { '@id': P5_ORG_ID },
   };
 }
@@ -123,8 +111,8 @@ function publicRepresentative() {
 function publicContactPoint() {
   return {
     '@type': 'ContactPoint' as const,
-    name: PUBLIC_REPRESENTATIVE_NAME,
-    contactType: 'Public representative' as const,
+    name: FOUNDER_NAME,
+    contactType: 'customer service' as const,
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
     areaServed: 'US-ID' as const,
@@ -160,15 +148,10 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     url: baseUrl,
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
-    address: serviceAreaPostalAddress(),
+    address: serviceAreaLocality(),
     parentOrganization: P5_PARENT_ORGANIZATION,
-    employee: publicRepresentative(),
+    employee: founderPerson(),
     contactPoint: publicContactPoint(),
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: HQ_GEO.latitude,
-      longitude: HQ_GEO.longitude,
-    },
     openingHoursSpecification: Object.entries(BUSINESS_INFO.hours).map(([day, hours]) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: day.charAt(0).toUpperCase() + day.slice(1),
@@ -234,9 +217,9 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       name: BUSINESS_INFO.name,
       telephone: SCHEMA_TELEPHONE,
       email: PUBLIC_EMAIL,
-      address: serviceAreaPostalAddress(),
+      address: serviceAreaLocality(),
       parentOrganization: P5_PARENT_ORGANIZATION,
-      employee: publicRepresentative(),
+      employee: founderPerson(),
       contactPoint: publicContactPoint(),
       hasCredential: contractorCredential(),
     },
@@ -277,7 +260,7 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     parentOrganization: P5_PARENT_ORGANIZATION,
-    employee: publicRepresentative(),
+    employee: founderPerson(),
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',
@@ -287,7 +270,7 @@ export function generateOrganizationSchema(): SchemaContext {
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
-    address: serviceAreaPostalAddress(),
+    address: serviceAreaLocality(),
     slogan: "Idaho's Premier Custom Cabinet Company",
     knowsAbout: [
       'Custom kitchen cabinets',

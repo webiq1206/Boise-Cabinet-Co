@@ -44,7 +44,7 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   assert.equal(FAMILY_BRAND.hours, PUBLIC_HOURS_LINE);
   assert.equal(FAMILY_BRAND.registration.text, IDAHO_REGISTERED_CONTRACTOR);
   assert.equal(FAMILY_BRAND.registration.href, DOPL_LICENSE_SEARCH);
-  assert.match(FAMILY_BRAND.nap.line, /4031 W Wapoot St, Meridian, ID 83646/);
+  assert.equal(FAMILY_BRAND.nap.line, 'Serving Boise and the Treasure Valley');
   assert.equal(FAMILY_BRAND.accent, '#659b9a');
   assert.equal(FAMILY_BRAND.accentInk, '#356463');
   // The parent's profiles are the ones in the parent organization's schema node.
@@ -61,10 +61,16 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   for (const path of ['/', '/cabinets', '/estimates', '/contact']) assert.equal(matchesRoute(path, FAMILY_BRAND.bar.hiddenOn), false, path);
   // A focused field, the embedded estimator, a wizard bar or an on-screen request form wins the space.
   assert.deepEqual(FAMILY_BRAND.bar.yieldToBodyFlags, ['hideMobileNavBar', 'p5EstimatorActive', 'suppressStickyCta']);
-  // e2e/mobile-above-fold.spec.ts needs Call and Text on the first screen; the header carries both on phones.
-  assert.deepEqual(FAMILY_BRAND.header.phoneActions, ['call', 'text']);
-  // The assistant has no phone entry today, so the menu shows no Chat tile.
-  assert.equal(FAMILY_BRAND.chat.enabled, false);
+  // The canonical header/footer contact actions use all three supported destinations.
+  assert.deepEqual(FAMILY_BRAND.header.phoneActions, ['call', 'text', 'chat']);
+  assert.equal(FAMILY_BRAND.chat.enabled, true);
+  assert.equal(FAMILY_BRAND.chat.openEvent, 'p5:assistant-open');
+  for (const path of ['/estimate', '/estimate/scope', '/kitchen-cabinets', '/admin', '/portal/projects', '/design-studio']) {
+    assert.equal(matchesRoute(path, FAMILY_BRAND.chat.hiddenOn ?? []), true, path);
+  }
+  for (const path of ['/', '/about', '/contact', '/cabinets/kitchen']) {
+    assert.equal(matchesRoute(path, FAMILY_BRAND.chat.hiddenOn ?? []), false, path);
+  }
   // Dark header only over the photo hero.
   assert.equal(matchesRoute('/', FAMILY_BRAND.header.darkOn), true);
   assert.equal(matchesRoute('/cabinets', FAMILY_BRAND.header.darkOn), false);
@@ -111,7 +117,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.match(html, /<span class="fam-footer-current" aria-current="true">Boise Cabinet Co<\/span>/);
   assert.equal(/rel="noopener noreferrer">(P5 Home Co|Boise)/.test(html), false);
   assert.equal(html.includes('Boise ADU Co'), false);
-  assert.match(html, /Public representative: Nick Perkins/);
+  assert.equal(/Public representative|Wapoot|staffed storefront/.test(html), false);
   assert.ok(html.includes('Mon–Fri 9 AM–6 PM, Sat 9 AM–4 PM (Mountain).'));
   assert.match(html, /mailto:hello@boisecabinet\.co/);
   assert.match(html, /href="sms:\+12084771169"/);

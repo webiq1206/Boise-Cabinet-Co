@@ -78,7 +78,7 @@ export function GET() {
         loc: abs(project.hero.src),
         title:
           project.kind === 'concept'
-            ? `Cabinet design concept: ${project.title} for Treasure Valley homes`
+            ? `${project.title}: cabinet styles and finishes`
             : `${project.title}: custom cabinets by Boise Cabinet Co in the Treasure Valley`,
       })),
     });

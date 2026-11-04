@@ -46,8 +46,8 @@ test("sitemap pages get a visible registration line, and estimate stays plain te
   assert.match(footer, /https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch/);
   assert.match(footer, /target="_blank"/);
   assert.match(footer, /rel="noopener noreferrer"/);
-  assert.match(footer, /title="Look up registration 8381215 on Idaho DOPL"/);
-  assert.match(footer, /aria-label="Verify with Idaho DOPL: look up registration 8381215, opens in a new tab"/);
+  assert.match(footer, /title="Idaho contractor registration 8381215"/);
+  assert.match(footer, /aria-label="Idaho contractor registration 8381215 \(opens in a new tab\)"/);
   assert.equal(footer.includes("(#8381215)"), false);
   assert.equal(footer.includes("whitespace-nowrap"), false);
   assert.equal(footer.includes("truncate"), false);

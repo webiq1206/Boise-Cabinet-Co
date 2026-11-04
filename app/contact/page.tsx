@@ -288,7 +288,6 @@ export default function ContactPage() {
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}
                     <br />
                     We come to you: free in-home consultations by appointment.
-                    No public showroom.
                   </address>
                 </ContactChannel>
               </Reveal>

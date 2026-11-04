@@ -56,6 +56,7 @@ export function buildBusinessVCard(): string {
   const note = [
     "Custom cabinets designed to your measurements, built to order, installed by our Treasure Valley crew.",
     "A P5 Home Co company.",
+    SITE_CONFIG.serviceAreaLabel + ".",
     IDAHO_REGISTERED_CONTRACTOR + ".",
   ].join(" ");
 
@@ -69,9 +70,6 @@ export function buildBusinessVCard(): string {
     foldLine(`TEL;TYPE=WORK,VOICE:${tel}`),
     foldLine(`EMAIL;TYPE=WORK:${escapeVCard(SITE_CONFIG.email)}`),
     foldLine(`URL:${escapeVCard(SITE_CONFIG.siteUrl)}`),
-    foldLine(
-      `ADR;TYPE=WORK:;;;${escapeVCard(SITE_CONFIG.address.city)};${escapeVCard(SITE_CONFIG.address.state)};83646;USA`,
-    ),
     foldLine(`NOTE:${escapeVCard(note)}`),
     "END:VCARD",
   ];

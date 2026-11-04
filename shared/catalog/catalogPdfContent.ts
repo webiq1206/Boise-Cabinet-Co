@@ -190,7 +190,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "heading", text: "Finishes by color family" });
   blocks.push({
     type: "paragraph",
-    text: `We offer ${FINISHES.length} finishes across matte, gloss, and woodgrain. One representative swatch per color family is shown below; the complete list follows.`,
+    text: `We offer ${FINISHES.length} finishes across matte, gloss, and woodgrain. A swatch from each color family appears below; the complete finish list follows.`,
   });
   const familyCells: PdfImageCell[] = [];
   for (const family of COLOR_FAMILIES) {

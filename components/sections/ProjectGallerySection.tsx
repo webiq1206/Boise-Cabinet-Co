@@ -35,8 +35,8 @@ function ProjectCard({ project }: { project: SiteProject }) {
         )}
       </div>
       <div className="p-5">
-        <h3 className="font-serif font-medium text-sm mb-1 text-foreground">{project.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
+        <h3 className="ed-h3 mb-1 text-foreground">{project.title}</h3>
+        <p className="ed-body text-muted-foreground">{project.description}</p>
         {project.detail.length > 0 ? (
           <div className="mt-4 grid grid-cols-3 gap-1.5">
             {project.detail.slice(0, 3).map((image) => (
@@ -70,16 +70,16 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
     <Section id="gallery" divider>
       <div className="container px-4">
         <SectionHeader
-          eyebrow={allVerified ? "Our work" : "Design inspiration"}
+          eyebrow={allVerified ? "Our work" : "Cabinet styles"}
           title={
             allVerified
               ? "Cabinet projects across the Treasure Valley"
-              : "Cabinet design concepts for Treasure Valley homes"
+              : "Kitchen, bath and built-in cabinetry"
           }
           description={
             allVerified
               ? "Custom kitchen cabinets, bathroom vanities, and built-in storage completed for Treasure Valley homeowners."
-              : "Kitchen cabinets, bathroom vanities, and built-in storage the way we design, source, and install them. A finished look preview for planning your own project."
+              : "Kitchen cabinets, bathroom vanities, and built-in storage in a range of door styles, finishes, and layouts."
           }
           align="center"
           className="mb-10 max-w-3xl"
