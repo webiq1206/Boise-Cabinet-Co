@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
 import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -124,8 +125,9 @@ export default function KitchenCabinetsPage() {
         .approved-shell .kc-hero p { color: #fbfaf6; }
         .approved-shell .kc-hero h1 { font-size: clamp(30px, 7.6vw, 60px); line-height: 1.05; }
         @media (max-width: 767px) {
-          .approved-shell .kc-hero { min-height: 0; }
-          .approved-shell .kc-hero h1 { font-size: 30px; }
+          .approved-shell .kc-hero { min-height: 0; padding-block: var(--section-y); }
+          .approved-shell .kc-hero-copy { padding-block: 0; }
+          .approved-shell .kc-hero h1 { font-size: var(--fs-page-title, var(--fs-h1)); }
         }
       `}</style>
       <JsonLd
@@ -135,7 +137,7 @@ export default function KitchenCabinetsPage() {
         ]}
       />
 
-      <section data-p5-hero className="kc-hero relative flex min-h-[32rem] items-end overflow-hidden">
+      <section data-p5-hero className="kc-hero pt-0 relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
           alt="Ivory kitchen cabinetry with an oak island, stone backsplash and pendant lighting"
@@ -145,18 +147,23 @@ export default function KitchenCabinetsPage() {
           className="object-cover object-[62%_center]"
         />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-forest) 92%, transparent), color-mix(in srgb, var(--color-forest) 72%, transparent) 55%, color-mix(in srgb, var(--color-forest) 60%, transparent))" }} aria-hidden="true" />
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
+        <div className="kc-hero-copy relative z-10 mx-auto w-full max-w-5xl px-5 pb-4 pt-6 sm:px-8 sm:pb-16 sm:pt-16">
           <h1 className="max-w-[16ch] font-serif">
             Boise cabinets for kitchens, baths &amp; built-ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
             Kitchen cabinets, bathroom vanities and built-ins, installed as fast as 3 weeks.
           </p>
-          <div className="mt-5">
-            <LandingContactActions onDark formId="quick-quote" formLabel="Request a Cabinet Estimate" />
+          <div className="mt-6">
+            <LandingContactActions onDark formId="quick-quote" formLabel="Request a Cabinet Estimate" showContactNote={false} />
           </div>
-          
-          <ul className="mt-5 flex flex-wrap gap-2">
+        </div>
+      </section>
+
+      <div className="bg-[var(--color-charcoal)] px-5 py-4 text-[#fbfaf6] sm:px-8" aria-label="Cabinet service details">
+        <div className="mx-auto w-full max-w-5xl">
+          <p className="mb-4 text-sm">{SITE_CONFIG.phone} · Prefer another option? Use the form below.</p>
+          <ul className="flex flex-wrap gap-2">
             {TRUST.map(({ icon: Icon, label }) => (
               <li
                 key={label}
@@ -168,7 +175,7 @@ export default function KitchenCabinetsPage() {
             ))}
           </ul>
         </div>
-      </section>
+      </div>
 
         {/* "#quick-quote" lands on the form: heading and first field first. */}
         <section id="quick-quote" data-quote-anchor="" data-suppress-sticky-cta="" className="fr-request cabinet-approved" aria-label="Request a quote">

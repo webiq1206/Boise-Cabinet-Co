@@ -183,10 +183,9 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     <InteriorPage kind="cabinets"><>
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
-        {/* Hero: one support line, one primary and the quiet call/text line, so
-            the action sits in the first screen on every room (Phase 3). The rest
-            of what the hero used to say follows directly below, word for word. */}
-        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
+        {/* On phones the unchanged support sentence follows the hero, keeping
+            the larger title, contact actions and cabinet photograph together. */}
+        <InteriorHero className="interior-hero-fit interior-hero-commercial" layout="split" imageSrc={room.heroImage} imageAlt={room.imageAlt ?? `${room.name} custom cabinets`}>
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
@@ -214,14 +213,15 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">
-              <CtaButton variant="brand">
+              <CtaButton variant="brand" className="min-h-12 px-6">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
               <AboveFoldActions />
             </div>
           </InteriorHero>
-        {heroFollowOn.length > 0 && (
+        {(heroLead.lead || heroFollowOn.length > 0) && (
           <HeroFollowOn>
+            <p className="commercial-mobile-lead">{heroLead.lead}</p>
             {heroFollowOn.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}

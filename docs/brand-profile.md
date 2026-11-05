@@ -1,6 +1,6 @@
 ## Brand: Boise Cabinet Co
 
-Profile version: 1.1 | Recorded: 2026-11-04 | Last approved: no separate approval date established for this consolidated profile | Source of truth: this file and its source register below.
+Profile version: 1.2 | Recorded: 2026-11-05 | Last approved: no separate approval date established for this consolidated profile | Source of truth: this file and its source register below.
 
 This is Cabinet’s authoritative Website Design Quality 2.3 E1 profile. It consolidates existing identity and current owner directions; it does not approve a new identity or certify existing CSS, final visual acceptance, deployment or live verification. Read the complete Website Design Quality 2.3 master, implementation rules and review record, plus Organic and AI Search Visibility 1.0.2 and applicable references. Latest explicit owner instructions and functional, accessibility and factual protections take precedence. Do not infer new permission from this document.
 
@@ -62,9 +62,10 @@ Use the current owner-selected role map. Values are CSS px; phone <640, tablet 6
 
 | Role | Phone | Tablet | Desktop | Line height | Tracking | Maximum measure |
 | --- | --- | --- | --- | --- | --- | --- |
-| Shared photo hero | `clamp(42px,11.5vw,56px)` | `clamp(56px,8.5vw,80px)` | `clamp(68px,7vw,116px)` | 1.02 / 1.02 / .98 | -.03em | Copy 36rem; support 30em |
+| Shared photo hero | `clamp(44px,13.333vw,56px)` | `clamp(56px,8.5vw,80px)` | `clamp(68px,7vw,116px)` | 1.02 / 1.02 / .98 | -.03em | Copy 36rem; support 30em |
 | Editorial section display (including semantic H2) | 36 | 52 | 64 | 1.05 | -.02em | Owning column |
-| Interior H1 / compact feature | 32 | 44 | 52 | 1.1 | -.02em | Owning column |
+| Page H1 | 40 | 44 | 52 | 1.1 | -.02em | Owning column |
+| Compact feature | 32 | 44 | 52 | 1.1 | -.02em | Owning column |
 | Ordinary article/legal H2 | 28 | 36 | 40 | 1.15 | -.01em | Content column |
 | Content/card H3 | 22 | 26 | 28 | 1.2 | -.01em | Card/content column |
 | H4 | 18 | 20 | 20 | 1.3 | 0 | Content column |
@@ -201,10 +202,76 @@ The homepage uses the existing viewport-fit HeroPhoto composition. Its support k
 
 The latest explicit owner direction requires each site’s heading pop to match its approved logo/icon. Cabinet uses exact `#659B9A`, verified from both approved lockups and both P5 family icons against `docs/branding-20261028.json`. `--color-heading-accent` is separate from the ordinary text/focus inks `#356463` and `#356363`; headings no longer substitute these inks, legacy brown, HSL text tints or paper-mixed teal. Existing inline heading `--ed-accent`/`--f-accent` consumers inherit the exact heading role. Canonical shared hero transport must use this role without a tint.
 
-Exact teal is 2.997:1 on paper and 2.679:1 on bone, so those combinations cannot be rounded into a large-text pass. On the existing `#383837` charcoal the ratio is 3.750:1. Existing H1/H2 accent glyphs use a one-pixel neutral context while preserving fill, fonts, sizes, line boxes and page flow. Light paper/bone compositions use the white already present on form cards, so the thin serif retains its painted weight; dark compositions retain charcoal. The exact teal has more than 3:1 contrast on either context. Independent review rejected the earlier dark outline on light surfaces as visually too heavy. This is the scoped neutral-context prototype authorized for this correction; it adds no heading container or section background. Source inspection found current accented H1/H2 text at least 24px and no accented H3–H6 text; the small H3 icon in RoomScanPanel retains its UI text-accent role. Do not generalize the surround to body/UI text, change weights or assume it establishes a pass for future smaller accented headings.
+Exact teal is 2.997:1 on paper and 2.679:1 on bone, so those combinations cannot be rounded into a large-text pass. On the existing `#383837` charcoal the ratio is 3.750:1. The November 4 implementation used a one-pixel neutral context for H1/H2 accent glyphs while preserving fill, fonts, sizes, line boxes and page flow. The later November 5 direction below removes it from H1 and retains H2 treatment. Light paper/bone compositions use the white already present on form cards, so the thin serif retains its painted weight; dark compositions retain charcoal. The exact teal has more than 3:1 contrast on either context. Independent review rejected the earlier dark outline on light surfaces as visually too heavy. This is the scoped neutral-context prototype authorized for this correction; it adds no heading container or section background. Source inspection found current accented H1/H2 text at least 24px and no accented H3–H6 text; the small H3 icon in RoomScanPanel retains its UI text-accent role. Do not generalize the surround to body/UI text, change weights or assume it establishes a pass for future smaller accented headings.
 
 The surround follows the neutral-context approach documented in WCAG G18 (https://www.w3.org/WAI/WCAG22/Techniques/general/G18.html). Actual loaded thin-serif edges, photography, mobile wrapping, focus and all affected template/route states still require exact-revision rendering and independent review. This source implementation is not a visual, contrast, all-page, build, deployment or live acceptance record.
 
 Existing small FAQ question open states and related-post title hover states retain neutral
 text with underline/chevron affordances. Their font roles/weights are unchanged; the
 large-heading glyph-context prototype is not a contrast pass for these small titles.
+
+### November 5 mobile heading direction
+
+The latest owner direction removes the H1 glyph surround, enlarges mobile H1s
+and preserves intentional mobile alignment while restoring only demonstrated
+recent centering changes. It supersedes the H1 portion of the November 4 surround
+record above. Existing H2 glyph treatment remains; H1 and the home photo-hero
+accent have no surround. Exact Cabinet teal `#659B9A`, typography families and
+400 display weight remain. Exact teal still fails the large-text threshold on
+paper and bone. H1-emphasis marketing hero introductions and the catalog header
+therefore use the existing charcoal surface and paper text/action roles. The
+Design Studio heading introduction and the internal typography specimen use that
+same surface without changing their own font sizes or task controls. The context
+selection requires an H1 with emphasis; other H1 contexts retain their surfaces.
+The full section context replaces the removed glyph surround and preserves the
+original geometry, photographs and reading alignment. Exact teal against charcoal
+is 3.750:1, appropriate only where the actual loaded text qualifies as large.
+The Studio's authored task scale stays unchanged. Separate documented local-enabled
+fixtures observed actual 25px phone and 31px tablet/desktop H1s with loaded custom
+fonts in both loaded and loading states. Default-mode Studio remains intentionally
+404; these heading observations establish no production availability or general
+workflow, contrast or release acceptance.
+
+Actual November 5 development checks found the home photo behind exact-teal
+H1 emphasis insufficient after removal of the glyph surround. Its accent line
+therefore begins a continuous existing-charcoal copy field, preserving all line
+boxes, padding, imagery and contact geometry. The photograph remains visible
+above it and on the desktop's right side. A 32px transparent-to-charcoal transition
+keeps the white heading edge over a readable context. Below 1024px, the existing
+photograph uses a 50% media height and bottom focal position so visible cabinetry
+and island details remain recognizable above the copy field; no source image or
+layout line box changes. The existing inner photo gradient reaches its first
+dark stop at 64px so the 13px eyebrow also has a readable context; viewport-fit
+padding remains controlled independently by the section token. Actual cabinet
+details, the small eyebrow and the white heading comma
+still require pixel/contrast review. At bar-active widths, ordinary
+intro action links/buttons use the existing bar-height/safe-area plus16px scroll
+clearance so native keyboard focus can keep complete controls above the bar.
+This is a bounded presentation repair, with no focus manager or task behavior
+change. Design Studio remains intentionally404 in default mode; a documented
+local-enabled heading fixture is separate from any production availability.
+
+The family page-title role is 40/44/52px through `--fs-page-title`, separate from
+the unchanged 32/44/52px compact feature role. The phone shared photo-hero role
+becomes `clamp(44px,13.333vw,56px)`. Canonical Remodeling owns shared source and
+transport. Existing Cabinet hero/section alignments, including the centered guide
+introduction and closing calls to action, predate the recent update and remain.
+
+The `/kitchen-cabinets` landing consumes the page-title role instead of its former
+30px phone override. Its phone hero uses the section-padding token with the
+obsolete extra header offset removed; the unchanged service-detail badges and repeated telephone/contact note follow
+the hero so the larger title and contact actions have room. The existing image,
+useful copy, actions and quote journey remain. Protected task/form typography and
+behavior are unchanged. This record grants no fit, accessibility or palette
+exception and does not claim final rendered, independent or release acceptance.
+
+The room and location commercial templates use a bounded narrow-screen composition at
+700px and below: the full unchanged support sentence begins the existing section
+immediately after the hero. The 40px page title, quote action, Call/Text links and
+same original photograph remain together. Their eyebrow consumes the canonical
+13px label role rather than the inherited 17px body role. The phone photograph
+uses a 96px/17.5svh/192px height range; widths of 701px and above retain the original split
+composition and support-sentence placement. This corrects measured initial CTA
+coverage at320 and complete-hero overflow at normal phone sizes without reducing
+body or H1 type, deleting copy, changing intentional alignment or altering contact
+destinations. Actual bounds and crops still require final independent review.

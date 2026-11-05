@@ -12,6 +12,81 @@
   --color-accent-ink: #356463;
 }
 
+/* Preserve the photograph above the accent while giving exact teal a continuous
+   charcoal reading surface. This changes no line boxes, padding or actions. */
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-copy {
+  position: relative;
+  isolation: isolate;
+}
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent {
+  position: relative;
+}
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--space-8));
+  bottom: -100svh;
+  left: calc(-1 * max(var(--gutter), (100vw - var(--container-max)) / 2));
+  width: 100vw;
+  background: var(--color-charcoal);
+  mask-image: linear-gradient(180deg, transparent 0, #000 var(--space-8));
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-inner {
+    --fam-hero-fade: var(--space-16);
+  }
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-media {
+    height: 50%;
+  }
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-img {
+    object-position: 50% 100%;
+  }
+}
+
+/* Room and city commercial intros keep the full support sentence immediately
+   below the phone hero. Other fitted intros retain their existing composition. */
+.approved-shell.site-cabinet .approved-interior .commercial-mobile-lead {
+  display: none;
+}
+/* The hero primary keeps its 48px role above the phone text-link floor. */
+.approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-hero-cta > a {
+  min-height: var(--button-height-lg);
+}
+@media (min-width: 701px) {
+  .approved-shell.site-cabinet .approved-interior .hero-follow-on:has(> .hero-follow-on-body > .commercial-mobile-lead:only-child) {
+    display: none;
+  }
+  .approved-shell.site-cabinet .approved-interior .hero-follow-on-body > .commercial-mobile-lead + p {
+    margin-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-page-heading > .ed-lede {
+    display: none;
+  }
+  .approved-shell.site-cabinet .approved-interior .commercial-mobile-lead {
+    display: block;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-hero-copy .ed-eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit.interior-hero-commercial:not(.interior-hero-uncropped) .interior-hero-image {
+    height: clamp(var(--space-24), 17.5svh, calc(2 * var(--space-24)));
+  }
+}
+@media (min-width: 1024px) {
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent::before {
+    width: calc(72vw + var(--space-20));
+    background: linear-gradient(90deg, var(--color-charcoal) 0 calc(100% - var(--space-20)), rgba(var(--color-scrim-rgb), 0) 100%);
+  }
+}
+
 /* The interior estimate link keeps its layout hooks (full width in asides and the
    document index) but takes the family button face: centred 16px label, no arrow. */
 .approved-shell .fam-btn.interior-estimate-link {
@@ -57,8 +132,8 @@
 .cabinet-approved .fam-hero[data-family-hero] {
   --cabinet-heading-context: var(--color-charcoal);
 }
-:is(.approved-shell,.cabinet-design-studio) :is(h1,h2) :is(em,.brc-accent,.text-accent:not(svg)),
-.cabinet-approved .fam-hero[data-family-hero] .fam-hero-copy .fam-hero-accent {
+/* The owner removed the H1 glyph surround. Keep the existing H2 treatment. */
+:is(.approved-shell,.cabinet-design-studio) h2 :is(em,.brc-accent,.text-accent:not(svg)) {
   text-shadow:
     -1px -1px 0 var(--cabinet-heading-context),
      0 -1px 0 var(--cabinet-heading-context),
@@ -70,7 +145,56 @@
     -1px  0 0 var(--cabinet-heading-context);
 }
 
+/* Exact teal needs a dark reading surface after the H1 surround is removed.
+   Limit this to introductions that actually contain H1 emphasis. The existing
+   layout, heading alignment, photographs and action destinations are retained. */
+.approved-shell.site-cabinet .approved-interior .interior-hero:has(h1 em),
+.approved-shell.site-cabinet .approved-interior.interior-catalog section:has(.interior-page-heading h1 em),
+.cabinet-design-studio > div:first-child:has(> h1 em),
+.approved-shell.site-cabinet .cabinet-h1-specimen {
+  background: var(--color-charcoal);
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(h1,p,nav,nav a,nav span,[class*="text-inverse"]),
+.approved-shell.site-cabinet .approved-interior.interior-catalog .interior-page-heading:has(h1 em) :is(h1,p,li,.ed-lede,.ed-small),
+.cabinet-design-studio > div:first-child:has(> h1 em) :is(h1,p),
+.approved-shell.site-cabinet .cabinet-h1-specimen :is(h1,h2,p) {
+  color: var(--color-paper);
+}
+/* The previous eyebrow rule is important; match it only within these intros. */
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) .ed-eyebrow {
+  color: var(--color-on-dark-muted) !important;
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button):not([class*="bg-primary"]) {
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="border"]:not([class*="bg-primary"]) {
+  border-color: rgba(251,250,246,0.5);
+}
+.approved-shell.site-cabinet .approved-interior.interior-catalog section:has(.interior-page-heading h1 em) :is(nav,nav a,nav span) {
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="bg-primary"] {
+  background: var(--color-paper);
+  border-color: var(--color-paper);
+  color: var(--color-charcoal);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="bg-primary"]:hover {
+  background: var(--color-bone);
+  border-color: var(--color-bone);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button):focus-visible {
+  outline: 2px solid var(--color-paper);
+  outline-offset: 3px;
+}
+
 /* Native keyboard scrolling keeps the complete contact action above the bar. */
 .approved-interior.interior-contact .contact-channel-link {
   scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+}
+@media (max-width: 1023px) {
+  .approved-shell.site-cabinet .approved-interior .interior-hero-copy :is(a,button):not(nav *),
+  .approved-shell.site-cabinet .approved-interior.interior-guides .container.text-center:has(> h1) a {
+    scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+  }
 }
