@@ -57,8 +57,8 @@
 .cabinet-approved .fam-hero[data-family-hero] {
   --cabinet-heading-context: var(--color-charcoal);
 }
-:is(.approved-shell,.cabinet-design-studio) :is(h1,h2) :is(em,.brc-accent,.text-accent:not(svg)),
-.cabinet-approved .fam-hero[data-family-hero] .fam-hero-copy .fam-hero-accent {
+/* The owner removed the H1 glyph surround. Keep the existing H2 treatment. */
+:is(.approved-shell,.cabinet-design-studio) h2 :is(em,.brc-accent,.text-accent:not(svg)) {
   text-shadow:
     -1px -1px 0 var(--cabinet-heading-context),
      0 -1px 0 var(--cabinet-heading-context),
@@ -68,6 +68,49 @@
      0  1px 0 var(--cabinet-heading-context),
     -1px  1px 0 var(--cabinet-heading-context),
     -1px  0 0 var(--cabinet-heading-context);
+}
+
+/* Exact teal needs a dark reading surface after the H1 surround is removed.
+   Limit this to introductions that actually contain H1 emphasis. The existing
+   layout, heading alignment, photographs and action destinations are retained. */
+.approved-shell.site-cabinet .approved-interior .interior-hero:has(h1 em),
+.approved-shell.site-cabinet .approved-interior.interior-catalog section:has(.interior-page-heading h1 em),
+.cabinet-design-studio > div:first-child:has(> h1 em),
+.approved-shell.site-cabinet .cabinet-h1-specimen {
+  background: var(--color-charcoal);
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(h1,p,nav,nav a,nav span,[class*="text-inverse"]),
+.approved-shell.site-cabinet .approved-interior.interior-catalog .interior-page-heading:has(h1 em) :is(h1,p,li,.ed-lede,.ed-small),
+.cabinet-design-studio > div:first-child:has(> h1 em) :is(h1,p),
+.approved-shell.site-cabinet .cabinet-h1-specimen :is(h1,h2,p) {
+  color: var(--color-paper);
+}
+/* The previous eyebrow rule is important; match it only within these intros. */
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) .ed-eyebrow {
+  color: var(--color-on-dark-muted) !important;
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button):not([class*="bg-primary"]) {
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="border"]:not([class*="bg-primary"]) {
+  border-color: rgba(251,250,246,0.5);
+}
+.approved-shell.site-cabinet .approved-interior.interior-catalog section:has(.interior-page-heading h1 em) :is(nav,nav a,nav span) {
+  color: var(--color-paper);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="bg-primary"] {
+  background: var(--color-paper);
+  border-color: var(--color-paper);
+  color: var(--color-charcoal);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button)[class*="bg-primary"]:hover {
+  background: var(--color-bone);
+  border-color: var(--color-bone);
+}
+.approved-shell.site-cabinet .approved-interior .interior-hero-copy:has(h1 em) :is(a,button):focus-visible {
+  outline: 2px solid var(--color-paper);
+  outline-offset: 3px;
 }
 
 /* Native keyboard scrolling keeps the complete contact action above the bar. */
