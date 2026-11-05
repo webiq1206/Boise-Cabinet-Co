@@ -12,7 +12,7 @@
   --color-accent-ink: #356463;
 }
 
-/* Owner-approved homepage treatment: black at 60% transparency, uniformly over
+/* Owner-approved homepage treatment: measured uniform black overlay over
    the complete approved photograph. The header measurement excludes its own
    safe-area padding, so include that inset exactly once. The existing mobile
    action bar overlays this continuous photograph, never the following section. */
@@ -30,7 +30,7 @@
   height: 100%;
 }
 .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-scrim {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.67);
 }
 .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-inner {
   background: none;

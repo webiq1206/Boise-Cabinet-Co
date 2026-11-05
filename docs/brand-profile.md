@@ -278,18 +278,21 @@ destinations. Actual bounds and crops still require final independent review.
 
 ### November 5 owner correction: homepage overlay and fold
 
-The latest explicit owner direction replaces the homepage charcoal copy field,
-half-height photograph and directional gradients with one uniform `#000000`
-overlay at 60% transparency: `rgba(0, 0, 0, 0.4)`. The existing photograph covers
+The latest explicit owner direction permits darkening the uniform overlay as
+needed for readability, with black preferred unless it looks odd. Cabinet uses
+one uniform `rgba(0, 0, 0, 0.67)` overlay, selected against actual image and glyph
+pixels at normal and enlarged text sizes. It replaces the charcoal copy field,
+half-height photograph and directional gradients. The existing photograph covers
 the complete hero at its original approved focal positions. The homepage fills
 the current visible viewport below the measured header; header safe-area padding
 is counted once, and browser controls are already excluded by dynamic viewport
 units. The existing mobile action bar remains over the continuous hero image.
 Content can grow the section naturally for enlarged text or constrained viewports.
 
-This later direction supersedes the earlier homepage charcoal/half-photo record
-above. It preserves exact Cabinet teal, font roles, copy, contacts and journeys;
-it grants no additional darkening, alternate accent, H1 surround or replacement
-media. Any measured contrast conflict must remain explicit in the task review.
+This later direction supersedes both the earlier homepage charcoal/half-photo
+record and the initial fixed 40%-opacity direction. It preserves exact Cabinet
+teal, font roles, copy, contacts and journeys; no accent recoloring, H1 surround,
+regional gradient or separate text panel is introduced. Further changes still
+require actual contrast, responsive and independent review evidence.
 Actual verification and release state are reported in the task pull request and
 private review record; this profile is not a final acceptance or deployment claim.
