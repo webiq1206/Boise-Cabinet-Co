@@ -50,6 +50,10 @@
 .approved-shell.site-cabinet .approved-interior .commercial-mobile-lead {
   display: none;
 }
+/* The hero primary keeps its 48px role above the phone text-link floor. */
+.approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-hero-cta > a {
+  min-height: var(--button-height-lg);
+}
 @media (min-width: 701px) {
   .approved-shell.site-cabinet .approved-interior .hero-follow-on:has(> .hero-follow-on-body > .commercial-mobile-lead:only-child) {
     display: none;
