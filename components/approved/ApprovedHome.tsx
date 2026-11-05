@@ -9,9 +9,10 @@ import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER
 import { CTA_QUOTE_HREF, CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { FamilyButton } from '@/components/family/Button';
-import { HeroPhoto } from '@/components/family/HeroPhoto';
+import { brandStyle } from '@/components/family/brandStyle';
+import { CabinetHeroVideo } from './CabinetHeroVideo';
 import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
-import { DOPL_LICENSE_SEARCH } from '@/lib/familyBrand';
+import { DOPL_LICENSE_SEARCH, FAMILY_BRAND } from '@/lib/familyBrand';
 import {steps,differentiators,additionalRooms} from './cabinet-content';
 import dynamic from 'next/dynamic';
 // The planning range runs the estimate engine, which carries the full finish
@@ -27,14 +28,6 @@ const rooms = [
 ];
 const finishes=[{name:'Bitter',family:'Warm neutral',image:'bitter.webp',code:''},{name:'Macaron Green',family:'Soft color',image:'green.webp',code:''},{name:'Breeze Beige',family:'Light neutral',image:'beige.webp',code:''},{name:'Pearl Black',family:'Deep contrast',image:'black.webp',code:''}];
 
-/**
- * The kitchen photograph the homepage has opened on since the approved October design.
- * Already sized WebP (1672x941 at 170 KB), so the hero serves it as is (unoptimized): a
- * /_next/image request for a hero can stall and hold the page's load event open, as it
- * did on Boise Remodeling Co.
- */
-const HERO_SRC = '/images/approved/hero-p5-v2.webp';
-
 /** Sourced facts only, all already published on this site: the catalog count, the door profiles, the free consultation and the DOPL registration. */
 const PROOF: ProofItem[] = [
  {label:'Finishes',text:'299 finish options'},
@@ -47,18 +40,22 @@ const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);return <div className="cabinet-approved">
-  <HeroPhoto
-   fit="viewport"
-   image={{src:HERO_SRC,width:1672,height:941,alt:'Kitchen with natural white oak cabinetry, cream shaker cabinets, ivory stone, and bronze details',position:'62% 50%',unoptimized:true}}
-   phoneImage={{src:HERO_SRC,width:1672,height:941,position:'60% 50%',unoptimized:true}}
-   eyebrow="Custom cabinets · Treasure Valley, Idaho"
-   title="Custom cabinets in Boise,"
-   titleAccent="Idaho"
-   support="Kitchen cabinets, vanities, and built-ins."
-   primary={{label:CTA_REQUEST_QUOTE,href:CTA_QUOTE_HREF}}
-   link={{label:`Call or text ${SITE_CONFIG.phone}`,href:SITE_CONFIG.phoneHref}}
-   microcopy="Written price before work."
-  />
+  <section className="fam-hero" data-family-hero="" data-video-hero="" data-fit="viewport"
+   data-desktop-from={FAMILY_BRAND.header.desktopFrom} data-scrim="standard"
+   style={brandStyle()} aria-labelledby="family-hero-title">
+   <CabinetHeroVideo />
+   <div className="fam-hero-scrim" aria-hidden="true" />
+   <div className="fam-hero-inner"><div className="fam-hero-copy">
+    <p className="fam-hero-eyebrow">Custom cabinets · Treasure Valley, Idaho</p>
+    <h1 className="fam-hero-title" id="family-hero-title">Custom cabinets in Boise,{' '}<span className="fam-hero-accent">Idaho</span></h1>
+    <p className="fam-hero-support">Kitchen cabinets, vanities, and built-ins.</p>
+    <div className="fam-hero-actions">
+     <FamilyButton href={CTA_QUOTE_HREF} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">{CTA_REQUEST_QUOTE}</FamilyButton>
+     <a href={SITE_CONFIG.phoneHref} className="fam-hero-link">Call or text {SITE_CONFIG.phone}</a>
+    </div>
+    <p className="fam-hero-micro">Written price before work.</p>
+   </div></div>
+  </section>
   <ProofStrip label="The Boise Cabinet Co difference" items={PROOF}/>
   <section id="cabinetry" className="section wrap room-editorial">
  <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew. Free in-home design consultation.</p></div>

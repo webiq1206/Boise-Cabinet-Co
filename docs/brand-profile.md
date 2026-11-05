@@ -296,3 +296,21 @@ regional gradient or separate text panel is introduced. Further changes still
 require actual contrast, responsive and independent review evidence.
 Actual verification and release state are reported in the task pull request and
 private review record; this profile is not a final acceptance or deployment claim.
+
+### November 5 approved homepage video
+
+The latest owner-selected Cabinet video replaces only the homepage photograph.
+Use natural full-bleed cover, the existing full-fold geometry, exact teal and
+unchanged typography, copy, contact actions and proof. The current uniform black
+overlay is `rgba(0,0,0,.73)`; final actual-frame contrast remains a release check.
+These representative cabinetry scenes make no completed-customer-project claim.
+
+The owner's later direction requires native muted inline autoplay and looping
+in every motion/data preference mode, without native or visible playback
+controls or preference-based source gating. Preserve the immediate poster for
+technical no-JavaScript/loading/error/blocked-play fallback, responsive 720p/1080p selection
+and automatic hidden/offscreen pause with visible resume. Browser-enforced
+autoplay restrictions cannot be overridden or guaranteed away. This behavior
+does not establish full accessibility conformance; the known pause/motion
+limitation is recorded with the task, alongside the independent review and
+source checks. Replit import/publication remains the owner's separate step.

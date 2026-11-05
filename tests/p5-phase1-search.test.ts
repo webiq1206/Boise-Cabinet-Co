@@ -208,8 +208,8 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
     "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
-  // Phase 2: the hero is the family HeroPhoto. Same H1 words, the second line in the accent.
-  assert.match(hero, /title="Custom cabinets in Boise,"\s+titleAccent="Idaho"/);
+  // The site-owned video hero preserves the same H1 and exact accent line.
+  assert.match(hero, /id="family-hero-title">Custom cabinets in Boise,[\s\S]*?className="fam-hero-accent">Idaho<\/span><\/h1>/);
   assert.equal(hero.includes("designs custom cabinets to your measurements"), true);
   assert.equal(hero.includes("Written price before work"), true);
   assert.equal(hero.includes("IDAHO_REGISTERED_CONTRACTOR"), true);
