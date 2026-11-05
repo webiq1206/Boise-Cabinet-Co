@@ -1,0 +1,81 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+const MEDIA = '/media/cabinet/boise-cabinet-co-';
+const POSTER = `${MEDIA}poster.jpg`;
+const PHONE_VIDEO = `${MEDIA}background-720p.mp4`;
+const DESKTOP_VIDEO = `${MEDIA}background-1080p.mp4`;
+
+/** Native autoplay is eligible in the first response; the poster covers technical failures. */
+export function CabinetHeroVideo() {
+  const media = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const element = video.current;
+    if (!element || failed) return;
+    let desktop = window.innerWidth >= 1024;
+    const shouldPlay = () => {
+      const bounds = media.current?.getBoundingClientRect();
+      return document.visibilityState === 'visible' && Boolean(bounds &&
+        bounds.bottom > 0 && bounds.top < window.innerHeight &&
+        bounds.right > 0 && bounds.left < window.innerWidth);
+    };
+    const update = () => {
+      if (!shouldPlay()) {
+        element.pause();
+        return;
+      }
+      element.muted = true;
+      void element.play().then(() => {
+        // A late autoplay completion must not restart hidden/offscreen media.
+        if (!shouldPlay()) element.pause();
+      }).catch(() => {
+        // Browser-enforced autoplay restrictions retain the native poster.
+      });
+    };
+    const resize = () => {
+      const nextDesktop = window.innerWidth >= 1024;
+      if (nextDesktop !== desktop) {
+        desktop = nextDesktop;
+        element.load();
+      }
+      update();
+    };
+    const playing = () => { if (!shouldPlay()) element.pause(); };
+    const observer = typeof IntersectionObserver === 'function'
+      ? new IntersectionObserver(update, { threshold: [0, 0.05] }) : null;
+    if (media.current) observer?.observe(media.current);
+    document.addEventListener('visibilitychange', update);
+    window.addEventListener('resize', resize);
+    window.addEventListener('scroll', update, { passive: true });
+    element.addEventListener('playing', playing);
+    update();
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener('visibilitychange', update);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', update);
+      element.removeEventListener('playing', playing);
+      element.pause();
+    };
+  }, [failed]);
+
+  return (
+    <div ref={media} className="fam-hero-media" aria-hidden="true">
+      {/* The approved poster is immediately readable, including while loading. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img data-hero-poster="" src={POSTER} alt="" width={1920} height={1080}
+        fetchPriority="high" loading="eager" className="fam-hero-img" />
+      <video ref={video} id="cabinet-hero-video" poster={POSTER}
+        autoPlay muted loop playsInline preload="auto" tabIndex={-1}
+        disablePictureInPicture hidden={failed} className="cabinet-hero-video"
+        onError={event => { if (event.currentTarget.error) setFailed(true); }}>
+        <source media="(min-width: 1024px)" src={DESKTOP_VIDEO} type="video/mp4" />
+        <source src={PHONE_VIDEO} type="video/mp4" />
+      </video>
+    </div>
+  );
+}

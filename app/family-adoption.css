@@ -13,7 +13,7 @@
 }
 
 /* Owner-approved homepage treatment: measured uniform black overlay over
-   the complete approved photograph. The header measurement excludes its own
+   the complete approved media. The header measurement excludes its own
    safe-area padding, so include that inset exactly once. The existing mobile
    action bar overlays this continuous photograph, never the following section. */
 .approved-shell .cabinet-approved > .fam-hero[data-family-hero][data-fit='viewport'] {
@@ -30,7 +30,16 @@
   height: 100%;
 }
 .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-scrim {
-  background: rgba(0, 0, 0, 0.67);
+  background: rgba(0, 0, 0, 0.73);
+}
+.cabinet-approved > .fam-hero[data-family-hero] .cabinet-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
 }
 .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-inner {
   background: none;
