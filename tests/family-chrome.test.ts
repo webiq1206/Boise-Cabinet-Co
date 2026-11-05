@@ -138,7 +138,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   }
 });
 
-test('the homepage video preserves native autoplay, first-response content and sourced proof', () => {
+test('the homepage video preserves no-script poster, first-response content and sourced proof', () => {
   const html = renderToStaticMarkup(React.createElement(ApprovedHome));
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
   assert.match(html, /<h1 class="fam-hero-title" id="family-hero-title">Custom cabinets in Boise, <span class="fam-hero-accent">Idaho<\/span><\/h1>/);
@@ -151,18 +151,15 @@ test('the homepage video preserves native autoplay, first-response content and s
   assert.match(html, /<a href="tel:\+12084771169" class="fam-hero-link">Call or text \(208\) 477-1169<\/a>/);
   assert.match(html, /<img [^>]*fetchPriority="high"[^>]*class="fam-hero-img"/);
   assert.match(html, /src="\/media\/cabinet\/boise-cabinet-co-poster\.jpg"/);
-  const video = html.match(/<video\b[^>]*>/)?.[0] ?? '';
-  assert.ok(video, 'native decorative video in the first response');
-  assert.match(video, /autoplay=""/);
-  assert.match(video, /muted=""/);
-  assert.match(video, /loop=""/);
-  assert.match(video, /playsinline=""/);
-  assert.doesNotMatch(video, /\scontrols(?:=|\s|>)/);
-  assert.match(html, /<source media="\(min-width: 1024px\)" src="\/media\/cabinet\/boise-cabinet-co-background-1080p\.mp4" type="video\/mp4"/);
-  assert.match(html, /<source src="\/media\/cabinet\/boise-cabinet-co-background-720p\.mp4" type="video\/mp4"/);
+  assert.doesNotMatch(html, /<video\b|<source\b/, 'no-script fallback cannot acquire browser-forced video controls');
+  const videoSource = readFileSync('components/approved/CabinetHeroVideo.tsx', 'utf8');
+  assert.match(videoSource, /autoPlay muted loop playsInline/);
+  assert.doesNotMatch(videoSource, /\scontrols(?:=|\s|>)/);
+  assert.match(videoSource, /background-1080p\.mp4/);
+  assert.match(videoSource, /background-720p\.mp4/);
   const hero = html.split('</section>')[0];
   assert.doesNotMatch(hero, /<button\b|Pause background video|Play background video|Stop video/);
-  assert.doesNotMatch(readFileSync('components/approved/CabinetHeroVideo.tsx', 'utf8'), /prefers-reduced-motion|saveData|navigator\.connection/);
+  assert.doesNotMatch(videoSource, /prefers-reduced-motion|saveData|navigator\.connection/);
   const support = html.match(/<p class="fam-hero-support">([^<]+)<\/p>/)?.[1] ?? '';
   assert.ok(support.split(/\s+/).length <= 14, support);
   assert.match(html, /<p class="fam-hero-micro">Written price before work\.<\/p>/);

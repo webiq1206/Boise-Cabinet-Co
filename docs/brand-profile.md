@@ -308,7 +308,7 @@ These representative cabinetry scenes make no completed-customer-project claim.
 The owner's later direction requires native muted inline autoplay and looping
 in every motion/data preference mode, without native or visible playback
 controls or preference-based source gating. Preserve the immediate poster for
-technical loading/error/blocked-play fallback, responsive 720p/1080p selection
+technical no-JavaScript/loading/error/blocked-play fallback, responsive 720p/1080p selection
 and automatic hidden/offscreen pause with visible resume. Browser-enforced
 autoplay restrictions cannot be overridden or guaranteed away. This behavior
 does not establish full accessibility conformance; the known pause/motion

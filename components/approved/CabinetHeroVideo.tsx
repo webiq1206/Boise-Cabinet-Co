@@ -7,11 +7,14 @@ const POSTER = `${MEDIA}poster.jpg`;
 const PHONE_VIDEO = `${MEDIA}background-720p.mp4`;
 const DESKTOP_VIDEO = `${MEDIA}background-1080p.mp4`;
 
-/** Native autoplay is eligible in the first response; the poster covers technical failures. */
+/** The poster is first-response content; JavaScript adds native autoplay. */
 export function CabinetHeroVideo() {
   const media = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  useEffect(() => { setReady(true); }, []);
 
   useEffect(() => {
     const element = video.current;
@@ -68,7 +71,7 @@ export function CabinetHeroVideo() {
       element.removeEventListener('playing', playing);
       element.pause();
     };
-  }, [failed]);
+  }, [failed, ready]);
 
   return (
     <div ref={media} className="fam-hero-media" aria-hidden="true">
@@ -76,13 +79,13 @@ export function CabinetHeroVideo() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img data-hero-poster="" src={POSTER} alt="" width={1920} height={1080}
         fetchPriority="high" loading="eager" className="fam-hero-img" />
-      <video ref={video} id="cabinet-hero-video" poster={POSTER}
+      {ready ? <video ref={video} id="cabinet-hero-video" poster={POSTER}
         autoPlay muted loop playsInline preload="auto" tabIndex={-1}
         disablePictureInPicture hidden={failed} className="cabinet-hero-video"
         onError={event => { if (event.currentTarget.error) setFailed(true); }}>
         <source media="(min-width: 1024px)" src={DESKTOP_VIDEO} type="video/mp4" />
         <source src={PHONE_VIDEO} type="video/mp4" />
-      </video>
+      </video> : null}
     </div>
   );
 }
