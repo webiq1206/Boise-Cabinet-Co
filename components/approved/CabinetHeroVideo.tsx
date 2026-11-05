@@ -17,6 +17,12 @@ export function CabinetHeroVideo() {
     const element = video.current;
     if (!element || failed) return;
     let desktop = window.innerWidth >= 1024;
+    const initialSource = desktop ? DESKTOP_VIDEO : PHONE_VIDEO;
+    // Native playback may start before hydration and an early viewport change.
+    if (element.currentSrc && !element.currentSrc.endsWith(initialSource)) {
+      element.src = initialSource;
+      element.load();
+    }
     const shouldPlay = () => {
       const bounds = media.current?.getBoundingClientRect();
       return document.visibilityState === 'visible' && Boolean(bounds &&
@@ -40,6 +46,7 @@ export function CabinetHeroVideo() {
       const nextDesktop = window.innerWidth >= 1024;
       if (nextDesktop !== desktop) {
         desktop = nextDesktop;
+        element.src = desktop ? DESKTOP_VIDEO : PHONE_VIDEO;
         element.load();
       }
       update();

@@ -41,6 +41,14 @@
   object-position: 50% 50%;
   pointer-events: none;
 }
+/* WebKit can add native transport UI when scripting is disabled. The owner
+   requires this decorative background to remain free of playback controls. */
+.cabinet-approved > .fam-hero[data-family-hero] .cabinet-hero-video::-webkit-media-controls,
+.cabinet-approved > .fam-hero[data-family-hero] .cabinet-hero-video::-webkit-media-controls-enclosure,
+.cabinet-approved > .fam-hero[data-family-hero] .cabinet-hero-video::-webkit-media-controls-panel,
+.cabinet-approved > .fam-hero[data-family-hero] .cabinet-hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
 .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-inner {
   background: none;
 }
