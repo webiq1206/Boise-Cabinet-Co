@@ -226,8 +226,30 @@ selection requires an H1 with emphasis; other H1 contexts retain their surfaces.
 The full section context replaces the removed glyph surround and preserves the
 original geometry, photographs and reading alignment. Exact teal against charcoal
 is 3.750:1, appropriate only where the actual loaded text qualifies as large.
-The Studio's intended 24px phone role still requires computed-size confirmation;
-the source change is not a blanket rendered contrast acceptance.
+The Studio's authored task scale stays unchanged. Separate documented local-enabled
+fixtures observed actual 25px phone and 31px tablet/desktop H1s with loaded custom
+fonts in both loaded and loading states. Default-mode Studio remains intentionally
+404; these heading observations establish no production availability or general
+workflow, contrast or release acceptance.
+
+Actual November 5 development checks found the home photo behind exact-teal
+H1 emphasis insufficient after removal of the glyph surround. Its accent line
+therefore begins a continuous existing-charcoal copy field, preserving all line
+boxes, padding, imagery and contact geometry. The photograph remains visible
+above it and on the desktop's right side. A 32px transparent-to-charcoal transition
+keeps the white heading edge over a readable context. Below 1024px, the existing
+photograph uses a 50% media height and bottom focal position so visible cabinetry
+and island details remain recognizable above the copy field; no source image or
+layout line box changes. The existing inner photo gradient reaches its first
+dark stop at 64px so the 13px eyebrow also has a readable context; viewport-fit
+padding remains controlled independently by the section token. Actual cabinet
+details, the small eyebrow and the white heading comma
+still require pixel/contrast review. At bar-active widths, ordinary
+intro action links/buttons use the existing bar-height/safe-area plus16px scroll
+clearance so native keyboard focus can keep complete controls above the bar.
+This is a bounded presentation repair, with no focus manager or task behavior
+change. Design Studio remains intentionally404 in default mode; a documented
+local-enabled heading fixture is separate from any production availability.
 
 The family page-title role is 40/44/52px through `--fs-page-title`, separate from
 the unchanged 32/44/52px compact feature role. The phone shared photo-hero role
@@ -242,3 +264,14 @@ the hero so the larger title and contact actions have room. The existing image,
 useful copy, actions and quote journey remain. Protected task/form typography and
 behavior are unchanged. This record grants no fit, accessibility or palette
 exception and does not claim final rendered, independent or release acceptance.
+
+The room and location commercial templates use a bounded narrow-screen composition at
+700px and below: the full unchanged support sentence begins the existing section
+immediately after the hero. The 40px page title, quote action, Call/Text links and
+same original photograph remain together. Their eyebrow consumes the canonical
+13px label role rather than the inherited 17px body role. The phone photograph
+uses a 96px/17.5svh/192px height range; widths of 701px and above retain the original split
+composition and support-sentence placement. This corrects measured initial CTA
+coverage at320 and complete-hero overflow at normal phone sizes without reducing
+body or H1 type, deleting copy, changing intentional alignment or altering contact
+destinations. Actual bounds and crops still require final independent review.

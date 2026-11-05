@@ -12,6 +12,77 @@
   --color-accent-ink: #356463;
 }
 
+/* Preserve the photograph above the accent while giving exact teal a continuous
+   charcoal reading surface. This changes no line boxes, padding or actions. */
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-copy {
+  position: relative;
+  isolation: isolate;
+}
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent {
+  position: relative;
+}
+.cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--space-8));
+  bottom: -100svh;
+  left: calc(-1 * max(var(--gutter), (100vw - var(--container-max)) / 2));
+  width: 100vw;
+  background: var(--color-charcoal);
+  mask-image: linear-gradient(180deg, transparent 0, #000 var(--space-8));
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-inner {
+    --fam-hero-fade: var(--space-16);
+  }
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-media {
+    height: 50%;
+  }
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-img {
+    object-position: 50% 100%;
+  }
+}
+
+/* Room and city commercial intros keep the full support sentence immediately
+   below the phone hero. Other fitted intros retain their existing composition. */
+.approved-shell.site-cabinet .approved-interior .commercial-mobile-lead {
+  display: none;
+}
+@media (min-width: 701px) {
+  .approved-shell.site-cabinet .approved-interior .hero-follow-on:has(> .hero-follow-on-body > .commercial-mobile-lead:only-child) {
+    display: none;
+  }
+  .approved-shell.site-cabinet .approved-interior .hero-follow-on-body > .commercial-mobile-lead + p {
+    margin-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-page-heading > .ed-lede {
+    display: none;
+  }
+  .approved-shell.site-cabinet .approved-interior .commercial-mobile-lead {
+    display: block;
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-commercial .interior-hero-copy .ed-eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+  }
+  .approved-shell.site-cabinet .approved-interior .interior-hero-fit.interior-hero-commercial:not(.interior-hero-uncropped) .interior-hero-image {
+    height: clamp(var(--space-24), 17.5svh, calc(2 * var(--space-24)));
+  }
+}
+@media (min-width: 1024px) {
+  .cabinet-approved > .fam-hero[data-family-hero] .fam-hero-accent::before {
+    width: calc(72vw + var(--space-20));
+    background: linear-gradient(90deg, var(--color-charcoal) 0 calc(100% - var(--space-20)), rgba(var(--color-scrim-rgb), 0) 100%);
+  }
+}
+
 /* The interior estimate link keeps its layout hooks (full width in asides and the
    document index) but takes the family button face: centred 16px label, no arrow. */
 .approved-shell .fam-btn.interior-estimate-link {
@@ -116,4 +187,10 @@
 /* Native keyboard scrolling keeps the complete contact action above the bar. */
 .approved-interior.interior-contact .contact-channel-link {
   scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+}
+@media (max-width: 1023px) {
+  .approved-shell.site-cabinet .approved-interior .interior-hero-copy :is(a,button):not(nav *),
+  .approved-shell.site-cabinet .approved-interior.interior-guides .container.text-center:has(> h1) a {
+    scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+  }
 }

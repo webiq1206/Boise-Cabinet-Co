@@ -144,7 +144,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Local hero */}
-        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
+        <InteriorHero className="interior-hero-fit interior-hero-commercial" layout="split" imageSrc={images.hero} imageAlt={images.heroAlt ?? `Custom cabinets in ${city.name}, Idaho by ${SITE_CONFIG.name}`}>
             <Breadcrumbs
               items={[{ name: "Home", href: "/" }, { name: `${city.name}, Idaho` }]}
             />
@@ -168,14 +168,15 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">
-              <CtaButton variant="brand">
+              <CtaButton variant="brand" className="min-h-12 px-6">
                 {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
               </CtaButton>
               <AboveFoldActions />
             </div>
           </InteriorHero>
-        {heroFollowOn.length > 0 && (
+        {(heroLead.lead || heroFollowOn.length > 0) && (
           <HeroFollowOn>
+            <p className="commercial-mobile-lead">{heroLead.lead}</p>
             {heroFollowOn.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
