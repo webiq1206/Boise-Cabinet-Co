@@ -22,7 +22,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         rows: [
           ['Consultation & measure', '1-2 weeks', 'In-home measure, goals, planning range'],
           ['Design & selections', '1-3 weeks', 'Layout, door style, finish, hardware sign-off'],
-          ['Fabrication', '4-8 weeks', 'Built to order after approved drawings'],
+          ['Fabrication', 'lead time confirmed with your quote', 'Built to order after approved drawings'],
           ['Delivery & install', '2-5 days', 'Professional installation and walkthrough'],
         ],
       },

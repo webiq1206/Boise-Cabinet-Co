@@ -165,8 +165,7 @@ export default function WarrantyPage() {
               warranty is tied to.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Most cabinet orders are produced within {CATALOG_CONTENT.leadTime} of an approved
-              design, and your warranty begins at installation. Replacement parts are matched to your
+              Your lead time is confirmed with your quote, and your warranty begins at installation. Replacement parts are matched to your
               original selections whenever possible.
             </p>
           </SplitSection>

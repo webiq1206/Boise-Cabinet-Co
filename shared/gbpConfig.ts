@@ -273,7 +273,7 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
   {
     name: "Custom Cabinet Collection",
     description:
-      "Built-to-order frameless cabinets in any size, 1/4\" increments, 4-8 week lead time.",
+      "Built-to-order frameless cabinets in any size, 1/4\" increments, lead time confirmed with your quote.",
     path: "/collections/custom",
     campaign: "product-custom-collection",
     imagePath: "/images/marketing/catalog-default.webp",
@@ -326,7 +326,7 @@ const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "How long does a custom cabinet project take?",
     answer:
-      "Most custom cabinet projects run about 4-8 weeks from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
+      "Your lead time is confirmed with your quote. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
   },
   {
     question: "What areas do you serve?",

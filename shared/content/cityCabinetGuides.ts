@@ -113,7 +113,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Meridian cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
+          'Your lead time is confirmed with your quote. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
       },
       {
         question: 'Do you install mudroom and pantry storage in Meridian?',
@@ -441,7 +441,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Kuna cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selection decide where in that window you fall.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'How new are Kuna\'s homes?',
@@ -752,7 +752,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Middleton cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selections decide the schedule.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'How new are Middleton homes?',

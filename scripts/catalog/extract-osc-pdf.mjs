@@ -477,7 +477,7 @@ function main() {
         description:
           "Full custom frameless cabinetry manufactured by One Source in Mesa, AZ and Colorado Springs, CO.",
         features: ["Any OSC finish", "Full SKU catalog", "1/4\" sizing increments"],
-        leadTime: "4–8 weeks",
+        leadTime: "lead time confirmed with your quote",
         priceTier: "premium",
         heroImage: "/images/catalog/collections/custom.webp",
         oscLine: "One Source built-to-order custom line",

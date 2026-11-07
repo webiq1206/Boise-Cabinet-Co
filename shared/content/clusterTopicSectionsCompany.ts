@@ -288,7 +288,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         rows: [
           ['Sizing', '3-inch increments, fillers required', 'Built to your walls'],
           ['Finishes', 'A dozen or so', 'Hundreds (we offer 299)'],
-          ['Lead time', 'Days to 10+ weeks (special order)', 'Typically 4-8 weeks'],
+          ['Lead time', 'Days to 10+ weeks (special order)', 'lead time confirmed with your quote'],
           ['Accountability', 'Store + installer + manufacturer', 'One local team'],
           ['Fit in older homes', 'Poor without carpentry workarounds', 'Designed for it'],
         ],

@@ -12,7 +12,6 @@ import {
   ESTIMATE_VALUE_PROP,
   formatPlanningCurrency,
 } from "@/shared/estimateEngine";
-import { CATALOG_CONTENT } from "@/shared/catalog";
 import { CTA_BOOK_VISIT } from "@/shared/ctaCopy";
 
 const ANIM_DURATION = 320;
@@ -400,8 +399,7 @@ export function EstimateResultPanel({
 
       {isFull && !compact && (
         <p className="hidden sm:block text-sm text-inverse-muted mb-4">
-          Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
-          lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
+          Based on your inputs. Your exact investment is confirmed at your in-home visit. Your lead time is confirmed with your quote.
         </p>
       )}
 

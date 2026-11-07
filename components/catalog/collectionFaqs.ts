@@ -9,7 +9,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
   return [
     {
       question: `What is the typical lead time for ${collection.name}?`,
-      answer: `${collection.name} cabinets typically ship in ${collection.leadTime}. Timelines begin after you approve shop drawings and we receive your deposit, exact dates depend on finish selections and project scope.`,
+      answer: "Your lead time is confirmed with your quote. Timelines begin after you approve shop drawings and we receive your deposit, exact dates depend on finish selections and project scope.",
     },
     {
       question: `Who is ${collection.name} best suited for?`,

@@ -97,7 +97,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     key: "lead-time",
     summary: "Production and installation timeline",
     content: [
-      `Typical lead time: ${CATALOG_CONTENT.leadTime} from approved design, depending on project size and finish selection.`,
+      "Your lead time is confirmed with your quote.",
       "",
       faqBlock((q) => q.includes("how long does")),
     ].join("\n"),

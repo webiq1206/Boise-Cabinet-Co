@@ -353,7 +353,7 @@ Link: https://boisecabinet.co/door-styles/beta-shaker
 
 | Product | Description | Link |
 |---|---|---|
-| Custom Cabinet Collection | Built-to-order frameless cabinets in any size, 1/4" increments, 4-8 week lead time. | https://boisecabinet.co/collections/custom |
+| Custom Cabinet Collection | Built-to-order frameless cabinets in any size, 1/4" increments, lead time confirmed with your quote. | https://boisecabinet.co/collections/custom |
 | Cabinet Finish Library (hundreds of options) | Browse matte, gloss, and woodgrain finishes for your custom cabinets. | https://boisecabinet.co/finishes |
 | Cabinet Hardware | Soft-close hinge and drawer-slide options. | https://boisecabinet.co/hardware |
 | Smart Storage Accessories | Roll-out trays, trash pull-outs, lazy susans, blind corner pull-outs. | https://boisecabinet.co/accessories |
@@ -414,7 +414,7 @@ We design and install fully custom cabinets, sized to fit your space. You choose
 **Question 3:** How long does a custom cabinet project take?
 
 **Answer:**
-Most custom cabinet projects run about 4-8 weeks from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through fabrication, delivery, and installation.
+Your lead time is confirmed with your quote. Your client portal shows real-time status from design review through fabrication, delivery, and installation.
 
 ---
 

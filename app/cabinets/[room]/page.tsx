@@ -29,7 +29,6 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import {
 CABINET_PRODUCTS,
-CATALOG_CONTENT,
 ROOM_CATEGORIES,
 getRoomBySlug,
 } from "@/shared/catalog";
@@ -282,8 +281,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               )}
               {roomCopy ? null : (
               <p className="text-sm text-muted-foreground mb-4">
-                Most projects move into production {CATALOG_CONTENT.leadTime} after your
-                selections and project details are finalized.
+                Your lead time is confirmed with your quote.
               </p>
               )}
               <Button variant="brandOutline" asChild>

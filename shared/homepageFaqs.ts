@@ -1,7 +1,3 @@
-// The generated content module directly: the @/shared/catalog barrel also loads
-// every cabinet product, and this list ships to the browser with FAQSection.
-import { CATALOG_CONTENT } from "@/shared/catalog/generated/content";
-
 export interface HomepageFaq {
   q: string;
   a: string;
@@ -18,7 +14,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. We confirm your schedule in writing and share a weekly update until install.`,
+    a: "Your lead time is confirmed with your quote. We confirm your schedule in writing and share a weekly update until install.",
   },
   {
     q: "Can I plan my cabinets before committing?",
