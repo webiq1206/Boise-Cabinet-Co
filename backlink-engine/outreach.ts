@@ -18,7 +18,7 @@ export function draftOutreach(o: Opportunity): string {
 
 Hi,
 
-I came across your roundup of top cabinet and kitchen pros and wanted to put ${site} on your radar. We build custom, frameless cabinetry in the Treasure Valley with a lifetime workmanship warranty and design-to-install under one roof.
+I came across your roundup of top cabinet and kitchen pros and wanted to put ${site} on your radar. We build custom, frameless cabinetry in the Treasure Valley with a written workmanship warranty and design-to-install under one roof.
 
 Happy to share project photos, reviews, or anything you need to evaluate us for inclusion.
 
