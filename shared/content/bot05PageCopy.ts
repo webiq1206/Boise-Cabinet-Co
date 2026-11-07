@@ -6,7 +6,7 @@ import { REGISTERED_BONDED_INSURED } from "../claims";
 import { HERO_SUBHEAD } from "../siteContent";
 
 export const BUILD_CABINETS_ANSWER =
-  "Yes. Boise Cabinet Co designs custom cabinets to your measurements and plans each order to your layout.";
+  "Yes. Boise Cabinet Co designs custom cabinets to your measurements and plans each order around your layout.";
 
 export const TRUST_LINE = `${REGISTERED_BONDED_INSURED}.`;
 
@@ -333,7 +333,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     answer:
       "Get kitchen storage planned around how you cook and gather. Boise Cabinet Co designs custom kitchen cabinets for Boise homes. Your cabinets are built to order, planned around your layout and installed by our own crew. Whether you are planning a kitchen or island, start with an in-home design consultation and a written quote before work.",
     firstSentence:
-      "Kitchen cabinets in Boise, Idaho should mean a local team that designs to your measurements, builds to your layout, and installs with our Treasure Valley crew.",
+      "Kitchen cabinets in Boise, Idaho should mean a local team that designs around your measurements and layout, and installs with our Treasure Valley crew.",
     aboveFold: HERO_SUBHEAD,
     trustLine: TRUST_LINE,
     ctaLabel: "Request a quote",
@@ -387,16 +387,15 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     answer:
       "See everything you stock at a glance. Boise Cabinet Co designs walk-in and reach-in pantries with adjustable shelving, pull-out systems, appliance garages and bulk storage, planned around your layout, built to order and installed by our own crew. Start with a free in-home design consultation and a written price before work.",
     firstSentence:
-      "Kitchen pantry cabinets help Treasure Valley homes add tall storage, walk-in layouts, and pull-out access without guessing on sizing.",
-    aboveFold:
-      "Pantry projects usually mean better bulk storage and fewer deep shelves you cannot reach. We help you choose walk-in or tall pantry layouts, build cabinets to your measurements, and install them across the Treasure Valley.",
+      "Pantry projects usually mean better bulk storage and fewer deep shelves you cannot reach. We help you choose walk-in or tall pantry layouts, plan cabinets around your measurements, and install them across the Treasure Valley.",
+    aboveFold: "",
     trustLine: TRUST_LINE,
     ctaLabel: "Request a quote",
     sections: [
       {
         heading: "Walk-in and tall pantry storage",
         paragraphs: [
-          "A pantry can be a walk-in room or a tall reach-in run. Adjustable shelving and pull-out access keep bulk storage usable. We measure the space, build cabinets to order, and install them.",
+          "A pantry can be a walk-in room or a tall reach-in run. Adjustable shelving and pull-out access keep bulk storage usable. We measure the space, plan cabinets around your layout, and install them.",
         ],
       },
       {

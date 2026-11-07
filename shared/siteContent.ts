@@ -15,7 +15,7 @@ export const SITE_TAGLINE = "Custom cabinets for Boise and the Treasure Valley";
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "Boise Cabinet Co designs custom cabinets to your measurements, plans each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.";
+  "Boise Cabinet Co designs custom cabinets to your measurements, plans each order around your layout, finish selections and hardware, and installs it with our own Treasure Valley crew.";
 
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },

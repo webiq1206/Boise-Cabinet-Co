@@ -10,7 +10,7 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "Boise Cabinet Co designs custom cabinets to your measurements, plans each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, frameless construction, written scope before order, and warranty claims handled by us.",
+    a: "Boise Cabinet Co designs custom cabinets to your measurements, plans each order around your layout, finish selections and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, frameless construction, written scope before order, and warranty claims handled by us.",
   },
   {
     q: "What kind of cabinets do you offer?",

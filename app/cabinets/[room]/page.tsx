@@ -389,7 +389,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   <>What we offer for {seo.label === "built-in" ? "built-ins" : seo.label}</>
               }
               description={
-                `${SITE_CONFIG.name} sizes and plans these cabinets to fit ${seo.label} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+                `${SITE_CONFIG.name} plans and sizes these cabinets to fit ${seo.label} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
               }
               align="left"
               className="mb-6"

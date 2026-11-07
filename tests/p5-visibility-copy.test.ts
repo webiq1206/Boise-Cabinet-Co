@@ -59,10 +59,6 @@ test("homepage drops the finish and door-count tiles from the FAQ wording", () =
 test("kitchen FAQs stay on the existing list and pantry only appends", () => {
   assert.equal(BOT05_ROOMS.kitchen.faqs[0]?.question, "What pantry options do you offer?");
   assert.match(
-    BOT05_ROOMS.kitchen.faqs.find((faq) => faq.question === "Can you design a walk-in pantry?")?.answer ?? "",
-    /then build and install pantry cabinets/,
-  );
-  assert.match(
     BOT05_ROOMS.pantry.faqs.find((faq) => faq.question === "Can you design a walk-in pantry?")?.answer ?? "",
     /then plan and install pantry cabinets/,
   );

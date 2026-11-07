@@ -672,7 +672,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     // About 90% of occupied housing units are owner-occupied. ACS 2020-2024 table B25003, Middleton city:
     // https://data.census.gov/table/ACSDT5Y2024.B25003?g=160XX00US1652660
     quickAnswer:
-      'Custom cabinets in Middleton, ID start with a free in-home design consultation. Boise Cabinet Co designs cabinets to your measurements, plans each order to your layout, and installs with our own crew for kitchens, pantries, and storage. Middleton is growing along the Highway 44 corridor without losing its small-town, acreage feel, and about 90% of its homes are owner-occupied (Census ACS 2020 to 2024). Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and shop storage.',
+      'Middleton has many owner-occupied homes. Cabinet requests lean practical: hardworking kitchens, big pantries, mudrooms and garage storage.',
     takeaways: [
       'Middleton favors practical, hardworking cabinetry: pantries, mudrooms, and shop storage.',
       'Acreage properties drive demand for garage and outbuilding cabinet systems.',

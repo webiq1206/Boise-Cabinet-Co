@@ -1,4 +1,3 @@
-import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
@@ -275,7 +274,6 @@ export default function KitchenCabinetsPage() {
         </section>
       </article>
 
-      <LandingMobileActions />
     </div>
   );
 }
