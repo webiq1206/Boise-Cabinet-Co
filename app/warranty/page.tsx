@@ -35,7 +35,6 @@ const COVERED = [
 
 const CONDITIONS = [
   "Coverage applies to the original homeowner at the installation address",
-  "Door warping is covered only within the first 180 days",
   "Normal use, care, and a stable indoor environment are required",
   "Claims are administered directly by Boise Cabinet Co",
   CABINET_WORKMANSHIP_WARRANTY,
@@ -103,7 +102,7 @@ export default function WarrantyPage() {
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
-                <Link href="/construction">How we build</Link>
+                <Link href="/construction">How we work</Link>
               </Button>
         </CinematicHero>
 
