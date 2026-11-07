@@ -264,7 +264,7 @@ export const STANDARD_INCLUSIONS = [
   "Installed by our own Treasure Valley crew",
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
-  "Written workmanship guarantee",
+  "Written workmanship warranty",
   "Warranty claims handled by us",
 ];
 

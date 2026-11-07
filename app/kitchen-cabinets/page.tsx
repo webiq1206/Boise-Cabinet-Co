@@ -42,7 +42,7 @@ const FAQS = [
   {
     question: "How long does it take?",
     answer:
-      "As fast as 3 weeks from order to install on many projects. We'll give you a timeline with your estimate.",
+      "Your written quote confirms the timeline.",
   },
   {
     question: "What areas do you serve?",
@@ -152,7 +152,7 @@ export default function KitchenCabinetsPage() {
             Boise cabinets for kitchens, baths &amp; built-ins
           </h1>
           <p className="mt-4 max-w-[36rem] text-base leading-snug sm:text-lg sm:leading-relaxed">
-            Kitchen cabinets, bathroom vanities and built-ins, installed as fast as 3 weeks.
+            Kitchen cabinets, bathroom vanities and built-ins. Your written quote confirms the timeline.
           </p>
           <div className="mt-6">
             <LandingContactActions onDark formId="quick-quote" formLabel="Request a Cabinet Estimate" showContactNote={false} />
@@ -228,7 +228,7 @@ export default function KitchenCabinetsPage() {
               <strong>Registered and insured.</strong> {REGISTERED_BONDED_INSURED}.
             </li>
             <li>
-              <strong>As fast as 3 weeks.</strong> Many projects install as fast as 3 weeks. We&apos;ll give you a timeline with your estimate.
+              <strong>Your written quote confirms the timeline.</strong> We&apos;ll give you a timeline with your estimate.
             </li>
           </ul>
         </section>
@@ -243,7 +243,7 @@ export default function KitchenCabinetsPage() {
               <strong>Get your free estimate.</strong> We go over layout, door styles like shaker and slab, and finishes with you, and give you a clear quote.
             </li>
             <li>
-              <strong>We install.</strong> We install your new cabinets, as fast as 3 weeks.
+              <strong>We install.</strong> We install your new cabinets. Your written quote confirms the timeline.
             </li>
           </ol>
         </section>
