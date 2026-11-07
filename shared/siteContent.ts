@@ -263,7 +263,7 @@ export const STANDARD_INCLUSIONS = [
   "Free in-home design consultation",
   "Installed by our own Treasure Valley crew",
   "Written progress updates",
-  "Dust barriers and floor protection daily",
+  "Dust barriers and floor protection",
   "Written workmanship guarantee",
   "Warranty claims handled by us",
 ];

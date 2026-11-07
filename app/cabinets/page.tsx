@@ -64,7 +64,7 @@ export default function CabinetsHubPage() {
           // its quiet secondary line, and the hero copy comes first on phones.
           actions={<AboveFoldActions />}
           description={catalogDescription(
-            "Explore how {company} designs cabinetry built to order and installs it with our own crew, from primary kitchens to garage storage.",
+            "Explore how {company} designs and installs cabinetry built to order for every space in your Treasure Valley home, from primary kitchens to garage storage.",
           )}
         >
           <Button variant="brand" asChild>

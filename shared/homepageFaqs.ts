@@ -30,7 +30,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you install cabinets or supply only?",
-    a: "We design, build to order, deliver, and install with our own crew. Trade partners and builders can discuss project packages on the builders page.",
+    a: "We design, deliver, and install cabinetry built to order with our own crew.",
   },
   {
     q: "What warranty do you provide?",
@@ -42,7 +42,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How do I track my project after I order?",
-    a: "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
+    a: "You get written progress updates, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
   },
   {
     q: "What door styles and finishes are available?",

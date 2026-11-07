@@ -428,13 +428,13 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Installation week',
       paragraphs: [
-        'Installation covers protection, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, and hardware aligned. Your lead time is confirmed with your quote. Out-of-level floors, normal in older Boise homes, are absorbed at the base so counters land flat.',
+        'Installation covers protection, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, and hardware aligned. Floors that are out of level, normal in older Boise homes, are absorbed at the base so counters land flat.',
       ],
     },
     {
       h2: 'After cabinets land',
       paragraphs: [
-        'Counter templating follows base installation. Your lead time is confirmed with your quote before full kitchen function. Final adjustment and the punch-list walkthrough close the project; see the <a href="/guides/cabinet-project-process-guide">punch list article</a> for that stage.',
+        'Countertops are templated after the base cabinets are set, so plan for that step before the kitchen is fully in use.',
       ],
     },
   ],

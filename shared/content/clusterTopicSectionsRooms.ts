@@ -27,7 +27,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         ],
       },
       paragraphs: [
-        'Countertops template after base cabinets are set. Your lead time is confirmed with your quote before the kitchen is fully functional.',
+        'Countertops are templated after the base cabinets are set, so plan for that step before the kitchen is fully in use.',
       ],
     },
     {
@@ -501,7 +501,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Kitchen survival plan',
       paragraphs: [
-        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals while the cabinets are installed. Counters template after bases are set. Your lead time is confirmed with your quote.',
+        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals while the cabinets are installed. Counters are templated after the bases are set.',
       ],
     },
     {

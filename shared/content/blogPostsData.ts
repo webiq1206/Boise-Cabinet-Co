@@ -21,7 +21,7 @@ function clusterFaqs(
     {
       question: 'How long until cabinets are installed?',
       answer:
-        'Timelines vary by line and finish, often several weeks of design plus 6–12 weeks fabrication after design lock.',
+        'Timelines vary by line and finish. Fabrication follows design lock.',
     },
     {
       question: 'Can I supply my own countertops?',

@@ -61,11 +61,11 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Typical kitchen timeline',
           table: {
             className: 'timeline-table',
-            headers: ['Phase', 'Duration'],
+            headers: ['Phase', 'What happens'],
             rows: [
-              ['Design & selections', '4–10 weeks'],
-              ['Permits (layout/MEP)', '2–8 weeks'],
-              ['Construction', '8–16 weeks'],
+              ['Design and selections', 'Layout, door style, and finish'],
+              ['Permits', 'Confirm what the address requires'],
+              ['Construction', 'Installation after the plan is set'],
             ],
           },
           paragraphs: [
