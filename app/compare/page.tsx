@@ -10,7 +10,7 @@ import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import { CABINET_WORKMANSHIP_WARRANTY, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
-import { CATALOG_CONTENT, DOOR_STYLES, FINISHES } from "@/shared/catalog";
+import { DOOR_STYLES, FINISHES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -119,7 +119,7 @@ const TIER_ROWS: Array<{ factor: string; stock: string; semi: string; ours: stri
     factor: "Lead time",
     stock: "Fastest",
     semi: "Moderate",
-    ours: `Typically ${CATALOG_CONTENT.leadTime} from approved design`,
+    ours: "lead time confirmed with your quote",
   },
   {
     factor: "Warranty",

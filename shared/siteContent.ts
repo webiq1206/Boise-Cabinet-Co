@@ -20,7 +20,6 @@ export const HERO_SUBHEAD =
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "2 yr", label: "Warranty claims handled by us" },
 ] as const;
 
 /** Hero facts. Coverage length is not stated. */
@@ -56,7 +55,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Proactive communication, not radio silence",
     contrast: "Instead of wondering what happened on your project this week,",
-    body: "you receive a written update every Friday: what was completed, what is next, and any decisions needed from you. We also flag budget impacts early, before they become surprises.",
+    body: "you receive written progress updates: what was completed, what is next, and any decisions needed from you. We also flag budget impacts early, before they become surprises.",
   },
   {
     title: "Local permit and schedule expertise",
@@ -144,7 +143,7 @@ export const PROMISE_ITEMS = [
   {
     num: "02",
     title: "Proactive communication",
-    body: "Every Friday: what was completed, what is next, and any decisions needed from you. One dedicated project manager start to finish.",
+    body: "Written progress updates: what was completed, what is next, and any decisions needed from you. One dedicated project manager start to finish.",
   },
   {
     num: "03",
@@ -177,7 +176,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Clear communication",
-    body: "Weekly written updates and one project manager who knows your home from first visit to completion.",
+    body: "Written progress updates and one project manager who knows your home from first visit to completion.",
     icon: MessageSquare,
   },
   {
@@ -262,9 +261,9 @@ export const PRINCIPLES = [
 export const STANDARD_INCLUSIONS = [
   "Free in-home design consultation",
   "Installed by our own Treasure Valley crew",
-  "Weekly written progress updates",
+  "Written progress updates",
   "Dust barriers and floor protection daily",
-  "Written workmanship guarantee",
+  "Written workmanship warranty",
   "Warranty claims handled by us",
 ];
 
@@ -299,7 +298,7 @@ export const LEADERSHIP_COPY = {
   paragraphs: [
     "Boise Cabinet Co was founded on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
-    "That means one accountable team, written scope before order, weekly updates while we work, and a team that picks up the phone when you have a question.",
+    "That means one accountable team, written scope before order, written progress updates while we work, and a team that picks up the phone when you have a question.",
   ],
   closing: "That is not a marketing promise. Every detail and every decision is handled with intention.",
 };

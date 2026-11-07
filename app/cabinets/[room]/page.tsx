@@ -29,7 +29,6 @@ generateWebPageSchema,
 } from "@/lib/schema";
 import {
 CABINET_PRODUCTS,
-CATALOG_CONTENT,
 ROOM_CATEGORIES,
 getRoomBySlug,
 } from "@/shared/catalog";
@@ -282,8 +281,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               )}
               {roomCopy ? null : (
               <p className="text-sm text-muted-foreground mb-4">
-                Most projects move into production {CATALOG_CONTENT.leadTime} after your
-                selections and project details are finalized.
+                Your lead time is confirmed with your quote.
               </p>
               )}
               <Button variant="brandOutline" asChild>
@@ -358,7 +356,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 />
               </div>
               <ul className="ed-inset ed-grid-balance m-0 grid list-none gap-x-8 gap-y-4 p-[clamp(24px,2.6vw,40px)] sm:grid-cols-2">
-                {STANDARD_INCLUSIONS.map((item) => (
+                {(room.slug === "pantry"
+                  ? STANDARD_INCLUSIONS.filter((item) => !/warrant|guarantee/i.test(item))
+                  : STANDARD_INCLUSIONS
+                ).map((item) => (
                   <li key={item} className="flex items-start gap-3 text-[0.9375rem] text-foreground/90">
                     <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
                     {item}

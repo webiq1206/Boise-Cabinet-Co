@@ -17,7 +17,6 @@ import { generateBreadcrumbSchema,generateFAQSchema,generateWebPageSchema } from
 import {
 ACCESSORY_FAMILIES,
 CABINET_PRODUCTS,
-CATALOG_CONTENT,
 DOOR_STYLES,
 FINISHES,
 HARDWARE_OPTIONS,
@@ -95,7 +94,7 @@ const CATALOG_FAQS = [
   },
   {
     question: "How long do cabinets take after I order from the catalog?",
-    answer: `Lead time from approved design is typically ${CATALOG_CONTENT.leadTime}. Cabinets are built to order after you approve your drawings, finishes and hardware.`,
+    answer: "Your lead time is confirmed with your quote. Cabinets are built to order after you approve your drawings, finishes and hardware.",
   },
 ];
 
@@ -235,7 +234,7 @@ export default function CatalogPage() {
                   {listText(ACCESSORY_FAMILIES.map((a) => a.name))}.
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Lead time from approved design is typically {CATALOG_CONTENT.leadTime}. See{" "}
+                  Your lead time is confirmed with your quote. See{" "}
                   <Link href="/accessories" className="text-foreground underline underline-offset-2 hover:text-accent">
                     cabinet accessories
                   </Link>{" "}

@@ -75,7 +75,7 @@ export const GBP_PROFILE = {
 } as const;
 
 const GBP_BUSINESS_DESCRIPTION_SOURCE =
-  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a written workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
 
 export const GBP_BUSINESS_DESCRIPTION = publicText(GBP_BUSINESS_DESCRIPTION_SOURCE);
 
@@ -182,7 +182,7 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Cabinet installation",
     description:
-      publicText("Professional installation by our own team, with final walkthrough and lifetime workmanship warranty."),
+      publicText("Professional installation by our own team, with final walkthrough and a written workmanship warranty."),
     path: "/construction",
     campaign: "service-installation",
     priority: "core",
@@ -273,7 +273,7 @@ export const GBP_BONUS_PRODUCTS: GbpProduct[] = [
   {
     name: "Custom Cabinet Collection",
     description:
-      "Built-to-order frameless cabinets in any size, 1/4\" increments, 4-8 week lead time.",
+      "Built-to-order frameless cabinets in any size, 1/4\" increments, lead time confirmed with your quote.",
     path: "/collections/custom",
     campaign: "product-custom-collection",
     imagePath: "/images/marketing/catalog-default.webp",
@@ -326,7 +326,7 @@ const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "How long does a custom cabinet project take?",
     answer:
-      "Most custom cabinet projects run about 4-8 weeks from approved design, depending on size and finish selection. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
+      "Your lead time is confirmed with your quote. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
   },
   {
     question: "What areas do you serve?",

@@ -66,6 +66,27 @@
   .article-table-scroll table[data-stack] tr > :first-child::before { content: none; }
 }
 
+/* Timeline tables: below md, each stacked row is the phase and its text.
+   The repeated column label stays off. md and up keep the two-column header. */
+@media (max-width: 767px) {
+  .article-table-scroll table.timeline-phases[data-stack] {
+    min-width: 0 !important; width: 100%; border-collapse: collapse; border: 0; display: block;
+  }
+  .article-table-scroll table.timeline-phases[data-stack] :is(thead, tbody, tfoot) { display: block; }
+  .article-table-scroll table.timeline-phases[data-stack] thead { display: none; }
+  .article-table-scroll table.timeline-phases[data-stack] tr {
+    display: block; padding: 14px 0; border: 0; border-top: 1px solid hsl(var(--border)); background: none;
+  }
+  .article-table-scroll table.timeline-phases[data-stack] tr:last-child { border-bottom: 1px solid hsl(var(--border)); }
+  .article-table-scroll table.timeline-phases[data-stack] :is(td, th) {
+    display: block; padding: 0; border: 0; background: none; text-align: left; font-size: 15px; line-height: 1.5;
+  }
+  .article-table-scroll table.timeline-phases[data-stack] :is(td, th)::before { content: none; }
+  .article-table-scroll table.timeline-phases[data-stack] tr > :first-child {
+    display: block; font-weight: 600; padding-bottom: 6px;
+  }
+}
+
 /* Form fields: the input border token equalled the page background, so fields
    on cream had no visible edge. (BCC-02, same token on all four sites) */
 .approved-shell { --input: 42 10% 72%; }

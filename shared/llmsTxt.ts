@@ -17,7 +17,7 @@
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
-import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
+import { ACCESSORY_FAMILIES, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { ROOM_SEO } from "@/shared/catalog/roomSeo";
 import { CITIES, locationPath } from "@/shared/contentData";
@@ -75,7 +75,7 @@ function buildLlmsTxt(): string {
   push(`- Service area: ${list(cityNames)} (Ada and Canyon Counties, Treasure Valley)`);
   push(`- Catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes (${list(finishFamilies)}), ${HARDWARE_OPTIONS.length} hardware options, ${ACCESSORY_FAMILIES.length} accessory families`);
   push("- Construction: frameless cabinet boxes built to order, soft-close hinge and drawer-slide options");
-  push(`- Lead time: typically ${CATALOG_CONTENT.leadTime} from approved design`);
+  push("- Your lead time is confirmed with your quote.");
   push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}`);
   push("- Free in-home design consultation; a written proposal with drawings before anything is ordered");
   push("- Also serve builders, general contractors, and multi-family developers with volume pricing");

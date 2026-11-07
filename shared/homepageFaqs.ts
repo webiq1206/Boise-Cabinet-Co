@@ -1,7 +1,3 @@
-// The generated content module directly: the @/shared/catalog barrel also loads
-// every cabinet product, and this list ships to the browser with FAQSection.
-import { CATALOG_CONTENT } from "@/shared/catalog/generated/content";
-
 export interface HomepageFaq {
   q: string;
   a: string;
@@ -18,7 +14,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: `Most custom cabinet projects run about ${CATALOG_CONTENT.leadTime} from approved design, depending on size and finish selection. We confirm your schedule in writing and share a weekly update until install.`,
+    a: "Your lead time is confirmed with your quote. We confirm your schedule in writing and share written progress updates until install.",
   },
   {
     q: "Can I plan my cabinets before committing?",
@@ -34,7 +30,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
+    a: "Boise Cabinet Co provides a written workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
   },
   {
     q: "What does the free design consultation include?",
@@ -42,7 +38,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How do I track my project after I order?",
-    a: "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
+    a: "You get written progress updates, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
   },
   {
     q: "What door styles and finishes are available?",

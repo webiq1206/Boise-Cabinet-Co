@@ -47,7 +47,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -113,7 +113,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Meridian cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
+          'Your lead time is confirmed with your quote. Since we\'re based in Meridian, delivery and installation here tend to land on the calendar sooner than anywhere else in our service area.',
       },
       {
         question: 'Do you install mudroom and pantry storage in Meridian?',
@@ -329,7 +329,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do you charge more to deliver and install in Nampa?',
         answer:
-          'No. Nampa is inside our standard service area and we install in Canyon County weekly.',
+          'No. Nampa is inside our standard service area and we install in Canyon County.',
       },
       {
         question: 'What Nampa cabinet projects are most common?',
@@ -441,7 +441,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Kuna cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selection decide where in that window you fall.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'How new are Kuna\'s homes?',
@@ -752,7 +752,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Middleton cabinet project take?',
         answer:
-          'Lead time is typically 4-8 weeks after selections and project details are finalized, often faster for ready-to-assemble. Scope and finish selections decide the schedule.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'How new are Middleton homes?',

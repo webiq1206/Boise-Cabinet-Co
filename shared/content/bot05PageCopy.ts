@@ -11,7 +11,7 @@ export const BUILD_CABINETS_ANSWER =
 export const TRUST_LINE = `${REGISTERED_BONDED_INSURED}.`;
 
 export const LEAD_TIME_LINE =
-  "Lead time from approved design is typically 4-8 weeks.";
+  "Your lead time is confirmed with your quote.";
 
 export const DEPOSIT_TO_LOCK_ORDER = "deposit to lock your order";
 

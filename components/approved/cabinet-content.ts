@@ -10,7 +10,7 @@ export const faqs = [
   ],
   [
     "How long does a custom cabinet project take?",
-    "Most custom cabinet projects run about 4 to 8 weeks from approved design, depending on size and finish selection. We confirm your project schedule in writing and share a weekly update until install."
+    "Most custom cabinet projects run about 4 to 8 weeks from approved design, depending on size and finish selection. We confirm your project schedule in writing and share written progress updates until install."
   ],
   [
     "Can I plan my cabinets before committing?",
@@ -26,7 +26,7 @@ export const faqs = [
   ],
   [
     "What warranty do you provide?",
-    "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms."
+    "Boise Cabinet Co provides a written workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms."
   ],
   [
     "What does the free design consultation include?",
@@ -34,7 +34,7 @@ export const faqs = [
   ],
   [
     "How do I track my project after I order?",
-    "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets."
+    "You get written progress updates, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets."
   ],
   [
     "What door styles and finishes are available?",
@@ -73,7 +73,7 @@ export const steps = [
   },
   {
     "title": "Delivery, install and warranty",
-    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the 2-year installation workmanship term.",
+    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the written workmanship warranty.",
     "tag": "05 / ENJOY"
   }
 ];
@@ -94,7 +94,7 @@ export const differentiators = [
   ],
   [
     "Warranty claims handled by us",
-    "Two-year workmanship warranty on installation. Manufacturer coverage on boxes and hardware is administered through our team, not passed off to a call centre."
+    "Written workmanship warranty on installation. Manufacturer coverage on boxes and hardware is administered through our team, not passed off to a call centre."
   ],
   [
     "Packaging and old-cabinet haul-away",

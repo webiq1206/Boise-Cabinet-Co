@@ -35,7 +35,6 @@ const COVERED = [
 
 const CONDITIONS = [
   "Coverage applies to the original homeowner at the installation address",
-  "Door warping is covered only within the first 180 days",
   "Normal use, care, and a stable indoor environment are required",
   "Claims are administered directly by Boise Cabinet Co",
   CABINET_WORKMANSHIP_WARRANTY,
@@ -49,12 +48,12 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "Cabinet warranty from {company}: a 2-year workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
+  "Cabinet warranty from {company}: a written workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/warranty",
-  "Cabinet Warranty | 2-Year Workmanship",
+  "Cabinet Warranty | Written Workmanship",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -71,7 +70,7 @@ export default function WarrantyPage() {
       title: "Cabinet warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
-        : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
+        : "Warranty claims handled by us. Written workmanship warranty on cabinet installation.",
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
@@ -103,7 +102,7 @@ export default function WarrantyPage() {
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
-                <Link href="/construction">How we build</Link>
+                <Link href="/construction">How we work</Link>
               </Button>
         </CinematicHero>
 
@@ -165,8 +164,7 @@ export default function WarrantyPage() {
               warranty is tied to.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Most cabinet orders are produced within {CATALOG_CONTENT.leadTime} of an approved
-              design, and your warranty begins at installation. Replacement parts are matched to your
+              Your lead time is confirmed with your quote, and your warranty begins at installation. Replacement parts are matched to your
               original selections whenever possible.
             </p>
           </SplitSection>

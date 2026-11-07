@@ -147,7 +147,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Cabinets for your next project",
     openingLine: "I run a custom cabinet company here in Boise, and I'd love the chance to work with you.",
     mainMessage:
-      "Quick background on me. I ran a remodeling company in Colorado for years before we moved the family out to Boise, where I started Boise Cabinet Co. We design, source, and install custom cabinets, kitchens, vanities, and built-ins, for all kinds of projects and spaces.\n\nWhat that means for you is fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and someone who actually picks up the phone when you call. I attached our catalog so you can see the door styles and finishes we work with.",
+      "Quick background on me. I ran a remodeling company in Colorado for years before we moved the family out to Boise, where I started Boise Cabinet Co. We design, source, and install custom cabinets, kitchens, vanities, and built-ins, for all kinds of projects and spaces.\n\nWhat that means for you is fair pricing, lead time confirmed with your quote, and someone who actually picks up the phone when you call. I attached our catalog so you can see the door styles and finishes we work with.",
     closingLine: "If you've got something coming up, I'd be glad to put a number together. Open to a quick call?",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
@@ -163,7 +163,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Any projects coming up, {business}?",
     openingLine: "Just following up on my note from last week.",
     mainMessage:
-      "Keeping it simple: you get fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and one person to deal with from the first sketch to the final install.\n\nWe work across the Treasure Valley and plan around your schedule.",
+      "Keeping it simple: you get fair pricing, lead time confirmed with your quote, and one person to deal with from the first sketch to the final install.\n\nWe work across the Treasure Valley and plan around your schedule.",
     closingLine: "Happy to quote your next kitchen, bath, or built-in whenever the timing's right. Just hit reply.",
     ctaLabel: "Start a conversation",
     ctaUrl: `${SITE}/consultation`,
@@ -217,7 +217,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "A local cabinet company for {business}",
     openingLine: "I wanted to reach out and say hello, and introduce my cabinet company here in the valley.",
     mainMessage:
-      "I'm Nick. I ran a remodeling business in Colorado for years, then moved the family to Boise and opened Boise Cabinet Co. We design and install custom cabinets right here in the valley for anyone who'd rather hand the cabinet part of a project to a team they trust than deal with it themselves.\n\nYou can expect fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and a crew that actually cares how the work turns out. I attached our catalog so you can get a feel for our door styles and finishes.",
+      "I'm Nick. I ran a remodeling business in Colorado for years, then moved the family to Boise and opened Boise Cabinet Co. We design and install custom cabinets right here in the valley for anyone who'd rather hand the cabinet part of a project to a team they trust than deal with it themselves.\n\nYou can expect fair pricing, lead time confirmed with your quote, and a crew that actually cares how the work turns out. I attached our catalog so you can get a feel for our door styles and finishes.",
     closingLine: "If a kitchen, bath, or built-in comes up, I'd love a shot at quoting it. No pressure either way.",
     ctaLabel: "See our cabinets",
     ctaUrl: `${SITE}/collections`,
@@ -246,7 +246,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Still here whenever you need cabinets",
     openingLine: "I'll keep this one short.",
     mainMessage:
-      "If cabinets aren't on your plate right now, no worries at all. When the time comes, there's a local cabinet company here with fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and a crew that's easy to deal with. I'd be glad to be your cabinet guy.",
+      "If cabinets aren't on your plate right now, no worries at all. When the time comes, there's a local cabinet company here with fair pricing, lead time confirmed with your quote, and a crew that's easy to deal with. I'd be glad to be your cabinet guy.",
     closingLine: "Reply any time and I'll be ready to help.",
     ctaLabel: "Visit our site",
     ctaUrl: SITE,
@@ -261,7 +261,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Quick hello from a Boise cabinet company",
     openingLine: "Quick hello from a cabinet company here in Boise.",
     mainMessage:
-      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, I moved the family to Boise and opened Boise Cabinet Co here.\n\nFor the people we work with, it comes down to three things: fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and service that makes your project easier. I attached our catalog so you can see the range.",
+      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, I moved the family to Boise and opened Boise Cabinet Co here.\n\nFor the people we work with, it comes down to three things: fair pricing, lead time confirmed with your quote, and service that makes your project easier. I attached our catalog so you can see the range.",
     closingLine: "Got a kitchen, bath, or built-in coming up? I'll quote it.",
     ctaLabel: "Browse the catalog",
     ctaUrl: `${SITE}/collections`,
@@ -277,7 +277,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Why people send us their cabinet work",
     openingLine: "A quick rundown of why people hand us their cabinet work.",
     mainMessage:
-      "Fair pricing that protects your budget.\n\nLead times of typically 4–8 weeks, often faster for ready-to-assemble lines, planned around your schedule.\n\nService that keeps the project moving and everyone happy.\n\nThat's what we do, every time.",
+      "Fair pricing that protects your budget.\n\nYour lead time is confirmed with your quote. We plan around your schedule.\n\nService that keeps the project moving and everyone happy.\n\nThat's what we do, every time.",
     closingLine: "Send me your next set of plans and I'll price them.",
     ctaLabel: "Send us a project",
     ctaUrl: `${SITE}/consultation`,
@@ -290,7 +290,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Last note for now",
     openingLine: "I don't want to clutter your inbox, so this is my last note for now.",
     mainMessage:
-      "If you ever need a solid cabinet company with fair pricing and lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), I'm here. One email and I'll get a quote back to you.",
+      "If you ever need a solid cabinet company with fair pricing and lead time confirmed with your quote, I'm here. One email and I'll get a quote back to you.",
     closingLine: "Thanks for reading, and good luck with your projects.",
     ctaLabel: "Reach out",
     ctaUrl: `${SITE}/consultation`,
@@ -305,7 +305,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "From Colorado to Boise",
     openingLine: "Figured I'd take a minute to introduce myself and my company.",
     mainMessage:
-      "I spent years running a remodeling business in Colorado. When we moved the family to Boise, I opened Boise Cabinet Co so I could focus on the part I love most, designing and installing cabinets.\n\nBecause I've spent years in remodeling myself, I try to make this easy on you: fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and real service when you need it. I attached our catalog so you can see what we offer.",
+      "I spent years running a remodeling business in Colorado. When we moved the family to Boise, I opened Boise Cabinet Co so I could focus on the part I love most, designing and installing cabinets.\n\nBecause I've spent years in remodeling myself, I try to make this easy on you: fair pricing, lead time confirmed with your quote, and real service when you need it. I attached our catalog so you can see what we offer.",
     closingLine: "If you've got a project where cabinets would help, I'd be glad to quote it.",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
@@ -334,7 +334,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Pricing and timing, the short version",
     openingLine: "A quick word on the two things that usually matter most.",
     mainMessage:
-      "Pricing: ours stays fair and competitive, so your budget stays strong.\n\nTiming: cabinet lead times are typically 4–8 weeks, often faster for ready-to-assemble lines, and we plan around your schedule.",
+      "Pricing: ours stays fair and competitive, so your budget stays strong.\n\nTiming: your lead time is confirmed with your quote, and we plan around your schedule.",
     closingLine: "Send me something to price and I'll show you both.",
     ctaLabel: "Get a bid",
     ctaUrl: `${SITE}/consultation`,
@@ -347,7 +347,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Whenever you're ready, {business}",
     openingLine: "I'll leave the ball in your court from here.",
     mainMessage:
-      "If you ever want a cabinet company that offers fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and service you can count on, I'd love to earn your business. Just reply and I'll take it from there.",
+      "If you ever want a cabinet company that offers fair pricing, lead time confirmed with your quote, and service you can count on, I'd love to earn your business. Just reply and I'll take it from there.",
     closingLine: "Thanks for your time, and I hope we get to work together down the road.",
     ctaLabel: "Visit our site",
     ctaUrl: SITE,
@@ -363,7 +363,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Custom cabinets for {business}",
     openingLine: "I wanted to introduce myself and my cabinet company here in Boise.",
     mainMessage:
-      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, my family moved to Boise and I opened Boise Cabinet Co here. We design, source, and install cabinets, kitchens, vanities, offices, built-ins, and just about any space that needs them.\n\nWhatever the project, you can expect fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and someone who actually picks up the phone. I attached our catalog so you can get a feel for our door styles and finishes.",
+      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, my family moved to Boise and I opened Boise Cabinet Co here. We design, source, and install cabinets, kitchens, vanities, offices, built-ins, and just about any space that needs them.\n\nWhatever the project, you can expect fair pricing, lead time confirmed with your quote, and someone who actually picks up the phone. I attached our catalog so you can get a feel for our door styles and finishes.",
     closingLine: "If custom cabinets would ever help on a project, I'd love the opportunity to earn your business.",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
@@ -392,7 +392,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Last note for now",
     openingLine: "I'll keep this short and leave the ball in your court.",
     mainMessage:
-      "If custom cabinets aren't on your list right now, no worries at all. When the time comes, there's a local cabinet company here with fair pricing, lead times of typically 4–8 weeks (often faster for ready-to-assemble lines), and service you can count on. I'd love the opportunity to earn your business and work with you.",
+      "If custom cabinets aren't on your list right now, no worries at all. When the time comes, there's a local cabinet company here with fair pricing, lead time confirmed with your quote, and service you can count on. I'd love the opportunity to earn your business and work with you.",
     closingLine: "Reply any time and I'll be ready to help.",
     ctaLabel: "Visit our site",
     ctaUrl: SITE,

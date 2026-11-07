@@ -5,7 +5,7 @@ export type { CatalogContent } from "../types";
 export const CATALOG_CONTENT: CatalogContent = {
   "warrantyHeadline": "Warranty claims handled by us",
   "warrantySummary": "Boise Cabinet Co passes the manufacturer's warranty through to you. Conditions vary by manufacturer; your written scope lists the warranty for your cabinets.",
-  "leadTime": "4-8 weeks",
+  "leadTime": "lead time confirmed with your quote",
   "estimateDisclaimer": "Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.",
   "warrantyNote": "Internal: present this as Boise Cabinet Co's own warranty. Boise must be able to honor and administer these terms; all warranty claims route to Boise Cabinet Co. Legal review recommended before launch.",
   "leadTimeNote": "Single site-wide value. Reflects the figure most prominent on the current site; keep it equal to Boise actual production + install time.",
