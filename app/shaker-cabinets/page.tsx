@@ -34,7 +34,7 @@ export const metadata = withBrandPageMetadata({
   alternates: { canonical: buildCanonical("/shaker-cabinets") },
 }, "/shaker-cabinets");
 
-/** The four shaker profiles we build, each with its own detail page. */
+/** The four shaker profiles on the site, each with its own detail page. */
 const PROFILES = [
   {
     name: "Modern Shaker",
@@ -122,7 +122,7 @@ export default function ShakerCabinetsPage() {
           title={<>
                   Custom shaker <em className="brc-accent text-accent">cabinets</em>
                 </>}
-          description={"Shaker is a flat, recessed panel inside a clean square frame that looks right in almost any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, and install with our Treasure Valley crew."}
+          description={"Shaker is a flat, recessed panel inside a clean square frame that looks right in almost any home. It is built to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, and install with our Treasure Valley crew."}
         >
               <Button variant="brand" asChild>
                 <Link href="/estimate">

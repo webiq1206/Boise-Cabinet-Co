@@ -155,7 +155,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Eagle',
         paragraphs: [
-          'Eagle homes carry the highest finish expectations in the Treasure Valley. We build frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">vanities</a>, and <a href="/cabinets/entertainment">entertainment built-ins</a> sized for larger footprints and taller ceilings.',
+          'Eagle homes carry the highest finish expectations in the Treasure Valley. We design and install frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">vanities</a>, and <a href="/cabinets/entertainment">entertainment built-ins</a> sized for larger footprints and taller ceilings.',
           `For valley-wide planning, start with the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
@@ -269,7 +269,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Nampa',
         paragraphs: [
-          'Nampa is the largest Canyon County city we serve, and its housing range is the widest: 1900s bungalows near the Nampa Depot and downtown, mid-century ranches, and 2000s-to-current subdivisions. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> for all of them.',
+          'Nampa is the largest Canyon County city we serve, and its housing range is the widest: 1900s bungalows near the Nampa Depot and downtown, mid-century ranches, and 2000s-to-current subdivisions. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> for all of them.',
           `Valley-wide context lives in the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
@@ -479,7 +479,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Star',
         paragraphs: [
-          `Star has transformed from a small farm town into one of the valley's fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties. If you're planning across the whole valley, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> is the better starting point.`,
+          `Star has transformed from a small farm town into one of the valley's fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties. If you're planning across the whole valley, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> is the better starting point.`,
         ],
       },
       {
@@ -582,7 +582,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Caldwell',
         paragraphs: [
-          `Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it. If you're comparing cities, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> has the valley-wide view.`,
+          `Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it. If you're comparing cities, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> has the valley-wide view.`,
         ],
       },
       {

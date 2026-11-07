@@ -334,7 +334,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Designing around grill and appliances',
       paragraphs: [
-        'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We build cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
+        'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We plan cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
         'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> for entertaining zones.',
       ],
     },

@@ -38,7 +38,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
         {
           h2: 'Kitchen layouts that work in Boise homes',
           paragraphs: [
-            'Ranches, split-levels, and 1990s subdivisions each have different wall and panel constraints. Opening a kitchen often means beams, Ada County sheets, and revised electrical, not just cabinetry. That is a full remodel, which our sister company Boise Remodeling Co handles: see <a href="https://boiseremodeling.co/services/kitchen-remodel">kitchen remodeling in Boise</a>. We build and install the cabinets inside it.',
+            'Ranches, split-levels, and 1990s subdivisions each have different wall and panel constraints. Opening a kitchen often means beams, Ada County sheets, and revised electrical, not just cabinetry. That is a full remodel, which our sister company Boise Remodeling Co handles: see <a href="https://boiseremodeling.co/services/kitchen-remodel">kitchen remodeling in Boise</a>. We design and install the cabinets inside it.',
             '<a href="/blog/kitchen-cabinet-organization-ideas">Kitchen cabinet organization</a> · <a href="/blog/kitchen-island-design-guide">Kitchen island cabinets</a>.',
           ],
         },
@@ -122,7 +122,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'How do built-ins fit walls that are not square?',
           paragraphs: [
             'Built-ins are sized on site, not from a catalog grid. We measure the room, draw the cabinets to those measurements, then level and scribe them to your walls at installation so gaps stay tight. That matters most in older Treasure Valley homes, where walls are often out of plumb.',
-            'Every door style is available on every cabinet we build, so a mudroom, office, or bookcase wall can match the kitchen and baths. See the <a href="/catalog">cabinet catalog</a> for the door styles and finishes.',
+            'Every door style is available on every cabinet we install, so a mudroom, office, or bookcase wall can match the kitchen and baths. See the <a href="/catalog">cabinet catalog</a> for the door styles and finishes.',
           ],
         },
         {

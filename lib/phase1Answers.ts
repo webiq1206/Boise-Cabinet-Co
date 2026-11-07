@@ -19,7 +19,7 @@ export interface Phase1Answer {
 
 const AREA = "Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell";
 const IDENTITY =
-  "Boise Cabinet Co designs and builds cabinets to your measurements, layout, finishes and hardware, installed by our own Treasure Valley crew.";
+  "Boise Cabinet Co designs and installs cabinets to your measurements, layout, finishes and hardware, installed by our own Treasure Valley crew.";
 
 function cityAnswer(city: string, paragraph: string): Phase1Answer {
   return {

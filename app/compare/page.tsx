@@ -232,7 +232,7 @@ export default function ComparePage() {
             <SectionHeader
               eyebrow="Door styles"
               title={<>{countWord(DOOR_STYLES.length)} door styles compared</>}
-              description="Every door style is available on every cabinet we build. The finish families each profile accepts, and the drawer front it pairs with, are listed below."
+              description="Every door style is available on every cabinet we install. The finish families each profile accepts, and the drawer front it pairs with, are listed below."
               align="left"
               className="mb-8"
             />

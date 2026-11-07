@@ -37,7 +37,7 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
   id: "collection-overview",
   title: "What's Included",
   description:
-    "What comes standard on every cabinet we build. Each one is made to order with professional installation, soft-close hinges on doors, and our written workmanship guarantee.",
+    "What comes standard on every cabinet we install. Each one is made to order with professional installation, soft-close hinges on doors, and a written workmanship warranty.",
   features: [
     {
       id: "custom-sizing",
@@ -131,7 +131,7 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
 export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
   id: "door-style-fit",
   title: "Door Styles",
-  description: "Every door profile is available on every cabinet we build.",
+  description: "Every door profile is available on every cabinet we install.",
   features: [
     {
       id: "slab",
@@ -171,7 +171,7 @@ export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
 export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
   id: "finish-tier-access",
   title: "Finish Access",
-  description: "Every finish category is available on every cabinet we build.",
+  description: "Every finish category is available on every cabinet we install.",
   features: [
     {
       id: "matte-finishes",

@@ -12,7 +12,7 @@ Preferred communication style: Simple, everyday language.
 - **Design System**: Mobile-first responsive design, permanently dark. Montserrat (`font-sans`) for all headings and body text; the serif (Libre Baskerville, `font-serif`) is reserved exclusively for decorative accents: italic emphasis words via `.brc-accent` and display numerals via `.brc-display-num`. Do not apply `font-serif` to heading elements. Text is capped at weight 400.
 - **Color Palette**: Charcoal ground (`#1C1F1E`), bone headings (`#F7F5F3`) and text (`#E6E3DE`), teal accent (`#7AAAAA`) used for heading emphasis and rules only (never filled buttons). Primary CTAs are bone-on-charcoal. See `design_guidelines.md` and `app/globals.css` for the authoritative tokens.
 - **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS.
-- **Homepage**: 12-section single-page marketing layout: Hero → Trust Strip → Founder Note → Inspiration Gallery → Estimate Calculator → Below-Calculator Cards → How We Build → Principles → Financing/Guarantee → Founding Clients → FAQ Accordion → Consultation Form.
+- **Homepage**: 12-section single-page marketing layout: Hero → Trust Strip → Founder Note → Inspiration Gallery → Estimate Calculator → Below-Calculator Cards → Process → Principles → Financing/Guarantee → Founding Clients → FAQ Accordion → Consultation Form.
 - **Founding Spots**: `FOUNDING_SPOTS_REMAINING` constant in `shared/contentData.ts` — update manually as spots fill.
 - **Mobile Navigation**: Sticky bottom bar with "Call" and "Begin a conversation" links. Desktop nav has logo, anchor links, phone with pulsing green dot, and "Book a free visit" CTA.
 

@@ -151,7 +151,7 @@ export async function buildCatalogPdfBlocks(
     title: "Contents",
     entries: [
       { label: `Door styles (${DOOR_STYLES.length})`, target: "Door styles" },
-      { label: `Rooms we build for (${ROOM_CATEGORIES.length})`, target: "Rooms we build for" },
+      { label: `Rooms we offer (${ROOM_CATEGORIES.length})`, target: "Rooms we offer" },
       { label: `Finishes by color family`, target: "Finishes by color family" },
       { label: `All finishes (${FINISHES.length})`, target: "All finishes" },
       { label: `Cabinets by category (${CABINET_PRODUCTS.length})`, target: "Cabinets by category" },
@@ -180,7 +180,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "image-grid", columns: 3, cells: doorCells });
 
   // ── Rooms ──────────────────────────────────────────────────────────────────
-  blocks.push({ type: "heading", text: "Rooms we build for" });
+  blocks.push({ type: "heading", text: "Rooms we offer" });
   const roomCells = await Promise.all(
     ROOM_CATEGORIES.map((r) => imageCell(r.heroImage, r.name, undefined)),
   );
