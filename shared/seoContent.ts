@@ -127,7 +127,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Phased delivery and installation',
       'Final walkthrough on every space in scope',
     ],
-    timeline: 'Whole-home cabinet programs typically run 3 to 6 months depending on room count and fabrication lead times.',
+    timeline: 'Your lead time is confirmed with your quote.',
     processSteps: [
       { title: 'Discovery', description: 'We map goals room by room and identify priorities.' },
       { title: 'Master scope', description: 'A written plan sequences fabrication and install.' },

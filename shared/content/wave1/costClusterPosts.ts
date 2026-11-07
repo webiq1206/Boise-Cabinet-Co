@@ -50,15 +50,15 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'Timeline and how it affects cash flow',
     paragraphs: [
-      'kitchen cabinets typically run 8–16 weeks after permits and materials are released. Long-lead cabinets can add 8–12 weeks to the front of the schedule, order at design lock.',
+      'Order cabinets at design lock. Later work waits on that order, so lock the design before the rest of the schedule depends on it.',
     ],
     table: {
       className: 'timeline-table',
-      headers: ['Phase', 'Duration'],
+      headers: ['Phase', 'What happens'],
       rows: [
-        ['Design & selections', '4 – 8 weeks'],
-        ['Permits (if layout/MEP)', '2 – 6 weeks'],
-        ['Construction', '6 – 12 weeks'],
+        ['Design and selections', 'Layout, door style, and finish'],
+        ['Permits, if the layout changes', 'Confirm what the address requires'],
+        ['Construction', 'Installation after the plan is set'],
       ],
     },
   },
@@ -111,7 +111,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'Permits for layout changes',
     paragraphs: [
-      'Relocating a toilet or expanding a footprint triggers plan review. Factor 2–6 weeks in Ada County depending on complexity.',
+      'Relocating a toilet or expanding a footprint triggers plan review. Confirm the current review time for the address.',
     ],
   },
   {

@@ -47,7 +47,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Questions about local experience',
       list: [
-        'How many kitchens have you installed in my city in the last 12 months?',
+        'How many kitchens have you installed in my city recently?',
         'Do you handle Ada County and Canyon County permits when layout work is involved?',
         'Can you reference a project similar to my home era and layout?',
         'How do you scribe-fit cabinets to out-of-plumb walls common in older Boise homes?',
@@ -141,7 +141,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Normalize the timeline too',
       paragraphs: [
-        'A quote with a 16-week lead time and a quote with 6 weeks are different products. Ask what drives each company\'s lead time and what happens to your schedule if fabrication slips.',
+        'Two quotes with different lead times are different products. Ask what drives each company\'s lead time and what happens to your schedule if fabrication slips.',
       ],
     },
     {
@@ -288,7 +288,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         rows: [
           ['Sizing', '3-inch increments, fillers required', 'Built to your walls'],
           ['Finishes', 'A dozen or so', 'Hundreds (we offer 299)'],
-          ['Lead time', 'Days to 10+ weeks (special order)', 'Typically 4-8 weeks'],
+          ['Lead time', 'Special order can take longer', 'Confirmed with your quote'],
           ['Accountability', 'Store + installer + manufacturer', 'One local team'],
           ['Fit in older homes', 'Poor without carpentry workarounds', 'Designed for it'],
         ],
@@ -481,7 +481,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What to expect in the first season, and how to file',
       paragraphs: [
         'New wood cabinets settle. In the first months, doors and drawer fronts can shift slightly with humidity swings and normal use, so a minor reveal adjustment is routine, not a defect. Our soft-close hinges are six-way adjustable, which lets a technician re-align a door in minutes.',
-        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window (180 days) on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
+        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
       ],
     },
   ],

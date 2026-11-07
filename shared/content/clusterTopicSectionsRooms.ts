@@ -18,12 +18,12 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Phase by phase',
       table: {
         className: 'timeline-table',
-        headers: ['Phase', 'Typical duration', 'What happens'],
+        headers: ['Phase', 'What happens'],
         rows: [
-          ['Consultation & measure', '1-2 weeks', 'In-home measure, goals, planning range'],
-          ['Design & selections', '1-3 weeks', 'Layout, door style, finish, hardware sign-off'],
-          ['Fabrication', '4-8 weeks', 'Built to order after approved drawings'],
-          ['Delivery & install', '2-5 days', 'Professional installation and walkthrough'],
+          ['Consultation and measure', 'In-home measure, goals, planning range'],
+          ['Design and selections', 'Layout, door style, finish, hardware sign-off'],
+          ['Fabrication', 'Planned around your measurements after approved drawings'],
+          ['Delivery and install', 'Installation and walkthrough'],
         ],
       },
       after: ['Your lead time is confirmed with your quote.'],
@@ -55,8 +55,8 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What to do while cabinets are in fabrication',
       paragraphs: [
-        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so install week is the only disruptive stretch.',
-        'Your client portal shows fabrication status; we send written Friday updates so you always know whether the project is on track for the scheduled delivery date.',
+        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so installation is the only disruptive stretch.',
+        'Your client portal shows fabrication status, and we send written progress updates so you always know whether the project is on track for the scheduled delivery.',
       ],
     },
   ],
@@ -487,7 +487,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Schedule risks specific to whole-home work',
       paragraphs: [
-        'One late selection holds an entire fabrication batch. We lock the full selection program, door style, finishes, hardware for every room, before release. Counters template per room after bases set, adding a week per zone.',
+        'One late selection holds an entire fabrication batch. We lock the full selection program, door style, finishes, hardware for every room, before release. Counters are templated per room after the bases are set.',
         'See the <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a> for the planning framework.',
       ],
     },
@@ -496,7 +496,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What installation actually feels like',
       paragraphs: [
-        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. A typical Boise or Nampa kitchen takes 2 to 5 install days; expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
+        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. Expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
       ],
     },
     {
@@ -508,7 +508,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Pets, kids, and work-from-home',
       paragraphs: [
-        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise from 8 to 5; schedule calls away from install days when you can. Our Friday written updates tell you exactly which days matter.',
+        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise during the workday. Schedule calls away from installation when you can. Our written progress updates tell you which visits matter.',
       ],
     },
     {

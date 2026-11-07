@@ -24,7 +24,7 @@ const HUB_SNIPPETS: Record<string, string[]> = {
     'Hold 10–15% contingency for concealed conditions behind drywall in older Boise and Bench homes.',
   ],
   'kitchen-cabinets': [
-    'Cabinet lead times can exceed eight weeks, order at design lock to protect your start date.',
+    'Order cabinets at design lock so the rest of the project is not waiting on them.',
     'Open concept requests should confirm beam sizing before demolition in Ada County homes.',
   ],
   'bathroom-vanities': [

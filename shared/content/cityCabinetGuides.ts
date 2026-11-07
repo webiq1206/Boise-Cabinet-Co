@@ -187,7 +187,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Eagle cabinet projects',
         paragraphs: [
-          'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions is 6 weeks, assuming no revisions, so a cabinet job that grows into moving walls needs that time in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
+          'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions varies with revisions, so a cabinet job that grows into moving walls needs that review in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
         ],
       },
       {
@@ -600,7 +600,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Caldwell cabinet projects',
         paragraphs: [
-          'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review typically takes 5 to 7 working days. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
+          'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review times vary. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
         ],
       },
       {

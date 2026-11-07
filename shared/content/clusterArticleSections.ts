@@ -27,7 +27,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Kitchen timeline and lead times',
       paragraphs: [
-        'Order cabinets at design lock; eight-week lead times are common. Permit review adds weeks when walls are removed.',
+        'Order cabinets at design lock. Permit review adds time when walls are removed.',
       ],
     },
   ],

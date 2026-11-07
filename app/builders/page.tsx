@@ -29,7 +29,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
-    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order for your plans.",
+    "Trade cabinet pricing and spec consistency across units for Treasure Valley builders, GCs, and multi-family developers. Cabinetry is planned around your measurements.",
 })), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */

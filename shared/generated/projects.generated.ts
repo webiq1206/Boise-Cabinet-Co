@@ -48,7 +48,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Typical timeline",
-          "value": "About 9 weeks design to install"
+          "value": "Set with your quote"
         },
         {
           "label": "Typical range",
@@ -109,7 +109,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Typical timeline",
-          "value": "About 6 weeks design to install"
+          "value": "Set with your quote"
         },
         {
           "label": "Typical range",
@@ -174,7 +174,7 @@ export const PROJECTS: SiteProject[] = [
         },
         {
           "label": "Typical timeline",
-          "value": "About 16 weeks, staged by room"
+          "value": "Staged by room and set with your quote"
         },
         {
           "label": "Typical range",
