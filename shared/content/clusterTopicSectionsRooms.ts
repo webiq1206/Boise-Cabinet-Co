@@ -18,14 +18,15 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Phase by phase',
       table: {
         className: 'timeline-table',
-        headers: ['Phase', 'Typical duration', 'What happens'],
+        headers: ['Phase', 'What happens'],
         rows: [
-          ['Consultation & measure', 'your lead time is confirmed with your quote', 'In-home measure, goals, planning range'],
-          ['Design & selections', 'your lead time is confirmed with your quote', 'Layout, door style, finish, hardware sign-off'],
-          ['Fabrication', 'lead time confirmed with your quote', 'Built to order after approved drawings'],
-          ['Delivery & install', 'your lead time is confirmed with your quote', 'Professional installation and walkthrough'],
+          ['Consultation & measure', 'In-home measure, goals, planning range'],
+          ['Design & selections', 'Layout, door style, finish, hardware sign-off'],
+          ['Fabrication', 'Built to order after approved drawings'],
+          ['Delivery & install', 'Professional installation and walkthrough'],
         ],
       },
+      after: ['Your lead time is confirmed with your quote.'],
       paragraphs: [
         'Countertops template after base cabinets are set, so add 1 to 2 weeks before the kitchen is fully functional.',
       ],

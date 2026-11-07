@@ -34,7 +34,8 @@ const sections: ContentSection[] = [
        literal silently kept the last and dropped the first - taking the
        index's own source line and its "Last updated June 2026" attribution
        off the published page. buildSectionsHtml renders paragraphs before
-       the table and has no after-table slot, so all three sit here. */
+       the table. An optional `after` array renders under the table; these
+       three notes stay above it. */
     paragraphs: [
       'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
       'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
