@@ -7,7 +7,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { HomePageSchema } from "../components/seo/HomePageSchema.tsx";
 import {
   BUSINESS_ID,
-  ORGANIZATION_ID,
   generateArticleSchema,
   generateBreadcrumbSchema,
   generateFAQSchema,
@@ -67,13 +66,25 @@ function entityIds(value: unknown, found: string[] = []): string[] {
   return found;
 }
 
+const BUSINESS_TYPES = new Set(["HomeAndConstructionBusiness", "GeneralContractor", "LocalBusiness"]);
+
+function businessTypedNodes(value: unknown, found: Record<string, unknown>[] = []): Record<string, unknown>[] {
+  if (Array.isArray(value)) {
+    for (const item of value) businessTypedNodes(item, found);
+    return found;
+  }
+  if (!value || typeof value !== "object") return found;
+  const record = value as Record<string, unknown>;
+  const types = Array.isArray(record["@type"]) ? record["@type"] : record["@type"] ? [record["@type"]] : [];
+  if (types.some((type) => BUSINESS_TYPES.has(String(type)))) found.push(record);
+  for (const child of Object.values(record)) businessTypedNodes(child, found);
+  return found;
+}
+
 function assertUniqueIds(route: string, nodes: unknown[]) {
   const ids = entityIds(nodes);
   const dupes = ids.filter((id, index) => ids.indexOf(id) !== index);
   assert.deepEqual(dupes, [], `${route} repeats @id ${dupes.join(", ")}`);
-  const hasBusiness = ids.includes(BUSINESS_ID);
-  const hasOrganization = ids.includes(ORGANIZATION_ID);
-  assert.equal(hasBusiness && hasOrganization, false, `${route} emits both #business and #organization`);
 }
 
 const graphs: Record<(typeof CHECKED_ROUTES)[number], unknown[]> = {
@@ -89,6 +100,7 @@ const graphs: Record<(typeof CHECKED_ROUTES)[number], unknown[]> = {
       title: `About ${SITE_CONFIG.name}`,
       description: "Custom cabinet company in Meridian, Idaho.",
       url: "/about",
+      aboutId: BUSINESS_ID,
     }),
     generateBreadcrumbSchema([
       { name: "Home", url: "/" },
@@ -253,14 +265,32 @@ test("each checked route has unique entity @ids", () => {
   const home = generateLocalBusinessSchema();
   const organization = generateOrganizationSchema();
   assert.equal(home["@id"], "https://boisecabinet.co/#business");
-  assert.equal(organization["@id"], "https://boisecabinet.co/#organization");
-  assert.notEqual(home["@id"], organization["@id"]);
+  assert.equal(organization["@type"], "Organization");
+  assert.equal(businessTypedNodes(organization).length, 0);
+  const aboutPage = graphs["/about"].find((node) => (node as { "@type"?: string })["@type"] === "WebPage") as {
+    about: { "@id": string };
+  };
+  assert.deepEqual(aboutPage.about, { "@id": "https://boisecabinet.co/#business" });
+  assert.equal(businessTypedNodes(graphs["/about"]).length, 0);
 
   const html = renderToStaticMarkup(React.createElement(HomePageSchema));
   const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) =>
     JSON.parse(match[1].replaceAll("&quot;", '"').replaceAll("&amp;", "&")),
   );
   assertUniqueIds("/", scripts);
+});
+
+test("exactly one business-typed node across all routes", () => {
+  const ids = new Set<string>();
+  for (const route of CHECKED_ROUTES) {
+    for (const node of businessTypedNodes(graphs[route])) {
+      assert.equal(node["@id"], BUSINESS_ID, `${route} business node`);
+      ids.add(String(node["@id"]));
+    }
+  }
+  assert.deepEqual([...ids], [BUSINESS_ID]);
+  assert.equal(businessTypedNodes(graphs["/about"]).length, 0);
+  assert.equal(businessTypedNodes(graphs["/"]).length, 1);
 });
 
 test("offers are name and url only, and the slogan and organization description stay plain", () => {
@@ -286,12 +316,11 @@ test("offers are name and url only, and the slogan and organization description 
   );
   assert.equal(String(organization.description).includes("8381215"), false);
   assert.equal(String(organization.description).includes("2020"), false);
-  const credential = home.hasCredential as { identifier: string };
-  assert.equal(credential.identifier, "8381215");
-  assert.equal((organization.hasCredential as { identifier: string }).identifier, "8381215");
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
-  assert.equal(
-    (home.sameAs as string[]).includes("https://www.yelp.com/biz/boise-cabinet-meridian-3"),
-    true,
-  );
+  assert.deepEqual(home.sameAs, ["https://p5homeco.com"]);
+  assert.equal(JSON.stringify(home.sameAs).includes("yelp.com"), false);
+  const credential = home.hasCredential as { identifier: string; name: string };
+  assert.equal(credential.identifier, "8381215");
+  assert.equal(credential.name, "Idaho Registered Contractor");
+  assert.equal("hasCredential" in organization, false);
 });

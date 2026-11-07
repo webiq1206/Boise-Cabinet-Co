@@ -23,7 +23,8 @@ test("public business schema contains only the Meridian locality", () => {
   const service = generateServiceSchema("Custom Cabinets", "Built to order.", "Eagle");
   const provider = service.provider as { "@type": string[]; address: unknown };
 
-  assertMeridianAddress(organization.address);
+  assert.equal(organization["@type"], "Organization");
+  assert.equal("address" in organization, false);
   assertMeridianAddress(home.address);
   assertMeridianAddress(area.address);
   assertMeridianAddress(provider.address);
@@ -105,10 +106,8 @@ test("public contacts retain facts while verification records keep the address",
     assert.equal(item.itemOffered["@type"], "Service");
   }
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
-  assert.deepEqual(home.sameAs, [
-    "https://www.yelp.com/biz/boise-cabinet-meridian-3",
-    "https://p5homeco.com",
-  ]);
+  assert.deepEqual(home.sameAs, ["https://p5homeco.com"]);
+  assert.equal(JSON.stringify(home.sameAs).includes("yelp.com"), false);
   assert.equal(home.parentOrganization, organization.parentOrganization);
   const parent = home.parentOrganization as { "@id": string; name: string; url: string };
   assert.equal(parent["@id"], "https://p5homeco.com/#business");
@@ -116,7 +115,7 @@ test("public contacts retain facts while verification records keep the address",
   assert.equal(parent.name, "P5 Home Co");
   assert.equal(parent.url, "https://p5homeco.com");
   // Verified P5 profiles, including the existing kgmid entry, stay on the parent.
-  // This brand's Yelp listing and https://p5homeco.com stay on the brand node.
+  // This brand's sameAs is https://p5homeco.com.
   assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, [
     "https://www.facebook.com/p5homeco",
     "https://nextdoor.com/pages/boise-remodeling-co-meridian-id/",
@@ -125,7 +124,7 @@ test("public contacts retain facts while verification records keep the address",
     "https://www.google.com/maps?cid=11869148461693849141",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
   ]);
-  for (const own of [home.sameAs, organization.sameAs ?? []]) {
+  for (const own of [home.sameAs]) {
     const serialized = JSON.stringify(own);
     assert.equal(serialized.includes("facebook.com"), false);
     assert.equal(serialized.includes("kgmid"), false);
@@ -135,7 +134,19 @@ test("public contacts retain facts while verification records keep the address",
     assert.equal(serialized.includes("nextdoor.com"), false);
   }
 
-  for (const schema of [home, organization]) {
+  assert.deepEqual(Object.keys(organization).sort(), [
+    "@context",
+    "@type",
+    "description",
+    "logo",
+    "name",
+    "parentOrganization",
+    "url",
+  ]);
+  assert.equal(JSON.stringify(organization["@type"]).includes("HomeAndConstructionBusiness"), false);
+  assert.equal(JSON.stringify(organization["@type"]).includes("GeneralContractor"), false);
+
+  for (const schema of [home]) {
     const contact = schema.contactPoint as {
       name: string;
       contactType: string;

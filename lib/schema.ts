@@ -19,10 +19,8 @@ interface SchemaContext {
 // Get the base URL for schema markup
 const baseUrl = getBaseUrl();
 
-/** One business node for the whole site. */
+/** One business node for the whole site. Other pages reference this @id. */
 export const BUSINESS_ID = `${baseUrl}/#business`;
-/** Brand organization node. Kept off #business so the two graphs do not share an @id. */
-export const ORGANIZATION_ID = `${baseUrl}/#organization`;
 
 /**
  * Boise Cabinet Co is a brand of P5 Home Co. parentOrganization points at
@@ -70,6 +68,7 @@ function contractorCredential() {
   return {
     '@type': 'EducationalOccupationalCredential',
     credentialCategory: 'registration',
+    name: 'Idaho Registered Contractor',
     identifier: SITE_CONFIG.trust.licenseNumber,
     recognizedBy: {
       '@type': 'GovernmentOrganization',
@@ -291,23 +290,21 @@ export function generateBreadcrumbSchema(breadcrumbs: Array<{ name: string; url:
 }
 
 /**
- * Generate Organization schema for brand identity
+ * Plain brand node for /about. It is not a second HomeAndConstructionBusiness.
+ * The page points at the business entity with WebPage.about.
  */
 export function generateOrganizationSchema(): SchemaContext {
   return {
-    ...generateLocalBusinessSchema(),
-    '@id': ORGANIZATION_ID,
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: BUSINESS_INFO.name,
+    url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}${BRAND_LOGO_PATH}`,
+    },
     description: publicText('Custom cabinet design and installation for Treasure Valley homes, from kitchens and vanities to pantries and built-ins. Work by P5 Home Co LLC, an Idaho registered contractor, insured with proof on request.'),
-    knowsAbout: [
-      'Custom kitchen cabinets',
-      'Bathroom vanities',
-      'Frameless cabinet construction options',
-      'Cabinet door styles',
-      'Cabinet finishes',
-      'Soft-close hardware options',
-      'Built-in storage and closets',
-      'Treasure Valley, Idaho',
-    ],
+    parentOrganization: P5_PARENT_ORGANIZATION,
   };
 }
 
@@ -485,6 +482,8 @@ export function generateWebPageSchema(page: {
   title: string;
   description: string;
   url: string;
+  /** Reference the single business node. Used by /about. */
+  aboutId?: string;
 }): SchemaContext {
   return {
     '@context': 'https://schema.org',
@@ -492,6 +491,7 @@ export function generateWebPageSchema(page: {
     name: page.title,
     description: page.description,
     url: `${baseUrl}${page.url}`,
+    ...(page.aboutId ? { about: { '@id': page.aboutId } } : {}),
     isPartOf: {
       '@type': 'WebSite',
       name: BUSINESS_INFO.name,

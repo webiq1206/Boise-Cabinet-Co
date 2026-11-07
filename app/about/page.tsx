@@ -15,6 +15,7 @@ AccordionTrigger,
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
+BUSINESS_ID,
 generateBreadcrumbSchema,
 generateFAQSchema,
 generateOrganizationSchema,
@@ -109,6 +110,7 @@ export default function AboutPage() {
       description:
         'Custom cabinet company in Meridian, Idaho. Designed to your measurements, built to order, installed by our Treasure Valley crew.',
       url: '/about',
+      aboutId: BUSINESS_ID,
     }),
     generateBreadcrumbSchema([
       { name: 'Home', url: '/' },

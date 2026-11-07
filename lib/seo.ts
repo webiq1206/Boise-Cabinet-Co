@@ -416,11 +416,10 @@ export const CITY_SEO_DATA: Record<string, {
 
 /**
  * Confirmed sameAs URLs for Boise Cabinet Co.
- * Yelp is this brand's own listing. https://p5homeco.com is the parent site.
- * P5's other profiles live on the parent node. BBB, Houzz, and BuildZoom are not included.
+ * https://p5homeco.com is the parent site. P5's other profiles live on the
+ * parent node. Yelp, BBB, Houzz, and BuildZoom are not included.
  */
 export const BUSINESS_SAME_AS = [
-  'https://www.yelp.com/biz/boise-cabinet-meridian-3',
   'https://p5homeco.com',
 ] as const;
 
@@ -458,9 +457,8 @@ export const BUSINESS_INFO = {
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,
   yearlyServicesCompleted: 0,
-  // This brand's confirmed profiles. Yelp is the approved exception (Quinn).
   // https://p5homeco.com is the parent site. P5's other profiles live on the
-  // parent node. BBB, Houzz, and BuildZoom are not included.
+  // parent node. Yelp, BBB, Houzz, and BuildZoom are not included.
   sameAs: [...BUSINESS_SAME_AS],
 };
 

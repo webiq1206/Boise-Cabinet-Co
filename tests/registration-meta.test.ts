@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { generateOrganizationSchema } from "../lib/schema";
+import { generateLocalBusinessSchema, generateOrganizationSchema } from "../lib/schema";
 import { BUSINESS_INFO, generateCityServiceDescription, generateMetaDescription, HOMEPAGE_DESCRIPTION } from "../lib/seo";
 import { CLIENT_PRIORITIES } from "../shared/siteContent";
 import {
@@ -30,8 +30,10 @@ test("license meta and schema publish the registration number", () => {
   assert.equal(org.includes("since 2020"), false);
   assert.equal(org.includes("craftsmanship"), false);
   assert.equal(org.includes("2020"), false);
-  const credential = generateOrganizationSchema().hasCredential as { identifier: string };
+  const credential = generateLocalBusinessSchema().hasCredential as { identifier: string; name: string };
   assert.equal(credential.identifier, "8381215");
+  assert.equal(credential.name, "Idaho Registered Contractor");
+  assert.equal(generateOrganizationSchema()["@type"], "Organization");
   const priority = CLIENT_PRIORITIES.find((item) => item.title === "Trust and credibility");
   assert.equal(
     priority?.body,

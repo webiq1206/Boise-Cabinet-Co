@@ -25,6 +25,7 @@ test("license number defaults to 8381215 and schema uses hasCredential", () => {
     };
   };
   assert.equal(home.hasCredential["@type"], "EducationalOccupationalCredential");
+  assert.equal(home.hasCredential.name, "Idaho Registered Contractor");
   assert.equal(home.hasCredential.identifier, "8381215");
   assert.equal(home.hasCredential.credentialCategory, "registration");
   assert.equal(home.hasCredential.recognizedBy["@type"], "GovernmentOrganization");
