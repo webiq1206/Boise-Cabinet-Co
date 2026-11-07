@@ -10,14 +10,14 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'The realistic Boise kitchen cabinet timeline',
       paragraphs: [
-        'Plan 8 to 14 weeks from first consultation to installed cabinets for a typical Treasure Valley kitchen. Design and selections take 2 to 4 weeks, fabrication 4 to 8 weeks from approved drawings, and installation 2 to 5 days for most kitchens.',
+        'Your lead time is confirmed with your quote. Design and selections come first, fabrication follows approved drawings, and installation is scheduled from that quote.',
         'The biggest schedule killer is late selections. Door style and finish lock fabrication; changing either after approval restarts the lead-time clock.',
       ],
     },
     {
       h2: 'Phase by phase',
       table: {
-        className: 'timeline-table',
+        className: 'timeline-table timeline-phases',
         headers: ['Phase', 'What happens'],
         rows: [
           ['Consultation & measure', 'In-home measure, goals, planning range'],
@@ -28,7 +28,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       },
       after: ['Your lead time is confirmed with your quote.'],
       paragraphs: [
-        'Countertops template after base cabinets are set, so add 1 to 2 weeks before the kitchen is fully functional.',
+        'Countertops are templated after the base cabinets are set, so plan for that step before the kitchen is fully in use.',
       ],
     },
     {
@@ -48,14 +48,14 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Kitchen timeline by Treasure Valley city',
       paragraphs: [
-        'Meridian and Kuna builder-grade upgrades often move fastest because layouts are rectangular and walls are square. North End and Bench Boise kitchens add a week or two for custom filler planning and soffit decisions. Eagle whole-kitchen programs with butler pantries and mudroom lockers run toward the long end of the 8 to 14 week band because selections span multiple rooms.',
-        'Read the <a href="/locations/boise">Boise cabinet guide</a> or your city guide for housing-specific notes before you set a target install month.',
+        'Meridian and Kuna builder-grade upgrades often move fastest because layouts are rectangular and walls are square. North End and Bench Boise kitchens need extra planning for custom fillers and soffits. Eagle whole-kitchen programs with butler pantries and mudroom lockers span selections across more rooms, and your lead time is confirmed with your quote.',
+        'Read the <a href="/locations/boise">Boise cabinet guide</a> or your city guide for housing-specific notes before you set a target install date.',
       ],
     },
     {
       h2: 'What to do while cabinets are in fabrication',
       paragraphs: [
-        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so install week is the only disruptive stretch.',
+        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so installation is the only disruptive stretch.',
         'Your client portal shows fabrication status; we send written Friday updates so you always know whether the project is on track for the scheduled delivery date.',
       ],
     },
