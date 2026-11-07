@@ -210,6 +210,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   </>
                 )
               }
+              answer={roomCopy?.answer}
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">

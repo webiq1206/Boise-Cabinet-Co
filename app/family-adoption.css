@@ -196,6 +196,23 @@
   outline-offset: 3px;
 }
 
+/* Answer paragraph under the H1. Plain text, no card. */
+.fam-hero[data-family-hero] .fam-hero-copy .fam-hero-answer {
+  max-width: 40em;
+  margin: var(--space-4) 0 0;
+  color: var(--color-paper);
+  font: 400 1rem/1.55 var(--font-sans);
+}
+@media (max-width: 359px) {
+  .fam-hero[data-family-hero][data-fit='viewport'] .fam-hero-answer { order: 2; }
+  .fam-hero[data-family-hero][data-fit='viewport'] .fam-hero-actions { order: 3; }
+  .fam-hero[data-family-hero][data-fit='viewport'] .fam-hero-support { order: 4; }
+  .fam-hero[data-family-hero][data-fit='viewport'] .fam-hero-micro { order: 5; }
+}
+.approved-interior .interior-hero-copy .aeo-answer {
+  margin: 0 0 20px;
+}
+
 /* Native keyboard scrolling keeps the complete contact action above the bar. */
 .approved-interior.interior-contact .contact-channel-link {
   scroll-margin-block-end: calc(var(--bar-height) + env(safe-area-inset-bottom, 0px) + var(--space-4));

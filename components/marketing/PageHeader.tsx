@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 export interface PageHeaderProps {
   eyebrow?: string;
   title: React.ReactNode;
+  /** Plain answer paragraph directly under the H1. Not a card. */
+  answer?: string;
   description?: React.ReactNode;
   meta?: React.ReactNode;
   align?: "left" | "center";
@@ -20,6 +22,7 @@ export interface PageHeaderProps {
 export function PageHeader({
   eyebrow,
   title,
+  answer,
   description,
   meta,
   align = "center",
@@ -36,6 +39,9 @@ export function PageHeader({
     >
       {eyebrow && <p className="ed-eyebrow">{eyebrow}</p>}
       <h1 className="ed-display ed-statement-display">{title}</h1>
+      {answer ? (
+        <p className="aeo-answer" data-aeo="answer" data-speakable="summary">{answer}</p>
+      ) : null}
       {description && (
         typeof description === "string"
           ? <p className="ed-lede mt-8 max-w-[44ch]">{description}</p>

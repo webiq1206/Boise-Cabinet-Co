@@ -11,7 +11,7 @@ import { SITE_CONFIG } from '@/shared/siteConfig';
 import { FamilyButton } from '@/components/family/Button';
 import { brandStyle } from '@/components/family/brandStyle';
 import { CabinetHeroVideo } from './CabinetHeroVideo';
-import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
+import { type ProofItem } from '@/components/family/ProofStrip';
 import { DOPL_LICENSE_SEARCH, FAMILY_BRAND } from '@/lib/familyBrand';
 import {steps,differentiators,additionalRooms} from './cabinet-content';
 import dynamic from 'next/dynamic';
@@ -28,13 +28,14 @@ const rooms = [
 ];
 const finishes=[{name:'Bitter',family:'Warm neutral',image:'bitter.webp',code:''},{name:'Macaron Green',family:'Soft color',image:'green.webp',code:''},{name:'Breeze Beige',family:'Light neutral',image:'beige.webp',code:''},{name:'Pearl Black',family:'Deep contrast',image:'black.webp',code:''}];
 
-/** Sourced facts only, all already published on this site: the catalog count, the door profiles, the free consultation and the DOPL registration. */
+/** Sourced facts that stay after the finish-count and door-count tiles were removed. */
 const PROOF: ProofItem[] = [
- {label:'Finishes',text:'299 finish options'},
- {label:'Door styles',text:'6 door styles'},
  {label:'Consultation',text:'Free in-home design consultation',href:'#contact'},
  {label:'Registered',text:IDAHO_REGISTERED_CONTRACTOR,href:DOPL_LICENSE_SEARCH,linkTitle:'Idaho contractor registration 8381215',linkLabel:'Idaho contractor registration 8381215 (opens in a new tab)',newTab:true},
 ];
+
+const HOME_ANSWER =
+  "Get cabinets designed around your measurements and installed by our own crew. Boise Cabinet Co designs custom cabinets for Boise and the Treasure Valley, built to order. Homeowners and builders get kitchen cabinets, vanities and built-ins with a free in-home design consultation, a written price before work, and a written workmanship warranty on installation.";
 
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
@@ -48,6 +49,7 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
    <div className="fam-hero-inner"><div className="fam-hero-copy">
     <p className="fam-hero-eyebrow">Custom cabinets · Treasure Valley, Idaho</p>
     <h1 className="fam-hero-title" id="family-hero-title">Custom cabinets in Boise,{' '}<span className="fam-hero-accent">Idaho</span></h1>
+    <p className="fam-hero-answer" data-aeo="answer" data-speakable="summary">{HOME_ANSWER}</p>
     <p className="fam-hero-support">Kitchen cabinets, vanities, and built-ins.</p>
     <div className="fam-hero-actions">
      <FamilyButton href={CTA_QUOTE_HREF} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">{CTA_REQUEST_QUOTE}</FamilyButton>
@@ -56,7 +58,30 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
     <p className="fam-hero-micro">Written price before work.</p>
    </div></div>
   </section>
-  <ProofStrip label="The Boise Cabinet Co difference" items={PROOF}/>
+  <section className="fam-proof" aria-label="The Boise Cabinet Co difference" style={brandStyle()}>
+    <ul className="fam-container fam-proof-list" data-count={PROOF.length}>
+      {PROOF.map((item) => (
+        <li className="fam-proof-cell" key={item.label}>
+          <p className="fam-proof-label">{item.label}</p>
+          <p className="fam-proof-text">
+            {item.href ? (
+              <a
+                href={item.href}
+                title={item.linkTitle}
+                aria-label={item.linkLabel}
+                target={item.newTab ? "_blank" : undefined}
+                rel={item.newTab ? "noopener" : undefined}
+              >
+                {item.text}
+              </a>
+            ) : (
+              item.text
+            )}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
   <section id="cabinetry" className="section wrap room-editorial">
  <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together with our own crew. Free in-home design consultation.</p></div>
  <Tabs defaultValue="kitchen" className="room-explorer"><TabsList className="room-tabs"><TabsTrigger value="kitchen">Kitchens</TabsTrigger><TabsTrigger value="bathroom">Bathrooms</TabsTrigger><TabsTrigger value="storage">Built-ins</TabsTrigger><TabsTrigger value="more">More rooms</TabsTrigger></TabsList>

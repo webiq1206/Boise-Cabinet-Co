@@ -63,7 +63,7 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
   const guide = GUIDE_DESCRIPTION_CITIES.has(city.slug)
     ? GUIDE_PAGES.find((g) => g.guideType === "location" && g.linkedCities?.includes(city.slug))
     : undefined;
-  return withBrandPageMetadata(await (buildPageMetadata({
+  const metadata = withBrandPageMetadata(await (buildPageMetadata({
     kind: "page",
     path: locationPath(city.slug),
     cityName: city.name,
@@ -71,6 +71,16 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
     titleOverride: copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`,
     descriptionOverride: copy?.description ?? guide?.metaDescription ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
   })), "/locations/[city]");
+  // The Boise title is already the full tag. The layout template must not append the brand again.
+  if (city.slug === "boise" && copy?.title) {
+    return {
+      ...metadata,
+      title: { absolute: copy.title },
+      openGraph: { ...metadata.openGraph, title: copy.title },
+      twitter: { ...metadata.twitter, title: copy.title },
+    };
+  }
+  return metadata;
 }
 
 export default async function LocationPage(props: { params: Promise<{ city: string }> }) {
@@ -98,14 +108,22 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
   // so everything unique on a guide now lives on this page: its answer, its
   // takeaways, its body (the planning section below) and its FAQs. Cities with
   // bespoke BOT-05 FAQs keep those first; guide questions follow, de-duplicated.
-  const visibleFaqs = copy?.faqs
-    ? [
-        ...copy.faqs,
-        ...guideFaqs.filter(
-          (faq) => !copy.faqs!.some((own) => own.question.toLowerCase() === faq.question.toLowerCase()),
-        ),
-      ]
-    : guideFaqs;
+  const ownedFaqs = copy?.faqs ?? [];
+  const visibleFaqs = [
+    ...(copy?.faqs
+      ? [
+          ...copy.faqs,
+          ...guideFaqs.filter(
+            (faq) => !ownedFaqs.some((own) => own.question.toLowerCase() === faq.question.toLowerCase()),
+          ),
+        ]
+      : guideFaqs),
+    ...(copy?.appendFaqs ?? []).filter(
+      (faq) =>
+        !ownedFaqs.some((own) => own.question.toLowerCase() === faq.question.toLowerCase()) &&
+        !guideFaqs.some((own) => own.question.toLowerCase() === faq.question.toLowerCase()),
+    ),
+  ];
   // The guide's answer already opens the hero when there is no BOT-05 copy.
   const guideAnswer = copy ? guide?.quickAnswer : undefined;
   const faqs = [...visibleFaqs, ...(phaseAnswer?.faqs ?? [])];
@@ -165,6 +183,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   </>
                 )
               }
+              answer={copy?.answer}
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">
@@ -279,6 +298,11 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                     {paragraph}
                   </p>
                 ))}
+                {index === 0 && city.slug === "boise" ? (
+                  <p className="mt-4 text-base leading-relaxed text-foreground/90">
+                    Kitchens, vanities and built-ins start with <Link href="/">Boise cabinets</Link>.
+                  </p>
+                ) : null}
               </div>
             </Section>
             {index === 1 ? (

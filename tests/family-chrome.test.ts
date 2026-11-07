@@ -163,9 +163,9 @@ test('the homepage video preserves no-script poster, first-response content and 
   const support = html.match(/<p class="fam-hero-support">([^<]+)<\/p>/)?.[1] ?? '';
   assert.ok(support.split(/\s+/).length <= 14, support);
   assert.match(html, /<p class="fam-hero-micro">Written price before work\.<\/p>/);
-  // Proof: the four facts the homepage already published under its hero.
-  assert.match(html, /299 finish options/);
-  assert.match(html, /6 door styles/);
+  // The finish-count and door-count tiles are removed. Consultation and registration stay.
+  assert.doesNotMatch(html, /299 finish options/);
+  assert.doesNotMatch(html, /6 door styles/);
   assert.match(html, /Free in-home design consultation/);
   assert.match(html, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/);
 });

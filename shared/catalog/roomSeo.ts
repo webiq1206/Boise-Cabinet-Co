@@ -25,12 +25,12 @@ export type RoomSeo = {
 
 export const ROOM_SEO: Record<string, RoomSeo> = {
   kitchen: {
-    title: "Kitchen Cabinets in Boise | Built to Fit",
+    title: "Custom Kitchen Cabinets in Boise",
     h1Lead: "Kitchen cabinets in",
     phrase: "kitchen cabinets",
     label: "kitchen",
     description:
-      "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, installed by our own crew. Book a free in-home design consult.",
+      "A kitchen that fits how you cook, with custom cabinets planned around your layout and installed by our crew. Free design consult, written price first.",
   },
   bathroom: {
     title: "Bathroom Vanities in Boise | Built to Fit",
@@ -71,7 +71,7 @@ export const ROOM_SEO: Record<string, RoomSeo> = {
     label: "built-in",
   },
   pantry: {
-    title: "Pantry Cabinets in Boise | Built to Fit",
+    title: "Custom Pantry Cabinets in Boise",
     h1Lead: "Pantry cabinets in",
     phrase: "pantry cabinets",
     label: "pantry",
