@@ -97,7 +97,7 @@ const PANTRY_FAQS: Bot05Faq[] = [
   {
     question: "Can you design a walk-in pantry?",
     answer:
-      "Yes, when the room supports it. We plan the layout with you, then build and install pantry cabinets sized to your space.",
+      "Yes, when the room supports it. We plan the layout with you, then plan and install pantry cabinets sized to your space.",
   },
   ...SHARED_ROOM_FAQS,
 ];

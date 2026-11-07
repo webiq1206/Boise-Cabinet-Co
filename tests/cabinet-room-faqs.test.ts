@@ -63,6 +63,11 @@ test("kitchen and pantry cabinet FAQs differ and match their slugs", () => {
     pantryFaqs.visible.some((faq) => faq.question === "What pantry options do you offer?"),
     true,
   );
+  const walkIn = pantryFaqs.visible.find((faq) => faq.question === "Can you design a walk-in pantry?");
+  assert.equal(
+    walkIn?.answer,
+    "Yes, when the room supports it. We plan the layout with you, then plan and install pantry cabinets sized to your space.",
+  );
 
   for (const content of [kitchenFaqs, pantryFaqs]) {
     const schema = content.schema as {
