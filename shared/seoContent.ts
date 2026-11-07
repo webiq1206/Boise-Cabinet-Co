@@ -31,7 +31,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'In-home templating and layout planning with your project team',
       'Written scope and finish selections before your order is placed',
       'Frameless and plywood box options',
-      'Professional installation with workmanship guarantee',
+      'Professional installation with workmanship warranty',
     ],
     inclusions: [
       'Cabinet layout and design direction',
@@ -76,7 +76,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Vanity sizing matched to plumbing and wall conditions',
       'Finish and hardware coordinated with your home',
       'Transparent project investment with written scope',
-      'Written workmanship guarantee on installation',
+      'Written workmanship warranty on installation',
     ],
     inclusions: [
       'Vanity and tower planning',
@@ -255,7 +255,7 @@ export function getCityServiceIntro(
   const fact = localFact
     ? ` ${localFact}`
     : ` We understand ${county} requirements and typical ${city.name} home styles.`;
-  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers ${service.name.toLowerCase()} with clear written scope, proactive updates, and a written workmanship guarantee. Schedule a free design consultation or use our project estimator for a planning range.`;
+  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers ${service.name.toLowerCase()} with clear written scope, proactive updates, and a written workmanship warranty. Schedule a free design consultation or use our project estimator for a planning range.`;
 }
 
 export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): FAQItem[] {
@@ -307,7 +307,7 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
     answer: 'When trade work is in scope, we coordinate permits for Ada and Canyon County.',
   },
   {
-    question: 'What is your workmanship guarantee?',
-    answer: 'We provide a written workmanship guarantee on our installation labor.',
+    question: 'What is your workmanship warranty?',
+    answer: 'We provide a written workmanship warranty on our installation labor.',
   },
 ];
