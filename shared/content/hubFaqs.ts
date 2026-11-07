@@ -68,7 +68,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long does a vanity project take?',
         answer:
-          'Often 3 to 8 weeks from design lock through installation, depending on custom lead times and countertop templating.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'Should guest and master bath vanities share one budget?',
@@ -110,7 +110,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long do built-in projects take?',
         answer:
-          'Many single-room programs complete in 4 to 10 weeks from design lock through installation.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'What organization accessories should I include?',
@@ -241,7 +241,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long does fabrication take?',
         answer:
-          'Often 4 to 12 weeks depending on collection and finish. Rush options vary by line.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'Who coordinates countertop templating?',

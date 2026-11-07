@@ -47,7 +47,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -232,7 +232,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does an Eagle cabinet project take?',
         answer:
-          'For most Eagle work, count on 4 to 8 weeks after you approve the design. Big whole-home programs and HOA review can push that out.',
+          'For most Eagle work, your lead time is confirmed with your quote. Big whole-home programs and HOA review can affect that timing.',
       },
       {
         question: 'How new is Eagle\'s housing?',
@@ -329,7 +329,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do you charge more to deliver and install in Nampa?',
         answer:
-          'No. Nampa is inside our standard service area and we install in Canyon County weekly.',
+          'No. Nampa is inside our standard service area and we install in Canyon County.',
       },
       {
         question: 'What Nampa cabinet projects are most common?',
@@ -503,7 +503,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Star cabinet projects',
         paragraphs: [
-          'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists small residential projects at about 2 to 4 weeks of review, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
+          'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists review times that vary by project, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
         ],
       },
       {
@@ -548,7 +548,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Star cabinet project take?',
         answer:
-          'From approved design to installation, plan on 4 to 8 weeks. Star sits inside our standard delivery area.',
+          'From approved design to installation, your lead time is confirmed with your quote. Star sits inside our standard delivery area.',
       },
       {
         question: 'Which county is Star in?',

@@ -10,7 +10,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'The realistic Boise kitchen cabinet timeline',
       paragraphs: [
-        'Plan 8 to 14 weeks from first consultation to installed cabinets for a typical Treasure Valley kitchen. Design and selections take 2 to 4 weeks, fabrication 4 to 8 weeks from approved drawings, and installation 2 to 5 days for most kitchens.',
+        'Your lead time is confirmed with your quote. Door style and finish selections are part of that timing.',
         'The biggest schedule killer is late selections. Door style and finish lock fabrication; changing either after approval restarts the lead-time clock.',
       ],
     },
@@ -27,7 +27,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         ],
       },
       paragraphs: [
-        'Countertops template after base cabinets are set, so add 1 to 2 weeks before the kitchen is fully functional.',
+        'Countertops template after base cabinets are set. Your lead time is confirmed with your quote before the kitchen is fully functional.',
       ],
     },
     {
@@ -472,7 +472,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Whole-home program timelines',
       paragraphs: [
-        'A coordinated kitchen, bath, laundry, and built-in program in a Boise or Meridian home typically runs 3 to 6 months from first consultation to final walkthrough: 3 to 6 weeks of design and selections across all rooms, 6 to 10 weeks of fabrication, and staged installation by room.',
+        'A coordinated kitchen, bath, laundry, and built-in program in a Boise or Meridian home is planned as one sequence from first consultation to final walkthrough. Your lead time is confirmed with your quote.',
         'The win versus sequential single-room projects: selections happen once, fabrication batches together, and trades mobilize fewer times.',
       ],
     },
@@ -501,7 +501,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Kitchen survival plan',
       paragraphs: [
-        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals for install week; counters template after bases set, so full function returns 1 to 2 weeks after cabinets land.',
+        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals while the cabinets are installed. Counters template after bases are set. Your lead time is confirmed with your quote.',
       ],
     },
     {

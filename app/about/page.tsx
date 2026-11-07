@@ -98,7 +98,7 @@ export default function AboutPage() {
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written proposal with drawings, field measurement, build-to-order production, and installation by our crew, with weekly written updates so nothing drifts.`,
+      answer: `Every project starts with a free design consultation, then a written proposal with drawings, field measurement, and installation by our crew, with written progress updates so nothing drifts.`,
     },
   ];
 

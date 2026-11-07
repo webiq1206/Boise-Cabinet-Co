@@ -295,7 +295,8 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     ],
     steps: KITCHEN_PROCESS_STEPS,
     processHeading: "Process and lead time",
-    processNote: HERO_SUBHEAD,
+    processNote:
+      "Boise Cabinet Co designs cabinets around your measurements and installs them with our own Treasure Valley crew.",
     faqs: KITCHEN_FAQS,
     links: [
       { href: "/cabinets/pantry", label: "Pantry cabinets" },

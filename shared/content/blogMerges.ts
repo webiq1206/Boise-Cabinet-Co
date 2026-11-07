@@ -127,7 +127,7 @@ export const FOLDED_SECTIONS: Record<string, string[]> = {
     // from cabinet-design-development
     '<h2>What to check on your shop drawings</h2><ul><li>Cabinet widths against the measured plan, including fillers</li><li>Drawer vs door configuration for every base cabinet</li><li>Appliance openings against confirmed model specs</li><li>Outlet, switch, and vent locations relative to backsplash runs</li><li>Crown, light rail, and end-panel details at exposed sides</li></ul>',
     // from cabinet-fabrication-installation
-    '<h2>Installation week</h2><p>Installation runs 2 to 5 days for most kitchens: protection down, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, hardware aligned. Out-of-level floors, normal in older Boise homes, are absorbed at the base so counters land flat.</p>',
+    '<h2>What installation covers</h2><p>Installation covers protection, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, and hardware aligned. Your lead time is confirmed with your quote. Out-of-level floors, normal in older Boise homes, are absorbed at the base so counters land flat.</p>',
     // from cabinet-installation-punch-list
     '<h2>What belongs on a cabinet punch list</h2><p>Door and drawer alignment, consistent reveals, hardware placement, soft-close operation on every hinge and slide, scribe and caulk lines at walls and ceilings (especially in older Boise homes), finish touch-ups, and interior accessory operation. Walk every cabinet, open everything, and look down sight lines where reveals show.</p>',
   ],

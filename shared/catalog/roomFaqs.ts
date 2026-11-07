@@ -202,7 +202,7 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: `How long does a ${roomName.toLowerCase()} cabinet project take?`,
     answer:
-      "Typically 4 to 8 weeks from approved design to installation, depending on scope and finish selection. Your client portal shows real-time status from design review through install.",
+      "Your lead time is confirmed with your quote. Your client portal shows real-time status from design review through install.",
   },
   {
     question: "Is installation included?",
