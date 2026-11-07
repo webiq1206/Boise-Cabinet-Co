@@ -82,7 +82,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Red flags during the project',
       paragraphs: [
-        'Going dark between milestones, crews that change weekly, and surprise costs presented after work is done are recoverable only if your contract has the protections above. Weekly written updates should be the baseline, which is why we put them in writing for every project.',
+        'Going dark between milestones, crews that change between visits, and surprise costs presented after work is done are recoverable only if your contract has the protections above. Written progress updates should be the baseline, which is why we put them in writing for every project.',
         'Vet companies with our <a href="/blog/questions-to-ask-cabinet-company">questions checklist</a> before the deposit, not after.',
       ],
     },

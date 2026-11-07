@@ -38,7 +38,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How do I track my project after I order?",
-    a: "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
+    a: "You get written progress updates, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
   },
   {
     q: "What door styles and finishes are available?",

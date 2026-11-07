@@ -532,7 +532,7 @@ Custom Modern Shaker kitchen cabinets installed in Meridian, Idaho. Frameless co
 
 Set the button to **Book** and link to https://boisecabinet.co/contact
 
-### Step 29: Set up your weekly posting rhythm
+### Step 29: Set up your posting rhythm
 
 Post once per week. Rotate through these four types:
 

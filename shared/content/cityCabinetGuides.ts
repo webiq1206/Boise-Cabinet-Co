@@ -47,7 +47,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -329,7 +329,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do you charge more to deliver and install in Nampa?',
         answer:
-          'No. Nampa is inside our standard service area and we install in Canyon County weekly.',
+          'No. Nampa is inside our standard service area and we install in Canyon County.',
       },
       {
         question: 'What Nampa cabinet projects are most common?',

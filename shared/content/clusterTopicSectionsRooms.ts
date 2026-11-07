@@ -56,7 +56,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What to do while cabinets are in fabrication',
       paragraphs: [
         'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so installation is the only disruptive stretch.',
-        'Your client portal shows fabrication status; we send written Friday updates so you always know whether the project is on track for the scheduled delivery date.',
+        'Your client portal shows fabrication status; we send written progress updates so you always know whether the project is on track for the scheduled delivery date.',
       ],
     },
   ],
@@ -508,7 +508,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Pets, kids, and work-from-home',
       paragraphs: [
-        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise from 8 to 5; schedule calls away from install days when you can. Our Friday written updates tell you exactly which days matter.',
+        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise from 8 to 5; schedule calls away from install days when you can. Our written progress updates tell you exactly which days matter.',
       ],
     },
     {
