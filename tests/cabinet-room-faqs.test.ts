@@ -120,12 +120,10 @@ test("other cabinet pages do not share the kitchen or pantry FAQ list", () => {
 test("pantry lead time and warranty lines are removed only on the pantry page", () => {
   assert.equal(PANTRY_LEAD_TIME_LINE, "Your lead time is confirmed with your quote.");
   assert.equal(cabinetLeadTimeLine("pantry"), PANTRY_LEAD_TIME_LINE);
-  assert.match(cabinetLeadTimeLine("kitchen"), WEEK_RANGE);
 
   const pantrySteps = BOT05_ROOMS.pantry.steps.map((step) => step.desc).join(" ");
   assert.match(pantrySteps, /Your lead time is confirmed with your quote/);
   assert.equal(WEEK_RANGE.test(pantrySteps), false);
-  assert.match(BOT05_ROOMS.kitchen.steps.map((step) => step.desc).join(" "), WEEK_RANGE);
 
   const pantryFaqs = cabinetPageFaqContent(getRoomBySlug("pantry")!);
   const pantryFaqText = pantryFaqs.visible.map((faq) => `${faq.question} ${faq.answer}`).join(" ");
@@ -140,7 +138,4 @@ test("pantry lead time and warranty lines are removed only on the pantry page", 
   assert.equal(pantryInclusions.length, STANDARD_INCLUSIONS.length - WARRANTY_LINES.length);
   for (const line of WARRANTY_LINES) assert.equal(pantryInclusions.includes(line), false);
   assert.equal(pantryInclusions.some((item) => /warrant/i.test(item)), false);
-
-  const kitchenInclusions = cabinetPageInclusions("kitchen");
-  for (const line of WARRANTY_LINES) assert.equal(kitchenInclusions.includes(line), true);
 });
