@@ -22,9 +22,16 @@ test("license meta and schema publish the registration number", () => {
   assert.match(cityService, /Idaho Registered Contractor #8381215/);
   assert.equal(BUSINESS_INFO.insurance, REGISTERED_BONDED_INSURED);
   const org = String(generateOrganizationSchema().description);
-  assert.equal(org.includes(`${REGISTERED_BONDED_INSURED}.`), true);
+  assert.equal(
+    org,
+    "Custom cabinet design and installation for Treasure Valley homes, from kitchens and vanities to pantries and built-ins. Work by P5 Home Co LLC, an Idaho registered contractor, insured with proof on request.",
+  );
+  assert.equal(org.includes("8381215"), false);
+  assert.equal(org.includes("since 2020"), false);
   assert.equal(org.includes("craftsmanship"), false);
   assert.equal(org.includes("2020"), false);
+  const credential = generateOrganizationSchema().hasCredential as { identifier: string };
+  assert.equal(credential.identifier, "8381215");
   const priority = CLIENT_PRIORITIES.find((item) => item.title === "Trust and credibility");
   assert.equal(
     priority?.body,

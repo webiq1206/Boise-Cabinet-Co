@@ -21,6 +21,8 @@ const baseUrl = getBaseUrl();
 
 /** One business node for the whole site. */
 export const BUSINESS_ID = `${baseUrl}/#business`;
+/** Brand organization node. Kept off #business so the two graphs do not share an @id. */
+export const ORGANIZATION_ID = `${baseUrl}/#organization`;
 
 /**
  * Boise Cabinet Co is a brand of P5 Home Co. parentOrganization points at
@@ -149,7 +151,8 @@ function areasServed(city?: string) {
 
 /**
  * Offer catalog from live service pages only: each cabinet room page, plus
- * cabinet installation. Guides, the catalog, and other marketing pages stay out.
+ * cabinet installation. Each offer is a name and a url. Room descriptions
+ * stay off this node.
  */
 function cabinetOfferCatalog() {
   const roomOffers = ROOM_CATEGORIES.map((room) => ({
@@ -158,7 +161,6 @@ function cabinetOfferCatalog() {
     itemOffered: {
       '@type': 'Service' as const,
       name: sentenceStart(roomSeo(room).phrase),
-      description: room.description,
     },
   }));
   return {
@@ -172,8 +174,6 @@ function cabinetOfferCatalog() {
         itemOffered: {
           '@type': 'Service' as const,
           name: 'Cabinet installation',
-          description:
-            'Cabinet installation for Treasure Valley homeowners, including cabinets sourced elsewhere and custom cabinets from Boise Cabinet Co.',
         },
       },
     ],
@@ -215,7 +215,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     // No aggregateRating here. The repo holds no real, dated review data, and an
     // env flag is not evidence. Add it back only from reviews visible on the page.
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
-    slogan: 'Idaho\'s Premier Custom Cabinet Company',
+    slogan: 'Custom cabinets planned around your home',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
     currenciesAccepted: 'USD',
     hasOfferCatalog: cabinetOfferCatalog(),
@@ -296,7 +296,8 @@ export function generateBreadcrumbSchema(breadcrumbs: Array<{ name: string; url:
 export function generateOrganizationSchema(): SchemaContext {
   return {
     ...generateLocalBusinessSchema(),
-    description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.'),
+    '@id': ORGANIZATION_ID,
+    description: publicText('Custom cabinet design and installation for Treasure Valley homes, from kitchens and vanities to pantries and built-ins. Work by P5 Home Co LLC, an Idaho registered contractor, insured with proof on request.'),
     knowsAbout: [
       'Custom kitchen cabinets',
       'Bathroom vanities',
