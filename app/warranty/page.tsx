@@ -49,12 +49,12 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "Cabinet warranty from {company}: a 2-year workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
+  "Cabinet warranty from {company}: a written workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/warranty",
-  "Cabinet Warranty | 2-Year Workmanship",
+  "Cabinet Warranty | Written Workmanship",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -71,7 +71,7 @@ export default function WarrantyPage() {
       title: "Cabinet warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
-        : `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
+        : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`,
       url: "/warranty",
     }),
     generateBreadcrumbSchema([

@@ -26,9 +26,9 @@ export const REGISTERED_BONDED_INSURED =
 export const MANUFACTURER_WARRANTY_PASS_THROUGH =
   "Warranty claims handled by us";
 
-/** Two-year installation workmanship term (D6). */
+/** Installation workmanship wording (D6). No duration until the term is confirmed. */
 export const CABINET_WORKMANSHIP_WARRANTY =
-  "2-year workmanship warranty on cabinet installation";
+  "Written workmanship warranty on cabinet installation";
 
 export const PUBLIC_HOURS_LINE =
   "Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";

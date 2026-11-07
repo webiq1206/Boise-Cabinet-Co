@@ -30,7 +30,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
+    a: "Boise Cabinet Co provides a written workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
   },
   {
     q: "What does the free design consultation include?",

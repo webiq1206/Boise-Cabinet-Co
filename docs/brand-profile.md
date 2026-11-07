@@ -127,7 +127,7 @@ Do not publish the private street address/home coordinates, administrative conta
 | Resource | What it supports; limits |
 | --- | --- |
 | Generated FINISHES/DOOR_STYLES | Current 299 finishes, six door styles; inventory, not completed jobs |
-| Claims/registration sources | Sourced registration, warranty handling and 2-year installation workmanship wording; no expanded lifetime/bonded promise |
+| Claims/registration sources | Sourced registration, warranty handling and written workmanship warranty wording; no expanded lifetime/bonded promise |
 | KitchenPlanningRange | Ungated base-run slider and Matte/Woodgrain/Gloss choices, immediate modeled installed-cabinet range from shared `calculateEstimate`; not a firm bid or achieved result |
 | Samples/planning downloads | Product/source and planning artifacts; verify authenticity/content before new claims |
 | Founder biography/photo | Existing natural team story; does not authenticate other generic people scenes |

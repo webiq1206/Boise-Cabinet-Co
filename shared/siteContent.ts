@@ -20,7 +20,7 @@ export const HERO_SUBHEAD =
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "2 yr", label: "Warranty claims handled by us" },
+  { num: "Written", label: "Warranty claims handled by us" },
 ] as const;
 
 /** Hero facts. Coverage length is not stated. */

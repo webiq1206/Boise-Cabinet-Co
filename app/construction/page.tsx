@@ -37,7 +37,7 @@ const STANDARDS = [
   },
   {
     title: "Installation and warranty",
-    body: "Treasure Valley installation by our own crew. Warranty claims are handled by us under a 2-year workmanship warranty on cabinet installation. Manufacturer coverage on boxes and hardware is administered through our team.",
+    body: "Treasure Valley installation by our own crew. Warranty claims are handled by us under a written workmanship warranty on cabinet installation. Manufacturer coverage on boxes and hardware is administered through our team.",
   },
   {
     title: "Written scope before build",
