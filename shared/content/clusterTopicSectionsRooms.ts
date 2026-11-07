@@ -496,7 +496,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What installation actually feels like',
       paragraphs: [
-        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. Expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
+        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. In a Boise or Nampa kitchen, expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
       ],
     },
     {
