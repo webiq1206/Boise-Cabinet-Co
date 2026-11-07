@@ -33,7 +33,7 @@ test("area pages name the city in areaServed and use HomeAndConstructionBusiness
   const area = generateLocalBusinessSchema("Eagle");
   const areas = area.areaServed as Array<{ "@type": string; name: string }>;
 
-  assert.deepEqual(area["@type"], ["LocalBusiness", "HomeAndConstructionBusiness"]);
+  assert.deepEqual(area["@type"], ["HomeAndConstructionBusiness", "GeneralContractor"]);
   assert.ok(areas.some((entry) => entry["@type"] === "City" && entry.name === "Eagle"));
   assert.equal(JSON.stringify(area.address).includes("Eagle"), false);
 
@@ -68,26 +68,71 @@ test("public contacts retain facts while verification records keep the address",
 
   const home = generateLocalBusinessSchema();
   const organization = generateOrganizationSchema();
-  const areas = home.areaServed as Array<{ name: string }>;
-  assert.deepEqual(areas.map((entry) => entry.name), BUSINESS_INFO.serviceArea);
+  const areas = home.areaServed as Array<{ "@type": string; name: string }>;
+  assert.deepEqual(areas.map((entry) => entry.name), [
+    ...BUSINESS_INFO.serviceArea,
+    "Ada County",
+    "Canyon County",
+  ]);
+  assert.deepEqual(
+    areas.filter((entry) => entry["@type"] === "City").map((entry) => entry.name),
+    BUSINESS_INFO.serviceArea,
+  );
+  assert.deepEqual(
+    areas.filter((entry) => entry["@type"] === "AdministrativeArea").map((entry) => entry.name),
+    ["Ada County", "Canyon County"],
+  );
   assert.equal(JSON.stringify(areas).includes("Garden City"), false);
+  assert.equal(home["@id"], "https://boisecabinet.co/#business");
+  assert.deepEqual(home["@type"], ["HomeAndConstructionBusiness", "GeneralContractor"]);
   assert.equal(home.telephone, "+1-208-477-1169");
+  assert.equal("priceRange" in home, false);
+  assert.equal("aggregateRating" in home, false);
+  assert.deepEqual(Object.keys(home.address as object).sort(), [
+    "@type",
+    "addressCountry",
+    "addressLocality",
+    "addressRegion",
+  ]);
+  const catalog = home.hasOfferCatalog as {
+    itemListElement: Array<{ url: string; itemOffered: { "@type": string } }>;
+  };
+  const offerUrls = catalog.itemListElement.map((item) => item.url);
+  assert.ok(offerUrls.includes("https://boisecabinet.co/services/cabinet-installation"));
+  assert.ok(offerUrls.includes("https://boisecabinet.co/cabinets/kitchen"));
+  assert.equal(offerUrls.some((url) => url.includes("/catalog") || url.includes("/blog") || url.includes("/guides")), false);
+  for (const item of catalog.itemListElement) {
+    assert.equal(item.itemOffered["@type"], "Service");
+  }
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
+  assert.deepEqual(home.sameAs, [
+    "https://www.yelp.com/biz/boise-cabinet-meridian-3",
+    "https://p5homeco.com",
+  ]);
   assert.equal(home.parentOrganization, organization.parentOrganization);
-  const parent = home.parentOrganization as { "@id": string; url: string };
-  assert.equal(parent["@id"], "https://p5homeco.com/#organization");
+  const parent = home.parentOrganization as { "@id": string; name: string; url: string };
+  assert.equal(parent["@id"], "https://p5homeco.com/#business");
   assert.equal(parent["@id"], P5_ORG_ID);
+  assert.equal(parent.name, "P5 Home Co");
   assert.equal(parent.url, "https://p5homeco.com");
-  // The family's profiles are P5 Home Co's Facebook page and its Google
-  // Business Profile (owner call A): on the parent node only, never in this
-  // brand's own sameAs.
+  // Verified P5 profiles, including the existing kgmid entry, stay on the parent.
+  // This brand's Yelp listing and https://p5homeco.com stay on the brand node.
   assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, [
-    "https://www.facebook.com/1228704823655951",
+    "https://www.facebook.com/p5homeco",
+    "https://nextdoor.com/pages/boise-remodeling-co-meridian-id/",
+    "https://ezlocal.com/id/meridian/home-remodeling/0919899218",
+    "https://www.cylex.us.com/company/p5-home-co--llc-40749871.html",
+    "https://www.google.com/maps?cid=11869148461693849141",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
   ]);
   for (const own of [home.sameAs, organization.sameAs ?? []]) {
-    assert.equal(JSON.stringify(own).includes("facebook.com"), false);
-    assert.equal(JSON.stringify(own).includes("kgmid"), false);
+    const serialized = JSON.stringify(own);
+    assert.equal(serialized.includes("facebook.com"), false);
+    assert.equal(serialized.includes("kgmid"), false);
+    assert.equal(serialized.includes("houzz"), false);
+    assert.equal(serialized.includes("bbb.org"), false);
+    assert.equal(serialized.includes("buildzoom"), false);
+    assert.equal(serialized.includes("nextdoor.com"), false);
   }
 
   for (const schema of [home, organization]) {
@@ -104,7 +149,7 @@ test("public contacts retain facts while verification records keep the address",
     assert.equal(employee["@id"], "https://p5homeco.com/#nick-perkins");
     assert.equal(employee.name, "Nick Perkins");
     assert.equal(employee.jobTitle, "Founder");
-    assert.deepEqual(employee.worksFor, { "@id": "https://p5homeco.com/#organization" });
+    assert.deepEqual(employee.worksFor, { "@id": "https://p5homeco.com/#business" });
     assert.equal(contact.contactType, "customer service");
     assert.equal(contact.telephone, "+1-208-477-1169");
     assert.equal(contact.email, "hello@boisecabinet.co");

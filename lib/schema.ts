@@ -7,7 +7,8 @@ import {schemaTime} from './schemaTime';
 import { BUSINESS_INFO, getBaseUrl } from './seo';
 import { publicText, showFoundingYear } from '@/shared/claims';
 import { SITE_CONFIG, showTestimonials } from '@/shared/siteConfig';
-import { SERVICES } from '@/shared/contentData';
+import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
+import { roomSeo, sentenceStart } from '@/shared/catalog/roomSeo';
 
 interface SchemaContext {
   '@context': string;
@@ -18,42 +19,49 @@ interface SchemaContext {
 // Get the base URL for schema markup
 const baseUrl = getBaseUrl();
 
+/** One business node for the whole site. */
+export const BUSINESS_ID = `${baseUrl}/#business`;
+
 /**
- * The parent entity. Boise Cabinet Co is a DBA of P5 Home Co LLC, not a
- * separate company. The P5 site already declares this site as one of its
- * `subOrganization` nodes using exactly this `@id` scheme
- * (`{childOrigin}/#organization`). Asserting `parentOrganization` back at P5
- * from this side closes the loop, so the two graphs join into one entity
- * instead of sitting on their domains as strangers.
+ * Boise Cabinet Co is a brand of P5 Home Co. parentOrganization points at
+ * P5's business node so the two graphs join.
  *
  * Hardcoded rather than derived: this is a fixed external origin, and the
  * `@id` must match the P5 graph byte for byte or the nodes will not merge.
  */
 const P5_ORIGIN = 'https://p5homeco.com';
-export const P5_ORG_ID = `${P5_ORIGIN}/#organization`;
+export const P5_ORG_ID = `${P5_ORIGIN}/#business`;
 /**
- * P5 Home Co's Facebook page (owner confirmed via the Facebook API,
- * 2026-10-31) and its Google Business Profile (category General contractor,
- * knowledge graph id /g/11ntl1t7dc; owner call A, 2026-11-01) are the family's
- * only profiles. Both belong to the parent node, never to this brand's own
- * sameAs (lib/seo.ts BUSINESS_INFO.sameAs): Boise Cabinet Co has no profile
- * of its own.
+ * Footer still links the numeric Facebook page id. Schema sameAs uses the
+ * verified vanity URL on the parent node, not this constant.
  */
 export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
+/** Existing Google knowledge-graph id. Kept on the parent node. */
 export const P5_GOOGLE_BUSINESS_PROFILE_URL = 'https://www.google.com/search?kgmid=/g/11ntl1t7dc';
+/**
+ * Verified P5 profiles only. BBB, Houzz, and BuildZoom stay out.
+ * The kgmid entry stays at the end of this list.
+ */
+export const P5_VERIFIED_SAME_AS = [
+  'https://www.facebook.com/p5homeco',
+  'https://nextdoor.com/pages/boise-remodeling-co-meridian-id/',
+  'https://ezlocal.com/id/meridian/home-remodeling/0919899218',
+  'https://www.cylex.us.com/company/p5-home-co--llc-40749871.html',
+  'https://www.google.com/maps?cid=11869148461693849141',
+  P5_GOOGLE_BUSINESS_PROFILE_URL,
+] as const;
 export const P5_PARENT_ORGANIZATION = {
   '@type': 'Organization',
   '@id': P5_ORG_ID,
   name: 'P5 Home Co',
   url: P5_ORIGIN,
-  sameAs: [P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL],
+  sameAs: P5_VERIFIED_SAME_AS,
 } as const;
 
 /**
- * LocalBusiness subtype. HomeAndConstructionBusiness is the specific type
- * for this cabinet company.
+ * HomeAndConstructionBusiness plus GeneralContractor. No showroom type.
  */
-const LOCAL_BUSINESS_TYPE = ['LocalBusiness', 'HomeAndConstructionBusiness'] as const;
+const LOCAL_BUSINESS_TYPE = ['HomeAndConstructionBusiness', 'GeneralContractor'] as const;
 
 /** Idaho DOPL registration, attached to every LocalBusiness node. */
 function contractorCredential() {
@@ -69,13 +77,16 @@ function contractorCredential() {
   };
 }
 
-/** Public service locality; no street address or private premises coordinates. */
+/**
+ * Public service-area locality only: Meridian, ID, US.
+ * streetAddress pending owner approval. Do not add streetAddress or postalCode.
+ */
 function serviceAreaLocality() {
   return {
     '@type': 'PostalAddress' as const,
-    addressLocality: BUSINESS_INFO.address.city,
-    addressRegion: BUSINESS_INFO.address.state,
-    addressCountry: BUSINESS_INFO.address.countryCode,
+    addressLocality: 'Meridian',
+    addressRegion: 'ID',
+    addressCountry: 'US',
   };
 }
 
@@ -127,6 +138,48 @@ function citiesServed(city?: string) {
   return names.map((name) => ({ '@type': 'City' as const, name }));
 }
 
+/** Counties the site already names, alongside the city list. */
+function areasServed(city?: string) {
+  return [
+    ...citiesServed(city),
+    { '@type': 'AdministrativeArea' as const, name: 'Ada County' },
+    { '@type': 'AdministrativeArea' as const, name: 'Canyon County' },
+  ];
+}
+
+/**
+ * Offer catalog from live service pages only: each cabinet room page, plus
+ * cabinet installation. Guides, the catalog, and other marketing pages stay out.
+ */
+function cabinetOfferCatalog() {
+  const roomOffers = ROOM_CATEGORIES.map((room) => ({
+    '@type': 'Offer' as const,
+    url: `${baseUrl}/cabinets/${room.slug}`,
+    itemOffered: {
+      '@type': 'Service' as const,
+      name: sentenceStart(roomSeo(room).phrase),
+      description: room.description,
+    },
+  }));
+  return {
+    '@type': 'OfferCatalog' as const,
+    name: 'Cabinet services',
+    itemListElement: [
+      ...roomOffers,
+      {
+        '@type': 'Offer' as const,
+        url: `${baseUrl}/services/cabinet-installation`,
+        itemOffered: {
+          '@type': 'Service' as const,
+          name: 'Cabinet installation',
+          description:
+            'Cabinet installation for Treasure Valley homeowners, including cabinets sourced elsewhere and custom cabinets from Boise Cabinet Co.',
+        },
+      },
+    ],
+  };
+}
+
 /**
  * Generate LocalBusiness schema for homepage and location pages.
  * `city` is coverage for the description and areaServed. The postal address
@@ -144,7 +197,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}${BRAND_LOGO_PATH}`,
     },
-    '@id': `${baseUrl}/#localbusiness`,
+    '@id': BUSINESS_ID,
     url: baseUrl,
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,
@@ -158,27 +211,14 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       opens: hours === 'Closed' ? undefined : schemaTime(hours.split(' - ')[0]),
       closes: hours === 'Closed' ? undefined : schemaTime(hours.split(' - ')[1]),
     })).filter(spec => spec.opens),
-    priceRange: '$$',
-    areaServed: citiesServed(city),
+    areaServed: areasServed(city),
     // No aggregateRating here. The repo holds no real, dated review data, and an
     // env flag is not evidence. Add it back only from reviews visible on the page.
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     slogan: 'Idaho\'s Premier Custom Cabinet Company',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
     currenciesAccepted: 'USD',
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Cabinet Products & Services',
-      itemListElement: SERVICES.map((s) => ({
-        '@type': 'Offer',
-        url: `${baseUrl}${s.url}`,
-        itemOffered: {
-          '@type': 'Service',
-          name: s.name,
-          description: s.shortDescription,
-        },
-      })),
-    },
+    hasOfferCatalog: cabinetOfferCatalog(),
     sameAs: BUSINESS_INFO.sameAs,
     hasCredential: contractorCredential(),
   };
@@ -196,7 +236,7 @@ export function generateWebSiteSchema(): SchemaContext {
     description:
       'Custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
     publisher: {
-      '@id': `${baseUrl}/#organization`,
+      '@id': BUSINESS_ID,
     },
   };
 }
@@ -214,6 +254,7 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
     description: serviceDescription,
     provider: {
       '@type': [...LOCAL_BUSINESS_TYPE],
+      '@id': BUSINESS_ID,
       name: BUSINESS_INFO.name,
       telephone: SCHEMA_TELEPHONE,
       email: PUBLIC_EMAIL,
@@ -254,24 +295,8 @@ export function generateBreadcrumbSchema(breadcrumbs: Array<{ name: string; url:
  */
 export function generateOrganizationSchema(): SchemaContext {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': `${baseUrl}/#organization`,
-    name: BUSINESS_INFO.name,
-    legalName: BUSINESS_INFO.legalName,
-    parentOrganization: P5_PARENT_ORGANIZATION,
-    employee: founderPerson(),
-    url: baseUrl,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${baseUrl}${BRAND_LOGO_PATH}`,
-    },
+    ...generateLocalBusinessSchema(),
     description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.'),
-    ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
-    telephone: SCHEMA_TELEPHONE,
-    email: PUBLIC_EMAIL,
-    address: serviceAreaLocality(),
-    slogan: "Idaho's Premier Custom Cabinet Company",
     knowsAbout: [
       'Custom kitchen cabinets',
       'Bathroom vanities',
@@ -282,9 +307,6 @@ export function generateOrganizationSchema(): SchemaContext {
       'Built-in storage and closets',
       'Treasure Valley, Idaho',
     ],
-    areaServed: citiesServed(),
-    sameAs: BUSINESS_INFO.sameAs,
-    contactPoint: publicContactPoint(),
   };
 }
 
