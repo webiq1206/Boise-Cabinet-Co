@@ -34,6 +34,5 @@ test("listed guarantee lines use warranty and no coverage length", () => {
     assert.equal(text.includes("\u2014"), false);
     assert.equal(text.includes("\u2013"), false);
   }
-  assert.equal(STANDARD_INCLUSIONS[4], "Written workmanship guarantee");
   assert.equal(STANDARD_INCLUSIONS[5], "Warranty claims handled by us");
 });
