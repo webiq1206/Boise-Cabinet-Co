@@ -72,18 +72,18 @@ const SHARED_ROOM_FAQS: Bot05Faq[] = [
 /**
  * Kitchen and pantry used to share one array whose first questions were pantry
  * questions, so /cabinets/kitchen rendered the pantry FAQ set. Each slug now
- * has its own list. Kitchen questions below are the existing kitchen FAQ copy.
+ * has its own list.
  */
 const KITCHEN_FAQS: Bot05Faq[] = [
   {
-    question: "Can you design around my existing kitchen layout?",
+    question: "Can you plan cabinets around my existing kitchen layout?",
     answer:
-      "Yes. Because every box is built to order, we work with your existing plumbing and appliance locations, or help you rework the layout. Galley kitchens in older Boise homes and open island plans in newer Meridian and Eagle builds both fit our process.",
+      "Yes. Keep plumbing and appliances where they work for you, or explore a different layout. We plan cabinets around your room and how you cook and store.",
   },
   {
-    question: "Do you build kitchen islands and panel-ready appliance cabinets?",
+    question: "Can you plan kitchen islands and cabinets for appliance panels?",
     answer:
-      "Yes. Island bases with seating overhangs, appliance panels for refrigerators and dishwashers, and tall pantry surrounds are all standard parts of our kitchen programs.",
+      "Yes. Add seating and useful storage with an island plan, appliance panels, and tall pantry cabinets arranged around your kitchen.",
   },
   ...SHARED_ROOM_FAQS,
 ];

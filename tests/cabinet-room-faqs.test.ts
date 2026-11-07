@@ -32,6 +32,23 @@ test("kitchen and pantry cabinet FAQs differ and match their slugs", () => {
   );
   assert.notDeepEqual(kitchenFaqs.visible, pantryFaqs.visible);
 
+  assert.deepEqual(kitchenFaqs.visible[0], {
+    question: "Can you plan cabinets around my existing kitchen layout?",
+    answer:
+      "Yes. Keep plumbing and appliances where they work for you, or explore a different layout. We plan cabinets around your room and how you cook and store.",
+  });
+  assert.deepEqual(kitchenFaqs.visible[1], {
+    question: "Can you plan kitchen islands and cabinets for appliance panels?",
+    answer:
+      "Yes. Add seating and useful storage with an island plan, appliance panels, and tall pantry cabinets arranged around your kitchen.",
+  });
+  const kitchenSchema = kitchenFaqs.schema as {
+    mainEntity: Array<{ name: string; acceptedAnswer: { text: string } }>;
+  };
+  assert.equal(kitchenSchema.mainEntity[0].name, kitchenFaqs.visible[0].question);
+  assert.equal(kitchenSchema.mainEntity[0].acceptedAnswer.text, kitchenFaqs.visible[0].answer);
+  assert.equal(kitchenSchema.mainEntity[1].name, kitchenFaqs.visible[1].question);
+  assert.equal(kitchenSchema.mainEntity[1].acceptedAnswer.text, kitchenFaqs.visible[1].answer);
   assert.equal(kitchenFaqs.visible.some((faq) => /\bkitchen\b/i.test(faq.question)), true);
   assert.equal(pantryFaqs.visible.some((faq) => /\bpantry\b/i.test(faq.question)), true);
   assert.equal(
