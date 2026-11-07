@@ -4,11 +4,14 @@ import test from "node:test";
 import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from "../shared/claims";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import { Footer } from "../components/Footer.tsx";
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 /** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
-const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
+const renderFooter = () => renderToStaticMarkup(
+  React.createElement(PathnameContext.Provider, { value: "/" }, React.createElement(Footer)),
+);
 
 test("about and footer retain the current centralized contractor registration", () => {
   const about = readFileSync("app/about/page.tsx", "utf8");

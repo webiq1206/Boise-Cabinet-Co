@@ -10,11 +10,14 @@ import { LLMS_TXT } from "../shared/llmsTxt";
 import { SITE_CONFIG } from "../shared/siteConfig";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import { Footer } from "../components/Footer.tsx";
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 /** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
-const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
+const renderFooter = () => renderToStaticMarkup(
+  React.createElement(PathnameContext.Provider, { value: "/" }, React.createElement(Footer)),
+);
 
 const BRAND = " | Boise Cabinet Co";
 const C13_PATHS = new Set([

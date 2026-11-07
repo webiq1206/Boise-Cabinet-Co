@@ -1,6 +1,9 @@
+"use client";
+
 import { SiteFooter } from "@/components/family/SiteFooter";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
 import { FAMILY_BRAND } from "@/lib/familyBrand";
+import { usePathname } from "next/navigation";
 
 /**
  * Boise Cabinet Co footer: the shared family SiteFooter, set up by
@@ -19,9 +22,11 @@ import { FAMILY_BRAND } from "@/lib/familyBrand";
  * customer's project link the old header showed, so the portal entry lives
  * here for every visitor; /portal handles sign-in.
  */
-export function Footer() {
+export function Footer({ hideRegistration }: { hideRegistration?: boolean } = {}) {
+  const pathname = usePathname();
   return (
     <SiteFooter
+      hideRegistration={hideRegistration === true || pathname === "/kitchen-cabinets"}
       brandExtra={
         <ul className="fam-footer-contact">
           <li>

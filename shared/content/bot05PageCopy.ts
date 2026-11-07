@@ -6,7 +6,7 @@ import { REGISTERED_BONDED_INSURED } from "../claims";
 import { HERO_SUBHEAD } from "../siteContent";
 
 export const BUILD_CABINETS_ANSWER =
-  "Yes. Boise Cabinet Co designs custom cabinets to your measurements and builds each order to your layout.";
+  "Yes. Boise Cabinet Co designs custom cabinets to your measurements and plans each order to your layout.";
 
 export const TRUST_LINE = `${REGISTERED_BONDED_INSURED}.`;
 
@@ -409,7 +409,18 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
     steps: KITCHEN_PROCESS_STEPS,
     processHeading: "Process and lead time",
     processNote: HERO_SUBHEAD,
-    faqs: [...KITCHEN_FAQS, ...PANTRY_VISIBILITY_FAQS],
+    faqs: [
+      ...KITCHEN_FAQS.map((faq) =>
+        faq.question === "Can you design a walk-in pantry?"
+          ? {
+              ...faq,
+              answer:
+                "Yes, when the room supports it. We plan the layout with you, then plan and install pantry cabinets sized to your space.",
+            }
+          : faq,
+      ),
+      ...PANTRY_VISIBILITY_FAQS,
+    ],
     links: [
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },
       { href: "/services/cabinet-installation", label: "Cabinet installation" },

@@ -14,6 +14,9 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
+  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Call or text (208) 477-1169.";
+/** Meta and Open Graph stay free of the registration number. The WebPage JSON-LD description keeps it. */
+const JSON_LD_DESCRIPTION =
   "Kitchen cabinets, bathroom vanities and built-ins in Boise. Idaho Registered Contractor #8381215. Call or text (208) 477-1169.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
@@ -132,7 +135,7 @@ export default function KitchenCabinetsPage() {
       `}</style>
       <JsonLd
         data={[
-          generateWebPageSchema({ title: TITLE, description: DESCRIPTION, url: "/kitchen-cabinets" }),
+          generateWebPageSchema({ title: TITLE, description: JSON_LD_DESCRIPTION, url: "/kitchen-cabinets" }),
           generateFAQSchema(FAQS),
         ]}
       />

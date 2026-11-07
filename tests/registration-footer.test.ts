@@ -6,11 +6,14 @@ import { getAllSiteUrls } from "../lib/siteUrls.ts";
 import { SITE_CONFIG } from "../shared/siteConfig.ts";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import { Footer } from "../components/Footer.tsx";
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 /** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
-const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
+const renderFooter = () => renderToStaticMarkup(
+  React.createElement(PathnameContext.Provider, { value: "/" }, React.createElement(Footer)),
+);
 
 test("license number defaults to 8381215 and schema uses hasCredential", () => {
   assert.equal(SITE_CONFIG.trust.licenseNumber, process.env.NEXT_PUBLIC_LICENSE_NUMBER || "8381215");

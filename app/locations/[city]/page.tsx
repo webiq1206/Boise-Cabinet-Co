@@ -300,7 +300,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                 ))}
                 {index === 0 && city.slug === "boise" ? (
                   <p className="mt-4 text-base leading-relaxed text-foreground/90">
-                    Kitchens, vanities and built-ins start with <Link href="/">Boise cabinets</Link>.
+                    See our <Link href="/">Boise cabinets</Link> for kitchens, vanities and built-ins.
                   </p>
                 ) : null}
               </div>

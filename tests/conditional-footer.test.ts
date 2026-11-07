@@ -11,7 +11,9 @@ import { Footer } from '../components/Footer.tsx';
 function renderFooterAt(pathname: string) {
   return renderToStaticMarkup(
     React.createElement(PathnameContext.Provider, { value: pathname },
-      React.createElement(ConditionalFooter, { footer: React.createElement(Footer) }),
+      React.createElement(ConditionalFooter, {
+        footer: React.createElement(Footer),
+      }),
     ),
   );
 }
@@ -26,7 +28,8 @@ test('the kitchen landing page uses the family footer with working contact desti
   assert.match(html, /href="\/privacy-policy"/);
   assert.match(html, /href="\/terms-of-service"/);
   assert.match(html, /Serving Boise and the Treasure Valley/);
-  assert.match(html, /Idaho Registered Contractor #8381215/);
+  assert.doesNotMatch(html, /8381215/);
+  assert.doesNotMatch(html, /data-testid="registration-line"/);
   assert.doesNotMatch(html, /Public representative|Wapoot|staffed storefront/);
 });
 
@@ -41,5 +44,6 @@ test('ordinary public pages retain their single family footer and available chat
     const html = renderFooterAt(pathname);
     assert.equal((html.match(/data-family-footer=""/g) ?? []).length, 1, pathname);
     assert.match(html, /data-testid="button-chat-footer"/, pathname);
+    assert.match(html, /8381215/, pathname);
   }
 });

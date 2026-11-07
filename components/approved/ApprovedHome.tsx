@@ -38,7 +38,7 @@ const HOME_ANSWER =
   "Get cabinets designed around your measurements and installed by our own crew. Boise Cabinet Co designs custom cabinets for Boise and the Treasure Valley, built to order. Homeowners and builders get kitchen cabinets, vanities and built-ins with a free in-home design consultation, a written price before work, and a written workmanship warranty on installation.";
 
 const IDENTITY =
-  'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
+  'Boise Cabinet Co designs custom cabinets to your measurements, plans each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
 
 export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish,setFinish]=useState<number|null>(null);return <div className="cabinet-approved">
   <section className="fam-hero" data-family-hero="" data-video-hero="" data-fit="viewport"

@@ -58,6 +58,14 @@ test("homepage drops the finish and door-count tiles from the FAQ wording", () =
 
 test("kitchen FAQs stay on the existing list and pantry only appends", () => {
   assert.equal(BOT05_ROOMS.kitchen.faqs[0]?.question, "What pantry options do you offer?");
+  assert.match(
+    BOT05_ROOMS.kitchen.faqs.find((faq) => faq.question === "Can you design a walk-in pantry?")?.answer ?? "",
+    /then build and install pantry cabinets/,
+  );
+  assert.match(
+    BOT05_ROOMS.pantry.faqs.find((faq) => faq.question === "Can you design a walk-in pantry?")?.answer ?? "",
+    /then plan and install pantry cabinets/,
+  );
   assert.equal(BOT05_ROOMS.kitchen.faqs.some((faq) => faq.question === "Can you replace builder-grade kitchen cabinets?"), false);
   assert.equal(
     BOT05_ROOMS.pantry.faqs.at(-2)?.question,
@@ -66,6 +74,29 @@ test("kitchen FAQs stay on the existing list and pantry only appends", () => {
   assert.equal(BOT05_ROOMS.pantry.faqs.at(-1)?.answer, QUOTE_LEAD);
   assert.equal(LEAD_TIME_LINE, "Lead time from approved design is typically 4-8 weeks.");
   assert.match(BOT05_ROOMS.pantry.steps.map((step) => step.desc).join(" "), /4-8 weeks/);
+  const kuna = readFileSync("shared/content/cityCabinetGuides.ts", "utf8");
+  const kunaAnswer = kuna.match(
+    /question: 'How long does a Kuna cabinet project take\?',\s*answer:\s*'([^']+)'/,
+  );
+  assert.equal(
+    kunaAnswer?.[1],
+    "Your cabinets are built to order, so your lead time is confirmed with your quote.",
+  );
+});
+
+test("contextual Boise cabinets links use the reviewed sentence", () => {
+  const sentence = "See our Boise cabinets for kitchens, vanities and built-ins.";
+  for (const file of [
+    "app/builders/page.tsx",
+    "app/cabinets/page.tsx",
+    "app/catalog/page.tsx",
+    "app/locations/[city]/page.tsx",
+  ]) {
+    const source = readFileSync(file, "utf8");
+    assert.equal(source.includes("Kitchens, vanities and built-ins start with"), false, file);
+    assert.match(source, /See our <Link href="\/">Boise cabinets<\/Link> for kitchens, vanities and built-ins\./, file);
+    assert.equal(sentence.includes("\u2014") || sentence.includes("\u2013"), false);
+  }
 });
 
 test("ad landing trust line is separate from the numbered registration line", () => {

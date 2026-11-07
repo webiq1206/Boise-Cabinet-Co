@@ -24,7 +24,8 @@ export const REGISTERED_BONDED_INSURED =
 
 /**
  * Visible trust copy for the /kitchen-cabinets ad landing page only.
- * No registration number and no bond claim. The footer keeps #8381215.
+ * No registration number and no bond claim. The shared footer text is unchanged;
+ * /kitchen-cabinets hides that line with the footer's hideRegistration prop.
  */
 export const KITCHEN_CABINETS_LANDING_TRUST =
   "P5 Home Co LLC, an Idaho registered contractor. Insured; certificate on request.";

@@ -77,7 +77,7 @@ export default function CabinetsHubPage() {
           <div className="ed-shell">
             <CatalogSearch className="max-w-xl" />
             <p className="mt-4 text-base leading-relaxed">
-              Kitchens, vanities and built-ins start with <Link href="/">Boise cabinets</Link>.
+              See our <Link href="/">Boise cabinets</Link> for kitchens, vanities and built-ins.
             </p>
           </div>
         </Section>
