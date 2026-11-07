@@ -139,7 +139,7 @@ async function main() {
       "warranty topic states the published warranty",
     );
     const leadTime = KNOWLEDGE_TOPICS.find((t) => t.key === "lead-time")!;
-    check(leadTime.content.includes("4-8 weeks"), "lead-time topic states the published figure");
+    check(leadTime.content.toLowerCase().includes("approved design"), "lead-time topic states when timing starts");
     const areas = KNOWLEDGE_TOPICS.find((t) => t.key === "service-areas")!;
     for (const city of ["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton", "Caldwell"]) {
       check(areas.content.includes(city), `service areas include ${city}`);

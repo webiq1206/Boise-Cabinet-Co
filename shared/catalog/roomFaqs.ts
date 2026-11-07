@@ -111,7 +111,7 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
     {
       question: "What is the difference between a pantry wall and a walk-in pantry?",
       answer:
-        "A pantry wall is a run of tall cabinets with adjustable shelving and roll-outs along one kitchen wall. A walk-in pantry is a dedicated room we fit with open shelving, counters, and appliance garages. We build both.",
+        "A pantry wall is a run of tall cabinets with adjustable shelving and roll-outs along one kitchen wall. A walk-in pantry is a dedicated room we fit with open shelving, counters, and appliance garages. We design and install both.",
     },
     {
       question: "How do you keep deep pantry shelves usable?",
@@ -164,7 +164,7 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
     {
       question: "Do you coordinate outdoor cabinets with grills and appliances?",
       answer:
-        "Yes. We build around your grill, refrigeration, and sink specs with the right clearances, and flag any HOA review that exterior work can trigger in communities like Hidden Springs or Harris Ranch.",
+        "Yes. We plan around your grill, refrigeration, and sink specs with the right clearances, and flag any HOA review that exterior work can trigger in communities like Hidden Springs or Harris Ranch.",
     },
   ],
   "wet-bar": [
@@ -202,7 +202,7 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: `How long does a ${roomName.toLowerCase()} cabinet project take?`,
     answer:
-      "Typically 4 to 8 weeks from approved design to installation, depending on scope and finish selection. Your client portal shows real-time status from design review through install.",
+      "Your lead time is confirmed with your quote. Your client portal shows real-time status from design review through install.",
   },
   {
     question: "Is installation included?",

@@ -239,7 +239,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         <Section divider>
           <div className="ed-shell">
             <SectionHeader
-              eyebrow={copy ? "Cabinet services" : "What we build"}
+              eyebrow={copy ? "Cabinet services" : "What we offer"}
               title={<>Cabinet services for {city.name} homes</>}
               align="left"
               className="mb-6"

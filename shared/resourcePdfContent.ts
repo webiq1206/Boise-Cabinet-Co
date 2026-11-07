@@ -188,8 +188,8 @@ export const ADA_CANYON_PERMIT_BLOCKS: PdfBlock[] = [
     type: 'table',
     headers: ['Phase', 'Ada County', 'Canyon County'],
     rows: [
-      ['Plan prep', '2–6 weeks', '2–6 weeks'],
-      ['Review / comments', '2–8 weeks', '2–8 weeks'],
+      ['Plan prep', 'Confirm current review times', 'Confirm current review times'],
+      ['Review and comments', 'Confirm current review times', 'Confirm current review times'],
       ['Inspections', 'during installation', 'during installation'],
     ],
   },

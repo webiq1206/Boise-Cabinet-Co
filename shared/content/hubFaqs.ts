@@ -6,12 +6,12 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most Treasure Valley kitchen cabinet projects plan between roughly $15,000 and $65,000+ for cabinetry alone, depending on line, door style, interior accessories, and linear footage. Full kitchen programs with countertops and installation run higher.',
+          'Most Treasure Valley kitchen cabinet projects depend on line, door style, interior accessories, and linear footage. Full kitchen programs with countertops and installation cover more of the scope.',
       },
       {
         question: 'How long does a kitchen cabinet project take?',
         answer:
-          'Expect 2 to 6 weeks for design and selections, then a 4-8 week cabinet lead time for fabrication, followed by installation. Lead times vary by finish and scope.',
+          'Design and selections come first, fabrication follows approved drawings, and installation follows.',
       },
       {
         question: 'Do I need permits for new kitchen cabinets in Ada County?',
@@ -36,7 +36,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'When should I order kitchen cabinets?',
         answer:
-          'At design lock, after layout, appliance locations, and finish selections are confirmed. Popular lines can exceed eight weeks.',
+          'At design lock, after layout, appliance locations, and finish selections are confirmed.',
       },
       {
         question: 'How do I compare cabinet company bids?',
@@ -68,7 +68,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long does a vanity project take?',
         answer:
-          'Often 3 to 8 weeks from design lock through installation, depending on custom lead times and countertop templating.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'Should guest and master bath vanities share one budget?',
@@ -110,7 +110,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long do built-in projects take?',
         answer:
-          'Many single-room programs complete in 4 to 10 weeks from design lock through installation.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'What organization accessories should I include?',
@@ -241,7 +241,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long does fabrication take?',
         answer:
-          'Often 4 to 12 weeks depending on collection and finish. Rush options vary by line.',
+          'Your lead time is confirmed with your quote.',
       },
       {
         question: 'Who coordinates countertop templating?',

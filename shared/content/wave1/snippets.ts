@@ -16,6 +16,8 @@ export interface ContentSection {
   paragraphs: string[];
   list?: string[];
   table?: { headers: string[]; rows: string[][]; className?: string };
+  /** Paragraphs rendered after the table. `paragraphs` stay above it. */
+  after?: string[];
 }
 
 export function buildSectionsHtml(sections: ContentSection[]): string {
@@ -38,6 +40,9 @@ export function buildSectionsHtml(sections: ContentSection[]): string {
               `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`,
           )
           .join('')}</tbody></table>`;
+      }
+      for (const p of s.after ?? []) {
+        block += `<p>${p}</p>`;
       }
       return block;
     })

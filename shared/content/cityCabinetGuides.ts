@@ -47,7 +47,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Meridian, our home city',
         paragraphs: [
-          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here weekly. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
+          `Boise Cabinet Co is headquartered in Meridian, so most of our team measures, delivers, and installs here. We source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, and <a href="/cabinets/built-ins">built-in storage</a> for homes across the city. For the bigger picture across Ada and Canyon counties, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> covers valley-wide context; this page sticks to Meridian.`,
         ],
       },
       {
@@ -155,7 +155,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Eagle',
         paragraphs: [
-          'Eagle homes carry the highest finish expectations in the Treasure Valley. We build frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">vanities</a>, and <a href="/cabinets/entertainment">entertainment built-ins</a> sized for larger footprints and taller ceilings.',
+          'Eagle homes carry the highest finish expectations in the Treasure Valley. We design and install frameless custom <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">vanities</a>, and <a href="/cabinets/entertainment">entertainment built-ins</a> sized for larger footprints and taller ceilings.',
           `For valley-wide planning, start with the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
@@ -187,7 +187,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Eagle cabinet projects',
         paragraphs: [
-          'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions is 6 weeks, assuming no revisions, so a cabinet job that grows into moving walls needs that time in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
+          'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions varies with revisions, so a cabinet job that grows into moving walls needs that review in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
         ],
       },
       {
@@ -232,7 +232,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does an Eagle cabinet project take?',
         answer:
-          'For most Eagle work, count on 4 to 8 weeks after you approve the design. Big whole-home programs and HOA review can push that out.',
+          'For most Eagle work, your lead time is confirmed with your quote. Big whole-home programs and HOA review can affect that timing.',
       },
       {
         question: 'How new is Eagle\'s housing?',
@@ -269,7 +269,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Nampa',
         paragraphs: [
-          'Nampa is the largest Canyon County city we serve, and its housing range is the widest: 1900s bungalows near the Nampa Depot and downtown, mid-century ranches, and 2000s-to-current subdivisions. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> for all of them.',
+          'Nampa is the largest Canyon County city we serve, and its housing range is the widest: 1900s bungalows near the Nampa Depot and downtown, mid-century ranches, and 2000s-to-current subdivisions. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> for all of them.',
           `Valley-wide context lives in the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a>.`,
         ],
       },
@@ -329,7 +329,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Do you charge more to deliver and install in Nampa?',
         answer:
-          'No. Nampa is inside our standard service area and we install in Canyon County weekly.',
+          'No. Nampa is inside our standard service area and we install in Canyon County.',
       },
       {
         question: 'What Nampa cabinet projects are most common?',
@@ -479,7 +479,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Star',
         paragraphs: [
-          `Star has transformed from a small farm town into one of the valley's fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties. If you're planning across the whole valley, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> is the better starting point.`,
+          `Star has transformed from a small farm town into one of the valley's fastest-growing cities, yet keeps its acreage character along the river and Highway 44 corridor. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantries</a>, and <a href="/cabinets/built-ins">built-ins</a> for both new subdivisions and established acreage properties. If you're planning across the whole valley, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> is the better starting point.`,
         ],
       },
       {
@@ -503,7 +503,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Star cabinet projects',
         paragraphs: [
-          'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists small residential projects at about 2 to 4 weeks of review, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
+          'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists review times that vary by project, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
         ],
       },
       {
@@ -548,7 +548,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'How long does a Star cabinet project take?',
         answer:
-          'From approved design to installation, plan on 4 to 8 weeks. Star sits inside our standard delivery area.',
+          'From approved design to installation, your lead time is confirmed with your quote. Star sits inside our standard delivery area.',
       },
       {
         question: 'Which county is Star in?',
@@ -582,7 +582,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Caldwell',
         paragraphs: [
-          `Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We build frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it. If you're comparing cities, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> has the valley-wide view.`,
+          `Caldwell anchors the west end of our service area. The Indian Creek downtown revival has renewed investment in the historic neighborhoods around it and the College of Idaho, while new subdivisions keep growing to the south and east. We design and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">vanities</a> across all of it. If you're comparing cities, the <a href="${PILLAR_TV}">Treasure Valley cabinet hub</a> has the valley-wide view.`,
         ],
       },
       {
@@ -600,7 +600,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Permits for Caldwell cabinet projects',
         paragraphs: [
-          'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review typically takes 5 to 7 working days. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
+          'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review times vary. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
         ],
       },
       {

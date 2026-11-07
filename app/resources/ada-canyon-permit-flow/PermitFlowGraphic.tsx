@@ -5,7 +5,7 @@ const STEPS = [
   { n: 2, title: 'Confirm jurisdiction', body: 'Ada vs Canyon County (see map below)' },
   { n: 3, title: 'Design & plans', body: 'Stamped sheets when required' },
   { n: 4, title: 'Submit application', body: 'County portal + fees' },
-  { n: 5, title: 'Plan review', body: '2–8+ weeks typical for layout work' },
+  { n: 5, title: 'Plan review', body: 'Confirm current review times for layout work' },
   { n: 6, title: 'Approved → build', body: 'Rough inspections before cover-up' },
   { n: 7, title: 'Final inspection', body: 'Close permit before finish concealment' },
 ];
@@ -139,13 +139,13 @@ export function PermitFlowGraphic() {
           <tbody className="text-muted-foreground">
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">Plan preparation</td>
-              <td className="py-2 pr-4">2–6 weeks</td>
-              <td className="py-2">2–6 weeks</td>
+              <td className="py-2 pr-4">Confirm current review times</td>
+              <td className="py-2">Confirm current review times</td>
             </tr>
             <tr className="border-b border-border/60">
               <td className="py-2 pr-4">County review</td>
-              <td className="py-2 pr-4">2–8+ weeks</td>
-              <td className="py-2">2–8+ weeks</td>
+              <td className="py-2 pr-4">Confirm current review times</td>
+              <td className="py-2">Confirm current review times</td>
             </tr>
             <tr>
               <td className="py-2 pr-4">Inspections</td>

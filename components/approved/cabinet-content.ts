@@ -10,7 +10,7 @@ export const faqs = [
   ],
   [
     "How long does a custom cabinet project take?",
-    "Most custom cabinet projects run about 4 to 8 weeks from approved design, depending on size and finish selection. We confirm your project schedule in writing and share a weekly update until install."
+    "Your lead time is confirmed with your quote. We confirm your project schedule in writing and share written progress updates until install."
   ],
   [
     "Can I plan my cabinets before committing?",

@@ -83,7 +83,7 @@ const listText = (items: string[]) =>
 const CATALOG_FAQS = [
   {
     question: "What door styles are in the Boise Cabinet Co catalog?",
-    answer: `${DOOR_STYLES.length} door styles: ${listText(DOOR_STYLES.map((d) => d.name))}. Every door style is available on every cabinet we build.`,
+    answer: `${DOOR_STYLES.length} door styles: ${listText(DOOR_STYLES.map((d) => d.name))}. Every door style is available on every cabinet we install.`,
   },
   {
     question: "How many cabinet finishes can I choose from?",

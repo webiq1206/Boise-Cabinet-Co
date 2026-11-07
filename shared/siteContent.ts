@@ -177,7 +177,7 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Clear communication",
-    body: "Weekly written updates and one project manager who knows your home from first visit to completion.",
+    body: "Written progress updates and one project manager who knows your home from first visit to completion.",
     icon: MessageSquare,
   },
   {
@@ -262,8 +262,8 @@ export const PRINCIPLES = [
 export const STANDARD_INCLUSIONS = [
   "Free in-home design consultation",
   "Installed by our own Treasure Valley crew",
-  "Weekly written progress updates",
-  "Dust barriers and floor protection daily",
+  "Written progress updates",
+  "Dust barriers and floor protection",
   "Written workmanship guarantee",
   "Warranty claims handled by us",
 ];
@@ -299,7 +299,7 @@ export const LEADERSHIP_COPY = {
   paragraphs: [
     "Boise Cabinet Co was founded on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
-    "That means one accountable team, written scope before order, weekly updates while we work, and a team that picks up the phone when you have a question.",
+    "That means one accountable team, written scope before order, written progress updates while we work, and a team that picks up the phone when you have a question.",
   ],
   closing: "That is not a marketing promise. Every detail and every decision is handled with intention.",
 };

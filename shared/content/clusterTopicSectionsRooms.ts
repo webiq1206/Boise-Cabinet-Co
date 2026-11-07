@@ -10,7 +10,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'The realistic Boise kitchen cabinet timeline',
       paragraphs: [
-        'Plan 8 to 14 weeks from first consultation to installed cabinets for a typical Treasure Valley kitchen. Design and selections take 2 to 4 weeks, fabrication 4 to 8 weeks from approved drawings, and installation 2 to 5 days for most kitchens.',
+        'Door style and finish selections come before fabrication.',
         'The biggest schedule killer is late selections. Door style and finish lock fabrication; changing either after approval restarts the lead-time clock.',
       ],
     },
@@ -18,16 +18,17 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Phase by phase',
       table: {
         className: 'timeline-table',
-        headers: ['Phase', 'Typical duration', 'What happens'],
+        headers: ['Phase', 'What happens'],
         rows: [
-          ['Consultation & measure', '1-2 weeks', 'In-home measure, goals, planning range'],
-          ['Design & selections', '1-3 weeks', 'Layout, door style, finish, hardware sign-off'],
-          ['Fabrication', '4-8 weeks', 'Built to order after approved drawings'],
-          ['Delivery & install', '2-5 days', 'Professional installation and walkthrough'],
+          ['Consultation and measure', 'In-home measure, goals, planning range'],
+          ['Design and selections', 'Layout, door style, finish, hardware sign-off'],
+          ['Fabrication', 'Planned around your measurements after approved drawings'],
+          ['Delivery and install', 'Installation and walkthrough'],
         ],
       },
+      after: ['Your lead time is confirmed with your quote.'],
       paragraphs: [
-        'Countertops template after base cabinets are set, so add 1 to 2 weeks before the kitchen is fully functional.',
+        'Countertops are templated after the base cabinets are set, so plan for that step before the kitchen is fully in use.',
       ],
     },
     {
@@ -47,15 +48,15 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Kitchen timeline by Treasure Valley city',
       paragraphs: [
-        'Meridian and Kuna builder-grade upgrades often move fastest because layouts are rectangular and walls are square. North End and Bench Boise kitchens add a week or two for custom filler planning and soffit decisions. Eagle whole-kitchen programs with butler pantries and mudroom lockers run toward the long end of the 8 to 14 week band because selections span multiple rooms.',
+        'Meridian and Kuna builder-grade upgrades often move fastest because layouts are rectangular and walls are square. North End and Bench Boise kitchens need extra planning for custom fillers and soffits. Eagle whole-kitchen programs with butler pantries and mudroom lockers span selections across more rooms.',
         'Read the <a href="/locations/boise">Boise cabinet guide</a> or your city guide for housing-specific notes before you set a target install month.',
       ],
     },
     {
       h2: 'What to do while cabinets are in fabrication',
       paragraphs: [
-        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so install week is the only disruptive stretch.',
-        'Your client portal shows fabrication status; we send written Friday updates so you always know whether the project is on track for the scheduled delivery date.',
+        'Use the fabrication window to finalize counters, backsplash, and appliance delivery dates. Schedule any plumbing or electrical rough-in that must finish before bases land. If you are living in the home, set up a temporary kitchen zone so installation is the only disruptive stretch.',
+        'Your client portal shows fabrication status, and we send written progress updates so you always know whether the project is on track for the scheduled delivery.',
       ],
     },
   ],
@@ -334,7 +335,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Designing around grill and appliances',
       paragraphs: [
-        'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We build cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
+        'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We plan cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
         'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> for entertaining zones.',
       ],
     },
@@ -472,7 +473,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Whole-home program timelines',
       paragraphs: [
-        'A coordinated kitchen, bath, laundry, and built-in program in a Boise or Meridian home typically runs 3 to 6 months from first consultation to final walkthrough: 3 to 6 weeks of design and selections across all rooms, 6 to 10 weeks of fabrication, and staged installation by room.',
+        'A coordinated kitchen, bath, laundry, and built-in program in a Boise or Meridian home is planned as one sequence from first consultation to final walkthrough. Your lead time is confirmed with your quote.',
         'The win versus sequential single-room projects: selections happen once, fabrication batches together, and trades mobilize fewer times.',
       ],
     },
@@ -486,7 +487,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Schedule risks specific to whole-home work',
       paragraphs: [
-        'One late selection holds an entire fabrication batch. We lock the full selection program, door style, finishes, hardware for every room, before release. Counters template per room after bases set, adding a week per zone.',
+        'One late selection holds an entire fabrication batch. We lock the full selection program, door style, finishes, hardware for every room, before release. Counters are templated per room after the bases are set.',
         'See the <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a> for the planning framework.',
       ],
     },
@@ -495,19 +496,19 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What installation actually feels like',
       paragraphs: [
-        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. A typical Boise or Nampa kitchen takes 2 to 5 install days; expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
+        'Cabinet installation is the calm end of remodeling: no demolition dust storms, mostly daytime work, rooms usable each evening. In a Boise or Nampa kitchen, expect tool noise, protected floors and pathways, and a crew that resets the space nightly.',
       ],
     },
     {
       h2: 'Kitchen survival plan',
       paragraphs: [
-        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals for install week; counters template after bases set, so full function returns 1 to 2 weeks after cabinets land.',
+        'Set up a temporary kitchen before demo day: microwave, coffee, a folding table, and a wash station at the laundry sink. Plan simple meals while the cabinets are installed. Counters are templated after the bases are set.',
       ],
     },
     {
       h2: 'Pets, kids, and work-from-home',
       paragraphs: [
-        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise from 8 to 5; schedule calls away from install days when you can. Our Friday written updates tell you exactly which days matter.',
+        'Gate pets away from work zones, walk kids through what is off-limits, and if you work from home, expect intermittent noise during the workday. Schedule calls away from installation when you can. Our written progress updates tell you which visits matter.',
       ],
     },
     {

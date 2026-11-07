@@ -29,7 +29,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
-    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order for your plans.",
+    "Trade cabinet pricing and spec consistency across units for Treasure Valley builders, GCs, and multi-family developers. Cabinetry is planned around your measurements.",
 })), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */
@@ -44,7 +44,7 @@ const REASONS = [
   },
   {
     title: "Spec consistency across every unit",
-    body: "We build to one approved finish schedule and one set of shop drawings, so cabinetry matches from the first unit to the last. Reorders and later phases stay consistent.",
+    body: "We follow one approved finish schedule and one set of shop drawings, so cabinetry matches from the first unit to the last. Reorders and later phases stay consistent.",
   },
   {
     title: "One team, one point of contact",
@@ -110,7 +110,7 @@ const FAQS = [
   {
     question: "Can you keep specs consistent across many units?",
     answer:
-      "Yes. We build to one approved finish schedule and one set of shop drawings, so every unit matches, including reorders and later phases.",
+      "Yes. We follow one approved finish schedule and one set of shop drawings, so every unit matches, including reorders and later phases.",
   },
   {
     question: "Do you handle multi-family and apartment projects?",
@@ -120,7 +120,7 @@ const FAQS = [
   {
     question: "Do you deliver and install, or just supply the cabinets?",
     answer:
-      "We build to order for your approved plans, then deliver and install with our own Treasure Valley crew, coordinated to your jobsite schedule.",
+      "We design cabinetry built to order for your approved plans, then deliver and install it with our own Treasure Valley crew, coordinated to your jobsite schedule.",
   },
 ];
 

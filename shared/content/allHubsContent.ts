@@ -24,7 +24,7 @@ export const KITCHEN_PILLAR = buildPillarGuide({
   hubSlug: 'kitchen-cabinets',
   tags: ['kitchen', 'cabinets', 'boise'],
   quickAnswer:
-    'Treasure Valley kitchen cabinets typically plan $15,000–$45,000+ for value to custom lines, with lead times of 6–12 weeks after design lock depending on scope and finishes.',
+    'Treasure Valley kitchen cabinets span value to custom lines. Scope and finishes are set in the design.',
   takeaways: [
     'Lock layout before ordering cabinets.',
     'Cabinet lead times drive the calendar, order at design lock.',

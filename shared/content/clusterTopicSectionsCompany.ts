@@ -47,7 +47,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Questions about local experience',
       list: [
-        'How many kitchens have you installed in my city in the last 12 months?',
+        'How many kitchens have you installed in my city recently?',
         'Do you handle Ada County and Canyon County permits when layout work is involved?',
         'Can you reference a project similar to my home era and layout?',
         'How do you scribe-fit cabinets to out-of-plumb walls common in older Boise homes?',
@@ -82,7 +82,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Red flags during the project',
       paragraphs: [
-        'Going dark between milestones, crews that change weekly, and surprise costs presented after work is done are recoverable only if your contract has the protections above. Weekly written updates should be the baseline, which is why we put them in writing for every project.',
+        'Going dark between milestones, crews that change from one visit to the next, and surprise costs presented after work is done are recoverable only if your contract has the protections above. Written progress updates should be the baseline, which is why we put them in writing for every project.',
         'Vet companies with our <a href="/blog/questions-to-ask-cabinet-company">questions checklist</a> before the deposit, not after.',
       ],
     },
@@ -141,7 +141,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Normalize the timeline too',
       paragraphs: [
-        'A quote with a 16-week lead time and a quote with 6 weeks are different products. Ask what drives each company\'s lead time and what happens to your schedule if fabrication slips.',
+        'Two quotes with different lead times are different products. Ask what drives each company\'s lead time and what happens to your schedule if fabrication slips.',
       ],
     },
     {
@@ -288,7 +288,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         rows: [
           ['Sizing', '3-inch increments, fillers required', 'Built to your walls'],
           ['Finishes', 'A dozen or so', 'Hundreds (we offer 299)'],
-          ['Lead time', 'Days to 10+ weeks (special order)', 'Typically 4-8 weeks'],
+          ['Lead time', 'Special order can take longer', 'Confirmed with your quote'],
           ['Accountability', 'Store + installer + manufacturer', 'One local team'],
           ['Fit in older homes', 'Poor without carpentry workarounds', 'Designed for it'],
         ],
@@ -421,20 +421,20 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What happens during fabrication',
       paragraphs: [
-        'After drawing approval, materials are ordered and your cabinets are built to order over 4 to 8 weeks: panels cut, boxes assembled, doors finished, hardware fitted, and every unit quality-checked against the drawings before delivery is scheduled.',
+        'After drawing approval, materials are ordered and cabinets are planned around your measurements. Panels are cut, boxes assembled, doors finished, hardware fitted, and every unit quality-checked against the drawings before delivery is scheduled. Your lead time is confirmed with your quote.',
         'Your client portal shows status through fabrication, so "is it on track" never requires a phone call.',
       ],
     },
     {
       h2: 'Installation week',
       paragraphs: [
-        'Installation runs 2 to 5 days for most kitchens: protection down, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, hardware aligned. Out-of-level floors, normal in older Boise homes, are absorbed at the base so counters land flat.',
+        'Installation covers protection, bases set level against the measured datum, uppers hung, panels and fillers scribed, doors and drawers adjusted, and hardware aligned. Floors that are out of level, normal in older Boise homes, are absorbed at the base so counters land flat.',
       ],
     },
     {
       h2: 'After cabinets land',
       paragraphs: [
-        'Counter templating follows base installation, with fabrication and install adding 1 to 2 weeks before full kitchen function. Final adjustment and the punch-list walkthrough close the project; see the <a href="/guides/cabinet-project-process-guide">punch list article</a> for that stage.',
+        'Countertops are templated after the base cabinets are set, so plan for that step before the kitchen is fully in use.',
       ],
     },
   ],
@@ -481,7 +481,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What to expect in the first season, and how to file',
       paragraphs: [
         'New wood cabinets settle. In the first months, doors and drawer fronts can shift slightly with humidity swings and normal use, so a minor reveal adjustment is routine, not a defect. Our soft-close hinges are six-way adjustable, which lets a technician re-align a door in minutes.',
-        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window (180 days) on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
+        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
       ],
     },
   ],
@@ -599,7 +599,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Timing and neutrality',
       paragraphs: [
-        'Allow 8 to 12 weeks before listing for a cabinet replacement, and choose neutral, current finishes that photograph cleanly rather than personal statements. Pair this with <a href="/blog/kitchen-cabinet-roi-boise">kitchen cabinet ROI</a> for the return math.',
+        'Plan the cabinet replacement before listing, and choose neutral, current finishes that photograph cleanly rather than personal statements. Your lead time is confirmed with your quote. Pair this with <a href="/blog/kitchen-cabinet-roi-boise">kitchen cabinet ROI</a> for the return math.',
       ],
     },
   ],
