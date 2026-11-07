@@ -47,12 +47,13 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   assert.equal(FAMILY_BRAND.nap.line, 'Serving Boise and the Treasure Valley');
   assert.equal(FAMILY_BRAND.accent, '#659b9a');
   assert.equal(FAMILY_BRAND.accentInk, '#356463');
-  // The parent's profiles are the ones in the parent organization's schema node.
+  // The footer keeps the numeric Facebook page id. Schema sameAs uses the verified vanity URL.
   assert.equal(P5_FACEBOOK_URL, SCHEMA_FACEBOOK_URL);
   assert.equal(FAMILY_BRAND.parentFacebook.href, P5_FACEBOOK_URL);
   assert.equal(P5_GOOGLE_PROFILE_URL, 'https://www.google.com/search?kgmid=/g/11ntl1t7dc');
   assert.deepEqual(FAMILY_BRAND.parentGoogle, { href: P5_GOOGLE_PROFILE_URL, label: 'P5 Home Co on Google' });
-  assert.ok((P5_PARENT_ORGANIZATION.sameAs as readonly string[]).includes(P5_FACEBOOK_URL));
+  assert.ok((P5_PARENT_ORGANIZATION.sameAs as readonly string[]).includes('https://www.facebook.com/p5homeco'));
+  assert.ok((P5_PARENT_ORGANIZATION.sameAs as readonly string[]).includes(P5_GOOGLE_PROFILE_URL));
   // Approved C7 check (scripts/verify-p5-mobile-seo.mjs): the bar is on the first screen below 1180px.
   assert.equal(FAMILY_BRAND.bar.showOverHero, true);
   assert.equal(FAMILY_BRAND.header.desktopFrom, 1180);

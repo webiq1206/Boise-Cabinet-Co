@@ -22,10 +22,9 @@ import { SITE_CONFIG } from '@/shared/siteConfig';
 const LOCKUP = { width: 339, height: 50 };
 
 /**
- * P5 Home Co's Facebook page and its one Google Business Profile (owner call A,
- * 1 November). Both cover every brand and sit only in the parent organization's
- * sameAs in lib/schema.ts, never in this brand's own; the footer links them as
- * the parent company's profiles.
+ * Footer link for P5 Home Co's Facebook page (numeric page id). The verified
+ * vanity URL and Google profile are on the parent organization's sameAs in
+ * lib/schema.ts. This brand's own Yelp listing is not this footer link.
  */
 export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
 export const P5_GOOGLE_PROFILE_URL = 'https://www.google.com/search?kgmid=/g/11ntl1t7dc';

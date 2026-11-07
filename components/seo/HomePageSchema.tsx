@@ -2,7 +2,6 @@ import { JsonLd } from './JsonLd';
 import {
   generateFAQSchema,
   generateLocalBusinessSchema,
-  generateOrganizationSchema,
   generateWebSiteSchema,
   generateSpeakableSchema,
 } from '@/lib/schema';
@@ -14,8 +13,7 @@ export function HomePageSchema() {
   return (
     <JsonLd
       data={[
-        generateOrganizationSchema(),
-        // Meridian locality on the postal address and geo. Cities are areaServed.
+        // One business node. Meridian locality, no street address.
         generateLocalBusinessSchema(),
         generateWebSiteSchema(),
         generateFAQSchema(

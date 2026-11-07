@@ -415,6 +415,15 @@ export const CITY_SEO_DATA: Record<string, {
 };
 
 /**
+ * Confirmed sameAs URLs for Boise Cabinet Co.
+ * https://p5homeco.com is the parent site. P5's other profiles live on the
+ * parent node. Yelp, BBB, Houzz, and BuildZoom are not included.
+ */
+export const BUSINESS_SAME_AS = [
+  'https://p5homeco.com',
+] as const;
+
+/**
  * Business information for NAP consistency
  */
 export const BUSINESS_INFO = {
@@ -448,16 +457,9 @@ export const BUSINESS_INFO = {
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,
   yearlyServicesCompleted: 0,
-  // Boise Cabinet Co has no Facebook or Instagram profile of its own; P5 Home
-  // Co's Facebook page and single Google Business Profile cover every brand
-  // (owner decision 2026-10-31). Empty unless a real profile URL is set via
-  // env; never invent one.
-  sameAs: [
-    SITE_CONFIG.trust.gbpUrl,
-    SITE_CONFIG.trust.houzzUrl,
-    SITE_CONFIG.trust.bbbUrl,
-    SITE_CONFIG.trust.yelpUrl,
-  ].filter(Boolean),
+  // https://p5homeco.com is the parent site. P5's other profiles live on the
+  // parent node. Yelp, BBB, Houzz, and BuildZoom are not included.
+  sameAs: [...BUSINESS_SAME_AS],
 };
 
 export type { SEOMetaData, ServiceSEOParams };
