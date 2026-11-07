@@ -10,7 +10,7 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us.",
+    a: "Boise Cabinet Co designs custom cabinets to your measurements, plans each order around your layout, finish selections and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, frameless construction, written scope before order, and warranty claims handled by us.",
   },
   {
     q: "What kind of cabinets do you offer?",
@@ -45,15 +45,19 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
     a: "You get a written progress update every week, plus a confirmed install schedule. Questions go to the same team that measured and designed your cabinets.",
   },
   {
-    q: "What door styles and finishes are available?",
-    a: "Six door styles, including Shaker and slab. Finishes span matte solids, high-gloss, and woodgrain textures: 299 options in total. Browse the full finish library in the catalog, then confirm with a physical sample at your design visit.",
-  },
-  {
     q: "Do you offer closet, laundry, and mudroom cabinets?",
     a: "Yes. We design custom cabinets to your measurements for every room in the home: kitchens, bathrooms, laundry rooms, mudrooms, home offices, pantries, closets, garage storage, entertainment centers, and built-ins. Outdoor cabinetry is available through consultation for specialty applications.",
   },
   {
     q: "How does pricing work?",
     a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed; production is reserved with a deposit.",
+  },
+  {
+    q: "Do you work with builders and contractors?",
+    a: "Yes. Builders and contractors can send plans for kitchens, vanities and built-ins, and we return a written proposal with drawings before anything is ordered.",
+  },
+  {
+    q: "When will my cabinets be ready?",
+    a: "Your cabinets are built to order, so your lead time is confirmed with your quote. Scope, elevations and finish selections are documented in writing before production starts.",
   },
 ];

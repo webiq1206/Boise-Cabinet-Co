@@ -186,6 +186,7 @@ export default function BuildersPage() {
                 <h2>Tell us about<br /><em style={{ color: 'var(--f-accent)' }}>the project.</em></h2>
                 <p>Include your company, project location and cabinet scope. Plans and unit counts are helpful when available. Requested dates are subject to review.</p>
                 <p>One approved finish schedule, one set of shop drawings, and one point of contact from the first unit to the last.</p>
+                <p>See our <Link href="/">Boise cabinets</Link> for kitchens, vanities and built-ins.</p>
               </div>
             </div>
           </div>

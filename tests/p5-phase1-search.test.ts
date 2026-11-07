@@ -10,11 +10,14 @@ import { LLMS_TXT } from "../shared/llmsTxt";
 import { SITE_CONFIG } from "../shared/siteConfig";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import { Footer } from "../components/Footer.tsx";
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 /** The footer is the shared family SiteFooter (lib/familyBrand.ts), so its rendered HTML is what is checked. */
-const renderFooter = () => renderToStaticMarkup(React.createElement(Footer));
+const renderFooter = () => renderToStaticMarkup(
+  React.createElement(PathnameContext.Provider, { value: "/" }, React.createElement(Footer)),
+);
 
 const BRAND = " | Boise Cabinet Co";
 const C13_PATHS = new Set([
@@ -106,10 +109,10 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
     },
     "/cabinets/[room]",
   );
-  assert.equal(kitchen.title, "Kitchen Cabinets in Boise | Built to Fit");
+  assert.equal(kitchen.title, "Custom Kitchen Cabinets in Boise");
   assert.equal(
     kitchen.description,
-    "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, installed by our own crew. Book a free in-home design consult.",
+    "A kitchen that fits how you cook, with custom cabinets planned around your layout and installed by our crew. Free design consult, written price first.",
   );
 });
 
@@ -118,7 +121,11 @@ test("room titles carry the city and a benefit within 60 rendered characters", (
   const titles = Object.values(ROOM_SEO).map((room) => room.title);
   assert.equal(new Set(titles).size, titles.length);
   for (const room of Object.values(ROOM_SEO)) {
-    assert.match(room.title, /^[A-Z][^|]* Boise \| [A-Z]/, room.title);
+    if (room.title === "Custom Kitchen Cabinets in Boise" || room.title === "Custom Pantry Cabinets in Boise") {
+      assert.equal(room.title.includes("|"), false, room.title);
+    } else {
+      assert.match(room.title, /^[A-Z][^|]* Boise \| [A-Z]/, room.title);
+    }
     assert.ok(room.title.length + BRAND.length <= 60, `${room.title.length + BRAND.length} ${room.title}`);
     assert.match(`${room.h1Lead} Boise, Idaho`, /cabinets in Boise, Idaho$/);
     assert.doesNotMatch(room.phrase, /ins cabinets/);
@@ -202,10 +209,10 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
     { title: "Home", description: "fallback", alternates: { canonical: "https://boisecabinet.co/" } },
     "/",
   );
-  assert.deepEqual(home.title, { absolute: "Custom Cabinets Boise: Kitchen, Vanities | Boise Cabinet Co" });
+  assert.deepEqual(home.title, { absolute: "Boise Cabinets, Built to Order | Boise Cabinet Co" });
   assert.equal(
     home.description,
-    "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
+    "Kitchen cabinets, vanities and built-ins designed to your measurements and installed by our own crew. Free in-home design consult, written price first.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
   // The site-owned video hero preserves the same H1 and exact accent line.

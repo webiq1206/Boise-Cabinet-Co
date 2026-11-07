@@ -76,6 +76,9 @@ export default function CabinetsHubPage() {
         <Section surface="dark" spacing="sm">
           <div className="ed-shell">
             <CatalogSearch className="max-w-xl" />
+            <p className="mt-4 text-base leading-relaxed">
+              See our <Link href="/">Boise cabinets</Link> for kitchens, vanities and built-ins.
+            </p>
           </div>
         </Section>
 

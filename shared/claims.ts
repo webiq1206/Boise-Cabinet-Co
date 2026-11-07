@@ -22,6 +22,14 @@ export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
 export const REGISTERED_BONDED_INSURED =
   "P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request";
 
+/**
+ * Visible trust copy for the /kitchen-cabinets ad landing page only.
+ * No registration number and no bond claim. The shared footer text is unchanged;
+ * /kitchen-cabinets hides that line with the footer's hideRegistration prop.
+ */
+export const KITCHEN_CABINETS_LANDING_TRUST =
+  "P5 Home Co LLC, an Idaho registered contractor. Insured; certificate on request.";
+
 /** Proof-strip / warranty claim language (F18, D6, K-5). */
 export const MANUFACTURER_WARRANTY_PASS_THROUGH =
   "Warranty claims handled by us";

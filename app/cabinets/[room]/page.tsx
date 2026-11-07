@@ -173,8 +173,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     generateServiceSchema(
       roomCopy?.title ?? `Custom ${seoName(room)} Cabinets`,
       roomCopy
-        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, builds, and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
-        : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
+        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, plans and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
+        : `${room.description} Designed, planned and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
     ),
     generateFAQSchema(faqs),
   ];
@@ -210,6 +210,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                   </>
                 )
               }
+              answer={roomCopy?.answer}
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">
@@ -385,10 +386,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             <SectionHeader
               eyebrow="Cabinets for this room"
               title={
-                  <>What we build for {seo.label === "built-in" ? "built-ins" : seo.label}</>
+                  <>What we offer for {seo.label === "built-in" ? "built-ins" : seo.label}</>
               }
               description={
-                `${SITE_CONFIG.name} sizes and builds these cabinets to fit ${seo.label} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
+                `${SITE_CONFIG.name} plans and sizes these cabinets to fit ${seo.label} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`
               }
               align="left"
               className="mb-6"

@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
 import { ApprovedHome } from '../components/approved/ApprovedHome.tsx';
 import { Footer } from '../components/Footer.tsx';
 import { matchesRoute, isActiveHref } from '../lib/family/types.ts';
@@ -109,7 +110,7 @@ test('footer links written out in the config match their sources', () => {
 });
 
 test('the footer renders the family row, NAP, hours, both parent profiles and one registration link, with no headings', () => {
-  const html = renderToStaticMarkup(React.createElement(Footer));
+  const html = renderToStaticMarkup(React.createElement(PathnameContext.Provider, { value: "/" }, React.createElement(Footer)));
   assert.equal(/<h[1-6]\b/.test(html), false);
   for (const name of ['P5 Home Co', 'Boise Construction Co', 'Boise Remodeling Co', 'Boise Handyman Co']) {
     assert.match(html, new RegExp(`<a href="https://[^"]+" rel="noopener">${name}</a>`), name);
@@ -163,9 +164,9 @@ test('the homepage video preserves no-script poster, first-response content and 
   const support = html.match(/<p class="fam-hero-support">([^<]+)<\/p>/)?.[1] ?? '';
   assert.ok(support.split(/\s+/).length <= 14, support);
   assert.match(html, /<p class="fam-hero-micro">Written price before work\.<\/p>/);
-  // Proof: the four facts the homepage already published under its hero.
-  assert.match(html, /299 finish options/);
-  assert.match(html, /6 door styles/);
+  // The finish-count and door-count tiles are removed. Consultation and registration stay.
+  assert.doesNotMatch(html, /299 finish options/);
+  assert.doesNotMatch(html, /6 door styles/);
   assert.match(html, /Free in-home design consultation/);
   assert.match(html, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/);
 });

@@ -144,6 +144,9 @@ export default function CatalogPage() {
                   </span>
                 }
               />
+              <p className="mt-4 max-w-[54ch] text-base leading-relaxed">
+                See our <Link href="/">Boise cabinets</Link> for kitchens, vanities and built-ins.
+              </p>
             </div>
           </div>
         </Section>

@@ -1,4 +1,3 @@
-import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
@@ -6,7 +5,7 @@ import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
-import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
+import { KITCHEN_CABINETS_LANDING_TRUST } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
@@ -14,6 +13,9 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
+  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Call or text (208) 477-1169.";
+/** Meta and Open Graph stay free of the registration number. The WebPage JSON-LD description keeps it. */
+const JSON_LD_DESCRIPTION =
   "Kitchen cabinets, bathroom vanities and built-ins in Boise. Idaho Registered Contractor #8381215. Call or text (208) 477-1169.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
@@ -61,7 +63,7 @@ const FAQS = [
   },
   {
     question: "Are you a registered contractor and insured?",
-    answer: `Yes. ${REGISTERED_BONDED_INSURED}.`,
+    answer: `Yes. ${KITCHEN_CABINETS_LANDING_TRUST}`,
   },
 ];
 
@@ -132,7 +134,7 @@ export default function KitchenCabinetsPage() {
       `}</style>
       <JsonLd
         data={[
-          generateWebPageSchema({ title: TITLE, description: DESCRIPTION, url: "/kitchen-cabinets" }),
+          generateWebPageSchema({ title: TITLE, description: JSON_LD_DESCRIPTION, url: "/kitchen-cabinets" }),
           generateFAQSchema(FAQS),
         ]}
       />
@@ -225,7 +227,7 @@ export default function KitchenCabinetsPage() {
               <strong>Kitchens, baths and built-ins.</strong> Kitchen cabinets, bathroom vanities and built-ins for Ada and Canyon County homes.
             </li>
             <li>
-              <strong>Registered and insured.</strong> {REGISTERED_BONDED_INSURED}.
+              <strong>Registered and insured.</strong> {KITCHEN_CABINETS_LANDING_TRUST}
             </li>
             <li>
               <strong>As fast as 3 weeks.</strong> Many projects install as fast as 3 weeks. We&apos;ll give you a timeline with your estimate.
@@ -272,7 +274,6 @@ export default function KitchenCabinetsPage() {
         </section>
       </article>
 
-      <LandingMobileActions />
     </div>
   );
 }
