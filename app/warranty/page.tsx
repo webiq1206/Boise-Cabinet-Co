@@ -71,7 +71,7 @@ export default function WarrantyPage() {
       title: "Cabinet warranty",
       description: showLifetimeWarranty()
         ? `${CATALOG_CONTENT.warrantyHeadline} from ${SITE_CONFIG.name}.`
-        : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`,
+        : "Warranty claims handled by us. Written workmanship warranty on cabinet installation.",
       url: "/warranty",
     }),
     generateBreadcrumbSchema([
