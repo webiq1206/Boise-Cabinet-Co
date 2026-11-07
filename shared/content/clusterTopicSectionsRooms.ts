@@ -20,10 +20,10 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         className: 'timeline-table',
         headers: ['Phase', 'Typical duration', 'What happens'],
         rows: [
-          ['Consultation & measure', '1-2 weeks', 'In-home measure, goals, planning range'],
-          ['Design & selections', '1-3 weeks', 'Layout, door style, finish, hardware sign-off'],
+          ['Consultation & measure', 'your lead time is confirmed with your quote', 'In-home measure, goals, planning range'],
+          ['Design & selections', 'your lead time is confirmed with your quote', 'Layout, door style, finish, hardware sign-off'],
           ['Fabrication', 'lead time confirmed with your quote', 'Built to order after approved drawings'],
-          ['Delivery & install', '2-5 days', 'Professional installation and walkthrough'],
+          ['Delivery & install', 'your lead time is confirmed with your quote', 'Professional installation and walkthrough'],
         ],
       },
       paragraphs: [

@@ -14,7 +14,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: "Your lead time is confirmed with your quote. We confirm your schedule in writing and share a weekly update until install.",
+    a: "Your lead time is confirmed with your quote. We confirm your schedule in writing and share written progress updates until install.",
   },
   {
     q: "Can I plan my cabinets before committing?",

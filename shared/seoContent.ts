@@ -40,7 +40,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Shop drawings and fabrication coordination',
       'Installation, adjustment, and punch list',
     ],
-    timeline: 'Most kitchen cabinet programs run 8 to 16 weeks from design lock through installation, depending on line and finish lead times.',
+    timeline: 'Your lead time is confirmed with your quote.',
     processSteps: [
       { title: 'Design consultation', description: 'We walk your space, discuss storage goals, and share a planning range.' },
       { title: 'Selections and scope', description: 'You receive line, finish, and hardware guidance with written scope.' },
@@ -85,7 +85,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Professional installation and adjustment',
       'Protection of adjacent living spaces',
     ],
-    timeline: 'Typical vanity projects complete in 4 to 10 weeks from design lock, depending on custom lead times and countertops.',
+    timeline: 'Your lead time is confirmed with your quote.',
     processSteps: [
       { title: 'Consultation', description: 'We assess your bath, discuss storage needs, and outline a planning range.' },
       { title: 'Selections and scope', description: 'Finishes and dimensions are documented before order.' },
@@ -95,7 +95,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     faqs: [
       {
         question: 'How long does a vanity project take?',
-        answer: 'Most projects run 4 to 10 weeks from design lock. Double vanities with custom storage may take longer.',
+        answer: 'Your lead time is confirmed with your quote.',
       },
       {
         question: 'Can you replace a vanity without moving plumbing?',
@@ -172,7 +172,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Fabrication and delivery',
       'Installation and final adjustment',
     ],
-    timeline: 'Most closet and garage projects run 3 to 8 weeks from design lock through installation.',
+    timeline: 'Your lead time is confirmed with your quote.',
     processSteps: [
       { title: 'Consultation', description: 'We review your space, storage habits, and goals.' },
       { title: 'Design and scope', description: 'Layouts and finishes are documented in writing.' },
@@ -217,7 +217,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'On-site installation and scribe details',
       'Hardware adjustment and punch list',
     ],
-    timeline: 'Built-in projects vary; many single-room programs run 4 to 10 weeks from design lock through installation.',
+    timeline: 'Your lead time is confirmed with your quote.',
     processSteps: [
       { title: 'Site visit', description: 'We review dimensions, outlets, and design goals.' },
       { title: 'Design and drawings', description: 'Plans address fit, finish, and function.' },
