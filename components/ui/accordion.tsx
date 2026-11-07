@@ -21,17 +21,20 @@ AccordionItem.displayName = "AccordionItem"
 
 /** Keep a heading's last two words on one line without changing the words. */
 function keepLastTwoWords(children: React.ReactNode): React.ReactNode {
-  if (typeof children !== "string") return children
+  if (typeof children !== "string") {
+    return <span className="flex-1 text-left">{children}</span>
+  }
   const words = children.trim().split(/\s+/)
-  if (words.length < 2) return children
+  if (words.length < 2) {
+    return <span className="flex-1 text-left">{children}</span>
+  }
   const tail = words.slice(-2).join(" ")
   const head = words.slice(0, -2).join(" ")
-  return head ? (
-    <>
-      {head} <span className="mobile-keep">{tail}</span>
-    </>
-  ) : (
-    <span className="mobile-keep">{tail}</span>
+  return (
+    <span className="flex-1 text-left">
+      {head ? <>{head} </> : null}
+      <span className="inline whitespace-nowrap">{tail}</span>
+    </span>
   )
 }
 
@@ -44,7 +47,7 @@ const AccordionTrigger = React.forwardRef<
       ref={ref}
       data-slot="accordion-trigger"
       className={cn(
-        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline min-[1280px]:!text-[length:max(var(--fs-body),var(--fs-h4))] [&[data-state=open]>svg]:rotate-180",
         className
       )}
       {...props}
