@@ -26,9 +26,23 @@ export const REGISTERED_BONDED_INSURED =
 export const MANUFACTURER_WARRANTY_PASS_THROUGH =
   "Warranty claims handled by us";
 
-/** Two-year installation workmanship term (D6). */
+/**
+ * Installation workmanship term (D6, corrected November 2026). One year from
+ * documented Final Completion, covering our crew and the subcontractors we
+ * hire. Manufacturer and product terms are separate. Written so it reads
+ * mid-sentence and at the start of one; do not lower-case it (that would
+ * break "Final Completion").
+ */
 export const CABINET_WORKMANSHIP_WARRANTY =
-  "2-year workmanship warranty on cabinet installation";
+  "1-year workmanship coverage on our installation, starting at documented Final Completion";
+
+/** What Final Completion means, in plain words, for pages that explain the start. */
+export const FINAL_COMPLETION_EXPLAINED =
+  "Final Completion is documented when the agreed work is complete, required inspections have passed, and the walkthrough and handover records are done";
+
+/** Who and what the workmanship term covers, and what it does not. */
+export const CABINET_WORKMANSHIP_SCOPE =
+  "Workmanship coverage includes installation by our crew and the subcontractors we hire. Manufacturer and product warranties are separate and follow the manufacturer's terms. Supply-only orders do not cover another installer's workmanship";
 
 export const PUBLIC_HOURS_LINE =
   "Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";

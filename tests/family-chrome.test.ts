@@ -26,7 +26,8 @@ import { SITE_CONFIG } from '../shared/siteConfig.ts';
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 
-const sentenceCase = (label: string) => label === label.charAt(0).toUpperCase() + label.slice(1).replace(/\b(?!Treasure|Valley\b)[A-Z](?=[a-z])/g, (c) => c.toLowerCase());
+// A capital that opens a new sentence after "? " is still sentence case ("Existing customer? Get help").
+const sentenceCase = (label: string) => label === label.charAt(0).toUpperCase() + label.slice(1).replace(/(?<!\? )\b(?!Treasure|Valley\b)[A-Z](?=[a-z])/g, (c) => c.toLowerCase());
 
 // Phase 2 family chrome: the shared components read every Boise Cabinet Co fact from
 // lib/familyBrand.ts. These pin that the config says what the site says.
@@ -130,7 +131,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.equal((html.match(/data-testid="link-footer-google"/g) ?? []).length, 1);
   assert.equal((html.match(/data-testid="link-footer-facebook"/g) ?? []).length, 1);
   assert.match(html, /<a data-testid="link-footer-quote" href="\/estimate">Request a quote<\/a>/);
-  for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
+  for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/warranty#get-help', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
     assert.ok(html.includes(`href="${href}"`), href);
   }
   for (const city of ['boise', 'caldwell', 'eagle', 'kuna', 'meridian', 'middleton', 'nampa', 'star']) {

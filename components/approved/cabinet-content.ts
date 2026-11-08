@@ -26,7 +26,7 @@ export const faqs = [
   ],
   [
     "What warranty do you provide?",
-    "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms."
+    "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work by our crew and the subcontractors we hire. Warranty claims are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms."
   ],
   [
     "What does the free design consultation include?",
@@ -73,7 +73,7 @@ export const steps = [
   },
   {
     "title": "Delivery, install and warranty",
-    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the 2-year installation workmanship term.",
+    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the 1-year installation workmanship term, which starts at documented Final Completion.",
     "tag": "05 / ENJOY"
   }
 ];
@@ -94,7 +94,7 @@ export const differentiators = [
   ],
   [
     "Warranty claims handled by us",
-    "Two-year workmanship warranty on installation. Manufacturer coverage on boxes and hardware is administered through our team, not passed off to a call centre."
+    "One-year workmanship coverage on our installation, starting at documented Final Completion. Manufacturer coverage on boxes and hardware is separate, follows the manufacturer's terms and is administered through our team, not passed off to a call centre."
   ],
   [
     "Packaging and old-cabinet haul-away",

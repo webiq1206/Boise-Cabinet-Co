@@ -214,11 +214,13 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
       >
         <p className="text-xl font-medium leading-snug text-foreground">Thanks, {firstName}. We have your request.</p>
         <p className="text-base leading-relaxed text-foreground/85">
-          {kind === "callback" ? `We will call you at ${phone}${when}` : "Our team reviews your project and replies"} within one
-          business day. <PreferToTextLine />
+          {kind === "callback"
+            ? `We will call you at ${phone}${when} to answer your questions and help you work out the next step.`
+            : "Our team reviews your project, answers your questions and helps you work out the next step."}{" "}
+          <PreferToTextLine />
         </p>
         <p className="text-base leading-relaxed text-foreground/85">
-          Need us sooner?{" "}
+          Prefer to talk it through?{" "}
           <a href={SITE_CONFIG.phoneHref} className="font-medium underline underline-offset-2">
             Call {SITE_CONFIG.phone}
           </a>

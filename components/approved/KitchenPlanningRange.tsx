@@ -73,8 +73,8 @@ export function KitchenPlanningRange() {
         </div>
         <p>
           Move the slider to match your base run and pick a finish look. You get a planning
-          range right away, with no email required. Share your room and we reply within one
-          business day.
+          range right away, with no email required. Share your room and we answer your questions
+          and help you work out the next step.
         </p>
       </div>
 

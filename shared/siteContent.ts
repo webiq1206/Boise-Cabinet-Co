@@ -20,10 +20,10 @@ export const HERO_SUBHEAD =
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
-  { num: "2 yr", label: "Warranty claims handled by us" },
+  { num: "1 yr", label: "Workmanship from Final Completion" },
 ] as const;
 
-/** Hero facts. Coverage length is not stated. */
+/** Hero facts. The workmanship term matches CABINET_WORKMANSHIP_WARRANTY in shared/claims.ts. */
 export function publicHeroStats() {
   return HERO_STATS;
 }
