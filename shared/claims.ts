@@ -16,10 +16,10 @@ export const IDAHO_REGISTERED_CONTRACTOR =
 export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
 
 /**
- * Trust line without "bonded" (Phase 6.4: Idaho registration requires no bond;
- * publish bonded only when a surety and amount are named).
+ * Registration and insurance trust line (Phase 6.4; owner decision, November
+ * 2026: no surety-bond claim anywhere, guarded by verify:response-language).
  */
-export const REGISTERED_BONDED_INSURED =
+export const REGISTERED_INSURED =
   "P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request";
 
 /** Proof-strip / warranty claim language (F18, D6, K-5). */
@@ -28,8 +28,10 @@ export const MANUFACTURER_WARRANTY_PASS_THROUGH =
 
 /**
  * Installation workmanship term (D6, corrected November 2026). One year from
- * documented Final Completion, covering our crew and the subcontractors we
- * hire. Manufacturer and product terms are separate. Written so it reads
+ * documented Final Completion, covering work performed by our own team.
+ * Subcontractors provide their own warranty on their work, and we hand over a
+ * complete subcontractor list with contact information at the end of every
+ * project. Manufacturer and product terms are separate. Written so it reads
  * mid-sentence and at the start of one; do not lower-case it (that would
  * break "Final Completion").
  */
@@ -42,7 +44,11 @@ export const FINAL_COMPLETION_EXPLAINED =
 
 /** Who and what the workmanship term covers, and what it does not. */
 export const CABINET_WORKMANSHIP_SCOPE =
-  "Workmanship coverage includes installation by our crew and the subcontractors we hire. Manufacturer and product warranties are separate and follow the manufacturer's terms. Supply-only orders do not cover another installer's workmanship";
+  "Workmanship coverage applies to work performed by our own team. Work performed by a subcontractor or installation partner, such as licensed plumbing or electrical work, is covered by that company's own warranty, and at the end of every project we provide a complete list of the subcontractors who worked on it, with their contact information. Manufacturer and product warranties are separate and follow the manufacturer's terms. Supply-only orders do not cover another installer's workmanship";
+
+/** Help-path line for subcontractor work (owner decision, November 2026). */
+export const SUBCONTRACTOR_HELP_LINE =
+  "For work a subcontractor performed, we can point you to the right subcontractor from that list";
 
 export const PUBLIC_HOURS_LINE =
   "Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";

@@ -37,7 +37,7 @@ const STANDARDS = [
   },
   {
     title: "Installation and warranty",
-    body: "Treasure Valley installation by our own crew. Warranty claims are handled by us under 1-year workmanship coverage on our installation, starting at documented Final Completion. Manufacturer coverage on boxes and hardware is separate, follows the manufacturer's terms and is administered through our team.",
+    body: "Treasure Valley installation by our team or a qualified installation partner we manage. Work performed by our own team carries 1-year workmanship coverage, starting at documented Final Completion; subcontractor and partner work is covered by that company's own warranty, and you receive a complete subcontractor list with contact information at the end of every project. Manufacturer coverage on boxes and hardware is separate, follows the manufacturer's terms and is administered through our team.",
   },
   {
     title: "Written scope before build",
@@ -89,7 +89,7 @@ export default function ConstructionPage() {
                   <em className="brc-accent text-accent">are built</em>
                 </>}
           description={catalogDescription(
-                "{company} designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.",
+                "{company} designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.",
               )}
         >
               <Button variant="brand" asChild>

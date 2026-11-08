@@ -8,14 +8,14 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { REGISTERED_BONDED_INSURED } from "@/shared/claims";
+import { REGISTERED_INSURED } from "@/shared/claims";
 
 export const SITE_TAGLINE = "Custom cabinets for Boise and the Treasure Valley";
 
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.";
+  "Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.";
 
 export const HERO_STATS = [
   { num: "299", label: "Finish options" },
@@ -91,7 +91,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
 ];
 
 export const TRUST_ITEMS = [
-  "Bonded · Insured",
+  "Insured",
   "Liability Coverage",
   "Built to Order",
   "Workmanship Guarantee",
@@ -167,7 +167,7 @@ export interface ClientPriority {
 export const CLIENT_PRIORITIES: ClientPriority[] = [
   {
     title: "Trust and credibility",
-    body: `${REGISTERED_BONDED_INSURED}, with permits handled in-house and a written scope before work begins.`,
+    body: `${REGISTERED_INSURED}, with permits handled in-house and a written scope before work begins.`,
     icon: ShieldCheck,
   },
   {
@@ -261,7 +261,7 @@ export const PRINCIPLES = [
  */
 export const STANDARD_INCLUSIONS = [
   "Free in-home design consultation",
-  "Installed by our own Treasure Valley crew",
+  "Installed by our team or a qualified installation partner we manage",
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
   "Written workmanship guarantee",
@@ -308,7 +308,6 @@ export const FINANCING_BULLETS = [
   "Terms from 12 to 144 months",
   "Soft credit check to view offers",
   "No prepayment penalties",
-  "Same-day approval decisions",
   "Works alongside cash, check, or wire",
 ];
 

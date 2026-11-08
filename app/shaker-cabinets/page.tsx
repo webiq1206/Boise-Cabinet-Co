@@ -204,7 +204,7 @@ export default function ShakerCabinetsPage() {
                 "Furniture-grade plywood boxes, not particle board",
                 "Soft-close options",
                 "Built to order and sized to your layout",
-                "Installed by our own Treasure Valley crew",
+                "Installed by our team or a qualified installation partner we manage",
                 "Backed by a written workmanship guarantee",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm md:text-base text-muted-foreground">

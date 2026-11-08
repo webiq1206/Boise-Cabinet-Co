@@ -260,7 +260,7 @@ Link: https://boisecabinet.co/cabinets/outdoor
 **Service 10: Cabinet installation**
 
 Description:
-Professional installation by our own team, with final walkthrough.
+Professional installation by our team or a qualified installation partner we manage, with final walkthrough.
 
 Link: https://boisecabinet.co/construction
 

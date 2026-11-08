@@ -140,9 +140,9 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
             rows: [
               ['Free design consultation', 'A 60 to 90 minute in-home visit to walk the room and talk through what you need to store'],
               ['Layout and selections', 'Drawings, door style, finish, and hardware, settled before anything is ordered'],
-              ['Approval and deposit', 'A written proposal with drawings; fifty percent reserves production, fifty percent is due after installation'],
+              ['Approval and deposit', 'A written proposal with drawings; payment follows the schedule in your signed agreement'],
               ['Built to order', LEAD_TIME_LINE],
-              ['Delivery and install', `Our crew delivers, levels, and scribes the cabinets and walks the job with you. ${CABINET_WORKMANSHIP_WARRANTY}.`],
+              ['Delivery and install', `Our team or a qualified installation partner we manage delivers, levels, and scribes the cabinets and walks the job with you. ${CABINET_WORKMANSHIP_WARRANTY}.`],
             ],
           },
           paragraphs: [

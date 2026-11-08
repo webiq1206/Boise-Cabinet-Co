@@ -73,7 +73,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     case 'about':
       title = 'About Us';
       description =
-        `Learn about ${SITE_CONFIG.name}: custom cabinets designed to your measurements, built to order, and installed by our own crew across the Treasure Valley.`;
+        `Learn about ${SITE_CONFIG.name}: custom cabinets designed to your measurements, built to order, and installed by our team or a qualified installation partner we manage.`;
       break;
     case 'contact':
       title = 'Contact Us';

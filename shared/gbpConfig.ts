@@ -182,7 +182,7 @@ export const GBP_SERVICES: GbpService[] = [
   {
     name: "Cabinet installation",
     description:
-      publicText("Professional installation by our own team, with final walkthrough and lifetime workmanship warranty."),
+      publicText("Professional installation by our team or a qualified installation partner we manage, with final walkthrough and lifetime workmanship warranty."),
     path: "/construction",
     campaign: "service-installation",
     priority: "core",

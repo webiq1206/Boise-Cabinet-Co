@@ -22,14 +22,14 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from '@/shared/claims';
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, REGISTERED_INSURED } from '@/shared/claims';
 import { differentiators } from '@/components/approved/cabinet-content';
 import { ArrowRight,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const IDENTITY =
-  'Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew.';
+  'Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.';
 
 const SPEAKABLE_SUMMARY =
   'Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. Nick Perkins designs cabinets to your measurements, builds each order to order, and installs with a Treasure Valley crew.';
@@ -94,11 +94,11 @@ export default function AboutPage() {
     },
     {
       question: `Is ${SITE_CONFIG.name} a registered contractor and insured?`,
-      answer: `Yes. ${REGISTERED_BONDED_INSURED}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
+      answer: `Yes. ${REGISTERED_INSURED}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
     },
     {
       question: `How does a cabinet project work?`,
-      answer: `Every project starts with a free design consultation, then a written proposal with drawings, field measurement, build-to-order production, and installation by our crew, with weekly written updates so nothing drifts.`,
+      answer: `Every project starts with a free design consultation, then a written proposal with drawings, field measurement, build-to-order production, and installation by our team or a qualified installation partner we manage, with weekly written updates so nothing drifts.`,
     },
   ];
 
@@ -206,10 +206,10 @@ export default function AboutPage() {
                 <ul className="ed-body mt-6">
                   <li>We design kitchens, baths, laundry, mudroom, pantry, closet, garage and built-in packages for Treasure Valley homes.</li>
                   <li>We do not remodel rooms, pull whole-home permits as a general contractor on this brand, or run a public showroom.</li>
-                  <li>Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners we stand behind.</li>
+                  <li>Countertops, plumbing, electrical and appliance work are scoped with you and, when needed, scheduled with licensed trade partners, who warranty their own work.</li>
                 </ul>
                 <p className="ed-body mt-4">
-                  Payment terms: 50% to reserve production, 50% after installation. Nothing is due until the written scope is signed.
+                  Payment terms: supply-only orders are paid per the supply agreement when the order is approved; installed projects follow the payment schedule in your installed agreement. Nothing is due until the written scope is signed.
                 </p>
               </div>
             </div>

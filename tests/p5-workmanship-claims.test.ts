@@ -8,16 +8,20 @@ import {
   FINAL_COMPLETION_EXPLAINED,
   publicText,
   showLifetimeWarranty,
+  SUBCONTRACTOR_HELP_LINE,
 } from "../shared/claims";
+import { findProhibitedClaims } from "../scripts/lib/prohibitedResponseLanguage";
 import { HOMEPAGE_FAQS } from "../shared/homepageFaqs";
 import { HERO_STATS } from "../shared/siteContent";
 import { LLMS_TXT } from "../shared/llmsTxt";
 import { KNOWLEDGE_TOPICS } from "../shared/assistantKnowledge";
 import { FAMILY_BRAND } from "../lib/familyBrand";
 
-// Verified policy (November 2026): one-year workmanship coverage from documented
-// Final Completion, covering our crew and subcontractors. Manufacturer and product
-// terms are separate. Supply-only does not cover another installer's workmanship.
+// Owner policy (November 8 2026): one-year workmanship coverage from documented
+// Final Completion covers work performed by our own team. Subcontractors provide
+// their own warranty, and we provide a complete subcontractor list with contact
+// information at the end of every project. Manufacturer and product terms are
+// separate. Supply-only does not cover another installer's workmanship.
 
 const ROOTS = ["app", "components", "shared", "lib", "server"];
 
@@ -38,7 +42,11 @@ test("the workmanship constants state one year from documented Final Completion"
   assert.match(CABINET_WORKMANSHIP_WARRANTY, /^1-year workmanship coverage/);
   assert.match(CABINET_WORKMANSHIP_WARRANTY, /documented Final Completion/);
   assert.match(FINAL_COMPLETION_EXPLAINED, /inspections/);
-  assert.match(CABINET_WORKMANSHIP_SCOPE, /subcontractors/);
+  assert.match(CABINET_WORKMANSHIP_SCOPE, /work performed by our own team/);
+  assert.match(CABINET_WORKMANSHIP_SCOPE, /covered by that company's own warranty/);
+  assert.match(CABINET_WORKMANSHIP_SCOPE, /complete list of the subcontractors who worked on it, with their contact information/);
+  assert.doesNotMatch(CABINET_WORKMANSHIP_SCOPE, /subcontractors we hire|crew and the subcontractors|includes installation by/);
+  assert.match(SUBCONTRACTOR_HELP_LINE, /point you to the right subcontractor/);
   assert.match(CABINET_WORKMANSHIP_SCOPE, /Manufacturer and product warranties are separate/);
   assert.match(CABINET_WORKMANSHIP_SCOPE, /Supply-only orders do not cover another installer's workmanship/);
 });
@@ -66,6 +74,8 @@ test("rendered consumers carry the corrected term: speakable, FAQ, llms, assista
   assert.ok(faq);
   assert.match(faq.a, /1-year workmanship coverage/);
   assert.match(faq.a, /Supply-only orders do not cover another installer's workmanship/);
+  assert.match(faq.a, /work performed by our own team/);
+  assert.match(faq.a, /complete list of the subcontractors who worked on it/);
 
   assert.ok(LLMS_TXT.includes(CABINET_WORKMANSHIP_WARRANTY));
   const warrantyTopic = KNOWLEDGE_TOPICS.find((topic) => topic.key === "warranty");
@@ -76,6 +86,48 @@ test("rendered consumers carry the corrected term: speakable, FAQ, llms, assista
   assert.match(page, /FINAL_COMPLETION_EXPLAINED/);
   assert.match(page, /CABINET_WORKMANSHIP_SCOPE/);
   assert.match(page, /On supply-only orders, the workmanship of another installer/);
+  assert.match(page, /SUBCONTRACTOR_HELP_LINE/);
+  assert.match(page, /Product coverage, including door and finish terms, follows the manufacturer's warranty for your cabinet line/);
+  assert.match(page, /Transfer terms follow your signed agreement/);
+  assert.doesNotMatch(page, /180 days|original homeowner/);
+});
+
+test("terms of service match current policy", () => {
+  const terms = readFileSync("app/terms-of-service/page.tsx", "utf8").replace(/\s+/g, " ");
+  assert.match(terms, /Last updated November 8, 2026/);
+  assert.match(terms, /REGISTERED_ENTITY_NAME/);
+  assert.match(terms, /Your signed agreement controls/);
+  assert.match(terms, /do not change any agreement you have already signed/);
+  assert.match(terms, /Changes to scope, price or schedule are agreed in writing before the affected work or orders proceed/);
+  assert.match(terms, /Supply-only orders are paid as stated in the supply agreement when the order is approved/);
+  assert.match(terms, /Installed projects follow the payment schedule in the installed agreement/);
+  assert.match(terms, /The first conversation and project review are free/);
+  assert.match(terms, /may not be cancellable once ordered/);
+  assert.match(terms, /one-year workmanship coverage from documented Final Completion/);
+  assert.match(terms, /complete list of the subcontractors who worked on it, with their contact information/);
+  assert.doesNotMatch(terms, /January 2024|48[\s-]*hour|recurring|50%/i);
+});
+
+test("the release 2 claims guard catches the retired claims and spares material wording", () => {
+  const bad = [
+    "Bonded · Insured",
+    "licensed, bonded, and insured",
+    "Get an instant estimate",
+    "turns your room into a planning range in about a minute",
+    "Same-day approval decisions",
+    "One contract, one invoice",
+    "covering our crew and the subcontractors we hire",
+    "50% deposit to reserve production, 50% after installation",
+  ];
+  for (const text of bad) assert.ok(findProhibitedClaims(text).length > 0, text);
+  const fine = [
+    "Laminate is a printed surface bonded to a substrate.",
+    "Wood particles bonded with resin and pressed into panels.",
+    "Insured; certificate on request",
+    "Get a planning range",
+    "One accountable company and one point of contact for your project.",
+  ];
+  for (const text of fine) assert.deepEqual(findProhibitedClaims(text), [], text);
 });
 
 test("the warranty page leads existing customers to help, with notice and safety caveats", () => {

@@ -16,7 +16,7 @@
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
-import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
 import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { ROOM_SEO } from "@/shared/catalog/roomSeo";
@@ -55,7 +55,7 @@ function buildLlmsTxt(): string {
 
   push(`# ${name}`, "");
   push(
-    `> ${name} designs custom cabinets to your measurements, builds each order to your layout, and installs it with our own crew: kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley, Idaho.`,
+    `> ${name} designs custom cabinets to your measurements, builds each order to your layout, and has it installed by our team or a qualified installation partner we manage: kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley, Idaho.`,
     "",
   );
   push(`Last updated: ${LLMS_LAST_UPDATED}`, "");
@@ -76,7 +76,7 @@ function buildLlmsTxt(): string {
   push(`- Catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes (${list(finishFamilies)}), ${HARDWARE_OPTIONS.length} hardware options, ${ACCESSORY_FAMILIES.length} accessory families`);
   push("- Construction: frameless cabinet boxes built to order, soft-close hinge and drawer-slide options");
   push(`- Lead time: typically ${CATALOG_CONTENT.leadTime} from approved design`);
-  push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}`);
+  push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}. ${CABINET_WORKMANSHIP_SCOPE}`);
   push("- Free in-home design consultation; a written proposal with drawings before anything is ordered");
   push("- Also serve builders, general contractors, and multi-family developers with volume pricing");
   push(`- Phone: ${SITE_CONFIG.phone}`);
@@ -110,7 +110,7 @@ function buildLlmsTxt(): string {
   push(`- ${link("Custom cabinet comparison", "/compare")}: stock, semi-custom, and our custom cabinets; door styles and finish families side by side`, "");
 
   push("## Services", "");
-  push(`- ${link("Cabinet installation", "/services/cabinet-installation")}: installation by our own crew, including cabinets you already own`);
+  push(`- ${link("Cabinet installation", "/services/cabinet-installation")}: installation by our team or a qualified installation partner we manage, including cabinets you already own`);
   push(`- ${link("Builder and trade program", "/builders")}: volume pricing for multi-family, apartments, and condos; consistent specs across units`, "");
 
   push("## Guides and content", "");

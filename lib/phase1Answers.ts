@@ -1,5 +1,5 @@
 import { preferToTextLine } from "@/shared/siteConfig";
-import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, publicQa, publicText, REGISTERED_BONDED_INSURED, showFoundingYear } from "@/shared/claims";
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, publicQa, publicText, REGISTERED_INSURED, showFoundingYear } from "@/shared/claims";
 
 /**
  * Additive answer blocks for phase-1 pages.
@@ -19,7 +19,7 @@ export interface Phase1Answer {
 
 const AREA = "Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell";
 const IDENTITY =
-  "Boise Cabinet Co designs and builds cabinets to your measurements, layout, finishes and hardware, installed by our own Treasure Valley crew.";
+  "Boise Cabinet Co designs and builds cabinets to your layout, installed by our team or a qualified installation partner we manage.";
 
 function cityAnswer(city: string, paragraph: string): Phase1Answer {
   return {
@@ -53,19 +53,19 @@ function cityAnswer(city: string, paragraph: string): Phase1Answer {
 const LOCATIONS: Record<string, Phase1Answer> = {
   kuna: cityAnswer(
     "Kuna",
-    `Kitchen cabinets and pantry storage are available for Kuna homes. ${IDENTITY} Free in-home design consultation. ${REGISTERED_BONDED_INSURED}. Frameless European-style boxes and soft-close hardware are available on many packages.`,
+    `Kitchen cabinets and pantry storage are available for Kuna homes. ${IDENTITY} Free in-home design consultation. ${REGISTERED_INSURED}. Frameless European-style boxes and soft-close hardware are available on many packages.`,
   ),
   middleton: cityAnswer(
     "Middleton",
-    `Custom cabinets in Middleton, ID start with a free in-home design consultation. ${IDENTITY} Hardworking kitchens, pantries, mudrooms, and shop storage along the Highway 44 corridor. ${REGISTERED_BONDED_INSURED}.`,
+    `Custom cabinets in Middleton, ID start with a free in-home design consultation. ${IDENTITY} Hardworking kitchens, pantries, mudrooms, and shop storage along the Highway 44 corridor. ${REGISTERED_INSURED}.`,
   ),
   meridian: cityAnswer(
     "Meridian",
-    `Custom cabinetry in Meridian, ID starts with a free in-home design consultation. ${IDENTITY} Builder-grade kitchen upgrades in subdivisions such as Paramount and Tuscany are a common request. ${REGISTERED_BONDED_INSURED}.`,
+    `Custom cabinetry in Meridian, ID starts with a free in-home design consultation. ${IDENTITY} Builder-grade kitchen upgrades in subdivisions such as Paramount and Tuscany are a common request. ${REGISTERED_INSURED}.`,
   ),
   boise: cityAnswer(
     "Boise",
-    `Custom cabinets in Boise should feel local from the first visit. ${IDENTITY} Discuss your storage goals, finishes, door styles, and next steps. ${REGISTERED_BONDED_INSURED}.`,
+    `Custom cabinets in Boise should feel local from the first visit. ${IDENTITY} Discuss your storage goals, finishes, door styles, and next steps. ${REGISTERED_INSURED}.`,
   ),
 };
 
@@ -73,7 +73,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
     heading: "Kitchen cabinets in Boise, Idaho",
     paragraph:
-      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans coordinated base runs, uppers, pantries, and appliance panels, builds to your layout, and installs with our own crew. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_BONDED_INSURED + ".",
+      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans base runs, uppers, pantries, and panels to your layout, installed by our team or a qualified partner we manage. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_INSURED + ".",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",

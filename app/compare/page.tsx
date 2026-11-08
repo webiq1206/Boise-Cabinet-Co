@@ -113,7 +113,7 @@ const TIER_ROWS: Array<{ factor: string; stock: string; semi: string; ours: stri
     factor: "Installation",
     stock: "You or a separate installer",
     semi: "Often a separate installer",
-    ours: "Installed by our own Treasure Valley crew",
+    ours: "Installed by our team or a qualified installation partner we manage",
   },
   {
     factor: "Lead time",

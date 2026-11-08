@@ -207,7 +207,7 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: "Is installation included?",
     answer:
-      "Yes. Our quotes cover the cabinets, delivery, and professional installation by our own team.",
+      "Yes. Our quotes cover the cabinets, delivery, and professional installation by our team or a qualified installation partner we manage.",
   },
 ];
 

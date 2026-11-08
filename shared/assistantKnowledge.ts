@@ -1,5 +1,5 @@
 import { preferToTextLine, SITE_CONFIG } from "./siteConfig";
-import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED } from "./claims";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, SUBCONTRACTOR_HELP_LINE } from "./claims";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { CITIES } from "./contentData";
@@ -109,7 +109,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     content: [
       `${CATALOG_CONTENT.warrantyHeadline}.`,
       CATALOG_CONTENT.warrantySummary,
-      `${CABINET_WORKMANSHIP_WARRANTY}. ${FINAL_COMPLETION_EXPLAINED}. ${CABINET_WORKMANSHIP_SCOPE}.`,
+      `${CABINET_WORKMANSHIP_WARRANTY}. ${FINAL_COMPLETION_EXPLAINED}. ${CABINET_WORKMANSHIP_SCOPE}. ${SUBCONTRACTOR_HELP_LINE}.`,
       `Full details: ${SITE_CONFIG.siteUrl}/warranty`,
     ].join("\n"),
   },
