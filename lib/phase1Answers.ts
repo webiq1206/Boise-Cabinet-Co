@@ -100,7 +100,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      `Office cabinets by Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation, ${CABINET_WORKMANSHIP_WARRANTY.toLowerCase()}, and 299 finishes with six door styles. Installation covers ${AREA}.`,
+      `Office cabinets by Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation and ${CABINET_WORKMANSHIP_WARRANTY}. Installation covers ${AREA}.`,
     faqs: [
       {
         question: "What construction do home office cabinets use?",
@@ -130,11 +130,11 @@ const ROOMS: Record<string, Phase1Answer> = {
 const CONTACT: Phase1Answer = {
   heading: "What happens when you reach out?",
   paragraph:
-    `Call or send project details to Boise Cabinet Co. We reply within one business day to schedule a free in-home design consultation. ${preferToTextLine()} ${IDAHO_REGISTERED_CONTRACTOR}. Serving the Treasure Valley.`,
+    `Call or send project details to Boise Cabinet Co. We answer your questions and help you work out the next step, including a free in-home design consultation when you are ready. ${preferToTextLine()} ${IDAHO_REGISTERED_CONTRACTOR}. Serving the Treasure Valley.`,
   faqs: [
     {
       question: "How do I request a design consultation?",
-      answer: `Call or text (208) 477-1169, or send the contact form. We reply within one business day. ${preferToTextLine()}`,
+      answer: `Call or text (208) 477-1169, or send the contact form. We answer your questions and help you work out the next step. ${preferToTextLine()}`,
     },
     {
       question: "What cabinet construction should I expect?",

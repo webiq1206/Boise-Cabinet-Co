@@ -1,4 +1,5 @@
 import { preferToTextLine, SITE_CONFIG } from "./siteConfig";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED } from "./claims";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { CITIES } from "./contentData";
@@ -90,7 +91,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     content: [
       faqBlock((q) => q.includes("consultation include")),
       "",
-      `The visit is focused on planning guidance and an honest project range, not a commission-driven pitch. Reply within one business day; no spam. ${preferToTextLine()}`,
+      `The visit is focused on planning guidance and an honest project range, not a commission-driven pitch. We answer your questions and help you work out the next step; no spam. ${preferToTextLine()}`,
     ].join("\n"),
   },
   {
@@ -108,6 +109,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     content: [
       `${CATALOG_CONTENT.warrantyHeadline}.`,
       CATALOG_CONTENT.warrantySummary,
+      `${CABINET_WORKMANSHIP_WARRANTY}. ${FINAL_COMPLETION_EXPLAINED}. ${CABINET_WORKMANSHIP_SCOPE}.`,
       `Full details: ${SITE_CONFIG.siteUrl}/warranty`,
     ].join("\n"),
   },

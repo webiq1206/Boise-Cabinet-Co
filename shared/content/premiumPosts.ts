@@ -134,7 +134,7 @@ const framedVsFramelessContent = `
 
 <h2 id="how-we-build">How we design and install cabinets in the Treasure Valley</h2>
 <p>${AUTHOR} designs, builds, and installs frameless custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins throughout Boise, Meridian, Eagle, and Nampa. Every project starts with a free in-home design consultation and a written scope before fabrication, so what you approve is what we build. Explore <a href="/catalog">door styles</a>, <a href="/catalog">finishes in the catalog</a>, and <a href="/catalog">hardware</a> to see how the frameless look comes together, then browse the full <a href="/cabinets">cabinet catalog</a>.</p>
-<p>Ready to price your project? <a href="/estimate">Get a preliminary planning range</a> or <a href="/contact">schedule your free consultation</a> and we will reach out within one business day. ${preferToTextHtml()}</p>
+<p>Ready to price your project? <a href="/estimate">Get a preliminary planning range</a> or <a href="/contact">schedule your free consultation</a> and we will answer your questions and help you work out the next step. ${preferToTextHtml()}</p>
 `;
 
 const cabinetDoorStylesContent = `
