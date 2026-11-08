@@ -36,7 +36,7 @@ import {
   AlertCircle,
   Home,
   ShieldCheck,
-  Clock,
+  MessageSquare,
 } from "lucide-react";
 import type {
   StoredEstimate,
@@ -136,7 +136,7 @@ const consultInputClass = "aria-invalid:border-destructive/50";
 const TRUST_POINTS = [
   { icon: Home, label: "Free in-home visit" },
   { icon: ShieldCheck, label: "No spam, ever" },
-  { icon: Clock, label: "Reply within one business day" },
+  { icon: MessageSquare, label: "We answer your questions" },
 ] as const;
 
 /**
@@ -752,7 +752,7 @@ export function ConsultationFields({
     <Form {...form}>
       {!compact && (
         <p className="text-sm text-muted-foreground mb-4">
-          Sending this does not book installation. We reply within one business day.{" "}<PreferToTextLine />
+          Sending this does not book installation. We answer your questions and help you work out the next step.{" "}<PreferToTextLine />
         </p>
       )}
       {compact && (
@@ -1081,7 +1081,7 @@ export function ConsultationFields({
                     </div>
                   )}
                   <p className="px-3 pb-2 text-xs leading-snug text-muted-foreground">
-                    Free in-home visit. We reply within one business day.{" "}<PreferToTextLine />
+                    Free in-home visit. We answer your questions and help you work out the next step.{" "}<PreferToTextLine />
                   </p>
                 </div>
               )}

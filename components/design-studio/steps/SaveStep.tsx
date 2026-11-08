@@ -213,7 +213,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         title: "Pricing request sent",
         description: (
           <>
-            {SITE_CONFIG.name} will contact you within one business day. <PreferToTextLine />
+            {SITE_CONFIG.name} has your request and will follow up to answer your questions. <PreferToTextLine />
           </>
         ),
       });
@@ -249,8 +249,8 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
             <div className="space-y-2">
               <p className="font-medium text-foreground">Your pricing request is in.</p>
               <p className="text-sm text-muted-foreground">
-                {SITE_CONFIG.name} will review your design and reach out within one business
-                day to schedule a free consultation. We&apos;ve saved your design so you can
+                {SITE_CONFIG.name} will review your design, answer your questions and help you
+                plan a free consultation. We&apos;ve saved your design so you can
                 revisit or tweak it anytime. <PreferToTextLine />
               </p>
               <div className="flex flex-wrap gap-3 pt-1">

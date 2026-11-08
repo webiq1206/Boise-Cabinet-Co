@@ -57,7 +57,7 @@
   {
     "route": "/contact",
     "file": "app/contact/page.tsx",
-    "seoSignature": "e5f92aac38ea24abbcbae793e169815c29f74f4a40c7630a12f9ff6dbb9d2a42"
+    "seoSignature": "31494bf864608c741747fbfd16a9326a4c56ff18960cca5ba446cec053e4c9f6"
   },
   {
     "route": "/guides/[slug]",

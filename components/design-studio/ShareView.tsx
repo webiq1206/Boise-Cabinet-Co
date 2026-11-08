@@ -110,7 +110,7 @@ export function ShareView({ shareToken }: ShareViewProps) {
         title: "Pricing request sent",
         description: (
           <>
-            {SITE_CONFIG.name} will contact you within one business day. <PreferToTextLine />
+            {SITE_CONFIG.name} has your request and will follow up to answer your questions. <PreferToTextLine />
           </>
         ),
       });

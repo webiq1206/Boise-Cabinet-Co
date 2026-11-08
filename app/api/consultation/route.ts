@@ -390,7 +390,7 @@ export async function POST(request: NextRequest) {
         tagline: "Custom Cabinets",
         content: `
           <p class="greeting">Hi ${escapeHtml(data.name)},</p>
-          <p>Thanks so much for reaching out. I got your request and I will personally be in touch within one business day to set up your free design visit and learn more about what you have in mind.</p>
+          <p>Thanks so much for reaching out. I got your request and I will personally be in touch to answer your questions, set up your free design visit and learn more about what you have in mind.</p>
           <p>${preferToTextHtml()}</p>
           ${estimateDetailBlock}
           ${buildHomeownerStoryHtml()}

@@ -13,7 +13,9 @@ import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
 import {
+  CABINET_WORKMANSHIP_SCOPE,
   CABINET_WORKMANSHIP_WARRANTY,
+  FINAL_COMPLETION_EXPLAINED,
   MANUFACTURER_WARRANTY_PASS_THROUGH,
   publicText,
   showLifetimeWarranty,
@@ -28,9 +30,9 @@ import Link from "next/link";
 // Co and grounded in CATALOG_CONTENT.warrantySummary - no third-party warranty
 // text is linked or republished.
 const COVERED = [
-  "Cabinet boxes against defects in materials and workmanship",
-  "Doors and drawer fronts against manufacturing defects",
-  "Hardware we supply: hinges and drawer slides under normal use",
+  "Installation workmanship by our crew and the subcontractors we hire, for one year from documented Final Completion",
+  "Cabinet boxes, doors and drawer fronts against manufacturing defects, under the manufacturer's product terms",
+  "Hardware we supply: hinges and drawer slides under normal use, under the manufacturer's product terms",
 ];
 
 const CONDITIONS = [
@@ -38,23 +40,41 @@ const CONDITIONS = [
   "Door warping is covered only within the first 180 days",
   "Normal use, care, and a stable indoor environment are required",
   "Claims are administered directly by Boise Cabinet Co",
-  CABINET_WORKMANSHIP_WARRANTY,
+  FINAL_COMPLETION_EXPLAINED,
+  "Your signed agreement sets the notice method for a formal warranty claim",
 ];
 
 const EXCLUDED = [
   "Damage from moisture, heat, or chemical exposure",
   "Improper installation by others or later modifications",
+  "On supply-only orders, the workmanship of another installer",
   "Normal wear, color variation, and aging of natural materials",
   "Customer-supplied appliances, fixtures, or third-party hardware",
 ];
 
 const WARRANTY_META_SOURCE =
-  "Cabinet warranty from {company}: a 2-year workmanship warranty on installation, manufacturer coverage on parts we supply, and claims handled by us.";
+  "Cabinet warranty from {company}: 1-year workmanship coverage on our installation from documented Final Completion, manufacturer terms on products we supply, and claims handled by us.";
+
+/** Existing-customer help. Uses only the published brand email and phone; no other support channel is invented. */
+const HELP_DETAILS = [
+  "Your name",
+  "The project address",
+  "The affected item and where it is",
+  "When it started",
+  "A short description of what is happening",
+  "Photos, if you have them",
+];
+
+const HELP_MAILTO = `mailto:${SITE_CONFIG.email}?subject=${encodeURIComponent(
+  "Help with a completed project",
+)}&body=${encodeURIComponent(
+  "Name:\nProject address:\nAffected item and location:\nWhen it started:\nWhat is happening:\nPhotos: attached if available\n",
+)}`;
 
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/warranty",
-  "Cabinet Warranty | 2-Year Workmanship",
+  "Cabinet Warranty | 1-Year Workmanship",
   catalogDescription(
     publicText(WARRANTY_META_SOURCE) ||
       `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}.`,
@@ -95,11 +115,11 @@ export default function WarrantyPage() {
                 </> : <>Cabinet warranty: claims <em className="brc-accent text-accent">handled by us</em></>}
           description={showLifetimeWarranty()
             ? CATALOG_CONTENT.warrantySummary
-            : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer coverage passes through on the cabinets we install. File a claim with us and we handle it end to end.`}
+            : `${CABINET_WORKMANSHIP_WARRANTY}. Manufacturer and product warranties are separate and follow the manufacturer's terms. Tell us what is wrong and we help you through the claim.`}
         >
               <Button variant="brand" asChild>
-                <Link href="/estimate">
-                  Request a quote <ArrowRight className="h-4 w-4" />
+                <Link href="#get-help">
+                  Get help with a completed project <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
@@ -152,22 +172,44 @@ export default function WarrantyPage() {
           caption="Coverage is tied to the finishes and hardware on your approved shop drawings."
         />
 
-        <Section divider>
+        <Section divider id="get-help" className="scroll-mt-24">
           <SplitSection header={<SectionHeader
-              eyebrow="Claims"
-              title={<>How to file a claim</>}
+              eyebrow="Existing customers"
+              title={<>Get help with a completed project</>}
               align="left"
               className="mb-0"
             />}>
             <p className="text-base text-muted-foreground leading-relaxed mb-4">
-              If something isn&apos;t right, reach out to {SITE_CONFIG.name} directly. {MANUFACTURER_WARRANTY_PASS_THROUGH}.
+              If something isn&apos;t right with cabinets we installed or supplied, email or call {SITE_CONFIG.name} directly.
+              {" "}{MANUFACTURER_WARRANTY_PASS_THROUGH}. Please include:
+            </p>
+            <ul className="grid gap-2 mb-4">
+              {HELP_DETAILS.map((item) => (
+                <li key={item} className="ed-body flex items-start gap-3 text-[0.9375rem]">
+                  <Check className="h-4 w-4 mt-1 flex-shrink-0 text-accent" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              <a href={HELP_MAILTO} className="font-medium underline underline-offset-2">Email {SITE_CONFIG.email}</a>
+              {" "}or{" "}
+              <a href={SITE_CONFIG.phoneHref} className="font-medium underline underline-offset-2">call {SITE_CONFIG.phone}</a>.
+              We review what you send, look at it in person when needed, explain what we find, and plan any covered correction with you.
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              Email and calls are the everyday way to reach us. Your signed agreement sets the notice method for a
+              formal warranty claim, so follow it as well. If there is immediate danger, such as a gas smell, an active
+              water leak or an electrical hazard, contact emergency services or your utility first.
+            </p>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
               Keep your contract and approved shop drawings handy; they document the finishes, hardware, and scope your
-              warranty is tied to.
+              warranty is tied to. {CABINET_WORKMANSHIP_SCOPE}.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed">
               Most cabinet orders are produced within {CATALOG_CONTENT.leadTime} of an approved
-              design, and your warranty begins at installation. Replacement parts are matched to your
-              original selections whenever possible.
+              design. Your workmanship coverage begins at documented Final Completion, and replacement parts are matched
+              to your original selections whenever possible.
             </p>
           </SplitSection>
         </Section>

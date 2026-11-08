@@ -34,7 +34,7 @@ import type { ReactNode } from 'react';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  `Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`;
+  `Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We answer your questions and help you work out the next step. ${preferToTextLine()}`;
 
 function HeroBreadcrumbs() {
   const items = [
@@ -144,7 +144,7 @@ export default function ContactPage() {
     generateWebPageSchema({
       title: `Contact ${SITE_CONFIG.name}`,
       description:
-        `Schedule a free design consultation. Call or text our team, or send project details through the form. We reply within one business day. ${preferToTextLine()}`,
+        `Schedule a free design consultation. Call or text our team, or send project details through the form. We answer your questions and help you work out the next step. ${preferToTextLine()}`,
       url: '/contact',
     }),
     generateBreadcrumbSchema([
@@ -170,7 +170,7 @@ export default function ContactPage() {
               <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             {/* One support line, one primary and the quiet call/text line. The
-                reply promise and the Prefer to text line this paragraph used to
+                we-answer line and the Prefer to text line this paragraph used to
                 carry open the form section directly below, which already states
                 both, so they are not repeated here. */}
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed">
@@ -200,7 +200,7 @@ export default function ContactPage() {
                 description={
                   <>
                     <ul>
-                      <li>We respond within one business day.</li>
+                      <li>We answer your questions and help you work out the next step.</li>
                       <li>Share your goals and we will schedule a free in-home design consultation.</li>
                       <li><PreferToTextLine /></li>
                     </ul>
@@ -232,7 +232,7 @@ export default function ContactPage() {
                 <>
                   <ul>
                     <li>Call, text, or email our team.</li>
-                    <li>We respond within one business day and never use high-pressure sales tactics.</li>
+                    <li>We answer your questions and never use high-pressure sales tactics.</li>
                     <li><PreferToTextLine /></li>
                   </ul>
                 </>
@@ -255,7 +255,7 @@ export default function ContactPage() {
                   icon={<MessageSquare className="h-5 w-5" strokeWidth={1.5} />}
                   label="Text us"
                   href={SITE_CONFIG.phoneSmsHref}
-                  subtext="Quick questions, fast replies"
+                  subtext="Send us your questions by text"
                 >
                   <span className="brc-display-num tabular-nums text-xl md:text-2xl">{BUSINESS_INFO.phone}</span>
                 </ContactChannel>
@@ -266,7 +266,7 @@ export default function ContactPage() {
                   label="Email us"
                   subtext={
                     <>
-                      Response within one business day <PreferToTextLine className="mt-1 block" />
+                      We answer your questions by email <PreferToTextLine className="mt-1 block" />
                     </>
                   }
                 >

@@ -162,7 +162,7 @@ export async function sendQuoteConfirmationEmail(data: {
     tagline: 'Custom Cabinetry',
     content: `
       <p class="greeting">Hi ${escapeHtml(data.customerName)},</p>
-      <p>Thank you for contacting Boise Cabinet Co! We've received your request and will be in touch within one business day to schedule your free design consultation.</p>
+      <p>Thank you for contacting Boise Cabinet Co! We've received your request. We will answer your questions and help you work out the next step, including your free design consultation.</p>
       <p>${preferToTextHtml()}</p>
       <div class="highlight-box">
         <h3 style="margin: 0 0 15px 0; color: inherit;">Quote Details</h3>

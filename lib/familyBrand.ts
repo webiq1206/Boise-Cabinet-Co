@@ -135,6 +135,7 @@ export const FAMILY_BRAND: FamilyBrand = {
           { label: 'Why choose us', href: '/#why-us' },
           { label: 'How we work', href: '/construction' },
           { label: 'Warranty', href: '/warranty' },
+          { label: 'Existing customer? Get help', href: '/warranty#get-help' },
           { label: 'Contact', href: '/contact' },
         ],
       },

@@ -34,7 +34,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co provides a 2-year workmanship warranty on cabinet installation. Warranty claims are handled by us. Manufacturer coverage on boxes and hardware is administered through our team. See the warranty page for current terms.",
+    a: "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work by our crew and the subcontractors we hire. Warranty claims are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms.",
   },
   {
     q: "What does the free design consultation include?",

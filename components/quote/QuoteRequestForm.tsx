@@ -874,7 +874,7 @@ export function QuoteRequestForm({
           primaryIcon="none"
           primaryTestId={ready ? "button-estimate-quote-submit" : "button-estimate-quote-continue"}
           footnote={
-            <p className="text-center text-sm text-muted-foreground lg:text-right">We reply within one business day.</p>
+            <p className="text-center text-sm text-muted-foreground lg:text-right">We answer your questions and help you work out the next step.</p>
           }
           className={dock ? undefined : "mt-2"}
         >
