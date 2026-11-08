@@ -511,7 +511,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       ],
     },
     {
-      h2: 'Daily rhythm with our crew',
+      h2: 'Daily rhythm on install days',
       paragraphs: [
         'You will know each day\'s plan in advance, who is coming, what gets installed, and any decisions needed. Punch-list items get logged through your client portal so nothing rides on a hallway conversation. See the <a href="/guides/cabinet-project-process-guide">punch list article</a> for closeout details.',
       ],

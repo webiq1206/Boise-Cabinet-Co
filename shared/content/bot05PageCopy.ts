@@ -2,13 +2,13 @@
  * BOT-05 existing-URL copy (Priya drafts, Sam PASS 2026-10-24).
  * Marketing truth: D1 cabinet identity (design, build to order, install).
  */
-import { REGISTERED_BONDED_INSURED } from "../claims";
+import { REGISTERED_INSURED } from "../claims";
 import { HERO_SUBHEAD } from "../siteContent";
 
 export const BUILD_CABINETS_ANSWER =
   "Yes. Boise Cabinet Co designs custom cabinets to your measurements and builds each order to your layout.";
 
-export const TRUST_LINE = `${REGISTERED_BONDED_INSURED}.`;
+export const TRUST_LINE = `${REGISTERED_INSURED}.`;
 
 export const LEAD_TIME_LINE =
   "Lead time from approved design is typically 4-8 weeks.";
@@ -99,7 +99,7 @@ export const BOISE_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "05",
     title: "Delivery and install",
-    desc: "Our crew delivers and installs your cabinets, then walks the finished work with you.",
+    desc: "Our team or a qualified installation partner we manage delivers and installs your cabinets, then walks the finished work with you.",
   },
 ];
 
@@ -127,7 +127,7 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
   {
     number: "05",
     title: "Delivery, install, and walkthrough",
-    desc: "Our crew delivers and installs the cabinets, then walks the finished kitchen with you.",
+    desc: "Our team or a qualified installation partner we manage delivers and installs the cabinets, then walks the finished kitchen with you.",
   },
 ];
 
@@ -152,7 +152,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   boise: {
     title: "Custom Cabinets in Boise, Idaho",
     description:
-      "Custom cabinets for Boise and the Treasure Valley. Built to your layout, 299 finishes, six door styles, install by our crew. Free in-home design consult.",
+      "Custom cabinets for Boise and the Treasure Valley. Built to your layout, 299 finishes, six door styles, managed installation. Free in-home design consult.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Boise, Idaho",
     firstSentence:
@@ -202,7 +202,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   meridian: {
     title: "Custom Cabinets in Meridian, Idaho",
     description:
-      "Custom cabinets for Meridian and the Treasure Valley. Built to your layout, 299 finishes, and install by our crew. Book a free in-home design consult.",
+      "Custom cabinets for Meridian and the Treasure Valley. Built to your layout, 299 finishes, and managed installation. Book a free in-home design consult.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Meridian, Idaho",
     firstSentence:
@@ -213,7 +213,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   middleton: {
     title: "Custom Cabinets in Middleton, Idaho",
     description:
-      "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout, installed by our crew. Free design consult.",
+      "Custom cabinetry for Middleton and the Treasure Valley. Kitchens, pantries, and storage built to your layout, with managed installation. Free design consult.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Middleton, Idaho",
     firstSentence:
@@ -259,7 +259,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
   kitchen: {
     title: "Kitchen Cabinets in Boise, Idaho",
     description:
-      "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, installed by our crew. Request a free design consult.",
+      "Kitchen cabinets in Boise, Idaho and the Treasure Valley. Custom layouts, 299 finishes, six door styles, managed installation. Request a free design consult.",
     h1Lead: "Kitchen cabinets in",
     h1Accent: "Boise, Idaho",
     firstSentence:
@@ -311,7 +311,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
   pantry: {
     title: "Kitchen Pantry Cabinets in Boise",
     description:
-      "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, installed by our crew. Free design consult.",
+      "Kitchen pantry cabinets for walk-in and tall storage in Boise and the Treasure Valley. Built to your layout, with managed installation. Free design consult.",
     h1Lead: "Pantry cabinets in",
     h1Accent: "Boise, Idaho",
     firstSentence:

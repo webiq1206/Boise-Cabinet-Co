@@ -27,7 +27,7 @@ import {
   getKnowledgeTopic,
 } from "@/shared/assistantKnowledge";
 import { preferToTextLine, SITE_CONFIG } from "@/shared/siteConfig";
-import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty } from "@/shared/claims";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, MANUFACTURER_WARRANTY_PASS_THROUGH, publicText, showLifetimeWarranty, SUBCONTRACTOR_HELP_LINE } from "@/shared/claims";
 
 /**
  * Deterministic tool layer for the estimating assistant.
@@ -318,7 +318,7 @@ function executeGetBusinessInfo(input: unknown) {
     };
   }
   const content = topic.key === "warranty" && !showLifetimeWarranty()
-    ? `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}. ${FINAL_COMPLETION_EXPLAINED}. ${CABINET_WORKMANSHIP_SCOPE}. Ask us which written terms apply to your project.`
+    ? `${MANUFACTURER_WARRANTY_PASS_THROUGH}. ${CABINET_WORKMANSHIP_WARRANTY}. ${FINAL_COMPLETION_EXPLAINED}. ${CABINET_WORKMANSHIP_SCOPE}. ${SUBCONTRACTOR_HELP_LINE}. Ask us which written terms apply to your project.`
     : publicText(topic.content);
   return { topic: topic.key, content };
 }

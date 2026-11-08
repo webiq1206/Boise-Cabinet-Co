@@ -48,7 +48,7 @@ type PlanningLink = { href: string; sentence: string };
 const KITCHEN: PlanningLink = {
   href: '/cabinets/kitchen',
   sentence:
-    'When you are ready to plan your own, see <a href="/cabinets/kitchen">kitchen cabinets in Boise</a> for layouts, door styles, and installation by our crew.',
+    'When you are ready to plan your own, see <a href="/cabinets/kitchen">kitchen cabinets in Boise</a> for layouts, door styles, and installation by our team or a qualified installation partner we manage.',
 };
 const BATHROOM: PlanningLink = {
   href: '/cabinets/bathroom',
@@ -63,7 +63,7 @@ const BUILT_INS: PlanningLink = {
 const INSTALLATION: PlanningLink = {
   href: '/services/cabinet-installation',
   sentence:
-    'Our <a href="/services/cabinet-installation">cabinet installation</a> page explains how our own crew delivers, levels, and scribes cabinets across the Treasure Valley.',
+    'Our <a href="/services/cabinet-installation">cabinet installation</a> page explains how our team or a qualified installation partner we manage delivers, levels, and scribes cabinets across the Treasure Valley.',
 };
 
 /** Commercial page per thin post whose body linked no room or service page. */

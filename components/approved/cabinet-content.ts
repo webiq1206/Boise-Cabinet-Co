@@ -2,7 +2,7 @@
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
-    "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us."
+    "Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us."
   ],
   [
     "What kind of cabinets do you offer?",
@@ -22,11 +22,11 @@ export const faqs = [
   ],
   [
     "Do you install cabinets or supply only?",
-    "We design, build to order, deliver, and install with our own crew. Trade partners and builders can discuss project packages on the builders page."
+    "Both. We design, build to order, deliver, and install, with installation by our team or a qualified installation partner we manage. Supply-only orders follow a separate supply agreement. Trade partners and builders can discuss project packages on the builders page."
   ],
   [
     "What warranty do you provide?",
-    "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work by our crew and the subcontractors we hire. Warranty claims are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms."
+    "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work performed by our own team. Work by a subcontractor or installation partner is covered by that company's own warranty, and at the end of every project we provide a complete list of the subcontractors who worked on it, with their contact information. Warranty claims on our work and the products we supply are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms."
   ],
   [
     "What does the free design consultation include?",
@@ -46,7 +46,7 @@ export const faqs = [
   ],
   [
     "How does pricing work?",
-    "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed; production is reserved with a deposit."
+    "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed, and payment then follows the schedule in your signed agreement."
   ]
 ];
 
@@ -63,7 +63,7 @@ export const steps = [
   },
   {
     "title": "Approval and deposit",
-    "desc": "Review your written proposal with drawings, approve the design, sign your agreement, and reserve production with a deposit. Fifty percent reserves production; fifty percent is due after installation.",
+    "desc": "Review your written proposal with drawings, approve the design, sign your agreement, and reserve production. Payment follows the schedule in your signed agreement.",
     "tag": "03 / APPROVE"
   },
   {
@@ -73,7 +73,7 @@ export const steps = [
   },
   {
     "title": "Delivery, install and warranty",
-    "desc": "Our crew delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Warranty claims are handled by us under the 1-year installation workmanship term, which starts at documented Final Completion.",
+    "desc": "Our team or a qualified installation partner we manage delivers, levels, and scribes the cabinets, hauls packaging, and walks the job with you. Work performed by our own team is covered by the 1-year installation workmanship term, which starts at documented Final Completion.",
     "tag": "05 / ENJOY"
   }
 ];
@@ -89,8 +89,8 @@ export const differentiators = [
     "We measure on site, then level and scribe cabinets to your walls so gaps stay tight and lines stay true."
   ],
   [
-    "One crew from measure to walkthrough",
-    "The same Treasure Valley crew that measures installs. You are not handed off between sales, shop, and a random install crew."
+    "One point of contact from measure to walkthrough",
+    "We measure on site, and installation is done by our team or a qualified installation partner we manage. You keep one point of contact from consultation through the walkthrough."
   ],
   [
     "Warranty claims handled by us",
