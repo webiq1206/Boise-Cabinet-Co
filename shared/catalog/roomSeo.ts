@@ -30,7 +30,7 @@ export const ROOM_SEO: Record<string, RoomSeo> = {
     phrase: "kitchen cabinets",
     label: "kitchen",
     description:
-      "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, installed by our own crew. Book a free in-home design consult.",
+      "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, with managed installation. Book a free in-home design consult.",
   },
   bathroom: {
     title: "Bathroom Vanities in Boise | Built to Fit",
@@ -38,7 +38,7 @@ export const ROOM_SEO: Record<string, RoomSeo> = {
     phrase: "bathroom vanities",
     label: "bathroom",
     description:
-      "Bathroom vanities in Boise, Idaho: single and double vanities built to your layout in 299 finishes, installed by our own crew. Book a free design consult.",
+      "Bathroom vanities in Boise, Idaho: single and double vanities built to your layout in 299 finishes, with managed installation. Book a free design consult.",
   },
   laundry: {
     title: "Laundry Room Cabinets in Boise | Custom",

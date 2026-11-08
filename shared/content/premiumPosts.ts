@@ -17,7 +17,7 @@ const framedVsFramelessContent = `
 <p class="text-lg"><strong>Framed cabinets</strong> have a face frame (a border of solid wood) across the front of the box; <strong>frameless cabinets</strong>, also called European or full-access cabinets, skip the frame so doors mount directly to the box. The practical result: frameless gives you wider drawers, easier reach, and a cleaner modern look, while framed offers a classic profile and slightly more racking rigidity. For most Treasure Valley kitchens that want maximum storage and a contemporary feel, frameless wins.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Frameless = ~10–15% more usable space, full drawer access, and seamless modern lines. Framed = traditional face-frame look and a familiar repair path. Build quality (box material, drawer boxes, hinges) matters more than the frame debate itself. <a href="/estimate">Get a planning range</a> in about a minute.</p>
+  <p><strong>Key takeaways:</strong> Frameless = ~10–15% more usable space, full drawer access, and seamless modern lines. Framed = traditional face-frame look and a familiar repair path. Build quality (box material, drawer boxes, hinges) matters more than the frame debate itself. <a href="/estimate">Get a planning range</a>.</p>
 </div>
 
 <h2 id="what-are-framed-cabinets">What are framed cabinets?</h2>
@@ -652,7 +652,7 @@ const costPerLinearFootContent = `
 <p class="text-lg">Cabinet cost per linear foot is a rough pricing shorthand: you measure the total length of cabinet runs (in feet) and multiply by a per-foot rate. In the Boise area, custom cabinets commonly land in the range of <strong>$300 to $900+ per linear foot installed</strong>, depending on construction, finish, and accessories. It is useful for a ballpark, but it can mislead, because two kitchens of the same length can cost very differently based on drawers, specialty cabinets, and finish. Treat it as a starting estimate, not a quote.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Per-linear-foot is a ballpark, not a bid. Measure your runs, multiply by a rate, but know that drawers, tall/specialty cabinets, finish, and accessories swing the real number. For an accurate figure, you need a design and a written scope. <a href="/estimate">Get a planning range</a> in about a minute.</p>
+  <p><strong>Key takeaways:</strong> Per-linear-foot is a ballpark, not a bid. Measure your runs, multiply by a rate, but know that drawers, tall/specialty cabinets, finish, and accessories swing the real number. For an accurate figure, you need a design and a written scope. <a href="/estimate">Get a planning range</a>.</p>
 </div>
 
 <h2 id="what-it-means">What "per linear foot" actually measures</h2>
@@ -691,7 +691,7 @@ const costPerLinearFootContent = `
   <li>Remember countertops, appliances, and other trades are separate.</li>
 </ol>
 <div class="summary-block">
-  <p><strong>Faster and more accurate:</strong> our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range in about a minute - no measuring math required - and it accounts for the details a flat per-foot rate can't.</p>
+  <p><strong>More accurate:</strong> our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range with no measuring math required, and it accounts for the details a flat per-foot rate can't.</p>
 </div>
 
 <h2 id="pitfalls">Where per-foot pricing misleads</h2>
@@ -713,7 +713,7 @@ const costPerLinearFootContent = `
   <li><strong>Mid-size kitchen (~25 linear feet):</strong> at a similar rate, roughly $12,500–$17,500, with a modest island pushing it higher.</li>
   <li><strong>Large kitchen (~35+ linear feet with an island):</strong> often $20,000–$30,000+ for custom cabinetry, driven by drawer banks, tall cabinets, and finish.</li>
 </ul>
-<p>Notice how quickly finish and specialty pieces move these numbers - which is exactly why a real design beats a per-foot guess. Our <a href="/estimate">estimator</a> turns your specific room and choices into a range in about a minute.</p>
+<p>Notice how quickly finish and specialty pieces move these numbers - which is exactly why a real design beats a per-foot guess. Our <a href="/estimate">estimator</a> turns your specific room and choices into a planning range.</p>
 
 <h2 id="written-quote">What a real written quote includes</h2>
 <p>When you move from ballpark to a firm number, a good quote spells out far more than a rate. It should list the door style and finish, the box and drawer construction, the hinge and glide hardware, every cabinet by size and type, specialty pieces and accessories, delivery, and installation scope. That level of detail is what lets you compare two companies fairly and understand exactly what you are buying. If a quote is just a lump sum or a bare per-foot figure with no breakdown, ask for the detail - the transparency itself is a sign of how the company works. For how we structure a written scope before any fabrication begins, see <a href="/construction">how we build</a>.</p>
@@ -790,7 +790,7 @@ const customCabinetCostContent = `
 <p class="text-lg">Custom kitchen cabinets typically cost <strong>$500 to $1,200+ per linear foot installed</strong>, which puts a full custom kitchen in roughly the <strong>$15,000 to $45,000+</strong> range depending on size, materials, finish, and complexity. In the Boise and Treasure Valley market, most custom kitchens land somewhere in the middle of that spread. The biggest cost drivers are the size of the kitchen, the construction and finish you choose, and how many drawers and specialty cabinets you include - not any single line item. The most accurate way to know your number is a design and a written scope, but the ranges below will get you a confident ballpark.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Custom kitchen cabinets run about $500–$1,200+ per linear foot installed, or roughly $15,000–$45,000+ for a full kitchen. Size, construction, finish, and specialty cabinets move the number most. Get a real range in about a minute with our <a href="/estimate">online estimator</a>.</p>
+  <p><strong>Key takeaways:</strong> Custom kitchen cabinets run about $500–$1,200+ per linear foot installed, or roughly $15,000–$45,000+ for a full kitchen. Size, construction, finish, and specialty cabinets move the number most. Get a real range with our <a href="/estimate">online estimator</a>.</p>
 </div>
 
 <h2 id="ranges">What custom kitchen cabinets cost</h2>
@@ -822,7 +822,7 @@ const customCabinetCostContent = `
 <p>You can build a beautiful custom kitchen without buying every upgrade. The smartest approach is to invest in the bones - quality construction and the cabinets you use most - and be selective about extras. A timeless door style and a standard-but-beautiful finish cost less than exotic options and age better. Keeping the layout efficient trims cost, since every added corner and specialty cabinet adds dollars. Some homeowners also phase the work, buying quality cabinets now and adding accessories or an island upgrade later. And because finish and hardware are big swing factors, choosing wisely there frees budget for the construction that determines how long the kitchen lasts.</p>
 
 <h2 id="estimate">How to estimate your project</h2>
-<p>For a fast, credible ballpark, measure the length of your base-cabinet runs in feet and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. Even quicker and more accurate, our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range in about a minute, accounting for the details a flat rate misses. When you are ready for a firm number, an in-home design visit produces a written scope you can budget around with confidence.</p>
+<p>For a fast, credible ballpark, measure the length of your base-cabinet runs in feet and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. For more accuracy, our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range, accounting for the details a flat rate misses. When you are ready for a firm number, an in-home design visit produces a written scope you can budget around with confidence.</p>
 
 <h2 id="bottom-line">The bottom line</h2>
 <p>Custom kitchen cabinets are an investment - commonly $15,000 to $45,000 or more for a full Treasure Valley kitchen - but they are also one of the most-used, longest-lived parts of your home. The price reflects real choices about size, construction, finish, and storage, which means you have genuine control over where your budget goes. Spend on the bones and the cabinets you touch every day, be intentional about extras, and you will get a kitchen that fits your life perfectly and holds its beauty for decades. When you want to know your specific number, a quick estimate or a free design visit will replace guesswork with a plan.</p>

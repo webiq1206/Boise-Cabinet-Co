@@ -4,7 +4,7 @@
  * for service and location pages
  */
 
-import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_BONDED_INSURED } from '@/shared/claims';
+import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_INSURED } from '@/shared/claims';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const BRAND = SITE_CONFIG.name;
@@ -176,11 +176,11 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
     const serviceLC = serviceName.toLowerCase();
     const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
     const ctaVariant = CITY_CTA_VARIANTS[city] || "Free design consultation";
-    return clampDescription(`${cityVariant} ${serviceLC}. ${REGISTERED_BONDED_INSURED}. ${ctaVariant}. Call ${phone}.`);
+    return clampDescription(`${cityVariant} ${serviceLC}. ${REGISTERED_INSURED}. ${ctaVariant}. Call ${phone}.`);
   }
   
   if (city) {
-    return clampDescription(`Custom cabinets and storage in ${city}, Idaho. ${REGISTERED_BONDED_INSURED}. Call ${phone} for a free design consultation.`);
+    return clampDescription(`Custom cabinets and storage in ${city}, Idaho. ${REGISTERED_INSURED}. Call ${phone} for a free design consultation.`);
   }
   
   if (!serviceName) {
@@ -188,7 +188,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   const serviceLC = serviceName.toLowerCase();
-  return clampDescription(`Expert ${serviceLC} in Boise and the Treasure Valley. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
+  return clampDescription(`Expert ${serviceLC} in Boise and the Treasure Valley. ${REGISTERED_INSURED}. Call ${phone}.`);
 }
 
 /**
@@ -220,19 +220,19 @@ export function generateCityServiceDescription(
   const neighborhood = cityData?.neighborhoods?.[0];
 
   if (neighborhood) {
-    const withNeighborhood = clampDescription(`${cityVariant} ${serviceLC}. Serving ${neighborhood} and ${cityName}. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
+    const withNeighborhood = clampDescription(`${cityVariant} ${serviceLC}. Serving ${neighborhood} and ${cityName}. ${REGISTERED_INSURED}. Call ${phone}.`);
     if (withNeighborhood.length <= 160) return withNeighborhood;
   }
 
   if (shortDescription) {
-    const desc = clampDescription(`${cityVariant} ${serviceLC}. ${shortDescription}. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
+    const desc = clampDescription(`${cityVariant} ${serviceLC}. ${shortDescription}. ${REGISTERED_INSURED}. Call ${phone}.`);
     if (desc.length <= 160) return desc;
   }
 
-  const base = clampDescription(`${cityVariant} ${serviceLC} in ${cityName}, ID. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
+  const base = clampDescription(`${cityVariant} ${serviceLC} in ${cityName}, ID. ${REGISTERED_INSURED}. Call ${phone}.`);
   if (base.length <= 160) return base;
 
-  return clampDescription(`${serviceLC} in ${cityName}, ID. ${REGISTERED_BONDED_INSURED}. Call ${phone}.`);
+  return clampDescription(`${serviceLC} in ${cityName}, ID. ${REGISTERED_INSURED}. Call ${phone}.`);
 }
 
 /** Keep complete authored titles; an optional secondary label may be omitted. */
@@ -442,8 +442,8 @@ export const BUSINESS_INFO = {
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
   licenses: [IDAHO_REGISTERED_CONTRACTOR],
-  certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
-  insurance: REGISTERED_BONDED_INSURED,
+  certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Insured'],
+  insurance: REGISTERED_INSURED,
   // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
   rating: SITE_CONFIG.trust.ratingValue,
   reviewCount: SITE_CONFIG.trust.reviewCount,

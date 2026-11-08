@@ -112,7 +112,7 @@
   {
     "route": "/terms-of-service",
     "file": "app/terms-of-service/page.tsx",
-    "seoSignature": "d07c49495a574b9b6b1ae337a57b9c28627e935264e49c9627c4942f2c6ee999"
+    "seoSignature": "cd79bdc4b72e5c669bfedaa23145d197c26be0f67dc04443fab43323b37f25b0"
   },
   {
     "route": "/design-ideas",

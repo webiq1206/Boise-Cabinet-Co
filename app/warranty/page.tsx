@@ -19,6 +19,7 @@ import {
   MANUFACTURER_WARRANTY_PASS_THROUGH,
   publicText,
   showLifetimeWarranty,
+  SUBCONTRACTOR_HELP_LINE,
 } from "@/shared/claims";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -30,14 +31,16 @@ import Link from "next/link";
 // Co and grounded in CATALOG_CONTENT.warrantySummary - no third-party warranty
 // text is linked or republished.
 const COVERED = [
-  "Installation workmanship by our crew and the subcontractors we hire, for one year from documented Final Completion",
+  "Installation workmanship performed by our own team, for one year from documented Final Completion",
   "Cabinet boxes, doors and drawer fronts against manufacturing defects, under the manufacturer's product terms",
   "Hardware we supply: hinges and drawer slides under normal use, under the manufacturer's product terms",
 ];
 
 const CONDITIONS = [
-  "Coverage applies to the original homeowner at the installation address",
-  "Door warping is covered only within the first 180 days",
+  "Work performed by a subcontractor or installation partner is covered by that company's own warranty",
+  "At the end of every project we provide a complete list of the subcontractors who worked on it, with their contact information",
+  "Product coverage, including door and finish terms, follows the manufacturer's warranty for your cabinet line",
+  "Transfer terms follow your signed agreement",
   "Normal use, care, and a stable indoor environment are required",
   "Claims are administered directly by Boise Cabinet Co",
   FINAL_COMPLETION_EXPLAINED,
@@ -204,7 +207,7 @@ export default function WarrantyPage() {
             </p>
             <p className="text-base text-muted-foreground leading-relaxed mb-4">
               Keep your contract and approved shop drawings handy; they document the finishes, hardware, and scope your
-              warranty is tied to. {CABINET_WORKMANSHIP_SCOPE}.
+              warranty is tied to. {CABINET_WORKMANSHIP_SCOPE}. {SUBCONTRACTOR_HELP_LINE}.
             </p>
             <p className="text-base text-muted-foreground leading-relaxed">
               Most cabinet orders are produced within {CATALOG_CONTENT.leadTime} of an approved

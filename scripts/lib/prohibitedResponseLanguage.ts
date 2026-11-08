@@ -81,3 +81,60 @@ export function scanSourceForResponsePromises(root: string): { file: string; lab
   }
   return results;
 }
+
+/**
+ * Owner decisions (release 2, November 8 2026). Public source may not:
+ * - claim the company is bonded (insured and registration claims stay). Material
+ *   descriptions such as "laminate bonded to a substrate" are not claims;
+ * - promise an instant estimate, an estimate in minutes, or same-day financing approval;
+ * - promise one contract or one invoice for every project;
+ * - say the company's workmanship coverage includes subcontractors (they carry
+ *   their own warranty, and we hand over a complete subcontractor list);
+ * - state the retired builder 50/50 payment split.
+ */
+export const PROHIBITED_CLAIM_PATTERNS: { label: string; pattern: RegExp }[] = [
+  { label: "bonded claim", pattern: /\bbonded\b(?!\s+(?:to|with|under|onto|together)\b)/i },
+  { label: "instant estimate", pattern: /\binstant(?:ly)?\s+(?:online\s+)?(?:estimates?|estimator|quotes?|pric(?:e|es|ing)|ranges?|planning\s+ranges?)\b/i },
+  {
+    label: "estimate in minutes",
+    pattern: /\b(?:estimates?|quotes?|price|pricing|planning\s+range|range)\b[^.]{0,60}?\bin\s+(?:about\s+|under\s+|less\s+than\s+)?(?:a\s+|one\s+|\d+\s+)?(?:few\s+)?(?:minutes?|seconds?)\b/i,
+  },
+  { label: "same-day approval", pattern: /\bsame[\s-]+day\s+(?:approval|approvals|financing|credit|decision|decisions)\b/i },
+  { label: "one contract or invoice", pattern: /\b(?:one|single)\s+(?:contract|invoice|bill)\b/i },
+  {
+    label: "workmanship covers subcontractors",
+    pattern: /\bsubcontractors we hire\b|\bcrews?\s+and\s+(?:the\s+)?subcontractors\b|\bour people and the subcontractors\b/i,
+  },
+  { label: "builder 50/50 split", pattern: /\b50%\s+deposit\b|\b50%\s+(?:due\s+)?after\s+installation\b|\bfifty percent (?:reserves|is due)\b/i },
+];
+
+export function findProhibitedClaims(source: string): { label: string; excerpt: string }[] {
+  const text = normalizeForResponseScan(source);
+  const hits: { label: string; excerpt: string }[] = [];
+  for (const { label, pattern } of PROHIBITED_CLAIM_PATTERNS) {
+    const global = new RegExp(pattern.source, pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`);
+    for (const match of text.matchAll(global)) {
+      const start = match.index ?? 0;
+      hits.push({ label, excerpt: text.slice(Math.max(0, start - 60), start + match[0].length + 40).trim() });
+    }
+  }
+  return hits;
+}
+
+export function scanSourceForProhibitedClaims(root: string): { file: string; label: string; excerpt: string }[] {
+  const results: { file: string; label: string; excerpt: string }[] = [];
+  for (const dir of RESPONSE_SCAN_ROOTS) {
+    const base = path.join(root, dir);
+    try {
+      statSync(base);
+    } catch {
+      continue;
+    }
+    for (const file of walk(base, [])) {
+      for (const hit of findProhibitedClaims(readFileSync(file, "utf8"))) {
+        results.push({ file: path.relative(root, file), ...hit });
+      }
+    }
+  }
+  return results;
+}

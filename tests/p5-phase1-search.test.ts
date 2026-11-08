@@ -109,7 +109,7 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
   assert.equal(kitchen.title, "Kitchen Cabinets in Boise | Built to Fit");
   assert.equal(
     kitchen.description,
-    "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, installed by our own crew. Book a free in-home design consult.",
+    "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, with managed installation. Book a free in-home design consult.",
   );
 });
 

@@ -10,7 +10,7 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "Boise Cabinet Co designs custom cabinets to your measurements, builds each order to your layout, finishes and hardware, and installs it with our own Treasure Valley crew. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us.",
+    a: "Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage. You get one accountable team, 299 finishes, six door styles, frameless construction, written scope before order, and warranty claims handled by us.",
   },
   {
     q: "What kind of cabinets do you offer?",
@@ -30,11 +30,11 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you install cabinets or supply only?",
-    a: "We design, build to order, deliver, and install with our own crew. Trade partners and builders can discuss project packages on the builders page.",
+    a: "Both. We design, build to order, deliver, and install, with installation by our team or a qualified installation partner we manage. Supply-only orders follow a separate supply agreement. Trade partners and builders can discuss project packages on the builders page.",
   },
   {
     q: "What warranty do you provide?",
-    a: "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work by our crew and the subcontractors we hire. Warranty claims are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms.",
+    a: "Boise Cabinet Co provides 1-year workmanship coverage on our installation, starting at documented Final Completion, for work performed by our own team. Work by a subcontractor or installation partner is covered by that company's own warranty, and at the end of every project we provide a complete list of the subcontractors who worked on it, with their contact information. Warranty claims on our work and the products we supply are handled by us. Manufacturer and product warranties on boxes and hardware are separate, follow the manufacturer's terms and are administered through our team. Supply-only orders do not cover another installer's workmanship. See the warranty page for current terms.",
   },
   {
     q: "What does the free design consultation include?",
@@ -54,6 +54,6 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "How does pricing work?",
-    a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed; production is reserved with a deposit.",
+    a: "Pricing depends on your door style, finish selections, linear footage, and accessories. After your consultation we provide a detailed written proposal with line-item scope. Nothing is due until the scope is signed, and payment then follows the schedule in your signed agreement.",
   },
 ];

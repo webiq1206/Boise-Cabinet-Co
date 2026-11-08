@@ -50,7 +50,7 @@ function buildPillarSections(
     {
       h2: 'Next steps',
       paragraphs: [
-        `${SITE_CONFIG.name} designs custom cabinets to your measurements, builds each order to your layout, and installs it with our own crew across ${CITIES_LIST}, with a written scope from consultation through installation.`,
+        `${SITE_CONFIG.name} designs custom cabinets to your measurements, builds each order to your layout for homes across ${CITIES_LIST}, installed by our team or a qualified installation partner we manage, with a written scope from consultation through installation.`,
         '<a href="/estimate">Request a quote</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
         `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],

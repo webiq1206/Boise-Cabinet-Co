@@ -99,7 +99,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       list: [
         'Written line-item scope before fabrication, every time',
         'One accountable project manager from consult to walkthrough',
-        'In-house installers rather than rotating subcontractors',
+        'A named installer for your project, whether the company\'s own team or a qualified partner it manages',
         'A written workmanship warranty with a named process for claims',
         'Published construction standards you can verify, like our <a href="/construction">construction page</a>',
       ],
@@ -468,7 +468,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Our coverage',
       paragraphs: [
-        'Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship is covered by our written workmanship guarantee, and claims are administered by our team. See the <a href="/warranty">warranty page</a> for current terms; service requests are handled through your client portal.',
+        'Boise Cabinet Co passes through manufacturer warranties on parts we supply. Workmanship performed by our own team is covered for one year from documented Final Completion, and claims are administered by our team. Work by a subcontractor is covered by that subcontractor\'s own warranty, and you receive a complete subcontractor list with contact information at the end of every project. See the <a href="/warranty">warranty page</a> for current terms and how to get help.',
       ],
     },
     {
@@ -481,7 +481,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What to expect in the first season, and how to file',
       paragraphs: [
         'New wood cabinets settle. In the first months, doors and drawer fronts can shift slightly with humidity swings and normal use, so a minor reveal adjustment is routine, not a defect. Our soft-close hinges are six-way adjustable, which lets a technician re-align a door in minutes.',
-        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window (180 days) on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
+        'Product coverage, including door and finish terms, follows the manufacturer\'s warranty for your cabinet line. If something is not right, email or call us with your project address, the affected item and photos; the <a href="/warranty#get-help">warranty page</a> lists what to include.',
       ],
     },
   ],

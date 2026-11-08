@@ -64,7 +64,7 @@ const TERMS = [
   },
   {
     label: "Payment",
-    value: "50% deposit to reserve production, 50% after installation. No drawn-out draw schedules.",
+    value: "Supply-only orders are paid per the supply agreement when the order is approved. Installed projects follow the payment schedule in the installed agreement.",
   },
   {
     label: "Permits",
@@ -76,7 +76,7 @@ const TERMS = [
   },
   {
     label: "Install",
-    value: "Delivered and installed by our own Treasure Valley crew, coordinated to your jobsite schedule.",
+    value: "Delivered and installed by our team or a qualified installation partner we manage, coordinated to your jobsite schedule.",
   },
 ];
 
@@ -100,7 +100,7 @@ const FAQS = [
   {
     question: "What are your payment terms for builders?",
     answer:
-      "A 50% deposit reserves your spot in production, and the remaining 50% is due after installation.",
+      "It depends on the order type. Supply-only orders are paid per the supply agreement when the order is approved. Installed projects follow the payment schedule in your signed installed agreement. Both are set in writing before anything is ordered.",
   },
   {
     question: "How fast can you turn a project?",
@@ -120,7 +120,7 @@ const FAQS = [
   {
     question: "Do you deliver and install, or just supply the cabinets?",
     answer:
-      "We build to order for your approved plans, then deliver and install with our own Treasure Valley crew, coordinated to your jobsite schedule.",
+      "Both. We build to order for your approved plans and can supply the cabinets only or deliver and install them. Installed work is done by our team or a qualified installation partner we manage, coordinated to your jobsite schedule. Supply-only and installed orders each have their own written agreement and payment terms.",
   },
 ];
 
