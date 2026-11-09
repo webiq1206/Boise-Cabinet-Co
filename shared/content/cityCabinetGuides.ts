@@ -79,7 +79,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Meridian cabinet costs and planning',
         paragraphs: [
-          `Being local doesn't change Meridian material or labor rates; they're the same across the valley. Kitchen packages here commonly plan from about $15,000 to $45,000 and up, with linear footage, door style and accessories deciding where you land, which works out to roughly $450 to $900 per linear foot on our planning figures. Every band is in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Looking through door styles and finishes in the <a href="/catalog">catalog</a> before the consultation makes selections go faster.`,
+          `Being local doesn't change Meridian material or labor rates; they're the same across the valley. Kitchen packages here commonly plan from about $15,000 to $45,000 and up, with linear footage, door style and accessories deciding where you land, which works out to roughly $450 to $900 per linear foot of base and wall run on our 2026 planning figures. Every band is in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>. Looking through door styles and finishes in the <a href="/catalog">catalog</a> before the consultation makes selections go faster.`,
         ],
       },
       {

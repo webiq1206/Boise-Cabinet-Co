@@ -93,7 +93,7 @@ const tier1Articles = [
     hubSlug: 'cabinet-costs',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Kitchen cabinet cost per linear foot in Boise often plans $400–$1,200+ installed depending on line, finish, and interior accessories, use LF only with a defined elevation, not as a whole-home shortcut.',
+      'Kitchen cabinet cost per linear foot in Boise often plans $400–$1,200+ installed in 2026 depending on line, finish, and interior accessories, use LF only with a defined elevation, not as a whole-home shortcut.',
     takeaways: [
       'Linear foot pricing needs a measured run list.',
       'Islands and tall units may price separately.',

@@ -22,15 +22,15 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
       'Will you occupy during installation? Yes / No',
     ],
   },
-  { type: 'heading', text: '2. Planning ranges by project type (2026 bands)' },
+  { type: 'heading', text: '2. Planning ranges by project type (2026 bands, cabinetry installed; countertops and other trades separate)' },
   {
     type: 'table',
     headers: ['Project', 'Low planning', 'High planning', 'Your target'],
     rows: [
-      ['Kitchen cabinets', '$15,000', '$65,000+', '___________'],
+      ['Kitchen cabinets', '$15,000', '$45,000+', '___________'],
       ['Bath vanity', '$2,500', '$18,000', '___________'],
       ['Built-ins / pantry', '$4,000', '$25,000', '___________'],
-      ['Whole-home program', '$40,000', '$150,000+', '___________'],
+      ['Whole-home program', '$40,000', '$120,000+', '___________'],
       ['Closet / garage', '$2,000', '$45,000', '___________'],
     ],
   },

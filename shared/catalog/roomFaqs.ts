@@ -17,7 +17,7 @@ const ROOM_SPECIFIC_FAQS: Record<string, RoomFaq[]> = {
     {
       question: "How much do custom kitchen cabinets cost in Boise?",
       answer:
-        "Most Treasure Valley kitchen cabinet packages plan from roughly $15,000 to $45,000+ installed, depending on linear footage, door style, finish tier, and interior accessories. See our Boise Cabinet Cost Guide for detailed planning bands.",
+        "Most Treasure Valley kitchen cabinet packages plan from roughly $15,000 to $45,000+ installed in 2026 (cabinetry only; countertops, demolition and other trades separate), depending on linear footage, door style, finish tier, and interior accessories. See our Boise Cabinet Cost Guide for detailed planning bands.",
     },
     {
       question: "Can you design around my existing kitchen layout?",

@@ -271,7 +271,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                     {formatPlanningCurrency(typicalRange.priceLow)} to{" "}
                     {formatPlanningCurrency(typicalRange.priceHigh)}
                   </strong>{" "}
-                  installed, based on a typical size and Better-tier construction. Your exact
+                  installed in 2026, based on a typical size and Better-tier construction. Cabinetry
+                  only: countertops, demolition, haul-away and other trades are separate. Your exact
                   range depends on linear footage, door style, and finish.
                 </p>
               ) : (

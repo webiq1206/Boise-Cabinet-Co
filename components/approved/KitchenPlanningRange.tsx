@@ -151,7 +151,7 @@ export function KitchenPlanningRange() {
             <p className="kitchen-planning-figure-empty">Adjust size to see a range.</p>
           )}
           <ul className="kitchen-planning-disclaimer">
-            <li>Modeled Treasure Valley planning figures from our estimator engine (linear feet, door, finish, and construction).</li>
+            <li>Modeled 2026 Treasure Valley planning figures from our estimator engine (linear feet, door, finish, and construction) for cabinetry supplied and installed.</li>
             <li>Countertops, plumbing, electrical, demolition, and haul-away are scoped separately when needed. Not a firm bid.</li>
           </ul>
           <a className="text-link" href="/estimate" data-testid="kitchen-planning-cta">

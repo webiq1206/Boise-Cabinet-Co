@@ -75,7 +75,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/cabinets/outdoor": "Custom outdoor kitchen cabinets in the Treasure Valley for covered patios, with weather-rated cabinet boxes, stainless hardware, and cedar or teak finishes.",
   "/cabinets/wet-bar": "Custom wet bar cabinets in the Treasure Valley: beverage centers with wine storage, glassware dividers, and optional sink bases for compact entertaining nooks.",
   "/cabinets/bedroom": "Custom bedroom cabinets in the Treasure Valley: dresser bases, wardrobe towers, and nightstands with soft-close drawer options and finishes matched to the bath.",
-  "/builders": "Trade cabinet pricing, consistent specs across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers.",
+  "/builders": "Trade cabinet pricing, consistent specs across units, and lead times confirmed in writing for Treasure Valley builders, GCs, and multi-family developers.",
   "/services/cabinet-installation": "Cabinet installation in Boise and the Treasure Valley by our team or a partner we manage. We install cabinets you own, or design, build and install custom ones.",
   "/testimonials": "Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with us.",
   "/catalog": "Browse the Boise Cabinet Co catalog online: 6 door styles, 299 finishes, 382 cabinet configurations, plus hardware and accessories, with no download required.",

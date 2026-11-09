@@ -24,7 +24,7 @@ export const KITCHEN_PILLAR = buildPillarGuide({
   hubSlug: 'kitchen-cabinets',
   tags: ['kitchen', 'cabinets', 'boise'],
   quickAnswer:
-    'Treasure Valley kitchen cabinets typically plan $15,000–$45,000+ for value to custom lines, with lead times of 6–12 weeks after design lock depending on scope and finishes.',
+    'Treasure Valley kitchen cabinets typically plan $15,000–$45,000+ installed in 2026 for value to custom lines, with lead times of 6–12 weeks after design lock depending on scope and finishes.',
   takeaways: [
     'Lock layout before ordering cabinets.',
     'Cabinet lead times drive the calendar, order at design lock.',
@@ -80,7 +80,7 @@ export const BATHROOM_PILLAR = buildPillarGuide({
   hubSlug: 'bathroom-vanities',
   tags: ['bathroom', 'vanity', 'cabinets'],
   quickAnswer:
-    'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Ada and Canyon County.',
+    'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Ada and Canyon County (2026).',
   takeaways: [
     'Vanity height and depth affect comfort and storage.',
     'Moisture-resistant finishes matter in Idaho baths.',
@@ -128,7 +128,7 @@ export const BUILT_INS_PILLAR = buildPillarGuide({
   hubSlug: 'built-ins-storage',
   tags: ['built-ins', 'storage', 'cabinets'],
   quickAnswer:
-    'Built-in cabinet programs in the Treasure Valley often plan $5,000–$35,000+ per room depending on size, finish, and hardware, outdoor and garage walls can run higher.',
+    'Built-in cabinet programs in the Treasure Valley often plan $4,500–$35,000+ per room installed in 2026, depending on size, finish, and hardware, outdoor and garage walls can run higher.',
   takeaways: [
     'Measure traffic paths before locking locker depth.',
     'Match door style to kitchen and bath for resale cohesion.',
