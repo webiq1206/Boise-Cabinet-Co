@@ -18,7 +18,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'What is a typical kitchen cabinets budget in Boise?',
     paragraphs: [
-      'Most full kitchen cabinet packages we plan in Ada County fall between roughly $15,000 and $45,000+ installed in 2026, from Builder Grade to High-End custom lines; Luxury inset or frameless lines run to about $65,000 and up. That is cabinetry supplied and installed. A full kitchen remodel with countertops, appliances, demolition and other trades is a larger, separate budget.',
+      'Most full kitchen cabinet packages we plan in Ada County fall between roughly $15,000 and $45,000+ installed in 2026, with layout changes and custom cabinetry at the upper end. That is cabinetry supplied and installed. A full kitchen remodel with countertops, appliances, demolition and other trades is a larger, separate budget.',
       'Meridian and Eagle kitchens often include larger islands, walk-in pantries, and panel-ready appliances. Kuna and Star homes may have builder-grade layouts worth reconfiguring for open concept living.',
     ],
   },
@@ -93,7 +93,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'Guest bath vs master bath costs in Idaho',
     paragraphs: [
-      'Guest bath and powder room vanities in Star, Middleton, and Kuna often plan between $3,000 and $10,000 installed with a top, Mid-Range to Luxury lines (2026). Master suites with a double vanity and linen tower commonly reach $8,000 to $25,000+. A full bathroom remodel with tile, showers and plumbing is a separate, larger budget handled by other trades.',
+      'Guest bath and powder room vanities in Star, Middleton, and Kuna often plan between $3,500 and $12,000 installed (2026). Master suites with double sinks and custom storage commonly reach $8,000 to $25,000+. A full bathroom remodel with tile, showers and plumbing is a separate, larger budget handled by other trades.',
     ],
   },
   {
@@ -132,7 +132,7 @@ const wholeHomeExtra: ContentSection[] = [
   {
     h2: 'What defines a whole-home cabinetry budget?',
     paragraphs: [
-      'Whole-home cabinet programs in Boise and Meridian often span $40,000 to $120,000+ installed in 2026 (kitchen, two or three vanities, laundry, mudroom and a built-in), depending on room count, line and finish. Structural, plumbing and other trade work is budgeted separately.',
+      'Whole-home cabinet programs in Boise and Meridian often span $40,000 to $120,000+ installed in 2026, depending on room count, line and finish. Structural, plumbing and other trade work is budgeted separately.',
     ],
   },
   {
@@ -198,7 +198,7 @@ const luxuryExtra: ContentSection[] = [
   {
     h2: 'What counts as a luxury cabinet program in Boise and Eagle?',
     paragraphs: [
-      'Inset or European frameless construction, specialty finishes, integrated lighting and custom millwork define luxury cabinet programs, often $65,000 for a luxury kitchen to $170,000+ for multi-room cabinet scope in 2026. Stone, windows and other trades are separate budgets.',
+      'Custom millwork, specialty finishes and integrated lighting define luxury cabinet programs, often $50,000 to $150,000+ for multi-room cabinet scope in 2026. Stone, windows and other trades are separate budgets.',
     ],
   },
   {
@@ -290,7 +290,7 @@ const budgetExtra: ContentSection[] = [
   },
   {
     h2: 'Sample budget allocation',
-    paragraphs: ['Illustrative split for a $60,000 kitchen + bath cabinet program:'],
+    paragraphs: ['Illustrative split for a $120,000 kitchen + bath program:'],
     table: {
       className: 'cost-table',
       headers: ['Category', 'Share'],
@@ -324,7 +324,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'kitchen-cabinet-cost-boise': {
     html: buildSectionsHtml(clusterSections('kitchen cabinet cost', kitchenExtra)),
     quickAnswer:
-      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed in 2026, Builder Grade to High-End lines, driven by line, layout complexity, finishes, and interior accessories. Countertops, appliances, demolition and other trades are budgeted separately.',
+      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed, driven by line, layout complexity, finishes, and interior accessories. Countertops, appliances, demolition and other trades are budgeted separately (2026).',
     takeaways: [
       'Cabinet line and box material are the largest cost swing.',
       'Interior organizers and hardware add up quickly.',
@@ -335,7 +335,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'bathroom-vanity-cost-boise': {
     html: buildSectionsHtml(clusterSections('bathroom vanity cost', bathroomExtra)),
     quickAnswer:
-      'Guest bath vanity cabinets often plan $3,000–$10,000 installed with a top; master vanity suites with double sinks and a linen tower commonly reach $8,000–$25,000+ in Idaho (2026, Mid-Range to Luxury lines, plumbing separate).',
+      'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Idaho (2026, plumbing separate).',
     takeaways: [
       'Master and guest vanities should not share one budget number.',
       'Moisture-rated finishes are worth specifying upfront.',
@@ -355,7 +355,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'luxury-custom-cabinet-cost-boise': {
     html: buildSectionsHtml(clusterSections('luxury custom cabinet cost', luxuryExtra)),
     quickAnswer:
-      'Luxury custom cabinets in Eagle, the Foothills, and premium Boise neighborhoods often exceed $65,000 for multi-room scope in 2026, with extended design development and premium finishes.',
+      'Luxury custom cabinets in Eagle, the Foothills, and premium Boise neighborhoods often exceed $60,000 for multi-room scope, with extended design development and premium finishes.',
     takeaways: [
       'Design time is part of the investment.',
       'HOA review affects calendar, not just aesthetics.',

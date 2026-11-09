@@ -80,7 +80,7 @@ export const BATHROOM_PILLAR = buildPillarGuide({
   hubSlug: 'bathroom-vanities',
   tags: ['bathroom', 'vanity', 'cabinets'],
   quickAnswer:
-    'Guest bath vanity cabinets often plan $3,000–$10,000 installed with a top; master vanity suites with double sinks and a linen tower commonly reach $8,000–$25,000+ in Ada and Canyon County (2026, Mid-Range to Luxury lines).',
+    'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Ada and Canyon County (2026).',
   takeaways: [
     'Vanity height and depth affect comfort and storage.',
     'Moisture-resistant finishes matter in Idaho baths.',
@@ -128,7 +128,7 @@ export const BUILT_INS_PILLAR = buildPillarGuide({
   hubSlug: 'built-ins-storage',
   tags: ['built-ins', 'storage', 'cabinets'],
   quickAnswer:
-    'Built-in cabinet programs in the Treasure Valley often plan $2,500–$25,000+ per room installed in 2026, depending on size, finish, and hardware; luxury media walls and outdoor runs can go higher.',
+    'Built-in cabinet programs in the Treasure Valley often plan $5,000–$35,000+ per room installed in 2026, depending on size, finish, and hardware, outdoor and garage walls can run higher.',
   takeaways: [
     'Measure traffic paths before locking locker depth.',
     'Match door style to kitchen and bath for resale cohesion.',

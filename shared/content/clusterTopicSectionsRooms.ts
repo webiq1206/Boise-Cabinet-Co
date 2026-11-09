@@ -353,7 +353,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Outdoor cabinet cost bands in Boise',
       paragraphs: [
-        'Most Treasure Valley outdoor kitchen cabinet programs plan from roughly $9,500 to $23,500+ installed in 2026 for about 12 feet of stainless or marine-grade cabinetry, depending on linear footage, appliance cutouts, and whether the run is covered or exposed. Grill surrounds with storage and counter space capture most of the function at the lower end of the band.',
+        'Most Treasure Valley outdoor kitchen cabinet programs plan from roughly $8,000 to $30,000+ installed in 2026, depending on linear footage, appliance cutouts, and whether the run is covered or exposed. Grill surrounds with storage and counter space capture most of the function at the lower end of the band.',
         'Anchor your budget with the <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a> outdoor row and the June 2026 cost index midpoint (~$16,000) before you finalize appliance packages.',
       ],
     },
