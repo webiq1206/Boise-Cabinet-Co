@@ -73,7 +73,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   kitchen: {
     heading: "Kitchen cabinets in Boise, Idaho",
     paragraph:
-      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans base runs, uppers, pantries, and panels to your layout, installed by our team or a qualified partner we manage. Free in-home design consultation. Most full kitchens we install plan between $15,000 and $45,000+ installed. " + REGISTERED_INSURED + ".",
+      "Kitchen cabinets in Boise, designed around how you cook. Boise Cabinet Co plans base runs, uppers, pantries, and panels to your layout, installed by our team or a qualified partner we manage. Free in-home design consultation. Most full kitchens we install plan at $15,000 to $45,000+ (2026). " + REGISTERED_INSURED + ".",
     faqs: [
       {
         question: "What boxes do Boise Cabinet Co kitchen cabinets use?",

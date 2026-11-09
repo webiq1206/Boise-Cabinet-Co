@@ -29,13 +29,13 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   titleOverride:
     "Builder & Contractor Cabinets | Volume Pricing",
   descriptionOverride:
-    "Trade cabinet pricing, spec consistency across units, and lead times measured in weeks for Treasure Valley builders, GCs, and multi-family developers. Built to order for your plans.",
+    "Trade cabinet pricing, spec consistency across units, and lead times confirmed in writing with your order for Treasure Valley builders, GCs, and multi-family developers. Built to order for your plans.",
 })), "/builders");
 
 /** Why a builder or GC chooses us over a big shop or a national supplier. */
 const REASONS = [
   {
-    title: "Lead times that protect your schedule",
+    title: "Lead times confirmed with your order",
     body: "Timing depends on the cabinet line and project scope. Our team confirms availability and proposed production and installation dates for your project.",
   },
   {
@@ -44,11 +44,11 @@ const REASONS = [
   },
   {
     title: "Spec consistency across every unit",
-    body: "We build to one approved finish schedule and one set of shop drawings, so cabinetry matches from the first unit to the last. Reorders and later phases stay consistent.",
+    body: "We build to one approved finish schedule and one set of shop drawings, so cabinetry matches from the first unit to the last. Reorders and later phases are built to the same approved schedule, subject to the line and finish still being available.",
   },
   {
     title: "One team, one point of contact",
-    body: "Design, build-to-order coordination, and installation stay under a single project contact. No cross-country freight, no backorder roulette, and no finger-pointing between vendors.",
+    body: "Design, build-to-order coordination, and installation stay under a single project contact. Lead times are confirmed in writing with your order, and each delivery is checked against the approved order when it arrives.",
   },
 ];
 
@@ -56,7 +56,7 @@ const REASONS = [
 const TERMS = [
   {
     label: "Lead time",
-    value: "Timing depends on the cabinet line and project scope; availability is confirmed by our team.",
+    value: "Timing depends on the cabinet line and project scope; the lead time is confirmed in writing with your order.",
   },
   {
     label: "Pricing",
@@ -110,7 +110,7 @@ const FAQS = [
   {
     question: "Can you keep specs consistent across many units?",
     answer:
-      "Yes. We build to one approved finish schedule and one set of shop drawings, so every unit matches, including reorders and later phases.",
+      "Yes. We build to one approved finish schedule and one set of shop drawings, so every unit matches. Reorders and later phases are built to the same approved schedule, subject to the line and finish still being available.",
   },
   {
     question: "Do you handle multi-family and apartment projects?",
@@ -129,7 +129,7 @@ export default function BuildersPage() {
     generateWebPageSchema({
       title: "For Builders & Contractors",
       description:
-        "Volume cabinet pricing, fast lead times, and spec consistency for Treasure Valley builders and developers.",
+        "Volume cabinet pricing, lead times confirmed in writing with your order, and spec consistency for Treasure Valley builders and developers.",
       url: "/builders",
     }),
     generateBreadcrumbSchema([
@@ -289,7 +289,7 @@ export default function BuildersPage() {
               </h2>
               <p className="text-base md:text-lg leading-relaxed text-inverse-foreground/85 mb-8">
                 Plans, a unit count, or just a rough scope is enough to start. We will talk timeline,
-                pricing, and specs, and give you a lead time you can build around.
+                pricing, and specs, and confirm the lead time in writing with your order.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto items-stretch sm:items-center sm:justify-center">
                 <Button variant="brand" asChild>

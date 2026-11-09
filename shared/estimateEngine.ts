@@ -121,6 +121,9 @@ export interface EstimateResult {
  * `perUnit*` price the base (lower) run; `upperPerUnit*` price the wall (upper)
  * run. Upper rates are 0 for projects that have no separate upper cabinets.
  */
+// Laundry, mudroom, home-office, entertainment and built-ins rates raised 2026-11-09 on
+// owner decision to align the default-size output with the 2026 price book (book cabinet
+// lines at base direct cost x 1.618, Builder Grade to Mid-Range), within 5%.
 export const PROJECT_PRICING: Record<
   ProjectType,
   {
@@ -133,11 +136,11 @@ export const PROJECT_PRICING: Record<
 > = {
   kitchen: { perUnitLow: 360, perUnitHigh: 605, upperPerUnitLow: 215, upperPerUnitHigh: 360, roi: 72 },
   bathroom: { perUnitLow: 460, perUnitHigh: 820, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 68 },
-  laundry: { perUnitLow: 260, perUnitHigh: 470, upperPerUnitLow: 155, upperPerUnitHigh: 280, roi: 62 },
-  mudroom: { perUnitLow: 250, perUnitHigh: 440, upperPerUnitLow: 150, upperPerUnitHigh: 260, roi: 58 },
-  "home-office": { perUnitLow: 275, perUnitHigh: 495, upperPerUnitLow: 165, upperPerUnitHigh: 295, roi: 55 },
-  entertainment: { perUnitLow: 290, perUnitHigh: 525, upperPerUnitLow: 170, upperPerUnitHigh: 310, roi: 58 },
-  "built-ins": { perUnitLow: 260, perUnitHigh: 485, upperPerUnitLow: 155, upperPerUnitHigh: 285, roi: 60 },
+  laundry: { perUnitLow: 480, perUnitHigh: 720, upperPerUnitLow: 275, upperPerUnitHigh: 410, roi: 62 },
+  mudroom: { perUnitLow: 330, perUnitHigh: 570, upperPerUnitLow: 200, upperPerUnitHigh: 340, roi: 58 },
+  "home-office": { perUnitLow: 435, perUnitHigh: 630, upperPerUnitLow: 260, upperPerUnitHigh: 380, roi: 55 },
+  entertainment: { perUnitLow: 395, perUnitHigh: 710, upperPerUnitLow: 235, upperPerUnitHigh: 425, roi: 58 },
+  "built-ins": { perUnitLow: 435, perUnitHigh: 680, upperPerUnitLow: 260, upperPerUnitHigh: 405, roi: 60 },
   pantry: { perUnitLow: 320, perUnitHigh: 600, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 56 },
 };
 

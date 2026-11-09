@@ -18,7 +18,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'What is a typical kitchen cabinets budget in Boise?',
     paragraphs: [
-      'Most full kitchen cabinets we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes, doors, counters, backsplash, can land lower if plumbing and gas stay put.',
+      'Most full kitchen cabinet packages we plan in Ada County fall between roughly $15,000 and $45,000+ installed in 2026, with layout changes and custom cabinetry at the upper end. That is cabinetry supplied and installed. A full kitchen remodel with countertops, appliances, demolition and other trades is a larger, separate budget.',
       'Meridian and Eagle kitchens often include larger islands, walk-in pantries, and panel-ready appliances. Kuna and Star homes may have builder-grade layouts worth reconfiguring for open concept living.',
     ],
   },
@@ -93,7 +93,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'Guest bath vs master bath costs in Idaho',
     paragraphs: [
-      'Guest baths and powder rooms in Star, Middleton, and Kuna often land between $18,000 and $45,000 for a full refresh. Master suites with curbless showers, niches, and premium tile commonly reach $35,000–$85,000+.',
+      'Guest bath and powder room vanities in Star, Middleton, and Kuna often plan between $3,500 and $12,000 installed (2026). Master suites with double sinks and custom storage commonly reach $8,000 to $25,000+. A full bathroom remodel with tile, showers and plumbing is a separate, larger budget handled by other trades.',
     ],
   },
   {
@@ -132,7 +132,7 @@ const wholeHomeExtra: ContentSection[] = [
   {
     h2: 'What defines a whole-home cabinetry budget?',
     paragraphs: [
-      'Whole-home programs in Boise and Meridian often span $150,000–$400,000+ depending on square footage affected, structural work, and number of wet areas.',
+      'Whole-home cabinet programs in Boise and Meridian often span $40,000 to $120,000+ installed in 2026, depending on room count, line and finish. Structural, plumbing and other trade work is budgeted separately.',
     ],
   },
   {
@@ -198,7 +198,7 @@ const luxuryExtra: ContentSection[] = [
   {
     h2: 'What counts as a luxury cabinet program in Boise and Eagle?',
     paragraphs: [
-      'Custom millwork, book-matched stone, integrated lighting scenes, and high-performance windows define luxury programs, often $200,000–$600,000+ for multi-room scope.',
+      'Custom millwork, specialty finishes and integrated lighting define luxury cabinet programs, often $50,000 to $150,000+ for multi-room cabinet scope in 2026. Stone, windows and other trades are separate budgets.',
     ],
   },
   {
@@ -324,7 +324,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'kitchen-cabinet-cost-boise': {
     html: buildSectionsHtml(clusterSections('kitchen cabinet cost', kitchenExtra)),
     quickAnswer:
-      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed, driven by line, layout complexity, finishes, and interior accessories. Countertops and appliances are usually budgeted separately.',
+      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed, driven by line, layout complexity, finishes, and interior accessories. Countertops, appliances, demolition and other trades are budgeted separately (2026).',
     takeaways: [
       'Cabinet line and box material are the largest cost swing.',
       'Interior organizers and hardware add up quickly.',
@@ -335,7 +335,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'bathroom-vanity-cost-boise': {
     html: buildSectionsHtml(clusterSections('bathroom vanity cost', bathroomExtra)),
     quickAnswer:
-      'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Idaho.',
+      'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Idaho (2026, plumbing separate).',
     takeaways: [
       'Master and guest vanities should not share one budget number.',
       'Moisture-rated finishes are worth specifying upfront.',
@@ -345,7 +345,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'whole-home-cabinet-cost-boise': {
     html: buildSectionsHtml(clusterSections('whole-home cabinet cost', wholeHomeExtra)),
     quickAnswer:
-      'Whole-home cabinet packages in the Treasure Valley often range from $40,000 to $120,000+ depending on room count, line, finish, and coordinated delivery.',
+      'Whole-home cabinet packages in the Treasure Valley often range from $40,000 to $120,000+ installed in 2026, depending on room count, line, finish, and coordinated delivery.',
     takeaways: [
       'Treat whole-home cabinets as one specification.',
       'Hold 10–15% contingency for field adjustments.',
