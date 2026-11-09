@@ -128,7 +128,7 @@ export const BUILT_INS_PILLAR = buildPillarGuide({
   hubSlug: 'built-ins-storage',
   tags: ['built-ins', 'storage', 'cabinets'],
   quickAnswer:
-    'Built-in cabinet programs in the Treasure Valley often plan $5,000–$35,000+ per room installed in 2026, depending on size, finish, and hardware, outdoor and garage walls can run higher.',
+    'Built-in cabinet programs in the Treasure Valley often plan $4,500–$35,000+ per room installed in 2026, depending on size, finish, and hardware, outdoor and garage walls can run higher.',
   takeaways: [
     'Measure traffic paths before locking locker depth.',
     'Match door style to kitchen and bath for resale cohesion.',
