@@ -6,7 +6,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most Treasure Valley kitchen cabinet projects plan between roughly $15,000 and $65,000+ for cabinetry alone, depending on line, door style, interior accessories, and linear footage. Full kitchen programs with countertops and installation run higher.',
+          'Most Treasure Valley kitchen cabinet projects plan between roughly $15,000 and $45,000+ for cabinetry supplied and installed in 2026, Builder Grade to High-End lines, depending on line, door style, interior accessories, and linear footage. Luxury inset or frameless lines run to about $65,000 and up. Countertops, demolition, haul-away and other trades are separate.',
       },
       {
         question: 'How long does a kitchen cabinet project take?',
@@ -48,7 +48,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much do bathroom vanities cost in Meridian or Boise?',
         answer:
-          'Single vanity refreshes often plan $2,500 to $8,000 for cabinetry. Double vanities with custom storage and mirrors commonly reach $6,000 to $18,000+ before tops and plumbing.',
+          'Single vanities often plan $2,500 to $8,000+ installed with a top. Double vanities with a linen tower commonly reach $8,000 to $25,000+ (2026, Mid-Range to Luxury lines). Plumbing changes are separate.',
       },
       {
         question: 'What should I plan for a floating vanity?',
@@ -90,7 +90,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much do built-ins and closet systems cost in Boise?',
         answer:
-          'Reach-in closets often plan $1,500 to $5,000. Full wall units, mudroom lockers, and pantry systems commonly run $4,000 to $25,000+ depending on size and finish.',
+          'Reach-in closets often plan $1,000 to $3,500 installed. Full wall units, mudroom lockers, and pantry systems commonly run $2,500 to $25,000+ depending on size and finish (2026, Builder Grade to High-End lines).',
       },
       {
         question: 'What rooms benefit most from custom built-ins?',
@@ -132,7 +132,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How much does whole-home cabinetry cost in the Treasure Valley?',
         answer:
-          'Multi-room programs often plan $40,000 to $150,000+ depending on room count, line, and finish consistency across spaces.',
+          'Multi-room programs often plan $40,000 to $120,000+ installed in 2026, depending on room count, line, and finish consistency across spaces; Luxury programs run to about $170,000 and up.',
       },
       {
         question: 'Should I order cabinets room by room or as one program?',

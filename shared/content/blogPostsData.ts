@@ -116,7 +116,7 @@ export const WAVE1_COST_CLUSTERS: BlogPostData[] = [
     'Luxury Custom Cabinet Cost Boise & Eagle',
     'Luxury Custom Cabinet Cost Boise Idaho',
     'Luxury custom cabinet costs in Eagle, the Foothills, and premium Boise neighborhoods: finishes, design time, and installation.',
-    'Luxury custom cabinets often exceed $60,000 for multi-room scope with premium finishes and hardware.',
+    'Luxury custom cabinets often exceed $65,000 for multi-room scope with premium finishes and hardware.',
     ['luxury', 'cost', 'cabinets', 'eagle'],
   ),
   makeCostCluster(

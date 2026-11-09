@@ -649,14 +649,14 @@ const cabinetConstructionContent = `
 `;
 
 const costPerLinearFootContent = `
-<p class="text-lg">Cabinet cost per linear foot is a rough pricing shorthand: you measure the total length of cabinet runs (in feet) and multiply by a per-foot rate. In the Boise area, custom cabinets commonly land in the range of <strong>$300 to $900+ per linear foot installed</strong>, depending on construction, finish, and accessories. It is useful for a ballpark, but it can mislead, because two kitchens of the same length can cost very differently based on drawers, specialty cabinets, and finish. Treat it as a starting estimate, not a quote.</p>
+<p class="text-lg">Cabinet cost per linear foot is a rough pricing shorthand: you measure the total length of cabinet runs (in feet) and multiply by a per-foot rate. In the Boise area in 2026, cabinets commonly land in the range of <strong>$400 to $1,550+ per linear foot installed</strong>, from stock to custom, depending on construction, finish, and accessories. It is useful for a ballpark, but it can mislead, because two kitchens of the same length can cost very differently based on drawers, specialty cabinets, and finish. Treat it as a starting estimate, not a quote.</p>
 
 <div class="summary-block">
   <p><strong>Key takeaways:</strong> Per-linear-foot is a ballpark, not a bid. Measure your runs, multiply by a rate, but know that drawers, tall/specialty cabinets, finish, and accessories swing the real number. For an accurate figure, you need a design and a written scope. <a href="/estimate">Get a planning range</a>.</p>
 </div>
 
 <h2 id="what-it-means">What "per linear foot" actually measures</h2>
-<p>A linear foot is one foot of horizontal cabinet run measured along the wall, regardless of height. To estimate, you add up the lengths of your base cabinets (and often count wall cabinets separately or bundle them into the rate). A galley kitchen with 20 feet of cabinets at $500 per foot pencils out to roughly $10,000 for cabinetry - as a starting point. The method is popular because it is quick and lets you compare rough scope, but it flattens a lot of important detail into a single number.</p>
+<p>A linear foot is one foot of horizontal cabinet run measured along the wall, regardless of height. To estimate, you add up the lengths of your base cabinets (and often count wall cabinets separately or bundle them into the rate). A galley kitchen with 20 feet of semi-custom cabinets at $800 per foot pencils out to roughly $16,000 for cabinetry - as a starting point. The method is popular because it is quick and lets you compare rough scope, but it flattens a lot of important detail into a single number.</p>
 
 <h2 id="why-it-varies">Why the per-foot number varies so much</h2>
 <p>The same 20 feet can cost wildly different amounts. Here is what moves it:</p>
@@ -675,9 +675,9 @@ const costPerLinearFootContent = `
     <tr><th>Tier</th><th>Rough range (installed)</th><th>What you get</th></tr>
   </thead>
   <tbody>
-    <tr><td>Stock / entry</td><td>$150–$300/ft</td><td>Fixed sizes, basic construction</td></tr>
-    <tr><td>Semi-custom</td><td>$300–$550/ft</td><td>More options, better build</td></tr>
-    <tr><td>Custom</td><td>$500–$900+/ft</td><td>Exact fit, premium construction and finish</td></tr>
+    <tr><td>Stock / entry</td><td>$400–$575/ft</td><td>Fixed sizes, basic construction</td></tr>
+    <tr><td>Semi-custom</td><td>$800–$975/ft</td><td>More options, better build</td></tr>
+    <tr><td>Custom</td><td>$1,375–$1,550+/ft</td><td>Exact fit, premium construction and finish</td></tr>
   </tbody>
 </table>
 <p>These are planning ranges, not quotes - your actual number depends on the mix above. Use them to sanity-check a budget, then confirm with a real design.</p>
@@ -709,9 +709,9 @@ const costPerLinearFootContent = `
 <h2 id="size-examples">Rough examples by kitchen size</h2>
 <p>To make the ranges tangible, here is how the math tends to look for custom cabinetry in the Treasure Valley. These are planning illustrations, not quotes:</p>
 <ul>
-  <li><strong>Small kitchen (~15 linear feet):</strong> at roughly $500–$700 per foot, cabinetry lands around $7,500–$10,500, before an island or premium finishes.</li>
-  <li><strong>Mid-size kitchen (~25 linear feet):</strong> at a similar rate, roughly $12,500–$17,500, with a modest island pushing it higher.</li>
-  <li><strong>Large kitchen (~35+ linear feet with an island):</strong> often $20,000–$30,000+ for custom cabinetry, driven by drawer banks, tall cabinets, and finish.</li>
+  <li><strong>Small kitchen (~15 linear feet):</strong> at roughly $800–$975 per foot for semi-custom, cabinetry lands around $12,000–$14,500, before an island or premium finishes.</li>
+  <li><strong>Mid-size kitchen (~25 linear feet):</strong> at a similar rate, roughly $20,000–$24,500, with a modest island pushing it higher.</li>
+  <li><strong>Large kitchen (~35+ linear feet with an island):</strong> often $48,000–$54,000+ for custom cabinetry, driven by drawer banks, tall cabinets, and finish.</li>
 </ul>
 <p>Notice how quickly finish and specialty pieces move these numbers - which is exactly why a real design beats a per-foot guess. Our <a href="/estimate">estimator</a> turns your specific room and choices into a planning range.</p>
 
@@ -787,14 +787,14 @@ const rtaCabinetsContent = `
 `;
 
 const customCabinetCostContent = `
-<p class="text-lg">Custom kitchen cabinets typically cost <strong>$500 to $1,200+ per linear foot installed</strong>, which puts a full custom kitchen in roughly the <strong>$15,000 to $45,000+</strong> range depending on size, materials, finish, and complexity. In the Boise and Treasure Valley market, most custom kitchens land somewhere in the middle of that spread. The biggest cost drivers are the size of the kitchen, the construction and finish you choose, and how many drawers and specialty cabinets you include - not any single line item. The most accurate way to know your number is a design and a written scope, but the ranges below will get you a confident ballpark.</p>
+<p class="text-lg">Custom kitchen cabinets typically cost <strong>$1,375 to $1,550+ per linear foot installed</strong> in 2026, which puts a full custom kitchen in roughly the <strong>$26,500 to $63,000+</strong> range depending on size, materials, finish, and complexity. In the Boise and Treasure Valley market, most custom kitchens land somewhere in the middle of that spread. The biggest cost drivers are the size of the kitchen, the construction and finish you choose, and how many drawers and specialty cabinets you include - not any single line item. The most accurate way to know your number is a design and a written scope, but the ranges below will get you a confident ballpark.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Custom kitchen cabinets run about $500–$1,200+ per linear foot installed, or roughly $15,000–$45,000+ for a full kitchen. Size, construction, finish, and specialty cabinets move the number most. Get a real range with our <a href="/estimate">online estimator</a>.</p>
+  <p><strong>Key takeaways:</strong> Custom kitchen cabinets run about $1,375–$1,550+ per linear foot installed, or roughly $26,500–$63,000+ for a full kitchen (2026, cabinetry only). Size, construction, finish, and specialty cabinets move the number most. Get a real range with our <a href="/estimate">online estimator</a>.</p>
 </div>
 
 <h2 id="ranges">What custom kitchen cabinets cost</h2>
-<p>Because every custom kitchen is different, it helps to think in ranges rather than a single price. Per linear foot - the length of your cabinet runs - custom cabinetry commonly falls between $500 and $1,200 or more installed, with the high end reflecting premium materials, intricate door styles, specialty finishes, and loaded storage. Translated to a whole kitchen, a smaller custom kitchen might start around $15,000, a mid-size kitchen often lands in the $20,000 to $30,000 range, and a large kitchen with an island, tall cabinets, and high-end finishes can climb past $45,000. These figures are for cabinetry; countertops, appliances, and other trades are separate. The wide spread is not vague pricing - it reflects how many choices go into a custom kitchen.</p>
+<p>Because every custom kitchen is different, it helps to think in ranges rather than a single price. Per linear foot - the length of your cabinet runs - custom cabinetry commonly falls between $1,375 and $1,550 or more installed in 2026, with the high end reflecting premium materials, intricate door styles, specialty finishes, and loaded storage. Translated to a whole kitchen, a smaller custom kitchen might start around $26,500, a mid-size kitchen often lands in the $37,500 to $42,500 range, and a large kitchen with an island, tall cabinets, and high-end finishes can climb past $63,000. Value and semi-custom lines start lower: most full kitchens across all lines plan at $15,000 to $45,000+. These figures are for cabinetry; countertops, appliances, and other trades are separate. The wide spread is not vague pricing - it reflects how many choices go into a custom kitchen.</p>
 
 <h2 id="drivers">What drives the cost</h2>
 <p>Understanding the drivers helps you steer the budget with intention. The single biggest factor is simply <strong>size</strong> - more linear feet of cabinets means more materials and labor. After that, <strong>construction quality</strong> matters: plywood boxes, dovetailed solid-wood drawers, and soft-close everything cost more than particleboard and basic hardware, and they are worth it for longevity. <strong>Finish</strong> is a major swing factor, with painted and specialty finishes generally costing more than a basic stain. <strong>Door style</strong> plays a role too, as inset and intricate profiles cost more than simple Shaker or slab. <strong>Storage and specialty cabinets</strong> - drawer banks, pantries, appliance panels, and clever corner solutions - each add cost for the function they deliver. Finally, <strong>layout complexity and installation</strong> - odd walls, tall ceilings, and tricky spaces - add labor. Together these explain why two kitchens of the same size can cost very differently.</p>
@@ -805,9 +805,9 @@ const customCabinetCostContent = `
     <tr><th>Tier</th><th>Rough per linear foot (installed)</th><th>What you get</th></tr>
   </thead>
   <tbody>
-    <tr><td>Stock / RTA</td><td>$150–$300</td><td>Fixed sizes, basic build, filler gaps</td></tr>
-    <tr><td>Semi-custom</td><td>$300–$550</td><td>More options and better construction</td></tr>
-    <tr><td>Custom</td><td>$500–$1,200+</td><td>Exact fit, premium construction and finish</td></tr>
+    <tr><td>Stock / RTA</td><td>$400–$575</td><td>Fixed sizes, basic build, filler gaps</td></tr>
+    <tr><td>Semi-custom</td><td>$800–$975</td><td>More options and better construction</td></tr>
+    <tr><td>Custom</td><td>$1,375–$1,550+</td><td>Exact fit, premium construction and finish</td></tr>
   </tbody>
 </table>
 <p>Custom costs more up front, but for a home you will keep, the exact fit, maximized storage, and construction that lasts often make it the better long-term value. For a deeper comparison, see <a href="/blog/stock-vs-custom-cabinets-boise">stock vs custom cabinets</a> and <a href="/blog/cabinet-cost-per-linear-foot">cost per linear foot</a>.</p>
@@ -825,7 +825,7 @@ const customCabinetCostContent = `
 <p>For a fast, credible ballpark, measure the length of your base-cabinet runs in feet and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. For more accuracy, our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range, accounting for the details a flat rate misses. When you are ready for a firm number, an in-home design visit produces a written scope you can budget around with confidence.</p>
 
 <h2 id="bottom-line">The bottom line</h2>
-<p>Custom kitchen cabinets are an investment - commonly $15,000 to $45,000 or more for a full Treasure Valley kitchen - but they are also one of the most-used, longest-lived parts of your home. The price reflects real choices about size, construction, finish, and storage, which means you have genuine control over where your budget goes. Spend on the bones and the cabinets you touch every day, be intentional about extras, and you will get a kitchen that fits your life perfectly and holds its beauty for decades. When you want to know your specific number, a quick estimate or a free design visit will replace guesswork with a plan.</p>
+<p>Custom kitchen cabinets are an investment - commonly $26,500 to $63,000 or more for a full Treasure Valley custom kitchen - but they are also one of the most-used, longest-lived parts of your home. The price reflects real choices about size, construction, finish, and storage, which means you have genuine control over where your budget goes. Spend on the bones and the cabinets you touch every day, be intentional about extras, and you will get a kitchen that fits your life perfectly and holds its beauty for decades. When you want to know your specific number, a quick estimate or a free design visit will replace guesswork with a plan.</p>
 
 <h2 id="local">Why Treasure Valley costs differ from national averages</h2>
 <p>You will find plenty of national cabinet cost figures online, but the number that matters is the one for your market and your kitchen. Local labor rates, delivery distances, the availability of specific finishes and materials, and the mix of homes a company serves all shift the real range. In the Boise area, a strong local custom shop can often deliver better value than a big-box special order, because you are working directly with the team that designs, builds, and installs your kitchen rather than paying for layers of markup and middlemen. Older Treasure Valley homes with out-of-square walls and newer builds with soaring ceilings both push toward custom, since standard sizes leave gaps and wasted space that custom fills. The upshot is simple: use national averages as a loose sanity check, but trust a real local quote for your actual budget. A company that measures your space and puts a written scope in your hands is giving you a number you can plan around, not a nationwide guess.</p>
@@ -900,10 +900,10 @@ const standardCabinetSizesContent = `
 `;
 
 const bathroomVanityContent = `
-<p class="text-lg">A bathroom vanity combines your sink, storage, and countertop into one piece, and choosing the right one comes down to <strong>size, configuration, style, and quality</strong>. Standard vanity heights are 32 to 36 inches, depths are 21 inches, and widths range from 24 inches for a small powder room up to 72 inches or more for a double-sink master. A custom vanity, built to your exact space and storage needs, typically runs <strong>$1,500 to $6,000+ installed</strong> depending on size, material, and finish. The best vanity fits your room precisely, gives you the storage you actually need, and matches the style of your home.</p>
+<p class="text-lg">A bathroom vanity combines your sink, storage, and countertop into one piece, and choosing the right one comes down to <strong>size, configuration, style, and quality</strong>. Standard vanity heights are 32 to 36 inches, depths are 21 inches, and widths range from 24 inches for a small powder room up to 72 inches or more for a double-sink master. A custom vanity, built to your exact space and storage needs, typically runs <strong>$2,500 to $6,000+ installed</strong> depending on size, material, and finish. The best vanity fits your room precisely, gives you the storage you actually need, and matches the style of your home.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Match the vanity to your space (single vs double, floating vs floor-standing), prioritize drawer storage, and choose quality construction that survives a humid bathroom. Custom vanities run about $1,500–$6,000+ installed. <a href="/cabinets/bathroom">See our bathroom vanities</a> or <a href="/estimate">get a planning range</a>.</p>
+  <p><strong>Key takeaways:</strong> Match the vanity to your space (single vs double, floating vs floor-standing), prioritize drawer storage, and choose quality construction that survives a humid bathroom. Custom vanities run about $2,500–$6,000+ installed. <a href="/cabinets/bathroom">See our bathroom vanities</a> or <a href="/estimate">get a planning range</a>.</p>
 </div>
 
 <h2 id="sizes">Bathroom vanity sizes and dimensions</h2>
@@ -1991,7 +1991,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     metaDescription:
       'What cabinet cost per linear foot means, Treasure Valley ranges by tier, why it varies, and how to estimate your kitchen accurately (not just a per-foot guess).',
     excerpt:
-      'Cabinet cost per linear foot is a quick ballpark - roughly $300–$900+ installed for custom in Boise. Here is what it measures, why it varies, and how to estimate accurately.',
+      'Cabinet cost per linear foot is a quick ballpark - roughly $400–$1,550+ installed in Boise, stock to custom. Here is what it measures, why it varies, and how to estimate accurately.',
     content: costPerLinearFootContent,
     author: AUTHOR,
     category: 'Boise Cabinet Costs',
@@ -2000,17 +2000,17 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     publishedAt: '2026-07-11',
     faqs: [
       { question: 'What does cabinet cost per linear foot mean?', answer: 'It is a pricing shorthand: you measure the total horizontal length of your cabinet runs in feet and multiply by a per-foot rate. It gives a quick ballpark for cabinetry cost but does not account for the mix of drawers, specialty cabinets, finish, and hardware that move the real price.' },
-      { question: 'How much do cabinets cost per linear foot in Boise?', answer: 'As a rough guide in the Treasure Valley, stock runs about $150–$300 per foot installed, semi-custom about $300–$550, and custom about $500–$900 or more, depending on construction, finish, and accessories. These are planning ranges, not quotes.' },
+      { question: 'How much do cabinets cost per linear foot in Boise?', answer: 'As a rough 2026 guide in the Treasure Valley, stock runs about $400–$575 per foot installed, semi-custom about $800–$975, and custom about $1,375–$1,550 or more, depending on construction, finish, and accessories. These are planning ranges for cabinetry, not quotes; countertops and other trades are separate.' },
       { question: 'Why does per-linear-foot cost vary so much?', answer: 'Two kitchens of the same length can cost very differently based on how many drawers versus doors you have, tall and specialty cabinets, box construction, finish, door style, hardware, and install complexity. That is why the same rate can hide very different cabinets.' },
       { question: 'Is per-linear-foot a reliable way to compare quotes?', answer: 'Not by itself. One per-foot rate may include plywood boxes and soft-close everything, while another at the same rate includes particleboard and basic hardware. Always compare what is actually in the price, meaning construction, finish, and accessories, not just the headline number.' },
       { question: 'How do I estimate my cabinet cost?', answer: 'Measure your base-cabinet runs in feet, multiply by a per-foot rate for your tier, then add for tall or specialty cabinets, an island, and premium finish or hardware. For an accurate figure, use a guided estimator or an in-home design visit that accounts for the details.' },
       { question: 'What does per-linear-foot pricing leave out?', answer: 'It covers cabinetry only. Countertops, sink and faucet, backsplash, appliances, lighting, and any electrical or plumbing changes are separate. Budget those in their own bucket so nothing surprises you.' },
     ],
     quickAnswer:
-      'Cabinet cost per linear foot is a ballpark: measure the length of your cabinet runs and multiply by a rate - roughly $300 to $900+ per foot installed for custom in the Boise area. It is useful for a first estimate, but drawers, specialty cabinets, finish, and hardware swing the real number, so confirm with a design.',
+      'Cabinet cost per linear foot is a ballpark: measure the length of your cabinet runs and multiply by a rate - roughly $400 to $1,550+ per foot installed in the Boise area, stock to custom. It is useful for a first estimate, but drawers, specialty cabinets, finish, and hardware swing the real number, so confirm with a design.',
     keyTakeaways: [
       'Per-linear-foot is a ballpark, not a quote.',
-      'Boise custom commonly runs ~$300–$900+ per foot installed.',
+      'Boise cabinets commonly run ~$400–$1,550+ per foot installed, stock to custom.',
       'Drawers, specialty cabinets, construction, and finish move the real price.',
     ],
     relatedLinks: [
@@ -2071,9 +2071,9 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     title: 'How much do custom kitchen cabinets cost? (2026 guide)',
     seoTitle: 'How Much Do Custom Kitchen Cabinets Cost? (2026)',
     metaDescription:
-      'Custom kitchen cabinets cost about $500–$1,200+ per linear foot, or $15,000–$45,000+ for a kitchen. What drives the price, tier comparison, and how to estimate.',
+      'Custom kitchen cabinets cost about $1,375–$1,550+ per linear foot, or $26,500–$63,000+ for a kitchen. What drives the price, tier comparison, and how to estimate.',
     excerpt:
-      'Custom kitchen cabinets run about $15,000–$45,000+ installed. Here is what drives the cost, how tiers compare, whether custom is worth it, and how to estimate your project.',
+      'Custom kitchen cabinets run about $26,500–$63,000+ installed. Here is what drives the cost, how tiers compare, whether custom is worth it, and how to estimate your project.',
     content: customCabinetCostContent,
     author: AUTHOR,
     category: 'Boise Cabinet Costs',
@@ -2081,7 +2081,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     tags: ['cost', 'custom', 'budget', 'kitchen', 'boise'],
     publishedAt: '2026-07-11',
     faqs: [
-      { question: 'How much do custom kitchen cabinets cost?', answer: 'Custom kitchen cabinets typically cost about $500 to $1,200 or more per linear foot installed, which puts a full custom kitchen in the range of roughly $15,000 to $45,000+ depending on size, materials, finish, and complexity.' },
+      { question: 'How much do custom kitchen cabinets cost?', answer: 'Custom kitchen cabinets typically cost about $1,375 to $1,550 or more per linear foot installed in 2026, which puts a full custom kitchen in the range of roughly $26,500 to $63,000+ depending on size, materials, finish, and complexity. Countertops, appliances, demolition and other trades are separate.' },
       { question: 'What drives the cost of custom cabinets?', answer: 'The biggest factors are the size of the kitchen, construction quality (plywood boxes and dovetailed drawers cost more), finish (painted and specialty finishes cost more than basic stain), door style, and the number of drawers and specialty cabinets. Layout complexity and installation also add labor.' },
       { question: 'Are custom kitchen cabinets worth the money?', answer: 'For a home you will keep 10 or more years, custom is usually worth it for the exact fit, maximized storage, finish you love, and construction that lasts. For short-term homes or standard layouts on a tight budget, stock or semi-custom can be the smarter financial choice.' },
       { question: 'What is included in a custom cabinet price?', answer: 'A complete price generally includes the cabinets, door style and finish, hardware, delivery, and professional installation. It usually does not include countertops, sink and faucet, backsplash, appliances, lighting, or electrical and plumbing changes.' },
@@ -2089,9 +2089,9 @@ export const PREMIUM_POSTS: BlogPostData[] = [
       { question: 'How do I get an accurate cabinet estimate?', answer: 'Measure your base-cabinet runs and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. For accuracy, use a guided online estimator or an in-home design visit that produces a written scope.' },
     ],
     quickAnswer:
-      'Custom kitchen cabinets typically cost $500 to $1,200+ per linear foot installed, or roughly $15,000 to $45,000+ for a full kitchen, depending on size, construction, finish, and specialty cabinets. The most accurate number comes from a design and a written scope.',
+      'Custom kitchen cabinets typically cost $1,375 to $1,550+ per linear foot installed, or roughly $26,500 to $63,000+ for a full kitchen, depending on size, construction, finish, and specialty cabinets. The most accurate number comes from a design and a written scope.',
     keyTakeaways: [
-      'Custom runs ~$500–$1,200+ per linear foot, ~$15k–$45k+ per kitchen.',
+      'Custom runs ~$1,375–$1,550+ per linear foot, ~$26.5k–$63k+ per kitchen.',
       'Size, construction, finish, and specialty cabinets drive the price.',
       'Spend on the bones and daily-use cabinets; be selective on extras.',
     ],
@@ -2171,7 +2171,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
       { question: 'What makes a quality bathroom vanity?', answer: 'Because bathrooms are humid, look for a plywood box rather than particleboard, solid-wood dovetailed drawers on soft-close glides, adjustable soft-close hinges, and a durable, well-applied moisture-resistant finish. These details keep a vanity looking and working well for years.' },
     ],
     quickAnswer:
-      'Choose a bathroom vanity by size (heights 32–36 inches, 21-inch depth, widths from 24 inches to 72+ for a double), configuration (single or double, floating or floor-standing), storage (prioritize drawers), and quality (moisture-tough construction). Custom vanities run about $1,500 to $6,000+ installed.',
+      'Choose a bathroom vanity by size (heights 32–36 inches, 21-inch depth, widths from 24 inches to 72+ for a double), configuration (single or double, floating or floor-standing), storage (prioritize drawers), and quality (moisture-tough construction). Custom vanities run about $2,500 to $6,000+ installed.',
     keyTakeaways: [
       'Match size and configuration to your space and who uses it.',
       'Prioritize drawer storage, including U-shaped drawers around plumbing.',

@@ -12,19 +12,42 @@ const sections: ContentSection[] = [
   {
     h2: 'Typical custom cabinet cost ranges by project type in Boise',
     paragraphs: [
-      'The table below reflects planning ranges we use with homeowners in consultations. Your home, linear footage, door style, and interior accessories will move you within or beyond these bands.',
+      'These are our 2026 planning ranges, checked against current pricing in November 2026: cabinetry supplied and installed, Builder Grade (stock) through High-End (custom) lines unless the row says otherwise. Linear footage, door style, and accessories move you within or beyond a band; the next section lists what is included.',
     ],
     table: {
       className: 'cost-table',
       headers: ['Project type', 'Typical planning range', 'Typical timeline'],
       rows: [
         ['Kitchen cabinets (full)', '$15,000 – $45,000+', '6 – 14 weeks'],
-        ['Bathroom vanity (guest)', '$4,000 – $12,000', '3 – 6 weeks'],
-        ['Bathroom vanity (master)', '$8,000 – $25,000+', '4 – 10 weeks'],
+        ['Bathroom vanity (guest, Mid-Range to Luxury)', '$3,000 – $10,000', '3 – 6 weeks'],
+        ['Bathroom vanity (master, Mid-Range to Luxury)', '$8,000 – $25,000+', '4 – 10 weeks'],
         ['Whole-home cabinet package', '$40,000 – $120,000+', '8 – 20 weeks'],
-        ['Built-ins & closet systems', '$3,000 – $35,000+', '4 – 12 weeks'],
-        ['Outdoor kitchen cabinets', '$8,000 – $30,000+', '6 – 12 weeks'],
-        ['Luxury custom cabinetry', '$50,000 – $150,000+', '10 – 24 weeks'],
+        ['Built-ins & closet systems', '$1,000 – $25,000+', '4 – 12 weeks'],
+        ['Outdoor kitchen cabinets', '$9,500 – $23,500+', '6 – 12 weeks'],
+        ['Luxury custom cabinetry (kitchen to multi-room)', '$65,000 – $170,000+', '10 – 24 weeks'],
+      ],
+    },
+  },
+  {
+    h2: 'What the planning ranges include and exclude',
+    paragraphs: [
+      'Every range on our site is for cabinetry. The kitchen range assumes about 24 feet of base cabinets, 18 feet of wall cabinets and one tall cabinet. Optional items are priced only when your scope includes them.',
+    ],
+    table: {
+      className: 'cost-table',
+      headers: ['Item', 'In the planning range?'],
+      rows: [
+        ['Cabinet boxes, doors and drawer fronts in your chosen line and finish', 'Included'],
+        ['Delivery, installation, leveling and scribing', 'Included'],
+        ['Fillers, toe kicks and finished end panels', 'Included'],
+        ['Pulls and knobs, and installing them', 'Included'],
+        ['Removing packaging from the installed cabinets', 'Included'],
+        ['Removal and haul-away of existing cabinets', 'Optional, priced when in scope'],
+        ['Crown, light rail and interior accessories (roll-outs, trash pull-outs, organizers)', 'Optional, priced when in scope'],
+        ['Countertops and backsplash', 'Excluded (we coordinate openings; we do not supply stone)'],
+        ['Demolition beyond cabinet removal, drywall, flooring and paint repair', 'Excluded'],
+        ['Plumbing, electrical, gas and other trades', 'Excluded'],
+        ['Appliances and permits', 'Excluded'],
       ],
     },
   },
@@ -38,13 +61,13 @@ const sections: ContentSection[] = [
     paragraphs: [
       'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
       'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
-      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Last updated June 2026.',
+      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Last updated June 2026; checked against 2026 pricing in November 2026. Midpoints are installed cabinetry only.',
     ],
     table: {
       className: 'cost-table',
       headers: ['Project type', 'Midpoint installed (2026)', 'Per linear foot note'],
       rows: [
-        ['Kitchen cabinets (full)', '~$28,000', '$450–$900/LF for base + wall runs'],
+        ['Kitchen cabinets (full)', '~$28,000', '$800–$975/LF of base + wall run (Mid-Range)'],
         ['Bathroom vanity (guest)', '~$6,500', 'Per vanity, not LF'],
         ['Bathroom vanity (master)', '~$14,000', 'Double vanity + tower common'],
         ['Whole-home cabinet package', '~$72,000', 'Coordinated finish program'],
@@ -60,7 +83,7 @@ const sections: ContentSection[] = [
       'Preview a common door and finish pairing from our catalog:',
       '[[catalog door modern-shaker]]',
       '[[catalog finish woodgrain-canyon-oak]]',
-      'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$25,000 for a full appliance suite.',
+      'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$35,000 for a full appliance suite in 2026, from builder-grade to high-end appliances.',
       'Read our dedicated article: <a href="/blog/custom-kitchen-cabinet-cost">How much do custom kitchen cabinets cost?</a>. Explore <a href="/cabinets/kitchen">kitchen cabinet catalog</a> and <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.',
     ],
   },
@@ -103,12 +126,13 @@ const sections: ContentSection[] = [
     ],
     table: {
       className: 'cost-table',
-      headers: ['Project context', 'Planning $/LF (cabinet boxes + install)'],
+      headers: ['Project context (2026)', 'Planning $/LF of base + wall run (cabinets + install)'],
       rows: [
-        ['Stock / builder-grade replacement', '$250 – $450'],
-        ['Value kitchen package', '$450 – $750+'],
-        ['Custom kitchen', '$750 – $1,200+'],
-        ['Built-in wall (entertainment / office)', '$400 – $900+'],
+        ['Stock / builder-grade replacement', '$400 – $575'],
+        ['Semi-custom / value kitchen package (Mid-Range)', '$800 – $975'],
+        ['Custom kitchen (High-End)', '$1,375 – $1,550'],
+        ['Luxury inset or European frameless', '$2,250+'],
+        ['Built-in wall with lower doors (entertainment / office)', '$725 – $1,625'],
       ],
     },
   },
@@ -227,7 +251,7 @@ const sections: ContentSection[] = [
 export const BOISE_REMODELING_COST_GUIDE_HTML = buildSectionsHtml(sections);
 
 export const BOISE_REMODELING_COST_QUICK_ANSWER =
-  'Treasure Valley custom cabinets in 2026 typically range from about $4,000 for a small vanity refresh to $120,000+ for whole-home packages, with most full kitchens between $15,000 and $45,000 and master vanities from $8,000 to $25,000+. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times, not national averages.';
+  'Treasure Valley cabinetry in 2026 typically plans from about $2,500 for a single vanity to $120,000+ for whole-home packages, with most full kitchens between $15,000 and $45,000+ installed and master vanities from $8,000 to $25,000+. Ranges cover cabinetry supplied and installed; countertops, demolition, haul-away of old cabinets and other trades are separate. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times, not national averages.';
 
 export const BOISE_REMODELING_COST_TAKEAWAYS = [
   'Use planning ranges by room type, not a single $/LF number for every cabinet project.',
