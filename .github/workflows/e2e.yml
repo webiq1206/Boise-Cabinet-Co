@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "24"
       - run: npm ci
-      - run: npx playwright install --with-deps chromium webkit
+      - run: npx playwright install --with-deps chromium webkit || npx playwright install chromium webkit
       - run: npm run build
       - run: npm run test:e2e -- --project="Desktop Chrome" --project="Pixel 7"
         env:
