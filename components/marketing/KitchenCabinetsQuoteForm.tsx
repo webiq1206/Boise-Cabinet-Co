@@ -20,6 +20,7 @@ export function KitchenCabinetsQuoteForm({
   idPrefix = "kc",
   heading = "h2",
   dock = false,
+  showPhone = true,
 }: {
   context?: "built-ins" | "builder-contractor" | "cabinet-project";
   projectPrompt?: string;
@@ -29,6 +30,8 @@ export function KitchenCabinetsQuoteForm({
   heading?: "h2" | "h3" | null;
   /** /estimate only: the send button docks to the bottom of the screen. */
   dock?: boolean;
+  /** False where the page already shows the phone beside the form (/estimate). */
+  showPhone?: boolean;
 } = {}) {
   return (
     <QuoteRequestForm
@@ -40,6 +43,7 @@ export function KitchenCabinetsQuoteForm({
       // The four-step form kept this tab's draft; the one screen keeps doing so.
       persistKey={`${QUOTE_STORAGE_KEY}${idPrefix === "kc" ? "" : `:${idPrefix}`}`}
       dock={dock}
+      showPhone={showPhone}
       onAccepted={({ submissionId, replayed }) => {
         if (!replayed) trackGoogleAdsLeadOnce(submissionId, { projectType: context ?? "kitchen" });
       }}

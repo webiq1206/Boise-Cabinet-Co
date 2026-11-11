@@ -1063,3 +1063,10 @@
     position: static;
   }
 }
+
+/* /estimate: once the request is sent, the step-by-step planner under the form
+   goes away. Left in place, it sat under the confirmation as a second set of
+   questions ("it just kept asking more questions", client feedback 11 November). */
+body:has([data-quote-follow-up]) .estimate-planner {
+  display: none;
+}

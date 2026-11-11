@@ -30,13 +30,9 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
-  ArrowRight,
   Plus,
   Minus,
   AlertCircle,
-  Home,
-  ShieldCheck,
-  MessageSquare,
 } from "lucide-react";
 import type {
   StoredEstimate,
@@ -54,7 +50,6 @@ import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { trackMetaLead } from "@/lib/analytics/metaPixel";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
-import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { consultationReferenceId } from "@/lib/consultationReferenceId";
 import { DisplayNum } from "@/components/marketing/DisplayNum";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
@@ -133,11 +128,9 @@ const labelClass = "text-xs tracking-wide font-medium uppercase text-muted-foreg
 
 const consultInputClass = "aria-invalid:border-destructive/50";
 
-const TRUST_POINTS = [
-  { icon: Home, label: "Free in-home visit" },
-  { icon: ShieldCheck, label: "No spam, ever" },
-  { icon: MessageSquare, label: "We answer your questions" },
-] as const;
+/** The one quiet toggle for optional fields: a line of muted text with a small plus, no box. */
+const quietToggleClass =
+  "flex min-h-11 w-fit items-center gap-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 /**
  * Softer, touch-gated field error. Reads the surrounding FormField's error via
@@ -163,24 +156,6 @@ function FieldError() {
       <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
       <span>{message}</span>
     </p>
-  );
-}
-
-function TrustRow() {
-  return (
-    <div className="space-y-2">
-      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
-        {TRUST_POINTS.map(({ icon: Icon, label }) => (
-          <li key={label} className="flex items-center gap-1.5">
-            <Icon className="h-3.5 w-3.5 text-accent" />
-            {label}
-          </li>
-        ))}
-      </ul>
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        <PreferToTextLine />
-      </p>
-    </div>
   );
 }
 
@@ -297,16 +272,13 @@ function CombinedEstimateSummaryCard({
   );
 }
 
-function MaskedEstimateSummaryCard({ compact = false }: { compact?: boolean }) {
+/** The attached planning range, as one muted line above the fields (not a card). */
+function MaskedEstimateSummaryCard() {
   return (
     <div
-      className={cn(
-        "flex items-center gap-2.5 rounded-lg text-sm bg-accent/5 border border-accent/20",
-        compact ? "px-3 py-2" : "p-4",
-      )}
+      className="flex items-center gap-2.5 text-sm"
       data-testid="text-estimate-summary-masked"
     >
-      <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
       <div className="min-w-0 flex-1">
         <span className="font-medium text-foreground select-none blur-sm" aria-hidden="true">
           $●●,●●● to $●●,●●●
@@ -716,11 +688,9 @@ export function ConsultationFields({
         aria-live="polite"
         role="status"
       >
-        <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
-          <CheckCircle2 className="h-5 w-5 text-accent" />
-        </div>
-        <h3 className="font-serif text-2xl text-foreground">
-          Your request has been received.
+        <h3 className="flex items-start gap-2.5 font-serif text-2xl text-foreground">
+          <CheckCircle2 className="mt-1.5 h-5 w-5 flex-none" aria-hidden="true" />
+          <span>Your request has been received.</span>
         </h3>
         {/* The reveal: the real planning range, shown only now that contact
             details are in. Every surface before this point carried a mask. */}
@@ -731,18 +701,16 @@ export function ConsultationFields({
             estimate && <EstimateSummaryCard estimate={estimate} />
           ))}
         <p className="text-base leading-relaxed text-muted-foreground">
-          Your request is saved for our team to review. Email delivery and follow-up are not confirmed on this page. <PreferToTextLine />
+          Your request is saved for our team to review. Email delivery and follow-up are not confirmed on this page. Nothing else is needed.
         </p>
-        <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
-          <li>Our team reviews your project details</li>
-          <li>We discuss the scope and any information needed for a quote</li>
-          <li>Pricing and scheduling are confirmed separately; this request does not book installation</li>
-        </ol>
         <p className="text-sm text-muted-foreground">
-          Need us sooner?{" "}
-          <a href={SITE_CONFIG.phoneHref} className="text-primary font-medium hover:underline">
-            Call {SITE_CONFIG.phone}
-          </a>
+          Prefer to talk?{" "}
+          <span className="whitespace-nowrap">
+            <a href={SITE_CONFIG.phoneHref} className="font-medium text-foreground underline underline-offset-4 hover:no-underline">
+              Call {SITE_CONFIG.phone}
+            </a>
+            .
+          </span>
         </p>
       </div>
     );
@@ -750,11 +718,6 @@ export function ConsultationFields({
 
   return (
     <Form {...form}>
-      {!compact && (
-        <p className="text-sm text-muted-foreground mb-4">
-          Sending this does not book installation. We answer your questions and help you work out the next step.{" "}<PreferToTextLine />
-        </p>
-      )}
       {compact && (
         <p className="text-xs text-muted-foreground mb-2" data-testid="contact-compact-progress">
           Step {compactStepIndex + 1} of {compactStepCount}
@@ -785,7 +748,7 @@ export function ConsultationFields({
         className={compact ? "space-y-2.5" : "space-y-5"}
       >
         {showEstimateSummary && (combinedEstimate || estimate) && (!compact || compactStepIndex === 0) && (
-          <MaskedEstimateSummaryCard compact={compact} />
+          <MaskedEstimateSummaryCard />
         )}
 
         {mutation.isError && (
@@ -818,10 +781,8 @@ export function ConsultationFields({
         />
 
         <div
-          className={cn(
-            "rounded-lg border border-border bg-card shadow-sm",
-            compact ? "space-y-2 p-3" : "space-y-5 p-5 sm:p-6",
-          )}
+          // No card around the fields: the inputs and the button are the only boxes.
+          className={compact ? "space-y-2" : "space-y-5"}
         >
           {compact ? (
             <>
@@ -993,23 +954,24 @@ export function ConsultationFields({
                 </div>
               )}
               {compactStepId === "notes" && (
-                <div className="rounded-sm border border-border bg-background">
+                <div>
+                  {/* One quiet text toggle for everything optional: no box, no panel. */}
                   <button
                     type="button"
                     onClick={() => setDetailsOpen((o) => !o)}
-                    className="flex min-h-10 w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className={quietToggleClass}
                     aria-expanded={detailsOpen}
                     data-testid="button-toggle-details"
                   >
+                    {detailsOpen ? <Minus className="h-4 w-4 flex-none" aria-hidden="true" /> : <Plus className="h-4 w-4 flex-none" aria-hidden="true" />}
                     <span>
                       {requireDetails
                         ? "Add notes (optional)"
-                        : "Add address & notes (optional)"}
+                        : "Add address and notes (optional)"}
                     </span>
-                    {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                   </button>
                   {detailsOpen && (
-                    <div className="space-y-3 border-t border-border p-3">
+                    <div className="space-y-3 pt-2">
                       {!requireDetails && (
                         <FormField
                           control={form.control}
@@ -1043,7 +1005,7 @@ export function ConsultationFields({
                               <Select onValueChange={field.onChange} value={field.value || ""}>
                                 <FormControl>
                                   <SelectTrigger className={consultInputClass} data-testid="select-budget">
-                                    <SelectValue placeholder="Optional" />
+                                    <SelectValue placeholder="Select a range" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -1080,9 +1042,6 @@ export function ConsultationFields({
                       />
                     </div>
                   )}
-                  <p className="px-3 pb-2 text-xs leading-snug text-muted-foreground">
-                    Free in-home visit. We answer your questions and help you work out the next step.{" "}<PreferToTextLine />
-                  </p>
                 </div>
               )}
             </>
@@ -1199,9 +1158,6 @@ export function ConsultationFields({
                       data-testid="input-address"
                     />
                   </FormControl>
-                  <p className="mt-1.5 text-sm text-muted-foreground">
-                    Start typing and pick your address. We use it to plan your in-home visit.
-                  </p>
                   <FieldError />
                 </FormItem>
               )}
@@ -1261,23 +1217,24 @@ export function ConsultationFields({
             </div>
           )}
 
-          <div className="rounded-sm border border-border bg-background">
+          <div>
+            {/* One quiet text toggle for everything optional: no box, no panel. */}
             <button
               type="button"
               onClick={() => setDetailsOpen((o) => !o)}
-              className="flex w-full items-center justify-between gap-2 px-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground min-h-11 py-2.5"
+              className={quietToggleClass}
               aria-expanded={detailsOpen}
               data-testid="button-toggle-details"
             >
+              {detailsOpen ? <Minus className="h-4 w-4 flex-none" aria-hidden="true" /> : <Plus className="h-4 w-4 flex-none" aria-hidden="true" />}
               <span>
                 {requireDetails
-                  ? "Add budget & notes (optional)"
-                  : "Add address & notes (optional)"}
+                  ? "Add notes (optional)"
+                  : "Add address and notes (optional)"}
               </span>
-              {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
             </button>
             {detailsOpen && (
-              <div className="space-y-4 border-t border-border p-3">
+              <div className="space-y-4 pt-2">
                 {!requireDetails && (
                   <FormField
                     control={form.control}
@@ -1311,7 +1268,7 @@ export function ConsultationFields({
                         <Select onValueChange={field.onChange} value={field.value || ""}>
                           <FormControl>
                             <SelectTrigger className={consultInputClass} data-testid="select-budget">
-                              <SelectValue placeholder="Optional" />
+                              <SelectValue placeholder="Select a range" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -1366,21 +1323,16 @@ export function ConsultationFields({
             }
             backTestId="button-contact-back"
           />
-        ) : hideSubmitButton ? (
-          <TrustRow />
-        ) : (
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Button
-              type="submit"
-              variant="brand"
-              disabled={mutation.isPending}
-              data-testid="button-submit-consultation"
-            >
-              {mutation.isPending ? "Sending…" : "Send my request"}
-              {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
-            </Button>
-            <TrustRow />
-          </div>
+        ) : hideSubmitButton ? null : (
+          <Button
+            type="submit"
+            variant="brand"
+            className="w-full"
+            disabled={mutation.isPending}
+            data-testid="button-submit-consultation"
+          >
+            {mutation.isPending ? "Sending…" : "Send my request"}
+          </Button>
         )}
       </form>
     </Form>

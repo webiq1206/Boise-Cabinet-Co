@@ -3,26 +3,41 @@
 /**
  * The family quote form, v2 (owner, 1 November: "the easiest user experience
  * possible", files "might be helpful", and "the more information we have, the
- * better"). Two steps:
+ * better"; 11 November, after a client found the form confusing because "it
+ * just kept asking more questions", and then of the first fix: "it looks
+ * cluttered. It cannot look cluttered. It needs to look very clean."). So the
+ * form is fields, one button and one quiet line, and nothing else:
  *
- * Step 1, one short screen that captures the lead:
- *   [Send a request | Have us call you]
- *   What can we help with?  (the easy, interesting question first)
- *   Add photos, plans or files  (one optional tile)
- *   Name, Phone, Email (optional), How should we reach you
- *   Prefer to talk? Call, Text us, Chat
+ *   (the heading the page already has)
+ *   What can we help with?
+ *   Name, Phone                      (side by side from 640px)
+ *   + Add address, email or contact preference (optional)   a quiet text toggle, no box
  *   Send my request
+ *   Prefer to talk? Call (number) or have us call you.
+ *   No obligation. Privacy Policy.
  *
- * Step 2, on the success screen (components/quote/QuoteFollowUp.tsx): the
- * Step 1 files upload, then "Help us prepare (optional)" adds project type,
- * address, timing and more files to the SAME request. The lead never waits
- * on either.
+ * No step indicator, no tabs, no footnote under the button, no trust row and
+ * no bordered panel. The toggle is a native details that starts closed; opened,
+ * Project address (owner, 11 November: most projects have one, never required),
+ * Email and "How should we reach you?" sit in the normal field flow. The
+ * address travels as `address` on the same /api/consultation request the
+ * estimator's contact step uses, and the server derives the ZIP from it.
  *
- * "Have us call you" reduces Step 1 to name, phone and an optional best time
- * and posts through the same /api/consultation pipeline with requestKind
- * "callback"; the server marks the notes "CALLBACK REQUEST" for the team
- * (server/services/consultationRequest.ts). Files and Step 2 are offered on
- * its success screen too.
+ * After sending (components/quote/QuoteFollowUp.tsx): a tick and the thanks,
+ * one sentence ending "Nothing else is needed.", and the same kind of quiet
+ * toggle, "Add photos, plans or details (optional)", which adds project type,
+ * address, timing and files to the SAME request. The lead never waits on it.
+ *
+ * "Have us call you" is the text link in the line under the button. It is
+ * still the same native radio pair as before ("Send a request" | "Have us call
+ * you"): only the option you are NOT in is shown, as an underlined link, and
+ * the checked one stays in the page for assistive technology. Callback mode
+ * reduces the form to name, phone and a best time, and posts through the same
+ * /api/consultation pipeline with requestKind "callback"; the server marks the
+ * notes "CALLBACK REQUEST" for the team
+ * (server/services/consultationRequest.ts). "Best time to call" stays visible
+ * in callback mode: the shared scripts/p5-launcher-forms.mjs check waits for it
+ * to appear and disappear with the mode.
  *
  * Native inputs, radios, select and details only (no Radix inside the form),
  * so nothing sets state during hydration. Every field keeps its label visible,
@@ -33,8 +48,8 @@
  * e2e/calculator.spec.ts, and scripts/cabinet-current-entry-browser.mjs):
  * - the accessible labels match exactly "Name", "Phone", "Email" and
  *   "Project". The project field shows "What can we help with?" and is also
- *   labelled by a visually hidden "Project" (aria-labelledby), and "Optional"
- *   sits beside the Email label, not inside it, so those exact names still
+ *   labelled by a visually hidden "Project" (aria-labelledby), and the note
+ *   beside the Email label is not inside it, so those exact names still
  *   resolve. The reply options stay "Call me", "Text me", "Email me" so no
  *   other control is named "Email";
  * - the send button sits in the docked WizardActionBar on /estimate and its
@@ -44,20 +59,32 @@
  * - exactly one role="alert" message per check, inside the form;
  * - data-quote-step reads "project" once the form is complete;
  * - fields survive a reload on /estimate (sessionStorage, this tab only);
- * - "button-estimate-quote-back" is the "Send a request" option of the
- *   switch: it returns to the full request and keeps every value.
+ * - "button-quote-callback" is the label of the "Have us call you" radio and
+ *   "button-estimate-quote-back" the label of the "Send a request" radio: the
+ *   second is the visible link while in callback mode, returns to the full
+ *   request and keeps every value.
  * Stable test ids for the shared helpers: input-project, input-name,
- * input-phone, input-email, input-quote-files, quote-file-tile,
- * button-quote-callback, quote-form-success, quote-details-panel,
+ * input-phone, input-address, input-email, quote-options (the optional-fields toggle),
+ * button-quote-callback, quote-form-success, quote-all-set,
+ * quote-details-panel and quote-details-disclosure (the toggle on the success
+ * screen), input-quote-files and quote-file-tile (inside it),
  * button-save-details, quote-details-saved.
  */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { MessageCircle, MessageSquare, Phone } from "lucide-react";
-import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
-import { AttachmentTile, type PickedFile } from "@/components/quote/AttachmentTile";
+import { Plus } from "lucide-react";
 import { QuoteFollowUp } from "@/components/quote/QuoteFollowUp";
-import { ERROR_CLASS, FIELD_CLASS, LABEL_CLASS, OUTLINE_ACTION_CLASS, PILL_CLASS } from "@/components/quote/quoteStyles";
+import {
+  ERROR_CLASS,
+  FIELD_CLASS,
+  LABEL_CLASS,
+  MUTED_LINE_CLASS,
+  MUTED_LINK_CLASS,
+  PILL_CLASS,
+  QUIET_PLUS_CLASS,
+  QUIET_SUMMARY_CLASS,
+  QUIET_TOGGLE_CLASS,
+} from "@/components/quote/quoteStyles";
 import { WizardActionBar } from "@/components/estimate/wizard/WizardActionBar";
 import { useKeyboardInset } from "@/components/estimate/wizard/useKeyboardInset";
 import { useEstimateKeyboardFlag } from "@/components/estimate/wizard/useEstimateKeyboardFlag";
@@ -74,6 +101,9 @@ export type QuoteMode = "request" | "callback";
 type Mode = QuoteMode;
 type Reach = "call" | "text" | "email";
 type FieldKey = "name" | "phone" | "project" | "email";
+
+/** Files are added on Step 2, after the request is saved; Step 1 hands none over. */
+const NO_FILES: never[] = [];
 
 const CALLBACK_PROJECT_TYPE = "Callback request";
 
@@ -92,7 +122,7 @@ const FIELD_NAMES: Record<FieldKey, string> = {
   email: "a valid email",
 };
 
-/** Default reply channel: the site has a text line (PreferToTextLine), so a text. */
+/** Default reply channel: the site has a text line, so a text. */
 const DEFAULT_REACH: Reach = "text";
 
 function emailLooksValid(value: string): boolean {
@@ -147,6 +177,8 @@ export interface QuoteRequestFormProps {
   initialMode?: Mode;
   /** When set, choosing "Send a request" hands back to the page's own request form. */
   onRequestMode?: () => void;
+  /** False where the page already shows the phone beside the form (/estimate): the line under the button does not repeat it. */
+  showPhone?: boolean;
 }
 
 interface Draft {
@@ -154,6 +186,7 @@ interface Draft {
   name?: string;
   phone?: string;
   email?: string;
+  address?: string;
   project?: string;
   reach?: Reach;
   bestTime?: string;
@@ -175,51 +208,72 @@ function draftGateScript(key: string): string {
 }
 
 /**
- * "Send a request" | "Have us call you": two native radios styled as one
- * full-width switch, the active option filled. Also used above the contact
- * page's step-by-step form.
+ * The one quiet line under the send button, which is also the mode control:
+ * "Prefer to talk? Call (number) or have us call you." and, in callback mode,
+ * "Rather write it down? Send a request". The two options are the same native
+ * radios as ever, with the same names and test ids on their labels; only the
+ * label of the mode you are not in is visible, as an underlined text link, and
+ * the checked one is visually hidden but still in the page.
  */
 export function QuoteModeSwitch({
   name,
   mode,
   onChange,
   hintId,
+  showPhone = true,
 }: {
   name: string;
   mode: Mode;
   onChange: (mode: Mode) => void;
   hintId?: string;
+  /** False where the page already shows the phone beside the form (/estimate). */
+  showPhone?: boolean;
 }) {
+  const afterCall = mode === "request" && showPhone;
+  const option = (value: Mode, label: string, testId: string) => (
+    <label
+      className={
+        mode === value
+          ? "sr-only"
+          : cn(MUTED_LINK_CLASS, "inline-block cursor-pointer", value === "callback" && afterCall && "lowercase")
+      }
+      data-testid={testId}
+    >
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        className="sr-only"
+        checked={mode === value}
+        onChange={() => onChange(value)}
+        aria-describedby={value === "callback" ? hintId : undefined}
+        data-clarity-mask="True"
+      />
+      {label}
+    </label>
+  );
   return (
-    <fieldset className="grid grid-cols-2 gap-2" data-quote-mode-switch="">
-      <legend className="sr-only">How would you like to start?</legend>
-      {/* Test id kept from the four-step form's Back button (see the header comment). */}
-      <label className={PILL_CLASS} data-testid="button-estimate-quote-back">
-        <input
-          type="radio"
-          name={name}
-          value="request"
-          className="sr-only"
-          checked={mode === "request"}
-          onChange={() => onChange("request")}
-          data-clarity-mask="True"
-        />
-        Send a request
-      </label>
-      <label className={PILL_CLASS} data-testid="button-quote-callback">
-        <input
-          type="radio"
-          name={name}
-          value="callback"
-          className="sr-only"
-          checked={mode === "callback"}
-          onChange={() => onChange("callback")}
-          aria-describedby={hintId}
-          data-clarity-mask="True"
-        />
-        Have us call you
-      </label>
-    </fieldset>
+    <div className={MUTED_LINE_CLASS} data-quote-talk="" data-quote-mode-switch="">
+      {mode === "request" ? "Prefer to talk? " : "Rather write it down? "}
+      {afterCall ? (
+        <>
+          <a href={SITE_CONFIG.phoneHref} className={MUTED_LINK_CLASS}>
+            Call {SITE_CONFIG.phone}
+          </a>
+          {" or "}
+        </>
+      ) : null}
+      {/* The last link and its full stop stay together, so the stop never wraps alone. */}
+      <span className="whitespace-nowrap">
+      <fieldset className="m-0 inline min-w-0 border-0 p-0 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background">
+        <legend className="sr-only">How would you like to start?</legend>
+        {/* Test id kept from the four-step form's Back button (see the header comment). */}
+        {option("request", "Send a request", "button-estimate-quote-back")}
+        {option("callback", "Have us call you", "button-quote-callback")}
+      </fieldset>
+      {mode === "request" ? "." : null}
+      </span>
+    </div>
   );
 }
 
@@ -243,15 +297,18 @@ export function QuoteRequestForm({
   initialMode = "request",
   onRequestMode,
   onDetailsSaved,
+  showPhone = true,
 }: QuoteRequestFormProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [project, setProject] = useState("");
   const [reach, setReach] = useState<Reach>(DEFAULT_REACH);
   const [bestTime, setBestTime] = useState<string>(BEST_TIMES[0]);
-  const [files, setFiles] = useState<PickedFile[]>([]);
+  /** The quiet toggle of optional fields (email, how to reach you); closed until asked for. */
+  const [optionsOpen, setOptionsOpen] = useState(false);
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [checked, setChecked] = useState(false);
@@ -266,11 +323,10 @@ export function QuoteRequestForm({
     phone: string;
     bestTime: string;
     hasEmail: boolean;
+    hasAddress: boolean;
     reach: Reach;
     detailsKey: DetailsKey | null;
-    files: PickedFile[];
   } | null>(null);
-  const [chatAvailable, setChatAvailable] = useState(false);
   const [restored, setRestored] = useState(!persistKey);
   const attemptRef = useRef<ConsultationAttempt | null>(null);
   if (!attemptRef.current) {
@@ -284,6 +340,36 @@ export function QuoteRequestForm({
   const successRef = useRef<HTMLDivElement | null>(null);
   const keyboardInset = useKeyboardInset();
   useEstimateKeyboardFlag(dock);
+  /** A flow below the form (the /estimate planner) is open and on screen: it owns the bottom edge. */
+  const [dockYielded, setDockYielded] = useState(false);
+
+  // One docked bar at a time. The planner under the form on /estimate has its
+  // own Continue and Back bar; while its disclosure is open and its wizard is
+  // on screen, this form's send button stays in its place in the form. It docks
+  // again when the planner is closed or scrolled away.
+  useEffect(() => {
+    if (!dock) return;
+    const owner = document.querySelector<HTMLElement>("[data-quote-dock-yield]");
+    if (!owner) return;
+    const target = owner.querySelector<HTMLElement>("[data-estimate-wizard]") ?? owner;
+    let onScreen = false;
+    const isOpen = () => !(owner instanceof HTMLDetailsElement) || owner.open;
+    const update = () => setDockYielded(isOpen() && onScreen);
+    const observer =
+      typeof IntersectionObserver === "undefined"
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            onScreen = entry.isIntersecting;
+            update();
+          });
+    observer?.observe(target);
+    owner.addEventListener("toggle", update);
+    update();
+    return () => {
+      observer?.disconnect();
+      owner.removeEventListener("toggle", update);
+    };
+  }, [dock]);
 
   const ids = useMemo(
     () => ({
@@ -295,6 +381,7 @@ export function QuoteRequestForm({
       phone: `${idPrefix}-phone`,
       project: `${idPrefix}-project`,
       email: `${idPrefix}-email`,
+      address: `${idPrefix}-address`,
       bestTime: `${idPrefix}-best-time`,
       company: `${idPrefix}-company`,
       summary: `${idPrefix}-summary`,
@@ -317,7 +404,13 @@ export function QuoteRequestForm({
       const el = document.getElementById(id);
       return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement ? el.value : "";
     };
-    const early = { name: typed(ids.name), phone: typed(ids.phone), email: typed(ids.email), project: typed(ids.project) };
+    const early = {
+      name: typed(ids.name),
+      phone: typed(ids.phone),
+      email: typed(ids.email),
+      address: typed(ids.address),
+      project: typed(ids.project),
+    };
     let draft: Draft = {};
     if (persistKey) {
       try {
@@ -331,9 +424,14 @@ export function QuoteRequestForm({
     if (early.name || draft.name) setName(early.name || draft.name || "");
     if (early.phone || draft.phone) setPhone(early.phone || draft.phone || "");
     if (early.email || draft.email) setEmail(early.email || draft.email || "");
+    if (early.address || draft.address) setAddress(early.address || draft.address || "");
     if (early.project || draft.project) setProject(early.project || draft.project || "");
     if (draft.reach === "call" || draft.reach === "text" || draft.reach === "email") setReach(draft.reach);
     if (draft.bestTime && (BEST_TIMES as readonly string[]).includes(draft.bestTime)) setBestTime(draft.bestTime);
+    // Anything already entered behind the optional toggle is shown, never hidden.
+    if (early.email || draft.email || early.address || draft.address || (draft.reach && draft.reach !== DEFAULT_REACH)) {
+      setOptionsOpen(true);
+    }
     setRestored(true);
     // Once, on mount: ids and persistKey are fixed for a mounted form.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -346,20 +444,12 @@ export function QuoteRequestForm({
   useEffect(() => {
     if (!persistKey || !restored || done) return;
     try {
-      const draft: Draft = { mode, name, phone, email, project, reach, bestTime };
+      const draft: Draft = { mode, name, phone, email, address, project, reach, bestTime };
       sessionStorage.setItem(persistKey, JSON.stringify(draft));
     } catch {
       /* ignore */
     }
-  }, [persistKey, restored, done, mode, name, phone, email, project, reach, bestTime]);
-
-  // Chat sits beside Call and Text only where the site assistant can open.
-  useEffect(() => {
-    const read = () => setChatAvailable(document.documentElement.dataset.assistantAvailable === "true");
-    read();
-    window.addEventListener("p5:assistant-availability", read);
-    return () => window.removeEventListener("p5:assistant-availability", read);
-  }, []);
+  }, [persistKey, restored, done, mode, name, phone, email, address, project, reach, bestTime]);
 
   // Keep the focused field above the docked send button while the phone keyboard is open.
   useEffect(() => {
@@ -437,6 +527,8 @@ export function QuoteRequestForm({
       name: name.trim(),
       phone: phone.trim(),
       email: kind === "request" ? email.trim() : "",
+      // Callback mode stays name and phone only.
+      address: kind === "request" ? address.trim() : "",
       project: kind === "request" ? project.trim() : "",
       zip: "",
     };
@@ -451,6 +543,9 @@ export function QuoteRequestForm({
           phone: trimmed.phone,
           email: trimmed.email,
           zip: trimmed.zip,
+          // Optional; with no address the request is exactly what it was before
+          // the field existed. The server derives the ZIP from the address.
+          ...(trimmed.address ? { address: trimmed.address } : null),
           projectType,
           message: notes,
           companyWebsite,
@@ -518,13 +613,12 @@ export function QuoteRequestForm({
         phone: trimmed.phone,
         bestTime,
         hasEmail: Boolean(trimmed.email),
+        hasAddress: Boolean(trimmed.address),
         reach: kind === "callback" ? "call" : reach,
         detailsKey:
           typeof body.requestId === "string" && typeof body.detailsToken === "string"
             ? { requestId: body.requestId, token: body.detailsToken }
             : null,
-        // Callback mode shows no tile; anything picked before switching stays behind.
-        files: kind === "request" ? files : [],
       });
     } catch {
       setSummary(
@@ -545,7 +639,11 @@ export function QuoteRequestForm({
       setSummaryKind("check");
       setSummary(`Please add ${listJoin(names)}.`);
       const first = invalid[0];
-      if (first) document.getElementById(ids[first])?.focus();
+      if (first === "email" && !optionsOpen) {
+        // The email sits behind the optional toggle: open it, then focus the field.
+        setOptionsOpen(true);
+        window.requestAnimationFrame(() => document.getElementById(ids.email)?.focus());
+      } else if (first) document.getElementById(ids[first])?.focus();
       return;
     }
     void send();
@@ -577,8 +675,10 @@ export function QuoteRequestForm({
         phone={done.phone}
         bestTime={done.bestTime}
         detailsKey={done.detailsKey}
-        initialFiles={done.files}
+        initialFiles={NO_FILES}
         hasEmail={done.hasEmail}
+        hasAddress={done.hasAddress}
+        showPhone={showPhone}
         reach={done.reach}
         projectTypeLocked={projectTypeLocked}
         panelHeading={headingLevel === "h2" ? "h3" : headingLevel === "h3" ? "h4" : "h2"}
@@ -600,31 +700,30 @@ export function QuoteRequestForm({
   const disabled = submitting || locked;
   const sendLabel = mode === "callback" ? "Request a call" : "Send my request";
 
-  const talk = (
-    <div className="space-y-2" data-quote-talk="">
-      <p className="text-sm font-medium text-muted-foreground">Prefer to talk?</p>
-      <a href={SITE_CONFIG.phoneHref} className={OUTLINE_ACTION_CLASS}>
-        <Phone className="h-4 w-4" aria-hidden="true" />
-        Call {SITE_CONFIG.phone}
-      </a>
-      <div className={cn("grid gap-2", chatAvailable && "grid-cols-2")}>
-        <a href={SITE_CONFIG.phoneSmsHref} className={OUTLINE_ACTION_CLASS} aria-label={`Text us at ${SITE_CONFIG.phone}`}>
-          <MessageSquare className="h-4 w-4" aria-hidden="true" />
-          Text us
-        </a>
-        {chatAvailable ? (
-          <button
-            type="button"
-            className={OUTLINE_ACTION_CLASS}
-            onClick={() => window.dispatchEvent(new Event("p5:assistant-open"))}
-            data-testid="button-quote-chat"
-          >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            Chat
-          </button>
-        ) : null}
-      </div>
-    </div>
+  // The only two lines under the button: the talk line (which is also the
+  // "Send a request" | "Have us call you" control) and the small legal line.
+  const quietLines = (
+    <>
+      <QuoteModeSwitch
+        name={`${idPrefix}-mode`}
+        mode={mode}
+        onChange={(next) => (next === "request" && onRequestMode ? onRequestMode() : setMode(next))}
+        hintId={ids.modeHint}
+        showPhone={showPhone}
+      />
+      <p id={ids.modeHint} className="sr-only">
+        Leave your name and number and we will call you.
+      </p>
+      <p className={MUTED_LINE_CLASS}>
+        No obligation.{" "}
+        <span className="whitespace-nowrap">
+          <Link href="/privacy-policy" prefetch={false} className="underline underline-offset-4 hover:text-foreground">
+            Privacy Policy
+          </Link>
+          .
+        </span>
+      </p>
+    </>
   );
 
   const nameField = (
@@ -704,16 +803,6 @@ export function QuoteRequestForm({
         noValidate
         onFocus={markStarted}
       >
-        <QuoteModeSwitch
-          name={`${idPrefix}-mode`}
-          mode={mode}
-          onChange={(next) => (next === "request" && onRequestMode ? onRequestMode() : setMode(next))}
-          hintId={ids.modeHint}
-        />
-        <p id={ids.modeHint} className={cn("text-sm text-muted-foreground", mode !== "callback" && "sr-only")}>
-          Leave your name and number and we will call you.
-        </p>
-
         <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
           <label htmlFor={ids.company}>Company website</label>
           <input
@@ -730,8 +819,10 @@ export function QuoteRequestForm({
         <div className="space-y-4" data-quote-fields="">
           {mode === "callback" ? (
             <>
-              {nameField}
-              {phoneField}
+              <div className="grid gap-4 sm:grid-cols-2">
+                {nameField}
+                {phoneField}
+              </div>
               <div>
                 <label htmlFor={ids.bestTime} className={LABEL_CLASS}>
                   Best time to call <span className="font-normal text-muted-foreground">(optional)</span>
@@ -790,60 +881,91 @@ export function QuoteRequestForm({
                 {fieldError("project")}
               </div>
 
-              <AttachmentTile idPrefix={idPrefix} files={files} onChange={setFiles} disabled={disabled} />
-
-              {nameField}
-              {phoneField}
-
-              <div>
-                <div className="mb-1.5 flex items-baseline gap-2">
-                  <label htmlFor={ids.email} className="block text-sm font-medium text-foreground">
-                    Email
-                  </label>
-                  <span id={ids.emailNote} className="text-sm text-muted-foreground">
-                    {reach === "email" ? "Needed to reply by email" : "Optional"}
-                  </span>
-                </div>
-                <input
-                  id={ids.email}
-                  name="email"
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  className={FIELD_CLASS}
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  onBlur={() => markTouched("email")}
-                  aria-invalid={showError("email") || undefined}
-                  aria-describedby={describedBy("email", ids.emailNote)}
-                  aria-required={reach === "email" ? "true" : undefined}
-                  disabled={disabled}
-                  data-testid="input-email"
-                  data-clarity-mask="True"
-                />
-                {fieldError("email")}
+              <div className="grid gap-4 sm:grid-cols-2">
+                {nameField}
+                {phoneField}
               </div>
 
-              <fieldset>
-                <legend className={LABEL_CLASS}>How should we reach you?</legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {REACH_OPTIONS.map((option) => (
-                    <label key={option.value} className={PILL_CLASS}>
-                      <input
-                        type="radio"
-                        name={`${idPrefix}-reach`}
-                        value={option.value}
-                        className="sr-only"
-                        checked={reach === option.value}
-                        onChange={() => setReach(option.value)}
-                        disabled={disabled}
-                        data-clarity-mask="True"
-                      />
-                      {option.label}
+              {/* Everything optional sits behind this one quiet text toggle (no box, no panel). */}
+              <details
+                className={QUIET_TOGGLE_CLASS}
+                open={optionsOpen}
+                onToggle={(event) => setOptionsOpen(event.currentTarget.open)}
+                data-testid="quote-options"
+              >
+                <summary className={QUIET_SUMMARY_CLASS}>
+                  <Plus className={QUIET_PLUS_CLASS} aria-hidden="true" />
+                  Add address, email or contact preference (optional)
+                </summary>
+                <div className="space-y-4 pt-2">
+                  <div>
+                    <label htmlFor={ids.address} className={LABEL_CLASS}>
+                      Project address
                     </label>
-                  ))}
+                    <input
+                      id={ids.address}
+                      name="address"
+                      autoComplete="street-address"
+                      className={FIELD_CLASS}
+                      value={address}
+                      onChange={(event) => setAddress(event.target.value)}
+                      maxLength={300}
+                      disabled={disabled}
+                      data-testid="input-address"
+                      data-clarity-mask="True"
+                    />
+                  </div>
+                  <div>
+                    <div className="mb-1.5 flex items-baseline gap-2">
+                      <label htmlFor={ids.email} className="block text-sm font-medium text-foreground">
+                        Email
+                      </label>
+                      <span id={ids.emailNote} className="text-sm text-muted-foreground">
+                        {reach === "email" ? "Needed to reply by email" : ""}
+                      </span>
+                    </div>
+                    <input
+                      id={ids.email}
+                      name="email"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      className={FIELD_CLASS}
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      onBlur={() => markTouched("email")}
+                      aria-invalid={showError("email") || undefined}
+                      aria-describedby={describedBy("email", reach === "email" ? ids.emailNote : undefined)}
+                      aria-required={reach === "email" ? "true" : undefined}
+                      disabled={disabled}
+                      data-testid="input-email"
+                      data-clarity-mask="True"
+                    />
+                    {fieldError("email")}
+                  </div>
+
+                  <fieldset>
+                    <legend className={LABEL_CLASS}>How should we reach you?</legend>
+                    <div className="grid grid-cols-3 gap-2">
+                      {REACH_OPTIONS.map((option) => (
+                        <label key={option.value} className={PILL_CLASS}>
+                          <input
+                            type="radio"
+                            name={`${idPrefix}-reach`}
+                            value={option.value}
+                            className="sr-only"
+                            checked={reach === option.value}
+                            onChange={() => setReach(option.value)}
+                            disabled={disabled}
+                            data-clarity-mask="True"
+                          />
+                          {option.label}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
                 </div>
-              </fieldset>
+              </details>
             </>
           )}
         </div>
@@ -859,12 +981,14 @@ export function QuoteRequestForm({
           </p>
         ) : null}
 
-        {/* Phones and tablets: the talk options sit directly above the send button. */}
-        <div className="lg:hidden">{talk}</div>
+        {/* Docked (/estimate): the button rides the bottom of the screen, so the two
+            quiet lines sit with the fields instead of under the bar's reserved space. */}
+        {dock ? quietLines : null}
 
         <WizardActionBar
           pinned={dock}
           dockWhenFormInView={dock}
+          suspendDock={dockYielded}
           ownsBottomEdge={dock}
           onPrimary={onPrimary}
           primaryLabel={sendLabel}
@@ -873,22 +997,9 @@ export function QuoteRequestForm({
           busyLabel="Sending…"
           primaryIcon="none"
           primaryTestId={ready ? "button-estimate-quote-submit" : "button-estimate-quote-continue"}
-          footnote={
-            <p className="text-center text-sm text-muted-foreground lg:text-right">We answer your questions and help you work out the next step.</p>
-          }
-          className={dock ? undefined : "mt-2"}
-        >
-          {/* Wide screens: the talk options sit beside the send button. */}
-          <div className="hidden lg:block lg:w-[18rem] lg:flex-none">{talk}</div>
-        </WizardActionBar>
+        />
 
-        <p className="text-sm leading-snug text-muted-foreground">
-          No obligation. <PreferToTextLine /> See our{" "}
-          <Link href="/privacy-policy" prefetch={false} className="underline underline-offset-2 hover:text-foreground">
-            Privacy Policy
-          </Link>
-          .
-        </p>
+        {dock ? null : quietLines}
       </form>
     </div>
   );
