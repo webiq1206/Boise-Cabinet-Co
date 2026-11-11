@@ -67,7 +67,9 @@ export default function EstimatePage() {
           <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
         </div>
       </section>
-      <details className="mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details">
+      {/* Hidden once the request is sent (app/globals.css, "estimate-planner"): the
+          success screen must not be followed by another set of questions. */}
+      <details className="estimate-planner mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details">
         <summary className="min-h-11 cursor-pointer py-3 underline">
           Prefer a step-by-step planning range?
         </summary>

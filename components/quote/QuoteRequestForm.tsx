@@ -3,20 +3,25 @@
 /**
  * The family quote form, v2 (owner, 1 November: "the easiest user experience
  * possible", files "might be helpful", and "the more information we have, the
- * better"). Two steps:
+ * better"; 11 November, after a client found the form confusing because "it
+ * just kept asking more questions": nothing optional is shown until asked
+ * for, and every step says plainly where the visitor is). Two steps, named
+ * above the form by components/quote/QuoteSteps.tsx:
  *
- * Step 1, one short screen that captures the lead:
- *   [Send a request | Have us call you]
- *   What can we help with?  (the easy, interesting question first)
- *   Add photos, plans or files  (one optional tile)
- *   Name, Phone, Email (optional), How should we reach you
- *   Prefer to talk? Call, Text us, Chat
+ * Step 1, "Your request": only what we need to call back.
+ *   [Send a request | Have us call you]  (quiet tabs)
+ *   What can we help with?
+ *   Name, Phone
+ *   "Add an email or choose how we reach you (optional)": a closed dropdown
+ *     holding Email and How should we reach you
  *   Send my request
+ *   Prefer to talk? Call, Text us, Chat  (one quiet line)
  *
  * Step 2, on the success screen (components/quote/QuoteFollowUp.tsx): the
- * Step 1 files upload, then "Help us prepare (optional)" adds project type,
- * address, timing and more files to the SAME request. The lead never waits
- * on either.
+ * confirmation that the request is sent and nothing else is needed, then one
+ * closed dropdown, "Add photos, plans or project details (optional)", that
+ * adds project type, address, timing and files to the SAME request. The lead
+ * never waits on it.
  *
  * "Have us call you" reduces Step 1 to name, phone and an optional best time
  * and posts through the same /api/consultation pipeline with requestKind
@@ -47,17 +52,26 @@
  * - "button-estimate-quote-back" is the "Send a request" option of the
  *   switch: it returns to the full request and keeps every value.
  * Stable test ids for the shared helpers: input-project, input-name,
- * input-phone, input-email, input-quote-files, quote-file-tile,
- * button-quote-callback, quote-form-success, quote-details-panel,
+ * input-phone, input-email, quote-options (the Step 1 dropdown),
+ * button-quote-callback, quote-form-success, quote-details-panel (the Step 2
+ * dropdown), input-quote-files and quote-file-tile (inside it),
  * button-save-details, quote-details-saved.
  */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { MessageCircle, MessageSquare, Phone } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
-import { AttachmentTile, type PickedFile } from "@/components/quote/AttachmentTile";
 import { QuoteFollowUp } from "@/components/quote/QuoteFollowUp";
-import { ERROR_CLASS, FIELD_CLASS, LABEL_CLASS, OUTLINE_ACTION_CLASS, PILL_CLASS } from "@/components/quote/quoteStyles";
+import { QuoteSteps } from "@/components/quote/QuoteSteps";
+import {
+  DISCLOSURE_CLASS,
+  DISCLOSURE_SUMMARY_CLASS,
+  ERROR_CLASS,
+  FIELD_CLASS,
+  LABEL_CLASS,
+  PILL_CLASS,
+  TAB_CLASS,
+} from "@/components/quote/quoteStyles";
 import { WizardActionBar } from "@/components/estimate/wizard/WizardActionBar";
 import { useKeyboardInset } from "@/components/estimate/wizard/useKeyboardInset";
 import { useEstimateKeyboardFlag } from "@/components/estimate/wizard/useEstimateKeyboardFlag";
@@ -74,6 +88,9 @@ export type QuoteMode = "request" | "callback";
 type Mode = QuoteMode;
 type Reach = "call" | "text" | "email";
 type FieldKey = "name" | "phone" | "project" | "email";
+
+/** Files are added on Step 2, after the request is saved; Step 1 hands none over. */
+const NO_FILES: never[] = [];
 
 const CALLBACK_PROJECT_TYPE = "Callback request";
 
@@ -175,9 +192,9 @@ function draftGateScript(key: string): string {
 }
 
 /**
- * "Send a request" | "Have us call you": two native radios styled as one
- * full-width switch, the active option filled. Also used above the contact
- * page's step-by-step form.
+ * "Send a request" | "Have us call you": two native radios styled as quiet
+ * tabs (an underline marks the active one). They used to be filled pills, and
+ * the active "Send a request" pill looked exactly like the send button.
  */
 export function QuoteModeSwitch({
   name,
@@ -191,10 +208,10 @@ export function QuoteModeSwitch({
   hintId?: string;
 }) {
   return (
-    <fieldset className="grid grid-cols-2 gap-2" data-quote-mode-switch="">
+    <fieldset className="grid grid-cols-2" data-quote-mode-switch="">
       <legend className="sr-only">How would you like to start?</legend>
       {/* Test id kept from the four-step form's Back button (see the header comment). */}
-      <label className={PILL_CLASS} data-testid="button-estimate-quote-back">
+      <label className={TAB_CLASS} data-testid="button-estimate-quote-back">
         <input
           type="radio"
           name={name}
@@ -206,7 +223,7 @@ export function QuoteModeSwitch({
         />
         Send a request
       </label>
-      <label className={PILL_CLASS} data-testid="button-quote-callback">
+      <label className={TAB_CLASS} data-testid="button-quote-callback">
         <input
           type="radio"
           name={name}
@@ -251,7 +268,8 @@ export function QuoteRequestForm({
   const [project, setProject] = useState("");
   const [reach, setReach] = useState<Reach>(DEFAULT_REACH);
   const [bestTime, setBestTime] = useState<string>(BEST_TIMES[0]);
-  const [files, setFiles] = useState<PickedFile[]>([]);
+  /** The Step 1 dropdown of optional fields (email, how to reach you); closed until asked for. */
+  const [optionsOpen, setOptionsOpen] = useState(false);
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [checked, setChecked] = useState(false);
@@ -268,7 +286,6 @@ export function QuoteRequestForm({
     hasEmail: boolean;
     reach: Reach;
     detailsKey: DetailsKey | null;
-    files: PickedFile[];
   } | null>(null);
   const [chatAvailable, setChatAvailable] = useState(false);
   const [restored, setRestored] = useState(!persistKey);
@@ -334,6 +351,8 @@ export function QuoteRequestForm({
     if (early.project || draft.project) setProject(early.project || draft.project || "");
     if (draft.reach === "call" || draft.reach === "text" || draft.reach === "email") setReach(draft.reach);
     if (draft.bestTime && (BEST_TIMES as readonly string[]).includes(draft.bestTime)) setBestTime(draft.bestTime);
+    // Anything already entered in the optional dropdown is shown, never hidden.
+    if (early.email || draft.email || (draft.reach && draft.reach !== DEFAULT_REACH)) setOptionsOpen(true);
     setRestored(true);
     // Once, on mount: ids and persistKey are fixed for a mounted form.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -523,8 +542,6 @@ export function QuoteRequestForm({
           typeof body.requestId === "string" && typeof body.detailsToken === "string"
             ? { requestId: body.requestId, token: body.detailsToken }
             : null,
-        // Callback mode shows no tile; anything picked before switching stays behind.
-        files: kind === "request" ? files : [],
       });
     } catch {
       setSummary(
@@ -545,7 +562,11 @@ export function QuoteRequestForm({
       setSummaryKind("check");
       setSummary(`Please add ${listJoin(names)}.`);
       const first = invalid[0];
-      if (first) document.getElementById(ids[first])?.focus();
+      if (first === "email" && !optionsOpen) {
+        // The email sits in the optional dropdown: open it, then focus the field.
+        setOptionsOpen(true);
+        window.requestAnimationFrame(() => document.getElementById(ids.email)?.focus());
+      } else if (first) document.getElementById(ids[first])?.focus();
       return;
     }
     void send();
@@ -577,7 +598,7 @@ export function QuoteRequestForm({
         phone={done.phone}
         bestTime={done.bestTime}
         detailsKey={done.detailsKey}
-        initialFiles={done.files}
+        initialFiles={NO_FILES}
         hasEmail={done.hasEmail}
         reach={done.reach}
         projectTypeLocked={projectTypeLocked}
@@ -600,31 +621,32 @@ export function QuoteRequestForm({
   const disabled = submitting || locked;
   const sendLabel = mode === "callback" ? "Request a call" : "Send my request";
 
+  const talkLink = "font-medium text-foreground underline underline-offset-4 hover:no-underline";
   const talk = (
-    <div className="space-y-2" data-quote-talk="">
-      <p className="text-sm font-medium text-muted-foreground">Prefer to talk?</p>
-      <a href={SITE_CONFIG.phoneHref} className={OUTLINE_ACTION_CLASS}>
-        <Phone className="h-4 w-4" aria-hidden="true" />
+    <p className="text-sm leading-relaxed text-muted-foreground" data-quote-talk="">
+      Prefer to talk?{" "}
+      <a href={SITE_CONFIG.phoneHref} className={talkLink}>
         Call {SITE_CONFIG.phone}
       </a>
-      <div className={cn("grid gap-2", chatAvailable && "grid-cols-2")}>
-        <a href={SITE_CONFIG.phoneSmsHref} className={OUTLINE_ACTION_CLASS} aria-label={`Text us at ${SITE_CONFIG.phone}`}>
-          <MessageSquare className="h-4 w-4" aria-hidden="true" />
-          Text us
-        </a>
-        {chatAvailable ? (
+      {" or "}
+      <a href={SITE_CONFIG.phoneSmsHref} className={talkLink} aria-label={`Text us at ${SITE_CONFIG.phone}`}>
+        text us
+      </a>
+      {chatAvailable ? (
+        <>
+          {" or "}
           <button
             type="button"
-            className={OUTLINE_ACTION_CLASS}
+            className={talkLink}
             onClick={() => window.dispatchEvent(new Event("p5:assistant-open"))}
             data-testid="button-quote-chat"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            Chat
+            chat
           </button>
-        ) : null}
-      </div>
-    </div>
+        </>
+      ) : null}
+      .
+    </p>
   );
 
   const nameField = (
@@ -692,6 +714,7 @@ export function QuoteRequestForm({
           {headingText}
         </Heading>
       ) : null}
+      <QuoteSteps sent={false} />
       <form
         onSubmit={onSubmit}
         className="space-y-4 estimate-quote-form"
@@ -790,11 +813,24 @@ export function QuoteRequestForm({
                 {fieldError("project")}
               </div>
 
-              <AttachmentTile idPrefix={idPrefix} files={files} onChange={setFiles} disabled={disabled} />
-
               {nameField}
               {phoneField}
 
+              {/* Everything optional lives in this one closed dropdown. */}
+              <details
+                className={DISCLOSURE_CLASS}
+                open={optionsOpen}
+                onToggle={(event) => setOptionsOpen(event.currentTarget.open)}
+                data-testid="quote-options"
+              >
+                <summary className={DISCLOSURE_SUMMARY_CLASS}>
+                  <span>
+                    Add an email or choose how we reach you{" "}
+                    <span className="font-normal text-muted-foreground">(optional)</span>
+                  </span>
+                  <ChevronDown className="h-5 w-5 flex-none transition-transform group-open:rotate-180" aria-hidden="true" />
+                </summary>
+                <div className="space-y-4 border-t border-foreground/20 p-3">
               <div>
                 <div className="mb-1.5 flex items-baseline gap-2">
                   <label htmlFor={ids.email} className="block text-sm font-medium text-foreground">
@@ -844,6 +880,8 @@ export function QuoteRequestForm({
                   ))}
                 </div>
               </fieldset>
+                </div>
+              </details>
             </>
           )}
         </div>
@@ -859,9 +897,6 @@ export function QuoteRequestForm({
           </p>
         ) : null}
 
-        {/* Phones and tablets: the talk options sit directly above the send button. */}
-        <div className="lg:hidden">{talk}</div>
-
         <WizardActionBar
           pinned={dock}
           dockWhenFormInView={dock}
@@ -874,13 +909,16 @@ export function QuoteRequestForm({
           primaryIcon="none"
           primaryTestId={ready ? "button-estimate-quote-submit" : "button-estimate-quote-continue"}
           footnote={
-            <p className="text-center text-sm text-muted-foreground lg:text-right">We answer your questions and help you work out the next step.</p>
+            <p className="text-center text-sm text-muted-foreground">
+              {mode === "callback"
+                ? "We call you back during business hours."
+                : "That is all we need. You can add photos or plans after you send."}
+            </p>
           }
           className={dock ? undefined : "mt-2"}
-        >
-          {/* Wide screens: the talk options sit beside the send button. */}
-          <div className="hidden lg:block lg:w-[18rem] lg:flex-none">{talk}</div>
-        </WizardActionBar>
+        />
+
+        {talk}
 
         <p className="text-sm leading-snug text-muted-foreground">
           No obligation. <PreferToTextLine /> See our{" "}

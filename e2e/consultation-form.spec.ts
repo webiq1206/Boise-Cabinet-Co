@@ -39,6 +39,9 @@ test.describe("Consultation form", () => {
     await expect(page.getByText(/at least 10 digits/i)).toBeVisible();
     expect(submissions).toBe(0);
     await page.getByTestId("input-phone").fill("(208) 555-0101");
+    // Email is optional, so it sits in the closed dropdown until opened.
+    await expect(page.getByTestId("input-email")).toBeHidden();
+    await page.getByTestId("quote-options").locator("summary").click();
     await page.getByTestId("input-email").fill("playwright@example.invalid");
     await page.getByTestId("button-estimate-quote-submit").click();
 
@@ -54,7 +57,11 @@ test.describe("Consultation form", () => {
     expect(attempts[1]).toBe(attempts[0]);
 
     // The project type, asked on the success screen, adds to the same request.
+    // The request is plainly finished, and the optional details stay closed until asked for.
+    await expect(page.getByTestId("quote-all-set")).toBeVisible();
     const panel = page.getByTestId("quote-details-panel");
+    await expect(panel.getByTestId("button-save-details")).toBeHidden();
+    await panel.getByTestId("quote-details-disclosure").locator("summary").click();
     await panel.getByText("Kitchen", { exact: true }).click();
     await panel.getByTestId("button-save-details").click();
     await expect(page.getByTestId("quote-details-saved")).toBeVisible();

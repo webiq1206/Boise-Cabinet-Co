@@ -3,24 +3,36 @@
 /**
  * What the visitor sees once the request is saved (family quote form v2):
  *
- * 1. The confirmation, first and unmistakable: "Thanks, {first name}. We have
- *    your request." with what happens next and a call link.
- * 2. Their Step 1 files uploading, each with its own state. A file that fails
- *    says so by name and offers "Try again" or texting it; the request itself
- *    is already saved and never depends on an upload.
- * 3. Step 2, "Help us prepare (optional)": a few optional details that add to
- *    the SAME request (/api/consultation/details with the request's details
- *    token). Never re-asks what Step 1 has. Skipping needs no action.
+ * 1. The steps line, now reading "Request sent", and the confirmation, first
+ *    and unmistakable: "Thanks, {first name}. We have your request." with what
+ *    happens next, a plain "You are all set. Nothing else is needed." and a
+ *    call link.
+ * 2. Step 2, one CLOSED dropdown: "Add photos, plans or project details
+ *    (optional)". Opened, it adds a few details and files to the SAME request
+ *    (/api/consultation/details with the request's details token). It never
+ *    re-asks what Step 1 has, and leaving it closed needs no action. It used to
+ *    sit open under the confirmation, and a client read it as the form asking
+ *    for more before the request counted (11 November).
+ *    A file that fails to upload says so by name and offers "Try again" or
+ *    texting it; the request itself is already saved and never depends on it.
  *
  * Analytics: Step 1 already fired the one conversion; saving Step 2 fires
  * `lead_details_added` with counts only, never what was typed.
  */
 import { forwardRef, useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { Loader2 } from "lucide-react";
+import { Check, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { AttachmentTile, FileChips, type PickedFile } from "@/components/quote/AttachmentTile";
-import { ERROR_CLASS, FIELD_CLASS, LABEL_CLASS, PILL_CLASS } from "@/components/quote/quoteStyles";
+import { QuoteSteps } from "@/components/quote/QuoteSteps";
+import {
+  DISCLOSURE_CLASS,
+  DISCLOSURE_SUMMARY_CLASS,
+  ERROR_CLASS,
+  FIELD_CLASS,
+  LABEL_CLASS,
+  PILL_CLASS,
+} from "@/components/quote/quoteStyles";
 import { postQuoteDetails, uploadQuoteFile, type DetailsKey } from "@/lib/quoteUploads";
 import { cn } from "@/lib/utils";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -92,7 +104,6 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
   const [emailTouched, setEmailTouched] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [skipped, setSkipped] = useState(false);
   const [panelError, setPanelError] = useState("");
   const startedRef = useRef(false);
   const Heading = panelHeading;
@@ -168,7 +179,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
     if (!hasEmail && email.trim()) fields.email = email.trim();
     const pending = files2.filter((f) => f.state !== "done");
     if (!Object.keys(fields).length && !pending.length) {
-      setPanelError("Add a detail above, or skip this. We have what we need to start.");
+      setPanelError("Add a detail or a file above. If you have nothing to add, you are already done.");
       return;
     }
     setSaving(true);
@@ -203,6 +214,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
     // data-family-bar-yield: the family mobile bar steps aside while this success screen and its
     // Step 2 are on screen (components/family/MobileActionBar.tsx), as it does for the form.
     <div className={cn("space-y-6", className)} data-quote-follow-up="" data-family-bar-yield="">
+      <QuoteSteps sent />
       <div
         ref={successRef}
         tabIndex={-1}
@@ -212,12 +224,20 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
         data-testid={successTestId}
         className="space-y-3 outline-none"
       >
-        <p className="text-xl font-medium leading-snug text-foreground">Thanks, {firstName}. We have your request.</p>
+        <p className="flex items-start gap-3 text-xl font-medium leading-snug text-foreground">
+          <span className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center bg-foreground text-background" aria-hidden="true">
+            <Check className="h-4 w-4" />
+          </span>
+          <span>Thanks, {firstName}. We have your request.</span>
+        </p>
         <p className="text-base leading-relaxed text-foreground/85">
           {kind === "callback"
             ? `We will call you at ${phone}${when} to answer your questions and help you work out the next step.`
             : "Our team reviews your project, answers your questions and helps you work out the next step."}{" "}
           <PreferToTextLine />
+        </p>
+        <p className="text-base font-medium leading-relaxed text-foreground" data-testid="quote-all-set">
+          You are all set. Nothing else is needed.
         </p>
         <p className="text-base leading-relaxed text-foreground/85">
           Prefer to talk it through?{" "}
@@ -241,26 +261,18 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
         </div>
       ) : null}
 
-      {detailsKey && !skipped ? (
+      {detailsKey ? (
         <section
           aria-labelledby={`${idPrefix}-d-heading`}
-          className="space-y-4 border-t border-border pt-5"
+          className="space-y-3 border-t border-border pt-5"
           data-testid="quote-details-panel"
           data-clarity-mask="True"
         >
-          <div className="space-y-1">
-            <Heading id={`${idPrefix}-d-heading`} className="font-sans text-lg font-medium leading-snug text-foreground">
-              Help us prepare (optional)
-            </Heading>
-            {saved ? null : (
-              <p className="text-sm leading-snug text-muted-foreground">
-                A few details help us give you a closer quote on the first call.
-              </p>
-            )}
-          </div>
-
           {saved ? (
             <div className="space-y-3">
+              <Heading id={`${idPrefix}-d-heading`} className="sr-only">
+                Photos and project details
+              </Heading>
               <p role="status" className="text-base font-medium text-foreground" data-testid="quote-details-saved">
                 Saved. Thank you.
               </p>
@@ -274,7 +286,18 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
               ) : null}
             </div>
           ) : (
-            <form onSubmit={save} noValidate className="space-y-4" data-quote-details-form="">
+            <details className={DISCLOSURE_CLASS} data-testid="quote-details-disclosure">
+              <summary className={DISCLOSURE_SUMMARY_CLASS}>
+                <Heading id={`${idPrefix}-d-heading`} className="font-sans text-base font-medium leading-snug text-foreground">
+                  Add photos, plans or project details{" "}
+                  <span className="font-normal text-muted-foreground">(optional)</span>
+                </Heading>
+                <ChevronDown className="h-5 w-5 flex-none transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+            <form onSubmit={save} noValidate className="space-y-4 border-t border-foreground/20 p-3" data-quote-details-form="">
+              <p className="text-sm leading-snug text-muted-foreground">
+                Answer any of these, or none. Each one helps us give you a closer quote on the first call.
+              </p>
               {projectTypeLocked ? null : (
                 <fieldset>
                   <legend className={LABEL_CLASS}>Project type</legend>
@@ -406,28 +429,18 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
                 </p>
               ) : null}
 
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                <Button type="submit" className="h-12 min-w-[10rem] px-6 text-base" disabled={saving} data-testid="button-save-details">
-                  {saving ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-                      Saving…
-                    </>
-                  ) : (
-                    "Save details"
-                  )}
-                </Button>
-                <button
-                  type="button"
-                  className="min-h-12 px-1 text-base text-muted-foreground underline underline-offset-4 hover:text-foreground"
-                  onClick={() => setSkipped(true)}
-                  disabled={saving}
-                  data-testid="button-skip-details"
-                >
-                  Skip
-                </button>
-              </div>
+              <Button type="submit" className="h-12 min-w-[10rem] px-6 text-base" disabled={saving} data-testid="button-save-details">
+                {saving ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                    Saving…
+                  </>
+                ) : (
+                  "Save details"
+                )}
+              </Button>
             </form>
+            </details>
           )}
         </section>
       ) : null}

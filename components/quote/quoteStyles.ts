@@ -12,3 +12,13 @@ export const ERROR_CLASS = "mt-1.5 text-sm leading-snug text-destructive";
 
 export const OUTLINE_ACTION_CLASS =
   "flex min-h-12 w-full items-center justify-center gap-2 border border-foreground/45 px-3 text-base font-semibold text-foreground transition-colors hover:border-foreground hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+/** The "Send a request" | "Have us call you" switch: quiet tabs, so neither reads as a second send button. */
+export const TAB_CLASS =
+  "flex min-h-12 cursor-pointer items-center justify-center border-b-2 border-foreground/20 px-1.5 text-center text-[0.9375rem] font-medium text-muted-foreground transition-colors hover:text-foreground has-[:checked]:border-foreground has-[:checked]:text-foreground has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background sm:text-base";
+
+/** A closed-by-default dropdown that holds everything optional. */
+export const DISCLOSURE_CLASS = "group border border-foreground/30";
+
+export const DISCLOSURE_SUMMARY_CLASS =
+  "flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-3 text-base font-medium text-foreground hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden";

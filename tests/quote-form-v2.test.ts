@@ -62,13 +62,25 @@ test("Step 1: the form sends the same field names the route reads, and asks for 
   for (const key of ["name:", "phone:", "email:", "projectType,", "message: notes", "companyWebsite,", "requestKind: kind", "preferredContact:", "bestTime:"]) {
     assert.ok(source.includes(key), `payload carries ${key}`);
   }
-  // Visual order: the question first, then the tile, then contact details.
-  const order = ["What can we help with?", "<AttachmentTile", "{nameField}", "{phoneField}", 'htmlFor={ids.email}', "How should we reach you?"];
+  // Visual order: the question first, then name and phone, then the one closed
+  // dropdown that holds everything optional (email, how to reach you).
+  const order = ["What can we help with?", "{nameField}", "{phoneField}", 'data-testid="quote-options"', 'htmlFor={ids.email}', "How should we reach you?", "</details>"];
   const requestBranch = source.indexOf("<label id={ids.projectQuestion}");
   assert.ok(requestBranch > 0);
   const positions = order.map((text) => source.indexOf(text, requestBranch));
   for (let i = 1; i < positions.length; i += 1) assert.ok(positions[i] > positions[i - 1], `${order[i]} follows ${order[i - 1]}`);
   assert.doesNotMatch(source, /name="zip"|name="room"/);
+  // Step 1 shows nothing optional: no attachment tile, and the dropdown starts closed.
+  assert.doesNotMatch(source, /<AttachmentTile/);
+  assert.match(source, /const \[optionsOpen, setOptionsOpen\] = useState\(false\);/);
+  // Step 2 is one dropdown that starts closed (a native details with no open attribute),
+  // holds the attachment tile, and offers no "Skip": leaving it closed is skipping.
+  const followUp = readFileSync(new URL("../components/quote/QuoteFollowUp.tsx", import.meta.url), "utf8");
+  const disclosure = followUp.indexOf('<details className={DISCLOSURE_CLASS} data-testid="quote-details-disclosure">');
+  assert.ok(disclosure > 0, "Step 2 sits in a closed dropdown");
+  assert.ok(followUp.indexOf("<AttachmentTile", disclosure) > disclosure && followUp.indexOf("<AttachmentTile", disclosure) < followUp.indexOf("</details>", disclosure));
+  assert.doesNotMatch(followUp, /button-skip-details/);
+  assert.match(followUp, /You are all set\. Nothing else is needed\./);
   // Default reply channel is a text (the site has a text line).
   assert.match(source, /const DEFAULT_REACH: Reach = "text";/);
 });
