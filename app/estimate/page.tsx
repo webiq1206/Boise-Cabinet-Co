@@ -63,11 +63,15 @@ export default function EstimatePage() {
           Request a cabinet quote</h1>
         <AboveFoldActions />
         <div id="estimate-request" tabIndex={-1} className="mt-3 scroll-mt-28">
-          <KitchenCabinetsQuoteForm context="cabinet-project" heading={null} dock />
-          <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
+          {/* The call and text line above already shows the number, so the form's
+              own line under the fields does not repeat it. No second helper
+              paragraph follows the form: it already says "No obligation." */}
+          <KitchenCabinetsQuoteForm context="cabinet-project" heading={null} dock showPhone={false} />
         </div>
       </section>
-      <details className="mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details">
+      {/* Hidden once the request is sent (app/globals.css, "estimate-planner"): the
+          success screen must not be followed by another set of questions. */}
+      <details className="estimate-planner mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details" data-quote-dock-yield="">
         <summary className="min-h-11 cursor-pointer py-3 underline">
           Prefer a step-by-step planning range?
         </summary>

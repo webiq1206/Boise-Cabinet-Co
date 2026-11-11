@@ -16,7 +16,7 @@ export const QUOTE_FILE_MAX_BYTES = QUOTE_FILE_MAX_MB * 1024 * 1024;
 /** The picker filter: on phones this offers the camera, the photo library and files. */
 export const QUOTE_FILE_ACCEPT = "image/*,application/pdf,.heic,.heif";
 /** The tile's small print, built from the real limits. */
-export const QUOTE_FILE_HINT = `Optional. Photos, PDFs or drawings. Up to ${QUOTE_FILE_MAX_COUNT} files, ${QUOTE_FILE_MAX_MB} MB each.`;
+export const QUOTE_FILE_HINT = `Photos, PDFs or drawings. Up to ${QUOTE_FILE_MAX_COUNT} files, ${QUOTE_FILE_MAX_MB} MB each.`;
 
 const TYPE_BY_EXTENSION: Readonly<Record<string, string>> = {
   jpg: "image/jpeg",
