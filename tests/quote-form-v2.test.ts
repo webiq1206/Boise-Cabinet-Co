@@ -164,7 +164,25 @@ test("Step 1: the form sends the same field names the route reads, and asks for 
   assert.equal(source.match(/<QuoteModeSwitch/g)?.length, 1, "one mode control");
   assert.equal(source.match(/SITE_CONFIG\.phoneHref/g)?.length, 1, "one call link in the form");
   // One small legal line: "No obligation." and the Privacy Policy link.
-  assert.match(source, /No obligation\.\{" "\}\s*<Link href="\/privacy-policy"/);
+  assert.match(source, /No obligation\.\{" "\}\s*<span className="whitespace-nowrap">\s*<Link href="\/privacy-policy"/);
+  // The last link of each quiet line and its full stop stay together, so a stop never wraps alone.
+  assert.match(modeSwitch, /<span className="whitespace-nowrap">\s*<fieldset[\s\S]*<\/fieldset>\s*\{mode === "request" \? "\." : null\}\s*<\/span>/);
+  assert.match(followUp, /<span className="whitespace-nowrap">\s*<a href=\{SITE_CONFIG\.phoneHref\}[\s\S]*?<\/a>\s*\.\s*<\/span>/);
+  // Nothing behind a toggle that already says "(optional)" repeats it: no "Optional" note
+  // beside Email (only "Needed to reply by email" when that is the chosen reply), and the
+  // only "(optional)" left are the two toggle summaries and "Best time to call" in callback mode.
+  assert.match(source, /\{reach === "email" \? "Needed to reply by email" : ""\}/);
+  assert.doesNotMatch(source, /"Optional"|>\s*Optional\s*</);
+  assert.equal(source.slice(source.indexOf("return (\n    // data-family-bar-yield")).match(/\(optional\)/g)?.length, 2);
+  assert.equal(followUp.slice(followUp.indexOf("return (\n    // data-family-bar-yield")).match(/optional/gi)?.length, 1);
+  // One docked bar at a time on /estimate: the send bar gives up the dock while the planner
+  // below the form is open and on screen, without moving anything (the spacer hands its room to the bar).
+  assert.match(source, /document\.querySelector<HTMLElement>\("\[data-quote-dock-yield\]"\)/);
+  assert.match(source, /suspendDock=\{dockYielded\}/);
+  const bar = readFileSync(new URL("../components/estimate/wizard/WizardActionBar.tsx", import.meta.url), "utf8");
+  assert.match(bar, /const docked = pinned && !suspendDock && /);
+  assert.match(bar, /height: suspendDock \? 0 : barHeight/);
+  assert.match(readFileSync(new URL("../app/estimate/page.tsx", import.meta.url), "utf8"), /className="estimate-planner[^"]*"[^>]*data-quote-dock-yield=""/);
 
   // After sending: the thanks, ONE sentence ending "Nothing else is needed.",
   // one quiet toggle that starts closed (a native details with no open
@@ -282,7 +300,7 @@ test("details body: only known fields and real file ids are accepted", () => {
 test("file rules: photos and PDFs within the real limits, HEIC by extension, plain refusals", () => {
   assert.equal(QUOTE_FILE_MAX_COUNT, 10);
   assert.equal(QUOTE_FILE_MAX_BYTES, 20 * 1024 * 1024);
-  assert.equal(QUOTE_FILE_HINT, "Optional. Photos, PDFs or drawings. Up to 10 files, 20 MB each.");
+  assert.equal(QUOTE_FILE_HINT, "Photos, PDFs or drawings. Up to 10 files, 20 MB each.");
   assert.deepEqual(checkQuoteFile({ name: "kitchen.jpg", type: "image/jpeg", size: 1000 }), { ok: true, contentType: "image/jpeg" });
   assert.equal(resolveQuoteFileType("IMG_0001.HEIC", ""), "image/heic");
   assert.equal(resolveQuoteFileType("plan.pdf", "application/octet-stream"), "application/pdf");

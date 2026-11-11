@@ -440,10 +440,12 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
       {showPhone ? (
         <p className={MUTED_LINE_CLASS}>
           Prefer to talk?{" "}
-          <a href={SITE_CONFIG.phoneHref} className={MUTED_LINK_CLASS}>
-            Call {SITE_CONFIG.phone}
-          </a>
-          .
+          <span className="whitespace-nowrap">
+            <a href={SITE_CONFIG.phoneHref} className={MUTED_LINK_CLASS}>
+              Call {SITE_CONFIG.phone}
+            </a>
+            .
+          </span>
         </p>
       ) : null}
     </div>

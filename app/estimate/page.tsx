@@ -71,7 +71,7 @@ export default function EstimatePage() {
       </section>
       {/* Hidden once the request is sent (app/globals.css, "estimate-planner"): the
           success screen must not be followed by another set of questions. */}
-      <details className="estimate-planner mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details">
+      <details className="estimate-planner mx-auto w-full max-w-3xl px-6 pb-24" data-testid="estimate-d2-details" data-quote-dock-yield="">
         <summary className="min-h-11 cursor-pointer py-3 underline">
           Prefer a step-by-step planning range?
         </summary>

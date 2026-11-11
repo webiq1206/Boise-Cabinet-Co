@@ -29,6 +29,12 @@ export interface WizardActionBarProps {
    * has scrolled to its end, and the send button is nowhere on the first screen.
    */
   dockWhenFormInView?: boolean;
+  /**
+   * Another flow owns the bottom edge right now (the planner under the quote
+   * form on /estimate, while it is open and on screen): this bar stays in its
+   * place in the form instead of docking, so two bars are never docked at once.
+   */
+  suspendDock?: boolean;
   /** One short line under the buttons, inside the bar (e.g. what happens next). */
   footnote?: React.ReactNode;
   className?: string;
@@ -55,6 +61,7 @@ export function WizardActionBar({
   ownsBottomEdge = true,
   pinned = true,
   dockWhenFormInView = false,
+  suspendDock = false,
   footnote,
   className,
   "data-testid": testId = "wizard-action-bar",
@@ -106,7 +113,7 @@ export function WizardActionBar({
     return () => observer.disconnect();
   }, [pinned]);
 
-  const docked = pinned && ((wizardInView && formEngaged) || keyboardInset > 0);
+  const docked = pinned && !suspendDock && ((wizardInView && formEngaged) || keyboardInset > 0);
 
   useEffect(() => {
     if (!ownsBottomEdge || !docked) return;
@@ -159,7 +166,12 @@ export function WizardActionBar({
         docked
           ? "fixed inset-x-0 z-[120] border-t border-border bg-background px-4 pb-safe pt-3 backdrop-blur-md transition-[bottom] duration-150"
           : pinned
-            ? "relative z-30 -mx-4 mt-6 border-t border-border bg-background px-4 pb-safe pt-3 backdrop-blur-md"
+            ? cn(
+                "relative z-30 -mx-4 border-t border-border bg-background px-4 pb-safe pt-3 backdrop-blur-md",
+                // Suspended: the bar takes exactly the room its spacer reserved, so
+                // giving up the dock moves nothing below it (no layout shift, no flapping).
+                suspendDock ? "mt-0" : "mt-6",
+              )
             : "pt-1",
         className,
       )}
@@ -224,7 +236,7 @@ export function WizardActionBar({
           data-wizard-action-bar-spacer=""
           // Keep reserved height whenever pinned so portaling the docked bar
           // never collapses document scroll height (C10 pin under header).
-          style={{ height: barHeight }}
+          style={{ height: suspendDock ? 0 : barHeight }}
           className="pointer-events-none shrink-0"
         />
       ) : null}

@@ -263,6 +263,8 @@ export function QuoteModeSwitch({
           {" or "}
         </>
       ) : null}
+      {/* The last link and its full stop stay together, so the stop never wraps alone. */}
+      <span className="whitespace-nowrap">
       <fieldset className="m-0 inline min-w-0 border-0 p-0 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background">
         <legend className="sr-only">How would you like to start?</legend>
         {/* Test id kept from the four-step form's Back button (see the header comment). */}
@@ -270,6 +272,7 @@ export function QuoteModeSwitch({
         {option("callback", "Have us call you", "button-quote-callback")}
       </fieldset>
       {mode === "request" ? "." : null}
+      </span>
     </div>
   );
 }
@@ -337,6 +340,36 @@ export function QuoteRequestForm({
   const successRef = useRef<HTMLDivElement | null>(null);
   const keyboardInset = useKeyboardInset();
   useEstimateKeyboardFlag(dock);
+  /** A flow below the form (the /estimate planner) is open and on screen: it owns the bottom edge. */
+  const [dockYielded, setDockYielded] = useState(false);
+
+  // One docked bar at a time. The planner under the form on /estimate has its
+  // own Continue and Back bar; while its disclosure is open and its wizard is
+  // on screen, this form's send button stays in its place in the form. It docks
+  // again when the planner is closed or scrolled away.
+  useEffect(() => {
+    if (!dock) return;
+    const owner = document.querySelector<HTMLElement>("[data-quote-dock-yield]");
+    if (!owner) return;
+    const target = owner.querySelector<HTMLElement>("[data-estimate-wizard]") ?? owner;
+    let onScreen = false;
+    const isOpen = () => !(owner instanceof HTMLDetailsElement) || owner.open;
+    const update = () => setDockYielded(isOpen() && onScreen);
+    const observer =
+      typeof IntersectionObserver === "undefined"
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            onScreen = entry.isIntersecting;
+            update();
+          });
+    observer?.observe(target);
+    owner.addEventListener("toggle", update);
+    update();
+    return () => {
+      observer?.disconnect();
+      owner.removeEventListener("toggle", update);
+    };
+  }, [dock]);
 
   const ids = useMemo(
     () => ({
@@ -683,10 +716,12 @@ export function QuoteRequestForm({
       </p>
       <p className={MUTED_LINE_CLASS}>
         No obligation.{" "}
-        <Link href="/privacy-policy" prefetch={false} className="underline underline-offset-4 hover:text-foreground">
-          Privacy Policy
-        </Link>
-        .
+        <span className="whitespace-nowrap">
+          <Link href="/privacy-policy" prefetch={false} className="underline underline-offset-4 hover:text-foreground">
+            Privacy Policy
+          </Link>
+          .
+        </span>
       </p>
     </>
   );
@@ -953,6 +988,7 @@ export function QuoteRequestForm({
         <WizardActionBar
           pinned={dock}
           dockWhenFormInView={dock}
+          suspendDock={dockYielded}
           ownsBottomEdge={dock}
           onPrimary={onPrimary}
           primaryLabel={sendLabel}

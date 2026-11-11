@@ -705,10 +705,12 @@ export function ConsultationFields({
         </p>
         <p className="text-sm text-muted-foreground">
           Prefer to talk?{" "}
-          <a href={SITE_CONFIG.phoneHref} className="font-medium text-foreground underline underline-offset-4 hover:no-underline">
-            Call {SITE_CONFIG.phone}
-          </a>
-          .
+          <span className="whitespace-nowrap">
+            <a href={SITE_CONFIG.phoneHref} className="font-medium text-foreground underline underline-offset-4 hover:no-underline">
+              Call {SITE_CONFIG.phone}
+            </a>
+            .
+          </span>
         </p>
       </div>
     );
@@ -1003,7 +1005,7 @@ export function ConsultationFields({
                               <Select onValueChange={field.onChange} value={field.value || ""}>
                                 <FormControl>
                                   <SelectTrigger className={consultInputClass} data-testid="select-budget">
-                                    <SelectValue placeholder="Optional" />
+                                    <SelectValue placeholder="Select a range" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -1266,7 +1268,7 @@ export function ConsultationFields({
                         <Select onValueChange={field.onChange} value={field.value || ""}>
                           <FormControl>
                             <SelectTrigger className={consultInputClass} data-testid="select-budget">
-                              <SelectValue placeholder="Optional" />
+                              <SelectValue placeholder="Select a range" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
