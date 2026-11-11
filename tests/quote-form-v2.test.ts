@@ -3,7 +3,7 @@
  * that decide whether a lead and what was added to it arrive intact.
  */
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import { buildLeadNotes, consultationBodySchema, resolveProjectType } from "../server/services/consultationRequest.ts";
 import {
@@ -57,30 +57,132 @@ test("Step 1: the short request with no email, a text reply and no project type 
   assert.equal(resolveProjectType({ projectType: "", requestKind: "request" }), "other");
 });
 
+test("Step 1: an optional project address is accepted, and its absence changes nothing", () => {
+  const base = {
+    name: "Avery Sample",
+    phone: "(208) 555-0142",
+    email: "",
+    zip: "",
+    projectType: "cabinet-project: Pantry wall",
+    message: "Pantry wall",
+    companyWebsite: "",
+    metaEventId: key,
+    source: "consultation",
+    requestKind: "request",
+    preferredContact: "text",
+    bestTime: "",
+  };
+  const without = consultationBodySchema.safeParse(base);
+  assert.equal(without.success, true);
+  if (without.success) assert.equal(without.data.address, "", "no address is the blank the server always stored");
+  const withAddress = consultationBodySchema.safeParse({ ...base, address: "123 Main St, Boise, ID 83702" });
+  assert.equal(withAddress.success, true);
+  if (!withAddress.success || !without.success) return;
+  assert.equal(withAddress.data.address, "123 Main St, Boise, ID 83702");
+  // The address travels in its own field, not in the notes.
+  assert.equal(buildLeadNotes(withAddress.data), buildLeadNotes(without.data));
+  // The route stores it, derives the ZIP from it and forwards it, as for the estimator's contact step.
+  const route = readFileSync(new URL("../app/api/consultation/route.ts", import.meta.url), "utf8");
+  assert.match(route, /const zip = data\.zip \|\| parts\.zip \|\| extractZipFromAddress\(data\.address\) \|\| "";/);
+  assert.match(route, /address: data\.address \|\| null,/);
+  assert.match(route, /<strong>Address:<\/strong> \$\{escapeHtml\(data\.address\)\}/);
+});
+
 test("Step 1: the form sends the same field names the route reads, and asks for no address or project type", () => {
   const source = readFileSync(new URL("../components/quote/QuoteRequestForm.tsx", import.meta.url), "utf8");
   for (const key of ["name:", "phone:", "email:", "projectType,", "message: notes", "companyWebsite,", "requestKind: kind", "preferredContact:", "bestTime:"]) {
     assert.ok(source.includes(key), `payload carries ${key}`);
   }
-  // Visual order: the question first, then name and phone, then the one closed
-  // dropdown that holds everything optional (email, how to reach you).
-  const order = ["What can we help with?", "{nameField}", "{phoneField}", 'data-testid="quote-options"', 'htmlFor={ids.email}', "How should we reach you?", "</details>"];
+  // Visual order: the question first, then name and phone, then the one quiet
+  // toggle that holds everything optional (email, how to reach you), then the
+  // send button, the talk line and the legal line.
+  const order = [
+    "What can we help with?",
+    "{nameField}",
+    "{phoneField}",
+    'data-testid="quote-options"',
+    "Add address, email or contact preference (optional)",
+    'htmlFor={ids.address}',
+    "Project address",
+    'htmlFor={ids.email}',
+    "How should we reach you?",
+    "</details>",
+    "<WizardActionBar",
+    "{dock ? null : quietLines}",
+  ];
   const requestBranch = source.indexOf("<label id={ids.projectQuestion}");
   assert.ok(requestBranch > 0);
   const positions = order.map((text) => source.indexOf(text, requestBranch));
   for (let i = 1; i < positions.length; i += 1) assert.ok(positions[i] > positions[i - 1], `${order[i]} follows ${order[i - 1]}`);
   assert.doesNotMatch(source, /name="zip"|name="room"/);
-  // Step 1 shows nothing optional: no attachment tile, and the dropdown starts closed.
+  // The optional project address (owner, 11 November) is the toggle's first field: a
+  // plain text input, never required or validated, sent as `address` only when given
+  // (so a request without one is exactly what it was), never in callback mode, kept
+  // in the tab's draft, and a restored one opens the toggle.
+  assert.match(source, /name="address"\s+autoComplete="street-address"/);
+  assert.match(source, /maxLength=\{300\}/);
+  assert.match(source, /address: kind === "request" \? address\.trim\(\) : "",/);
+  assert.match(source, /\.\.\.\(trimmed\.address \? \{ address: trimmed\.address \} : null\),/);
+  assert.match(source, /zip: trimmed\.zip,/);
+  assert.doesNotMatch(source, /next\.address|errors\.address/);
+  assert.match(source, /const draft: Draft = \{ mode, name, phone, email, address, project, reach, bestTime \};/);
+  assert.match(source, /early\.address \|\| draft\.address \|\| \(draft\.reach/);
+  // The first screen shows nothing optional: no attachment tile, and the toggle starts closed.
   assert.doesNotMatch(source, /<AttachmentTile/);
   assert.match(source, /const \[optionsOpen, setOptionsOpen\] = useState\(false\);/);
-  // Step 2 is one dropdown that starts closed (a native details with no open attribute),
-  // holds the attachment tile, and offers no "Skip": leaving it closed is skipping.
   const followUp = readFileSync(new URL("../components/quote/QuoteFollowUp.tsx", import.meta.url), "utf8");
-  const disclosure = followUp.indexOf('<details className={DISCLOSURE_CLASS} data-testid="quote-details-disclosure">');
-  assert.ok(disclosure > 0, "Step 2 sits in a closed dropdown");
+  const styles = readFileSync(new URL("../components/quote/quoteStyles.ts", import.meta.url), "utf8");
+
+  // Clean layout (owner, 11 November: "It cannot look cluttered"): no step
+  // indicator, no tabs, no footnote under the button, no Text or Chat links, no
+  // "Prefer to text" sentence and no bordered dropdown anywhere in the form.
+  assert.equal(existsSync(new URL("../components/quote/QuoteSteps.tsx", import.meta.url)), false, "the step indicator is gone");
+  for (const [name, text] of [["QuoteRequestForm", source], ["QuoteFollowUp", followUp], ["quoteStyles", styles]] as const) {
+    assert.doesNotMatch(text, /QuoteSteps|data-quote-steps|TAB_CLASS|DISCLOSURE_|ChevronDown|PreferToTextLine/, name);
+    assert.doesNotMatch(text, /That is all we need|footnote=|button-quote-chat|phoneSmsHref\} className=\{talkLink/, name);
+  }
+  // The quiet toggle is text only: no border, no background, no padding box.
+  const quiet = styles.slice(styles.indexOf("export const QUIET_TOGGLE_CLASS"), styles.indexOf("export const MUTED_LINE_CLASS"));
+  assert.ok(quiet.length > 0);
+  assert.doesNotMatch(quiet, /\bborder|\bbg-|\bp[xy]?-\d|shadow/);
+  assert.match(quiet, /text-sm text-muted-foreground/);
+  for (const text of [source, followUp]) {
+    assert.match(text, /<details\s+className=\{QUIET_TOGGLE_CLASS\}|<details className=\{QUIET_TOGGLE_CLASS\}/);
+    assert.match(text, /<summary className=\{QUIET_SUMMARY_CLASS\}>\s*<Plus className=\{QUIET_PLUS_CLASS\} aria-hidden="true" \/>/);
+  }
+
+  // One line under the button, which is also the mode control: the same two
+  // native radios with the same names and test ids, of which only the mode the
+  // visitor is NOT in shows (as a text link); the checked one is visually hidden.
+  const modeSwitch = source.slice(source.indexOf("export function QuoteModeSwitch"), source.indexOf("export function QuoteRequestForm"));
+  assert.match(modeSwitch, /"Prefer to talk\? " : "Rather write it down\? "/);
+  assert.match(modeSwitch, /href=\{SITE_CONFIG\.phoneHref\}[^>]*>\s*Call \{SITE_CONFIG\.phone\}/);
+  assert.match(modeSwitch, /option\("request", "Send a request", "button-estimate-quote-back"\)/);
+  assert.match(modeSwitch, /option\("callback", "Have us call you", "button-quote-callback"\)/);
+  assert.match(modeSwitch, /type="radio"/);
+  assert.match(modeSwitch, /mode === value\s*\? "sr-only"/);
+  assert.equal(source.match(/<QuoteModeSwitch/g)?.length, 1, "one mode control");
+  assert.equal(source.match(/SITE_CONFIG\.phoneHref/g)?.length, 1, "one call link in the form");
+  // One small legal line: "No obligation." and the Privacy Policy link.
+  assert.match(source, /No obligation\.\{" "\}\s*<Link href="\/privacy-policy"/);
+
+  // After sending: the thanks, ONE sentence ending "Nothing else is needed.",
+  // one quiet toggle that starts closed (a native details with no open
+  // attribute) holding the attachment tile, no "Skip", and one call line.
+  const disclosure = followUp.indexOf('<details className={QUIET_TOGGLE_CLASS} data-testid="quote-details-disclosure">');
+  assert.ok(disclosure > 0, "the optional details sit behind a closed quiet toggle");
   assert.ok(followUp.indexOf("<AttachmentTile", disclosure) > disclosure && followUp.indexOf("<AttachmentTile", disclosure) < followUp.indexOf("</details>", disclosure));
+  assert.match(followUp, /Add photos, plans or details \(optional\)/);
   assert.doesNotMatch(followUp, /button-skip-details/);
-  assert.match(followUp, /You are all set\. Nothing else is needed\./);
+  // The details never re-ask what the first screen has: no address field when one was given.
+  assert.match(followUp, /\{hasAddress \? null : \(\s*<div>\s*<label htmlFor=\{`\$\{idPrefix\}-d-address`\}/);
+  assert.match(followUp, /if \(!hasAddress && address\.trim\(\)\) fields\.address = address\.trim\(\);/);
+  const allSet = followUp.slice(followUp.indexOf('data-testid="quote-all-set"'));
+  assert.match(allSet.slice(0, allSet.indexOf("</p>")), /Nothing else is needed\.\s*$/);
+  assert.equal(followUp.slice(followUp.indexOf("return (\n    // data-family-bar-yield")).match(/Nothing else is needed\./g)?.length, 1);
+  assert.doesNotMatch(followUp, /You are all set|Answer any of these|<ol|<ul/);
+  assert.equal(followUp.match(/SITE_CONFIG\.phoneHref/g)?.length, 1, "one call line after sending");
+  assert.doesNotMatch(followUp.slice(followUp.indexOf("return (\n    // data-family-bar-yield")), /border-t|border-b|bg-foreground/);
   // Default reply channel is a text (the site has a text line).
   assert.match(source, /const DEFAULT_REACH: Reach = "text";/);
 });

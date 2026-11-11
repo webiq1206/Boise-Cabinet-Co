@@ -38,9 +38,10 @@ import { markEstimatorCompleted } from "@/lib/estimatorSession";
  * Style preferences from the finder (`brc_finder`) pre-fill the message.
  *
  * The homepage, the installation page and the contact page render the family
- * two-step form ({@link QuoteRequestForm}): what we can help with, optional
- * files, name, phone, email, how to reach you, and "Have us call you"; then
- * the optional "Help us prepare" details on the success screen. It fires the
+ * short form ({@link QuoteRequestForm}): what we can help with, name and
+ * phone, one quiet toggle for email and how to reach you, and "Have us call
+ * you" as a text link under the button; then one quiet toggle for photos,
+ * plans and details on the success screen. It fires the
  * same events this form always has (form_started, form_completed, form_error,
  * the Google Ads lead with GA4 generate_lead, the Meta Lead with the shared
  * event id) exactly once at Step 1, attaches the same estimate and estimate

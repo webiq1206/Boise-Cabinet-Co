@@ -1,37 +1,39 @@
 "use client";
 
 /**
- * What the visitor sees once the request is saved (family quote form v2):
+ * What the visitor sees once the request is saved (family quote form v2), and
+ * nothing else (owner, 11 November: "It needs to look very clean"):
  *
- * 1. The steps line, now reading "Request sent", and the confirmation, first
- *    and unmistakable: "Thanks, {first name}. We have your request." with what
- *    happens next, a plain "You are all set. Nothing else is needed." and a
- *    call link.
- * 2. Step 2, one CLOSED dropdown: "Add photos, plans or project details
- *    (optional)". Opened, it adds a few details and files to the SAME request
- *    (/api/consultation/details with the request's details token). It never
- *    re-asks what Step 1 has, and leaving it closed needs no action. It used to
- *    sit open under the confirmation, and a client read it as the form asking
- *    for more before the request counted (11 November).
+ * 1. A tick and "Thanks, {first name}. We have your request."
+ * 2. One sentence saying what happens next, ending "Nothing else is needed."
+ * 3. One quiet text toggle, closed: "Add photos, plans or details (optional)".
+ *    Opened, it adds a few details and files to the SAME request
+ *    (/api/consultation/details with the request's details token), inline, with
+ *    no panel around them. It never re-asks what the first screen has, and
+ *    leaving it closed needs no action. It used to sit open under the
+ *    confirmation, and a client read it as the form asking for more before the
+ *    request counted. After saving it reads "Saved. Thank you." and no more.
  *    A file that fails to upload says so by name and offers "Try again" or
  *    texting it; the request itself is already saved and never depends on it.
+ * 4. One muted line: "Prefer to talk? Call (number)."
  *
- * Analytics: Step 1 already fired the one conversion; saving Step 2 fires
- * `lead_details_added` with counts only, never what was typed.
+ * Analytics: the first screen already fired the one conversion; saving the
+ * details fires `lead_details_added` with counts only, never what was typed.
  */
 import { forwardRef, useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { Check, ChevronDown, Loader2 } from "lucide-react";
+import { Check, Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { AttachmentTile, FileChips, type PickedFile } from "@/components/quote/AttachmentTile";
-import { QuoteSteps } from "@/components/quote/QuoteSteps";
 import {
-  DISCLOSURE_CLASS,
-  DISCLOSURE_SUMMARY_CLASS,
   ERROR_CLASS,
   FIELD_CLASS,
   LABEL_CLASS,
+  MUTED_LINE_CLASS,
+  MUTED_LINK_CLASS,
   PILL_CLASS,
+  QUIET_PLUS_CLASS,
+  QUIET_SUMMARY_CLASS,
+  QUIET_TOGGLE_CLASS,
 } from "@/components/quote/quoteStyles";
 import { postQuoteDetails, uploadQuoteFile, type DetailsKey } from "@/lib/quoteUploads";
 import { cn } from "@/lib/utils";
@@ -63,9 +65,13 @@ export interface QuoteFollowUpProps {
   /** Files chosen in Step 1, uploaded now that the request is saved. */
   initialFiles: PickedFile[];
   hasEmail: boolean;
+  /** The first screen already has the project address: the details do not ask again. */
+  hasAddress?: boolean;
+  /** False where the page already shows the phone beside the form (/estimate): no call line. */
+  showPhone?: boolean;
   reach: "call" | "text" | "email";
   projectTypeLocked: boolean;
-  /** Level of the "Help us prepare" heading. */
+  /** Level of the visually hidden heading that names the saved details. */
   panelHeading: "h2" | "h3" | "h4";
   onDetailsSaved?: (counts: { fields: number; files: number }) => void;
   /** Test id on the confirmation; "quote-form-success" unless a page pinned another. */
@@ -85,6 +91,8 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
     detailsKey,
     initialFiles,
     hasEmail,
+    hasAddress = false,
+    showPhone = true,
     reach,
     projectTypeLocked,
     panelHeading,
@@ -173,7 +181,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
     }
     const fields: Record<string, string> = {};
     if (projectType) fields.projectType = projectType;
-    if (address.trim()) fields.address = address.trim();
+    if (!hasAddress && address.trim()) fields.address = address.trim();
     if (timing) fields.timing = timing;
     if (askBestTime && callTime) fields.bestTime = callTime;
     if (!hasEmail && email.trim()) fields.email = email.trim();
@@ -213,8 +221,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
   return (
     // data-family-bar-yield: the family mobile bar steps aside while this success screen and its
     // Step 2 are on screen (components/family/MobileActionBar.tsx), as it does for the form.
-    <div className={cn("space-y-6", className)} data-quote-follow-up="" data-family-bar-yield="">
-      <QuoteSteps sent />
+    <div className={cn("space-y-4", className)} data-quote-follow-up="" data-family-bar-yield="">
       <div
         ref={successRef}
         tabIndex={-1}
@@ -224,26 +231,15 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
         data-testid={successTestId}
         className="space-y-3 outline-none"
       >
-        <p className="flex items-start gap-3 text-xl font-medium leading-snug text-foreground">
-          <span className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center bg-foreground text-background" aria-hidden="true">
-            <Check className="h-4 w-4" />
-          </span>
+        <p className="flex items-start gap-2.5 text-xl font-medium leading-snug text-foreground">
+          <Check className="mt-1 h-5 w-5 flex-none" aria-hidden="true" />
           <span>Thanks, {firstName}. We have your request.</span>
         </p>
-        <p className="text-base leading-relaxed text-foreground/85">
+        <p className="text-base leading-relaxed text-foreground/85" data-testid="quote-all-set">
           {kind === "callback"
             ? `We will call you at ${phone}${when} to answer your questions and help you work out the next step.`
             : "Our team reviews your project, answers your questions and helps you work out the next step."}{" "}
-          <PreferToTextLine />
-        </p>
-        <p className="text-base font-medium leading-relaxed text-foreground" data-testid="quote-all-set">
-          You are all set. Nothing else is needed.
-        </p>
-        <p className="text-base leading-relaxed text-foreground/85">
-          Prefer to talk it through?{" "}
-          <a href={SITE_CONFIG.phoneHref} className="font-medium underline underline-offset-2">
-            Call {SITE_CONFIG.phone}
-          </a>
+          Nothing else is needed.
         </p>
       </div>
 
@@ -264,7 +260,6 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
       {detailsKey ? (
         <section
           aria-labelledby={`${idPrefix}-d-heading`}
-          className="space-y-3 border-t border-border pt-5"
           data-testid="quote-details-panel"
           data-clarity-mask="True"
         >
@@ -273,7 +268,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
               <Heading id={`${idPrefix}-d-heading`} className="sr-only">
                 Photos and project details
               </Heading>
-              <p role="status" className="text-base font-medium text-foreground" data-testid="quote-details-saved">
+              <p role="status" className={MUTED_LINE_CLASS} data-testid="quote-details-saved">
                 Saved. Thank you.
               </p>
               {failed2.length ? (
@@ -286,18 +281,13 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
               ) : null}
             </div>
           ) : (
-            <details className={DISCLOSURE_CLASS} data-testid="quote-details-disclosure">
-              <summary className={DISCLOSURE_SUMMARY_CLASS}>
-                <Heading id={`${idPrefix}-d-heading`} className="font-sans text-base font-medium leading-snug text-foreground">
-                  Add photos, plans or project details{" "}
-                  <span className="font-normal text-muted-foreground">(optional)</span>
-                </Heading>
-                <ChevronDown className="h-5 w-5 flex-none transition-transform group-open:rotate-180" aria-hidden="true" />
+            <details className={QUIET_TOGGLE_CLASS} data-testid="quote-details-disclosure">
+              <summary className={QUIET_SUMMARY_CLASS}>
+                <Plus className={QUIET_PLUS_CLASS} aria-hidden="true" />
+                {/* A plain line, not a heading: it names the section and stays in the muted text style. */}
+                <span id={`${idPrefix}-d-heading`}>Add photos, plans or details (optional)</span>
               </summary>
-            <form onSubmit={save} noValidate className="space-y-4 border-t border-foreground/20 p-3" data-quote-details-form="">
-              <p className="text-sm leading-snug text-muted-foreground">
-                Answer any of these, or none. Each one helps us give you a closer quote on the first call.
-              </p>
+            <form onSubmit={save} noValidate className="space-y-4 pt-2" data-quote-details-form="">
               {projectTypeLocked ? null : (
                 <fieldset>
                   <legend className={LABEL_CLASS}>Project type</legend>
@@ -321,6 +311,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
                 </fieldset>
               )}
 
+              {hasAddress ? null : (
               <div>
                 <label htmlFor={`${idPrefix}-d-address`} className={LABEL_CLASS}>
                   Project address or ZIP code
@@ -338,6 +329,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
                   data-testid="input-details-address"
                 />
               </div>
+              )}
 
               <fieldset>
                 <legend className={LABEL_CLASS}>When would you like to start?</legend>
@@ -429,7 +421,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
                 </p>
               ) : null}
 
-              <Button type="submit" className="h-12 min-w-[10rem] px-6 text-base" disabled={saving} data-testid="button-save-details">
+              <Button type="submit" className="h-12 w-full px-6 text-base" disabled={saving} data-testid="button-save-details">
                 {saving ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
@@ -443,6 +435,16 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
             </details>
           )}
         </section>
+      ) : null}
+
+      {showPhone ? (
+        <p className={MUTED_LINE_CLASS}>
+          Prefer to talk?{" "}
+          <a href={SITE_CONFIG.phoneHref} className={MUTED_LINK_CLASS}>
+            Call {SITE_CONFIG.phone}
+          </a>
+          .
+        </p>
       ) : null}
     </div>
   );

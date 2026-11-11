@@ -63,8 +63,10 @@ export default function EstimatePage() {
           Request a cabinet quote</h1>
         <AboveFoldActions />
         <div id="estimate-request" tabIndex={-1} className="mt-3 scroll-mt-28">
-          <KitchenCabinetsQuoteForm context="cabinet-project" heading={null} dock />
-          <p className="mt-4 text-sm">Submitting a request does not book an installation or confirm a price.</p>
+          {/* The call and text line above already shows the number, so the form's
+              own line under the fields does not repeat it. No second helper
+              paragraph follows the form: it already says "No obligation." */}
+          <KitchenCabinetsQuoteForm context="cabinet-project" heading={null} dock showPhone={false} />
         </div>
       </section>
       {/* Hidden once the request is sent (app/globals.css, "estimate-planner"): the
