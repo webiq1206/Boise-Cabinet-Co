@@ -66,7 +66,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Confidence that outlasts the project",
     contrast: "Beyond a quick sign-off and goodbye,",
-    body: "we stand behind our craftsmanship with a written workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
+    body: "we stand behind our craftsmanship with a written workmanship warranty. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
   },
   {
     title: "A job site that respects your home",
@@ -94,7 +94,7 @@ export const TRUST_ITEMS = [
   "Insured",
   "Liability Coverage",
   "Built to Order",
-  "Workmanship Guarantee",
+  "Workmanship Warranty",
 ];
 
 export interface TeamMember {
@@ -153,8 +153,8 @@ export const PROMISE_ITEMS = [
   },
   {
     num: "04",
-    title: "The workmanship guarantee",
-    body: "We stand behind our craftsmanship with a written workmanship guarantee, long after the final walkthrough.",
+    title: "The workmanship warranty",
+    body: "We stand behind our craftsmanship with a written workmanship warranty, long after the final walkthrough.",
   },
 ];
 
@@ -221,7 +221,7 @@ export const HOW_WE_BUILD_STEPS = [
   {
     number: "05",
     title: "Delivery, install & warranty",
-    desc: "Professional installation, final walkthrough, and workmanship guarantee support through your portal.",
+    desc: "Professional installation, final walkthrough, and workmanship warranty support through your portal.",
   },
 ];
 
@@ -247,8 +247,8 @@ export const PRINCIPLES = [
     desc: "Your project manager is the same person from design day to final walkthrough. You always know who to call.",
   },
   {
-    title: "Workmanship guarantee",
-    desc: "We stand behind our workmanship with a written workmanship guarantee, because we install cabinetry meant to last.",
+    title: "Workmanship warranty",
+    desc: "We stand behind our workmanship with a written workmanship warranty, because we install cabinetry meant to last.",
   },
 ];
 
