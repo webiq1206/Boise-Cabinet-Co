@@ -13,6 +13,10 @@ export const TRUST_LINE = `${REGISTERED_INSURED}.`;
 export const LEAD_TIME_LINE =
   "Lead time from approved design is typically 4-8 weeks.";
 
+/** Pantry only. Other pages keep LEAD_TIME_LINE until their own copy is approved. */
+export const PANTRY_LEAD_TIME_LINE =
+  "Your lead time is confirmed with your quote.";
+
 export const DEPOSIT_TO_LOCK_ORDER = "deposit to lock your order";
 
 export type Bot05Faq = { question: string; answer: string };
@@ -48,17 +52,7 @@ const BOISE_FAQS: Bot05Faq[] = [
   },
 ];
 
-const KITCHEN_FAQS: Bot05Faq[] = [
-  {
-    question: "What pantry options do you offer?",
-    answer:
-      "Walk-in and reach-in or tall pantry cabinets with adjustable shelving and pull-out access where the layout allows. Exact configurations are confirmed after measuring your space.",
-  },
-  {
-    question: "Can you design a walk-in pantry?",
-    answer:
-      "Yes, when the room supports it. We plan the layout with you, then build and install pantry cabinets sized to your space.",
-  },
+const SHARED_ROOM_FAQS: Bot05Faq[] = [
   {
     question: "Do you serve Kuna?",
     answer: "Yes. Kuna is in our Treasure Valley service area. See the Kuna location page for local notes.",
@@ -73,6 +67,39 @@ const KITCHEN_FAQS: Bot05Faq[] = [
     question: "What is the next step?",
     answer: "Book a free in-home design consultation or send layout notes and photos through the site.",
   },
+];
+
+/**
+ * Kitchen and pantry used to share one array whose first questions were pantry
+ * questions, so /cabinets/kitchen rendered the pantry FAQ set. Each slug now
+ * has its own list.
+ */
+const KITCHEN_FAQS: Bot05Faq[] = [
+  {
+    question: "Can you plan cabinets around my existing kitchen layout?",
+    answer:
+      "Yes. Keep plumbing and appliances where they work for you, or explore a different layout. We plan cabinets around your room and how you cook and store.",
+  },
+  {
+    question: "Can you plan kitchen islands and cabinets for appliance panels?",
+    answer:
+      "Yes. Add seating and useful storage with an island plan, appliance panels, and tall pantry cabinets arranged around your kitchen.",
+  },
+  ...SHARED_ROOM_FAQS,
+];
+
+const PANTRY_FAQS: Bot05Faq[] = [
+  {
+    question: "What pantry options do you offer?",
+    answer:
+      "Walk-in and reach-in or tall pantry cabinets with adjustable shelving and pull-out access where the layout allows. Exact configurations are confirmed after measuring your space.",
+  },
+  {
+    question: "Can you design a walk-in pantry?",
+    answer:
+      "Yes, when the room supports it. We plan the layout with you, then plan and install pantry cabinets sized to your space.",
+  },
+  ...SHARED_ROOM_FAQS,
 ];
 
 export const BOISE_PROCESS_STEPS: Bot05Step[] = [
@@ -130,6 +157,11 @@ export const KITCHEN_PROCESS_STEPS: Bot05Step[] = [
     desc: "Our team or a qualified installation partner we manage delivers and installs the cabinets, then walks the finished kitchen with you.",
   },
 ];
+
+/** Same process as the kitchen page, with the pantry lead-time sentence only. */
+export const PANTRY_PROCESS_STEPS: Bot05Step[] = KITCHEN_PROCESS_STEPS.map((step) =>
+  step.title === "Lead time" ? { ...step, desc: PANTRY_LEAD_TIME_LINE } : step,
+);
 
 export type Bot05LocationCopy = {
   title?: string;
@@ -334,10 +366,10 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
         ],
       },
     ],
-    steps: KITCHEN_PROCESS_STEPS,
+    steps: PANTRY_PROCESS_STEPS,
     processHeading: "Process and lead time",
     processNote: HERO_SUBHEAD,
-    faqs: KITCHEN_FAQS,
+    faqs: PANTRY_FAQS,
     links: [
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },
       { href: "/services/cabinet-installation", label: "Cabinet installation" },

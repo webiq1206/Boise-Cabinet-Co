@@ -18,12 +18,12 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
+import { cabinetLeadTimeLine, cabinetPageFaqContent, cabinetPageInclusions } from '@/lib/cabinetPageFaqs';
 import { phase1RoomAnswer } from '@/lib/phase1Answers';
 import { splitLead } from '@/lib/heroLead';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import {
 generateBreadcrumbSchema,
-generateFAQSchema,
 generateServiceSchema,
 generateWebPageSchema,
 } from "@/lib/schema";
@@ -33,10 +33,9 @@ CATALOG_CONTENT,
 ROOM_CATEGORIES,
 getRoomBySlug,
 } from "@/shared/catalog";
-import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
 import { roomSeo,sentenceStart } from "@/shared/catalog/roomSeo";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
-import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
+import { bot05Room } from "@/shared/content/bot05PageCopy";
 import { CITIES,locationPath } from "@/shared/contentData";
 import { CTA_ESTIMATE,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
 import {
@@ -49,7 +48,6 @@ type ProjectType,
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ENRICHMENT_IMAGES } from "@/shared/siteImages";
-import { STANDARD_INCLUSIONS } from "@/shared/siteContent";
 import { visibleTestimonials } from "@/shared/testimonialsData";
 import { ArrowRight,Check,MapPin,Phone } from "lucide-react";
 import Image from "next/image";
@@ -139,8 +137,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
   const roomCopy = bot05Room(room.slug);
   const seo = roomSeo(room);
   const phaseAnswer = roomCopy ? undefined : phase1RoomAnswer(room.slug);
-  const roomFaqs = roomCopy?.faqs ?? getRoomFaqs(room);
-  const faqs = [...roomFaqs, ...(phaseAnswer?.faqs ?? [])];
+  const faqContent = cabinetPageFaqContent(room);
+  const roomFaqs = faqContent.roomFaqs;
   const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
   // The hero keeps the first sentence; the rest of its copy, the BOT-05 subhead
   // and trust line, and the built-ins prompt follow in the first section below.
@@ -176,7 +174,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, builds, and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
         : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
     ),
-    generateFAQSchema(faqs),
+    faqContent.schema,
   ];
 
   return (
@@ -241,7 +239,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 description={phaseAnswer.paragraph}
                 align="left"
               />
-              <FaqAccordion faqs={phaseAnswer.faqs} initialCount={phaseAnswer.faqs.length} idPrefix={`phase1-${room.slug}`} />
+              <FaqAccordion faqs={faqContent.phaseFaqs} initialCount={faqContent.phaseFaqs.length} idPrefix={`phase1-${room.slug}`} />
             </div>
           </Section>
         )}
@@ -262,7 +260,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               {roomCopy ? (
                 <>
                   <p className="text-base text-foreground/90 leading-relaxed mb-3">{roomCopy.pricingNote}</p>
-                  <p className="text-sm text-muted-foreground mb-4">{LEAD_TIME_LINE}</p>
+                  <p className="text-sm text-muted-foreground mb-4">{cabinetLeadTimeLine(room.slug)}</p>
                 </>
               ) : typicalRange ? (
                 <p className="text-base text-foreground/90 leading-relaxed mb-3">
@@ -359,7 +357,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 />
               </div>
               <ul className="ed-inset ed-grid-balance m-0 grid list-none gap-x-8 gap-y-4 p-[clamp(24px,2.6vw,40px)] sm:grid-cols-2">
-                {STANDARD_INCLUSIONS.map((item) => (
+                {cabinetPageInclusions(room.slug).map((item) => (
                   <li key={item} className="flex items-start gap-3 text-[0.9375rem] text-foreground/90">
                     <Check className="h-4 w-4 text-accent flex-shrink-0 mt-1" />
                     {item}
