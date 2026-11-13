@@ -6,7 +6,7 @@ import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/compo
 import {FAQSection} from '@/components/FAQSection';
 import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
-import { CTA_QUOTE_HREF, CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
+import { CTA_INSTANT_ESTIMATE, CTA_QUOTE_HREF, CTA_REQUEST_QUOTE, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { FamilyButton } from '@/components/family/Button';
 import { brandStyle } from '@/components/family/brandStyle';
@@ -36,6 +36,13 @@ const PROOF: ProofItem[] = [
  {label:'Registered',text:IDAHO_REGISTERED_CONTRACTOR,href:DOPL_LICENSE_SEARCH,linkTitle:'Idaho contractor registration 8381215',linkLabel:'Idaho contractor registration 8381215 (opens in a new tab)',newTab:true},
 ];
 
+/** The estimator band's three benefits. Each is true of the estimator as built: free, open at any hour, and a range first with the firm proposal after a visit. */
+const ESTIMATE_BENEFITS = [
+  'Free and open day or night',
+  'No appointment needed to see your range',
+  'A preliminary range now, a firm written proposal after we visit',
+];
+
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.';
 
@@ -50,13 +57,25 @@ export function ApprovedHome({reviews=null}:{reviews?: ReactNode}){const [finish
     <h1 className="fam-hero-title" id="family-hero-title">Custom cabinets in Boise,{' '}<span className="fam-hero-accent">Idaho</span></h1>
     <p className="fam-hero-support">Kitchen cabinets, vanities, and built-ins.</p>
     <div className="fam-hero-actions">
-     <FamilyButton href={CTA_QUOTE_HREF} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">{CTA_REQUEST_QUOTE}</FamilyButton>
+     <FamilyButton href={INSTANT_ESTIMATE_HREF} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">{CTA_INSTANT_ESTIMATE}</FamilyButton>
      <a href={SITE_CONFIG.phoneHref} className="fam-hero-link">Call or text {SITE_CONFIG.phone}</a>
     </div>
     <p className="fam-hero-micro">Written price before work.</p>
    </div></div>
   </section>
   <ProofStrip label="The Boise Cabinet Co difference" items={PROOF}/>
+  {/* The instant estimate band (owner decision, 13 November 2026): the family's central estimator,
+      framed at /instant-estimate, is the primary pricing action. It gives a preliminary price range,
+      never a quote; "Request a quote" beside it stays the path to a person. */}
+  <section id="instant-estimate" className="builder-band estimate-band wrap" aria-labelledby="instant-estimate-heading">
+   <div><p className="eyebrow">INSTANT ESTIMATE</p><h2 id="instant-estimate-heading">Your cabinet estimate.<br/><em>On your own schedule.</em></h2></div>
+   <div>
+    <p>Answer a few questions and see a personalized preliminary price range on screen, before you talk to a contractor.</p>
+    <ul>{ESTIMATE_BENEFITS.map((benefit)=><li key={benefit}><Check size={16} aria-hidden="true"/><span>{benefit}</span></li>)}</ul>
+    <FamilyButton href={INSTANT_ESTIMATE_HREF} data-cta="instant-estimate" variant="primary" size="lg">{CTA_INSTANT_ESTIMATE}</FamilyButton>
+    <a className="text-link estimate-secondary" href={CTA_QUOTE_HREF}>{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a>
+   </div>
+  </section>
   <section id="cabinetry" className="section wrap room-editorial">
  <div className="section-heading"><div><p className="eyebrow">CABINETRY, CONSIDERED</p><h2>Every room.<br/><em>Considered.</em></h2></div><p>Custom kitchen cabinets, bathroom vanities, and built-in storage. Choose your door style, finish, and hardware. We bring the layout and installation together, with installation by our team or a qualified installation partner we manage. Free in-home design consultation.</p></div>
  <Tabs defaultValue="kitchen" className="room-explorer"><TabsList className="room-tabs"><TabsTrigger value="kitchen">Kitchens</TabsTrigger><TabsTrigger value="bathroom">Bathrooms</TabsTrigger><TabsTrigger value="storage">Built-ins</TabsTrigger><TabsTrigger value="more">More rooms</TabsTrigger></TabsList>

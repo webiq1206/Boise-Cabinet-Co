@@ -1070,3 +1070,49 @@
 body:has([data-quote-follow-up]) .estimate-planner {
   display: none;
 }
+
+/* /instant-estimate: the heading block above the framed family estimator stays
+   short, so on a phone the estimator's first question is on the first screen.
+   The frame runs edge to edge; the estimator inside sets its own gutters. */
+.approved-interior .instant-estimate-intro {
+  padding: 14px 0 10px;
+}
+.approved-interior .instant-estimate-intro h1 {
+  margin: 0;
+}
+/* Below 640px the page H1 role is 40px, which pushed the estimator 24px further down a
+   360x640 screen. This one heading uses the size the /estimate page heading already uses
+   on phones, for the same first-screen reason. From 640px up it is the ordinary H1 role. */
+@media (max-width: 639.98px) {
+  .approved-shell.site-cabinet .approved-interior .instant-estimate-intro h1:not(.sr-only) {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+}
+.approved-interior .instant-estimate-support {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  color: var(--ed-muted-ink, #62645f);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.approved-interior .instant-estimate-frame {
+  width: 100%;
+  max-width: 1024px;
+  margin-inline: auto;
+  padding-bottom: 24px;
+}
+@media (min-width: 640px) {
+  .approved-interior .instant-estimate-intro {
+    padding: 36px 0 16px;
+  }
+  .approved-interior .instant-estimate-support {
+    margin-top: 12px;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+  }
+}
+/* The heading sits over the frame's own column, so the two share a left edge on wide screens. */
+.approved-interior .instant-estimate-intro .ed-shell {
+  max-width: 1024px;
+}

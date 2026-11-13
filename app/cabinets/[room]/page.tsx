@@ -38,7 +38,8 @@ import { roomSeo,sentenceStart } from "@/shared/catalog/roomSeo";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
 import { CITIES,locationPath } from "@/shared/contentData";
-import { CTA_ESTIMATE,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE,CTA_INSTANT_ESTIMATE,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
+import { estimatorProjectForRoom,instantEstimateHref } from "@/shared/instantEstimate";
 import {
 PROJECT_PRICING,
 calculateEstimate,
@@ -152,6 +153,10 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     room.slug === "built-ins" ? "Tell Boise Cabinet Co which room you are working on and what you need to store." : undefined,
   ].filter((paragraph): paragraph is string => Boolean(paragraph));
   const typicalRange = getTypicalRoomRange(room.slug);
+  // Rooms the family estimator can price lead with the instant estimate, opened on
+  // that project; "Request a quote" stays beside it as the path to a person. Every
+  // other room keeps "Request a quote" as its primary (shared/instantEstimate.ts).
+  const estimatorProject = estimatorProjectForRoom(room.slug);
   const roomProjects = PROJECTS.filter((p) =>
     (PROJECT_SERVICE_MATCH[room.slug] ?? []).includes(p.serviceType),
   ).slice(0, 3);
@@ -213,9 +218,15 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               description={heroLead.lead}
             />
             <div className="interior-hero-cta">
-              <CtaButton variant="brand" className="min-h-12 px-6">
-                {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
-              </CtaButton>
+              {estimatorProject ? (
+                <CtaButton variant="brand" className="min-h-12 px-6" destination="instant-estimate" estimatorProject={estimatorProject}>
+                  {CTA_INSTANT_ESTIMATE} <ArrowRight className="h-4 w-4" />
+                </CtaButton>
+              ) : (
+                <CtaButton variant="brand" className="min-h-12 px-6">
+                  {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+                </CtaButton>
+              )}
               <AboveFoldActions />
             </div>
           </InteriorHero>
@@ -287,11 +298,24 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 selections and project details are finalized.
               </p>
               )}
-              <Button variant="brandOutline" asChild>
-                <Link href={CTA_QUOTE_HREF}>
-                  {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              {estimatorProject ? (
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <Button variant="brandOutline" asChild>
+                    <Link href={instantEstimateHref(estimatorProject)}>
+                      {CTA_INSTANT_ESTIMATE} <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Link href={CTA_QUOTE_HREF} className="text-sm text-foreground underline underline-offset-2 hover:text-accent">
+                    {CTA_ESTIMATE}
+                  </Link>
+                </div>
+              ) : (
+                <Button variant="brandOutline" asChild>
+                  <Link href={CTA_QUOTE_HREF}>
+                    {CTA_ESTIMATE} <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
             </MarketingCard>
             </div>
           </div>
@@ -545,12 +569,26 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
         {/* Final CTA */}
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
-            <p className="text-inverse-muted mb-4">
-              Share your layout and finishes for team review. We may need more information or a
-              site visit before preparing your estimate.
-            </p>
+            {estimatorProject ? (
+              <p className="text-inverse-muted mb-4">
+                See a preliminary price range for your project on screen, free and with no appointment.
+                A firm written proposal follows a site visit, measurements and your selections.
+              </p>
+            ) : (
+              <p className="text-inverse-muted mb-4">
+                Share your layout and finishes for team review. We may need more information or a
+                site visit before preparing your estimate.
+              </p>
+            )}
             <div className="flex flex-wrap justify-center gap-3">
-              <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+              {estimatorProject ? (
+                <>
+                  <CtaButton variant="brand" destination="instant-estimate" estimatorProject={estimatorProject}>{CTA_INSTANT_ESTIMATE}</CtaButton>
+                  <CtaButton variant="brandOutline" intent="visit">{CTA_ESTIMATE}</CtaButton>
+                </>
+              ) : (
+                <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>
+              )}
               <Button variant="brandOutline" asChild>
                 <a href={SITE_CONFIG.phoneHref}>
                   <Phone className="h-4 w-4" /> Call {SITE_CONFIG.phone}

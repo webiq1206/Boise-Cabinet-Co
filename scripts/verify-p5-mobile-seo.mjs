@@ -23,12 +23,15 @@ try{
    assert.ok(controls.every(c=>c.height>=44),'Mobile action too small');
    await page.screenshot({path:`${out}/actions-${width}.png`});
    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await delay(150);assert.equal(await visible(bar),true,'Approved mobile CTA remains available after returning to hero');
-   // Family plan Phase 1: the one primary is "Request a quote" and its one destination is /estimate
-   // (it used to be a "Request an estimate" button opening the estimator modal).
-   const primary=bar.getByRole('link',{name:'Request a quote',exact:true});assert.equal(await primary.count(),1,'One primary quote destination');
-   assert.equal(await primary.getAttribute('href'),'/estimate','Primary quote CTA goes to /estimate');
+   // Owner decision, 13 November 2026: the bar's one primary is "Instant estimate" and its one
+   // destination is /instant-estimate, the page that frames the family's central estimator
+   // (it used to be "Request a quote" to /estimate, which stays as the path to a person).
+   const primary=bar.getByRole('link',{name:'Instant estimate',exact:true});assert.equal(await primary.count(),1,'One primary estimate destination');
+   assert.equal(await primary.getAttribute('href'),'/instant-estimate','Primary CTA goes to /instant-estimate');
    assert.ok(await primary.evaluate(el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2));}),'Primary CTA is unobstructed');
-   await primary.click();await page.waitForURL(u=>new URL(u).pathname==='/estimate');await page.locator('[data-c10-estimate-quote]').waitFor({state:'visible'});assert.equal(await visible(page.locator('[data-mobile-nav-bar]')),false,'Marketing CTA must yield to the active estimate form');
+   await primary.click();await page.waitForURL(u=>new URL(u).pathname==='/instant-estimate');await page.locator('[data-estimator-frame="cabinet"]').waitFor({state:'attached'});assert.equal(await visible(page.locator('[data-mobile-nav-bar]')),false,'Marketing CTA must yield to the framed estimator');
+   // The quote request form is still one tap away from the estimator page.
+   assert.ok(await page.locator('main a[href="/estimate"]').count()>=1,'The estimator page links to the quote request form');
    results.mobile.push({width,visibleOverHero:true,visibleAfterHero:true,callLabeled:true});
   }
  }

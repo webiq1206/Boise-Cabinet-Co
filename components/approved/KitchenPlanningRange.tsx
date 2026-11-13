@@ -3,7 +3,8 @@
 import { useId, useMemo, useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { CTA_REQUEST_QUOTE } from "@/shared/ctaCopy";
+import { CTA_INSTANT_ESTIMATE } from "@/shared/ctaCopy";
+import { instantEstimateHref } from "@/shared/instantEstimate";
 import {
   type FinishCategory,
   calculateEstimate,
@@ -154,8 +155,9 @@ export function KitchenPlanningRange() {
             <li>Modeled 2026 Treasure Valley planning figures from our estimator engine (linear feet, door, finish, and construction) for cabinetry supplied and installed.</li>
             <li>Countertops, plumbing, electrical, demolition, and haul-away are scoped separately when needed. Not a firm bid.</li>
           </ul>
-          <a className="text-link" href="/estimate" data-testid="kitchen-planning-cta">
-            {CTA_REQUEST_QUOTE} <ArrowUpRight size={18} aria-hidden="true" />
+          {/* The slider gives a typical kitchen; the family estimator prices this visitor's own kitchen. */}
+          <a className="text-link" href={instantEstimateHref("kitchen-cabinets")} data-testid="kitchen-planning-cta">
+            {CTA_INSTANT_ESTIMATE} <ArrowUpRight size={18} aria-hidden="true" />
           </a>
         </aside>
       </div>

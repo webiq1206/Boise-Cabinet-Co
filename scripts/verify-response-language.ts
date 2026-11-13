@@ -3,8 +3,10 @@
  * an inquiry response-time promise ("within one business day", "reply in
  * minutes", "24-hour reply", "fast replies" and the like). Say we answer
  * questions instead; see scripts/lib/prohibitedResponseLanguage.ts. It also
- * fails on the release 2 prohibited claims (bonded, instant estimates, one
- * contract or invoice, subcontractor coverage, builder 50/50).
+ * fails on the release 2 prohibited claims (bonded, instant quotes, one
+ * contract or invoice, subcontractor coverage, builder 50/50). Instant-estimate
+ * wording is allowed since 13 November 2026; the central estimator at
+ * /instant-estimate shows a preliminary range on screen.
  *
  * Run: npm run verify:response-language (in prebuild).
  */
@@ -21,7 +23,7 @@ const ROOT = path.join(__dirname, "..");
 const failures = scanSourceForResponsePromises(ROOT);
 for (const hit of findProhibitedResponseLanguage(LLMS_TXT)) failures.push({ file: "generated /llms.txt", ...hit });
 
-// Release 2 owner decisions: no bonded, instant-estimate, one-invoice,
+// Release 2 owner decisions: no bonded, instant-quote, one-invoice,
 // subcontractor-coverage or builder 50/50 claims in public source.
 const claimFailures = scanSourceForProhibitedClaims(ROOT);
 for (const hit of findProhibitedClaims(LLMS_TXT)) claimFailures.push({ file: "generated /llms.txt", ...hit });

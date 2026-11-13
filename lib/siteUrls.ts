@@ -27,6 +27,7 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
     { path: '/shaker-cabinets', label: 'Shaker cabinets', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/compare', label: 'Compare', changeFrequency: 'monthly', priority: 0.75 },
     { path: '/builders', label: 'For builders', changeFrequency: 'monthly', priority: 0.85 },
+    { path: '/instant-estimate', label: 'Instant estimate', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/estimate', label: 'Request a quote', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/services/cabinet-installation', label: 'Cabinet installation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/about', label: 'About', changeFrequency: 'monthly', priority: 0.7 },

@@ -1,12 +1,26 @@
 /**
  * Sitewide conversion copy; each string matches its destination action.
- * One primary label and one destination site-wide: "Request a quote" to /estimate
- * (family plan Phase 1). CTA_ESTIMATE is kept as an alias so existing imports
- * cannot drift back to a second label.
+ *
+ * Two destinations, each with its own label (owner decision, 13 November 2026):
+ *
+ * 1. The instant estimate, the primary pricing call to action. It is the P5
+ *    family's central estimator, framed at /instant-estimate. The header, the
+ *    mobile menu and the bottom bar say "Instant estimate"; buttons inside a
+ *    page say "Get an instant estimate". It gives a preliminary price range on
+ *    screen, so it is never called a quote, a bid or a final price.
+ * 2. "Request a quote" to /estimate, the request form a person answers. It is
+ *    the secondary path wherever the instant estimate leads, and stays the
+ *    primary on pages whose project the estimator cannot price.
+ *    CTA_ESTIMATE is kept as an alias so existing imports cannot drift back to
+ *    a third label.
  */
+export const CTA_INSTANT_ESTIMATE = "Get an instant estimate";
+/** The short form, for the header, the mobile menu and the bottom bar. */
+export const CTA_INSTANT_ESTIMATE_SHORT = "Instant estimate";
+export const INSTANT_ESTIMATE_HREF = "/instant-estimate";
 export const CTA_REQUEST_QUOTE = "Request a quote";
 export const CTA_ESTIMATE = CTA_REQUEST_QUOTE;
-/** The one destination every primary quote CTA points at. */
+/** The quote request form: the path to a person. */
 export const CTA_QUOTE_HREF = "/estimate";
 /** Used only inside the estimator result step, where booking is the task's own next action. */
 export const CTA_BOOK_VISIT = "Book a free design consult";
