@@ -40,7 +40,7 @@ export function DesignStudioSection() {
             <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-inverse-foreground/15">
               <Image
                 src={MARKETING_IMAGES.designStudio}
-                alt="Boise Cabinet Co Design Studio showing 3D custom cabinet preview and finish selection"
+                alt="Laptop on a kitchen counter showing a 3D preview of a tall cabinet and a run of base cabinets"
                 title="Design Studio | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

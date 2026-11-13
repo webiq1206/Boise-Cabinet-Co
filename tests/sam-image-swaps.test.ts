@@ -15,19 +15,19 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const HASHES: Record<string, string> = {
   "public/images/marketing/og-catalog-kitchen.jpg":
-    "4cc81e8ac5cc618c68d4a5061112ff082e79e7f2c58a73e1777194e3e5f1a39a",
+    "bf40bda9ca6be42e58e05abc0d23123ce2f5d271fae855d3a2bf6f02e19792af",
   "public/images/marketing/great-room-oak-built-ins.webp":
-    "b20720ba8a4407eb8d42186c0c3abda8eb37a6ac1f7c04347d0b22c2d8a7da5c",
+    "e4c504c390298ad3a848a2cfbd48ba03b1685315f6b6c88fe34c381931dc76a7",
   "public/images/marketing/great-room-oak-built-ins-1280.webp":
-    "782c7b6d2b79cda6ddf5b47ba108447849c7fd631cbeaf5bd7c9d41436846715",
+    "3baa914d2548429c2b781437c94613c20d2129ad22eee4dbf931d7087f256408",
   "public/images/marketing/great-room-oak-built-ins-768.webp":
-    "ad5ca72b23c9ab99f855d4243f9aab8de682a864a1dba55eead61467f7c54095",
+    "ef15c876dd44e1e9bd35e4935164d3fddd514f324aa8df19684e2ab22141da94",
   "public/images/marketing/bath-white-oak-vanity.webp":
-    "b8c98969912ef886574d64e2edb767582caea5db65ad921adfb7be4a5187c958",
+    "082caff11dc091b8bfc5e19db99876f473cb929ed6424bd1769e958517992233",
   "public/images/marketing/bath-white-oak-vanity-1280.webp":
-    "db01f5bd897b10cb697ee16d89beff21283f3f590dc852beadbe4c2692141b1d",
+    "0cc74b28e53aabdb38346e43c8ffeaa5fcef3be04ac79b39109e432bfdcfe230",
   "public/images/marketing/bath-white-oak-vanity-768.webp":
-    "78da6304a2d9b524397dc72ca01fe90e0547e8661ad562a874f197d99313769c",
+    "62da6feeec295f482946b3a45d386b18339e54e845fbe89963c6b599f950cfd9",
   "public/images/marketing/drawers-black-pulls-oak.webp":
     "ba9ebb1393dcf638c9bceb50fa13ea399bcc482d78ebc9bd50e12c4f5e917642",
   "public/images/marketing/drawers-black-pulls-oak-1280.webp":

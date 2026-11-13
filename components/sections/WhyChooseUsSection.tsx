@@ -64,7 +64,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <div className="relative aspect-[4/3] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
                     src="/images/marketing/hero-construction.webp"
-                    alt="cabinet workshop with a CNC router shaping a cabinet door"
+                    alt="Unfinished white oak cabinet boxes during installation, with clamps and a level on the base cabinets and a drill on the floor"
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover img-brand-grade"
@@ -80,7 +80,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
                 <div className="relative aspect-[16/10] overflow-hidden" style={{ border: "1px solid var(--ed-line)" }}>
                   <Image
                     src="/images/marketing/hero-construction.webp"
-                    alt="cabinet workshop with a CNC router shaping a cabinet door"
+                    alt="Unfinished white oak cabinet boxes during installation, with clamps and a level on the base cabinets and a drill on the floor"
                     fill
                     sizes="100vw"
                     className="object-cover img-brand-grade"

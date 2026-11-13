@@ -39,7 +39,7 @@ export const metadata = withBrandPageMetadata({
       url: "/images/marketing/og-catalog-kitchen.jpg",
       width: 1200,
       height: 630,
-      alt: "Warm kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling",
+      alt: "Kitchen with light oak flat-panel cabinets, black pulls and a walnut island with a white counter",
     },
   },
 ),

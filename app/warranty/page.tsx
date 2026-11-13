@@ -109,7 +109,7 @@ export default function WarrantyPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
-          alt="White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants"
+          alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
           title={showLifetimeWarranty() ? <>

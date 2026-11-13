@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-11-01";
+export const PROJECTS_GENERATED_ON = "2026-11-13";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -20,7 +20,7 @@ export const PROJECTS: SiteProject[] = [
     "detail": [
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-exterior.webp",
-        "alt": "Ranch-style home exterior with kitchen cabinetry visible through windows"
+        "alt": "Single-story ranch home with white lap siding, a two-car garage and a large shade tree on the front lawn"
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-island.webp",
@@ -85,7 +85,7 @@ export const PROJECTS: SiteProject[] = [
     "detail": [
       {
         "src": "/images/projects/double-vanity-suite/detail-exterior.webp",
-        "alt": "Home exterior with a bathroom vanity visible through the window"
+        "alt": "Two-story home with light gray siding, a covered front entry and a two-car garage"
       },
       {
         "src": "/images/projects/double-vanity-suite/detail-linen.webp",
@@ -141,20 +141,20 @@ export const PROJECTS: SiteProject[] = [
     "description": "Kitchen, bath, mudroom, and office cabinetry coordinated under a single door style and finish schedule.",
     "hero": {
       "src": "/images/projects/whole-home-finish-schedule/after.webp",
-      "alt": "Kitchen with painted perimeter cabinets and a woodgrain accent island"
+      "alt": "Kitchen with white painted perimeter cabinets, a white oak accent island and a wide window facing the foothills"
     },
     "detail": [
       {
         "src": "/images/projects/whole-home-finish-schedule/detail-exterior.webp",
-        "alt": "Home exterior with cabinetry visible through kitchen windows"
+        "alt": "Single-story home with white stucco, a dark metal roof, a covered front porch and a black garage door"
       },
       {
         "src": "/images/projects/whole-home-finish-schedule/detail-mudroom.webp",
-        "alt": "Mudroom lockers and bench matching the whole-home shaker finish schedule"
+        "alt": "Mudroom with white lockers, black coat hooks and a white oak bench over drawers beside a glass entry door"
       },
       {
         "src": "/images/projects/whole-home-finish-schedule/detail-builtins.webp",
-        "alt": "Living-room wood built-ins under the same door style and finish schedule"
+        "alt": "White oak bookshelves above Shaker base cabinets along a sunlit living room wall"
       }
     ],
     "showBeforeAfter": false,

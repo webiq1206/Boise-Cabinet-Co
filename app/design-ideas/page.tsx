@@ -42,7 +42,7 @@ export default function DesignIdeasPage() {
     <div className="flex flex-col ">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="Cabinet finish selections and design plans for a Treasure Valley kitchen"
+        alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills"
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Design ideas' }]}
         eyebrow="Cabinet design inspiration"
         title="Cabinet design ideas for Treasure Valley homes"

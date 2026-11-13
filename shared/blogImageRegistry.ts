@@ -173,13 +173,13 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'what-impacts-cabinet-costs-boise': {
     hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Cabinet door and finish samples, layout drawings and an open reference binder on a table',
+    alt: 'Cabinet door samples, paint chips, three pull finishes and a cabinet elevation drawing on a wood table',
     topicTags: ["cost","planning","process"],
     source: 'blog',
   },
   'how-to-budget-cabinets-boise': {
     hero: '/images/marketing/hero-home.webp',
-    alt: 'Warm interior cabinetry with coordinated finishes',
+    alt: 'Cream Shaker kitchen cabinets with a white oak island and a white subway tile backsplash',
     topicTags: ["cost","budget","planning"],
     source: 'services',
   },
@@ -269,7 +269,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'outdoor-kitchen-cabinets-boise': {
     hero: '/images/blog/outdoor-kitchens-boise.webp',
-    alt: 'Outdoor kitchen cabinets with grill storage',
+    alt: 'Charcoal outdoor kitchen cabinets with a built-in grill, a sink and a beverage fridge on a covered patio',
     topicTags: ["outdoor","kitchen","boise"],
     source: 'blog',
   },
@@ -281,7 +281,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'premium-outdoor-cabinetry': {
     hero: '/images/blog/outdoor-kitchens-boise.webp',
-    alt: 'outdoor kitchen with built-in grill and weather-exposed storage',
+    alt: 'Covered patio with charcoal outdoor cabinets, a built-in grill and a stainless beverage fridge',
     topicTags: ["outdoor","luxury","eagle"],
     source: 'city-service',
   },
@@ -317,7 +317,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'custom-cabinet-design-process': {
     hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Cabinet door samples, plans and reference images arranged for a design discussion',
+    alt: 'Painted and oak door samples, pull options and a cabinet drawing laid out for a design discussion',
     topicTags: ["whole-home","design-build"],
     source: 'blog',
   },
@@ -329,7 +329,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'questions-to-ask-cabinet-company': {
     hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Cabinet door and finish samples, layout drawings and an open reference binder on a table',
+    alt: 'Cabinet door samples, paint chips, three pull finishes and a cabinet elevation drawing on a wood table',
     topicTags: ["contractor","consultation"],
     source: 'blog',
   },
@@ -527,13 +527,13 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'choose-cabinet-company-boise': {
     hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Cabinet door and finish samples, layout drawings and an open reference binder on a table',
+    alt: 'Cabinet door samples, paint chips, three pull finishes and a cabinet elevation drawing on a wood table',
     topicTags: ["contractor","guide","pillar"],
     source: 'blog',
   },
   'cabinet-project-process-guide': {
     hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Cabinet samples, layout drawings and reference images prepared for project planning',
+    alt: 'Door samples, paint chips, cabinet pulls and an elevation drawing prepared for project planning',
     topicTags: ["process","guide","pillar"],
     source: 'blog',
   },

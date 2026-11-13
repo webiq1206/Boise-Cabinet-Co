@@ -24,12 +24,12 @@ const TILES = [
   {
     src: "/images/approved/kitchen.webp",
     label: "Kitchen cabinets",
-    alt: "Kitchen with cream cabinetry, a wood island, and a stone counter",
+    alt: "Kitchen with light oak upper cabinets, charcoal lower cabinets, a white peninsula and stainless appliances",
   },
   {
     src: "/images/approved/bathroom.webp",
     label: "Bathroom vanities",
-    alt: "Bathroom vanity with light wood cabinets and a stone counter",
+    alt: "Bathroom with a walnut floating double vanity, a white counter and black faucets beside a glass shower",
   },
   {
     src: "/images/catalog/rooms/built-ins.webp",
@@ -140,7 +140,7 @@ export default function KitchenCabinetsPage() {
       <section data-p5-hero className="kc-hero pt-0 relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
-          alt="Ivory kitchen cabinetry with an oak island, stone backsplash and pendant lighting"
+          alt="Sage green Shaker kitchen cabinets with brass pulls and a matching range hood behind a white oak island with a white counter"
           fill
           priority
           sizes="100vw"

@@ -139,7 +139,7 @@ function cityServiceProcessAlt(serviceSlug: string): string {
 
 function areaHeroAlt(citySlug: string): string {
   const city = CITY_DISPLAY[citySlug] ?? citySlug;
-  return `Custom kitchen and bathroom cabinets in ${city}, Idaho by Boise Cabinet Co`;
+  return `Wood Shaker kitchen cabinets with drawer storage and pale counters, for ${city}, Idaho homes`;
 }
 
 function areaProcessAlt(citySlug: string): string {

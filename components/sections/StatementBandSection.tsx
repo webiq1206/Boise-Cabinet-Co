@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SITE_IMAGES } from "@/shared/siteImages";
 
 const STATEMENT_BAND_ALT =
-  "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams";
+  "Living room with white oak built-in shelves and cabinets on each side of a white fireplace with an oak mantel";
 
 /** Full-bleed photography band to break long light section stretches. */
 export function StatementBandSection() {

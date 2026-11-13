@@ -40,8 +40,8 @@ export function GET() {
   entries.push({
     page: `${BASE}/`,
     images: [
-      { loc: abs(MARKETING_IMAGES.heroHome), title: 'Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home' },
-      { loc: abs(MARKETING_IMAGES.designStudio), title: 'Cabinet door samples, finish swatches, and a kitchen layout rendering during a design consultation' },
+      { loc: abs(MARKETING_IMAGES.heroHome), title: 'Kitchen with cream Shaker cabinets, brushed nickel pulls, a white oak island and a white subway tile backsplash behind a gas range' },
+      { loc: abs(MARKETING_IMAGES.designStudio), title: 'Laptop on a kitchen counter showing a 3D preview of a tall cabinet and a run of base cabinets' },
     ],
   });
 
@@ -55,7 +55,7 @@ export function GET() {
   entries.push({
     page: `${BASE}/warranty`,
     images: [
-      { loc: abs(MARKETING_IMAGES.hardware), title: 'White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants' },
+      { loc: abs(MARKETING_IMAGES.hardware), title: 'White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills' },
     ],
   });
 

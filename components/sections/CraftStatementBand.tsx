@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
 const ALT =
-  "White oak kitchen with a waterfall island, vaulted wood ceiling and brass pendants";
+  "White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills";
 
 /**
  * Full-bleed cabinet-detail band with an overlaid statement. Breaks the lower,

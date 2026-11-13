@@ -157,18 +157,18 @@ for (const d of DOOR_STYLES) {
 
 // Site heroes (deduplicated)
 const siteHeroes = [
-  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom cream shaker kitchen cabinets with a white oak island and aged brass hardware in a Treasure Valley, Idaho home" },
-  { id: "hero-about", path: "/images/marketing/hero-about.webp", pages: ["/about"], alt: "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners" },
-  { id: "hero-contact", path: "/images/marketing/bath-white-oak-vanity.webp", pages: ["/contact"], alt: "Bathroom with a white oak double vanity, a limestone countertop and black fixtures" },
+  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Kitchen with cream Shaker cabinets, brushed nickel pulls, a white oak island and a white subway tile backsplash behind a gas range" },
+  { id: "hero-about", path: "/images/marketing/hero-about.webp", pages: ["/about"], alt: "Living room with white oak built-in shelves and cabinets on each side of a white fireplace with an oak mantel" },
+  { id: "hero-contact", path: "/images/marketing/bath-white-oak-vanity.webp", pages: ["/contact"], alt: "Bathroom with a white oak double vanity, a pale stone counter, black faucets and a freestanding tub under a black-framed window" },
   { id: "hero-design-studio", path: "/images/marketing/hero-design-studio.webp", pages: ["/design-studio"], alt: "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen" },
-  { id: "process-home", path: "/images/marketing/process-home.webp", pages: ["/"], alt: "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners" },
+  { id: "process-home", path: "/images/marketing/process-home.webp", pages: ["/"], alt: "White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills" },
   { id: "process-about", path: "/images/marketing/cabinet-door-samples.webp", pages: ["/about"], alt: "Cabinet door samples and finish swatches laid out for a kitchen design for Treasure Valley design inspiration", noLocationSuffix: true },
   { id: "process-contact", path: "/images/marketing/process-contact.webp", pages: ["/contact"], alt: "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley" },
   { id: "hero-hardware", path: "/images/marketing/warranty-hardware.webp", pages: ["/warranty"], alt: "Oak drawers with round brass knobs above walnut doors with black knobs | Boise Cabinet Co inspiration for Treasure Valley homes" },
   { id: "cabinets-hero", path: "/images/marketing/kitchen-farmhouse-shaker.webp", pages: ["/cabinets"], alt: "Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall | Boise Cabinet Co inspiration for Treasure Valley homes" },
-  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling for Treasure Valley design inspiration", noLocationSuffix: true, caption: "" },
+  { id: "hero-construction", path: "/images/marketing/kitchen-wood-island.webp", pages: ["/construction"], alt: "White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills for Treasure Valley design inspiration", noLocationSuffix: true, caption: "" },
   { id: "catalog-default", path: "/images/marketing/catalog-default.webp", pages: ["/catalog"], alt: "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes" },
-  { id: "statement-band", path: "/images/marketing/great-room-oak-built-ins.webp", pages: ["/", "/about", "/contact"], alt: "Great room with white oak built-in cabinets on each side of a stone fireplace and timber ceiling beams", decorative: true },
+  { id: "statement-band", path: "/images/marketing/great-room-oak-built-ins.webp", pages: ["/", "/about", "/contact"], alt: "Living room with white oak built-in shelves and cabinets on each side of a white fireplace with an oak mantel", decorative: true },
   { id: "og-default", path: "/images/marketing/og-default.webp", pages: ["og"], alt: "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho" },
 ];
 

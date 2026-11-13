@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
         beforeImageUrl: '/images/gallery/gallery-outdoor-before.png',
         afterImageUrl: '/images/gallery/gallery-outdoor-after.png',
         title: 'Outdoor Living Space',
-        description: 'Covered patio with outdoor kitchen and pergola for year-round entertaining in Star',
+        description: 'Covered patio with charcoal outdoor kitchen cabinets, a built-in grill and a sink in Star',
         createdAt: new Date(),
       },
     ];
@@ -841,7 +841,7 @@ export class DBStorage implements IStorage {
         beforeImageUrl: '/images/gallery/gallery-outdoor-before.png',
         afterImageUrl: '/images/gallery/gallery-outdoor-after.png',
         title: 'Outdoor Living Space',
-        description: 'Covered patio with outdoor kitchen and pergola for year-round entertaining in Star',
+        description: 'Covered patio with charcoal outdoor kitchen cabinets, a built-in grill and a sink in Star',
         createdAt: new Date(),
       },
     ];

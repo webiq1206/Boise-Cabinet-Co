@@ -81,7 +81,7 @@ export default function ConstructionPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="Large kitchen with white oak cabinets, a walnut island and a vaulted wood ceiling | Boise Cabinet Co"
+          alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills | Boise Cabinet Co"
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>
