@@ -497,7 +497,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'boise-cabinet-guide': {
     hero: '/images/blog/boise-remodeling-guide.webp',
-    alt: 'Tree-lined residential street with front porches and foothills in the distance',
+    alt: 'Tree-lined residential street of two-story homes with foothills in the distance',
     topicTags: ["location","boise","guide"],
     source: 'blog',
   },

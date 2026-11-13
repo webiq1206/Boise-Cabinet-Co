@@ -139,7 +139,8 @@ test('only the completed event is a lead, and it is sent once per page view', ()
   // The guard sits between the plain event and the conversion: every lead call comes after it.
   const guard = analytics.indexOf('if (detail.name !== COMPLETED_EVENT || leadSent.current) return;');
   assert.ok(guard > 0);
-  for (const call of ['track("generate_lead"', 'trackGoogleAdsLeadOnce(leadId']) {
+  // Owner, 13 November 2026: a finished estimate is also a Meta Lead, once, behind the same guard.
+  for (const call of ['track("generate_lead"', 'trackGoogleAdsLeadOnce(leadId', 'trackMetaEvent("Lead"']) {
     assert.equal(analytics.split(call).length - 1, 1, call);
     assert.ok(analytics.indexOf(call) > guard, call);
   }

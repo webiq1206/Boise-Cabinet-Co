@@ -13,7 +13,9 @@
  * their contact details and was shown their range. On it, and on no other
  * event, this page also fires the accepted-lead conversion the quote request
  * form fires once the server accepts a request: the Google Ads lead
- * conversion (trackGoogleAdsLeadOnce) and a GA4 generate_lead, both labelled
+ * conversion (trackGoogleAdsLeadOnce), a GA4 generate_lead and the Meta Pixel
+ * Lead event (owner, 13 November 2026, so Meta campaigns for the instant
+ * estimate can optimize for finished estimates), all labelled
  * "instant_estimator". It fires once per page view.
  *
  * The estimator runs on another origin, so it cannot hand this page the
@@ -25,6 +27,7 @@
 
 import { useEffect, useRef } from "react";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
+import { trackMetaEvent } from "@/lib/analytics/metaPixel";
 import type { EstimatorEventDetail } from "./EstimatorFrame";
 
 /** The form and source label for a lead that came from the framed estimator. */
@@ -64,6 +67,8 @@ export default function EstimatorAnalytics() {
         event_id: leadId,
       });
       trackGoogleAdsLeadOnce(leadId, { projectType: project || INSTANT_ESTIMATOR_LEAD_SOURCE });
+      // A project category and the opaque id only: no contact details.
+      trackMetaEvent("Lead", { content_name: project || "unknown", content_category: INSTANT_ESTIMATOR_LEAD_SOURCE }, leadId);
     };
 
     window.addEventListener("p5-estimator-event", onEstimatorEvent);
