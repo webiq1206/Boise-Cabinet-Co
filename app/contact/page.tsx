@@ -159,7 +159,7 @@ export default function ContactPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         {/* Approved editorial hero */}
-        <InteriorHero className="interior-hero-fit" layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
+        <InteriorHero className="interior-hero-fit" layout="contact" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a pale stone counter, black faucets and a freestanding tub under a black-framed window">
             <HeroBreadcrumbs />
             <p data-speakable="summary" className="sr-only">
               {SPEAKABLE_SUMMARY}

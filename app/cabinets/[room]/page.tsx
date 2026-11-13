@@ -450,7 +450,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             {index === 0 ? (
               <PhotoBreak
                 src={ENRICHMENT_IMAGES.oakBuiltIns}
-                alt={`${sentenceStart(seo.label)} cabinetry detail in a Treasure Valley home`}
+                alt="White oak built-in shelves and cabinets on each side of a white fireplace"
                 caption={`More ${seo.label} planning detail for Ada and Canyon County homes.`}
               />
             ) : null}

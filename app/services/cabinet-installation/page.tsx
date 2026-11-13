@@ -65,7 +65,7 @@ export default function CabinetInstallationPage() {
     <InteriorPage kind="services"><>
       <JsonLd data={schemas} />
       <main>
-        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a limestone countertop and black fixtures">
+        <InteriorHero className="interior-hero-fit" layout="split" imageSrc={SITE_IMAGES.contactHero} imageAlt="Bathroom with a white oak double vanity, a pale stone counter, black faucets and a freestanding tub under a black-framed window">
 
             <nav aria-label="Breadcrumb" className="mb-6 text-sm text-inverse-muted">
               <Link href="/" className="tap-target hover:text-inverse-foreground">Home</Link>
@@ -171,7 +171,7 @@ export default function CabinetInstallationPage() {
         <Section variant="canvas" spacing="none" className="p-0">
           <div className="grid md:grid-cols-2">
             <div className="relative min-h-[320px] overflow-hidden md:min-h-[540px]">
-              <Image src={SITE_IMAGES.processHome} alt="Kitchen with a wood island and coordinated cabinetry" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover img-brand-grade" />
+              <Image src={SITE_IMAGES.processHome} alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover img-brand-grade" />
               <div className="absolute inset-0 bg-gradient-to-t from-inverse/70 to-transparent" />
               <div className="absolute bottom-0 p-7 md:p-12">
                 <p className="ed-eyebrow text-inverse-muted">Good installation is visible in the details</p>
