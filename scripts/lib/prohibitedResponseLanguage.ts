@@ -86,7 +86,9 @@ export function scanSourceForResponsePromises(root: string): { file: string; lab
  * Owner decisions (release 2, November 8 2026). Public source may not:
  * - claim the company is bonded (insured and registration claims stay). Material
  *   descriptions such as "laminate bonded to a substrate" are not claims;
- * - promise an instant estimate, an estimate in minutes, or same-day financing approval;
+ * - promise an instant quote, a quote in minutes, an estimate in a stated number of
+ *   minutes or seconds, or same-day financing approval (narrowed 13 November 2026,
+ *   see the comment at those patterns);
  * - promise one contract or one invoice for every project;
  * - say the company's workmanship coverage includes subcontractors (they carry
  *   their own warranty, and we hand over a complete subcontractor list);
@@ -94,10 +96,22 @@ export function scanSourceForResponsePromises(root: string): { file: string; lab
  */
 export const PROHIBITED_CLAIM_PATTERNS: { label: string; pattern: RegExp }[] = [
   { label: "bonded claim", pattern: /\bbonded\b(?!\s+(?:to|with|under|onto|together)\b)/i },
-  { label: "instant estimate", pattern: /\binstant(?:ly)?\s+(?:online\s+)?(?:estimates?|estimator|quotes?|pric(?:e|es|ing)|ranges?|planning\s+ranges?)\b/i },
+  // Owner decision, 13 November 2026: the central estimator at /instant-estimate gives an
+  // on-screen preliminary range, so instant-estimate wording is accurate and allowed; it must
+  // never be called a quote or a final price.
+  // These three were two wider patterns that also forbade "instant estimate / estimator /
+  // price / range" and "estimate / price / range ... in minutes". What stays forbidden:
+  // an instant quote, a quote in minutes or seconds, and an estimate, price or range in a
+  // STATED number of minutes or seconds ("in about a minute", "in 5 minutes"), which nobody
+  // can promise. Each is a strict subset of what the old patterns matched.
+  { label: "instant quote", pattern: /\binstant(?:ly)?\s+(?:online\s+)?quotes?\b/i },
   {
-    label: "estimate in minutes",
-    pattern: /\b(?:estimates?|quotes?|price|pricing|planning\s+range|range)\b[^.]{0,60}?\bin\s+(?:about\s+|under\s+|less\s+than\s+)?(?:a\s+|one\s+|\d+\s+)?(?:few\s+)?(?:minutes?|seconds?)\b/i,
+    label: "quote in minutes",
+    pattern: /\bquotes?\b[^.]{0,60}?\bin\s+(?:about\s+|under\s+|less\s+than\s+)?(?:a\s+|one\s+|\d+\s+)?(?:few\s+)?(?:minutes?|seconds?)\b/i,
+  },
+  {
+    label: "estimate in a stated number of minutes",
+    pattern: /\b(?:estimates?|price|pricing|planning\s+range|range)\b[^.]{0,60}?\bin\s+(?:about\s+|under\s+|less\s+than\s+)?(?:a|one|\d+)\s+(?:minutes?|seconds?)\b/i,
   },
   { label: "same-day approval", pattern: /\bsame[\s-]+day\s+(?:approval|approvals|financing|credit|decision|decisions)\b/i },
   { label: "one contract or invoice", pattern: /\b(?:one|single)\s+(?:contract|invoice|bill)\b/i },

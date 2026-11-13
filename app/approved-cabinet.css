@@ -545,3 +545,25 @@
   .cabinet-approved .kitchen-planning-panel{grid-template-columns:1fr;padding:18px}
   .cabinet-approved .kitchen-planning-finish-grid{grid-template-columns:1fr}
 }
+/* Homepage instant estimate band: the builder band's two columns, plus the three benefits. */
+.cabinet-approved .estimate-band ul{
+  list-style:none;
+  margin:0 0 25px;
+  padding:0;
+  display:grid;
+  gap:10px;
+  max-width:490px;
+}
+.cabinet-approved .estimate-band li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  color:#66635d;
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+}
+.cabinet-approved .estimate-band li svg{
+  flex:none;
+  margin-top:.35em;
+  color:var(--color-charcoal);
+}

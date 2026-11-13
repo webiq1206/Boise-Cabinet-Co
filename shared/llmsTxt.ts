@@ -88,6 +88,7 @@ function buildLlmsTxt(): string {
     "",
   );
   push(`- ${link("Boise cabinet cost guide", "/guides/boise-cabinet-cost-guide")}: planning ranges for kitchens, vanities, built-ins, and whole-home programs`);
+  push(`- ${link("Instant estimate", "/instant-estimate")}: answer a few questions and see a preliminary price range on screen, free and with no appointment. It is a budgeting range; a firm written proposal follows a site visit, measurements and selections`);
   push(`- ${link("Request a quote", "/estimate")}: share your project for a written estimate`, "");
 
   push("## Cabinets by room", "");

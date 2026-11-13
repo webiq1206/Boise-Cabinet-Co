@@ -112,8 +112,14 @@ test("the release 2 claims guard catches the retired claims and spares material 
   const bad = [
     "Bonded · Insured",
     "licensed, bonded, and insured",
-    "Get an instant estimate",
+    // Owner decision, 13 November 2026: the central estimator at /instant-estimate gives an
+    // on-screen preliminary range, so "instant estimate" is allowed (see fine, below). It is
+    // never a quote, and no stated number of minutes or seconds may be promised.
+    "Get an instant quote",
+    "Your instant online quote",
+    "Get your cabinet quote in minutes",
     "turns your room into a planning range in about a minute",
+    "See your estimate in 5 minutes",
     "Same-day approval decisions",
     "One contract, one invoice",
     "covering our crew and the subcontractors we hire",
@@ -125,6 +131,10 @@ test("the release 2 claims guard catches the retired claims and spares material 
     "Wood particles bonded with resin and pressed into panels.",
     "Insured; certificate on request",
     "Get a planning range",
+    "Get an instant estimate",
+    "Instant estimate",
+    "Use the instant estimator for an instant preliminary estimate and a preliminary price range.",
+    "See a preliminary price range in minutes.",
     "One accountable company and one point of contact for your project.",
   ];
   for (const text of fine) assert.deepEqual(findProhibitedClaims(text), [], text);

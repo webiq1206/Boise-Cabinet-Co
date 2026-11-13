@@ -20,7 +20,7 @@ import { BUSINESS_VCARD_PATH } from '../lib/vcard.ts';
 import { FOOTER_CABINET_LINKS, PRIMARY_NAV } from '../shared/cabinetNav.ts';
 import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '../shared/claims.ts';
 import { CONTENT_HUBS, guidePath } from '../shared/contentHubs.ts';
-import { CTA_QUOTE_HREF, CTA_REQUEST_QUOTE } from '../shared/ctaCopy.ts';
+import { CTA_INSTANT_ESTIMATE, CTA_INSTANT_ESTIMATE_SHORT, CTA_QUOTE_HREF, CTA_REQUEST_QUOTE, INSTANT_ESTIMATE_HREF } from '../shared/ctaCopy.ts';
 import { GUIDE_PAGES } from '../shared/guideContent.ts';
 import { SITE_CONFIG } from '../shared/siteConfig.ts';
 
@@ -32,10 +32,16 @@ const sentenceCase = (label: string) => label === label.charAt(0).toUpperCase() 
 // Phase 2 family chrome: the shared components read every Boise Cabinet Co fact from
 // lib/familyBrand.ts. These pin that the config says what the site says.
 test('the brand config carries this site’s facts, one CTA and one destination', () => {
-  assert.equal(FAMILY_BRAND.cta.label, 'Request a quote');
-  assert.equal(FAMILY_BRAND.cta.label, CTA_REQUEST_QUOTE);
-  assert.equal(FAMILY_BRAND.cta.href, '/estimate');
-  assert.equal(FAMILY_BRAND.cta.href, CTA_QUOTE_HREF);
+  // Owner decision, 13 November 2026: the header, menu and bottom bar lead to the family's
+  // central estimator, framed at /instant-estimate. "Request a quote" to /estimate is the
+  // secondary path to a person.
+  assert.equal(FAMILY_BRAND.cta.label, 'Instant estimate');
+  assert.equal(FAMILY_BRAND.cta.label, CTA_INSTANT_ESTIMATE_SHORT);
+  assert.equal(FAMILY_BRAND.cta.href, '/instant-estimate');
+  assert.equal(FAMILY_BRAND.cta.href, INSTANT_ESTIMATE_HREF);
+  assert.equal(CTA_INSTANT_ESTIMATE, 'Get an instant estimate');
+  assert.equal(CTA_REQUEST_QUOTE, 'Request a quote');
+  assert.equal(CTA_QUOTE_HREF, '/estimate');
   assert.equal(FAMILY_BRAND.phone.display, '(208) 477-1169');
   assert.equal(FAMILY_BRAND.phone.telHref, 'tel:+12084771169');
   assert.equal(FAMILY_BRAND.phone.smsHref, 'sms:+12084771169');
@@ -59,7 +65,9 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   assert.equal(FAMILY_BRAND.header.desktopFrom, 1180);
   // Every estimator route owns the bottom of the screen.
   for (const path of ['/estimate', '/estimate/scope', '/estimate/p5-preview']) assert.equal(matchesRoute(path, FAMILY_BRAND.bar.hiddenOn), true, path);
-  for (const path of ['/', '/cabinets', '/estimates', '/contact']) assert.equal(matchesRoute(path, FAMILY_BRAND.bar.hiddenOn), false, path);
+  // So does the framed family estimator: the bar's own button would only link to the page it is on.
+  assert.equal(matchesRoute('/instant-estimate', FAMILY_BRAND.bar.hiddenOn), true);
+  for (const path of ['/', '/cabinets', '/estimates', '/contact', '/instant-estimates', '/instant-estimate/more']) assert.equal(matchesRoute(path, FAMILY_BRAND.bar.hiddenOn), false, path);
   // A focused field, the embedded estimator, a wizard bar or an on-screen request form wins the space.
   assert.deepEqual(FAMILY_BRAND.bar.yieldToBodyFlags, ['hideMobileNavBar', 'p5EstimatorActive', 'suppressStickyCta']);
   // The canonical header/footer contact actions use all three supported destinations.
@@ -130,6 +138,8 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.ok(html.includes(`<a href="${P5_GOOGLE_PROFILE_URL}" rel="noopener" target="_blank" data-testid="link-footer-google">P5 Home Co on Google</a>`));
   assert.equal((html.match(/data-testid="link-footer-google"/g) ?? []).length, 1);
   assert.equal((html.match(/data-testid="link-footer-facebook"/g) ?? []).length, 1);
+  // The footer carries both: the instant estimate, and the quote request form as the path to a person.
+  assert.match(html, /<a data-testid="link-footer-instant-estimate" href="\/instant-estimate">Instant estimate<\/a>/);
   assert.match(html, /<a data-testid="link-footer-quote" href="\/estimate">Request a quote<\/a>/);
   for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/warranty#get-help', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
     assert.ok(html.includes(`href="${href}"`), href);
@@ -146,9 +156,18 @@ test('the homepage video preserves no-script poster, first-response content and 
   assert.match(html, /Custom cabinets · Treasure Valley, Idaho/);
   const cta = html.match(/<a [^>]*data-hero-cta="primary"[^>]*>([^<]+)<\/a>/);
   assert.ok(cta, 'hero primary CTA');
-  assert.match(cta[0], /href="\/estimate"/);
+  // Owner decision, 13 November 2026: the hero's primary is the instant estimate.
+  assert.match(cta[0], /href="\/instant-estimate"/);
   assert.match(cta[0], /fam-btn--hero fam-btn--lg/);
-  assert.equal(cta[1], 'Request a quote');
+  assert.equal(cta[1], 'Get an instant estimate');
+  // The band under the proof strip sells it, with the quote request form beside it as the path to a person.
+  const band = html.match(/<section id="instant-estimate"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(band, /<a [^>]*href="\/instant-estimate"[^>]*>Get an instant estimate<\/a>/);
+  assert.match(band, /<a class="text-link estimate-secondary" href="\/estimate">Request a quote/);
+  assert.equal((band.match(/<li>/g) ?? []).length, 3);
+  // Outside that one link, the band never calls the estimate a quote, a bid or a final price.
+  const bandCopy = band.replace(/<a class="text-link estimate-secondary"[\s\S]*?<\/a>/, '');
+  assert.doesNotMatch(bandCopy, /\bquotes?\b|\bbids?\b|final price|firm price|guaranteed/i);
   assert.match(html, /<a href="tel:\+12084771169" class="fam-hero-link">Call or text \(208\) 477-1169<\/a>/);
   assert.match(html, /<img [^>]*fetchPriority="high"[^>]*class="fam-hero-img"/);
   assert.match(html, /src="\/media\/cabinet\/boise-cabinet-co-poster\.jpg"/);

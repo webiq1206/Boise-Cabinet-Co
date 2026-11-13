@@ -15,7 +15,7 @@
 import type { FamilyBrand, FamilyLink } from '@/lib/family/types';
 import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '@/shared/claims';
 import { CITIES, locationPath } from '@/shared/contentData';
-import { CTA_QUOTE_HREF, CTA_REQUEST_QUOTE } from '@/shared/ctaCopy';
+import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 /** The approved October 28 outlined lockups (public/brand), 339 x 50 artwork. */
@@ -87,8 +87,10 @@ export const FAMILY_BRAND: FamilyBrand = {
     { label: 'For builders', href: '/builders' },
     { label: 'Contact', href: '/contact' },
   ],
-  // One label, one destination (family plan Phase 1): "Request a quote" to /estimate.
-  cta: { label: CTA_REQUEST_QUOTE, href: CTA_QUOTE_HREF },
+  // Owner decision, 13 November 2026: the header, menu and bottom bar lead to the family's central
+  // estimator, framed at /instant-estimate. "Request a quote" to /estimate stays as the path to a
+  // person (the footer link, the estimator page's own block and every page the estimator cannot price).
+  cta: { label: CTA_INSTANT_ESTIMATE_SHORT, href: INSTANT_ESTIMATE_HREF },
   phone: { display: SITE_CONFIG.phone, telHref: SITE_CONFIG.phoneHref, smsHref: SITE_CONFIG.phoneSmsHref },
   // The existing assistant listens for this event. Match its route suppression exactly.
   chat: {
@@ -101,8 +103,10 @@ export const FAMILY_BRAND: FamilyBrand = {
     // Approved C7 decision (scripts/verify-p5-mobile-seo.mjs): the bar is on the first screen, over the hero.
     showOverHero: true,
     callLabel: 'Call',
-    // The estimator owns the whole screen on every /estimate route.
-    hiddenOn: ['/estimate/*'],
+    // The estimator owns the whole screen on every /estimate route. On /instant-estimate the framed
+    // estimator fills the screen under the header, and the bar's own button would only link to the
+    // page the visitor is already on; call, text and chat stay in the header there.
+    hiddenOn: ['/estimate/*', '/instant-estimate'],
     // hideMobileNavBar: requestHideMobileNavBar (lib/mobileNavBar.ts). p5EstimatorActive: the embedded
     // estimator. suppressStickyCta: a final request section is on screen (components/StickyCtaYield.tsx).
     yieldToBodyFlags: ['hideMobileNavBar', 'p5EstimatorActive', 'suppressStickyCta'],
