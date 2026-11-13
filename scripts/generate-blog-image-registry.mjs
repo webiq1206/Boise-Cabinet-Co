@@ -536,7 +536,7 @@ const ENTRIES = {
   },
   "boise-cabinet-guide": {
     hero: blog("boise-remodeling-guide"),
-    alt: "Tree-lined residential street with front porches and foothills in the distance",
+    alt: "Tree-lined residential street of two-story homes with foothills in the distance",
     topicTags: ["location", "boise", "guide"],
     source: "blog",
     copyFrom: area("meridian"),
