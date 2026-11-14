@@ -861,7 +861,7 @@ export const IMAGE_BLUR: Record<string, string> = {
   "/images/gallery/gallery-kitchen-after.webp": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAAwBSJZACdAYvDjFHEKKoAP616JQQUbnFo6KmT3Ptukq54wydZa/fLzLjWJiMK5+Hh5XNPDXsg5W01E75uiDSUuwmHVbMGjzGxtANUZ4IxRdjnPn34iAAAA==",
   "/images/gallery/gallery-kitchen-before.webp": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoQAAsAAwBSJagCdADvzXOBX31gAP6Gq9zIXCpleoXcbFKOCHnMrJpdoap24hhDjFbzRRT94Gdsi0TvFv2TgjzoUiePfS31aHnkgRu+XDa/whgwOyyYlLz99AAAAA==",
   "/images/gallery/gallery-outdoor-after.webp": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoQAAsAAwBSJZgCdAEUr95AAAD+x4O4Tac4ZH8nfF2UUpmB4RTPX8ra0NX9BMPdumeqhWsi4PxZXs5K6RD6HOkrZ5jqAAAA",
-  "/images/gallery/gallery-outdoor-before.webp": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAsAAwBSJQBOkCYjA3eHqUMOkAD+6zWXn3o/Wp+pl1WaXjjRsaKhudlyj8gSg/3DPi7N+HRxBgiapyXEXfr0ToAAAA==",
+  "/images/gallery/gallery-outdoor-before.webp": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAsAAwBSJZgCdAENolPw6aAA/sYHvTdMlcPUzrhsISJu5xN48bubu4FH1EAF8F7pC/VVnJQZop1vVCrlfXMXkxAAAA==",
   "/images/gallery/gallery-whole-home-after.webp": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAsAAwBSJQBOgBcIe2XHNKAAAM3gwM9bktMWwo5GCHAZCDn9T6F1NGtvPWLi0xF3SGziGLyHzjDglKshSse0LT74LZfL0dHcaMgqLwcxUlLYAAA=",
   "/images/gallery/gallery-whole-home-before.webp": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAwAgCdASoQAAsAAwBSJYwCdAD2B7rcyxjWAAD2l069bGcXa41lgyoRy2X+/1YCww5eZQAP9aSS6V3XLE/wYyw/Je0s5M8lRIAAAA==",
 };
