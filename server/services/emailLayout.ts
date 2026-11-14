@@ -1,5 +1,7 @@
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
+export { decoratePreliminaryEstimateEmail } from "./leadConfirmationEmail";
+
 /**
  * Email brand tokens, matching the site's DARK theme in app/globals.css
  * (charcoal ground, bone ink, restrained teal accent). Key names are kept

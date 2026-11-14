@@ -1,6 +1,6 @@
 import {safeEmailReplyTo} from './emailReplyTo.ts';
 import { getUncachableResendClient as getUncachableEmailClient } from "../../server/resend";
-import { getAdminRecipientEmails,formatFromAddress } from "../../server/services/emailLayout";
+import { getAdminRecipientEmails,formatFromAddress,decoratePreliminaryEstimateEmail } from "../../server/services/emailLayout";
 import { ESTIMATOR_BRAND as brand } from "./brand";
 import {assertCrmPayloadSize,crmPayload,CrmPayloadTooLargeError} from "./deliveryPayloads";
 import {crmIdentity,deliverKeyedCrm} from "./keyedCrm";
@@ -10,7 +10,12 @@ export {CrmPayloadTooLargeError};
 export async function sendEmail(input:{to:string;replyTo?:string;subject:string;text:string;html?:string;attachments:{filename:string;content:Buffer;contentType?:string}[];key:string}){
   const {client,fromEmail}=await getUncachableEmailClient();
   const sender=client.emails as unknown as {send:(body:unknown,options:unknown)=>Promise<any>};
-  const result=await sender.send({from:formatFromAddress(fromEmail),to:input.to,replyTo:safeEmailReplyTo(input.replyTo,brand.email),subject:input.subject,text:input.text,html:input.html,attachments:input.attachments},{idempotencyKey:input.key});
+  // Customer preliminary-estimate mail gains the Schedule now button here.
+  // Other subjects, including project-request mail, are returned unchanged.
+  // The shared intake test replaces emailLayout with a stub that has no
+  // decorator; those messages must keep the bytes the renderer produced.
+  const message=typeof decoratePreliminaryEstimateEmail==="function"?decoratePreliminaryEstimateEmail(input):input;
+  const result=await sender.send({from:formatFromAddress(fromEmail),to:input.to,replyTo:safeEmailReplyTo(input.replyTo,brand.email),subject:message.subject,text:message.text,html:message.html,attachments:input.attachments},{idempotencyKey:input.key});
   if(result?.error)throw new Error("Email provider rejected delivery");
   const id=result?.data?.id||result?.id;
   if(!id||id==="noop"||result?.skipped)throw new Error("Email delivery is not configured");

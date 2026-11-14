@@ -6,7 +6,7 @@ import { consultationRequests, leads, submissions, leadQuotes } from "@/shared/s
 import { deriveEmailable, matchServiceArea } from "@/lib/crm/leads";
 import { notifyNewLead } from "@/server/services/leadNotifications";
 import { getUncachableResendClient } from "@/server/resend";
-import { preferToTextHtml, SITE_CONFIG } from "@/shared/siteConfig";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
   escapeHtml,
   wrapEmailHtml,
@@ -18,8 +18,12 @@ import {
   buildEstimateDetailHtml,
   buildLeadDashboardButton,
   buildOwnerSignatureHtml,
-  buildHomeownerStoryHtml,
 } from "@/server/services/emailLayout";
+import {
+  CABINET_EMAIL_ACCENT,
+  requestConfirmation,
+  scheduleIntentFor,
+} from "@/server/services/leadConfirmationEmail";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress, parseAddressParts } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
@@ -384,19 +388,15 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      const customerHtml = wrapEmailHtml({
-        title: `Thanks, ${escapeHtml(data.name)}!`,
-        subtitle: "I got your request",
-        tagline: "Custom Cabinets",
-        content: `
-          <p class="greeting">Hi ${escapeHtml(data.name)},</p>
-          <p>Thanks so much for reaching out. I got your request and I will personally be in touch to answer your questions, set up your free design visit and learn more about what you have in mind.</p>
-          <p>${preferToTextHtml()}</p>
-          ${estimateDetailBlock}
-          ${buildHomeownerStoryHtml()}
-          <p>In the meantime, feel free to call or text me at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>, or just reply to this email with any questions at all.</p>
-          ${buildOwnerSignatureHtml()}
-        `,
+      // A callback is a 15 minute phone consult. Anything else is a home
+      // walkthrough. The booking page cannot preselect the length, so the
+      // sentence above the button names it. No email address, no message.
+      const confirmation = requestConfirmation({
+        firstName: data.name,
+        brandName: SITE_CONFIG.name,
+        intent: scheduleIntentFor({ requestKind: data.requestKind }),
+        phone: SITE_CONFIG.phone,
+        accent: CABINET_EMAIL_ACCENT,
       });
 
       // A callback or a call/text-only request may come without an email; the
@@ -406,9 +406,9 @@ export async function POST(request: NextRequest) {
           from,
           replyTo: getReplyToAddress(),
           to: data.email,
-          subject: "We received your request | Boise Cabinet Co",
-          html: customerHtml,
-          text: htmlToPlainText(customerHtml),
+          subject: confirmation.subject,
+          html: confirmation.html,
+          text: confirmation.text,
         });
       }
       emailSent = true;
