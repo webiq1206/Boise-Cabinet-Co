@@ -17,6 +17,10 @@ import {
 } from "@/server/services/emailLayout";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
+import {
+  CABINET_EMAIL_ACCENT,
+  requestConfirmation,
+} from "@/server/services/leadConfirmationEmail";
 
 const PER_IP_LIMIT = 8;
 const PER_IP_WINDOW_MS = 15 * 60 * 1000;
@@ -112,6 +116,21 @@ export async function POST(request: NextRequest) {
           text: htmlToPlainText(adminHtml),
         });
       }
+      const confirmation = requestConfirmation({
+        firstName: data.name,
+        brandName: SITE_CONFIG.name,
+        intent: "walkthrough",
+        phone: SITE_CONFIG.phone,
+        accent: CABINET_EMAIL_ACCENT,
+      });
+      await client.emails.send({
+        from,
+        replyTo: getReplyToAddress(),
+        to: data.email,
+        subject: confirmation.subject,
+        html: confirmation.html,
+        text: confirmation.text,
+      });
     } catch (emailErr) {
       console.error("[pricing-request] Email send failed:", emailErr);
     }
