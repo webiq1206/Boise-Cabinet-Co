@@ -16,6 +16,10 @@ import {
   wrapEmailHtml,
 } from "@/server/services/emailLayout";
 import {
+  CABINET_EMAIL_ACCENT,
+  requestConfirmation,
+} from "@/server/services/leadConfirmationEmail";
+import {
   detailsBodySchema,
   detailsDigest,
   detailsSubmissionId,
@@ -186,6 +190,33 @@ export async function POST(request: NextRequest) {
     const { stored, merge, leadId, step1 } = outcome;
     const name = stored.name;
     const requestKind = step1.requestKind === "callback" ? "callback" : "request";
+    // Step 1 already confirmed the lead when it had an email. This step sends
+    // the same note once, and only when it is what first records an address.
+    const confirmationEmail = typeof merge.set.email === "string" ? merge.set.email.trim() : "";
+    if (confirmationEmail) {
+      const confirmation = requestConfirmation({
+        firstName: name,
+        brandName: SITE_CONFIG.name,
+        intent: requestKind === "callback" ? "consult" : "walkthrough",
+        phone: SITE_CONFIG.phone,
+        accent: CABINET_EMAIL_ACCENT,
+      });
+      after(async () => {
+        try {
+          const { client, fromEmail } = await getUncachableResendClient();
+          await client.emails.send({
+            from: formatFromAddress(fromEmail),
+            replyTo: getReplyToAddress(),
+            to: confirmationEmail,
+            subject: confirmation.subject,
+            html: confirmation.html,
+            text: confirmation.text,
+          });
+        } catch (emailErr) {
+          console.error("[consultation-details] Customer confirmation failed:", emailErr);
+        }
+      });
+    }
     const place = fields.address ? splitAddress(fields.address) : null;
 
     // HubSpot by way of p5 intake: same brand and external_id, submission_kind "details".
