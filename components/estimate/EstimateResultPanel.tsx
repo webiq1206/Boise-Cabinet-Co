@@ -190,6 +190,8 @@ export interface EstimateResultPanelProps {
    * Defaults to true so non-gated callers are unaffected.
    */
   revealRange?: boolean;
+  planningStatus?: "idle"|"loading"|"ready"|"error";
+  onRetry?: () => void;
 }
 
 export function EstimateResultPanel({
@@ -205,6 +207,8 @@ export function EstimateResultPanel({
   breakdown,
   onEditRoom,
   revealRange = true,
+  planningStatus = "idle",
+  onRetry,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
@@ -230,8 +234,9 @@ export function EstimateResultPanel({
           className="text-inverse-foreground/90 leading-relaxed text-base"
           data-testid="estimate-empty-message"
         >
-          {ESTIMATE_EMPTY_MESSAGE}
+          {planningStatus === "loading" ? "Updating your planning range…" : planningStatus === "error" ? "Your planning range could not be updated. Please retry." : ESTIMATE_EMPTY_MESSAGE}
         </p>
+        {planningStatus === "error" && onRetry && <button type="button" onClick={onRetry} className="min-h-11 underline" data-testid="planning-range-retry">Retry range</button>}
         {(isFull || isSidebar) && (
           <p className="text-[12px] leading-relaxed mt-4 text-inverse-foreground/85">
             {ESTIMATE_VALUE_PROP}

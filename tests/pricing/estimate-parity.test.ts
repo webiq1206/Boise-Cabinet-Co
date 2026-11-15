@@ -1,7 +1,7 @@
 /** Legacy pricing retirement gate. Financial calculation coverage lives in p5-pricing and estimate-engine tests. */
 import assert from 'node:assert/strict';
 import {NextRequest} from 'next/server';
-import {getDefaultSelectionsForProject,EMPTY_SELECTIONS,type EstimateSelections} from '../../shared/estimateEngine';
+import {getDefaultSelectionsForProject,EMPTY_SELECTIONS,type EstimateSelections} from '../../server/estimateEngine';
 import {POST} from '../../app/api/estimate/calculate/route';
 const FIXTURES: Array<{ name: string; rooms: EstimateSelections[] }> = [
   { name: "kitchen defaults", rooms: [getDefaultSelectionsForProject("kitchen")] },

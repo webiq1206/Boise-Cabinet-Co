@@ -25,7 +25,6 @@ import {
   type ProjectType,
 } from "@/shared/estimateEngine";
 import {
-  getDesignEstimate,
   designToEstimateSelections,
 } from "@/lib/design/designToEstimate";
 import {

@@ -1,6 +1,5 @@
 import {
   applyFinishSlug,
-  calculateEstimate,
   formatPlanningCurrency,
   getProjectSizeConfig,
   type ConstructionTier,
@@ -84,7 +83,7 @@ export function designToEstimateSelections(
 }
 
 /** Count meaningful selections made so far (drives the confidence indicator). */
-function countSelections(design: DesignState): number {
+export function countDesignSelections(design: DesignState): number {
   let n = 0;
   if (design.layout) n += 1;
   if (design.roomMeta) n += 1; // size
@@ -115,7 +114,7 @@ const TIMELINE_WEEKS: Record<ProjectType, [number, number]> = {
 };
 
 /**
- * Live planning estimate for a design, or null while the design lacks a size
+ * Formats an allowlisted server result for a design, or null while it lacks a size
  * source (no layout, room scan, or size tuner yet). Callers show a
  * "complete your room to see a range" prompt for the null case instead of a
  * fabricated default-filled price.
@@ -123,9 +122,9 @@ const TIMELINE_WEEKS: Record<ProjectType, [number, number]> = {
 export function getDesignEstimate(
   design: DesignState,
   opts: DesignEstimateOptions = {},
+  result: EstimateResult | null = null,
 ): DesignEstimate | null {
   const selections = designToEstimateSelections(design, opts);
-  const result = calculateEstimate(selections, countSelections(design));
   if (!result) return null;
   const project = toProjectType(design.roomType);
   const [wkLow, wkHigh] = TIMELINE_WEEKS[project];

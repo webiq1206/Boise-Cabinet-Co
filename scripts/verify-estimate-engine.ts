@@ -12,7 +12,7 @@ import {
   type ProjectType,
   type FinishCategory,
   type ConstructionTier,
-} from "../shared/estimateEngine";
+} from "../server/estimateEngine";
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

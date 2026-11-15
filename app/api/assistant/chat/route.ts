@@ -9,7 +9,7 @@ import {
   executeAssistantTool,
   type AssistantToolContext,
 } from "@/lib/assistant/tools";
-import { calculateCombinedEstimate } from "@/shared/estimateEngine";
+import { calculateCombinedEstimate } from "@/server/estimateEngine";
 import { validateCombinedEstimate } from "@/shared/estimateValidation";
 import { MAX_ROOMS, roomSelectionsSchema } from "@/shared/estimateInputSchema";
 

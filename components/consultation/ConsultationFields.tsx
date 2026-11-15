@@ -37,6 +37,7 @@ import {
 import type {
   StoredEstimate,
   CombinedStoredEstimate,
+  CombinedEstimateResult,
   EstimateSelections,
 } from "@/shared/estimateEngine";
 import { buildEstimateRecord } from "@/shared/estimateRecord";
@@ -296,6 +297,7 @@ export interface ConsultationFieldsProps {
   estimate?: StoredEstimate | null;
   /** Multi-room estimate; when set it takes precedence over `estimate`. */
   combinedEstimate?: CombinedStoredEstimate | null;
+  planningResult?: CombinedEstimateResult | null;
   /**
    * Resolved consultation project type. When set, the project select is hidden
    * and this value is submitted (used by the multi-room wizard, which spans
@@ -365,6 +367,7 @@ function buildCompactSteps(
 export function ConsultationFields({
   estimate = null,
   combinedEstimate = null,
+  planningResult = null,
   resolvedProjectType,
   showEstimateSummary = true,
   defaultProjectType = "",
@@ -471,7 +474,7 @@ export function ConsultationFields({
             budget: data.budget,
             notes: data.message,
             propertyAddress: data.address,
-          })
+          }, planningResult)
         : null;
 
       const submission = attempt.begin(

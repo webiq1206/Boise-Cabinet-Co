@@ -47,7 +47,7 @@ calculateEstimate,
 formatPlanningCurrency,
 getDefaultSelectionsForProject,
 type ProjectType,
-} from "@/shared/estimateEngine";
+} from "@/server/estimateEngine";
 import { PROJECTS } from "@/shared/galleryData";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ENRICHMENT_IMAGES } from "@/shared/siteImages";

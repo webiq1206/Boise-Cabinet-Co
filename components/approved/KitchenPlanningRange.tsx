@@ -1,13 +1,13 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
+import {usePlanningEstimate} from "@/lib/estimate/usePlanningEstimate";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { CTA_INSTANT_ESTIMATE } from "@/shared/ctaCopy";
 import { instantEstimateHref } from "@/shared/instantEstimate";
 import {
   type FinishCategory,
-  calculateEstimate,
   formatPlanningCurrency,
   getDefaultSelectionsForProject,
   getProjectSizeConfig,
@@ -36,7 +36,7 @@ export function KitchenPlanningRange() {
   const [size, setSize] = useState(SIZE.default);
   const [finish, setFinish] = useState<FinishCategory>("matte");
 
-  const result = useMemo(() => {
+  const selections = useMemo(() => {
     const sel = getDefaultSelectionsForProject("kitchen");
     sel.size = size;
     // Typical kitchen: uppers scale with the base run (~0.75×), clamped to config.
@@ -48,9 +48,11 @@ export function KitchenPlanningRange() {
     );
     sel.finishCategory = finish;
     // Enough detail for a planning band without pretending a firm bid.
-    return calculateEstimate(sel, 3);
+    return sel;
   }, [size, finish]);
 
+  const planning = usePlanningEstimate([selections], [3]);
+  const result = planning.data?.singles[0] ?? null;
   const rangeLabel = result
     ? `${formatPlanningCurrency(result.priceLow)} to ${formatPlanningCurrency(result.priceHigh)}`
     : null;
@@ -149,7 +151,10 @@ export function KitchenPlanningRange() {
               {rangeLabel}
             </p>
           ) : (
-            <p className="kitchen-planning-figure-empty">Adjust size to see a range.</p>
+            <p className="kitchen-planning-figure-empty">{planning.status === "loading" ? "Updating your range…" : planning.status === "error" ? "Your range could not be updated." : "Adjust size to see a range."}</p>
+          )}
+          {planning.status === "error" && (
+            <button type="button" onClick={planning.retry} className="min-h-11 underline">Retry range</button>
           )}
           <ul className="kitchen-planning-disclaimer">
             <li>Modeled 2026 Treasure Valley planning figures from our estimator engine (linear feet, door, finish, and construction) for cabinetry supplied and installed.</li>

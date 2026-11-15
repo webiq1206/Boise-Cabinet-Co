@@ -40,6 +40,24 @@ primary pricing call to action on this site.
   of them until the owner says the replacement is verified live.
 * Guard: `tests/p5-instant-estimate.test.ts` (runs with `tests/p5-*.test.ts`).
 
+## Public planning calculator: server boundary
+
+The preserved local planning tools use `POST /api/estimate/planning-range` for
+stateless, validated customer ranges. Private cost-book and finance calculations
+live in `server/estimateEngine.ts`. Never import that server module, raw books,
+or financial policy modules into client components or public shared helpers.
+`shared/estimateEngine.ts` contains public selections, labels and result builders
+that accept already calculated customer results. The retired calculate endpoint
+remains retired. No provider, mail, CRM, QuickBooks or database call belongs in
+the public planning endpoint.
+
+Run `npm run verify:planning-boundary` and the existing pricing/record tests.
+Before release, inspect the exact production client assets and rendered public
+HTML/JSON with `scripts/verify-cabinet-client-boundary.mjs --require-build
+--html-dir <captured-public-responses> --require-html`. Keep the standard and
+`docs/brand-profile.md` in the review. Source, build and browser checks do not
+establish deployment or production delivery.
+
 ## Publishing to Replit: never approve a DROP
 
 Replit's Republish compares the development database with production and

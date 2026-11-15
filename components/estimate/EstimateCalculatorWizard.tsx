@@ -67,11 +67,11 @@ import {
   emptySelectionsForProject,
   buildStoredEstimate,
   roomSelectionsMade,
-  calculateCombinedEstimate,
+  isPriceable,
   buildCombinedStoredEstimate,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
-import { safeCombinedEstimate } from "@/shared/estimateValidation";
+import { usePlanningEstimate } from "@/lib/estimate/usePlanningEstimate";
 import { CTA_BOOK_VISIT } from "@/shared/ctaCopy";
 
 const OPTION_ICONS: Record<string, LucideIcon> = {
@@ -610,12 +610,10 @@ export function EstimateCalculatorWizard({
   // display: if the result ever fails the sanity checks (corrupt persisted
   // state, drifted inputs) the wizard falls back to its "make your selections"
   // state instead of showing a suspicious number.
-  const combined = useMemo(
-    () => safeCombinedEstimate(calculateCombinedEstimate(rooms), rooms, "estimate-wizard"),
-    [rooms],
-  );
+  const planning = usePlanningEstimate(rooms);
+  const combined = planning.data?.combined ?? null;
   const combinedStored = useMemo(
-    () => (combined ? buildCombinedStoredEstimate(rooms) : null),
+    () => (combined ? buildCombinedStoredEstimate(rooms, combined) : null),
     [combined, rooms],
   );
 
@@ -670,8 +668,8 @@ export function EstimateCalculatorWizard({
   // section) working, so it carries the first priceable room.
   useEffect(() => {
     let stored: ReturnType<typeof buildStoredEstimate> = null;
-    for (const room of rooms) {
-      const s = buildStoredEstimate(room, roomSelectionsMade(room));
+    for (const [index, room] of rooms.entries()) {
+      const s = buildStoredEstimate(room, roomSelectionsMade(room), planning.data?.singles[index] ?? null);
       if (s) {
         stored = s;
         break;
@@ -683,7 +681,7 @@ export function EstimateCalculatorWizard({
       sessionStorage.removeItem("brc_estimate");
     }
     window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
-  }, [rooms]);
+  }, [rooms, planning.data]);
 
   // Persist full progress (rooms + current step) so it can be restored across
   // navigations and return visits.
@@ -839,6 +837,7 @@ export function EstimateCalculatorWizard({
         return vis.doorStyle ? !!room?.doorStyle : true;
       }
       case "result":
+        return planning.status === "ready" || !rooms.some(isPriceable);
       case "contact":
         return true;
       default:
@@ -1111,6 +1110,8 @@ export function EstimateCalculatorWizard({
           <div className="mx-auto max-w-xl">
             <EstimateResultPanel
               result={combinedResult}
+        planningStatus={planning.status}
+        onRetry={planning.retry}
               revealRange={contactSucceeded}
               selectionSummary={resultSelectionSummary}
               scopeSummary={resultScopeSummary}
@@ -1133,6 +1134,7 @@ export function EstimateCalculatorWizard({
               // record (every choice, the range, and what was disclosed)
               // reaches the CRM, not just the price range.
               estimateRooms={rooms}
+              planningResult={combined}
               requireDetails
               showEstimateSummary
               formId={CONTACT_FORM_ID}
@@ -1157,6 +1159,8 @@ export function EstimateCalculatorWizard({
     currentStep.kind !== "result" && currentStep.kind !== "contact" ? (
       <EstimateResultPanel
         result={combinedResult}
+        planningStatus={planning.status}
+        onRetry={planning.retry}
         revealRange={contactSucceeded}
         selectionSummary={resultSelectionSummary}
         scopeSummary={resultScopeSummary}
@@ -1239,6 +1243,8 @@ export function EstimateCalculatorWizard({
           <div className="max-h-[82vh] overflow-y-auto p-4 pt-2">
             <EstimateResultPanel
               result={combinedResult}
+        planningStatus={planning.status}
+        onRetry={planning.retry}
               revealRange={contactSucceeded}
               selectionSummary={resultSelectionSummary}
               scopeSummary={resultScopeSummary}

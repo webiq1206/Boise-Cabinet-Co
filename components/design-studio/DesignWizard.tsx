@@ -36,7 +36,6 @@ import {
   gotoDesignStep,
   type DesignStepId,
 } from "@/lib/design/designSteps";
-import { getDesignEstimate } from "@/lib/design/designToEstimate";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 
 function buildWizardSteps(roomType: string | null): GuidedStep[] {

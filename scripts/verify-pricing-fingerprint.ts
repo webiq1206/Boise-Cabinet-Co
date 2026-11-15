@@ -16,7 +16,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { PROJECT_BOOK_LINES, LEVEL_TO_BOOK } from "../shared/estimateEngine";
+import { PROJECT_BOOK_LINES, LEVEL_TO_BOOK } from "../server/estimateEngine";
 
 /*
  * The cabinet wizard no longer keeps a dollar table. The fingerprint covers the

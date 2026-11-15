@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type {
   CombinedStoredEstimate,
+  CombinedEstimateResult,
   EstimateSelections,
   ProjectType,
   StoredEstimate,
@@ -10,12 +11,17 @@ import type {
 import {
   buildCombinedConsultationPayload,
   buildCombinedStoredEstimate,
+  buildStoredEstimate,
+  roomSelectionsMade,
+  buildScopeSummary,
+  getSizeLabel,
+  PROJECT_LABELS,
   buildConsultationEstimatePayload,
-  calculateCombinedEstimate,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
 import { buildEstimateRecord } from "@/shared/estimateRecord";
-import { safeCombinedEstimate } from "@/shared/estimateValidation";
+import { roomSelectionsSchema } from "@/shared/estimateInputSchema";
+import { requestPlanningEstimate } from "@/lib/estimate/usePlanningEstimate";
 import { clearWizardState, loadWizardState } from "@/lib/estimate/wizardPersistence";
 import { QuoteRequestForm } from "@/components/quote/QuoteRequestForm";
 import { track, trackGoogleAdsLeadOnce } from "@/lib/analytics/track";
@@ -55,6 +61,8 @@ export function ConsultationForm({
   /** Stable field ids for the short form; one form per page. */
   idPrefix?: string;
 } = {}) {
+  const [planningStatus,setPlanningStatus] = useState<"idle"|"loading"|"ready"|"error">("idle");
+  const [planningResult, setPlanningResult] = useState<CombinedEstimateResult|null>(null);
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [combinedEstimate, setCombinedEstimate] = useState<CombinedStoredEstimate | null>(null);
   const [estimateRooms, setEstimateRooms] = useState<EstimateSelections[] | undefined>(undefined);
@@ -66,7 +74,12 @@ export function ConsultationForm({
   useEffect(() => {
     let reloadTimer: ReturnType<typeof setTimeout> | null = null;
 
-    function loadEstimate() {
+    let current = true;
+    let controller: AbortController | undefined;
+    async function loadEstimate() {
+      controller?.abort();
+      controller = new AbortController();
+      const request = controller;
       try {
         // Multi-room wizard state first: the same rooms + combined range the
         // wizard's own contact step would submit.
@@ -74,17 +87,16 @@ export function ConsultationForm({
         const rooms = wizard?.rooms ?? [];
         // Validated before attaching: a corrupt persisted state falls back to
         // the plain form rather than submitting a suspicious range.
-        const validated = safeCombinedEstimate(
-          calculateCombinedEstimate(rooms),
-          rooms,
-          "consultation-form",
-        );
-        const combined = validated ? buildCombinedStoredEstimate(rooms) : null;
+        setPlanningResult(null);setCombinedEstimate(null);setEstimate(null);setEstimateRooms(rooms.length?rooms:undefined);setResolvedProjectType(undefined);setPlanningStatus(rooms.length?"loading":"idle");
+        const response = rooms.length ? await requestPlanningEstimate(rooms,undefined,request.signal) : null;
+        if (!current || request.signal.aborted) return;
+        const validated = response?.combined ?? null;
+        const combined = validated ? buildCombinedStoredEstimate(rooms,validated) : null;
+        setPlanningResult(validated);setPlanningStatus("ready");
         if (combined) {
           const key = `combined|${combined.priceLow}|${combined.priceHigh}|${combined.rooms
             .map((r) => `${r.projectLabel}:${r.sizeLabel}:${r.scopeSummary}`)
             .join("|")}`;
-          if (key === lastKeyRef.current) return;
           lastKeyRef.current = key;
           const projects = rooms
             .map((r) => r.project)
@@ -102,6 +114,8 @@ export function ConsultationForm({
           return;
         }
 
+        if (rooms.length) {lastKeyRef.current = null;return;}
+
         // Legacy single-room snapshot from older flows.
         const raw = sessionStorage.getItem("brc_estimate");
         if (!raw) {
@@ -113,16 +127,21 @@ export function ConsultationForm({
           setResolvedProjectType(undefined);
           return;
         }
-        const parsed: StoredEstimate = JSON.parse(raw);
+        const selections = roomSelectionsSchema.parse(JSON.parse(raw));
+        setEstimateRooms([selections]);setPlanningStatus("loading");
+        const refreshed = await requestPlanningEstimate([selections],undefined,request.signal);
+        if (!current || request.signal.aborted) return;
+        const parsed = buildStoredEstimate(selections,roomSelectionsMade(selections),refreshed.singles[0]);
+        if (!parsed) {setPlanningStatus("ready");return;}
         const key = `single|${parsed.project}|${parsed.scopeSummary}|${parsed.size}|${parsed.priceLow}|${parsed.priceHigh}|${parsed.confidenceLabel}`;
-        if (key === lastKeyRef.current) return;
         lastKeyRef.current = key;
-        setEstimate(parsed);
+        setEstimate(parsed);setPlanningStatus("ready");
         setCombinedEstimate(null);
         setEstimateRooms(undefined);
         setResolvedProjectType(undefined);
       } catch {
-        /* storage unavailable; non-fatal */
+        if (!request.signal.aborted && current) {setPlanningResult(null);setCombinedEstimate(null);setEstimate(null);setResolvedProjectType(undefined);setPlanningStatus("error");}
+        /* storage or range unavailable; the unpriced request form stays available */
       }
     }
 
@@ -137,6 +156,7 @@ export function ConsultationForm({
     loadEstimate();
     window.addEventListener("brc_estimate_updated", scheduleReload);
     return () => {
+      current = false; controller?.abort();
       window.removeEventListener("brc_estimate_updated", scheduleReload);
       if (reloadTimer) clearTimeout(reloadTimer);
     };
@@ -181,6 +201,9 @@ export function ConsultationForm({
     resolvedProjectType ?? (estimate?.project ? mapEstimateProjectToConsultType(estimate.project) : "");
   const estimateAttached = Boolean(combinedEstimate || estimate);
   return (
+    <>
+    {planningStatus === "loading" && <p role="status">Your selections are saved while your planning range updates.</p>}
+    {planningStatus === "error" && <p role="status">Your selections are saved. No price range will be attached to this request.</p>}
     <QuoteRequestForm
       idPrefix={idPrefix}
       defaultProjectType={projectFromEstimate || defaultProjectType}
@@ -188,6 +211,7 @@ export function ConsultationForm({
       defaultMessage={defaultMessage}
       estimateAttached={estimateAttached}
       extraPayload={({ notes }) => ({
+        ...(!estimateAttached && estimateRooms?.length ? {message:[notes,"Planning selections (no price range attached):",...estimateRooms.filter(room=>room.project).map(room=>`${PROJECT_LABELS[room.project!].label}: ${room.size==null?"Size not set":getSizeLabel(room.project!,room.size,room.sizeUpper)}; ${buildScopeSummary(room)}`)].filter(Boolean).join("\n")} : {}),
         estimate: combinedEstimate
           ? buildCombinedConsultationPayload(combinedEstimate)
           : buildConsultationEstimatePayload(estimate),
@@ -198,7 +222,7 @@ export function ConsultationForm({
               budget: "",
               notes,
               propertyAddress: "",
-            })
+            }, planningResult)
           : null,
       })}
       onFirstFocus={() => track("form_started", { form: "consultation" })}
@@ -218,5 +242,6 @@ export function ConsultationForm({
         track("lead_details_added", { form: "consultation", fields_count: fields, files_count: files })
       }
     />
+    </>
   );
 }

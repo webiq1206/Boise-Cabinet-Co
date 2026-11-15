@@ -25,8 +25,8 @@ import {
   buildCombinedStoredEstimate,
   calculateCombinedEstimate,
   getDefaultSelectionsForProject,
-} from "../../shared/estimateEngine";
-import { buildEstimateRecord } from "../../shared/estimateRecord";
+} from "../../server/estimateEngine";
+import { buildEstimateRecord } from "../../server/estimateRecord";
 
 let passed = 0;
 let failed = 0;

@@ -23,7 +23,7 @@ import {
   FINISH_TIER_OPTIONS,
   INCLUDED_SCOPE_NOTE,
   PROJECT_LABELS,
-  calculateCombinedEstimate,
+  type CombinedEstimateResult,
   formatPlanningCurrency,
   getDoorStyleOptions,
   getFinishColorOptions,
@@ -144,8 +144,8 @@ export interface BuildEstimateRecordInput {
  */
 export function buildEstimateRecord(
   input: BuildEstimateRecordInput,
+  combined: CombinedEstimateResult | null,
 ): EstimateRecord | null {
-  const combined = calculateCombinedEstimate(input.rooms);
   if (!combined) return null;
 
   const priceable = input.rooms.filter(isPriceable);

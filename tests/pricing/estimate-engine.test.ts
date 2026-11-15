@@ -42,8 +42,8 @@ import {
   type ProjectType,
   type FinishCategory,
   type ConstructionTier,
-} from "../../shared/estimateEngine";
-import { buildEstimateRecord } from "../../shared/estimateRecord";
+} from "../../server/estimateEngine";
+import { buildEstimateRecord } from "../../server/estimateRecord";
 import {
   ESTIMATE_PRICE_ROUND_TO,
   validateEstimateResult,

@@ -1,26 +1,16 @@
 import { DOOR_STYLES } from "./catalog/doorStyles";
 import { FINISH_BY_SLUG } from "./catalog/finishes";
 // The light modules, not entityImages/queries: those import the generated
-// cabinet product catalog, and this engine runs in the browser.
+// cabinet product catalog, and the public selection helpers run in the browser.
 import { getDoorStyleImages, getFinishImages } from "./catalog/entityImagePaths";
 import { getFinishesForDoorStyle } from "./catalog/finishCompatibility";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
-import { sharedBookRate, type FinishTier as BookFinishTier } from "../lib/p5/priceBook.ts";
-import {
-  COST_CATEGORIES,
-  DEFAULT_FINANCE,
-  calculateP5Estimate,
-  customerEstimate,
-  type DirectCostLine,
-} from "../lib/p5/pricing.ts";
 
 /**
- * Cabinet-specific Project Estimator engine.
+ * Public Cabinet selections, labels and customer-result builders.
  *
- * Direct costs come from the shared cost book (`sharedBookRate`). The number
- * a visitor sees is the customer planning range from `calculateP5Estimate`:
- * the same overhead, profit, reserve, band and rounding the shared estimator
- * uses. Book rates are never shown.
+ * Deterministic pricing lives in server/estimateEngine.ts. Browser callers
+ * request only allowlisted customer results from the pure planning route.
  * Door style, finish and layout stay on the scope summary. They have no unit
  * price in the book, so they do not change the total.
  *
@@ -99,60 +89,9 @@ export interface EstimateResult {
   totalSteps: number;
 }
 
-// ============================================================================
-// SHARED COST BOOK LINES
-// ----------------------------------------------------------------------------
-// Dollar amounts are read from lib/p5/priceBookData.ts through sharedBookRate.
-// This map is codes only. A null code means the old wizard line has no unit
-// price in the book, so that line is not priced.
-//
-// Cabinet lines are priced at base direct cost (remodel = false), the same
-// rule serviceContext uses for cabinet-install.
-// ============================================================================
-
-export interface ProjectBookLines {
-  /** Linear-foot code for the base run, or null when the book has no matching unit. */
-  base: string | null;
-  /** Linear-foot code for the wall run, or null when uppers are not a separate line. */
-  upper: string | null;
-}
-
-export const PROJECT_BOOK_LINES: Record<ProjectType, ProjectBookLines> = {
-  kitchen: { base: "12-32-01", upper: "12-32-02" },
-  bathroom: { base: "12-41-03", upper: null },
-  laundry: { base: "12-43-02", upper: "12-43-01" },
-  mudroom: { base: "12-42-01", upper: "12-42-04" },
-  // 12-44-06 is "Home office desk + uppers" per linear foot, so the upper slider is not a second line.
-  "home-office": { base: "12-44-06", upper: null },
-  // 12-44-04 Media / entertainment wall is priced each, not per linear foot.
-  entertainment: { base: null, upper: null },
-  // 12-44-02 is the linear-foot built-in. There is no separate built-in upper code.
-  "built-ins": { base: "12-44-02", upper: null },
-  pantry: { base: "12-32-16", upper: null },
-};
-
-/** Membership list for the room pages and the selection schema. Not a price table. */
-export const PROJECT_PRICING: Record<ProjectType, ProjectBookLines> = PROJECT_BOOK_LINES;
-
-/** Resale ROI shown beside a saved estimate. Not used to price the range. */
-const PROJECT_ROI: Record<ProjectType, number> = {
-  kitchen: 72,
-  bathroom: 68,
-  laundry: 62,
-  mudroom: 58,
-  "home-office": 55,
-  entertainment: 58,
-  "built-ins": 60,
-  pantry: 56,
-};
-
-/** Wizard level to the cost book's four columns. */
-export const LEVEL_TO_BOOK: Record<ConstructionTier, BookFinishTier> = {
-  essential: "builder",
-  signature: "mid",
-  premium: "high",
-  luxury: "luxury",
-};
+/** Supported public room names. This is membership, not pricing data. */
+export const PROJECT_PRICING:Record<ProjectType,true>={kitchen:true,bathroom:true,laundry:true,mudroom:true,'home-office':true,entertainment:true,'built-ins':true,pantry:true};
+const CONSTRUCTION_LEVELS=['essential','signature','premium','luxury'];
 
 const LEGACY_LEVEL: Record<string, ConstructionTier> = {
   good: "essential",
@@ -162,76 +101,8 @@ const LEGACY_LEVEL: Record<string, ConstructionTier> = {
 
 export function normalizeConstruction(value: string | null | undefined): ConstructionTier | "" {
   if (!value) return "";
-  if (value in LEVEL_TO_BOOK) return value as ConstructionTier;
+  if (CONSTRUCTION_LEVELS.includes(value)) return value as ConstructionTier;
   return LEGACY_LEVEL[value] ?? "";
-}
-
-/** Direct unit cost from the shared book, or null when the code is not a unit price. Never display this. */
-export function wizardUnitRate(code: string, level: ConstructionTier): number | null {
-  const rate = sharedBookRate(code, LEVEL_TO_BOOK[level], false);
-  return rate && Number.isFinite(rate.amount) ? rate.amount : null;
-}
-
-const BOOK_EVIDENCE_DATES = { verifiedAt: "2026-09-11", validUntil: "2027-09-11" };
-
-/**
- * Customer planning range for book lines. Quantity times the direct rate goes
- * into calculateP5Estimate. This function does not apply its own markup.
- */
-export function cabinetCustomerRange(
-  parts: { code: string; quantity: number }[],
-  level: ConstructionTier,
-): { low: number; high: number } | null {
-  if (!parts.length || parts.some((part) => !(part.quantity > 0))) return null;
-  const lines: DirectCostLine[] = [];
-  for (const [index, part] of parts.entries()) {
-    const rate = sharedBookRate(part.code, LEVEL_TO_BOOK[level], false);
-    if (!rate) return null;
-    lines.push({
-      id: `cabinet-${index + 1}`,
-      category: "subcontractors",
-      description: "Installed cabinetry",
-      quantity: part.quantity,
-      unit: rate.unit,
-      unitCost: rate.amount,
-      quantitySource: `Wizard quantity: ${part.quantity} ${rate.unit}`,
-      priceBasis: "direct-cost",
-      estimatingBasis: "owner-average-cost",
-      evidence: {
-        basis: "owner-estimating-schedule",
-        reference: `${rate.code} shared cost book`,
-        ...BOOK_EVIDENCE_DATES,
-      },
-    });
-  }
-  const coverage = COST_CATEGORIES.map((category) => ({
-    category,
-    status: (category === "subcontractors" ? "included" : "not-applicable") as "included" | "not-applicable",
-    reason: category === "subcontractors"
-      ? "Installed cabinetry priced from the shared cost book."
-      : "Not part of this cabinet planning total.",
-  }));
-  const estimate = calculateP5Estimate(
-    {
-      estimatePurpose: "preliminary",
-      bookPriced: true,
-      service: "cabinet-install",
-      revision: "cabinet-wizard",
-      scopeSummary: "Cabinet planning range",
-      lines,
-      coverage,
-      risks: [],
-      assumptions: [],
-      exclusions: [],
-      missingInformation: [],
-      allowances: [],
-      uncertainty: "medium",
-      locationProvided: false,
-    },
-    DEFAULT_FINANCE,
-  );
-  const customer = customerEstimate(estimate, "Cabinet planning range");
-  return customer.range;
 }
 
 export interface ProjectSizeConfig {
@@ -313,7 +184,7 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
 
 export function isPriceable(sel: EstimateSelections): boolean {
   if (!sel.project || sel.size == null || sel.size <= 0) return false;
-  if (!PROJECT_BOOK_LINES[sel.project]?.base) return false;
+  if (sel.project === "entertainment" || !PROJECT_SIZE_CONFIG[sel.project]) return false;
   const cfg = PROJECT_SIZE_CONFIG[sel.project];
   // Projects with wall cabinets require both base and upper runs before showing
   // a live total. Treating unset uppers as 0 would jump the price prematurely.
@@ -721,7 +592,7 @@ function clampUpperSize(project: ProjectType, size: number | null): number | nul
   return Math.max(0, Math.min(cfg.uppers.max, Math.round(size)));
 }
 
-function roundPrice(n: number): number {
+export function roundPrice(n: number): number {
   return Math.round(n);
 }
 
@@ -770,7 +641,7 @@ export function buildSelectionSummary(sel: EstimateSelections): string {
   return `${PROJECT_LABELS[sel.project].label} · ${getSizeLabel(sel.project, sel.size, sel.sizeUpper)}`;
 }
 
-function buildIncluded(sel: EstimateSelections): string[] {
+export function buildIncluded(sel: EstimateSelections): string[] {
   const vis = sel.project ? getStepVisibility(sel.project) : { layout: false, doorStyle: true };
   const list: string[] = [];
   list.push("Custom cabinets, sized to your layout");
@@ -806,7 +677,7 @@ function buildIncluded(sel: EstimateSelections): string[] {
   });
 }
 
-function getConfidence(count: number, total: number): { level: ConfidenceLevel; percent: number } {
+export function getConfidence(count: number, total: number): { level: ConfidenceLevel; percent: number } {
   if (total <= 0) return { level: "starting", percent: 40 };
   const ratio = Math.min(count, total) / total;
   const percent = Math.round(40 + ratio * 55);
@@ -842,43 +713,6 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   return next;
 }
 
-export function calculateEstimate(
-  selections: EstimateSelections,
-  selectionsMade = 0,
-): EstimateResult | null {
-  // No project or size means the visitor has not made a priceable selection yet.
-  // Return null so the UI shows the "make your selections" prompt instead of a
-  // fabricated range, and nothing is stored for the consultation form.
-  if (!isPriceable(selections)) return null;
-  const sel = normalizeSelections(selections);
-  const project = sel.project as ProjectType;
-  const lines = PROJECT_BOOK_LINES[project];
-  const cfg = PROJECT_SIZE_CONFIG[project];
-  const level = sel.construction || "essential";
-  if (!lines.base) return null;
-  const parts = [{ code: lines.base, quantity: sel.size! }];
-  if (lines.upper && cfg.uppers) parts.push({ code: lines.upper, quantity: sel.sizeUpper ?? 0 });
-  const pricedParts = parts.filter((part) => part.quantity > 0);
-  const range = cabinetCustomerRange(pricedParts, level);
-  if (!range) return null;
-
-  const total = getTotalSteps(project);
-  const { level: confidenceLevel, percent } = getConfidence(selectionsMade, total);
-
-  return {
-    priceLow: range.low,
-    priceHigh: range.high,
-    roi: PROJECT_ROI[project],
-    included: buildIncluded(sel),
-    confidence: confidenceLevel,
-    confidenceLabel: PLANNING_DETAIL_LABELS[confidenceLevel],
-    confidencePercent: percent,
-    scopeSummary: buildScopeSummary(sel),
-    selectionsMade,
-    totalSteps: total,
-  };
-}
-
 // ── sessionStorage handoff to the consultation form ──────────────────────────
 
 export interface StoredEstimate extends EstimateSelections {
@@ -894,9 +728,9 @@ export interface StoredEstimate extends EstimateSelections {
 
 export function buildStoredEstimate(
   selections: EstimateSelections,
-  selectionsMade = 0,
+  selectionsMade: number,
+  result: EstimateResult | null,
 ): StoredEstimate | null {
-  const result = calculateEstimate(selections, selectionsMade);
   if (!result) return null;
   const sel = normalizeSelections(selections);
   const project = sel.project as ProjectType;
@@ -954,52 +788,6 @@ export interface CombinedEstimateResult {
   confidencePercent: number;
 }
 
-/**
- * Sum an array of per-room selections into one planning range. Only priceable
- * rooms (project + size set) contribute, so the range reflects only rooms the
- * visitor has actually specified. Returns null until at least one is priceable.
- */
-export function calculateCombinedEstimate(
-  rooms: EstimateSelections[],
-): CombinedEstimateResult | null {
-  const roomEstimates: RoomEstimate[] = [];
-  const includedSet = new Set<string>();
-  let low = 0;
-  let high = 0;
-  let percentSum = 0;
-  for (const room of rooms) {
-    if (!isPriceable(room)) continue;
-    const res = calculateEstimate(room, roomSelectionsMade(room));
-    if (!res) continue;
-    const project = room.project as ProjectType;
-    low += res.priceLow;
-    high += res.priceHigh;
-    percentSum += res.confidencePercent;
-    res.included.forEach((i) => includedSet.add(i));
-    roomEstimates.push({
-      project,
-      projectLabel: PROJECT_LABELS[project].label,
-      sizeLabel: getSizeLabel(project, room.size as number, room.sizeUpper),
-      scopeSummary: buildScopeSummary(room),
-      priceLow: res.priceLow,
-      priceHigh: res.priceHigh,
-    });
-  }
-  if (!roomEstimates.length) return null;
-  const percent = Math.round(percentSum / roomEstimates.length);
-  const level: ConfidenceLevel =
-    percent >= 90 ? "detailed" : percent >= 65 ? "refined" : "starting";
-  return {
-    priceLow: roundPrice(low),
-    priceHigh: roundPrice(high),
-    rooms: roomEstimates,
-    included: [...includedSet],
-    confidence: level,
-    confidenceLabel: PLANNING_DETAIL_LABELS[level],
-    confidencePercent: percent,
-  };
-}
-
 export interface CombinedStoredEstimate {
   priceLow: number;
   priceHigh: number;
@@ -1016,8 +804,8 @@ export interface CombinedStoredEstimate {
 /** Priceable multi-room snapshot for the consultation form; null until priceable. */
 export function buildCombinedStoredEstimate(
   rooms: EstimateSelections[],
+  combined: CombinedEstimateResult | null,
 ): CombinedStoredEstimate | null {
-  const combined = calculateCombinedEstimate(rooms);
   if (!combined) return null;
   return {
     priceLow: combined.priceLow,

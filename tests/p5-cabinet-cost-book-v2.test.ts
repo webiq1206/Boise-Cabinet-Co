@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cabinetCustomerRange, calculateEstimate, getDefaultSelectionsForProject, type ConstructionTier, type EstimateSelections } from '../shared/estimateEngine.ts';
+import { cabinetCustomerRange, calculateEstimate, getDefaultSelectionsForProject, type ConstructionTier, type EstimateSelections } from '../server/estimateEngine.ts';
 import { priceBookRates, sharedBookRate, type FinishTier } from '../lib/p5/priceBook.ts';
 
 /**
