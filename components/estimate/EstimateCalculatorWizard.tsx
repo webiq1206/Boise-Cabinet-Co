@@ -63,6 +63,7 @@ import {
   getFinishTint,
   FINISH_CATEGORY_OPTIONS,
   CONSTRUCTION_OPTIONS,
+  normalizeConstruction,
   emptySelectionsForProject,
   buildStoredEstimate,
   roomSelectionsMade,
@@ -306,30 +307,43 @@ function SelectButton<T extends string>({
   );
 }
 
-/** Good / Better / Best rank, used to fill the tier-strength meter. */
-const CONSTRUCTION_TIER_RANK: Record<string, number> = { good: 1, better: 2, best: 3 };
+/** Essential / Signature / Premium / Luxury rank, used to fill the tier-strength meter. */
+const CONSTRUCTION_TIER_RANK: Record<string, number> = {
+  essential: 1,
+  signature: 2,
+  premium: 3,
+  luxury: 4,
+  good: 1,
+  better: 2,
+  best: 3,
+};
 
-/** Three ascending bars filled up to the tier's rank, signalling the ladder. */
+const TIER_BAR_HEIGHT = ["h-1.5", "h-2.5", "h-3.5", "h-4.5"] as const;
+
+/** Four ascending bars filled up to the tier's rank, signalling the ladder. */
 function TierStrength({ rank }: { rank: number }) {
   return (
     <span className="flex items-end gap-0.5" aria-hidden="true">
-      {[1, 2, 3].map((i) => (
-        <span
-          key={i}
-          className={cn(
-            "w-1 rounded-full transition-colors",
-            i === 1 ? "h-1.5" : i === 2 ? "h-2.5" : "h-3.5",
-            i <= rank ? "bg-foreground" : "bg-border",
-          )}
-        />
-      ))}
+      {TIER_BAR_HEIGHT.map((height, index) => {
+        const i = index + 1;
+        return (
+          <span
+            key={i}
+            className={cn(
+              "w-1 rounded-full transition-colors",
+              height,
+              i <= rank ? "bg-foreground" : "bg-border",
+            )}
+          />
+        );
+      })}
     </span>
   );
 }
 
 /**
- * Dedicated Good / Better / Best selector. Full-width stacked cards read as an
- * ascending quality ladder far better than a wrapping 2-up grid. Keeps the same
+ * Dedicated Essential / Signature / Premium / Luxury selector. Full-width stacked
+ * cards read as an ascending quality ladder. Keeps the same
  * `${testIdPrefix}-${value}` hooks and aria-pressed semantics as SelectButton.
  */
 function ConstructionTierSelect({
@@ -349,7 +363,7 @@ function ConstructionTierSelect({
         const active = value === opt.value;
         const rank = CONSTRUCTION_TIER_RANK[opt.value] ?? 1;
         const Icon = opt.icon ? OPTION_ICONS[opt.icon] : undefined;
-        const popular = opt.value === "better";
+        const popular = opt.value === "signature";
         return (
           <button
             key={opt.value}
@@ -699,7 +713,12 @@ export function EstimateCalculatorWizard({
   useEffect(() => {
     const stored = loadWizardState();
     if (stored && Array.isArray(stored.rooms)) {
-      setRooms(stored.rooms);
+      setRooms(
+        stored.rooms.map((room) => ({
+          ...room,
+          construction: normalizeConstruction(room.construction),
+        })),
+      );
       const maxIndex = buildWizardSteps(stored.rooms, includeContactStep).length - 1;
       setCurrentIndex(Math.min(Math.max(stored.currentIndex, 0), maxIndex));
     }
@@ -784,7 +803,7 @@ export function EstimateCalculatorWizard({
   const stepDescription: Record<StepKind, string | undefined> = {
     project: "Pick everything you're planning - add as many rooms as you like.",
     size: "Drag to set your cabinet run - base and wall cabinets.",
-    quality: "Pick the box construction that fits your budget and durability.",
+    quality: "Pick Essential, Signature, Premium, or Luxury.",
     layout: "Pick the shape closest to your space.",
     style: "Pick the door style you like best.",
     result: undefined,

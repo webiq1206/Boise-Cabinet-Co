@@ -6,15 +6,11 @@ import {
   getVisibleSteps,
   getTotalSteps,
   getLayoutOptions,
-  DOOR_STYLE_MULTIPLIER,
-  FINISH_CATEGORY_MULTIPLIER,
-  FINISH_TIER_MULTIPLIER,
-  CONSTRUCTION_MULTIPLIER,
-  LAYOUT_COMPLEXITY_MULTIPLIER,
+  getDoorStyleOptions,
+  PROJECT_BOOK_LINES,
   type EstimateSelections,
   type ProjectType,
   type FinishCategory,
-  type FinishTier,
   type ConstructionTier,
 } from "../shared/estimateEngine";
 
@@ -40,15 +36,9 @@ const projects: ProjectType[] = [
   "laundry",
   "mudroom",
   "home-office",
-  "entertainment",
   "built-ins",
   "pantry",
 ];
-
-/** Order option keys ascending by their multiplier so we can assert monotonicity. */
-function sortByMultiplier<T extends string>(map: Record<T, number>): T[] {
-  return (Object.keys(map) as T[]).sort((a, b) => map[a] - map[b]);
-}
 
 // ── Valid ranges per project type ───────────────────────────────────────────
 for (const project of projects) {
@@ -58,7 +48,7 @@ for (const project of projects) {
 
   const result = priced(base, total);
   assert(result.priceLow > 0, `${project}: priceLow is positive`);
-  assert(result.priceHigh > result.priceLow, `${project}: priceHigh exceeds priceLow`);
+  assert(result.priceHigh > result.priceLow, `${project}: the shared engine returns a customer range`);
   assert(result.roi > 0 && result.roi <= 100, `${project}: roi within (0, 100]`);
   assert(result.priceLow >= 1000, `${project}: priceLow is a realistic planning figure`);
   assert(result.included.length > 0, `${project}: included scope is populated`);
@@ -101,70 +91,42 @@ for (const project of projects) {
   assert(!steps.includes("accessories" as never), `${project} no longer surfaces a smart-storage step`);
 }
 
-// ── Monotonicity: every upgrade can only raise (never lower) the range ───────
-function monotonicUpgrade<T extends string>(
-  project: ProjectType,
-  field: keyof EstimateSelections,
-  order: T[],
-  label: string,
-) {
-  const cfg = getProjectSizeConfig(project);
-  const base = { ...getDefaultSelectionsForProject(project), size: cfg.max };
-  let prevLow = -1;
-  let prevHigh = -1;
-  for (const value of order) {
-    const r = priced({ ...base, [field]: value } as EstimateSelections, 0);
-    assert(r.priceLow >= prevLow, `${project} ${label}: priceLow non-decreasing at "${value}"`);
-    assert(r.priceHigh >= prevHigh, `${project} ${label}: priceHigh non-decreasing at "${value}"`);
-    prevLow = r.priceLow;
-    prevHigh = r.priceHigh;
-  }
-  const lowest = priced({ ...base, [field]: order[0] } as EstimateSelections, 0);
-  const highest = priced(
-    { ...base, [field]: order[order.length - 1] } as EstimateSelections,
-    0,
-  );
-  if (order.length > 1) {
-    assert(
-      highest.priceHigh > lowest.priceHigh,
-      `${project} ${label}: top option costs more than the base option`,
-    );
-  }
-}
-
-const doorOrder = sortByMultiplier(DOOR_STYLE_MULTIPLIER);
-const finishCategoryOrder = sortByMultiplier(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[];
-const finishTierOrder = sortByMultiplier(FINISH_TIER_MULTIPLIER) as FinishTier[];
-const constructionOrder = sortByMultiplier(CONSTRUCTION_MULTIPLIER) as ConstructionTier[];
+const constructionOrder: ConstructionTier[] = ["essential", "signature", "premium", "luxury"];
+const finishCategories: FinishCategory[] = ["matte", "woodgrain", "gloss"];
 
 for (const project of projects) {
-  const vis = getStepVisibility(project);
-  monotonicUpgrade(project, "finishCategory", finishCategoryOrder, "finish category");
-  monotonicUpgrade(project, "finishTier", finishTierOrder, "finish tier");
-  monotonicUpgrade(project, "construction", constructionOrder, "construction");
-
-  if (vis.doorStyle) {
-    monotonicUpgrade(project, "doorStyle", doorOrder, "door style");
-  }
-  if (vis.layout) {
-    const layoutOrder = getLayoutOptions(project)
-      .map((o) => o.value)
-      .sort((a, b) => (LAYOUT_COMPLEXITY_MULTIPLIER[a] ?? 1) - (LAYOUT_COMPLEXITY_MULTIPLIER[b] ?? 1));
-    monotonicUpgrade(project, "layout", layoutOrder, "layout complexity");
+  const base = { ...getDefaultSelectionsForProject(project), size: getProjectSizeConfig(project).max };
+  let prev = -1;
+  for (const level of constructionOrder) {
+    const r = priced({ ...base, construction: level }, 0);
+    assert(r.priceLow > prev, `${project} level ${level} costs more than the level below`);
+    prev = r.priceLow;
   }
 
-  // Projects with wall cabinets: a larger upper run raises the range.
+  const reference = priced(base, 0);
+  for (const doorStyle of getDoorStyleOptions().map((option) => option.value)) {
+    const r = priced({ ...base, doorStyle }, 0);
+    assert(r.priceLow === reference.priceLow, `${project} door ${doorStyle} does not invent a price`);
+  }
+  for (const finishCategory of finishCategories) {
+    const r = priced({ ...base, finishCategory }, 0);
+    assert(r.priceLow === reference.priceLow, `${project} finish ${finishCategory} does not invent a price`);
+  }
+  for (const layout of getLayoutOptions(project).map((option) => option.value)) {
+    const r = priced({ ...base, layout }, 0);
+    assert(r.priceLow === reference.priceLow, `${project} layout ${layout} does not invent a price`);
+  }
+
   const sizeCfg = getProjectSizeConfig(project);
-  if (sizeCfg.uppers) {
+  if (sizeCfg.uppers && PROJECT_BOOK_LINES[project].upper) {
     const b = { ...getDefaultSelectionsForProject(project), size: sizeCfg.max };
     const noUppers = priced({ ...b, sizeUpper: 0 }, 0);
     const maxUppers = priced({ ...b, sizeUpper: sizeCfg.uppers.max }, 0);
-    assert(
-      maxUppers.priceHigh > noUppers.priceHigh,
-      `${project} uppers: more wall cabinets raise the range`,
-    );
+    assert(maxUppers.priceHigh > noUppers.priceHigh, `${project} uppers: more wall cabinets raise the total`);
   }
 }
+
+assert(calculateEstimate(getDefaultSelectionsForProject("entertainment")) === null, "entertainment has no per-foot cost book code");
 
 // ── Confidence climbs as more steps are touched ─────────────────────────────
 for (const project of projects) {

@@ -32,7 +32,11 @@ export const roomSelectionsSchema = z.object({
   finishSlug: z.string().max(80).default(""),
   finishCategory: z.enum(["matte", "woodgrain", "gloss"]).or(z.literal("")).default(""),
   finishTier: z.enum(["standard", "premium", "reserve"]).or(z.literal("")).default(""),
-  construction: z.enum(["good", "better", "best"]).or(z.literal("")).default(""),
+  construction: z.preprocess(
+    (value) =>
+      value === "good" ? "essential" : value === "better" ? "signature" : value === "best" ? "premium" : value,
+    z.enum(["essential", "signature", "premium", "luxury"]).or(z.literal("")).default(""),
+  ),
 }) satisfies z.ZodType<EstimateSelections, z.ZodTypeDef, unknown>;
 
 /** A visitor plans at most a handful of rooms in one pass. */

@@ -65,12 +65,19 @@ const nextConfig = {
   compress: true,
   trailingSlash: false,
   output: 'standalone',
-  webpack: (config) => {
+  webpack: (config, { isServer, webpack }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@/shared': path.resolve(__dirname, 'shared'),
       '@shared': path.resolve(__dirname, 'shared'),
     };
+    // The cabinet wizard prices from the shared book in the browser. That module
+    // hashes its version with node:crypto, which the client bundle cannot load.
+    if (!isServer) {
+      const shim = path.resolve(__dirname, 'lib/shims/node-crypto-browser.js');
+      config.resolve.alias['node:crypto'] = shim;
+      config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^node:crypto$/, shim));
+    }
     return config;
   },
 

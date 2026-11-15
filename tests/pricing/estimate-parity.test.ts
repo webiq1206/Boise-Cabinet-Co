@@ -25,7 +25,7 @@ const FIXTURES: Array<{ name: string; rooms: EstimateSelections[] }> = [
         doorStyle: "beta-shaker",
         finishCategory: "gloss",
         finishTier: "reserve",
-        construction: "best",
+        construction: "luxury",
       },
     ],
   },
