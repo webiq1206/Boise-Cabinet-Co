@@ -9,7 +9,7 @@
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
-import { CITIES, locationPath } from '@/shared/contentData';
+import { CITIES, SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CONTENT_HUBS, categoryHubPath, guidePath, isCategoryHubIndexable } from '@/shared/contentHubs';
 import { showTestimonials } from '@/shared/siteConfig';
 
@@ -45,7 +45,9 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
     { path: '/terms-of-service', label: 'Terms of service', changeFrequency: 'yearly', priority: 0.3 },
   ];
   const rooms: SiteUrlEntry[] = ROOM_CATEGORIES.map((r) => ({ path: `/cabinets/${r.slug}`, label: r.name, changeFrequency: 'monthly', priority: 0.9 }));
-  const locations: SiteUrlEntry[] = CITIES.map((c) => ({ path: locationPath(c.slug), label: c.name, changeFrequency: 'monthly', priority: 0.85 }));
+  const serviceAreaSlugs = new Set(SERVICE_AREA_CITIES.map((city) => city.slug));
+  const serviceArea: SiteUrlEntry[] = SERVICE_AREA_CITIES.map((c) => ({ path: locationPath(c.slug), label: c.name, changeFrequency: 'monthly', priority: 0.85 }));
+  const otherCityGuides: SiteUrlEntry[] = CITIES.filter((c) => !serviceAreaSlugs.has(c.slug)).map((c) => ({ path: locationPath(c.slug), label: c.name, changeFrequency: 'monthly', priority: 0.85 }));
   const guides: SiteUrlEntry[] = GUIDE_PAGES.filter((g) => g.guideType !== 'location').map((g) => ({
     path: guidePath(g.slug), label: g.title, changeFrequency: 'monthly', priority: 0.9, lastModified: new Date(g.updatedAt ?? g.publishedAt),
   }));
@@ -59,7 +61,8 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
   return [
     { heading: 'Main pages', entries: core },
     { heading: 'Cabinets by room', entries: rooms },
-    { heading: 'Service areas', entries: locations },
+    { heading: 'Service area', entries: serviceArea },
+    ...(otherCityGuides.length ? [{ heading: 'City guides', entries: otherCityGuides }] : []),
     { heading: 'Guides', entries: guides },
     { heading: 'Blog topics', entries: hubs },
     { heading: 'Blog posts', entries: blog },

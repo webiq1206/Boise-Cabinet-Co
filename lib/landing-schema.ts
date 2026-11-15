@@ -27,7 +27,7 @@ export function landingServiceSchema(
 }
 
 export function landingAreaBusinessSchema(cityName: string) {
-  // City name is areaServed inside LocalBusiness, not a city postal address.
+  // The page city is named in the description. areaServed stays the published service area.
   return generateLocalBusinessSchema(cityName);
 }
 

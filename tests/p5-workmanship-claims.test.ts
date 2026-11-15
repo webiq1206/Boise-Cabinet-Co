@@ -67,8 +67,7 @@ test("no public source states a two-year warranty or an installation start", () 
 
 test("rendered consumers carry the corrected term: speakable, FAQ, llms, assistant, warranty page", () => {
   const home = readFileSync("app/page.tsx", "utf8");
-  const speakable = home.match(/publicText\("([^"]+)"\)/)?.[1] ?? "";
-  assert.match(publicText(speakable), /1-year workmanship coverage on our installation from documented Final Completion/);
+  assert.match(home, /publicText\(`[\s\S]*1-year workmanship coverage on our installation from documented Final Completion/);
 
   const faq = HOMEPAGE_FAQS.find((item) => /warranty/i.test(item.q));
   assert.ok(faq);

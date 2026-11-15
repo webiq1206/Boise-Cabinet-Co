@@ -1,7 +1,7 @@
 # Boise Cabinet Co Website
 
 ## Overview
-The Boise Cabinet Co website is a marketing and lead-generation platform for a Boise, Idaho custom cabinetry company. The site serves homeowners, builders, and contractors in the Treasure Valley (Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell) planning custom kitchen cabinets, bathroom vanities, and built-in storage (laundry, mudroom, office, closets, garage, entertainment centers). Key features include an instant estimate calculator (project type + finish level + size → animated price range), a browsable product catalog with a downloadable branded catalog PDF, a consultation request form, a blog and guide library, and a B2B lead distribution marketplace for trade partners.
+The Boise Cabinet Co website is a marketing and lead-generation platform for a Boise, Idaho custom cabinetry company. The site serves homeowners, builders, and contractors in Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County, planning custom kitchen cabinets, bathroom vanities, and built-in storage (laundry, mudroom, office, closets, garage, entertainment centers). Key features include an instant estimate calculator (project type + finish level + size → animated price range), a browsable product catalog with a downloadable branded catalog PDF, a consultation request form, a blog and guide library, and a B2B lead distribution marketplace for trade partners.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
@@ -25,7 +25,7 @@ Preferred communication style: Simple, everyday language.
 - **Blog System**: Infrastructure kept but no posts yet — `shared/blogContent.ts` has empty `BLOG_POSTS` array.
 - **Email**: Resend integration, `hello@boisecabinet.co` as from/reply-to address and the sole admin recipient/account for the site and all portals.
 - **Outreach deliverability webhook**: `app/api/outreach/webhook/route.ts` receives Resend events, verifies the Svix signature with the `RESEND_WEBHOOK_SECRET` secret (global; covers dev + deploy), and on `email.bounced`/`email.complained` adds the address to `outreachSuppressions` (reason `bounce`/`complaint`) and marks the matching prospect `bounced`/`unsubscribed` so it leaves the send queue. Configure the Resend webhook to point at the APP domain (`https://boisecabinet.co/api/outreach/webhook`), NOT the `outreach.boisecabinet.co` email subdomain — that subdomain only has Resend email (MX/sending) DNS, has no web record, so HTTPS webhook calls to it fail and Resend auto-disables the endpoint. Subscribe it to those two events; the signing secret (`whsec_...`) is the `RESEND_WEBHOOK_SECRET` value.
-- **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada + Canyon County).
+- **Service Areas**: Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. Town pages outside that list, including Middleton, stay published and in the sitemap. They are not in the nav or town lists.
 - **Services**: Custom cabinetry for kitchens, bathrooms/vanities, laundry, mudroom/entry, home office, closets/storage, garage/utility, entertainment centers/built-ins, and whole-home cabinet programs, plus builder and contractor cabinet supply.
 
 ### System Design Choices

@@ -105,19 +105,19 @@ Do not enter an opening year until it is verified.
 
 ### Step 12: Add all nine service areas
 
-In your profile, go to Edit profile → Location → Service area. Add each city:
+In your profile, go to Edit profile → Location → Service area. Add each area:
 
-| City | Add as |
+| Area | Add as |
 |---|---|
 | Boise | Boise, ID |
 | Meridian | Meridian, ID |
-| Eagle | Eagle, ID |
 | Nampa | Nampa, ID |
+| Eagle | Eagle, ID |
 | Kuna | Kuna, ID |
-| Star | Star, ID |
-| Middleton | Middleton, ID |
 | Caldwell | Caldwell, ID |
-| Garden City | Garden City, ID |
+| Star | Star, ID |
+| Ada County | Ada County, ID |
+| Canyon County | Canyon County, ID |
 
 You serve within roughly 35 miles of the Treasure Valley. Listing each city is better than only writing "Treasure Valley."
 
@@ -162,7 +162,7 @@ Cash, Credit Card, Check, Financing
 
 Google allows up to 750 characters. Copy this entire paragraph into your profile description:
 
-Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. We offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
+Boise Cabinet Co designs, sources, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. We offer hundreds of finishes and Shaker, slab and more door styles, sized to fit, with soft-close options and manufacturer warranties passed through. Every project starts with a free in-home design consultation, a written scope before ordering, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
 
 Do not put your phone number or website URL inside the description. Google has separate fields for those.
 
@@ -421,7 +421,7 @@ Most custom cabinet projects run about 4-8 weeks from approved design, depending
 **Question 4:** What areas do you serve?
 
 **Answer:**
-We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.
+We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.
 
 ---
 
@@ -539,7 +539,7 @@ Post once per week. Rotate through these four types:
 **Week A: Project showcase**
 Photo of a completed kitchen or bath. Name the city. Button: Book → https://boisecabinet.co/contact
 
-Rotate cities: Boise → Meridian → Eagle → Nampa → Kuna → Star → Middleton → Caldwell
+Rotate cities: Boise → Meridian → Nampa → Eagle → Kuna → Caldwell → Star
 
 **Week B: Helpful guide**
 Example: "Planning a kitchen remodel in Boise? Our cost guide covers timelines and what to expect."

@@ -14,7 +14,7 @@
  */
 import type { FamilyBrand, FamilyLink } from '@/lib/family/types';
 import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '@/shared/claims';
-import { CITIES, locationPath } from '@/shared/contentData';
+import { SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
@@ -157,11 +157,9 @@ export const FAMILY_BRAND: FamilyBrand = {
     ],
     areas: {
       // There is no /locations index; the Treasure Valley guide is the regional overview.
-      label: 'Serving the Treasure Valley',
+      label: 'Service area, Ada and Canyon Counties',
       href: '/guides/treasure-valley-cabinet-guide',
-      links: [...CITIES]
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map((city) => ({ label: city.name, href: locationPath(city.slug) })),
+      links: SERVICE_AREA_CITIES.map((city) => ({ label: city.name, href: locationPath(city.slug) })),
     },
     legal: [
       { label: 'Site map', href: '/sitemap' },

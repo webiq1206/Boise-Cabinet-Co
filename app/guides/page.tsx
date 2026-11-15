@@ -16,6 +16,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { getBlogImageAlt,getBlogThumbnail } from '@/shared/blogImages';
 import { locationPath } from '@/shared/contentData';
+import { isServiceAreaSlug } from '@/shared/serviceArea';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { CONTENT_HUBS,guidePath } from '@/shared/contentHubs';
 import { GUIDE_PAGES,type GuidePageData } from '@/shared/guideContent';
@@ -60,9 +61,12 @@ const PILLAR_TYPES = new Set(['hub-pillar', 'master']);
 
 export default function GuidesIndexPage() {
   const pillarGuides = GUIDE_PAGES.filter((g) => PILLAR_TYPES.has(g.guideType));
-  const locationGuides = GUIDE_PAGES.filter(
-    (g) => g.guideType === 'location' || g.guideType === 'neighborhood',
-  );
+  const locationGuides = GUIDE_PAGES.filter((g) => {
+    if (g.guideType === 'neighborhood') return true;
+    if (g.guideType !== 'location') return false;
+    const slug = g.linkedCities?.[0];
+    return !slug || isServiceAreaSlug(slug);
+  });
   const sortedHubs = [...CONTENT_HUBS].sort((a, b) => a.priorityTier - b.priorityTier);
   // A hub with no posts left (e.g. cabinet-project-process after the blog merge)
   // redirects to /blog, so it gets no "Related articles" link.

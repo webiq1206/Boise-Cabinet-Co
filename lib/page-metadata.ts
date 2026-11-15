@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SERVICE_AREA_LIST } from '@/shared/serviceArea';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import {
   clampMetaDescription,
@@ -78,7 +79,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     case 'contact':
       title = 'Contact Us';
       description =
-        `Contact ${SITE_CONFIG.name} for a free design consultation. Call ${SITE_CONFIG.phone} or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.`;
+        `Call ${SITE_CONFIG.phone} for a free design consultation. We serve ${SERVICE_AREA_LIST}.`;
       break;
     case 'blog':
       title = 'Cabinet Design Insights';

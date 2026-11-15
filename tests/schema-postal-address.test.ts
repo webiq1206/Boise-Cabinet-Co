@@ -57,20 +57,25 @@ test("public contacts retain facts while verification records keep the address",
   assert.deepEqual(BUSINESS_INFO.serviceArea, [
     "Boise",
     "Meridian",
-    "Eagle",
     "Nampa",
+    "Eagle",
     "Kuna",
-    "Star",
-    "Middleton",
     "Caldwell",
+    "Star",
   ]);
   assert.equal(SITE_CONFIG.owner.name, "Nick");
 
   const home = generateLocalBusinessSchema();
   const organization = generateOrganizationSchema();
-  const areas = home.areaServed as Array<{ name: string }>;
-  assert.deepEqual(areas.map((entry) => entry.name), BUSINESS_INFO.serviceArea);
+  const areas = home.areaServed as Array<{ "@type": string; name: string }>;
+  assert.deepEqual(areas, [
+    ...BUSINESS_INFO.serviceArea.map((name) => ({ "@type": "City", name })),
+    { "@type": "AdministrativeArea", name: "Ada County" },
+    { "@type": "AdministrativeArea", name: "Canyon County" },
+  ]);
+  assert.deepEqual(organization.areaServed, areas);
   assert.equal(JSON.stringify(areas).includes("Garden City"), false);
+  assert.equal(JSON.stringify(areas).includes("Middleton"), false);
   assert.equal(home.telephone, "+1-208-477-1169");
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
   assert.equal(home.parentOrganization, organization.parentOrganization);

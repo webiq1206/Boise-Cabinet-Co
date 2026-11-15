@@ -5,6 +5,7 @@
  */
 
 import { IDAHO_REGISTERED_CONTRACTOR, REGISTERED_INSURED } from '@/shared/claims';
+import { SERVICE_AREA_CITY_NAMES } from '@/shared/serviceArea';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const BRAND = SITE_CONFIG.name;
@@ -439,7 +440,7 @@ export const BUSINESS_INFO = {
     sunday: 'Closed',
   },
   founded: '2020',
-  serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
+  serviceArea: [...SERVICE_AREA_CITY_NAMES],
   serviceRadius: '35 miles',
   licenses: [IDAHO_REGISTERED_CONTRACTOR],
   certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Insured'],

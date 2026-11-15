@@ -3,6 +3,7 @@
  * Marketing truth: D1 cabinet identity (design, build to order, install).
  */
 import { REGISTERED_INSURED } from "../claims";
+import { SERVICE_AREA_LIST } from "../serviceArea";
 import { HERO_SUBHEAD } from "../siteContent";
 
 export const BUILD_CABINETS_ANSWER =
@@ -30,7 +31,7 @@ const BOISE_FAQS: Bot05Faq[] = [
   {
     question: "What areas do you serve?",
     answer:
-      "Boise and the Treasure Valley, including Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.",
+      `We serve ${SERVICE_AREA_LIST}.`,
   },
   {
     question: "How long does a typical project take?",
@@ -176,7 +177,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
       {
         heading: "Cities we serve",
         paragraphs: [
-          "We work across Boise and the Treasure Valley, including Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Each city has its own page with local planning notes.",
+          `Our service area is ${SERVICE_AREA_LIST}. Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star each have a city page with local planning notes.`,
         ],
       },
       {
@@ -193,7 +194,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },
       { href: "/services/cabinet-installation", label: "Cabinet installation" },
       { href: "/locations/meridian", label: "Meridian cabinets" },
-      { href: "/locations/middleton", label: "Middleton cabinets" },
+      { href: "/locations/nampa", label: "Nampa cabinets" },
       { href: "/", label: "Home" },
       { href: "/cabinets", label: "Cabinet catalog" },
       { href: "/catalog", label: "Door styles and finishes" },
@@ -289,7 +290,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
       {
         heading: "Service area",
         paragraphs: [
-          "Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Kuna pantry and kitchen upgrades are common on newer homes with builder-grade packages.",
+          `Serving ${SERVICE_AREA_LIST}. Kuna pantry and kitchen upgrades are common on newer homes with builder-grade packages.`,
         ],
       },
     ],
@@ -330,7 +331,7 @@ export const BOT05_ROOMS: Record<string, Bot05RoomCopy> = {
       {
         heading: "Kuna and the Treasure Valley",
         paragraphs: [
-          "Kuna pantry and kitchen upgrades are common on newer homes with builder-grade packages. We also serve Boise, Meridian, Eagle, Nampa, Star, Middleton, and Caldwell.",
+          `Kuna pantry and kitchen upgrades are common on newer homes with builder-grade packages. The service area is ${SERVICE_AREA_LIST}.`,
         ],
       },
     ],

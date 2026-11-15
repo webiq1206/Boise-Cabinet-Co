@@ -37,7 +37,8 @@ import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
 import { roomSeo,sentenceStart } from "@/shared/catalog/roomSeo";
 import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import { bot05Room, LEAD_TIME_LINE } from "@/shared/content/bot05PageCopy";
-import { CITIES,locationPath } from "@/shared/contentData";
+import { SERVICE_AREA_CITIES,locationPath } from "@/shared/contentData";
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { CTA_ESTIMATE,CTA_INSTANT_ESTIMATE,CTA_QUOTE_HREF } from "@/shared/ctaCopy";
 import { estimatorProjectForRoom,instantEstimateHref } from "@/shared/instantEstimate";
 import {
@@ -178,8 +179,8 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
     generateServiceSchema(
       roomCopy?.title ?? `Custom ${seoName(room)} Cabinets`,
       roomCopy
-        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, builds, and installs these cabinets for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`
-        : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
+        ? `${roomCopy.firstSentence} ${SITE_CONFIG.name} designs, builds, and installs these cabinets for ${SERVICE_AREA_LIST}.`
+        : `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for ${SERVICE_AREA_LIST}.`,
     ),
     generateFAQSchema(faqs),
   ];
@@ -551,7 +552,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
               className="mb-0"
             />
             <div className="flex flex-wrap content-start gap-3">
-              {CITIES.map((city) => (
+              {SERVICE_AREA_CITIES.map((city) => (
                 <Link
                   key={city.slug}
                   href={locationPath(city.slug)}

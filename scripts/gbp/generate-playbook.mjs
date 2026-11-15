@@ -170,9 +170,9 @@ ${publishFoundingYear ? `
 
 ### Step 12: Add all nine service areas
 
-In your profile, go to Edit profile → Location → Service area. Add each city:
+In your profile, go to Edit profile → Location → Service area. Add each area:
 
-| City | Add as |
+| Area | Add as |
 |---|---|
 ${GBP_SERVICE_AREAS.map((a) => `| ${a.name} | ${a.gbpLabel} |`).join("\n")}
 
@@ -375,7 +375,7 @@ Post once per week. Rotate through these four types:
 **Week A — Project showcase**
 Photo of a completed kitchen or bath. Name the city. Button: Book → ${page("/contact")}
 
-Rotate cities: Boise → Meridian → Eagle → Nampa → Kuna → Star → Middleton → Caldwell
+Rotate cities: Boise → Meridian → Nampa → Eagle → Kuna → Caldwell → Star
 
 **Week B — Helpful guide**
 Example: "Planning a kitchen remodel in Boise? Our cost guide covers timelines and what to expect."
