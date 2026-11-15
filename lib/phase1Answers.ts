@@ -1,3 +1,4 @@
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { preferToTextLine } from "@/shared/siteConfig";
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, publicQa, publicText, REGISTERED_INSURED, showFoundingYear } from "@/shared/claims";
 
@@ -17,7 +18,7 @@ export interface Phase1Answer {
   faqs: Phase1Faq[];
 }
 
-const AREA = "Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell";
+const AREA = SERVICE_AREA_LIST;
 const IDENTITY =
   "Boise Cabinet Co designs and builds cabinets to your layout, installed by our team or a qualified installation partner we manage.";
 
@@ -100,7 +101,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      `Office cabinets by Boise Cabinet Co offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation and ${CABINET_WORKMANSHIP_WARRANTY}. Installation covers ${AREA}.`,
+      `Office cabinets offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation and ${CABINET_WORKMANSHIP_WARRANTY}. Installation covers ${AREA}.`,
     faqs: [
       {
         question: "What construction do home office cabinets use?",

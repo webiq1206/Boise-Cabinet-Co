@@ -1,4 +1,5 @@
 // Business copy restored from boisecabinet.co, reviewed for P5 Family Fix Plan (28 Oct 2026).
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 export const faqs = [
   [
     "What makes Boise Cabinet Co different from other cabinet companies?",
@@ -18,7 +19,7 @@ export const faqs = [
   ],
   [
     "What areas do you serve?",
-    "We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. If you are just outside these areas, reach out and we will let you know if we can accommodate your project."
+    `We serve ${SERVICE_AREA_LIST}. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.`
   ],
   [
     "Do you install cabinets or supply only?",

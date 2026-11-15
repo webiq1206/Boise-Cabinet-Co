@@ -21,6 +21,7 @@ import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OP
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { ROOM_SEO } from "@/shared/catalog/roomSeo";
 import { CITIES, locationPath } from "@/shared/contentData";
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { CONTENT_HUBS, guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG, showFoundingYear } from "@/shared/siteConfig";
@@ -38,7 +39,6 @@ const list = (items: string[]) =>
 export const LLMS_LAST_UPDATED = new Date().toISOString().slice(0, 10);
 
 const name = SITE_CONFIG.name;
-const cityNames = CITIES.map((city) => city.name);
 const finishFamilies = ["matte", "gloss", "woodgrain"].map(
   (family) => `${FINISHES.filter((finish) => finish.category === family).length} ${family}`,
 );
@@ -72,7 +72,7 @@ function buildLlmsTxt(): string {
   push(`- Company: ${name}, a DBA of ${SITE_CONFIG.legalName}`);
   if (showFoundingYear()) push(FOUNDED_LINE);
   push(`- Registration: ${IDAHO_REGISTERED_CONTRACTOR}`);
-  push(`- Service area: ${list(cityNames)} (Ada and Canyon Counties, Treasure Valley)`);
+  push(`- Service area: ${SERVICE_AREA_LIST}`);
   push(`- Catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes (${list(finishFamilies)}), ${HARDWARE_OPTIONS.length} hardware options, ${ACCESSORY_FAMILIES.length} accessory families`);
   push("- Construction: frameless cabinet boxes built to order, soft-close hinge and drawer-slide options");
   push(`- Lead time: typically ${CATALOG_CONTENT.leadTime} from approved design`);

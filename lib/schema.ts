@@ -6,6 +6,7 @@ import {schemaTime} from './schemaTime';
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
 import { publicText, showFoundingYear } from '@/shared/claims';
+import { SERVICE_AREA_COUNTY_NAMES, SERVICE_AREA_LIST } from '@/shared/serviceArea';
 import { SITE_CONFIG, showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
 
@@ -120,11 +121,15 @@ function publicContactPoint() {
   };
 }
 
-/** Cities we cover. A page city is areaServed, never a second postal address. */
-function citiesServed(city?: string) {
-  const names = [...BUSINESS_INFO.serviceArea];
-  if (city && !names.includes(city)) names.unshift(city);
-  return names.map((name) => ({ '@type': 'City' as const, name }));
+/**
+ * Published service area: seven cities, then Ada County and Canyon County.
+ * A page about a town outside that list does not add the town to areaServed.
+ */
+function areasServed() {
+  return [
+    ...BUSINESS_INFO.serviceArea.map((name) => ({ '@type': 'City' as const, name })),
+    ...SERVICE_AREA_COUNTY_NAMES.map((name) => ({ '@type': 'AdministrativeArea' as const, name })),
+  ];
 }
 
 /**
@@ -159,7 +164,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       closes: hours === 'Closed' ? undefined : schemaTime(hours.split(' - ')[1]),
     })).filter(spec => spec.opens),
     priceRange: '$$',
-    areaServed: citiesServed(city),
+    areaServed: areasServed(),
     // No aggregateRating here. The repo holds no real, dated review data, and an
     // env flag is not evidence. Add it back only from reviews visible on the page.
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
@@ -194,7 +199,7 @@ export function generateWebSiteSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     url: baseUrl,
     description:
-      'Custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
+      `Custom cabinet company serving ${SERVICE_AREA_LIST}.`,
     publisher: {
       '@id': `${baseUrl}/#organization`,
     },
@@ -228,7 +233,7 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
           '@type': 'City',
           name: city,
         }
-      : citiesServed(),
+      : areasServed(),
     serviceType: serviceName,
   };
 }
@@ -282,7 +287,7 @@ export function generateOrganizationSchema(): SchemaContext {
       'Built-in storage and closets',
       'Treasure Valley, Idaho',
     ],
-    areaServed: citiesServed(),
+    areaServed: areasServed(),
     sameAs: BUSINESS_INFO.sameAs,
     contactPoint: publicContactPoint(),
   };

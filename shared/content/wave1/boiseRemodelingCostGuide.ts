@@ -61,7 +61,7 @@ const sections: ContentSection[] = [
     paragraphs: [
       'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
       'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
-      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Last updated June 2026. Midpoints are installed cabinetry only.',
+      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star. Last updated June 2026. Midpoints are installed cabinetry only.',
     ],
     table: {
       className: 'cost-table',

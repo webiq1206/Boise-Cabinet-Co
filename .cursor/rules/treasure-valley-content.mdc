@@ -34,7 +34,7 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 ## Local SEO
 
-- Name all eight cities where appropriate: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell.
+- Name the published service area where appropriate: Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. Existing town pages outside that list stay published. Do not add them back to nav or town lists.
 - Reference Ada vs Canyon permits, local housing stock, dry climate / freeze-thaw for exterior topics.
 - Position Boise Cabinet Co as trusted local authority; educate before selling.
 

@@ -282,7 +282,7 @@ export default function ContactPage() {
                 <ContactChannel
                   icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
                   label="Where we work"
-                  subtext="Treasure Valley · Ada and Canyon County"
+                  subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County."
                 >
                   <address className="not-italic leading-relaxed">
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}

@@ -4,6 +4,7 @@
  * and verification scripts under scripts/gbp/.
  */
 import { publicQa, publicText, showFoundingYear } from "@/shared/claims";
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { DOOR_STYLES } from "@/shared/catalog/generated/doorStyles";
 
@@ -75,7 +76,7 @@ export const GBP_PROFILE = {
 } as const;
 
 const GBP_BUSINESS_DESCRIPTION_SOURCE =
-  "Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.";
+  `Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for ${SERVICE_AREA_LIST}. Founded in 2020, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.`;
 
 export const GBP_BUSINESS_DESCRIPTION = publicText(GBP_BUSINESS_DESCRIPTION_SOURCE);
 
@@ -89,13 +90,13 @@ export interface GbpServiceArea {
 export const GBP_SERVICE_AREAS: GbpServiceArea[] = [
   { name: "Boise", county: "ada", gbpLabel: "Boise, ID", guidePath: "/locations/boise" },
   { name: "Meridian", county: "ada", gbpLabel: "Meridian, ID", guidePath: "/locations/meridian" },
-  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/locations/eagle" },
   { name: "Nampa", county: "canyon", gbpLabel: "Nampa, ID", guidePath: "/locations/nampa" },
+  { name: "Eagle", county: "ada", gbpLabel: "Eagle, ID", guidePath: "/locations/eagle" },
   { name: "Kuna", county: "ada", gbpLabel: "Kuna, ID", guidePath: "/locations/kuna" },
-  { name: "Star", county: "ada", gbpLabel: "Star, ID", guidePath: "/locations/star" },
-  { name: "Middleton", county: "canyon", gbpLabel: "Middleton, ID", guidePath: "/locations/middleton" },
   { name: "Caldwell", county: "canyon", gbpLabel: "Caldwell, ID", guidePath: "/locations/caldwell" },
-  { name: "Garden City", county: "ada", gbpLabel: "Garden City, ID", guidePath: "/guides/treasure-valley-cabinet-guide" },
+  { name: "Star", county: "ada", gbpLabel: "Star, ID", guidePath: "/locations/star" },
+  { name: "Ada County", county: "ada", gbpLabel: "Ada County, ID", guidePath: "/resources/ada-canyon-permit-flow" },
+  { name: "Canyon County", county: "canyon", gbpLabel: "Canyon County, ID", guidePath: "/resources/ada-canyon-permit-flow" },
 ];
 
 export interface GbpService {
@@ -331,7 +332,7 @@ const GBP_QA_SEEDS_SOURCE: GbpQaPair[] = [
   {
     question: "What areas do you serve?",
     answer:
-      "We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.",
+      `We serve ${SERVICE_AREA_LIST}. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.`,
   },
   {
     question: "Do you install cabinets or supply only?",

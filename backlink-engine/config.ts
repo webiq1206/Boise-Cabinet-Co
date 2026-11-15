@@ -21,12 +21,13 @@ export const SITE = {
   serviceArea: [
     "Boise",
     "Meridian",
-    "Eagle",
     "Nampa",
+    "Eagle",
     "Kuna",
-    "Star",
-    "Middleton",
     "Caldwell",
+    "Star",
+    "Ada County",
+    "Canyon County",
     "Treasure Valley",
   ],
   /** Where approved outreach is sent from (see README on reputation risk). */

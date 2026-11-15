@@ -12,6 +12,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateServiceSchema,generateWebPageSchema } from "@/lib/schema";
+import { SERVICE_AREA_CITY_NAMES, SERVICE_AREA_COUNTY_NAMES, SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { SITE_IMAGES } from "@/shared/siteImages";
 import { ArrowRight,Check,Hammer,Sparkles } from "lucide-react";
 import Image from "next/image";
@@ -27,7 +28,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
     "Professional cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley communities. Bring your own cabinets or work with Boise Cabinet Co for custom cabinetry and installation.",
 })), "/services/cabinet-installation");
 
-const areas = ["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton", "Caldwell", "Garden City"];
+const areas = [...SERVICE_AREA_CITY_NAMES, ...SERVICE_AREA_COUNTY_NAMES];
 
 const installationBenefits = [
   "A careful plan for your room, cabinet layout, and finish work",
@@ -208,7 +209,7 @@ export default function CabinetInstallationPage() {
                   <h2 className="ed-h2 mt-4">Serving homeowners across the Treasure Valley.</h2>
                 </div>
                 <div>
-                  <p className="leading-relaxed text-foreground/75">We serve Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and Garden City.</p>
+                  <p className="leading-relaxed text-foreground/75">We serve {SERVICE_AREA_LIST}.</p>
                   <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm text-accent">
                     {areas.map((area) => <span key={area}>{area}</span>)}
                   </div>

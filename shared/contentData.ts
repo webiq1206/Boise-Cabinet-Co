@@ -1,5 +1,7 @@
 // Content Data for Boise Cabinet Co
-// Serves the Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton
+// Published service area: shared/serviceArea.ts
+// CITIES also includes location pages outside that list. Those pages stay live.
+import { SERVICE_AREA_SLUGS } from './serviceArea';
 
 export interface ServiceData {
   slug: string;
@@ -78,6 +80,15 @@ export const CITIES: CityData[] = [
 ];
 
 export const TREASURE_VALLEY_CITIES = CITIES.map((c) => c.name).join(', ');
+
+/** GBP service area, in published order. Location pages use CITIES. */
+export const SERVICE_AREA_CITIES: CityData[] = SERVICE_AREA_SLUGS.map((slug) => {
+  const city = CITIES.find((entry) => entry.slug === slug);
+  if (!city) {
+    throw new Error(`Missing service area city: ${slug}`);
+  }
+  return city;
+});
 
 export function getServiceBySlug(slug: string): ServiceData | undefined {
   return SERVICES.find((s) => s.slug === slug);

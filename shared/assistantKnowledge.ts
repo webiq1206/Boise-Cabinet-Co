@@ -2,7 +2,7 @@ import { preferToTextLine, SITE_CONFIG } from "./siteConfig";
 import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, SUBCONTRACTOR_HELP_LINE } from "./claims";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
-import { CITIES } from "./contentData";
+import { SERVICE_AREA_LIST } from "./serviceArea";
 import { HOW_WE_BUILD_STEPS } from "./siteContent";
 import {
   APPLIANCE_DISCLAIMER,
@@ -76,7 +76,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     key: "service-areas",
     summary: "Cities and areas served in the Treasure Valley",
     content: [
-      `Service area: ${CITIES.map((c) => c.name).join(", ")} - the full Treasure Valley.`,
+      `Service area: ${SERVICE_AREA_LIST}.`,
       "Just outside these areas? Reach out and we'll confirm whether we can accommodate the project.",
     ].join("\n"),
   },

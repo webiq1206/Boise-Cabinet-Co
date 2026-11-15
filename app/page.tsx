@@ -8,6 +8,7 @@ import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { publicText } from "@/shared/claims";
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowUpRight, Check } from "lucide-react";
@@ -22,7 +23,7 @@ export default function HomePage() {
       {/* Answer block for screen readers and answer engines. A paragraph, not a
           heading: it is a 60-word summary, not the title of a section. */}
       <p data-speakable="summary" className="sr-only">
-        {publicText("Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage. Kitchen cabinets, bathroom vanities, and built-in storage across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, with 299 finishes, six door styles, a free design consultation, and 1-year workmanship coverage on our installation from documented Final Completion.")}
+        {publicText(`Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage. Kitchen cabinets, bathroom vanities, and built-in storage across ${SERVICE_AREA_LIST}, with 299 finishes, six door styles, a free design consultation, and 1-year workmanship coverage on our installation from documented Final Completion.`)}
       </p>
       <div id="contact" className="scroll-mt-24" aria-hidden="true" />
       {/* The ask. A bone band with the form as the one bright object on the screen:

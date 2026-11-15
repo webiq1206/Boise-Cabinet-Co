@@ -713,7 +713,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Middleton cabinet costs and planning',
         paragraphs: [
-          `Middleton is priced like the rest of the valley, and it's inside our service area at standard rates. For planning bands, see the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
+          `Middleton cabinet pricing follows the same planning bands as the rest of the valley. For planning bands, see the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
         ],
       },
       {
@@ -747,7 +747,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Is Middleton inside your standard service area?',
         answer:
-          'Yes. Middleton is one of the eight Treasure Valley cities we serve at standard delivery and installation rates.',
+          'Our service area is Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.',
       },
       {
         question: 'How long does a Middleton cabinet project take?',

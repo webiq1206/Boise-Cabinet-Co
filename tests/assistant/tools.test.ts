@@ -141,9 +141,11 @@ async function main() {
     const leadTime = KNOWLEDGE_TOPICS.find((t) => t.key === "lead-time")!;
     check(leadTime.content.includes("4-8 weeks"), "lead-time topic states the published figure");
     const areas = KNOWLEDGE_TOPICS.find((t) => t.key === "service-areas")!;
-    for (const city of ["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton", "Caldwell"]) {
-      check(areas.content.includes(city), `service areas include ${city}`);
+    for (const place of ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star", "Ada County", "Canyon County"]) {
+      check(areas.content.includes(place), `service areas include ${place}`);
     }
+    check(!areas.content.includes("Middleton"), "service areas omit Middleton");
+    check(!areas.content.includes("Garden City"), "service areas omit Garden City");
 
     // No dollar figures may ever enter through knowledge - prices come only
     // from calculate_estimate.

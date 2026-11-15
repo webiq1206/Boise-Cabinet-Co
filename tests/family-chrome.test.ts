@@ -114,7 +114,11 @@ test('footer links written out in the config match their sources', () => {
     }
   }
   assert.ok(guides.has(FAMILY_BRAND.footer.areas.href), FAMILY_BRAND.footer.areas.href);
-  assert.equal(FAMILY_BRAND.footer.areas.links.length, 8);
+  assert.equal(FAMILY_BRAND.footer.areas.label, "Service area, Ada and Canyon Counties");
+  assert.deepEqual(
+    FAMILY_BRAND.footer.areas.links.map((link) => link.label),
+    ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star"],
+  );
 });
 
 test('the footer renders the family row, NAP, hours, both parent profiles and one registration link, with no headings', () => {
@@ -144,9 +148,10 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/warranty#get-help', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
     assert.ok(html.includes(`href="${href}"`), href);
   }
-  for (const city of ['boise', 'caldwell', 'eagle', 'kuna', 'meridian', 'middleton', 'nampa', 'star']) {
+  for (const city of ['boise', 'meridian', 'nampa', 'eagle', 'kuna', 'caldwell', 'star']) {
     assert.ok(html.includes(`href="/locations/${city}"`), city);
   }
+  assert.equal(html.includes('href="/locations/middleton"'), false);
 });
 
 test('the homepage video preserves no-script poster, first-response content and sourced proof', () => {

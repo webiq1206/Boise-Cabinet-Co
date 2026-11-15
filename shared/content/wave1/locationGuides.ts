@@ -18,22 +18,21 @@ const tvSections: ContentSection[] = [
     list: [
       `<a href="${PILLAR_BOISE}">Boise cabinet guide</a>`,
       '<a href="/locations/meridian">Meridian cabinet guide</a>',
+      '<a href="/locations/nampa">Nampa cabinet guide</a>',
       '<a href="/locations/eagle">Eagle cabinet guide</a>',
       '<a href="/locations/kuna">Kuna cabinet guide</a>',
-      '<a href="/locations/star">Star cabinet guide</a>',
-      '<a href="/locations/nampa">Nampa cabinet guide</a>',
-      '<a href="/locations/middleton">Middleton cabinet guide</a>',
       '<a href="/locations/caldwell">Caldwell cabinet guide</a>',
+      '<a href="/locations/star">Star cabinet guide</a>',
     ],
     paragraphs: [
-      'Each city guide covers local housing stock, common cabinet projects, permits, and planning ranges. Ada County cities: Boise, Meridian, Eagle, Kuna, and Star. Canyon County: Nampa, Middleton, and Caldwell.',
+      'Each city guide covers local housing stock, common cabinet projects, permits, and planning ranges. Ada County: Boise, Meridian, Eagle, Kuna, and Star. Canyon County: Nampa and Caldwell.',
     ],
   },
   {
     h2: 'Ada County vs Canyon County',
     paragraphs: [
-      'Boise, Meridian, Eagle, Kuna, and Star are primarily in Ada County. Nampa, Middleton, and Caldwell are in Canyon County.',
-      'Delivery and installation are available throughout both counties.',
+      'Boise, Meridian, Eagle, Kuna, and Star are in Ada County. Nampa and Caldwell are in Canyon County.',
+      'Design, build, and installation cover both counties.',
     ],
   },
   {
@@ -158,7 +157,7 @@ export const TREASURE_VALLEY_GUIDE_HTML = expandLocation(
 export const BOISE_GUIDE_HTML = expandLocation(buildSectionsHtml(boiseSections), 'boise-cabinet-guide');
 
 export const TV_QUICK_ANSWER =
-  'The Treasure Valley covers Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell. Boise Cabinet Co builds and installs custom cabinets valley-wide, start with our catalog and cost guide for your room.';
+  'Boise Cabinet Co designs, builds, and installs custom cabinets in Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. Start with the catalog and the cabinet cost guide, then request a quote when the layout is ready.';
 
 // About 42% of Boise city housing units were built before 1980, which the copy rounds to two in five. ACS 2020-2024 table B25034:
 // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1608830
@@ -166,7 +165,7 @@ export const BOISE_QUICK_ANSWER =
   'Boise spans the North End, the Bench, Harris Ranch and East Boise, and each one asks something different of a cabinet layout. It also has the oldest housing we work in, with roughly two in five homes dating from before 1980 according to Census ACS 2020–2024 estimates. Before your consultation, browse the kitchen and bath catalog pages and our cabinet cost guide.';
 
 export const TV_TAKEAWAYS = [
-  'Eight cities across Ada and Canyon Counties.',
+  'Seven cities, plus Ada County and Canyon County.',
   'Catalog covers kitchen, bath, mudroom, built-ins, and more.',
   'Use the cabinet cost guide for planning bands.',
 ];

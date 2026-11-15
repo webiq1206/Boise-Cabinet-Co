@@ -1,6 +1,7 @@
 // The generated content module directly: the @/shared/catalog barrel also loads
 // every cabinet product, and this list ships to the browser with FAQSection.
 import { CATALOG_CONTENT } from "@/shared/catalog/generated/content";
+import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
 
 export interface HomepageFaq {
   q: string;
@@ -26,7 +27,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What areas do you serve?",
-    a: "We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.",
+    a: `We serve ${SERVICE_AREA_LIST}. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.`,
   },
   {
     q: "Do you install cabinets or supply only?",
