@@ -25,11 +25,11 @@ process.env.P5_LINK_SECRET = "synthetic-link-secret-for-render-only";
 
 const LOGO = `https://${ESTIMATOR_BRAND.domain}${ESTIMATOR_BRAND.logo}`;
 const PUBLISHED = {
-  "lib/p5/emailKit.ts": "9484f6578df8dd9ad35f82ccd3dd3cb585634e2407bc5886b1a412202acdafb1",
-  "lib/p5/estimateEmail.ts": "41136a5d1c1ee6a4796f522e00d03c6bef90e49463fb83902c872e1e2d45dd01",
+  "lib/p5/emailKit.ts": "95dd4ff70206196d8b9f742c06696592e3f85d52f7a80d8ff55a66cbe548ae33",
+  "lib/p5/estimateEmail.ts": "d351ffd85ac6b0f15f66b87384203dd0389a4cef138f78fbc097bae29c8cad92",
   "lib/p5/intakeEmail.ts": "4373fab340c99c81f5cf6ca6ac32ba11705147b0036a05b2e285f78821aeaa61",
   "lib/p5/outbox.ts": "b2fe3542c9a44ef4b8be7e8827e62aa06d497f8d7eb64af2366309d730a8f1e7",
-  "lib/p5/reviewRequest.ts": "bfbeb71b83cb5772feea356687a8e56e6e30652c680906865b94b25a7ba4a19b",
+  "lib/p5/reviewRequest.ts": "02f86aa1a48a05e7a8f6ffc6cd7a64da2e30ac9e870febb52ce26c3ef0777a22",
   "lib/p5/phoneHref.ts": "acb0d1322aac2b4fbf97f007614107adf3b648612b41b867188c5260c26c0249",
 } as const;
 
@@ -52,7 +52,7 @@ function assertThisBrand(html: string, text: string, options: {customerEstimate?
   assert.equal(combined.includes(EMAIL_FROM), false);
 }
 
-test("shared kit hashes match p5-home-co 5bf60e1e and the admin email uses this brand", () => {
+test("shared kit hashes match p5-home-co 9506a1a5 and the admin email uses this brand", () => {
   for (const [file, hash] of Object.entries(PUBLISHED)) {
     assert.equal(sha256(readFileSync(file)), hash, file);
   }
