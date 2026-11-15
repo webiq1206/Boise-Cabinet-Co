@@ -21,13 +21,15 @@ export function ScrollToTop() {
     // Initial hydration must preserve the native position and any input already in progress.
     if (previousPathname.current === pathname) return;
     previousPathname.current = pathname;
+    const restoredFromHistory = Date.now() - lastPopState < 1000 && lastPopPathname === pathname;
+    lastPopPathname = "";
     // A URL landing on a hash (e.g. /#calculator, /#consult) means the visitor
     // is being sent to a specific section - forcing scroll to the very top
     // here would fight that navigation. Let the browser's native hash-scroll
     // (which respects scroll-padding-top, see globals.css) handle it instead.
     if (window.location.hash) return;
     // Popstate restores a native history position; a different fresh route still resets.
-    if (Date.now() - lastPopState < 1000 && lastPopPathname === pathname) return;
+    if (restoredFromHistory) return;
     const top = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
     top();
     // A client navigation from low on a long page could settle a few dozen

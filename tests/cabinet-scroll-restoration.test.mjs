@@ -41,3 +41,8 @@ test('wheel, touch and keyboard interaction cancel later reassertions',()=>{
 test('route cleanup cancels superseded frame/timer work',()=>{
  const app=component();app.render();app.flush();app.clearCalls();app.render('/estimate');app.flush();app.render('/contact');app.flush();app.move(600);app.event('keydown');app.settle();assert.equal(app.scrollY,600);assert.equal(app.calls.length,2);
 });
+
+test('a consumed native history marker cannot suppress a later rapid fresh visit to that path',()=>{
+ const app=component('/estimate');app.render();app.flush();app.clearCalls();app.move(860);app.render('/services');app.event('popstate');app.flush();app.settle();assert.equal(app.scrollY,860);
+ app.render('/contact');app.flush();assert.equal(app.scrollY,0);app.move(450);app.render('/services');app.flush();assert.equal(app.scrollY,0);assert.equal(app.calls.length,2);
+});
