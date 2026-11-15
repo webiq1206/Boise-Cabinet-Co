@@ -17,8 +17,8 @@ import {
  * rather than display a suspicious number.
  */
 
-/** Mirrors the engine's private PRICE_ROUND_TO; pinned by the pricing suite. */
-export const ESTIMATE_PRICE_ROUND_TO = 100;
+/** Whole dollars, matching the shared cost book's unit prices. */
+export const ESTIMATE_PRICE_ROUND_TO = 1;
 
 /**
  * Hard sanity ceiling per estimate, in dollars. The engine's maximum possible

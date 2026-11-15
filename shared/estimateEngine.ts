@@ -5,24 +5,28 @@ import { FINISH_BY_SLUG } from "./catalog/finishes";
 import { getDoorStyleImages, getFinishImages } from "./catalog/entityImagePaths";
 import { getFinishesForDoorStyle } from "./catalog/finishCompatibility";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
+import { sharedBookRate, type FinishTier as BookFinishTier } from "../lib/p5/priceBook.ts";
+import {
+  COST_CATEGORIES,
+  DEFAULT_FINANCE,
+  calculateP5Estimate,
+  customerEstimate,
+  type DirectCostLine,
+} from "../lib/p5/pricing.ts";
 
 /**
  * Cabinet-specific Project Estimator engine.
  *
- * Pricing is grounded in the real Boise Cabinet Co catalog: the single custom
- * cabinet offering, the six catalog door styles, the matte / woodgrain / gloss
- * finish categories and the catalog finish price tiers, and Good / Better / Best
- * box construction. Option lists are pulled from `shared/catalog/*` so the
- * estimator and catalog never drift.
+ * Direct costs come from the shared cost book (`sharedBookRate`). The number
+ * a visitor sees is the customer planning range from `calculateP5Estimate`:
+ * the same overhead, profit, reserve, band and rounding the shared estimator
+ * uses. Book rates are never shown.
+ * Door style, finish and layout stay on the scope summary. They have no unit
+ * price in the book, so they do not change the total.
  *
- * The model composes a base from layout + size (linear-foot driven), then
- * applies multipliers for door style, finish category, finish tier, and
- * construction quality. Every upgrade raises the range monotonically; every
- * downgrade lowers it.
- *
- * There is exactly one cabinet line (custom), so there is no "line" step and no
- * "Reserve" multiplier. Finish price is communicated with `$` tiers, never
- * "Standard / Premium / Luxury" or supplier/brand names.
+ * Option lists for doors, finishes and layouts are pulled from `shared/catalog/*`
+ * so the estimator and catalog never drift. There is exactly one cabinet line
+ * (custom), so there is no "line" step.
  */
 
 export type ProjectType =
@@ -35,9 +39,10 @@ export type ProjectType =
   | "built-ins"
   | "pantry";
 export type FinishCategory = "matte" | "woodgrain" | "gloss";
-/** Internal pricing tier; never rendered as a word - shown as `$` tiers only. */
+/** Catalog swatch marker, shown as `$` tiers. It does not price the estimate. */
 export type FinishTier = "standard" | "premium" | "reserve";
-export type ConstructionTier = "good" | "better" | "best";
+/** Shared cost-book columns. Legacy good/better/best values normalize into these. */
+export type ConstructionTier = "essential" | "signature" | "premium" | "luxury";
 export type ConfidenceLevel = "starting" | "refined" | "detailed";
 
 export type SelectionStepKey =
@@ -88,155 +93,146 @@ export interface EstimateResult {
   confidence: ConfidenceLevel;
   confidenceLabel: string;
   confidencePercent: number;
-  /** Product-named scope line, e.g. "Thin Shaker · Matte finish ($$$) · Best construction". */
+  /** Product-named scope line, e.g. "Thin Shaker · Matte finish ($$$) · Signature". */
   scopeSummary: string;
   selectionsMade: number;
   totalSteps: number;
 }
 
 // ============================================================================
-// MODELED TREASURE VALLEY PRICING - EDIT HERE
+// SHARED COST BOOK LINES
 // ----------------------------------------------------------------------------
-// These are PLANNING figures modeled on Boise Cabinet Co's offering and typical
-// Treasure Valley installed-cabinetry rates. They are NOT a supplier price sheet
-// and not a per-cabinet quote. Every dollar figure the estimator uses lives in
-// this block - tune these numbers to refine the estimator.
+// Dollar amounts are read from lib/p5/priceBookData.ts through sharedBookRate.
+// This map is codes only. A null code means the old wizard line has no unit
+// price in the book, so that line is not priced.
 //
-// How the math works:
-//   priceLow  = round( (perUnitLow  × baseLF + upperPerUnitLow  × upperLF) × mult )
-//   priceHigh = round( (perUnitHigh × baseLF + upperPerUnitHigh × upperLF) × mult )
-//   multiplier = layout × doorStyle × finishCategory × finishTier
-//              × construction
-//
-// For projects with wall (upper) cabinets, the base (lower) and upper runs are
-// priced separately: uppers cost less per linear foot than base cabinets. The
-// lower-run rate is scaled (~0.69) and the upper-run rate (~0.41) is set so that
-// a typical mix (uppers ≈ 0.75 × base run) lands close to the previous single-
-// run pricing. Projects without uppers (bathroom vanities, full-height pantries)
-// keep the full per-LF rate and an upper rate of 0.
+// Cabinet lines are priced at base direct cost (remodel = false), the same
+// rule serviceContext uses for cabinet-install.
 // ============================================================================
 
+export interface ProjectBookLines {
+  /** Linear-foot code for the base run, or null when the book has no matching unit. */
+  base: string | null;
+  /** Linear-foot code for the wall run, or null when uppers are not a separate line. */
+  upper: string | null;
+}
+
+export const PROJECT_BOOK_LINES: Record<ProjectType, ProjectBookLines> = {
+  kitchen: { base: "12-32-01", upper: "12-32-02" },
+  bathroom: { base: "12-41-03", upper: null },
+  laundry: { base: "12-43-02", upper: "12-43-01" },
+  mudroom: { base: "12-42-01", upper: "12-42-04" },
+  // 12-44-06 is "Home office desk + uppers" per linear foot, so the upper slider is not a second line.
+  "home-office": { base: "12-44-06", upper: null },
+  // 12-44-04 Media / entertainment wall is priced each, not per linear foot.
+  entertainment: { base: null, upper: null },
+  // 12-44-02 is the linear-foot built-in. There is no separate built-in upper code.
+  "built-ins": { base: "12-44-02", upper: null },
+  pantry: { base: "12-32-16", upper: null },
+};
+
+/** Membership list for the room pages and the selection schema. Not a price table. */
+export const PROJECT_PRICING: Record<ProjectType, ProjectBookLines> = PROJECT_BOOK_LINES;
+
+/** Resale ROI shown beside a saved estimate. Not used to price the range. */
+const PROJECT_ROI: Record<ProjectType, number> = {
+  kitchen: 72,
+  bathroom: 68,
+  laundry: 62,
+  mudroom: 58,
+  "home-office": 55,
+  entertainment: 58,
+  "built-ins": 60,
+  pantry: 56,
+};
+
+/** Wizard level to the cost book's four columns. */
+export const LEVEL_TO_BOOK: Record<ConstructionTier, BookFinishTier> = {
+  essential: "builder",
+  signature: "mid",
+  premium: "high",
+  luxury: "luxury",
+};
+
+const LEGACY_LEVEL: Record<string, ConstructionTier> = {
+  good: "essential",
+  better: "signature",
+  best: "premium",
+};
+
+export function normalizeConstruction(value: string | null | undefined): ConstructionTier | "" {
+  if (!value) return "";
+  if (value in LEVEL_TO_BOOK) return value as ConstructionTier;
+  return LEGACY_LEVEL[value] ?? "";
+}
+
+/** Direct unit cost from the shared book, or null when the code is not a unit price. Never display this. */
+export function wizardUnitRate(code: string, level: ConstructionTier): number | null {
+  const rate = sharedBookRate(code, LEVEL_TO_BOOK[level], false);
+  return rate && Number.isFinite(rate.amount) ? rate.amount : null;
+}
+
+const BOOK_EVIDENCE_DATES = { verifiedAt: "2026-09-11", validUntil: "2027-09-11" };
+
 /**
- * Installed price per linear foot, low/high band, plus resale ROI per room.
- * `perUnit*` price the base (lower) run; `upperPerUnit*` price the wall (upper)
- * run. Upper rates are 0 for projects that have no separate upper cabinets.
+ * Customer planning range for book lines. Quantity times the direct rate goes
+ * into calculateP5Estimate. This function does not apply its own markup.
  */
-// Laundry, mudroom, home-office, entertainment and built-ins rates raised 2026-11-09 on
-// owner decision to align the default-size output with the 2026 price book (book cabinet
-// lines at base direct cost x 1.618, Builder Grade to Mid-Range), within 5%.
-export const PROJECT_PRICING: Record<
-  ProjectType,
-  {
-    perUnitLow: number;
-    perUnitHigh: number;
-    upperPerUnitLow: number;
-    upperPerUnitHigh: number;
-    roi: number;
+export function cabinetCustomerRange(
+  parts: { code: string; quantity: number }[],
+  level: ConstructionTier,
+): { low: number; high: number } | null {
+  if (!parts.length || parts.some((part) => !(part.quantity > 0))) return null;
+  const lines: DirectCostLine[] = [];
+  for (const [index, part] of parts.entries()) {
+    const rate = sharedBookRate(part.code, LEVEL_TO_BOOK[level], false);
+    if (!rate) return null;
+    lines.push({
+      id: `cabinet-${index + 1}`,
+      category: "subcontractors",
+      description: "Installed cabinetry",
+      quantity: part.quantity,
+      unit: rate.unit,
+      unitCost: rate.amount,
+      quantitySource: `Wizard quantity: ${part.quantity} ${rate.unit}`,
+      priceBasis: "direct-cost",
+      estimatingBasis: "owner-average-cost",
+      evidence: {
+        basis: "owner-estimating-schedule",
+        reference: `${rate.code} shared cost book`,
+        ...BOOK_EVIDENCE_DATES,
+      },
+    });
   }
-> = {
-  kitchen: { perUnitLow: 360, perUnitHigh: 605, upperPerUnitLow: 215, upperPerUnitHigh: 360, roi: 72 },
-  bathroom: { perUnitLow: 460, perUnitHigh: 820, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 68 },
-  laundry: { perUnitLow: 480, perUnitHigh: 720, upperPerUnitLow: 275, upperPerUnitHigh: 410, roi: 62 },
-  mudroom: { perUnitLow: 330, perUnitHigh: 570, upperPerUnitLow: 200, upperPerUnitHigh: 340, roi: 58 },
-  "home-office": { perUnitLow: 435, perUnitHigh: 630, upperPerUnitLow: 260, upperPerUnitHigh: 380, roi: 55 },
-  entertainment: { perUnitLow: 395, perUnitHigh: 710, upperPerUnitLow: 235, upperPerUnitHigh: 425, roi: 58 },
-  "built-ins": { perUnitLow: 435, perUnitHigh: 680, upperPerUnitLow: 260, upperPerUnitHigh: 405, roi: 60 },
-  pantry: { perUnitLow: 320, perUnitHigh: 600, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 56 },
-};
-
-/** Door style premium, keyed by door style id. */
-export const DOOR_STYLE_MULTIPLIER: Record<string, number> = {
-  slab: 1.0,
-  "three-piece": 1.08,
-  "modern-shaker": 1.05,
-  "thin-shaker": 1.1,
-  "alpha-shaker": 1.12,
-  "beta-shaker": 1.15,
-  /** @deprecated */
-  shaker: 1.05,
-};
-
-/** Finish category premium. Woodgrain laminates and high-gloss cost more than matte. */
-export const FINISH_CATEGORY_MULTIPLIER: Record<FinishCategory, number> = {
-  matte: 1.0,
-  woodgrain: 1.1,
-  gloss: 1.18,
-};
-
-/** Finish price-tier premium across the catalog color tiers ($ -> $$$). */
-export const FINISH_TIER_MULTIPLIER: Record<FinishTier, number> = {
-  standard: 1.0,
-  premium: 1.12,
-  reserve: 1.26,
-};
-
-/**
- * Finish premium keyed to the CATALOG's own price marker (1-5, the $ to $$$$$
- * scale shown on every swatch), used whenever the visitor has picked a named
- * finish.
- *
- * FINISH_TIER_MULTIPLIER above buckets that 5-level scale into 3 estimator
- * tiers, and `finishMarkerToTier` sends markers 1, 2 AND 3 to "standard" at
- * 1.0. That is 204 of the 299 catalog finishes priced identically: a visitor
- * choosing a $ finish and one choosing a $$$ finish were quoted the same
- * number, while the swatch beside the price said they were different tiers.
- *
- * The ladder is centred on marker 2, the modal and median finish in the
- * catalog, so the middle of the collapsed bucket keeps the price it has today
- * and the levels either side separate around it. Markers 4 and 5 are unchanged
- * from the tier multipliers they replace, so no finish that was already priced
- * distinctly moves at all.
- */
-export const FINISH_MARKER_MULTIPLIER: Record<number, number> = {
-  1: 0.94,
-  2: 1.0,
-  3: 1.06,
-  4: 1.12,
-  5: 1.26,
-};
-
-/**
- * How much of the natural price spread is removed once the visitor has answered
- * every question for a room.
- *
- * The rate band (perUnitLow to perUnitHigh) is the spread of a job whose
- * specification is not yet known. Layout, door style, finish and construction
- * are exactly the things that spread covers, so once they are answered the
- * range should narrow - the estimator already computes how completely a room
- * has been specified, and used to spend that signal on a "95% detailed" label
- * while quoting the identical +/-25% band it quoted at 51%.
- *
- * At 0.5 a fully specified kitchen narrows from a 1.68x spread to 1.30x. The
- * GEOMETRIC CENTRE OF THE RANGE IS UNTOUCHED at every level of detail, so this
- * sharpens the estimate without repricing it: an unanswered room still returns
- * exactly the number it returns today.
- */
-export const DETAIL_TIGHTENING = 0.5;
-
-/** Box construction quality premium (Good / Better / Best). */
-export const CONSTRUCTION_MULTIPLIER: Record<ConstructionTier, number> = {
-  good: 1.0,
-  better: 1.12,
-  best: 1.3,
-};
-
-/** Layout complexity premium, keyed by catalog layout slug. More corners cost more. */
-export const LAYOUT_COMPLEXITY_MULTIPLIER: Record<string, number> = {
-  galley: 1.0,
-  "l-shape": 1.05,
-  "u-shape": 1.12,
-  island: 1.16,
-  peninsula: 1.08,
-  "single-vanity": 1.0,
-  "double-vanity": 1.12,
-};
-
-/** Rounding increment for the displayed planning range, in dollars. */
-const PRICE_ROUND_TO = 100;
-
-// ============================================================================
-// END MODELED PRICING
-// ============================================================================
+  const coverage = COST_CATEGORIES.map((category) => ({
+    category,
+    status: (category === "subcontractors" ? "included" : "not-applicable") as "included" | "not-applicable",
+    reason: category === "subcontractors"
+      ? "Installed cabinetry priced from the shared cost book."
+      : "Not part of this cabinet planning total.",
+  }));
+  const estimate = calculateP5Estimate(
+    {
+      estimatePurpose: "preliminary",
+      bookPriced: true,
+      service: "cabinet-install",
+      revision: "cabinet-wizard",
+      scopeSummary: "Cabinet planning range",
+      lines,
+      coverage,
+      risks: [],
+      assumptions: [],
+      exclusions: [],
+      missingInformation: [],
+      allowances: [],
+      uncertainty: "medium",
+      locationProvided: false,
+    },
+    DEFAULT_FINANCE,
+  );
+  const customer = customerEstimate(estimate, "Cabinet planning range");
+  return customer.range;
+}
 
 export interface ProjectSizeConfig {
   min: number;
@@ -292,20 +288,17 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   "home-office": {
     min: 4, max: 24, step: 1, default: 10,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
-    uppers: { max: 20, step: 1, default: 7, label: "Wall cabinets (uppers)" },
+    unitShort: "lf", sizeStepLabel: "Desk and upper run",
   },
   entertainment: {
     min: 4, max: 30, step: 1, default: 12,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
     unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
-    uppers: { max: 26, step: 1, default: 9, label: "Wall/upper cabinets" },
   },
   "built-ins": {
     min: 3, max: 30, step: 1, default: 10,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
-    uppers: { max: 26, step: 1, default: 7, label: "Wall/upper cabinets" },
+    unitShort: "lf", sizeStepLabel: "Built-in run",
   },
   pantry: {
     min: 3, max: 16, step: 1, default: 8,
@@ -320,9 +313,10 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
 
 export function isPriceable(sel: EstimateSelections): boolean {
   if (!sel.project || sel.size == null || sel.size <= 0) return false;
+  if (!PROJECT_BOOK_LINES[sel.project]?.base) return false;
   const cfg = PROJECT_SIZE_CONFIG[sel.project];
   // Projects with wall cabinets require both base and upper runs before showing
-  // a live range - treating unset uppers as 0 would jump the price prematurely.
+  // a live total. Treating unset uppers as 0 would jump the price prematurely.
   if (cfg.uppers && sel.sizeUpper == null) return false;
   return true;
 }
@@ -368,20 +362,13 @@ export const PROJECT_LABELS: Record<
 /**
  * Which layout slugs each project type offers (membership defined here, names pulled from catalog).
  *
- * The Layout step is disabled for now: picking a shape is hard for visitors and
- * means little without upper-cabinet input, so we skip it and apply a neutral
- * complexity factor (see PROJECT_NO_LAYOUT_COMPLEXITY) instead. To re-enable a
- * project's layout step, restore its slug list below.
+ * Layout is a scope choice. The cost book has no per-shape unit price, so the
+ * selection is recorded and does not change the total.
  */
 /**
- * Layout options per project. Only kitchen and bathroom carry a layout step,
- * because those are the only shapes LAYOUT_COMPLEXITY_MULTIPLIER prices. The
- * catalog also defines wall-run and floor-to-ceiling, but they have no
- * multiplier, so listing them here would let a visitor pick a layout that
- * silently falls back to neutral complexity - a selection that appears to
- * affect the estimate but does not.
- *
- * Projects left empty skip the step and price at PROJECT_NO_LAYOUT_COMPLEXITY.
+ * Layout options per project. Only kitchen and bathroom carry a layout step.
+ * The catalog also defines wall-run and floor-to-ceiling. Those shapes are not
+ * offered here.
  */
 export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
   kitchen: ["galley", "l-shape", "u-shape", "island", "peninsula"],
@@ -392,23 +379,6 @@ export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
   entertainment: [],
   "built-ins": [],
   pantry: [],
-};
-
-/**
- * Neutral complexity premium applied when a project has no Layout step. This
- * stands in for the average shape's LAYOUT_COMPLEXITY_MULTIPLIER so estimates
- * stay reasonable without asking the visitor to pick a layout. Kitchens assume
- * a midpoint between galley and island; bathrooms a midpoint of the two vanities.
- */
-export const PROJECT_NO_LAYOUT_COMPLEXITY: Record<ProjectType, number> = {
-  kitchen: 1.08,
-  bathroom: 1.06,
-  laundry: 1.0,
-  mudroom: 1.0,
-  "home-office": 1.0,
-  entertainment: 1.0,
-  "built-ins": 1.0,
-  pantry: 1.0,
 };
 
 export interface StepVisibility {
@@ -549,7 +519,7 @@ export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
   },
 ];
 
-/** Finish price tiers shown as `$` markers - never "Standard / Premium / Luxury". */
+/** Finish swatches stay on the `$` scale. The price level is the separate four-column choice. */
 export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
   { value: "standard", label: "$", sub: "Core palette colors" },
   { value: "premium", label: "$$", sub: "Designer tones and deeper hues" },
@@ -557,13 +527,17 @@ export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
 ];
 
 export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
-  { value: "good", label: "Good", sub: "Furniture-board box, soft-close doors and drawers", icon: "Shield" },
-  { value: "better", label: "Better", sub: "Plywood box, full-extension soft-close slides", icon: "ShieldCheck" },
-  { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced", icon: "Crown" },
+  { value: "essential", label: "Essential", sub: "Furniture-board box, soft-close doors and drawers", icon: "Shield" },
+  { value: "signature", label: "Signature", sub: "Plywood box, full-extension soft-close slides", icon: "ShieldCheck" },
+  { value: "premium", label: "Premium", sub: "All-plywood, dovetail drawer boxes, reinforced", icon: "Crown" },
+  { value: "luxury", label: "Luxury", sub: "Inset or European boxes, dovetail drawers, furniture-grade joinery", icon: "Gem" },
 ];
 
 const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
-  good: "Good", better: "Better", best: "Best",
+  essential: "Essential",
+  signature: "Signature",
+  premium: "Premium",
+  luxury: "Luxury",
 };
 const FINISH_TIER_DOLLAR: Record<FinishTier, string> = {
   standard: "$", premium: "$$", reserve: "$$$",
@@ -626,9 +600,10 @@ export function getFinishTint(
 
 /** Construction story shown in the included scope. */
 const CONSTRUCTION_INCLUDED: Record<ConstructionTier, string> = {
-  good: "Furniture-board box with soft-close doors and drawers",
-  better: "Plywood box construction with full-extension soft-close slides",
-  best: "All-plywood box with dovetail drawer boxes and reinforced shelves",
+  essential: "Furniture-board box with soft-close doors and drawers",
+  signature: "Plywood box construction with full-extension soft-close slides",
+  premium: "All-plywood box with dovetail drawer boxes and reinforced shelves",
+  luxury: "Inset or European boxes with dovetail drawers and furniture-grade joinery",
 };
 
 export const INCLUDED_SCOPE_NOTE =
@@ -696,7 +671,7 @@ export function getDefaultSelectionsForProject(project: ProjectType): EstimateSe
     finishSlug: "",
     finishCategory: "matte",
     finishTier: "standard",
-    construction: "better",
+    construction: "signature",
   };
 }
 
@@ -719,13 +694,13 @@ export const EMPTY_SELECTIONS: EstimateSelections = {
 };
 
 /**
- * When a visitor picks a project, set the project and a smart construction
- * default ("Better", the most popular tier) so the Size step needs only a
+ * When a visitor picks a project, set the project and a smart level default
+ * (Signature, the most common cost-book column) so the Size step needs only a
  * slider and a confirmable default. Size, door, and finish stay unselected so
  * the estimate still reflects what the visitor actively chooses.
  */
 export function emptySelectionsForProject(project: ProjectType): EstimateSelections {
-  return { ...EMPTY_SELECTIONS, project, construction: "better" };
+  return { ...EMPTY_SELECTIONS, project, construction: "signature" };
 }
 
 // ── Pricing ──────────────────────────────────────────────────────────────────
@@ -746,40 +721,8 @@ function clampUpperSize(project: ProjectType, size: number | null): number | nul
   return Math.max(0, Math.min(cfg.uppers.max, Math.round(size)));
 }
 
-/**
- * Combined upgrade multiplier for the current selections. Any dimension the
- * visitor has not chosen contributes no premium (multiplier 1), so the range
- * reflects only the selections actually made.
- */
-export function getSelectionMultiplier(sel: EstimateSelections): number {
-  if (!sel.project) return 1;
-  const vis = getStepVisibility(sel.project);
-  let m = 1;
-  if (vis.layout) {
-    m *= LAYOUT_COMPLEXITY_MULTIPLIER[sel.layout] ?? 1;
-  } else {
-    m *= PROJECT_NO_LAYOUT_COMPLEXITY[sel.project] ?? 1;
-  }
-  if (vis.doorStyle) m *= DOOR_STYLE_MULTIPLIER[sel.doorStyle] ?? 1;
-  m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory as FinishCategory] ?? 1;
-  /*
-   * Price the finish the visitor actually chose. The catalog's price marker is
-   * a 5-level scale; the estimator's own tier is a 3-level bucket of it, so the
-   * marker is used whenever a named finish is selected and the coarser tier
-   * only when it is not (the visitor picked a finish STYLE but no colour).
-   */
-  const marker = sel.finishSlug
-    ? FINISH_BY_SLUG[sel.finishSlug]?.priceTierMarker
-    : undefined;
-  m *= marker
-    ? (FINISH_MARKER_MULTIPLIER[marker] ?? 1)
-    : (FINISH_TIER_MULTIPLIER[sel.finishTier as FinishTier] ?? 1);
-  m *= CONSTRUCTION_MULTIPLIER[sel.construction as ConstructionTier] ?? 1;
-  return m;
-}
-
 function roundPrice(n: number): number {
-  return Math.round(n / PRICE_ROUND_TO) * PRICE_ROUND_TO;
+  return Math.round(n);
 }
 
 export function getSizeLabel(
@@ -885,6 +828,7 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
     layout,
     size: clampSize(sel.project, sel.size),
     sizeUpper: clampUpperSize(sel.project, sel.sizeUpper),
+    construction: normalizeConstruction(sel.construction),
   };
   if (next.finishSlug) {
     const doorSlug = DOOR_STYLES.find((d) => d.id === next.doorStyle)?.slug ?? next.doorStyle;
@@ -908,55 +852,26 @@ export function calculateEstimate(
   if (!isPriceable(selections)) return null;
   const sel = normalizeSelections(selections);
   const project = sel.project as ProjectType;
-  const pricing = PROJECT_PRICING[project];
+  const lines = PROJECT_BOOK_LINES[project];
   const cfg = PROJECT_SIZE_CONFIG[project];
-  const mult = getSelectionMultiplier(sel);
-
-  // Uppers only apply (and are only charged) for projects with a wall run.
-  const upperLF = cfg.uppers ? (sel.sizeUpper ?? 0) : 0;
-  const baseLow = pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF;
-  const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
-  const rawLow = baseLow * mult;
-  const rawHigh = baseHigh * mult;
+  const level = sel.construction || "essential";
+  if (!lines.base) return null;
+  const parts = [{ code: lines.base, quantity: sel.size! }];
+  if (lines.upper && cfg.uppers) parts.push({ code: lines.upper, quantity: sel.sizeUpper ?? 0 });
+  const pricedParts = parts.filter((part) => part.quantity > 0);
+  const range = cabinetCustomerRange(pricedParts, level);
+  if (!range) return null;
 
   const total = getTotalSteps(project);
-  const { level, percent } = getConfidence(selectionsMade, total);
-
-  /*
-   * Narrow the range around its own geometric centre as the room is specified.
-   *
-   * Held multiplicatively rather than as a +/- percentage because the whole
-   * model is multiplicative: at zero detail `spread ** (1/2)` reproduces
-   * rawLow and rawHigh EXACTLY, so a visitor who has answered nothing sees the
-   * number this engine has always returned. The centre never moves, so no
-   * estimate is repriced - it only sharpens.
-   */
-  const detailRatio = total > 0 ? Math.min(selectionsMade, total) / total : 0;
-  const spread = rawLow > 0 ? rawHigh / rawLow : 1;
-  let priceLow: number;
-  let priceHigh: number;
-  if (detailRatio <= 0 || spread <= 1) {
-    /* Nothing specified yet: return the rate band itself. Taken directly rather
-       than through the identity below, because `sqrt(lo*hi) / sqrt(hi/lo)` is
-       `lo` only in exact arithmetic - in floating point it lands a fraction
-       either side, which is enough to flip a price sitting exactly on a $50
-       rounding boundary. */
-    priceLow = roundPrice(rawLow);
-    priceHigh = roundPrice(rawHigh);
-  } else {
-    const centre = Math.sqrt(rawLow * rawHigh);
-    const halfWidth = Math.pow(spread, (1 - DETAIL_TIGHTENING * detailRatio) / 2);
-    priceLow = roundPrice(centre / halfWidth);
-    priceHigh = roundPrice(centre * halfWidth);
-  }
+  const { level: confidenceLevel, percent } = getConfidence(selectionsMade, total);
 
   return {
-    priceLow,
-    priceHigh,
-    roi: pricing.roi,
+    priceLow: range.low,
+    priceHigh: range.high,
+    roi: PROJECT_ROI[project],
     included: buildIncluded(sel),
-    confidence: level,
-    confidenceLabel: PLANNING_DETAIL_LABELS[level],
+    confidence: confidenceLevel,
+    confidenceLabel: PLANNING_DETAIL_LABELS[confidenceLevel],
     confidencePercent: percent,
     scopeSummary: buildScopeSummary(sel),
     selectionsMade,

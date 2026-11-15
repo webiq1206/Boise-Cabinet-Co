@@ -16,15 +16,13 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { PROJECT_PRICING, DOOR_STYLE_MULTIPLIER, FINISH_CATEGORY_MULTIPLIER, FINISH_TIER_MULTIPLIER, FINISH_MARKER_MULTIPLIER, DETAIL_TIGHTENING, CONSTRUCTION_MULTIPLIER, LAYOUT_COMPLEXITY_MULTIPLIER } from "../shared/estimateEngine";
+import { PROJECT_BOOK_LINES, LEVEL_TO_BOOK } from "../shared/estimateEngine";
 
 /*
- * FINISH_MARKER_MULTIPLIER and DETAIL_TIGHTENING are part of the price and so
- * belong in the fingerprint. Without them the guard stayed green through the
- * change that introduced both, which is exactly the blind spot it exists to
- * close.
+ * The cabinet wizard no longer keeps a dollar table. The fingerprint covers the
+ * code map and the four cost-book columns. Dollar amounts live in priceBookData.
  */
-const SETS: Record<string, unknown> = { cabinet: { PROJECT_PRICING, DOOR_STYLE_MULTIPLIER, FINISH_CATEGORY_MULTIPLIER, FINISH_TIER_MULTIPLIER, FINISH_MARKER_MULTIPLIER, DETAIL_TIGHTENING, CONSTRUCTION_MULTIPLIER, LAYOUT_COMPLEXITY_MULTIPLIER } };
+const SETS: Record<string, unknown> = { cabinet: { PROJECT_BOOK_LINES, LEVEL_TO_BOOK } };
 
 function canon(v: unknown): unknown {
   if (Array.isArray(v)) return v.map(canon);
