@@ -1,4 +1,5 @@
 import type { EstimateSelections } from "@/shared/estimateEngine";
+import {roomSelectionsSchema,MAX_ROOMS} from '@/shared/estimateInputSchema';
 
 // Persisted across page navigations and return visits so a visitor who starts
 // an estimate anywhere (home, /estimate, the modal) keeps their in-progress
@@ -13,12 +14,18 @@ export interface PersistedWizardState {
   currentIndex: number;
 }
 
-function isPersistedWizardState(value: unknown): value is PersistedWizardState {
-  if (typeof value !== "object" || value === null) return false;
+export function decodeWizardState(value: unknown): PersistedWizardState | null {
+  if (typeof value !== "object" || value === null) return null;
   const candidate = value as Record<string, unknown>;
-  return (
-    Array.isArray(candidate.rooms) && typeof candidate.currentIndex === "number"
-  );
+  if (!Array.isArray(candidate.rooms) || typeof candidate.currentIndex !== 'number' || !Number.isFinite(candidate.currentIndex)) return null;
+  // Old snapshots can contain retired fields. Keep valid public choices rather
+  // than repeatedly sending unsupported fields or crashing before recovery.
+  const rooms = candidate.rooms.slice(0,MAX_ROOMS).flatMap(room=>{
+    const parsed=roomSelectionsSchema.safeParse(room);
+    return parsed.success?[parsed.data]:[];
+  });
+  if(candidate.rooms.length && !rooms.length)return null;
+  return {rooms,currentIndex:Math.max(0,Math.min(100,Math.floor(candidate.currentIndex)))};
 }
 
 export function loadWizardState(): PersistedWizardState | null {
@@ -27,7 +34,7 @@ export function loadWizardState(): PersistedWizardState | null {
     const raw = window.localStorage.getItem(WIZARD_STATE_KEY);
     if (!raw) return null;
     const parsed: unknown = JSON.parse(raw);
-    return isPersistedWizardState(parsed) ? parsed : null;
+    return decodeWizardState(parsed);
   } catch {
     return null;
   }

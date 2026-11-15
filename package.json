@@ -85,7 +85,7 @@
     "predev": "npm run db:prepare -- --optional && npm run sync:pdf-worker",
     "db:prepare": "node --env-file-if-exists=.env.local scripts/p5-prepare-database.mjs",
     "verify:db-safety": "node scripts/p5-schema-safety.mjs && node --test tests/p5-database-safety.test.mjs",
-    "verify:planning-boundary": "node scripts/verify-cabinet-client-boundary.mjs --source-only --output p5-verification/client-boundary-source.json && node --import tsx --test tests/cabinet-client-boundary.test.mjs tests/cabinet-planning-boundary.test.ts"
+    "verify:planning-boundary": "node scripts/verify-cabinet-client-boundary.mjs --source-only --output p5-verification/client-boundary-source.json && node --import tsx --test tests/cabinet-client-boundary.test.mjs tests/cabinet-planning-boundary.test.ts tests/cabinet-planning-persistence.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",
