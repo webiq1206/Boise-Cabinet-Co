@@ -5,7 +5,6 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
 import { ConditionalFooter } from '../components/ConditionalFooter.tsx';
 import { Footer } from '../components/Footer.tsx';
-import { retiredStreetName } from './retiredStreet.ts';
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 
@@ -28,7 +27,7 @@ test('the kitchen landing page uses the family footer with working contact desti
   assert.match(html, /href="\/terms-of-service"/);
   assert.match(html, /Serving Boise and the Treasure Valley/);
   assert.match(html, /Idaho Registered Contractor #8381215/);
-  assert.doesNotMatch(html, new RegExp(`Public representative|${retiredStreetName()}|staffed storefront`, 'i'));
+  assert.doesNotMatch(html, new RegExp(`Public representative|${['wa', 'poot'].join('')}|staffed storefront`, 'i'));
 });
 
 test('task and private app routes retain their footer exclusion', () => {

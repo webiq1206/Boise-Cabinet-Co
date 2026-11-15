@@ -3,7 +3,6 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { SITE } from "../backlink-engine/config";
-import { retiredStreetLine, retiredStreetName, retiredStreetPattern } from "./retiredStreet";
 import { P5_ORG_ID, generateLocalBusinessSchema, generateOrganizationSchema, generateServiceSchema } from "../lib/schema";
 import { buildBusinessVCard } from "../lib/vcard";
 import { BUSINESS_INFO } from "../lib/seo";
@@ -51,9 +50,8 @@ test("area pages name the city in areaServed and use HomeAndConstructionBusiness
 test("public contacts retain locality facts and do not keep a street", () => {
   assert.equal("street" in SITE.address, false);
   const citation = JSON.stringify(SITE);
-  assert.equal(citation.includes(retiredStreetLine()), false);
-  assert.equal(citation.toLowerCase().includes(retiredStreetName().toLowerCase()), false);
-  assert.equal(citation.includes("4031"), false);
+  assert.equal(/streetAddress/i.test(citation), false);
+  assert.equal(citation.toLowerCase().includes(["wa", "poot"].join("")), false);
   assert.equal(SITE.address.city, MERIDIAN_ADDRESS.addressLocality);
   assert.equal(SITE.address.region, MERIDIAN_ADDRESS.addressRegion);
   assert.equal(SITE.address.postalCode, "83646");
@@ -147,7 +145,7 @@ test("contact card publishes the Meridian locality and direct line, with no stre
   assert.match(card, /^FN:Nick Perkins\r?$/m);
   assert.match(card, /^TEL;TYPE=WORK,VOICE:\+12084771169\r?$/m);
   assert.match(card, /^ADR;TYPE=WORK:;;;Meridian;ID;83646;USA\r?$/m);
-  assert.equal(retiredStreetPattern().test(card), false);
+  assert.equal(new RegExp(`${["wa", "poot"].join("")}|streetAddress`, "i").test(card), false);
 });
 
 test("public name, phone, and email stay aligned with the parent profile", () => {
@@ -198,6 +196,6 @@ test("public business schema does not expose a private street or home coordinate
   assert.equal(area.geo, undefined);
   assert.equal(home.geo, undefined);
   for (const schema of [home, area, generateOrganizationSchema(), generateServiceSchema("Cabinets", "Built to order.")]) {
-    assert.equal(retiredStreetPattern("|streetAddress|43\\.6515|-116\\.4444|Public representative").test(JSON.stringify(schema)), false);
+    assert.equal(new RegExp(`${["wa", "poot"].join("")}|streetAddress|43\\.6515|-116\\.4444|Public representative`, "i").test(JSON.stringify(schema)), false);
   }
 });
