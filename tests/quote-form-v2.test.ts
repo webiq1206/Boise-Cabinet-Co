@@ -181,7 +181,8 @@ test("Step 1: the form sends the same field names the route reads, and asks for 
   assert.match(source, /suspendDock=\{dockYielded\}/);
   const bar = readFileSync(new URL("../components/estimate/wizard/WizardActionBar.tsx", import.meta.url), "utf8");
   assert.match(bar, /const docked = pinned && !suspendDock && /);
-  assert.match(bar, /height: suspendDock \? 0 : barHeight/);
+  assert.match(bar, /hidden=\{!docked\}/);
+  assert.match(bar, /height: barHeight/);
   assert.match(readFileSync(new URL("../app/estimate/page.tsx", import.meta.url), "utf8"), /className="estimate-planner[^"]*"[^>]*data-quote-dock-yield=""/);
 
   // After sending: the thanks, ONE sentence ending "Nothing else is needed.",

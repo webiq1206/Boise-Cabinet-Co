@@ -81,10 +81,16 @@ export function WizardActionBar({
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  const docked = pinned && !suspendDock && ((wizardInView && formEngaged) || keyboardInset > 0);
+  const portaled = docked && mounted;
+
   useEffect(() => {
     if (!pinned) return;
     const spacer = spacerRef.current;
-    const node = dockWhenFormInView ? (spacer?.closest("form") ?? spacer) : spacer;
+    // The spacer is hidden while the bar is inline; follow the visible origin
+    // so a flow without a containing form can reenter view and dock again.
+    const origin = docked ? spacer : barRef.current;
+    const node = dockWhenFormInView ? (spacer?.closest("form") ?? origin) : origin;
     if (!node || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -94,7 +100,7 @@ export function WizardActionBar({
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [pinned, dockWhenFormInView]);
+  }, [pinned, dockWhenFormInView, docked, portaled]);
 
   useEffect(() => {
     if (!pinned) return;
@@ -112,8 +118,6 @@ export function WizardActionBar({
     observer.observe(form);
     return () => observer.disconnect();
   }, [pinned]);
-
-  const docked = pinned && !suspendDock && ((wizardInView && formEngaged) || keyboardInset > 0);
 
   useEffect(() => {
     if (!ownsBottomEdge || !docked) return;
@@ -146,7 +150,7 @@ export function WizardActionBar({
     const ro = new ResizeObserver(measure);
     ro.observe(node);
     return () => ro.disconnect();
-  }, [pinned, docked, onBack, primaryLabel, topAccessory, busy, footnote]);
+  }, [pinned, docked, portaled, onBack, primaryLabel, topAccessory, busy, footnote]);
 
   const bar = (
     <div
@@ -233,15 +237,17 @@ export function WizardActionBar({
         <div
           ref={spacerRef}
           aria-hidden="true"
+          hidden={!docked}
           data-wizard-action-bar-spacer=""
-          // Keep reserved height whenever pinned so portaling the docked bar
-          // never collapses document scroll height (C10 pin under header).
-          style={{ height: suspendDock ? 0 : barHeight }}
+          // Fixed bars need clearance, including before their portal mounts.
+          // Inline bars supply their own box: hidden removes the spacer and
+          // its space-y gap immediately, even while CSS height transitions lag.
+          style={{ height: barHeight }}
           className="pointer-events-none shrink-0"
         />
       ) : null}
       {/* Portal when docked so transform/filter ancestors cannot trap position:fixed. */}
-      {docked && mounted ? createPortal(bar, document.body) : bar}
+      {portaled ? createPortal(bar, document.body) : bar}
     </>
   );
 }

@@ -78,7 +78,7 @@
     "og:generate": "node --import tsx scripts/generate-og-images.ts",
     "og:generate:force": "node --import tsx scripts/generate-og-images.ts --force",
     "verify:p5-shared": "node --import tsx --test tests/p5-shared-engine.test.ts tests/p5-review-schema.test.mjs",
-    "prebuild": "npm run verify:db-safety && npm run verify:planning-boundary && npm run verify:scroll-restoration && npm run sync:pdf-worker && npm run verify:p5-shared && npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run verify:redirect-collisions && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:llms && npm run verify:response-language && npm run verify:workmanship && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash && npm run verify:family-chrome && npm run verify:estimator-recovery",
+    "prebuild": "npm run verify:db-safety && npm run verify:planning-boundary && npm run verify:scroll-restoration && npm run verify:quote-dock && npm run sync:pdf-worker && npm run verify:p5-shared && npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run projects:build && npm run links:generate && npm run audit:links && npm run verify:redirect-collisions && npm run resources:generate && npm run catalog:pdf && npm run images:variants && npm run images:blur && npm run images:blog && npm run og:generate && npm run verify:content && npm run verify:llms && npm run verify:response-language && npm run verify:workmanship && npm run verify:images && npm run fix:em-dash && npm run verify:no-em-dash && npm run verify:family-chrome && npm run verify:estimator-recovery",
     "smoke:suppliers": "node scripts/guards/live-supplier-smoke.mjs",
     "verify:contrast": "node scripts/verify-contrast.mjs",
     "sync:pdf-worker": "node scripts/sync-pdf-worker.mjs",
@@ -86,7 +86,9 @@
     "db:prepare": "node --env-file-if-exists=.env.local scripts/p5-prepare-database.mjs",
     "verify:db-safety": "node scripts/p5-schema-safety.mjs && node --test tests/p5-database-safety.test.mjs",
     "verify:planning-boundary": "node scripts/verify-cabinet-client-boundary.mjs --source-only --output p5-verification/client-boundary-source.json && node --import tsx --test tests/cabinet-client-boundary.test.mjs tests/cabinet-planning-boundary.test.ts tests/cabinet-planning-persistence.test.ts tests/cabinet-planning-request.test.ts",
-    "verify:scroll-restoration": "node --test tests/cabinet-scroll-restoration.test.mjs"
+    "verify:scroll-restoration": "node --test tests/cabinet-scroll-restoration.test.mjs",
+    "verify:quote-dock": "node --import tsx --test tests/cabinet-wizard-action-bar.test.mjs tests/quote-form-v2.test.ts",
+    "verify:quote-dock-browser": "node scripts/cabinet-planner-oscillation.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",
