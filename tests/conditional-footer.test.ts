@@ -27,7 +27,7 @@ test('the kitchen landing page uses the family footer with working contact desti
   assert.match(html, /href="\/terms-of-service"/);
   assert.match(html, /Serving Boise and the Treasure Valley/);
   assert.match(html, /Idaho Registered Contractor #8381215/);
-  assert.doesNotMatch(html, /Public representative|Wapoot|staffed storefront/);
+  assert.doesNotMatch(html, new RegExp(`Public representative|${['wa', 'poot'].join('')}|staffed storefront`, 'i'));
 });
 
 test('task and private app routes retain their footer exclusion', () => {

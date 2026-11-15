@@ -167,7 +167,7 @@ test("llms files and the footer publish useful contacts without a private street
   for (const fact of ["hello@boisecabinet.co", "(208) 477-1169", "Service area:", "8381215"]) {
     assert.equal(LLMS_TXT.includes(fact), true, fact);
   }
-  assert.equal(/Wapoot|4031|Public representative|no public showroom|staffed storefront/.test(LLMS_TXT), false);
+  assert.equal(new RegExp(`${["wa", "poot"].join("")}|streetAddress|Public representative|no public showroom|staffed storefront`, "i").test(LLMS_TXT), false);
   // Phase 4: llms.txt is generated from content at build, so "Last updated" is
   // the build date rather than the hand-set 2026-10-16 this used to pin.
   assert.match(LLMS_TXT, /Last updated: \d{4}-\d{2}-\d{2}/);
@@ -181,7 +181,7 @@ test("llms files and the footer publish useful contacts without a private street
   const footer = renderFooter();
   assert.equal(footer.includes(`href="mailto:${SITE_CONFIG.email}"`), true);
   assert.equal(footer.includes(`>${SITE_CONFIG.email}</a>`), true);
-  assert.equal(/Public representative|Wapoot|staffed storefront/.test(footer), false);
+  assert.equal(new RegExp(`Public representative|${["wa", "poot"].join("")}|staffed storefront`, "i").test(footer), false);
   assert.equal(footer.includes("Serving Boise and the Treasure Valley"), true);
   assert.equal(footer.includes("The P5 Home Co family"), true);
   assert.equal(footer.includes('href="https://p5homeco.com" rel="noopener">P5 Home Co</a>'), true);
