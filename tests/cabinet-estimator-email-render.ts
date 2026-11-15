@@ -13,7 +13,7 @@ import {ESTIMATOR_BRAND} from "../lib/p5/brand.ts";
 import {estimatorFromAddress} from "../lib/p5/deliveryAdapter.ts";
 
 export const EMAIL_FROM = "P5 Home Co <hello@p5homeco.com>";
-export const LEGAL_LINE = "Boise Cabinet Co is a DBA of P5 Home Co, LLC.";
+export const LEGAL_LINE = "Boise Cabinet Co prepared this estimate.";
 
 const ID = "0f1e2d3c-4b5a-4000-8000-00000000abcd";
 

@@ -25,17 +25,13 @@ process.env.P5_LINK_SECRET = "synthetic-link-secret-for-render-only";
 
 const LOGO = `https://${ESTIMATOR_BRAND.domain}${ESTIMATOR_BRAND.logo}`;
 const PUBLISHED = {
-  "lib/p5/emailKit.ts": "9cfddf8174f9d7b723a63e80d7435a320aac520819d46f82307d12b1ea3cbbd2",
-  "lib/p5/estimateEmail.ts": "6b8a9a524b61b0d0c817f65ae18265b60aaf1d95d29615542261e1cc492c4bdf",
-  "lib/p5/intakeEmail.ts": "707b90b460970c31bd0dc6941bebafc661b1ae74130edab002e95c0d808d7175",
-  "lib/p5/outbox.ts": "55d98e1f021e7580aee16c8ad43ebead9287d31a127553ec184322253ffd9a11",
+  "lib/p5/emailKit.ts": "9484f6578df8dd9ad35f82ccd3dd3cb585634e2407bc5886b1a412202acdafb1",
+  "lib/p5/estimateEmail.ts": "41136a5d1c1ee6a4796f522e00d03c6bef90e49463fb83902c872e1e2d45dd01",
+  "lib/p5/intakeEmail.ts": "4373fab340c99c81f5cf6ca6ac32ba11705147b0036a05b2e285f78821aeaa61",
+  "lib/p5/outbox.ts": "b2fe3542c9a44ef4b8be7e8827e62aa06d497f8d7eb64af2366309d730a8f1e7",
   "lib/p5/reviewRequest.ts": "bfbeb71b83cb5772feea356687a8e56e6e30652c680906865b94b25a7ba4a19b",
   "lib/p5/phoneHref.ts": "acb0d1322aac2b4fbf97f007614107adf3b648612b41b867188c5260c26c0249",
 } as const;
-
-function withoutLegal(value: string): string {
-  return value.split(LEGAL_LINE).join("");
-}
 
 function assertThisBrand(html: string, text: string, options: {customerEstimate?: boolean; city?: boolean; companyPhone?: boolean} = {}) {
   const combined = `${html}\n${text}`;
@@ -49,14 +45,14 @@ function assertThisBrand(html: string, text: string, options: {customerEstimate?
   assert.doesNotMatch(combined, /p5homeco\.com/i);
   assert.doesNotMatch(combined, /showroom|\bshop\b/i);
   assert.doesNotMatch(combined, /8381215/);
-  const parent = withoutLegal(combined);
-  assert.equal(parent.includes("P5 Home Co"), false, combined.match(/P5 Home Co/g)?.join("|"));
+  assert.equal(combined.includes("P5 Home Co"), false, combined.match(/P5 Home Co/g)?.join("|"));
+  assert.doesNotMatch(combined, /is a DBA of/);
   if (options.customerEstimate) assert.ok(combined.includes(LEGAL_LINE));
   assert.equal(estimatorFromAddress(), EMAIL_FROM);
   assert.equal(combined.includes(EMAIL_FROM), false);
 }
 
-test("shared kit hashes match p5-home-co 9edd8c37 and the admin email uses this brand", () => {
+test("shared kit hashes match p5-home-co 5bf60e1e and the admin email uses this brand", () => {
   for (const [file, hash] of Object.entries(PUBLISHED)) {
     assert.equal(sha256(readFileSync(file)), hash, file);
   }
@@ -86,7 +82,7 @@ test("every cabinet estimate email uses this brand and the stored range", () => 
       assert.equal(message.from, EMAIL_FROM);
       assert.ok(message.html.startsWith("<!doctype html>"));
       assert.ok(message.text.trim().length > 0);
-      assertThisBrand(message.html, message.text, {customerEstimate: message.kind === "customer", companyPhone: message.kind === "customer"});
+      assertThisBrand(message.html, message.text, {customerEstimate: message.kind === "customer", companyPhone: message.kind === "customer", city: message.kind === "customer"});
       assertCopy(message.html, message.text, {
         requireDisclaimer: message.kind === "customer" && fixture.high != null,
         customerAddresses: [],
@@ -101,6 +97,10 @@ test("every cabinet estimate email uses this brand and the stored range", () => 
         assert.ok(message.text.includes(range.high), `${fixture.id} text missing ${range.high}`);
       }
       assert.ok(rendered.customer.text.includes(ESTIMATE_DISCLAIMER));
+      const tier = valueTier(fixture.high);
+      if (tier === "small") assert.match(rendered.customer.text, /quick visit/);
+      else if (tier === "major") assert.match(rendered.customer.text, /planning consultation/);
+      else assert.match(rendered.customer.text, /home walkthrough/);
       if (fixture.contractPrice != null) {
         const contract = fixture.contractPrice.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0});
         assert.equal(rendered.customer.text.includes(contract), false, `${fixture.id} customer mail must not show the internal contract price`);
