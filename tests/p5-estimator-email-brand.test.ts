@@ -25,8 +25,8 @@ process.env.P5_LINK_SECRET = "synthetic-link-secret-for-render-only";
 
 const LOGO = `https://${ESTIMATOR_BRAND.domain}${ESTIMATOR_BRAND.logo}`;
 const PUBLISHED = {
-  "lib/p5/emailKit.ts": "95dd4ff70206196d8b9f742c06696592e3f85d52f7a80d8ff55a66cbe548ae33",
-  "lib/p5/estimateEmail.ts": "d351ffd85ac6b0f15f66b87384203dd0389a4cef138f78fbc097bae29c8cad92",
+  "lib/p5/emailKit.ts": "1d37f803382b44cded12989a52f85b99e4d1e759dcc8e12ea68579e28cf84c77",
+  "lib/p5/estimateEmail.ts": "370c1493139afbf3e4cb7c85cd4db340215e3ae38e14ff74a4589a6f311df51e",
   "lib/p5/intakeEmail.ts": "4373fab340c99c81f5cf6ca6ac32ba11705147b0036a05b2e285f78821aeaa61",
   "lib/p5/outbox.ts": "b2fe3542c9a44ef4b8be7e8827e62aa06d497f8d7eb64af2366309d730a8f1e7",
   "lib/p5/reviewRequest.ts": "02f86aa1a48a05e7a8f6ffc6cd7a64da2e30ac9e870febb52ce26c3ef0777a22",
@@ -52,7 +52,7 @@ function assertThisBrand(html: string, text: string, options: {customerEstimate?
   assert.equal(combined.includes(EMAIL_FROM), false);
 }
 
-test("shared kit hashes match p5-home-co 9506a1a5 and the admin email uses this brand", () => {
+test("shared kit hashes match p5-home-co b789c483 and the admin email uses this brand", () => {
   for (const [file, hash] of Object.entries(PUBLISHED)) {
     assert.equal(sha256(readFileSync(file)), hash, file);
   }
