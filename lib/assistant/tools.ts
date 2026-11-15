@@ -96,8 +96,8 @@ const roomJsonSchema = {
         'Finish price tier ($ / $$ / $$$), or "" when not chosen yet. Only set when the homeowner expresses a budget preference for finishes.',
     },
     construction: {
-      enum: ["", "good", "better", "best"],
-      description: 'Box construction quality, or "" when not chosen yet.',
+      enum: ["", "essential", "signature", "premium", "luxury"],
+      description: 'Cost book level (Essential, Signature, Premium, or Luxury), or "" when not chosen yet.',
     },
   },
   required: [

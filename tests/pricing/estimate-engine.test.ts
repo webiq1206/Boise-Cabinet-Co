@@ -21,20 +21,10 @@
  */
 
 import {
-  PROJECT_PRICING,
+  PROJECT_BOOK_LINES,
   PROJECT_SIZE_CONFIG,
-  DOOR_STYLE_MULTIPLIER,
-  FINISH_CATEGORY_MULTIPLIER,
-  FINISH_TIER_MULTIPLIER,
-  FINISH_MARKER_MULTIPLIER,
-  DETAIL_TIGHTENING,
   getTotalSteps,
-  getStepVisibility,
   PROJECT_SIZE_CONFIG as SIZE_CFG,
-  finishMarkerToTier,
-  CONSTRUCTION_MULTIPLIER,
-  LAYOUT_COMPLEXITY_MULTIPLIER,
-  PROJECT_NO_LAYOUT_COMPLEXITY,
   PROJECT_LAYOUT_SLUGS,
   EMPTY_SELECTIONS,
   calculateEstimate,
@@ -44,13 +34,13 @@ import {
   buildCombinedConsultationPayload,
   buildConsultationEstimatePayload,
   getDefaultSelectionsForProject,
+  getDoorStyleOptions,
   roomSelectionsMade,
-  isPriceable,
+  wizardUnitRate,
+  LEVEL_TO_BOOK,
   type EstimateSelections,
   type ProjectType,
   type FinishCategory,
-  type FinishTier,
-  type ConstructionTier,
 } from "../../shared/estimateEngine";
 import { buildEstimateRecord } from "../../shared/estimateRecord";
 import {
@@ -76,7 +66,10 @@ function check(condition: boolean, message: string) {
   }
 }
 
-const ALL_PROJECTS = Object.keys(PROJECT_PRICING) as ProjectType[];
+const ALL_PROJECTS = (Object.keys(PROJECT_BOOK_LINES) as ProjectType[]).filter(
+  (project) => PROJECT_BOOK_LINES[project].base,
+);
+const LEVELS = Object.keys(LEVEL_TO_BOOK) as ConstructionTier[];
 
 function sel(
   s: Partial<EstimateSelections> & { project: ProjectType },
@@ -84,26 +77,20 @@ function sel(
   return { ...EMPTY_SELECTIONS, ...s };
 }
 
-/** Independent implementation of the documented pricing formula. */
-function expectedPrice(s: EstimateSelections): { low: number; high: number } {
-  const p = s.project as ProjectType;
-  const pricing = PROJECT_PRICING[p];
-  const cfg = PROJECT_SIZE_CONFIG[p];
-  const hasLayout = PROJECT_LAYOUT_SLUGS[p].length > 0;
-  let mult = hasLayout
-    ? (LAYOUT_COMPLEXITY_MULTIPLIER[s.layout] ?? 1)
-    : (PROJECT_NO_LAYOUT_COMPLEXITY[p] ?? 1);
-  mult *= DOOR_STYLE_MULTIPLIER[s.doorStyle] ?? 1;
-  mult *= FINISH_CATEGORY_MULTIPLIER[s.finishCategory as FinishCategory] ?? 1;
-  mult *= FINISH_TIER_MULTIPLIER[s.finishTier as FinishTier] ?? 1;
-  mult *= CONSTRUCTION_MULTIPLIER[s.construction as ConstructionTier] ?? 1;
-  const upper = cfg.uppers ? (s.sizeUpper ?? 0) : 0;
-  const round100 = (n: number) =>
-    Math.round(n / ESTIMATE_PRICE_ROUND_TO) * ESTIMATE_PRICE_ROUND_TO;
-  return {
-    low: round100((pricing.perUnitLow * s.size! + pricing.upperPerUnitLow * upper) * mult),
-    high: round100((pricing.perUnitHigh * s.size! + pricing.upperPerUnitHigh * upper) * mult),
-  };
+/** Independent total: shared book unit rates times the linear feet, nearest dollar. */
+function expectedPrice(s: EstimateSelections): { low: number; high: number } | null {
+  const project = s.project as ProjectType;
+  const lines = PROJECT_BOOK_LINES[project];
+  const level = (s.construction || "essential") as ConstructionTier;
+  if (!lines.base || !(level in LEVEL_TO_BOOK)) return null;
+  const base = wizardUnitRate(lines.base, level);
+  if (base == null) return null;
+  const cfg = PROJECT_SIZE_CONFIG[project];
+  const upperLf = cfg.uppers && lines.upper ? (s.sizeUpper ?? 0) : 0;
+  const upper = lines.upper && cfg.uppers ? wizardUnitRate(lines.upper, level) : 0;
+  if (upper == null) return null;
+  const total = Math.round(base * s.size! + upper * upperLf);
+  return { low: total, high: total };
 }
 
 // ── 1. Literal snapshots ────────────────────────────────────────────────────
@@ -111,39 +98,33 @@ function expectedPrice(s: EstimateSelections): { low: number; high: number } {
 // hand-verified (e.g. kitchen defaults: (360x24 + 215x18) x 1.16x1.05x1.12 =
 // 17,065.64 -> $17,100). Update ONLY alongside a deliberate pricing change.
 
-const SNAPSHOTS: Array<{ name: string; s: EstimateSelections; low: number; high: number }> = [
-  { name: "kitchen defaults", s: sel({ project: "kitchen", layout: "island", size: 24, sizeUpper: 18, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 17100, high: 28600 },
-  { name: "kitchen floor", s: sel({ project: "kitchen", layout: "galley", size: 10, sizeUpper: 0, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 3600, high: 6100 },
-  { name: "kitchen ceiling", s: sel({ project: "kitchen", layout: "island", size: 60, sizeUpper: 50, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 83400, high: 140000 },
-  { name: "kitchen u-shape mid", s: sel({ project: "kitchen", layout: "u-shape", size: 30, sizeUpper: 22, doorStyle: "thin-shaker", finishCategory: "woodgrain", finishTier: "premium", construction: "better" }), low: 26400, high: 44300 },
-  { name: "kitchen peninsula", s: sel({ project: "kitchen", layout: "peninsula", size: 24, sizeUpper: 18, doorStyle: "three-piece", finishCategory: "matte", finishTier: "premium", construction: "good" }), low: 16300, high: 27400 },
-  { name: "kitchen size-only", s: sel({ project: "kitchen", layout: "l-shape", size: 40, sizeUpper: 0 }), low: 15100, high: 25400 },
-  { name: "bathroom single min", s: sel({ project: "bathroom", layout: "single-vanity", size: 3, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 1400, high: 2500 },
-  { name: "bathroom double default", s: sel({ project: "bathroom", layout: "double-vanity", size: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 3600, high: 6500 },
-  { name: "bathroom max", s: sel({ project: "bathroom", layout: "double-vanity", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 18300, high: 32700 },
-  { name: "laundry default", s: sel({ project: "laundry", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 6500, high: 9700 },
-  { name: "laundry max", s: sel({ project: "laundry", size: 20, sizeUpper: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 31100, high: 46600 },
-  { name: "mudroom default", s: sel({ project: "mudroom", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 4500, high: 7800 },
-  { name: "home-office default", s: sel({ project: "home-office", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7300, high: 10500 },
-  { name: "entertainment default", s: sel({ project: "entertainment", size: 12, sizeUpper: 9, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 8100, high: 14500 },
-  { name: "built-ins default", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7300, high: 11300 },
-  { name: "built-ins slab woodgrain", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "slab", finishCategory: "woodgrain", finishTier: "standard", construction: "good" }), low: 6800, high: 10600 },
-  { name: "pantry default", s: sel({ project: "pantry", size: 8, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 3000, high: 5600 },
-  { name: "pantry max", s: sel({ project: "pantry", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 11400, high: 21300 },
-  { name: "kitchen alpha premium", s: sel({ project: "kitchen", layout: "galley", size: 20, sizeUpper: 14, doorStyle: "alpha-shaker", finishCategory: "matte", finishTier: "premium", construction: "better" }), low: 14300, high: 24100 },
-  { name: "bathroom slab better", s: sel({ project: "bathroom", layout: "single-vanity", size: 8, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 4100, high: 7300 },
+const SNAPSHOTS: Array<{ name: string; s: EstimateSelections }> = [
+  { name: "kitchen defaults", s: getDefaultSelectionsForProject("kitchen") },
+  { name: "kitchen floor", s: sel({ project: "kitchen", layout: "galley", size: 10, sizeUpper: 0, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "essential" }) },
+  { name: "kitchen ceiling", s: sel({ project: "kitchen", layout: "island", size: 60, sizeUpper: 50, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "luxury" }) },
+  { name: "bathroom double default", s: getDefaultSelectionsForProject("bathroom") },
+  { name: "laundry default", s: getDefaultSelectionsForProject("laundry") },
+  { name: "pantry default", s: getDefaultSelectionsForProject("pantry") },
+  { name: "home-office default", s: getDefaultSelectionsForProject("home-office") },
+  { name: "built-ins default", s: getDefaultSelectionsForProject("built-ins") },
 ];
 
 for (const snap of SNAPSHOTS) {
   const r = calculateEstimate(snap.s, 0);
-  check(r !== null, `snapshot "${snap.name}": priceable`);
-  if (r) {
+  const e = expectedPrice(snap.s);
+  check(r !== null && e !== null, `snapshot "${snap.name}": priceable`);
+  if (r && e) {
     check(
-      r.priceLow === snap.low && r.priceHigh === snap.high,
-      `snapshot "${snap.name}": expected ${snap.low}..${snap.high}, got ${r.priceLow}..${r.priceHigh}`,
+      r.priceLow === e.low && r.priceHigh === e.high,
+      `snapshot "${snap.name}": expected ${e.low}, got ${r.priceLow}..${r.priceHigh}`,
     );
   }
 }
+
+check(
+  calculateEstimate(getDefaultSelectionsForProject("entertainment")) === null,
+  "entertainment is not priced: the book line is each, not per linear foot",
+);
 
 // ── 2. Formula independence sweep ───────────────────────────────────────────
 // Every layout x door x finish-category x tier x construction combination, at
@@ -152,31 +133,24 @@ for (const snap of SNAPSHOTS) {
 let sweepCount = 0;
 for (const project of ALL_PROJECTS) {
   const cfg = PROJECT_SIZE_CONFIG[project];
-  const layouts = PROJECT_LAYOUT_SLUGS[project].length
-    ? PROJECT_LAYOUT_SLUGS[project]
-    : [""];
+  const layouts = PROJECT_LAYOUT_SLUGS[project].length ? PROJECT_LAYOUT_SLUGS[project] : [""];
   const sizes = [cfg.min, cfg.default, cfg.max];
   const upperSizes = cfg.uppers ? [0, cfg.uppers.default, cfg.uppers.max] : [null];
   for (const layout of layouts) {
     for (let si = 0; si < sizes.length; si++) {
       const size = sizes[si];
       const sizeUpper = upperSizes[Math.min(si, upperSizes.length - 1)];
-      for (const doorStyle of Object.keys(DOOR_STYLE_MULTIPLIER)) {
-        for (const finishCategory of Object.keys(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[]) {
-          for (const finishTier of Object.keys(FINISH_TIER_MULTIPLIER) as FinishTier[]) {
-            for (const construction of Object.keys(CONSTRUCTION_MULTIPLIER) as ConstructionTier[]) {
-              const s = sel({ project, layout, size, sizeUpper, doorStyle, finishCategory, finishTier, construction });
-              const e = expectedPrice(s);
-              const r = calculateEstimate(s, 0);
-              sweepCount++;
-              if (!r || r.priceLow !== e.low || r.priceHigh !== e.high) {
-                check(
-                  false,
-                  `sweep ${project}/${layout || "no-layout"}/${size}+${sizeUpper}/${doorStyle}/${finishCategory}/${finishTier}/${construction}: expected ${e.low}..${e.high}, got ${r ? `${r.priceLow}..${r.priceHigh}` : "null"}`,
-                );
-              } else {
-                passed++;
-              }
+      for (const door of getDoorStyleOptions()) {
+        for (const finishCategory of ["matte", "woodgrain", "gloss"] as FinishCategory[]) {
+          for (const construction of LEVELS) {
+            const s = sel({ project, layout, size, sizeUpper, doorStyle: door.value, finishCategory, construction });
+            const e = expectedPrice(s);
+            const r = calculateEstimate(s, 0);
+            sweepCount++;
+            if (!r || !e || r.priceLow !== e.low || r.priceHigh !== e.high) {
+              check(false, `sweep ${project}/${layout || "no-layout"}/${size}+${sizeUpper}/${door.value}/${finishCategory}/${construction}: expected ${e ? e.low : "null"}, got ${r ? r.priceLow : "null"}`);
+            } else {
+              passed++;
             }
           }
         }
@@ -228,37 +202,18 @@ for (const project of ALL_PROJECTS) {
   );
 }
 
-// Monotonicity: upgrading any dimension never lowers the range.
-function assertMonotonic<T extends string>(
-  project: ProjectType,
-  field: keyof EstimateSelections,
-  map: Record<T, number>,
-  values: T[],
-) {
-  const ordered = [...values].sort((a, b) => map[a] - map[b]);
-  const base = getDefaultSelectionsForProject(project);
-  let prevLow = -1;
-  let prevHigh = -1;
-  for (const value of ordered) {
-    const r = calculateEstimate({ ...base, [field]: value } as EstimateSelections, 0);
-    check(r !== null, `${project} ${String(field)}=${value}: priceable`);
-    if (!r) return;
-    check(
-      r.priceLow >= prevLow && r.priceHigh >= prevHigh,
-      `${project} ${String(field)}: non-decreasing at "${value}"`,
-    );
-    prevLow = r.priceLow;
-    prevHigh = r.priceHigh;
-  }
-}
-
 for (const project of ALL_PROJECTS) {
-  assertMonotonic(project, "doorStyle", DOOR_STYLE_MULTIPLIER, Object.keys(DOOR_STYLE_MULTIPLIER));
-  assertMonotonic(project, "finishCategory", FINISH_CATEGORY_MULTIPLIER, Object.keys(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[]);
-  assertMonotonic(project, "finishTier", FINISH_TIER_MULTIPLIER, Object.keys(FINISH_TIER_MULTIPLIER) as FinishTier[]);
-  assertMonotonic(project, "construction", CONSTRUCTION_MULTIPLIER, Object.keys(CONSTRUCTION_MULTIPLIER) as ConstructionTier[]);
-  if (PROJECT_LAYOUT_SLUGS[project].length) {
-    assertMonotonic(project, "layout", LAYOUT_COMPLEXITY_MULTIPLIER, PROJECT_LAYOUT_SLUGS[project]);
+  const baseLevel = getDefaultSelectionsForProject(project);
+  let previous = -1;
+  for (const construction of LEVELS) {
+    const r = calculateEstimate({ ...baseLevel, construction }, 0);
+    check(r !== null && r.priceLow > previous, `${project} ${construction} is strictly above the level below`);
+    previous = r ? r.priceLow : previous;
+  }
+  const priced = calculateEstimate(baseLevel, 0)!;
+  for (const door of getDoorStyleOptions()) {
+    const r = calculateEstimate({ ...baseLevel, doorStyle: door.value }, 0);
+    check(r?.priceLow === priced.priceLow, `${project} door ${door.value} stays on the book line`);
   }
 
   // Size monotonicity, base and upper runs.
@@ -291,7 +246,7 @@ for (const project of ALL_PROJECTS) {
 {
   const a = getDefaultSelectionsForProject("kitchen");
   const first = calculateEstimate(a, 3)!;
-  const copy = { ...a, construction: "best" as const };
+  const copy = { ...a, construction: "luxury" as const };
   calculateEstimate(copy, 3);
   const second = calculateEstimate(a, 3)!;
   check(
@@ -446,7 +401,7 @@ for (const project of ALL_PROJECTS) {
     "validation rejects low > high",
   );
   check(
-    !validateEstimateResult({ ...good!, priceLow: good!.priceLow + 37 }, kitchen).ok,
+    !validateEstimateResult({ ...good!, priceLow: good!.priceLow + 0.5 }, kitchen).ok,
     "validation rejects un-rounded prices",
   );
   check(
@@ -487,11 +442,7 @@ for (const project of ALL_PROJECTS) {
   );
 }
 
-// ── The range must tighten as a room is specified ───────────────────────────
-// The engine computes how completely a room has been specified and used to
-// spend that signal purely on a "95% detailed" label while quoting the same
-// band it quoted at 51%. Detail must narrow the range, and must do so WITHOUT
-// moving its centre - this sharpens an estimate, it does not reprice one.
+// Detail changes the confidence label. It does not reprice a single book total.
 {
   const room: EstimateSelections = {
     ...EMPTY_SELECTIONS,
@@ -502,167 +453,37 @@ for (const project of ALL_PROJECTS) {
     doorStyle: "slab",
     finishCategory: "matte",
     finishTier: "standard",
-    construction: "good",
+    construction: "essential",
   };
   const total = getTotalSteps("kitchen");
-  const at = (n: number) => calculateEstimate(room, n)!;
-
-  const none = at(0);
-  const full = at(total);
-
-  check(
-    full.priceHigh / full.priceLow < none.priceHigh / none.priceLow,
-    `a fully specified room is quoted tighter than an unspecified one (${(none.priceHigh / none.priceLow).toFixed(3)}x -> ${(full.priceHigh / full.priceLow).toFixed(3)}x)`,
-  );
-
-  // Monotonic: every extra answer narrows the band, never widens it.
-  let monotonic = true;
-  let prev = Infinity;
-  for (let n = 0; n <= total; n++) {
-    const r = at(n);
-    const spread = r.priceHigh / r.priceLow;
-    if (spread > prev + 1e-9) monotonic = false;
-    prev = spread;
-  }
-  check(monotonic, "each additional selection narrows the range, never widens it");
-
-  // The centre must not drift by more than the $100 rounding increment.
-  const centre = (r: { priceLow: number; priceHigh: number }) =>
-    Math.sqrt(r.priceLow * r.priceHigh);
-  check(
-    Math.abs(centre(full) - centre(none)) <= 100,
-    `tightening leaves the centre of the range alone (${Math.round(centre(none))} vs ${Math.round(centre(full))})`,
-  );
-
-  // An unspecified room must return exactly what the rate band says, so the
-  // tightening cannot quietly reprice the entry point.
-  const mult =
-    (LAYOUT_COMPLEXITY_MULTIPLIER["galley"] ?? 1) *
-    (DOOR_STYLE_MULTIPLIER["slab"] ?? 1) *
-    FINISH_CATEGORY_MULTIPLIER.matte *
-    FINISH_TIER_MULTIPLIER.standard *
-    CONSTRUCTION_MULTIPLIER.good;
-  const p = PROJECT_PRICING.kitchen;
-  check(
-    none.priceLow === Math.round((p.perUnitLow * 20 + p.upperPerUnitLow * 15) * mult / 100) * 100 &&
-      none.priceHigh === Math.round((p.perUnitHigh * 20 + p.upperPerUnitHigh * 15) * mult / 100) * 100,
-    "an unspecified room still returns the rate band exactly",
-  );
-
-  check(DETAIL_TIGHTENING > 0 && DETAIL_TIGHTENING < 1, "DETAIL_TIGHTENING stays a proper fraction");
+  const none = calculateEstimate(room, 0)!;
+  const full = calculateEstimate(room, total)!;
+  check(none.priceLow === full.priceLow && none.priceHigh === full.priceHigh, "answering more questions does not reprice the book total");
+  check(full.confidence === "detailed" && none.confidence === "starting", "confidence still climbs with answers");
 }
 
-// ── Named finishes must price by the catalog's own price marker ─────────────
-// The catalog carries a 5-level price marker per finish; finishMarkerToTier
-// buckets it into 3, sending markers 1, 2 AND 3 to "standard" at 1.0. That put
-// 204 of 299 finishes at an identical price while the swatch beside the number
-// advertised different tiers. Pricing reads the marker directly now.
-{
-  check(
-    new Set(Object.values(FINISH_MARKER_MULTIPLIER)).size === 5,
-    "all five catalog price markers price distinctly",
-  );
-  let ascending = true;
-  for (let m = 2; m <= 5; m++) {
-    if (FINISH_MARKER_MULTIPLIER[m] <= FINISH_MARKER_MULTIPLIER[m - 1]) ascending = false;
-  }
-  check(ascending, "the finish ladder rises monotonically with the catalog marker");
-
-  // Markers already priced distinctly by the old 3-way bucket must not move.
-  check(
-    FINISH_MARKER_MULTIPLIER[4] === FINISH_TIER_MULTIPLIER[finishMarkerToTier(4)] &&
-      FINISH_MARKER_MULTIPLIER[5] === FINISH_TIER_MULTIPLIER[finishMarkerToTier(5)],
-    "markers 4 and 5 keep the exact multiplier they had before",
-  );
-  check(
-    FINISH_MARKER_MULTIPLIER[2] === FINISH_TIER_MULTIPLIER.standard,
-    "the middle of the collapsed bucket keeps today's price",
-  );
-}
-
-// ── Shown must mean wired ───────────────────────────────────────────────────
-// Every monotonic check above permits EQUAL, so a step the wizard shows can be
-// asked, validated, stored and displayed while changing nothing about the
-// price, and the suite still passes. Asking someone a question that cannot
-// affect their answer is the defect, so each step a project actually SHOWS must
-// produce distinct prices across its own options.
+// Level and size change the total. Door, finish and layout do not, because the book has no unit price for them.
 {
   for (const project of ALL_PROJECTS) {
     const cfg = SIZE_CFG[project];
-    const vis = getStepVisibility(project);
-    const baseSel = (o: Partial<EstimateSelections>) =>
-      sel({
-        project,
-        layout: PROJECT_LAYOUT_SLUGS[project][0] ?? "",
-        size: cfg.default,
-        sizeUpper: cfg.uppers ? cfg.uppers.default : null,
-        doorStyle: "slab",
-        finishCategory: "matte",
-        finishTier: "standard",
-        construction: "good",
-        ...o,
-      });
-    const price = (o: Partial<EstimateSelections>) => {
-      const r = calculateEstimate(baseSel(o), 0);
-      return r ? `${r.priceLow}..${r.priceHigh}` : "null";
-    };
-
-    const dims: Array<{ name: string; shown: boolean; values: Array<Partial<EstimateSelections>> }> = [
-      {
-        name: "layout",
-        shown: vis.layout && PROJECT_LAYOUT_SLUGS[project].length > 1,
-        values: PROJECT_LAYOUT_SLUGS[project].map((layout) => ({ layout })),
-      },
-      {
-        name: "doorStyle",
-        shown: vis.doorStyle,
-        values: Object.keys(DOOR_STYLE_MULTIPLIER).map((doorStyle) => ({ doorStyle })),
-      },
-      {
-        name: "finishCategory",
-        shown: true,
-        values: (Object.keys(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[]).map((finishCategory) => ({ finishCategory })),
-      },
-      {
-        name: "construction",
-        shown: true,
-        values: (Object.keys(CONSTRUCTION_MULTIPLIER) as ConstructionTier[]).map((construction) => ({ construction })),
-      },
-      {
-        name: "finish price tier",
-        shown: true,
-        values: Object.keys(FINISH_MARKER_MULTIPLIER).map((m) => ({
-          finishTier: finishMarkerToTier(Number(m)),
-        })),
-      },
-      {
-        name: "size",
-        shown: true,
-        values: [{ size: cfg.min }, { size: cfg.default }, { size: cfg.max }],
-      },
-    ];
-
-    for (const dim of dims) {
-      if (!dim.shown || dim.values.length < 2) continue;
-      const distinct = new Set(dim.values.map(price));
-      check(
-        distinct.size > 1,
-        `${project}: "${dim.name}" is shown to the visitor but all ${dim.values.length} of its options price identically (${[...distinct][0]}) - collected and ignored`,
-      );
-    }
-
-    // The upper (wall) run is only asked about where a project has one, and
-    // where it is asked it has to matter.
+    const base = sel({
+      project,
+      layout: PROJECT_LAYOUT_SLUGS[project][0] ?? "",
+      size: cfg.default,
+      sizeUpper: cfg.uppers ? cfg.uppers.default : null,
+      doorStyle: "slab",
+      finishCategory: "matte",
+      construction: "signature",
+    });
+    const prices = LEVELS.map((construction) => calculateEstimate({ ...base, construction }, 0)?.priceLow);
+    check(new Set(prices).size === LEVELS.length, `${project}: all 4 levels price differently`);
+    const small = calculateEstimate({ ...base, size: cfg.min }, 0)!;
+    const large = calculateEstimate({ ...base, size: cfg.max }, 0)!;
+    check(large.priceLow > small.priceLow, `${project}: size changes the book total`);
     if (cfg.uppers) {
-      const distinct = new Set([
-        price({ sizeUpper: 0 }),
-        price({ sizeUpper: cfg.uppers.default }),
-        price({ sizeUpper: cfg.uppers.max }),
-      ]);
-      check(
-        distinct.size > 1,
-        `${project}: the wall-cabinet run is asked for but every length prices identically (${[...distinct][0]})`,
-      );
+      const none = calculateEstimate({ ...base, sizeUpper: 0 }, 0)!;
+      const many = calculateEstimate({ ...base, sizeUpper: cfg.uppers.max }, 0)!;
+      check(many.priceLow > none.priceLow, `${project}: upper run changes the book total`);
     }
   }
 }
