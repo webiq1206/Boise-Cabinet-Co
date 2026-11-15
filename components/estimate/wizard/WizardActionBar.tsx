@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { requestHideMobileNavBar } from "@/lib/mobileNavBar";
 import { useKeyboardInset } from "./useKeyboardInset";
+import { reservePageClearance, type PageClearanceLease } from "@/lib/estimate/pageClearance";
 
 export interface WizardActionBarProps {
   onBack?: () => void;
@@ -124,18 +125,21 @@ export function WizardActionBar({
     return requestHideMobileNavBar();
   }, [ownsBottomEdge, docked]);
 
-  // Reserve clearance under the docked bar (C7): while it is fixed to the
-  // bottom edge, the end of the page (reassurance copy, the planning-range
-  // disclosure, the registration line) gets the bar's height as bottom padding
-  // so it can scroll clear of the bar instead of sitting underneath it.
+  // Keep end-page geometry stable for the whole pinned flow. Releasing a
+  // dock must not lower max scroll while a visitor is pressing its next action.
+  const clearanceLease = useRef<PageClearanceLease | null>(null);
   useEffect(() => {
-    if (!docked) return;
-    const root = document.documentElement;
-    root.style.setProperty("--wizard-bar-clearance", `${barHeight}px`);
+    if (!pinned) return;
+    const lease = reservePageClearance();
+    clearanceLease.current = lease;
     return () => {
-      root.style.removeProperty("--wizard-bar-clearance");
+      if (clearanceLease.current === lease) clearanceLease.current = null;
+      lease.release();
     };
-  }, [docked, barHeight]);
+  }, [pinned]);
+  useEffect(() => {
+    if (pinned) clearanceLease.current?.update(barHeight);
+  }, [pinned, barHeight]);
 
   useEffect(() => {
     if (!pinned) return;
