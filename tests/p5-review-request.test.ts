@@ -1,7 +1,7 @@
 import test from 'node:test';
 import type {IntakeRow} from '../lib/p5/intakeStore.ts';
 import assert from 'node:assert/strict';
-import {PGlite} from '@electric-sql/pglite';
+import {isolatedDatabase} from './fixtures/p5-pglite.ts';
 import {projectReviewHandler,reviewContact} from '../lib/p5/reviewRequest.ts';
 import {ESTIMATOR_BRAND} from '../lib/p5/brand.ts';
 
@@ -14,7 +14,7 @@ test('human review requires a name and at least one valid contact method',()=>{
 });
 
 test('review request saves its scope and contact once, without duplicate notifications',async()=>{
-  const db=new PGlite();await db.exec('CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb)');let sends=0;
+  const db=await isolatedDatabase();await db.exec('CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb)');let sends=0;
   const id='12345678-1234-4234-8234-123456789abc';const key='a'.repeat(64);
   await db.exec(`CREATE TABLE p5_estimator_drafts(id uuid PRIMARY KEY,revision integer,status text);INSERT INTO p5_estimator_drafts VALUES('${id}',3,'draft')`);
   const draft={id,brand:ESTIMATOR_BRAND.id,revision:3,status:'draft' as const,updatedAt:new Date().toISOString(),text:'Repair two drywall holes',answers:{service:'handyman'},extraction:null,reviewed:null,uploads:[],contact:{name:'Original',email:'',phone:''}};
@@ -38,7 +38,7 @@ test('review request saves its scope and contact once, without duplicate notific
 });
 
 test('notification failure never masquerades as a notified team',async()=>{
-  const db=new PGlite();await db.exec('CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb)');let attempts=0;
+  const db=await isolatedDatabase();await db.exec('CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb)');let attempts=0;
   await db.exec("CREATE TABLE p5_estimator_drafts(id uuid PRIMARY KEY,revision integer,status text);INSERT INTO p5_estimator_drafts VALUES('12345678-1234-4234-8234-123456789abc',1,'draft')");
   const handler=projectReviewHandler({
     readDraft:async()=>({id:'12345678-1234-4234-8234-123456789abc',brand:ESTIMATOR_BRAND.id,revision:1,status:'draft' as const,updatedAt:'',text:'Test scope',answers:{},extraction:null,reviewed:null,uploads:[],contact:{name:'Test',email:'',phone:''}}),
@@ -50,7 +50,7 @@ test('notification failure never masquerades as a notified team',async()=>{
 });
 
 test('a stale review request racing a transfer freeze creates no request or notification',async()=>{
-  const db=new PGlite();const id='12345678-1234-4234-8234-123456789abc';let sends=0;
+  const db=await isolatedDatabase();const id='12345678-1234-4234-8234-123456789abc';let sends=0;
   await db.exec(`CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb);CREATE TABLE p5_estimator_drafts(id uuid PRIMARY KEY,revision integer,status text);INSERT INTO p5_estimator_drafts VALUES('${id}',1,'intake-transferring')`);
   const handler=projectReviewHandler({readDraft:async()=>({id,brand:ESTIMATOR_BRAND.id,revision:1,status:'draft',updatedAt:'',text:'[QA] Fictional scope',answers:{},extraction:null,reviewed:null,uploads:[],contact:{name:'[QA] Fictional',email:'',phone:''}}),
     query:async(sql,values=[])=> (await db.query(sql,values)).rows as IntakeRow[],adminRecipients:async()=>['team@example.invalid'],sendEmail:async()=>{sends++;return 'unexpected';}});
@@ -61,7 +61,7 @@ test('a stale review request racing a transfer freeze creates no request or noti
 });
 
 test('a saved review request interrupted before its send claim is recovered once',async()=>{
- const db=new PGlite(),id='12345678-1234-4234-8234-123456789abc';let interrupted=true,sends=0;
+ const db=await isolatedDatabase(),id='12345678-1234-4234-8234-123456789abc';let interrupted=true,sends=0;
  await db.exec(`CREATE TABLE p5_estimator_work(draft_id uuid,work_key text,payload jsonb);CREATE TABLE p5_estimator_drafts(id uuid PRIMARY KEY,revision integer,status text);INSERT INTO p5_estimator_drafts VALUES('${id}',1,'draft')`);
  const handler=projectReviewHandler({readDraft:async()=>({id,brand:ESTIMATOR_BRAND.id,revision:1,status:'draft',updatedAt:'',text:'[QA] Fictional retained scope',answers:{},extraction:null,reviewed:null,uploads:[],contact:{name:'[QA] Fictional',email:'',phone:''}}),
   query:async(sql,values=[])=>{const rows=(await db.query(sql,values)).rows as IntakeRow[];if(interrupted&&sql.includes('INSERT INTO p5_estimator_review_requests')){interrupted=false;throw new Error('synthetic interruption after durable save');}return rows;},adminRecipients:async()=>['team@example.invalid'],sendEmail:async()=>{sends++;return 'synthetic-message';}});

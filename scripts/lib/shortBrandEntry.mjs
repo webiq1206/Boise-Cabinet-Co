@@ -11,8 +11,14 @@ async function clearAction(button) {
 /** Current public forms; callers block business APIs. Never press final Send. */
 export async function verifyCabinetEntry(page,path='/estimate') {
  if(path==='/') {
-  await page.locator('a[href="/estimate"]:visible').first().click();
-  await page.waitForURL(url=>url.pathname==='/estimate');
+  const estimateLink=page.locator('a[href="/estimate"]:visible').first();
+  await estimateLink.click();
+  try {
+   await page.waitForURL(url=>url.pathname==='/estimate',{timeout:15000});
+  } catch {
+   await estimateLink.click();
+   await page.waitForURL(url=>url.pathname==='/estimate');
+  }
  }
  const form=page.locator('[data-c10-estimate-quote]');
  await form.getByLabel('Name',{exact:true}).waitFor();
