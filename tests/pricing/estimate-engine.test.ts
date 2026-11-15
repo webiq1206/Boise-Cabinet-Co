@@ -36,11 +36,12 @@ import {
   getDefaultSelectionsForProject,
   getDoorStyleOptions,
   roomSelectionsMade,
-  wizardUnitRate,
+  cabinetCustomerRange,
   LEVEL_TO_BOOK,
   type EstimateSelections,
   type ProjectType,
   type FinishCategory,
+  type ConstructionTier,
 } from "../../shared/estimateEngine";
 import { buildEstimateRecord } from "../../shared/estimateRecord";
 import {
@@ -77,20 +78,16 @@ function sel(
   return { ...EMPTY_SELECTIONS, ...s };
 }
 
-/** Independent total: shared book unit rates times the linear feet, nearest dollar. */
+/** Customer range from the shared estimator, not the direct book rate. */
 function expectedPrice(s: EstimateSelections): { low: number; high: number } | null {
   const project = s.project as ProjectType;
   const lines = PROJECT_BOOK_LINES[project];
   const level = (s.construction || "essential") as ConstructionTier;
   if (!lines.base || !(level in LEVEL_TO_BOOK)) return null;
-  const base = wizardUnitRate(lines.base, level);
-  if (base == null) return null;
   const cfg = PROJECT_SIZE_CONFIG[project];
-  const upperLf = cfg.uppers && lines.upper ? (s.sizeUpper ?? 0) : 0;
-  const upper = lines.upper && cfg.uppers ? wizardUnitRate(lines.upper, level) : 0;
-  if (upper == null) return null;
-  const total = Math.round(base * s.size! + upper * upperLf);
-  return { low: total, high: total };
+  const parts = [{ code: lines.base, quantity: s.size! }];
+  if (cfg.uppers && lines.upper && (s.sizeUpper ?? 0) > 0) parts.push({ code: lines.upper, quantity: s.sizeUpper ?? 0 });
+  return cabinetCustomerRange(parts, level);
 }
 
 // ── 1. Literal snapshots ────────────────────────────────────────────────────

@@ -6,13 +6,21 @@ import { getDoorStyleImages, getFinishImages } from "./catalog/entityImagePaths"
 import { getFinishesForDoorStyle } from "./catalog/finishCompatibility";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
 import { sharedBookRate, type FinishTier as BookFinishTier } from "../lib/p5/priceBook.ts";
+import {
+  COST_CATEGORIES,
+  DEFAULT_FINANCE,
+  calculateP5Estimate,
+  customerEstimate,
+  type DirectCostLine,
+} from "../lib/p5/pricing.ts";
 
 /**
  * Cabinet-specific Project Estimator engine.
  *
- * Prices come only from the shared cost book (`sharedBookRate` in
- * `lib/p5/priceBook.ts`). Each room line maps to a book code, and the four
- * levels Essential, Signature, Premium and Luxury read the book's four columns.
+ * Direct costs come from the shared cost book (`sharedBookRate`). The number
+ * a visitor sees is the customer planning range from `calculateP5Estimate`:
+ * the same overhead, profit, reserve, band and rounding the shared estimator
+ * uses. Book rates are never shown.
  * Door style, finish and layout stay on the scope summary. They have no unit
  * price in the book, so they do not change the total.
  *
@@ -158,10 +166,72 @@ export function normalizeConstruction(value: string | null | undefined): Constru
   return LEGACY_LEVEL[value] ?? "";
 }
 
-/** One installed linear-foot rate from the shared book, or null when the code is not a unit price. */
+/** Direct unit cost from the shared book, or null when the code is not a unit price. Never display this. */
 export function wizardUnitRate(code: string, level: ConstructionTier): number | null {
   const rate = sharedBookRate(code, LEVEL_TO_BOOK[level], false);
   return rate && Number.isFinite(rate.amount) ? rate.amount : null;
+}
+
+const BOOK_EVIDENCE_DATES = { verifiedAt: "2026-09-11", validUntil: "2027-09-11" };
+
+/**
+ * Customer planning range for book lines. Quantity times the direct rate goes
+ * into calculateP5Estimate. This function does not apply its own markup.
+ */
+export function cabinetCustomerRange(
+  parts: { code: string; quantity: number }[],
+  level: ConstructionTier,
+): { low: number; high: number } | null {
+  if (!parts.length || parts.some((part) => !(part.quantity > 0))) return null;
+  const lines: DirectCostLine[] = [];
+  for (const [index, part] of parts.entries()) {
+    const rate = sharedBookRate(part.code, LEVEL_TO_BOOK[level], false);
+    if (!rate) return null;
+    lines.push({
+      id: `cabinet-${index + 1}`,
+      category: "subcontractors",
+      description: "Installed cabinetry",
+      quantity: part.quantity,
+      unit: rate.unit,
+      unitCost: rate.amount,
+      quantitySource: `Wizard quantity: ${part.quantity} ${rate.unit}`,
+      priceBasis: "direct-cost",
+      estimatingBasis: "owner-average-cost",
+      evidence: {
+        basis: "owner-estimating-schedule",
+        reference: `${rate.code} shared cost book`,
+        ...BOOK_EVIDENCE_DATES,
+      },
+    });
+  }
+  const coverage = COST_CATEGORIES.map((category) => ({
+    category,
+    status: (category === "subcontractors" ? "included" : "not-applicable") as "included" | "not-applicable",
+    reason: category === "subcontractors"
+      ? "Installed cabinetry priced from the shared cost book."
+      : "Not part of this cabinet planning total.",
+  }));
+  const estimate = calculateP5Estimate(
+    {
+      estimatePurpose: "preliminary",
+      bookPriced: true,
+      service: "cabinet-install",
+      revision: "cabinet-wizard",
+      scopeSummary: "Cabinet planning range",
+      lines,
+      coverage,
+      risks: [],
+      assumptions: [],
+      exclusions: [],
+      missingInformation: [],
+      allowances: [],
+      uncertainty: "medium",
+      locationProvided: false,
+    },
+    DEFAULT_FINANCE,
+  );
+  const customer = customerEstimate(estimate, "Cabinet planning range");
+  return customer.range;
 }
 
 export interface ProjectSizeConfig {
@@ -786,19 +856,18 @@ export function calculateEstimate(
   const cfg = PROJECT_SIZE_CONFIG[project];
   const level = sel.construction || "essential";
   if (!lines.base) return null;
-  const baseRate = wizardUnitRate(lines.base, level);
-  if (baseRate == null) return null;
-  const upperLF = cfg.uppers && lines.upper ? (sel.sizeUpper ?? 0) : 0;
-  const upperRate = lines.upper && cfg.uppers ? wizardUnitRate(lines.upper, level) : 0;
-  if (upperRate == null) return null;
-  const totalDollars = roundPrice(baseRate * sel.size! + upperRate * upperLF);
+  const parts = [{ code: lines.base, quantity: sel.size! }];
+  if (lines.upper && cfg.uppers) parts.push({ code: lines.upper, quantity: sel.sizeUpper ?? 0 });
+  const pricedParts = parts.filter((part) => part.quantity > 0);
+  const range = cabinetCustomerRange(pricedParts, level);
+  if (!range) return null;
 
   const total = getTotalSteps(project);
   const { level: confidenceLevel, percent } = getConfidence(selectionsMade, total);
 
   return {
-    priceLow: totalDollars,
-    priceHigh: totalDollars,
+    priceLow: range.low,
+    priceHigh: range.high,
     roi: PROJECT_ROI[project],
     included: buildIncluded(sel),
     confidence: confidenceLevel,

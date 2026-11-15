@@ -48,8 +48,7 @@ for (const project of projects) {
 
   const result = priced(base, total);
   assert(result.priceLow > 0, `${project}: priceLow is positive`);
-  assert(result.priceHigh >= result.priceLow, `${project}: priceHigh is at least priceLow`);
-  assert(result.priceLow === result.priceHigh, `${project}: one cost-book total, not a local band`);
+  assert(result.priceHigh > result.priceLow, `${project}: the shared engine returns a customer range`);
   assert(result.roi > 0 && result.roi <= 100, `${project}: roi within (0, 100]`);
   assert(result.priceLow >= 1000, `${project}: priceLow is a realistic planning figure`);
   assert(result.included.length > 0, `${project}: included scope is populated`);
