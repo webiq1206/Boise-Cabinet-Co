@@ -17,6 +17,7 @@ export const ESTIMATOR_BRAND = {
   "defaultService": "",
   "email": "hello@boisecabinet.co",
   "phone": "(208) 477-1169",
+  "cityLine": "Meridian, ID 83646",
   "ink": BRAND_CHARCOAL,
   "paper": "#FBFAF6",
   "logo": "/brand/png/wordmark/light/boise-cabinet-co-wordmark-charcoal-accent-1200w.png",
