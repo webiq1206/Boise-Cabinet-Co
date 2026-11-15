@@ -26,7 +26,7 @@ process.env.P5_LINK_SECRET = "synthetic-link-secret-for-render-only";
 const LOGO = `https://${ESTIMATOR_BRAND.domain}${ESTIMATOR_BRAND.logo}`;
 const PUBLISHED = {
   "lib/p5/emailKit.ts": "204a6c1fa6d6defa83738b26ac380ea78e209743cf4741764403c227baec0533",
-  "lib/p5/estimateEmail.ts": "427726b793820157130c2125876d9b7898183c333657173ff184b657a89ef4c9",
+  "lib/p5/estimateEmail.ts": "1c70c92dfa1c66ce77c0b451714b7c3d345c32e7aae43364f5e267d2f7ad5588",
   "lib/p5/intakeEmail.ts": "4373fab340c99c81f5cf6ca6ac32ba11705147b0036a05b2e285f78821aeaa61",
   "lib/p5/outbox.ts": "935e1ea1923f4de3af864de8fa944414fec4906dde93a19d1940d84547cf807d",
   "lib/p5/reviewRequest.ts": "02f86aa1a48a05e7a8f6ffc6cd7a64da2e30ac9e870febb52ce26c3ef0777a22",
