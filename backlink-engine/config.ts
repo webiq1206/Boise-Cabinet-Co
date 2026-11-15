@@ -11,8 +11,8 @@ export const SITE = {
   name: "Boise Cabinet Co",
   domain: "boisecabinet.co",
   phone: "(208) 477-1169",
+  // Public locality only. Citations use Meridian, ID 83646 and never a street.
   address: {
-    street: "4031 W Wapoot St",
     city: "Meridian",
     region: "ID",
     postalCode: "83646",
@@ -86,7 +86,7 @@ export const THRESHOLDS = {
 
 /**
  * PLATFORM / CDN / hosting footprints. A link from these is not an editorial
- * endorsement — it's a scraper, a hosting artifact, or a free-subdomain page.
+ * endorsement. It is a scraper, a hosting artifact, or a free-subdomain page.
  * Always disqualified regardless of DR.
  */
 export const PLATFORM_DENYLIST = [

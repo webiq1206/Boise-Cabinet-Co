@@ -27,7 +27,6 @@ export function prepareSubmission(opp: Opportunity): SubmissionPrep {
       businessName: SITE.name,
       website: `https://${SITE.domain}`,
       phone: SITE.phone,
-      street: SITE.address.street,
       city: SITE.address.city,
       region: SITE.address.region,
       postalCode: SITE.address.postalCode,
@@ -38,7 +37,7 @@ export function prepareSubmission(opp: Opportunity): SubmissionPrep {
     },
     steps: [
       `Open ${opp.domain} and find its add/claim-a-business flow.`,
-      "Enter the NAP payload verbatim — identical name, phone, and address everywhere is what builds citation trust.",
+      "Enter the NAP payload verbatim. Use the same name, phone, and locality everywhere. That consistency is what builds citation trust.",
       "Add website, categories, and service area; upload logo/photos if supported.",
     ],
     compliance:

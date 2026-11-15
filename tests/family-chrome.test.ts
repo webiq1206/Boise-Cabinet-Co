@@ -23,6 +23,7 @@ import { CONTENT_HUBS, guidePath } from '../shared/contentHubs.ts';
 import { CTA_INSTANT_ESTIMATE, CTA_INSTANT_ESTIMATE_SHORT, CTA_QUOTE_HREF, CTA_REQUEST_QUOTE, INSTANT_ESTIMATE_HREF } from '../shared/ctaCopy.ts';
 import { GUIDE_PAGES } from '../shared/guideContent.ts';
 import { SITE_CONFIG } from '../shared/siteConfig.ts';
+import { retiredStreetName } from './retiredStreet.ts';
 
 (globalThis as typeof globalThis & { React: typeof React }).React = React;
 
@@ -130,7 +131,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.match(html, /<span class="fam-footer-current" aria-current="true">Boise Cabinet Co<\/span>/);
   assert.equal(/rel="noopener noreferrer">(P5 Home Co|Boise)/.test(html), false);
   assert.equal(html.includes('Boise ADU Co'), false);
-  assert.equal(/Public representative|Wapoot|staffed storefront/.test(html), false);
+  assert.equal(new RegExp(`Public representative|${retiredStreetName()}|staffed storefront`, 'i').test(html), false);
   assert.ok(html.includes('Mon–Fri 9 AM–6 PM, Sat 9 AM–4 PM (Mountain).'));
   assert.match(html, /mailto:hello@boisecabinet\.co/);
   assert.match(html, /href="sms:\+12084771169"/);
