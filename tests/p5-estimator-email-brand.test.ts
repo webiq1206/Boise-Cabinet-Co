@@ -28,7 +28,7 @@ const PUBLISHED = {
   "lib/p5/emailKit.ts": "1d37f803382b44cded12989a52f85b99e4d1e759dcc8e12ea68579e28cf84c77",
   "lib/p5/estimateEmail.ts": "370c1493139afbf3e4cb7c85cd4db340215e3ae38e14ff74a4589a6f311df51e",
   "lib/p5/intakeEmail.ts": "4373fab340c99c81f5cf6ca6ac32ba11705147b0036a05b2e285f78821aeaa61",
-  "lib/p5/outbox.ts": "b2fe3542c9a44ef4b8be7e8827e62aa06d497f8d7eb64af2366309d730a8f1e7",
+  "lib/p5/outbox.ts": "935e1ea1923f4de3af864de8fa944414fec4906dde93a19d1940d84547cf807d",
   "lib/p5/reviewRequest.ts": "02f86aa1a48a05e7a8f6ffc6cd7a64da2e30ac9e870febb52ce26c3ef0777a22",
   "lib/p5/phoneHref.ts": "acb0d1322aac2b4fbf97f007614107adf3b648612b41b867188c5260c26c0249",
 } as const;
