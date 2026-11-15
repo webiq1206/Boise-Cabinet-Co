@@ -1,5 +1,6 @@
 import type { ServiceData, CityData } from './contentData';
 import { getCountyLabel } from './contentData';
+import { REGISTERED_INSURED } from './claims';
 
 export interface FAQItem {
   question: string;
@@ -282,7 +283,7 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   {
     question: 'Are you a registered contractor and insured?',
     answer:
-      'Yes. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.',
+      `Yes. ${REGISTERED_INSURED}.`,
   },
   {
     question: 'How do I start a cabinet project?',

@@ -30,7 +30,7 @@ export function showTestimonials(
  * A 2020 years-in-business claim stays in source. It renders only when this
  * value is exactly "true". Unset, empty, or any other string stays hidden.
  * NEXT_PUBLIC_ is read as well so client bundles follow the same switch.
- * Idaho SOS shows P5 Home Co. LLC filed 09/25/2025, so nothing backs 2020.
+ * Idaho SOS shows the LLC filed 09/25/2025, so nothing backs 2020.
  */
 export { showFoundingYear } from "./claims";
 
@@ -83,6 +83,7 @@ export const SITE_CONFIG = {
   address: {
     city: "Meridian",
     state: "ID",
+    postalCode: "83646",
     country: "United States",
     region: "Treasure Valley",
   },

@@ -42,7 +42,7 @@ test("license number defaults to 8381215 and schema uses hasCredential", () => {
 
 test("sitemap pages get a visible registration line, and estimate stays plain text", () => {
   const footer = renderFooter();
-  assert.equal((footer.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
+  assert.equal((footer.match(/>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.match(footer, /https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch/);
   assert.match(footer, /target="_blank"/);
   assert.match(footer, /rel="noopener noreferrer"/);
@@ -87,7 +87,7 @@ test("brand license claims use Idaho registration wording", () => {
   }
   const faqs = readFileSync("shared/seoContent.ts", "utf8");
   assert.match(faqs, /Are you a registered contractor and insured\?/);
-  assert.match(faqs, /P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request/);
+  assert.match(faqs, /\$\{REGISTERED_INSURED\}/);
   const about = readFileSync("app/about/page.tsx", "utf8");
   assert.match(about, /Is \$\{SITE_CONFIG.name\} a registered contractor and insured\?/);
   assert.match(about, /REGISTERED_INSURED|CABINET_WORKMANSHIP_WARRANTY/);

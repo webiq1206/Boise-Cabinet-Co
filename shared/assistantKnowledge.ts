@@ -1,5 +1,5 @@
 import { preferToTextLine, SITE_CONFIG } from "./siteConfig";
-import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, SUBCONTRACTOR_HELP_LINE } from "./claims";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, FINAL_COMPLETION_EXPLAINED, PARENT_PUBLIC_NAME, SUBCONTRACTOR_HELP_LINE } from "./claims";
 import { CATALOG_CONTENT } from "./catalog";
 import { HOMEPAGE_FAQS } from "./homepageFaqs";
 import { SERVICE_AREA_LIST } from "./serviceArea";
@@ -55,7 +55,7 @@ export const KNOWLEDGE_TOPICS: KnowledgeTopic[] = [
     key: "company",
     summary: "Who Boise Cabinet Co is, contact info, and what makes them different",
     content: [
-      `${SITE_CONFIG.name} (${SITE_CONFIG.legalName}) - ${SITE_CONFIG.tagline}.`,
+      `${SITE_CONFIG.name} (${PARENT_PUBLIC_NAME}) - ${SITE_CONFIG.tagline}.`,
       `Based in ${SITE_CONFIG.address.city}, ${SITE_CONFIG.address.state}; ${SITE_CONFIG.serviceAreaLabel}.`,
       `Phone (call or text): ${SITE_CONFIG.phone}. Email: ${SITE_CONFIG.email}. Website: ${SITE_CONFIG.siteUrl}.`,
       "",

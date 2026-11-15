@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import { SITE } from "../backlink-engine/config";
 import { P5_ORG_ID, generateLocalBusinessSchema, generateOrganizationSchema, generateServiceSchema } from "../lib/schema";
+import { buildBusinessVCard } from "../lib/vcard";
 import { BUSINESS_INFO } from "../lib/seo";
 import { SITE_CONFIG } from "../shared/siteConfig";
 
@@ -9,6 +12,7 @@ const MERIDIAN_ADDRESS = {
   "@type": "PostalAddress",
   addressLocality: "Meridian",
   addressRegion: "ID",
+  postalCode: "83646",
   addressCountry: "US",
 };
 
@@ -130,6 +134,57 @@ test("public contacts retain facts while verification records keep the address",
   assert.equal(provider.employee.jobTitle, "Founder");
   assert.equal(provider.contactPoint.name, "Nick Perkins");
   assert.equal(provider.contactPoint.contactType, "customer service");
+});
+
+test("contact card publishes the Meridian locality and direct line, with no street", () => {
+  const card = buildBusinessVCard();
+  assert.match(card, /^ORG:Boise Cabinet Co\r?$/m);
+  assert.match(card, /^FN:Nick Perkins\r?$/m);
+  assert.match(card, /^TEL;TYPE=WORK,VOICE:\+12084771169\r?$/m);
+  assert.match(card, /^ADR;TYPE=WORK:;;;Meridian;ID;83646;USA\r?$/m);
+  assert.equal(/Wapoot|4031/.test(card), false);
+});
+
+test("public name, phone, and email stay aligned with the parent profile", () => {
+  const home = generateLocalBusinessSchema();
+  const organization = generateOrganizationSchema();
+  const brandHost = new URL(SITE_CONFIG.siteUrl).hostname;
+  assert.equal(SITE_CONFIG.phone, "(208) 477-1169");
+  assert.equal(home.telephone, "+1-208-477-1169");
+  assert.equal(home.email, `hello@${brandHost}`);
+  assert.equal(organization.email, `hello@${brandHost}`);
+  assert.equal(home.legalName, "P5 Home Co LLC");
+  assert.equal(organization.legalName, "P5 Home Co LLC");
+  const description = String(organization.description);
+  assert.equal(description.includes("P5 Home Co LLC"), false);
+  assert.match(description, /P5 Home Co, Idaho Registered Contractor #8381215/);
+  for (const schema of [home, organization]) {
+    assert.equal(/P5 Home Co\.(?:[ \t]+LLC\b|[ \t]+[a-z])/.test(JSON.stringify(schema)), false);
+  }
+});
+
+test("site pages do not abbreviate the parent name with a period", () => {
+  const abbreviated = /P5 Home Co\.(?:[ \t]+LLC\b|[ \t]+[a-z])/;
+  const roots = ["app", "components", "lib", "server", "shared"];
+  const hits: string[] = [];
+  const skip = (rel: string) =>
+    rel === "lib/p5" ||
+    rel.startsWith("lib/p5/") ||
+    rel.startsWith("components/P5");
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const rel = path.join(dir, entry.name);
+      if (skip(rel)) continue;
+      if (entry.isDirectory()) {
+        if (entry.name === "node_modules") continue;
+        walk(rel);
+      } else if (/\.(tsx|ts|jsx|js)$/.test(entry.name) && abbreviated.test(readFileSync(rel, "utf8"))) {
+        hits.push(rel);
+      }
+    }
+  };
+  for (const root of roots) walk(root);
+  assert.deepEqual(hits, []);
 });
 
 test("public business schema does not expose a private street or home coordinates", () => {

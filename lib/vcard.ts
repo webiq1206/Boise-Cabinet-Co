@@ -70,6 +70,7 @@ export function buildBusinessVCard(): string {
     foldLine(`TEL;TYPE=WORK,VOICE:${tel}`),
     foldLine(`EMAIL;TYPE=WORK:${escapeVCard(SITE_CONFIG.email)}`),
     foldLine(`URL:${escapeVCard(SITE_CONFIG.siteUrl)}`),
+    foldLine("ADR;TYPE=WORK:;;;Meridian;ID;83646;USA"),
     foldLine(`NOTE:${escapeVCard(note)}`),
     "END:VCARD",
   ];

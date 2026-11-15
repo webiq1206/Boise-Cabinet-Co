@@ -135,8 +135,8 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.match(html, /mailto:hello@boisecabinet\.co/);
   assert.match(html, /href="sms:\+12084771169"/);
   assert.match(html, /href="\/contact\.vcf"/);
-  assert.match(html, /is a DBA of <a href="https:\/\/p5homeco\.com" rel="noopener">P5 Home Co LLC<\/a>/);
-  assert.equal((html.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
+  assert.match(html, /is a DBA of <a href="https:\/\/p5homeco\.com" rel="noopener">P5 Home Co<\/a>/);
+  assert.equal((html.match(/>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.ok(html.includes(`href="${P5_FACEBOOK_URL}"`));
   assert.ok(html.includes(`href="${P5_GOOGLE_PROFILE_URL}"`));
   assert.ok(html.includes(`<a href="${P5_GOOGLE_PROFILE_URL}" rel="noopener" target="_blank" data-testid="link-footer-google">P5 Home Co on Google</a>`));
@@ -192,7 +192,7 @@ test('the homepage video preserves no-script poster, first-response content and 
   assert.match(html, /299 finish options/);
   assert.match(html, /6 door styles/);
   assert.match(html, /Free in-home design consultation/);
-  assert.match(html, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/);
+  assert.match(html, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/);
 });
 
 test('the shared chrome matches its manifest and stays brand-agnostic', () => {

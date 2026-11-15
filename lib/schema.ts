@@ -5,7 +5,7 @@ import {schemaTime} from './schemaTime';
  */
 
 import { BUSINESS_INFO, getBaseUrl } from './seo';
-import { publicText, showFoundingYear } from '@/shared/claims';
+import { publicText, REGISTERED_INSURED, showFoundingYear } from '@/shared/claims';
 import { SERVICE_AREA_COUNTY_NAMES, SERVICE_AREA_LIST } from '@/shared/serviceArea';
 import { SITE_CONFIG, showTestimonials } from '@/shared/siteConfig';
 import { SERVICES } from '@/shared/contentData';
@@ -76,6 +76,7 @@ function serviceAreaLocality() {
     '@type': 'PostalAddress' as const,
     addressLocality: BUSINESS_INFO.address.city,
     addressRegion: BUSINESS_INFO.address.state,
+    postalCode: BUSINESS_INFO.address.postalCode,
     addressCountry: BUSINESS_INFO.address.countryCode,
   };
 }
@@ -271,7 +272,7 @@ export function generateOrganizationSchema(): SchemaContext {
       '@type': 'ImageObject',
       url: `${baseUrl}${BRAND_LOGO_PATH}`,
     },
-    description: publicText('Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request.'),
+    description: publicText(`Custom cabinet company serving the Treasure Valley since 2020. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. ${REGISTERED_INSURED}.`),
     ...(showFoundingYear() ? { foundingDate: BUSINESS_INFO.founded } : {}),
     telephone: SCHEMA_TELEPHONE,
     email: PUBLIC_EMAIL,

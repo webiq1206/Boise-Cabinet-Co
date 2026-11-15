@@ -41,7 +41,7 @@ export const GBP_PROFILE = {
    */
   legalName: "P5 Home Co LLC",
   businessType: "Service-Area Business (hide address)",
-  addressOnFile: "Meridian, ID (verification only; do not display publicly)",
+  addressOnFile: "Meridian, ID 83646 (verification only; do not publish a street)",
   phone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
   openingDate: "leave blank until documented",
@@ -381,7 +381,7 @@ export const GBP_NAP_BLOCK = `${GBP_PROFILE.businessName}
 ${GBP_PROFILE.phone}
 ${GBP_PROFILE.email}
 ${SITE}
-Meridian, ID (service-area; no street address published)`;
+${SITE_CONFIG.address.city}, ${SITE_CONFIG.address.state} ${SITE_CONFIG.address.postalCode} (service-area; no street address published)`;
 
 const GBP_COMPLETENESS_CHECKLIST_SOURCE = [
   "Business name exact: Boise Cabinet Co",
