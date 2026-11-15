@@ -531,7 +531,7 @@
     "tests/p5-intake-pdf.test.ts": "cb331ce30787d6df4154885531aaa05c2dec4e29e51cea3315392636bb0d1758",
     "tests/p5-mobile-action-policy.test.ts": "9431391138ef923d90c3486b65ee8eebdfcb65785bf48a5314d7fe48a67e6936",
     "lib/p5/mobileActionPolicy.ts": "d4386dec49f05a015e1d7a864787ae2f16654782bba33e1d6ee002389b0f3cef",
-    "scripts/lib/shortBrandEntry.mjs": "27f7270125bf48773c7564b9b98bb8ff4ca02321d7a2b8b4d5c0e857737570c2",
+    "scripts/lib/shortBrandEntry.mjs": "47966b626a51b4f329b3b16b804bdc326710f8c406634e37f76fc4eefa9b804c",
     "scripts/lib/navigationEntry.mjs": "c2aa3b3a77b5ed1f38b1371e8bef4fe0d55c888f76a35f260f2eeee0ed999adf",
     "scripts/lib/quoteEntry.mjs": "46f9fb18396b8e100dfdfe05c90b3bf21f7777e7feef45767e0e24432eb3b920",
     "tests/p5-navigation-entry.test.mjs": "0822de63492dc6ae915456e827966dc522e133dec21437c8d1705990aedd9410"
