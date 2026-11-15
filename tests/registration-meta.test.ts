@@ -10,7 +10,7 @@ import {
 } from "../shared/claims";
 
 test("license meta and schema publish the registration number", () => {
-  assert.match(HOMEPAGE_DESCRIPTION, /P5 Home Co LLC, Idaho Registered Contractor #8381215/);
+  assert.match(HOMEPAGE_DESCRIPTION, /P5 Home Co, Idaho Registered Contractor #8381215/);
   assert.ok(HOMEPAGE_DESCRIPTION.length <= 160);
   assert.equal(HOMEPAGE_DESCRIPTION.includes("Licensed"), false);
   const city = generateMetaDescription({ serviceName: "", serviceSlug: "", city: "Boise" });
@@ -30,7 +30,7 @@ test("license meta and schema publish the registration number", () => {
     priority?.body,
     `${REGISTERED_INSURED}, with permits handled in-house and a written scope before work begins.`,
   );
-  assert.equal(IDAHO_REGISTERED_CONTRACTOR, "P5 Home Co LLC, Idaho Registered Contractor #8381215");
+  assert.equal(IDAHO_REGISTERED_CONTRACTOR, "P5 Home Co, Idaho Registered Contractor #8381215");
 });
 
 test("current main metadata never restores unapproved satisfaction claims", () => {

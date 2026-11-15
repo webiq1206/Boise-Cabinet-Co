@@ -285,7 +285,7 @@ export default function ContactPage() {
                   subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County."
                 >
                   <address className="not-italic leading-relaxed">
-                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}
+                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.postalCode}
                     <br />
                     We come to you: free in-home consultations by appointment.
                   </address>

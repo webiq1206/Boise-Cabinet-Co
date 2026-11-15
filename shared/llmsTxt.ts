@@ -16,7 +16,7 @@
 // Follows the llms.txt spec (llmstxt.org): an H1, a blockquote summary, then
 // sections of markdown links. Links MUST be markdown `[title](url)` form, not
 // bare paths, or crawlers (and Lighthouse's llms-txt audit) see "no links".
-import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from "@/shared/claims";
+import { CABINET_WORKMANSHIP_SCOPE, CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH, PARENT_PUBLIC_NAME } from "@/shared/claims";
 import { ACCESSORY_FAMILIES, CATALOG_CONTENT, DOOR_STYLES, FINISHES, HARDWARE_OPTIONS } from "@/shared/catalog";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { ROOM_SEO } from "@/shared/catalog/roomSeo";
@@ -69,7 +69,7 @@ function buildLlmsTxt(): string {
   );
 
   push("## Business facts", "");
-  push(`- Company: ${name}, a DBA of ${SITE_CONFIG.legalName}`);
+  push(`- Company: ${name}, a DBA of ${PARENT_PUBLIC_NAME}`);
   if (showFoundingYear()) push(FOUNDED_LINE);
   push(`- Registration: ${IDAHO_REGISTERED_CONTRACTOR}`);
   push(`- Service area: ${SERVICE_AREA_LIST}`);

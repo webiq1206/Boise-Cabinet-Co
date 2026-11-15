@@ -13,7 +13,7 @@
  * and guide modules; tests/family-chrome.test.ts pins them to those sources.
  */
 import type { FamilyBrand, FamilyLink } from '@/lib/family/types';
-import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '@/shared/claims';
+import { IDAHO_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, PUBLIC_HOURS_LINE } from '@/shared/claims';
 import { SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
@@ -167,7 +167,7 @@ export const FAMILY_BRAND: FamilyBrand = {
       { label: 'Terms of service', href: '/terms-of-service' },
     ],
     // Required parent-company disclosure: this brand is a DBA of P5 Home Co LLC.
-    disclosure: { before: `${SITE_CONFIG.name} is a DBA of `, linkLabel: SITE_CONFIG.legalName, href: 'https://p5homeco.com', after: '' },
+    disclosure: { before: `${SITE_CONFIG.name} is a DBA of `, linkLabel: PARENT_PUBLIC_NAME, href: 'https://p5homeco.com', after: '' },
     copyrightName: SITE_CONFIG.name,
   },
   // Boise ADU Co is left out until its own site exists; its projects run through Boise Construction Co.

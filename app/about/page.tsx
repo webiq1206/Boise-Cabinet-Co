@@ -22,7 +22,7 @@ generateWebPageSchema,
 } from '@/lib/schema';
 import { CTA_ESTIMATE,CTA_EXPLORE_COLLECTIONS } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, REGISTERED_INSURED } from '@/shared/claims';
+import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, REGISTERED_INSURED } from '@/shared/claims';
 import { differentiators } from '@/components/approved/cabinet-content';
 import { ArrowRight,ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -236,7 +236,7 @@ export default function AboutPage() {
               eyebrow="Credentials"
               inverse
               title={<>Registered, insured, <em className="brc-accent text-accent">accountable</em></>}
-              description={`${IDAHO_REGISTERED_CONTRACTOR}. Boise Cabinet Co is a DBA of P5 Home Co LLC. ${CABINET_WORKMANSHIP_WARRANTY}.`}
+              description={`${IDAHO_REGISTERED_CONTRACTOR}. Boise Cabinet Co is a DBA of ${PARENT_PUBLIC_NAME}. ${CABINET_WORKMANSHIP_WARRANTY}.`}
               className="mb-0"
             />
             <p className="mt-6 text-inverse-muted text-base leading-relaxed">

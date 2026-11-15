@@ -6,11 +6,14 @@
  * A badge or stat row that must keep text uses the manufacturer pass-through.
  */
 
-/** Registered entity name + number (Phase 0 X1 / Phase 6.7). */
+/** Registered entity name. Schema legalName and contract text keep the LLC. */
 export const REGISTERED_ENTITY_NAME = "P5 Home Co LLC";
 
+/** Public parent name. Pages, the footer, and the contact card use this. */
+export const PARENT_PUBLIC_NAME = "P5 Home Co";
+
 export const IDAHO_REGISTERED_CONTRACTOR =
-  "P5 Home Co LLC, Idaho Registered Contractor #8381215";
+  `${PARENT_PUBLIC_NAME}, Idaho Registered Contractor #8381215`;
 
 /** Short number-only form for places that already name the entity nearby. */
 export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
@@ -20,7 +23,7 @@ export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
  * 2026: no surety-bond claim anywhere, guarded by verify:response-language).
  */
 export const REGISTERED_INSURED =
-  "P5 Home Co LLC, Idaho Registered Contractor #8381215. Insured; certificate on request";
+  `${PARENT_PUBLIC_NAME}, Idaho Registered Contractor #8381215. Insured; certificate on request`;
 
 /** Proof-strip / warranty claim language (F18, D6, K-5). */
 export const MANUFACTURER_WARRANTY_PASS_THROUGH =

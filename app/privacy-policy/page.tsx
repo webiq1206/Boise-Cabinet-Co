@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>Email: <ObfuscatedEmail user={SITE_CONFIG.email.split("@")[0]} domain={SITE_CONFIG.email.split("@")[1]} className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} label={SITE_CONFIG.email} /></li>
               <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
-              <li>{SITE_CONFIG.name}, {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}</li>
+              <li>{SITE_CONFIG.name}, {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state} {SITE_CONFIG.address.postalCode}</li>
             </ul>
           </InteriorDocument>
         </div>
