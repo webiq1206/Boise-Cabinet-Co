@@ -305,6 +305,9 @@ export function EstimateResultPanel({
       )}
 
       {multiRoom ? (
+        // Each room is listed as scope with no price of its own: the customer
+        // sees one planning range for the whole project (owner decision,
+        // 16 November 2026). Per-room amounts stay in the team's email.
         <div className={compact ? "mb-3" : "mb-4"} data-testid="estimate-breakdown">
           <div className="brc-label text-inverse-muted mb-2">{breakdown!.length} rooms</div>
           <div className="flex flex-col">
@@ -330,23 +333,6 @@ export function EstimateResultPanel({
                     >
                       Edit
                     </button>
-                  )}
-                </div>
-                <div
-                  className={cn(
-                    "text-xs tabular-nums whitespace-nowrap pt-0.5 text-inverse-foreground/85",
-                    !revealRange && "select-none blur-sm",
-                  )}
-                  aria-hidden={!revealRange || undefined}
-                >
-                  {revealRange ? (
-                    <>
-                      {formatPlanningCurrency(r.priceLow)}
-                      <span className="text-inverse-muted"> to </span>
-                      {formatPlanningCurrency(r.priceHigh)}
-                    </>
-                  ) : (
-                    MASKED_RANGE
                   )}
                 </div>
               </div>

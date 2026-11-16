@@ -199,3 +199,10 @@ test('a project in the address is passed to the frame only when it is a plain id
     assert.equal(html.includes('<script>alert'), false);
   }
 });
+
+test('the planning range lists each room as scope and shows one price for the whole project', () => {
+  // Scope and one total (owner decision, 16 November 2026): no room carries a price of its own.
+  const panel = read('components/estimate/EstimateResultPanel.tsx');
+  assert.match(panel, /data-testid=\{`breakdown-room-\$\{i\}`\}/, 'rooms are still listed as scope');
+  assert.doesNotMatch(panel, /r\.priceLow|r\.priceHigh/, 'a room is priced on its own');
+});

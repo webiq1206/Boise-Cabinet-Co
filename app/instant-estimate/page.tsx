@@ -55,7 +55,7 @@ const STEPS = [
   {
     number: "03",
     title: "See your preliminary range on screen",
-    desc: "Your preliminary price range appears with a breakdown by division of work.",
+    desc: "Your preliminary price range appears with the full scope of work, organized by division.",
   },
 ];
 
