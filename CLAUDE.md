@@ -40,6 +40,24 @@ primary pricing call to action on this site.
   of them until the owner says the replacement is verified live.
 * Guard: `tests/p5-instant-estimate.test.ts` (runs with `tests/p5-*.test.ts`).
 
+## Scope and one total for customers (owner decision, 16 November 2026)
+
+Every customer-facing estimate shows the full scope of work and ONE price (the
+range, or a firm total) for the whole project: no line item, unit, category,
+division, room, building or allowance price. This covers the framed instant
+estimator (enforced on p5homeco.com) and this site's copy of the shared
+document estimator (`lib/p5`: `/estimate/scope`, staff-published estimates,
+the customer email, PDF and saved links). `customerPresentation()` in
+`lib/p5/customerProjection.ts` is the one customer boundary; edit it in
+p5-home-co and apply the same change here, then update
+`lib/p5/shared-manifest.json`. Internal records, team emails, the
+administrative PDF, the admin page, the CRM payload and QuickBooks keep every
+price.
+
+Cabinet's planning wizard (`components/estimate/EstimateResultPanel.tsx`)
+lists each room as scope with no per-room price; the per-room amounts stay in
+the team email. Guard: `tests/p5-instant-estimate.test.ts`.
+
 ## Publishing to Replit: never approve a DROP
 
 Replit's Republish compares the development database with production and
