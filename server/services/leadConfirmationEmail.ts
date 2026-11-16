@@ -11,6 +11,12 @@
  * Copy and markup match p5-home-co app/lib/leads/scheduleEmail.ts. This site
  * speaks as Boise Cabinet Co. The guided instant estimator confirmation is
  * sent by p5homeco.com, not from this file.
+ *
+ * After the estimate (owner request, 16 November 2026): an email that tells a
+ * customer about an estimate greets with "Hey", invites them to adjust it
+ * (ESTIMATE_ADJUST_NOTE, before the disclaimer) and ends with the family
+ * question (ESTIMATE_FAMILY_PS, the last paragraph). The words live here and
+ * nowhere else. A request confirmation and every team email do not carry them.
  */
 
 import type { Message } from "./leadConfirmationMessage";
@@ -37,9 +43,26 @@ const SHARED_DISCLAIMER =
 const ESTIMATE_NEXT =
   "The next step is a home walkthrough, so we can see the property and turn this estimate into a true bid. On the scheduling page, choose the 1 hour option.";
 
+/** Sits before the estimate disclaimer in every customer email about an estimate. */
+export const ESTIMATE_ADJUST_NOTE =
+  "If something is missing, or you'd like to change the scope, the finishes or the timing, tell us. It's easy to adjust, and we'd rather get it right than have you guessing.";
+
+/** The last paragraph of every customer email about an estimate. A question, never a pitch. */
+export const ESTIMATE_FAMILY_PS =
+  "P.S. Anything else on your list? Boise Cabinet Co is part of P5 Home Co, the company behind Boise Construction Co, Boise Remodeling Co and Boise Handyman Co. So whether it's a few repairs, new cabinets, a full kitchen or bath remodel, an addition or a new home, tell us and we'll plan it alongside this project.";
+
 const ESTIMATE_THANKS_MARKER = "Your preliminary estimate is below, and the complete estimate is attached as a PDF.</p>";
 
 const ESTIMATE_VIEW_ANCHOR = ">View or update your estimate online</a>";
+
+/** The shared template opens "Hi <first>," directly above its thank-you line. "Hello," (no name) is left alone. */
+const ESTIMATE_GREETING = />Hi ([^<>]+,)<\/p>(?=<p [^>]*>Thank you for using the )/;
+
+/**
+ * Where the shared customer layout ends its letter and starts its footer (the
+ * row with the brand name, phone, email and legal line).
+ */
+const ESTIMATE_FOOTER_START = '</td></tr>\n <tr><td class="pad" style="padding:18px 28px 22px;border-top:';
 
 export function scheduleIntentFor(input: { requestKind?: string | null; form?: string | null }): ScheduleIntent {
   const kind = (input.requestKind ?? "").trim().toLowerCase();
@@ -188,11 +211,28 @@ export function requestConfirmation(input: RequestConfirmationInput): Message {
 }
 
 /**
+ * The P.S. closes the letter. In the shared layout it is the last paragraph of
+ * the body, directly above the brand footer; any other markup gets a closing
+ * paragraph.
+ */
+function appendFamilyPs(html: string): string {
+  const footer = html.lastIndexOf(ESTIMATE_FOOTER_START);
+  if (footer >= 0) {
+    const ps = `<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:${BUTTON_CHARCOAL};">${esc(ESTIMATE_FAMILY_PS)}</p>`;
+    return html.slice(0, footer) + ps + html.slice(footer);
+  }
+  const body = html.lastIndexOf("</body>");
+  const ps = paragraph(ESTIMATE_FAMILY_PS);
+  return body >= 0 ? html.slice(0, body) + ps + html.slice(body) : html + ps;
+}
+
+/**
  * The mounted estimator already builds the full preliminary-estimate email in
- * the shared engine. That file cannot change in this repo. This adds the
- * Schedule now button and the estimate disclaimer to the customer copy only,
- * at send time. Team, alert and project-request messages pass through unchanged
- * so the shared intake transport test still sees the original bytes.
+ * the shared engine. That file cannot change in this repo. This adds, to the
+ * customer copy only and at send time: the "Hey" greeting, the Schedule now
+ * button, the adjust note above the estimate disclaimer, and the family P.S.
+ * as the last paragraph. Team, alert and project-request messages pass through
+ * unchanged so the shared intake transport test still sees the original bytes.
  */
 export function decoratePreliminaryEstimateEmail<T extends { subject: string; text: string; html?: string }>(input: T): T {
   const prefix = `Your ${SITE_CONFIG.name} preliminary estimate`;
@@ -203,29 +243,34 @@ export function decoratePreliminaryEstimateEmail<T extends { subject: string; te
     paragraph(ESTIMATE_NEXT) +
     bulletproofButton({ href: SCHEDULE_URL, label: "Schedule now", variant: "primary", accent: CABINET_EMAIL_ACCENT }) +
     `<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>`;
+  const closing = paragraph(ESTIMATE_ADJUST_NOTE) + paragraph(ESTIMATE_DISCLAIMER);
   let html = input.html;
   if (html && html.includes(ESTIMATE_THANKS_MARKER)) {
+    html = html.replace(ESTIMATE_GREETING, (_match, name: string) => `>Hey ${name}</p>`);
     html = html.replace(ESTIMATE_THANKS_MARKER, ESTIMATE_THANKS_MARKER + schedule);
     const anchorAt = html.indexOf(ESTIMATE_VIEW_ANCHOR);
     if (anchorAt >= 0) {
       const tableEnd = html.indexOf("</table>", anchorAt);
       if (tableEnd >= 0) {
         const cut = tableEnd + "</table>".length;
-        html = html.slice(0, cut) + paragraph(ESTIMATE_DISCLAIMER) + html.slice(cut);
+        html = html.slice(0, cut) + closing + html.slice(cut);
       }
     } else {
-      html = html.replace(ESTIMATE_THANKS_MARKER + schedule, ESTIMATE_THANKS_MARKER + schedule + paragraph(ESTIMATE_DISCLAIMER));
+      html = html.replace(ESTIMATE_THANKS_MARKER + schedule, ESTIMATE_THANKS_MARKER + schedule + closing);
     }
   } else if (html) {
-    const block = schedule + paragraph(ESTIMATE_DISCLAIMER);
+    const block = schedule + closing;
     html = html.includes("</body>") ? html.replace("</body>", block + "</body>") : html + block;
   }
+  if (html) html = appendFamilyPs(html);
 
   const lead = `${ESTIMATE_NEXT}\n\nSchedule now: ${SCHEDULE_URL}\n\n`;
+  const after = `${ESTIMATE_ADJUST_NOTE}\n\n${ESTIMATE_DISCLAIMER}`;
   const viewRe = /View or update your estimate online:[^\n]*\n/;
-  const text = viewRe.test(input.text)
-    ? input.text.replace(viewRe, (line) => `${lead}${line}\n${ESTIMATE_DISCLAIMER}\n\n`)
-    : `${input.text}\n\n${lead}${ESTIMATE_DISCLAIMER}\n`;
+  const body = viewRe.test(input.text)
+    ? input.text.replace(viewRe, (line) => `${lead}${line}\n${after}\n\n`)
+    : `${input.text}\n\n${lead}${after}\n`;
+  const text = `${body.replace(/\s+$/, "")}\n\n${ESTIMATE_FAMILY_PS}`;
 
   return { ...input, text, html };
 }
