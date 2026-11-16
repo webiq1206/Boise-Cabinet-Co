@@ -1201,9 +1201,10 @@ export function EstimateCalculatorWizard({
     currentStep.kind !== "result" && currentStep.kind !== "contact" ? (
       <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
         <DrawerTrigger asChild>
+          {/* Reserve the two-line prompt height when async pricing replaces it with a short range. */}
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-sm border bg-background px-3 py-1.5 text-left min-h-10 transition-transform active:scale-[0.99]"
+            className="flex min-h-[62px] w-full items-center justify-between rounded-sm border bg-background px-3 py-1.5 text-left transition-transform active:scale-[0.99]"
             data-testid="button-open-estimate-sheet"
           >
             <span className="text-sm min-w-0 tabular-nums">
