@@ -647,14 +647,80 @@ test("Step 1: the bridge body asks p5 to confirm and carries well-formed team_no
     "Permits: City of Boise",
     `Lead dashboard: ${emailLayout.LEAD_DASHBOARD_URL}/?leadId=lead-77`,
   ]);
-  // The planning range stays out of the fields p5 stores on the lead.
-  const { team_notes: _notes, ...stored } = post;
+  // The planning range stays out of the fields p5 stores on the lead: it
+  // travels only in team_notes (the email) and estimate (QuickBooks).
+  const { team_notes: _notes, estimate: _estimate, ...stored } = post;
   assert.doesNotMatch(JSON.stringify(stored), /Planning range|\$16,800|R1234567890/);
   // p5's email reaches HubSpot: no cost, margin or other internal figure in a note.
   for (const note of notes) assert.doesNotMatch(note, INTERNAL_WORDS, note);
   h.release();
   await quiet(() => h.runDeferred());
   assert.equal(teamMail(h.mail).length, 0, "p5 confirmed and the only recipient is the shared inbox: one team email, p5's");
+});
+
+// The planning range also travels as a structured `estimate`, so p5 can create
+// the QuickBooks customer and an unsent estimate. Customer amounts only, never
+// marked verified (the range comes from the browser), and nothing at all when
+// the numbers do not hold up. Builder tests: tests/p5-site-estimate.test.ts.
+test("Step 1: a request with a planning range carries the structured estimate", async () => {
+  const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } });
+  assert.equal(response.body.accepted, true);
+  const [post] = h.posts;
+  assert.deepEqual(post.estimate, {
+    kind: "planning-range",
+    low: 21400,
+    high: 33900,
+    label: "Cabinets for 2 rooms: Kitchen, Primary bath vanity",
+    lines: [
+      { title: "Kitchen", description: "Planning range $16,800 to $26,200. 22 linear ft, Modern Shaker · Matte finish ($$) · Better construction", amount: 21500 },
+      { title: "Primary bath vanity", description: "Planning range $4,600 to $7,700. 6 linear ft, Slab · Stained oak ($$$) · Best construction", amount: 6150 },
+    ],
+  });
+  const estimate = post.estimate as { lines: Array<{ amount: number }> };
+  assert.equal("verified" in estimate, false, "the server did not recompute the range, so it does not say it did");
+  assert.equal(estimate.lines.reduce((sum, line) => sum + line.amount, 0), (21400 + 33900) / 2, "the lines add up to the middle of the range shown");
+  assert.doesNotMatch(JSON.stringify(post.estimate), INTERNAL_WORDS);
+  // Everything else in the body is as it was.
+  assert.equal(post.team_alert, "confirm");
+  assert.equal((post.team_notes as string[])[0], "Planning range: $21,400 to $33,900");
+  h.release();
+  await quiet(() => h.runDeferred());
+});
+
+test("Step 1: numbers that do not hold up send no estimate, and the request goes through unchanged", async () => {
+  const good = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } });
+  const { estimate: _estimate, ...goodRest } = good.h.posts[0];
+
+  const cases: Array<[string, Record<string, unknown>]> = [
+    ["a room's low above its high", { ...WIZARD_ESTIMATE, rooms: [{ ...WIZARD_ESTIMATE.rooms[0], priceLow: 16800, priceHigh: 26200 }, { ...WIZARD_ESTIMATE.rooms[1], priceLow: 7700, priceHigh: 4600 }] }],
+    ["rooms that do not add up to the total", { ...WIZARD_ESTIMATE, rooms: [WIZARD_ESTIMATE.rooms[0], { ...WIZARD_ESTIMATE.rooms[1], priceLow: 46000, priceHigh: 77000 }] }],
+    ["a negative room", { ...WIZARD_ESTIMATE, rooms: [WIZARD_ESTIMATE.rooms[0], { ...WIZARD_ESTIMATE.rooms[1], priceLow: -4600 }] }],
+  ];
+  for (const [name, estimate] of cases) {
+    const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimate });
+    assert.equal(response.status, 200, name);
+    assert.equal(response.body.accepted, true, name);
+    assert.equal(h.posts.length, 1, `${name}: the request is still forwarded`);
+    assert.equal("estimate" in h.posts[0], false, `${name}: no estimate`);
+    assert.equal(h.posts[0].team_alert, "confirm", name);
+    assert.equal(h.posts[0].external_id, goodRest.external_id, name);
+    assert.equal(h.posts[0].summary, goodRest.summary, name);
+    assert.equal(customerMail(h.mail).length, 1, `${name}: the customer is still confirmed`);
+    h.release();
+    await quiet(() => h.runDeferred());
+  }
+
+  // Low above high on the whole range: the same.
+  const reversed = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimate: { ...WIZARD_ESTIMATE, priceLow: 40000, rooms: undefined } });
+  assert.equal(reversed.response.body.accepted, true);
+  assert.equal("estimate" in reversed.h.posts[0], false);
+});
+
+test("Step 1: no estimate for a request without a planning range", async () => {
+  const { estimate: _estimate, ...plain } = STEP1_BODY;
+  const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, plain);
+  assert.equal(response.body.accepted, true);
+  assert.equal("estimate" in h.posts[0], false);
 });
 
 const DOUBTS: Array<[string, Parameters<typeof harness>[0]]> = [
@@ -693,6 +759,7 @@ test("Step 1: a callback with no email address follows the same rule", async () 
   assert.equal(confirmed.response.body.accepted, true);
   assert.equal(confirmed.h.mail.length, 0, "no address, no confirmation; no team email on the visitor's path");
   assert.equal(confirmed.h.posts[0].request_kind, "callback");
+  assert.equal("estimate" in confirmed.h.posts[0], false, "a callback never carries an estimate");
   assert.deepEqual(confirmed.h.posts[0].team_notes, [`Lead dashboard: ${emailLayout.LEAD_DASHBOARD_URL}/?leadId=lead-77`]);
   confirmed.h.release();
   await quiet(() => confirmed.h.runDeferred());
@@ -755,6 +822,7 @@ test("Step 2: the response does not wait on p5, and a confirmed p5 email keeps t
   assert.equal(post.external_id, `boisecabinet-consultation:${REQUEST_ID}`);
   assert.equal(post.team_alert, "confirm");
   assert.deepEqual(post.team_notes, [`Lead dashboard: ${emailLayout.LEAD_DASHBOARD_URL}/?leadId=lead-77`]);
+  assert.equal("estimate" in post, false, "Step 2 never carries an estimate");
 
   h.release();
   await quiet(() => h.runDeferred());

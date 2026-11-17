@@ -24,6 +24,8 @@ import {
   P5_INTAKE_TIMEOUT_MS,
   namesInternalFigure,
   type P5BridgeResult,
+  type P5SiteEstimate,
+  type P5SiteEstimateLine,
   type P5TeamAlert,
 } from "./p5IntakeBridge";
 
@@ -228,4 +230,117 @@ export function consultationTeamNotes(input: {
  */
 export function detailsTeamNotes(input: { leadId?: string | null }): string[] {
   return [`Lead dashboard: ${leadDashboardHref(input.leadId)}`];
+}
+
+/** p5 ignores an estimate above this unless the site's server verified it, and this site's did not. */
+export const SITE_ESTIMATE_UNVERIFIED_CEILING = 500_000;
+/** p5 refuses an estimate with more lines than this. */
+export const MAX_SITE_ESTIMATE_LINES = 60;
+/**
+ * The wizard's total is the sum of its rooms rounded to the nearest $100. A
+ * room split further from the total than this does not belong to it.
+ */
+const ROOM_SPLIT_TOLERANCE = (figure: number) => Math.max(100, figure * 0.01);
+
+function amount(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function cents(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+/** One line of the visitor's own words, capped; nothing when it names a cost or a margin. */
+function words(value: unknown, max: number): string {
+  const line = text(value);
+  if (!line || namesInternalFigure(line)) return "";
+  return line.length > max ? `${line.slice(0, max - 3).trimEnd()}...` : line;
+}
+
+/**
+ * The planning range as a structured `estimate`, so p5 can create the
+ * QuickBooks customer and an UNSENT estimate for the lead (owner decision,
+ * 13 and 17 November 2026). Customer amounts only: the range the visitor was
+ * shown, and for several rooms one line per room at the middle of that room's
+ * range, with the range said in its description. This site holds no cost or
+ * margin for a planning range, and no field here could carry one.
+ *
+ * The figures come from the visitor's browser and are not recomputed here, so
+ * `verified` is never sent. They are checked instead: every number finite and
+ * above zero, every low at or under its high, the rooms adding up to the
+ * total, and a total p5 would accept from an unverified form. If anything is
+ * off, nothing is returned and the request goes without the field. Never
+ * throws. Nothing for a callback or a request without a range.
+ */
+export function consultationSiteEstimate(input: {
+  estimate?: unknown;
+  requestKind?: string | null;
+}): P5SiteEstimate | null {
+  try {
+    if (input.requestKind === "callback") return null;
+    const est = input.estimate;
+    if (!est || typeof est !== "object" || Array.isArray(est)) return null;
+    const source = est as Record<string, unknown>;
+    const low = amount(source.priceLow);
+    const high = amount(source.priceHigh);
+    if (low === null || high === null || low > high) return null;
+
+    const rawRooms = source.rooms === undefined || source.rooms === null ? [] : source.rooms;
+    if (!Array.isArray(rawRooms) || rawRooms.length > MAX_SITE_ESTIMATE_LINES) return null;
+    const rooms: Array<{ title: string; low: number; high: number; size: string; finish: string }> = [];
+    for (const [index, raw] of rawRooms.entries()) {
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+      const room = raw as Record<string, unknown>;
+      const roomLow = amount(room.priceLow);
+      const roomHigh = amount(room.priceHigh);
+      if (roomLow === null || roomHigh === null || roomLow > roomHigh) return null;
+      rooms.push({
+        title: words(room.project, 200) || `Room ${index + 1}`,
+        low: roomLow,
+        high: roomHigh,
+        size: words(room.sizeLabel, 200),
+        finish: words(room.finish, 600),
+      });
+    }
+
+    const estimate: P5SiteEstimate = { kind: "planning-range", low: cents(low), high: cents(high) };
+    let total = (low + high) / 2;
+
+    if (rooms.length > 1) {
+      // The rooms must be the split of the range the visitor was shown.
+      const sumLow = rooms.reduce((sum, room) => sum + room.low, 0);
+      const sumHigh = rooms.reduce((sum, room) => sum + room.high, 0);
+      if (Math.abs(sumLow - low) > ROOM_SPLIT_TOLERANCE(low)) return null;
+      if (Math.abs(sumHigh - high) > ROOM_SPLIT_TOLERANCE(high)) return null;
+      const lines: P5SiteEstimateLine[] = rooms.map((room) => {
+        const details = [room.size, room.finish].filter(Boolean).join(", ");
+        return {
+          title: room.title,
+          description: `Planning range ${range(room.low, room.high)}.${details ? ` ${details}` : ""}`,
+          amount: cents((room.low + room.high) / 2),
+        };
+      });
+      if (lines.some((line) => !(line.amount > 0))) return null;
+      total = cents(lines.reduce((sum, line) => sum + line.amount, 0));
+      estimate.lines = lines;
+      const label = `Cabinets for ${rooms.length} rooms: ${rooms.map((room) => room.title).join(", ")}`;
+      estimate.label = label.length > 200 ? `${label.slice(0, 197).trimEnd()}...` : label;
+    } else {
+      // One room, or no room split: no lines, and p5 uses the middle of the range.
+      const only = rooms[0];
+      const parts = only
+        ? [only.title, only.size, only.finish]
+        : [words(source.project, 200), words(source.sizeLabel, 200), words(source.finish, 600)];
+      const label = parts.filter(Boolean).join(", ") || "Cabinet planning range";
+      estimate.label = label.length > 200 ? `${label.slice(0, 197).trimEnd()}...` : label;
+    }
+
+    // What p5 would refuse or ignore is not sent at all.
+    if (!(total > 0) || total > SITE_ESTIMATE_UNVERIFIED_CEILING) return null;
+    if (total < low / 2 || total > high * 2) return null;
+    return estimate;
+  } catch (err) {
+    console.error("[p5-intake] Could not build the estimate for p5:", err);
+    return null;
+  }
 }

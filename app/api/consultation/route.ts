@@ -30,7 +30,7 @@ import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 import { forwardConsultationToP5Intake, type P5BridgeResult } from "@/server/services/p5IntakeBridge";
-import { consultationTeamNotes, sendTeamEmailAfterBridge } from "@/server/services/teamEmail";
+import { consultationSiteEstimate, consultationTeamNotes, sendTeamEmailAfterBridge } from "@/server/services/teamEmail";
 import type { EstimateRecord } from "@/shared/estimateRecord";
 import { issueDetailsToken } from "@/server/services/consultationDetails";
 import { quoteSecret } from "@/server/services/consultationFiles";
@@ -287,6 +287,11 @@ export async function POST(request: NextRequest) {
             source: data.source,
             leadId: capturedLeadId,
           }),
+          // The planning range, structured, so p5 can create the QuickBooks
+          // customer and an unsent estimate. Customer amounts only. Nothing
+          // when the numbers from the browser do not hold up; the request
+          // itself still goes.
+          estimate: consultationSiteEstimate({ estimate: data.estimate, requestKind: data.requestKind }),
         });
         const pending = bridge;
         after(() => pending);

@@ -98,6 +98,31 @@ site's own team email is the fallback.
   a margin (a count of alerts at most). The builders read no such field, and
   `cleanTeamNotes()` leaves out any line that names one (`namesInternalFigure`);
   p5 drops such lines too. Do not reword a figure to get it through.
+* The planning range also travels as a structured `estimate` (owner decision,
+  13 and 17 November 2026: every estimate a visitor is given becomes a
+  customer and an UNSENT estimate in QuickBooks, which p5 creates).
+  `consultationSiteEstimate()` in `server/services/teamEmail.ts` builds it and
+  the bridge sends it with a Step 1 request only: never a callback, never
+  Step 2, never a request without a range.
+  * Customer amounts only. `low` and `high` are the range the visitor was
+    shown. Several rooms: one line per room, `amount` the middle of that
+    room's range, the range said in its `description`; p5 totals the lines.
+    One room or no split: no lines, and p5 uses the middle of the range.
+    Never a cost, margin, markup, profit, contingency or overhead in any
+    field; this site holds none for a planning range, and visitor text that
+    names one is left out of titles, descriptions and the label.
+  * Never send `verified`. The range comes from the visitor's browser and is
+    not recomputed on this server, and p5 reads `verified: true` as "the site
+    recomputed it". The type has no such field.
+  * The numbers are checked instead: finite, above zero, every low at or
+    under its high, the rooms adding up to the total, at most 60 lines, a
+    total p5 accepts unverified (at most $500,000). Anything off sends no
+    `estimate` at all, and the request itself goes through unchanged. The
+    builder never throws.
+  * The contract belongs to p5homeco.com (`docs/lead-intake-contract.md`
+    there). Guard: `tests/p5-site-estimate.test.ts` (every project, finish
+    and size from the real wizard) and the route checks in
+    `tests/p5-one-team-email.test.ts`.
 * Not covered, because they do not post to the p5 intake: the design pricing
   request, saved estimator sessions, the admin lead manager, and the document
   estimator's team email (`lib/p5`, shared code, edited in p5-home-co only).
