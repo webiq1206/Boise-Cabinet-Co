@@ -29,7 +29,8 @@ import { extractZipFromAddress, parseAddressParts } from "@/shared/propertyProfi
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
-import { forwardConsultationToP5Intake } from "@/server/services/p5IntakeBridge";
+import { forwardConsultationToP5Intake, type P5BridgeResult } from "@/server/services/p5IntakeBridge";
+import { consultationTeamNotes, sendTeamEmailAfterBridge } from "@/server/services/teamEmail";
 import type { EstimateRecord } from "@/shared/estimateRecord";
 import { issueDetailsToken } from "@/server/services/consultationDetails";
 import { quoteSecret } from "@/server/services/consultationFiles";
@@ -112,6 +113,9 @@ export async function POST(request: NextRequest) {
     // to deep link. Stays null when the DB is unavailable, and the button then
     // falls back to the dashboard root.
     let capturedLeadId: string | null = null;
+    // The pending p5 intake post. The team email below waits on its answer
+    // inside after(); nothing on the visitor's path does.
+    let bridge: Promise<P5BridgeResult> | null = null;
     if (db) {
       const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
       const city = (profile?.city as string) || "";
@@ -146,32 +150,6 @@ export async function POST(request: NextRequest) {
         }
         console.error("[consultation] DB insert failed:", dbErr);
         return NextResponse.json({ accepted: false, message: "We couldn't save your request. Please try again later or call us directly." }, { status: 503 });
-      }
-
-      // HubSpot contact + mapped deal + lead_created mail live on p5 intake.
-      // Started as soon as the lead is durable so it overlaps Resend, and kept
-      // alive with after() so the visitor response does not wait on it.
-      // Failures stay inside the bridge and cannot change this status.
-      try {
-        const bridge = forwardConsultationToP5Intake({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
-          city: leadCity || city || null,
-          zip: zip || null,
-          projectType: projectType,
-          message: notes,
-          inquiryId: persistedRequestId,
-          // The family quote form contract (p5 reads these as it adds them).
-          requestKind: data.requestKind,
-          contactPreference: data.requestKind === "callback" ? "call" : data.preferredContact ?? null,
-          bestTime: data.requestKind === "callback" ? data.bestTime : null,
-          submissionKind: "initial",
-        });
-        after(() => bridge);
-      } catch (bridgeErr) {
-        console.error("[p5-intake] Could not schedule HubSpot bridge:", bridgeErr);
       }
 
       // Mirror the consultation into the admin lead manager so it can be
@@ -277,6 +255,44 @@ export async function POST(request: NextRequest) {
       } catch (leadErr) {
         console.error("[consultation] Lead mirror insert failed:", leadErr);
       }
+
+      // HubSpot contact + mapped deal + the team's "New lead" email live on p5
+      // intake. Started once the lead row exists, so team_notes can link it,
+      // and kept alive with after() so the visitor response does not wait on
+      // it. Failures stay inside the bridge and cannot change this status.
+      try {
+        bridge = forwardConsultationToP5Intake({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          city: leadCity || city || null,
+          zip: zip || null,
+          projectType: projectType,
+          message: notes,
+          inquiryId: persistedRequestId,
+          // The family quote form contract (p5 reads these as it adds them).
+          requestKind: data.requestKind,
+          contactPreference: data.requestKind === "callback" ? "call" : data.preferredContact ?? null,
+          bestTime: data.requestKind === "callback" ? data.bestTime : null,
+          submissionKind: "initial",
+          // What this site's own team email carries and the fields above do
+          // not: the planning range with its per-room amounts, the property
+          // lookup, and the lead dashboard link. p5 prints it in its email.
+          teamNotes: consultationTeamNotes({
+            estimate: data.estimate,
+            propertyProfile: data.propertyProfile,
+            budget: data.budget,
+            timeline: data.timeline,
+            source: data.source,
+            leadId: capturedLeadId,
+          }),
+        });
+        const pending = bridge;
+        after(() => pending);
+      } catch (bridgeErr) {
+        console.error("[p5-intake] Could not schedule HubSpot bridge:", bridgeErr);
+      }
     }
 
     // Mirror the lead to the external Boise Remodeling lead dashboard.
@@ -317,76 +333,97 @@ export async function POST(request: NextRequest) {
     });
 
 
+    // The team email. One per request (owner, 17 November 2026): p5 sends the
+    // team its "New lead" email, and this one is the fallback. It is decided
+    // inside after(), once the bridge has answered: when p5 confirms its email
+    // went, the shared family inbox gets nothing more from here; on any other
+    // answer, or none, every recipient gets this email exactly as before.
+    // The visitor's response never waits on it.
+    const sendTeamEmail = () =>
+      sendTeamEmailAfterBridge({
+        label: "consultation",
+        bridge,
+        recipients: () => getAdminRecipientEmails(SITE_CONFIG.email),
+        send: async (adminEmail) => {
+          const { client, fromEmail } = await getUncachableResendClient();
+
+          // One complete, self-contained estimate block (total range + every
+          // selection, broken out per room), so the team never needs to log
+          // in to understand the estimate.
+          const estimateDetailBlock = buildEstimateDetailHtml(data.estimate);
+
+          const profile = data.propertyProfile as {
+            parcelId?: string;
+            squareFootage?: number;
+            lotSizeSqFt?: number;
+            permittingAuthority?: string;
+            jurisdiction?: string;
+          } | null | undefined;
+          const propertyBlock = profile
+            ? `<div class="highlight-box" style="margin-top:12px;">
+                <p><strong>Property (auto-enriched):</strong></p>
+                <p style="margin-top:6px;">${escapeHtml(data.address)}</p>
+                ${profile.parcelId ? `<p>Parcel: ${escapeHtml(profile.parcelId)}</p>` : ""}
+                ${profile.squareFootage ? `<p>~${profile.squareFootage.toLocaleString()} sq ft</p>` : ""}
+                ${profile.lotSizeSqFt ? `<p>Lot: ${profile.lotSizeSqFt.toLocaleString()} sq ft</p>` : ""}
+                ${profile.permittingAuthority ? `<p>Permits: ${escapeHtml(profile.permittingAuthority)}</p>` : ""}
+              </div>`
+            : data.address
+              ? `<p><strong>Address:</strong> ${escapeHtml(data.address)}</p>`
+              : zip
+                ? `<p><strong>Address:</strong> Not provided (ZIP ${escapeHtml(zip)})</p>`
+                : `<p><strong>Address:</strong> Not provided</p>`;
+
+          const adminHtml = wrapEmailHtml({
+            title: "New Consultation Request",
+            subtitle: escapeHtml(data.name),
+            tagline: "Admin Notifications",
+            content: `
+              <table class="info-table">
+                <tr><td class="label">Name:</td><td class="value">${escapeHtml(data.name)}</td></tr>
+                <tr><td class="label">Phone:</td><td class="value"><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
+                <tr><td class="label">Email:</td><td class="value">${data.email ? `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>` : "Not provided"}</td></tr>
+                ${zip ? `<tr><td class="label">ZIP:</td><td class="value">${escapeHtml(zip)}</td></tr>` : ""}
+                <tr><td class="label">Project:</td><td class="value">${escapeHtml(projectType)}</td></tr>
+              </table>
+              ${propertyBlock}
+              ${estimateDetailBlock}
+              <div class="highlight-box">
+                <p><strong>Notes from the lead:</strong></p>
+                <p style="margin-top:8px;">${escapeHtml(notes || "(none)").replace(/\n/g, "<br>")}</p>
+              </div>
+              <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
+              ${buildLeadDashboardButton(capturedLeadId)}
+              <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
+              ${buildOwnerSignatureHtml("Thanks,")}
+            `,
+          });
+
+          await client.emails.send({
+            from: formatFromAddress(fromEmail),
+            // Reply from the admin's inbox goes straight to the lead.
+            replyTo: data.email ? buildLeadReplyTo(data.name, data.email) : getReplyToAddress(),
+            to: adminEmail,
+            subject: internalSubject(data),
+            html: adminHtml,
+            text: htmlToPlainText(adminHtml),
+          });
+        },
+      });
+    try {
+      after(sendTeamEmail);
+    } catch (afterErr) {
+      // No request scope to defer into: decide and send now rather than not at all.
+      console.error("[consultation] Could not defer the team email:", afterErr);
+      void sendTeamEmail();
+    }
+
+    // The customer's confirmation. Sent on the visitor's path as before and
+    // never gated on the bridge.
     let emailSent = false;
     try {
       const { client, fromEmail } = await getUncachableResendClient();
       const from = formatFromAddress(fromEmail);
-
-      const est = data.estimate;
-      // One complete, self-contained estimate block (total range + every
-      // selection, broken out per room) shared by the lead and admin emails,
-      // so neither recipient ever needs to log in to understand the estimate.
-      const estimateDetailBlock = buildEstimateDetailHtml(est);
-
-      const profile = data.propertyProfile as {
-        parcelId?: string;
-        squareFootage?: number;
-        lotSizeSqFt?: number;
-        permittingAuthority?: string;
-        jurisdiction?: string;
-      } | null | undefined;
-      const propertyBlock = profile
-        ? `<div class="highlight-box" style="margin-top:12px;">
-            <p><strong>Property (auto-enriched):</strong></p>
-            <p style="margin-top:6px;">${escapeHtml(data.address)}</p>
-            ${profile.parcelId ? `<p>Parcel: ${escapeHtml(profile.parcelId)}</p>` : ""}
-            ${profile.squareFootage ? `<p>~${profile.squareFootage.toLocaleString()} sq ft</p>` : ""}
-            ${profile.lotSizeSqFt ? `<p>Lot: ${profile.lotSizeSqFt.toLocaleString()} sq ft</p>` : ""}
-            ${profile.permittingAuthority ? `<p>Permits: ${escapeHtml(profile.permittingAuthority)}</p>` : ""}
-          </div>`
-        : data.address
-          ? `<p><strong>Address:</strong> ${escapeHtml(data.address)}</p>`
-          : zip
-            ? `<p><strong>Address:</strong> Not provided (ZIP ${escapeHtml(zip)})</p>`
-            : `<p><strong>Address:</strong> Not provided</p>`;
-
-      const adminHtml = wrapEmailHtml({
-        title: "New Consultation Request",
-        subtitle: escapeHtml(data.name),
-        tagline: "Admin Notifications",
-        content: `
-          <table class="info-table">
-            <tr><td class="label">Name:</td><td class="value">${escapeHtml(data.name)}</td></tr>
-            <tr><td class="label">Phone:</td><td class="value"><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
-            <tr><td class="label">Email:</td><td class="value">${data.email ? `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>` : "Not provided"}</td></tr>
-            ${zip ? `<tr><td class="label">ZIP:</td><td class="value">${escapeHtml(zip)}</td></tr>` : ""}
-            <tr><td class="label">Project:</td><td class="value">${escapeHtml(projectType)}</td></tr>
-          </table>
-          ${propertyBlock}
-          ${estimateDetailBlock}
-          <div class="highlight-box">
-            <p><strong>Notes from the lead:</strong></p>
-            <p style="margin-top:8px;">${escapeHtml(notes || "(none)").replace(/\n/g, "<br>")}</p>
-          </div>
-          <p style="font-size:13px;margin-top:16px;">Reply to this email to respond directly to ${escapeHtml(data.name)}, or <a href="tel:${escapeHtml(data.phone)}">call ${escapeHtml(data.phone)}</a>.</p>
-          ${buildLeadDashboardButton(capturedLeadId)}
-          <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
-          ${buildOwnerSignatureHtml("Thanks,")}
-        `,
-      });
-
-      const adminEmails = await getAdminRecipientEmails(SITE_CONFIG.email);
-      for (const adminEmail of adminEmails) {
-        await client.emails.send({
-          from,
-          // Reply from the admin's inbox goes straight to the lead.
-          replyTo: data.email ? buildLeadReplyTo(data.name, data.email) : getReplyToAddress(),
-          to: adminEmail,
-          subject: internalSubject(data),
-          html: adminHtml,
-          text: htmlToPlainText(adminHtml),
-        });
-      }
 
       // A callback is a 15 minute phone consult. Anything else is a home
       // walkthrough. The booking page cannot preselect the length, so the
@@ -400,7 +437,7 @@ export async function POST(request: NextRequest) {
       });
 
       // A callback or a call/text-only request may come without an email; the
-      // team's own email above still goes out.
+      // team is still told, by p5's email or by the fallback above.
       if (data.email) {
         await client.emails.send({
           from,

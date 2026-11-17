@@ -31,15 +31,18 @@ import {
 } from "@/server/services/consultationDetails";
 import { quoteSecret, signedFileUrl, type QuoteFileLink } from "@/server/services/consultationFiles";
 import { ensureConsultationFilesTable } from "@/server/services/consultationFileStore";
-import { buildP5DetailsBody, forwardConsultationToP5Intake } from "@/server/services/p5IntakeBridge";
+import { buildP5DetailsBody, forwardConsultationToP5Intake, type P5BridgeResult } from "@/server/services/p5IntakeBridge";
+import { detailsTeamNotes, sendTeamEmailAfterBridge } from "@/server/services/teamEmail";
 
 /**
  * Step 2 of the quote form ("Help us prepare (optional)") and the
  * announcement of uploaded files: adds to the SAME request Step 1 saved.
  * Validates the details token, merges without overwriting Step 1 answers,
  * appends a "DETAILS ADDED" block to the request and the lead manager notes,
- * then tells the team (a short "Details added" email) and p5 intake
- * (submission_kind "details", same external_id) so HubSpot gets it too.
+ * then tells p5 intake (submission_kind "details", same external_id) so
+ * HubSpot gets it and the team gets p5's "Details added" email. This site's
+ * own short "Details added" email is the fallback, sent to the shared inbox
+ * only when p5 does not confirm its email went (server/services/teamEmail.ts).
  * The same post twice changes nothing the second time.
  *
  * Not re-forwarded: the external Boise Remodeling lead dashboard. It accepts
@@ -220,8 +223,9 @@ export async function POST(request: NextRequest) {
     const place = fields.address ? splitAddress(fields.address) : null;
 
     // HubSpot by way of p5 intake: same brand and external_id, submission_kind "details".
+    let bridge: Promise<P5BridgeResult> | null = null;
     try {
-      const p5 = forwardConsultationToP5Intake({
+      bridge = forwardConsultationToP5Intake({
         body: buildP5DetailsBody({
           name,
           email: fields.email || stored.email,
@@ -237,39 +241,49 @@ export async function POST(request: NextRequest) {
           bestTime: fields.bestTime ?? null,
           files: files.map(({ name: fileName, url, contentType, size }) => ({ name: fileName, url, contentType, size })),
           lines: merge.lines,
+          // The one thing this site's "Details added" email has that the
+          // fields above do not: the lead dashboard link.
+          teamNotes: detailsTeamNotes({ leadId }),
         }),
       });
-      after(() => p5);
+      const pending = bridge;
+      after(() => pending);
     } catch (bridgeErr) {
       console.error("[p5-intake] Could not schedule the details post:", bridgeErr);
     }
 
-    // The team: a short follow-up to the original "New consultation request".
-    after(async () => {
-      try {
-        const { client, fromEmail } = await getUncachableResendClient();
-        const html = wrapEmailHtml({
-          title: body.kind === "files" ? "Files added" : "Details added",
-          subtitle: escapeHtml(name),
-          tagline: "Admin Notifications",
-          content: `
-            <p>${escapeHtml(name)} (<a href="tel:${escapeHtml(stored.phone)}">${escapeHtml(stored.phone)}</a>) added to the request they sent earlier.</p>
-            <div class="highlight-box">
-              ${merge.lines
-                .map((line) => {
-                  const link = /^- (.*): (https:\/\/\S+)$/.exec(line);
-                  return link
-                    ? `<p>&bull; <a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a></p>`
-                    : `<p>${escapeHtml(line)}</p>`;
-                })
-                .join("")}
-            </div>
-            ${buildLeadDashboardButton(leadId)}
-            <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
-          `,
-        });
-        const recipients = await getAdminRecipientEmails(SITE_CONFIG.email);
-        for (const to of recipients) {
+    // The team: one email per update (owner, 17 November 2026). p5 sends its
+    // "Details added" email; this short one is the fallback, decided once the
+    // bridge has answered. When p5 confirms its email went, the shared family
+    // inbox gets nothing more from here; otherwise every recipient gets this
+    // email exactly as before.
+    const sendTeamEmail = () =>
+      sendTeamEmailAfterBridge({
+        label: "consultation-details",
+        bridge,
+        recipients: () => getAdminRecipientEmails(SITE_CONFIG.email),
+        send: async (to) => {
+          const { client, fromEmail } = await getUncachableResendClient();
+          const html = wrapEmailHtml({
+            title: body.kind === "files" ? "Files added" : "Details added",
+            subtitle: escapeHtml(name),
+            tagline: "Admin Notifications",
+            content: `
+              <p>${escapeHtml(name)} (<a href="tel:${escapeHtml(stored.phone)}">${escapeHtml(stored.phone)}</a>) added to the request they sent earlier.</p>
+              <div class="highlight-box">
+                ${merge.lines
+                  .map((line) => {
+                    const link = /^- (.*): (https:\/\/\S+)$/.exec(line);
+                    return link
+                      ? `<p>&bull; <a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a></p>`
+                      : `<p>${escapeHtml(line)}</p>`;
+                  })
+                  .join("")}
+              </div>
+              ${buildLeadDashboardButton(leadId)}
+              <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
+            `,
+          });
           await client.emails.send({
             from: formatFromAddress(fromEmail),
             replyTo: getReplyToAddress(),
@@ -278,11 +292,15 @@ export async function POST(request: NextRequest) {
             html,
             text: htmlToPlainText(html),
           });
-        }
-      } catch (emailErr) {
-        console.error("[consultation-details] Email send failed:", emailErr);
-      }
-    });
+        },
+      });
+    try {
+      after(sendTeamEmail);
+    } catch (afterErr) {
+      // No request scope to defer into: decide and send now rather than not at all.
+      console.error("[consultation-details] Could not defer the team email:", afterErr);
+      void sendTeamEmail();
+    }
 
     return NextResponse.json({ ok: true, saved: Object.keys(fields), files: files.length });
   } catch (error) {

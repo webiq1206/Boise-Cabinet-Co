@@ -1,12 +1,19 @@
 /**
- * Fire-and-forget bridge from an accepted Cabinet consultation to the
- * multi-brand intake on p5homeco.com.
+ * Bridge from an accepted Cabinet consultation to the multi-brand intake on
+ * p5homeco.com. Never awaited on the visitor's path.
  *
  * That route already creates the HubSpot contact, the mapped deal, and the
- * fail-open lead_created notice (p5 tip 8a33b28c). This repo must not take a
- * HubSpot dependency or a portal token. A bridge failure is logged and never
- * thrown, so the visitor response, the local save, Resend, and the BRC
+ * "New lead" team email. This repo must not take a HubSpot dependency or a
+ * portal token. A bridge failure is logged and never thrown, so the visitor
+ * response, the local save, the customer's confirmation, and the BRC
  * dashboard forward stay independent of it.
+ *
+ * One team email per request (owner decision, 17 November 2026): the bridge
+ * asks p5 to confirm its team email (`team_alert: "confirm"`) and returns
+ * what p5 answered. This site's own team email is the fallback, decided from
+ * that answer in server/services/teamEmail.ts. `team_notes` carries what only
+ * this site knows, and p5 prints it in its email under "From the website".
+ * That email reaches HubSpot, so team_notes never carry a cost or a margin.
  *
  * Project strings are rewritten only when p5 already accepts them: either as
  * a HUBSPOT_PROJECT_TYPES value or as a PROJECT_TYPE_ALIASES key. Unknown
@@ -23,6 +30,59 @@ export const P5_INTAKE_URL = "https://p5homeco.com/api/leads/intake";
 export const P5_CABINET_BRAND = "Boise Cabinet Co";
 
 export const P5_CONSULTATION_FORM = "Cabinet consultation";
+
+/**
+ * p5 can take about 25 seconds in confirm mode: it waits for HubSpot so the
+ * email carries the links, then for the mail server.
+ */
+export const P5_INTAKE_TIMEOUT_MS = 30_000;
+
+/** The team_notes limits of the p5 intake contract. */
+export const MAX_TEAM_NOTES = 40;
+export const MAX_TEAM_NOTE_LENGTH = 300;
+
+/**
+ * What p5 said about its own team email. "sent": its mail server accepted it.
+ * "failed": it did not, or it was still sending. "none": this post produced
+ * no p5 email. "unknown": no usable answer (an older p5, an HTTP error, a
+ * timeout, a thrown fetch). Only "sent" is a confirmation.
+ */
+export type P5TeamAlert = "sent" | "failed" | "none" | "unknown";
+
+export type P5BridgeResult = { forwarded: boolean; alert: P5TeamAlert };
+
+/**
+ * Our own numbers never go in team_notes: cost, margin, markup, profit,
+ * contingency, overhead. p5's "New lead" email is copied into HubSpot with
+ * its full body by p5's inbox sync, and costs and margins stay out of HubSpot
+ * (owner rule). The notes builders only read customer-facing fields, so this
+ * is the backstop for free text: a line that names one is left out, here and
+ * again on p5. What may go: the planning range the customer was shown,
+ * customer-facing prices per room, their selections, property lookup facts,
+ * the dashboard link.
+ */
+const INTERNAL_FIGURE = /\b(?:costs?|costing|margins?|mark[- ]?ups?|profits?|contingenc(?:y|ies)|overheads?)\b/i;
+
+export function namesInternalFigure(line: string): boolean {
+  return INTERNAL_FIGURE.test(line);
+}
+
+/**
+ * team_notes as the contract wants them: plain single lines, no control
+ * characters, at most MAX_TEAM_NOTE_LENGTH characters and MAX_TEAM_NOTES
+ * lines, and never a line that names a cost, margin or other internal figure.
+ */
+export function cleanTeamNotes(raw: readonly unknown[] | null | undefined): string[] {
+  const notes: string[] = [];
+  for (const item of raw ?? []) {
+    if (typeof item !== "string") continue;
+    const line = item.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim();
+    if (!line || namesInternalFigure(line)) continue;
+    notes.push(line.length > MAX_TEAM_NOTE_LENGTH ? `${line.slice(0, MAX_TEAM_NOTE_LENGTH - 3).trimEnd()}...` : line);
+    if (notes.length >= MAX_TEAM_NOTES) break;
+  }
+  return notes;
+}
 
 /**
  * Visitor project text that does not match a p5 alias or HubSpot option at
@@ -119,6 +179,14 @@ export type ConsultationBridgeInput = {
   submissionKind?: "initial" | "details";
   /** Step 2 timing ("Soon", "1 to 3 months", ...). */
   timeline?: string | null;
+  /**
+   * `Label: value` lines p5 prints in its team email under "From the website".
+   * They are not stored on the lead, but p5's inbox sync copies that email
+   * into HubSpot, so they carry customer-facing figures only: never a cost,
+   * margin, markup, profit, contingency or overhead number. Only what this
+   * site's own team email carries and the fields above do not.
+   */
+  teamNotes?: readonly string[] | null;
 };
 
 /** The id p5 keys this request on, stable across Step 1 and Step 2. */
@@ -246,6 +314,10 @@ export function buildP5IntakeBody(input: ConsultationBridgeInput): Record<string
       size: file.size,
     }));
   }
+  // Ask p5 to send its team email before it answers and to say how that went.
+  body.team_alert = "confirm";
+  const teamNotes = cleanTeamNotes(input.teamNotes);
+  if (teamNotes.length) body.team_notes = teamNotes;
   return body;
 }
 
@@ -271,6 +343,7 @@ export function buildP5DetailsBody(input: {
   bestTime?: string | null;
   files?: P5IntakeFile[] | null;
   lines: string[];
+  teamNotes?: readonly string[] | null;
 }): Record<string, unknown> {
   const body = buildP5IntakeBody({
     name: input.name,
@@ -288,20 +361,30 @@ export function buildP5DetailsBody(input: {
     files: input.files,
     timeline: input.timeline,
     submissionKind: "details",
+    teamNotes: input.teamNotes,
   });
   // Lead with "Details added" so the deal note reads as a follow-up, not a new request.
   body.summary = ["Details added", ...input.lines].join("\n");
   return body;
 }
 
+/** Anything that is not exactly one of the three contract values is "unknown". */
+export function readP5TeamAlert(payload: unknown): P5TeamAlert {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return "unknown";
+  const alert = (payload as { alert?: unknown }).alert;
+  return alert === "sent" || alert === "failed" || alert === "none" ? alert : "unknown";
+}
+
 /**
- * POST the consultation to p5 intake. Never throws.
+ * POST the consultation to p5 intake and report what p5 said about its team
+ * email. Never throws: every failure is `{ forwarded: false, alert: "unknown" }`.
  * Callers must not await this on the visitor's success path.
  */
 export async function forwardConsultationToP5Intake(
   input: ConsultationBridgeInput | { body: Record<string, unknown> },
   fetchImpl: FetchLike = fetch,
-): Promise<void> {
+  timeoutMs: number = P5_INTAKE_TIMEOUT_MS,
+): Promise<P5BridgeResult> {
   try {
     const body = "body" in input ? input.body : buildP5IntakeBody(input);
     const res = await fetchImpl(P5_INTAKE_URL, {
@@ -311,18 +394,29 @@ export async function forwardConsultationToP5Intake(
         Accept: "application/json",
       },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(10_000),
+      signal: AbortSignal.timeout(timeoutMs),
     });
+    const text = await res.text().catch(() => "");
     if (!res.ok) {
-      const detail = await res.text().catch(() => "");
       console.error(
-        `[p5-intake] Bridge rejected: ${res.status} ${detail.slice(0, 300)}`,
+        `[p5-intake] Bridge rejected: ${res.status} ${text.slice(0, 300)}`,
       );
-      return;
+      return { forwarded: false, alert: "unknown" };
     }
-    console.info(`[p5-intake] Consultation ${body.submission_kind === "details" ? "details " : ""}forwarded (${res.status}).`);
+    let payload: unknown = null;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+      payload = null;
+    }
+    const alert = readP5TeamAlert(payload);
+    console.info(
+      `[p5-intake] Consultation ${body.submission_kind === "details" ? "details " : ""}forwarded (${res.status}); p5 team email: ${alert}.`,
+    );
+    return { forwarded: true, alert };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error(`[p5-intake] Bridge failed: ${message}`);
+    return { forwarded: false, alert: "unknown" };
   }
 }

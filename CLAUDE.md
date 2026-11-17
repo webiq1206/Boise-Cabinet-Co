@@ -58,6 +58,53 @@ Cabinet's planning wizard (`components/estimate/EstimateResultPanel.tsx`)
 lists each room as scope with no per-room price; the per-room amounts stay in
 the team email. Guard: `tests/p5-instant-estimate.test.ts`.
 
+## One team email per request (owner decision, 17 November 2026)
+
+A request-form submission produces ONE team email, not two. p5homeco.com sends
+it: the "New lead" (or "Details added") email in the approved layout. This
+site's own team email is the fallback.
+
+* The bridge (`server/services/p5IntakeBridge.ts`) sends `team_alert:
+  "confirm"` and `team_notes`, waits up to 30 seconds, and returns
+  `{ forwarded, alert }`. `alert` is `sent`, `failed` or `none` exactly as p5
+  answered; anything else (an older p5, an HTTP error, a timeout, a thrown
+  fetch, bad JSON) is `unknown`. It never throws.
+* The decision is `sendTeamEmailAfterBridge()` in
+  `server/services/teamEmail.ts`, called inside `after()` by
+  `app/api/consultation/route.ts` (request, callback, request with a planning
+  range) and `app/api/consultation/details/route.ts` (details or files added).
+  `sent`: the shared family inbox gets nothing more from this site; any other
+  admin recipient still gets this site's email. Everything else: this site's
+  email goes to every recipient, exactly as before. A lead must never end with
+  zero team emails, so every doubt sends.
+* The shared inbox test is `isSharedFamilyInbox()`: `hello@` at p5homeco.com,
+  boisecabinet.co, boiseconstruction.co, boiseremodeling.co, boisehandyman.co
+  or boiseadu.co, in any letter case. Today that is this site's only admin
+  recipient (`getAdminRecipientEmails`).
+* The visitor's response and the customer's confirmation are never gated on
+  the bridge. Only the team email waits for it, and only inside `after()`.
+  Never `await` the bridge or the team email on the visitor's path.
+* `team_notes` (`consultationTeamNotes()`, `detailsTeamNotes()`) carry what
+  this site's team email has and the bridge fields do not: the planning
+  wizard's range with its per-room amounts, budget and timeline, the property
+  lookup (parcel, home size, lot, permitting authority) and the lead dashboard
+  link. Plain `Label: value` lines, at most 40 of at most 300 characters. p5
+  prints them in its team email and does not store them on the lead. Never
+  repeat a field the bridge already sends.
+* `team_notes` carry customer-facing figures only. p5's inbox sync copies its
+  "New lead" email into HubSpot with the full body, and costs and margins stay
+  out of HubSpot (owner rule). Never put a cost, margin, markup, gross profit,
+  contingency or overhead number in a note, nor pricing-alert text that names
+  a margin (a count of alerts at most). The builders read no such field, and
+  `cleanTeamNotes()` leaves out any line that names one (`namesInternalFigure`);
+  p5 drops such lines too. Do not reword a figure to get it through.
+* Not covered, because they do not post to the p5 intake: the design pricing
+  request, saved estimator sessions, the admin lead manager, and the document
+  estimator's team email (`lib/p5`, shared code, edited in p5-home-co only).
+* Guards: `tests/p5-one-team-email.test.ts` (runs both routes with fakes) and
+  `tests/p5-intake-bridge.test.ts`. Never submit a test through the live
+  request form: it fires a server-side Meta Lead conversion.
+
 ## Publishing to Replit: never approve a DROP
 
 Replit's Republish compares the development database with production and

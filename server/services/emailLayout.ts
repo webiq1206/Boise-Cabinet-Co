@@ -343,15 +343,20 @@ export const LEAD_DASHBOARD_URL = (
   process.env.LEAD_DASHBOARD_URL || "https://leads.boiseremodeling.co"
 ).replace(/\/+$/, "");
 
+/** The dashboard link for one lead, or the dashboard root when there is no id. */
+export function leadDashboardHref(leadId?: string | null): string {
+  return leadId
+    ? `${LEAD_DASHBOARD_URL}/?leadId=${encodeURIComponent(leadId)}`
+    : LEAD_DASHBOARD_URL;
+}
+
 /**
  * "View lead in dashboard" CTA for admin lead emails. The lead id is passed as
  * a query param rather than a path segment: a dashboard that reads it can deep
  * link, and one that ignores it still lands the admin on the dashboard.
  */
 export function buildLeadDashboardButton(leadId?: string | null): string {
-  const href = leadId
-    ? `${LEAD_DASHBOARD_URL}/?leadId=${encodeURIComponent(leadId)}`
-    : LEAD_DASHBOARD_URL;
+  const href = leadDashboardHref(leadId);
   return `<p style="margin-top:20px;text-align:center;"><a class="cta-button" href="${href}">View lead in dashboard &rarr;</a></p>`;
 }
 
