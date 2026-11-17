@@ -154,6 +154,28 @@ export const P5_PROJECT_TYPE_BY_VISITOR_LABEL: Readonly<Record<string, string>> 
   "Whole-home cabinetry": "Whole-home cabinetry",
 };
 
+/**
+ * The planning range as p5 reads it to create the QuickBooks customer and an
+ * UNSENT estimate (owner decision, 13 and 17 November 2026; the contract is
+ * p5's docs/lead-intake-contract.md). CUSTOMER amounts only: never a cost,
+ * margin, markup, profit, contingency or overhead in any field of it.
+ *
+ * There is no `verified` here on purpose. p5 takes `verified: true` to mean
+ * this site's server recomputed the figures, and it did not: the planning
+ * wizard's range comes from the visitor's browser.
+ */
+export type P5SiteEstimateLine = { title: string; description?: string; amount: number };
+
+export type P5SiteEstimate = {
+  kind: "planning-range";
+  /** The range the customer was shown. */
+  low: number;
+  high: number;
+  label?: string;
+  /** One per room, at the middle of that room's range. With lines, p5 totals their sum. */
+  lines?: P5SiteEstimateLine[];
+};
+
 /** One attached file as the p5 intake contract carries it: a signed, unguessable link. */
 export type P5IntakeFile = { name: string; url: string; contentType: string; size: number };
 
@@ -187,6 +209,13 @@ export type ConsultationBridgeInput = {
    * site's own team email carries and the fields above do not.
    */
   teamNotes?: readonly string[] | null;
+  /**
+   * The planning range, structured, for p5 to put in QuickBooks. Built by
+   * consultationSiteEstimate() in teamEmail.ts, which returns nothing when
+   * the numbers do not hold up. Sent with a Step 1 request only: never with
+   * a callback, never with Step 2.
+   */
+  estimate?: P5SiteEstimate | null;
 };
 
 /** The id p5 keys this request on, stable across Step 1 and Step 2. */
@@ -313,6 +342,9 @@ export function buildP5IntakeBody(input: ConsultationBridgeInput): Record<string
       contentType: file.contentType,
       size: file.size,
     }));
+  }
+  if (input.estimate && (input.submissionKind ?? "initial") === "initial" && input.requestKind !== "callback") {
+    body.estimate = input.estimate;
   }
   // Ask p5 to send its team email before it answers and to say how that went.
   body.team_alert = "confirm";
