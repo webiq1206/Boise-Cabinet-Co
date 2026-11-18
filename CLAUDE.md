@@ -124,11 +124,70 @@ site's own team email is the fallback.
     and size from the real wizard) and the route checks in
     `tests/p5-one-team-email.test.ts`.
 * Not covered, because they do not post to the p5 intake: the design pricing
-  request, saved estimator sessions, the admin lead manager, and the document
-  estimator's team email (`lib/p5`, shared code, edited in p5-home-co only).
+  request, saved estimator sessions and the admin lead manager.
+* The document estimator (`lib/p5`, `/estimate/scope`) does post to the p5
+  intake, by its own rule: it emails the team itself and says
+  `team_alert: "site"`, so p5 sends no second email. See "Document estimator
+  leads go to P5" below. It never uses the bridge or `team_alert: "confirm"`.
 * Guards: `tests/p5-one-team-email.test.ts` (runs both routes with fakes) and
   `tests/p5-intake-bridge.test.ts`. Never submit a test through the live
   request form: it fires a server-side Meta Lead conversion.
+
+## Document estimator leads go to P5 (owner decisions, 13, 17 and 18 November 2026)
+
+Every project request and every estimate the document estimator
+(`/estimate/scope`, shared code in `lib/p5`) takes on this site becomes a P5
+lead and a HubSpot deal; a priced estimate also becomes a QuickBooks customer
+with an UNSENT estimate. ONE lead per project and ONE team email. Both are a
+post to `https://p5homeco.com/api/leads/intake`, built by the shared
+`lib/p5/p5LeadIntake.ts` (figures in `lib/p5/documentEstimateFigures.ts`).
+
+* The visitor's unpriced PROJECT REQUEST: the `crm` channel in
+  `lib/p5/intakeDeliveryRuntime.ts` (brand-owned) is
+  `p5LeadIntakeTransport()`. Form `p5-project-request`, `team_alert: "site"`,
+  brand the PRIMARY TEAM the request was routed to (cabinet work is "Boise
+  Cabinet Co"; a whole kitchen taken here is "Boise Remodeling Co"), id the
+  request's lead key. No price, so nothing goes to QuickBooks.
+* The ESTIMATE the team prices and publishes: `syncCrm()` in
+  `lib/p5/deliveryAdapter.ts` (brand-owned) calls `forwardEstimateToP5()` with
+  brand "Boise Cabinet Co". Form `p5-estimator`, `team_alert: "site"`, an
+  `estimate` of kind `document`, and `request_external_id` so it joins the
+  request's lead. CUSTOMER AMOUNTS ONLY: never a cost, margin, markup, profit,
+  contingency or overhead figure. It throws when P5 does not accept the post,
+  so the outbox marks the CRM job for review. The old lead dashboard
+  (`LEAD_DASHBOARD_API_URL`) is no longer called from `syncCrm()`.
+* The forwarder is loaded inside `syncCrm()` with `await import(...)`, never a
+  static import: the shared `tests/p5-intake-reply-to.test.ts` runs the adapter
+  in a VM with a fixed dependency list.
+* The switch is the existing `P5_CRM_DELIVERY=on`, already set in production
+  (owner, 18 November 2026): both paths are live as soon as this code is.
+  Without it the `crm` channel is `crm-disabled` and the outbox queues no CRM
+  job. Only requests saved since 18 November 2026 are sent
+  (`PROJECT_REQUEST_LEADS_SINCE`); `P5_REQUEST_LEADS_SINCE` (an ISO moment)
+  brings older ones in on purpose.
+* One team email: this site has already emailed the team (the request's own
+  `team` channel, the estimate's internal record), which is why both posts say
+  `team_alert: "site"`. When an estimate's figures cannot be sent, the lead
+  goes without `estimate` and without `team_alert`, and P5 sends its usual
+  "New lead" email.
+* A synthetic QA record is never posted on either path.
+* The canonical review receiver (`lib/p5/canonicalReviewTransport.ts`,
+  project_review_v1) is NOT used and stays gated (`INTAKE_RUNTIME_PROOF.crm`).
+  Do not wire it back into the runtime.
+* Shared files, never edited here: `lib/p5/p5LeadIntake.ts`,
+  `lib/p5/documentEstimateFigures.ts`, `lib/p5/manualReview.ts`,
+  `lib/p5/submitEndpoint.ts`, `tests/p5-lead-intake.test.ts`. They were copied
+  byte for byte from p5-home-co `7e0338c` (five files, not a full sync) and
+  their hashes are in `lib/p5/shared-manifest.json`.
+* The shared `tests/p5-crm-delivery.test.ts` (copied from p5-home-co
+  `36c2602`) tests the keyed lead dashboard code directly and no longer goes
+  through this site's `syncCrm()`. Never patch that file here. The lead
+  dashboard transport itself stays held by `tests/p5-keyed-crm.test.ts`.
+* The contract belongs to p5homeco.com (`docs/lead-intake-contract.md` there:
+  `team_alert: "site"`, `p5-project-request`, `request_external_id`).
+* Guards: `tests/p5-intake-local-crm.test.ts` (this site's wiring: the runtime
+  channel, both bodies, a refused post) and `tests/p5-lead-intake.test.ts`
+  (the shared code). Fake fetch only; never post a test to the live intake.
 
 ## Publishing to Replit: never approve a DROP
 

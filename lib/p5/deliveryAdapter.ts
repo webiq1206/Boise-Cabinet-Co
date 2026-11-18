@@ -2,11 +2,8 @@ import {safeEmailReplyTo} from './emailReplyTo.ts';
 import { getUncachableResendClient as getUncachableEmailClient } from "../../server/resend";
 import { getAdminRecipientEmails,formatFromAddress,decoratePreliminaryEstimateEmail } from "../../server/services/emailLayout";
 import { ESTIMATOR_BRAND as brand } from "./brand";
-import {assertCrmPayloadSize,crmPayload,CrmPayloadTooLargeError} from "./deliveryPayloads";
-import {crmIdentity,deliverKeyedCrm} from "./keyedCrm";
 export async function adminRecipients(){return [...new Set(await getAdminRecipientEmails(brand.email))];}
 export const EMAIL_SUPPORTS_IDEMPOTENCY=true;
-export {CrmPayloadTooLargeError};
 export async function sendEmail(input:{to:string;replyTo?:string;subject:string;text:string;html?:string;attachments:{filename:string;content:Buffer;contentType?:string}[];key:string}){
   const {client,fromEmail}=await getUncachableEmailClient();
   const sender=client.emails as unknown as {send:(body:unknown,options:unknown)=>Promise<any>};
@@ -21,11 +18,26 @@ export async function sendEmail(input:{to:string;replyTo?:string;subject:string;
   if(!id||id==="noop"||result?.skipped)throw new Error("Email delivery is not configured");
   return String(id);
 }
-export async function syncCrm(record:any,key:string){
-  const identity=crmIdentity(record,key,brand.domain);
-  const payload={...crmPayload(record,identity.externalLeadId),...identity};
-  assertCrmPayloadSize(payload);
-  return deliverKeyedCrm(payload,key,process.env.LEAD_DASHBOARD_KEY||'',process.env.LEAD_DASHBOARD_API_URL||brand.crmUrl);
+/**
+ * The published estimate's CRM delivery (owner decisions, 13, 17 and 18 November 2026): the estimate
+ * is posted to P5 Home Co's lead intake as form `p5-estimator` with `estimate` of kind `document`.
+ * P5 attaches it to the lead the visitor's project request made (one lead per project) and creates
+ * the QuickBooks customer and an UNSENT estimate from its figures. Customer amounts only: the shared
+ * builder reads no cost, margin, markup, profit, contingency or overhead figure. It says
+ * `team_alert: "site"` because this site has already emailed the team its internal estimate record,
+ * so P5 sends no second team email.
+ *
+ * The outbox calls this only while `P5_CRM_DELIVERY` is `on`. It throws a short Error when P5 does
+ * not accept the post, so the outbox marks the CRM job for review as it does for any CRM failure.
+ * A synthetic QA record is never posted. The old lead dashboard is no longer called from here.
+ *
+ * The forwarder is loaded with a dynamic import, never a static one: the shared
+ * tests/p5-intake-reply-to.test.ts runs this file in a VM with a fixed dependency list.
+ * `options` is a test seam (a fake fetch, another address); the outbox passes none.
+ */
+export async function syncCrm(record:any,key:string,options:{fetch?:typeof fetch;url?:string}={}){
+  const {forwardEstimateToP5}=await import("./p5LeadIntake.ts");
+  return forwardEstimateToP5(record,key,{fetch:options.fetch,url:options.url,brand:brand.name});
 }
 /** Synchronous readiness only: the Resend key or the Replit connector identity must be present before an intake notification is attempted. */
 export function emailTransportReady(){return Boolean(process.env.RESEND_API_KEY||(process.env.REPLIT_CONNECTORS_HOSTNAME&&(process.env.REPL_IDENTITY||process.env.WEB_REPL_RENEWAL)));}
