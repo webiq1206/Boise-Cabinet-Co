@@ -179,12 +179,10 @@ post to `https://p5homeco.com/api/leads/intake`, built by the shared
   `lib/p5/submitEndpoint.ts`, `tests/p5-lead-intake.test.ts`. They were copied
   byte for byte from p5-home-co `7e0338c` (five files, not a full sync) and
   their hashes are in `lib/p5/shared-manifest.json`.
-* Known at the time of this change (18 November 2026): the sender cases of the
-  shared `tests/p5-crm-delivery.test.ts` still expect `syncCrm()` to post to
-  the lead dashboard, so they fail on this site until the corrected shared
-  test is copied in from p5-home-co with its manifest hash. Never patch that
-  file here. The lead dashboard transport itself stays held by
-  `tests/p5-keyed-crm.test.ts`.
+* The shared `tests/p5-crm-delivery.test.ts` (copied from p5-home-co
+  `36c2602`) tests the keyed lead dashboard code directly and no longer goes
+  through this site's `syncCrm()`. Never patch that file here. The lead
+  dashboard transport itself stays held by `tests/p5-keyed-crm.test.ts`.
 * The contract belongs to p5homeco.com (`docs/lead-intake-contract.md` there:
   `team_alert: "site"`, `p5-project-request`, `request_external_id`).
 * Guards: `tests/p5-intake-local-crm.test.ts` (this site's wiring: the runtime
