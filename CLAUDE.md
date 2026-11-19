@@ -411,8 +411,33 @@ location pages.
   back to this site's "Files added" email when p5 does not confirm. The
   visitor's response never waits on p5.
 * Limits are `shared/quoteFiles.ts`: 10 files a request, 20 MB each, photos
-  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. CAD and Office files are refused
-  in plain words. The tile's helper text is built from those constants.
+  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. The tile's helper text is built
+  from those constants. Office files are refused in plain words everywhere.
+* **Drawings on the builders form only** (owner, 19 November 2026): the
+  "builder" profile also takes DWG and DXF. A drawing is known by its
+  extension, because browsers report no dependable type, and the server
+  checks the bytes (`sniffCadType()`: a DWG opens with "AC10" and two digits;
+  a DXF is text that opens with a section, or the binary form's sentinel), so
+  a renamed page or program is refused. The server decides the profile from
+  the saved request's project type (`quoteFileProfileForProjectType()`, the
+  `builder-contractor:` prefix that form sends); the browser is never asked,
+  and any doubt keeps the standard rules. A drawing is never opened, rendered
+  or run: it is stored, linked, and served by
+  `/api/consultation/files/<id>` as `application/octet-stream` with
+  `Content-Disposition: attachment`. It is stored as `application/acad` or
+  `application/dxf`, never an `image/` type (the tile previews images).
+* **The limit stays 20 MB a file, on every form.** 50 MB was considered for
+  builders and not adopted, because the path does not carry it safely: the
+  route reads the whole request (`request.formData()`), copies the file again
+  (`arrayBuffer()`), turns it into base64 text (a third more) and sends that
+  as one query parameter, so one 50 MB upload holds roughly 250 to 300 MB of
+  memory; the file is one base64 text value in a single Postgres row
+  (`consultation_files.data_base64`), read back whole and decoded for every
+  download; and the site runs on Replit Autoscale, which is built on Google
+  Cloud Run, whose documented request limit over HTTP/1 is 32 MiB (not
+  measured here: that would mean posting to the live site). Raising the limit
+  needs chunked storage first. Until then the builders tile tells the builder
+  to paste a share link for a larger plan set in the form's own text box.
 * A failed upload never loses the lead: the success screen names the file,
   says the request is saved, and offers "Try again" or texting it.
 * Guard: the "builder plans" and "upload route" tests in

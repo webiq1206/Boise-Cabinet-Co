@@ -24,6 +24,7 @@ import { forwardRef, useCallback, useEffect, useRef, useState, type FormEvent } 
 import { Check, Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AttachmentTile, FileChips, type PickedFile } from "@/components/quote/AttachmentTile";
+import type { QuoteFileProfile } from "@/shared/quoteFiles";
 import {
   ERROR_CLASS,
   FIELD_CLASS,
@@ -77,6 +78,8 @@ export interface QuoteFollowUpProps {
   /** Test id on the confirmation; "quote-form-success" unless a page pinned another. */
   successTestId?: string;
   className?: string;
+  /** "builder" on the builders form: files added here follow the same rules as its first screen. */
+  fileProfile?: QuoteFileProfile;
 }
 
 type UploadRun = (list: PickedFile[], set: (update: (prev: PickedFile[]) => PickedFile[]) => void) => Promise<string[]>;
@@ -98,6 +101,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
     panelHeading,
     onDetailsSaved,
     successTestId = "quote-form-success",
+    fileProfile = "standard",
     className,
   },
   successRef,
@@ -413,6 +417,7 @@ export const QuoteFollowUp = forwardRef<HTMLDivElement, QuoteFollowUpProps>(func
                 alreadyStored={stored1}
                 onRetry={(key) => void retry(key, files2, setFiles2)}
                 title={files1.length ? "Add more photos, plans or files" : "Add photos, plans or files"}
+                profile={fileProfile}
               />
 
               {panelError ? (

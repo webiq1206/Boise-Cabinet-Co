@@ -48,6 +48,8 @@ export function KitchenCabinetsQuoteForm({
       dock={dock}
       showPhone={showPhone}
       attachFiles={attachFiles}
+      // Builders send plan sets and CAD: their form also takes DWG and DXF drawings.
+      fileProfile={context === "builder-contractor" ? "builder" : "standard"}
       onAccepted={({ submissionId, replayed }) => {
         if (!replayed) trackGoogleAdsLeadOnce(submissionId, { projectType: context ?? "kitchen" });
       }}
