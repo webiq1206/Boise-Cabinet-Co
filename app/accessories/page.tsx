@@ -13,7 +13,7 @@ import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
 import { catalogDescription,catalogMetadata } from "@/lib/catalog-metadata";
 import { buildCanonical } from "@/lib/page-metadata";
 import { generateBreadcrumbSchema,generateWebPageSchema } from "@/lib/schema";
-import { ACCESSORY_FAMILIES,getAccessoryImagePath } from "@/shared/catalog";
+import { ACCESSORY_FAMILIES,getAccessoryImageDescription,getAccessoryImagePath } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -84,7 +84,7 @@ export default function AccessoriesPage() {
                     name={family.name}
                     description={family.description}
                     imageSrc={getAccessoryImagePath(family.slug)}
-                    imageAlt={`${family.name} cabinet accessory`}
+                    imageAlt={getAccessoryImageDescription(family.slug, family.name)}
                     aspectRatio="1/1"
                     specs={[{ label: "Type", value: family.category }]}
                     primaryHref="/catalog"

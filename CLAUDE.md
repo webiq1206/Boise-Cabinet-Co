@@ -306,9 +306,18 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 * **Accessories hero** is the oak drawer stack
   (`/images/blog/kitchen-cabinet-organization-ideas.webp`), not the vertical
   divider render, which shows a utensil jar and is also the Vertical Partition
-  card on that page. The accessory product renders under
-  `public/images/catalog/accessories` still show staged kitchen items; there is
-  no prop-free photograph of those products in the owner's folder.
+  card on that page.
+* **Accessory pictures** (`public/images/catalog/accessories`, 21 files) are
+  stills the owner approved on 19 November 2026, replacing a set with a golden
+  glow, staged plants and jars, a placeholder graphic and three pairs that were
+  one picture twice. They are AI images like the rest of that library: each alt
+  says only what its picture shows (`ACCESSORY_IMAGE_DESCRIPTION` and
+  `getAccessoryImageDescription()` in `shared/catalog/catalogImages.ts`, in the
+  local form with "Cabinet accessories" as the work), never a photograph of
+  completed work and no qualifier word. What a tray or drawer holds is its
+  contents, not a prop. Every accessory shows its own picture ("partition" no
+  longer borrows the vertical divider). Change a file and change its line.
+  Guard: `tests/accessory-images.test.ts`.
 * **Homepage hero video.** The video and poster in `public/media/cabinet` are
   the owner's original (2026-11-05). The owner reviewed an AI replacement on
   19 November 2026 and chose to keep the original video and poster, props
