@@ -217,15 +217,68 @@
 .approved-shell .lx-reading-link:not(:has(.lx-reading-photo)) { grid-template-columns: minmax(0, 1fr) auto; }
 .approved-shell .lx-reading-link:hover .lx-reading-title { text-decoration: underline; text-underline-offset: 4px; }
 @media (min-width: 701px) {
-  .approved-shell .lx-cells { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--lx-cols-tablet, 4), minmax(0, 1fr)); gap: var(--space-4, 16px); overflow: visible; }
-  .approved-shell .lx-cells > li { flex: none; }
+  /* A count with no even split stays a swipe row (data-tablet / data-desktop = "swipe"). */
+  .approved-shell .lx-cells > li { flex: 0 0 30%; }
+  .approved-shell .lx-cells[data-tablet="grid"] { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--lx-cols-tablet, 4), minmax(0, 1fr)); gap: var(--space-4, 16px); overflow: visible; }
+  .approved-shell .lx-cells[data-tablet="grid"] > li { flex: none; }
   .approved-shell .lx-cell-photo img { transition: transform var(--motion-base, 300ms) ease-out; }
   .approved-shell .lx-cell:hover .lx-cell-photo img { transform: scale(1.03); }
   .approved-shell .lx-reading { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8, 32px); }
 }
 @media (min-width: 1024px) {
   .approved-shell .lx-explore-grid { gap: var(--space-12, 48px); }
-  .approved-shell .lx-cells { grid-template-columns: repeat(var(--lx-cols, 4), minmax(0, 1fr)); }
+  .approved-shell .lx-cells[data-desktop="grid"] { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--lx-cols, 4), minmax(0, 1fr)); gap: var(--space-4, 16px); overflow: visible; }
+  .approved-shell .lx-cells[data-desktop="grid"] > li { flex: none; }
+  .approved-shell .lx-cells[data-desktop="swipe"] { margin: 0; padding: 0 0 var(--space-2, 8px); display: flex; overflow-x: auto; scroll-padding-inline: 0; }
+  .approved-shell .lx-cells[data-desktop="swipe"] > li { flex: 0 0 22%; }
   .approved-shell .lx-reading { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (prefers-reduced-motion: reduce) { .approved-shell .lx-cell, .approved-shell .lx-cell-photo img { transition: none; } }
+
+/* Blog and guide index on phones: after the lead article, each post is one
+   compact row (photograph, topic, title) so a visitor sees four or five posts
+   per screen, not one. Date, excerpt and stats return from tablet up. The row
+   photo favours the top of the frame so a square crop never cuts off a head. */
+@media (max-width: 700px) {
+  .approved-shell .lx-blog-card {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: stretch;
+    min-height: 112px;
+  }
+  .approved-shell .lx-blog-card .lx-blog-photo { aspect-ratio: auto; height: 100%; min-height: 112px; }
+  .approved-shell .lx-blog-card .lx-blog-photo img { object-position: 50% 20%; }
+  .approved-shell .lx-blog-card .lx-blog-body { justify-content: center; padding: var(--space-3, 12px) var(--space-4, 16px); }
+  .approved-shell .lx-blog-card .lx-blog-body > div:first-child { margin-bottom: var(--space-2, 8px); }
+  .approved-shell .lx-blog-card :is(.lx-blog-date, .lx-blog-excerpt, .lx-blog-more) { display: none; }
+  .approved-shell .lx-blog-card h3 { margin: 0; font-size: 18px; line-height: 1.25; }
+  /* Guide cards are not one link: keep "Read guide" as the row's action and drop the stats. */
+  .approved-shell .lx-guide-card .lx-blog-body > :not(h3):not(a) { display: none; }
+  .approved-shell .lx-guide-card .lx-blog-body > a { margin-top: var(--space-1, 4px); }
+}
+
+/* Lists that were one full-height card per item on phones: two across, so the
+   set reads as a set. Copy stays in the HTML; a card's long description shows
+   from tablet up where there is room for it. */
+@media (max-width: 700px) {
+  .approved-shell .lx-two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3, 12px); }
+  .approved-shell .lx-two-up > * { min-width: 0; height: 100%; }
+  .approved-shell .lx-two-up .marketing-card { padding: var(--space-3, 12px); }
+  .approved-shell .lx-two-up :is(h2, h3, .ed-h3) { margin-bottom: var(--space-2, 8px); font-size: 17px; line-height: 1.25; }
+  .approved-shell .lx-two-up p { font-size: 14px; line-height: 1.45; }
+  .approved-shell .lx-two-up :is(a, button)[class*="inline-flex"] { width: 100%; justify-content: center; padding-inline: var(--space-3, 12px); }
+  .approved-shell .lx-two-up > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* /cabinets: the lead room full width, then the twelve rooms two across. */
+  .approved-shell .approved-interior .interior-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8, 32px) var(--space-3, 12px); }
+  .approved-shell .approved-interior .interior-service-grid > .interior-service-card--featured { display: block; }
+  .approved-shell .approved-interior .interior-service-grid > .interior-service-card:not(.interior-service-card--featured) > div { gap: var(--space-2, 8px); margin-top: var(--space-3, 12px); }
+  .approved-shell .approved-interior .interior-service-grid > .interior-service-card:not(.interior-service-card--featured) h2 { font-size: 20px; line-height: 1.2; }
+  .approved-shell .approved-interior .interior-service-grid > .interior-service-card:not(.interior-service-card--featured) :is(p, ul) { display: none; }
+
+  /* /guides: city guides as one-line rows, title and "Read" side by side. */
+  .approved-shell .lx-guide-compact { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-4, 16px); padding: var(--space-3, 12px) var(--space-4, 16px); }
+  .approved-shell .lx-guide-compact > :not(h3):not(a) { display: none; }
+  .approved-shell .lx-guide-compact h3 { margin: 0; }
+  .approved-shell .lx-guide-compact > a { margin: 0; }
+}

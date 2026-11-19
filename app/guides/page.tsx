@@ -157,8 +157,8 @@ export default function GuidesIndexPage() {
           </h2>
           <div className="ed-cards-3 gap-6">
             {pillarGuides.map((guide) => (
-              <MarketingCard key={guide.slug} padding="none" className="overflow-hidden flex flex-col h-full">
-                <Link href={guidePath(guide.slug)} className="block relative aspect-[16/9] overflow-hidden">
+              <MarketingCard key={guide.slug} padding="none" className="lx-blog-card lx-guide-card overflow-hidden flex flex-col h-full">
+                <Link href={guidePath(guide.slug)} className="lx-blog-photo block relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={getBlogThumbnail(guide.slug, guide.heroImage)}
                     alt={localAlt(getBlogImageAlt(guide.slug))}
@@ -167,10 +167,10 @@ export default function GuidesIndexPage() {
                     className="object-cover img-brand-grade"
                   />
                 </Link>
-                <div className="p-6 flex flex-col flex-1">
-                <BookOpen className="h-5 w-5 text-accent mb-3" />
+                <div className="lx-blog-body p-6 flex flex-col flex-1">
+                <BookOpen className="lx-blog-date h-5 w-5 text-accent mb-3" />
                 <h3 className="font-medium text-lg mb-2">{guide.title}</h3>
-                <p className="text-sm text-muted-foreground flex-1 mb-3">{guide.excerpt}</p>
+                <p className="lx-blog-excerpt text-sm text-muted-foreground flex-1 mb-3">{guide.excerpt}</p>
                 <GuideCardStats guide={guide} />
                 <Link
                   href={guidePath(guide.slug)}
@@ -191,7 +191,7 @@ export default function GuidesIndexPage() {
           </h2>
           <div className="ed-cards-4 gap-4">
             {locationGuides.map((guide) => (
-              <MarketingCard key={guide.slug} className="p-5 flex flex-col h-full">
+              <MarketingCard key={guide.slug} className="lx-guide-compact p-5 flex flex-col h-full">
                 <MapPin className="h-4 w-4 text-accent mb-2" />
                 <h3 className="font-medium text-base mb-1">{guide.title}</h3>
                 <p className="text-sm text-muted-foreground mb-2 line-clamp-2">

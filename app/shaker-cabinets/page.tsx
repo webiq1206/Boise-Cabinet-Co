@@ -146,7 +146,7 @@ export default function ShakerCabinetsPage() {
               }
               className="mb-10"
             />
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="lx-two-up grid sm:grid-cols-2 gap-4">
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
                   <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-[#F7F3EC]">

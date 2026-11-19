@@ -251,3 +251,36 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
   On desktop the reading column and the sticky rail fill the container.
 * Door styles and finishes on room pages sit two across on phones
   (`.lx-swatch-grid`).
+
+## Photos, thumbnails and phone lists (owner, 19 November 2026)
+
+* No staged props in a photo: no plants, vases, bowls, baskets, fruit or
+  flowers. Books on a bookshelf and clothes in a closet are the subject and are
+  fine. Two pictures still carry props and are pinned, so they need the owner
+  to supply replacements: the homepage hero video poster
+  (`CabinetHeroVideo.tsx`) and `rooms/kitchen-walnut-mountain.webp` (hashed in
+  `tests/sam-image-swaps.test.ts`).
+* Replacing a photo means replacing its variants. `npm run images:variants`
+  only writes a `-320/-640/-1080` (or `-640/-1080/-1920`) file that does not
+  exist, so an old variant keeps serving the OLD picture to phones. Delete the
+  base file's variants first, then run `images:variants` and `images:blur`.
+* A changed picture needs its words changed with it: the alt in
+  `scripts/generate-blog-image-registry.mjs` (then run it; the registry is
+  generated), `imageAlt` in `shared/catalog/roomCategories.ts`, and the entry
+  in `data/projects.json` (then `npm run projects:build`). Describe only what
+  the picture shows.
+* Two city cards never share a picture (`shared/cityServiceImages.ts` files).
+* Keep exploring (`components/marketing/KeepExploring.tsx`): every row has a
+  thumbnail. A page with no photo of its own is in `STATIC_PAGE_IMAGE`; add a
+  new static page there. Card rows are balanced for any count
+  (`balancedColumns()`): a count that cannot fill whole rows becomes one swipe
+  row, never a short last row.
+* Phone lists (below 701px, `app/interior-refinement.css`): the blog and guide
+  indexes are compact rows (`lx-blog-card`: 112px photo, topic, title; date,
+  excerpt and "Read article" hidden; photo `object-position: 50% 20%` so a
+  person's head is never cut off). Card sets are two across (`lx-two-up`, and
+  the `/cabinets` room grid). City guides are one-line rows
+  (`lx-guide-compact`). The copy stays in the HTML.
+* `docs/interior-route-audit.json` pins each interior page's metadata and
+  schema code. A deliberate SEO change must update the signature in the same
+  commit; it sat stale from #116 until 19 November 2026 with twelve tests red.

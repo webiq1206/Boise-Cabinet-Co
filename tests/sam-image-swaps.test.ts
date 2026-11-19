@@ -94,7 +94,10 @@ test("serving maps point at the new files and keep the design studio hero", () =
   assert.equal(SITE_IMAGES.statementBand, MARKETING_IMAGES.statementBand);
   assert.equal(MARKETING_IMAGES.heroContact, "/images/marketing/bath-white-oak-vanity.webp");
   assert.equal(SITE_IMAGES.contactHero, MARKETING_IMAGES.heroContact);
-  assert.equal(MARKETING_IMAGES.hardware, "/images/marketing/warranty-hardware.webp");
+  // The family redesign (#126, 2 November 2026) moved the warranty hero and the
+  // craft band to the oak island kitchen. The hardware photo itself is still
+  // pinned above by hash and is still served (GBP post, Keep exploring).
+  assert.equal(MARKETING_IMAGES.hardware, "/images/marketing/kitchen-wood-island.webp");
   assert.equal(MARKETING_IMAGES.cabinetsHero, "/images/marketing/kitchen-farmhouse-shaker.webp");
   assert.equal(MARKETING_IMAGES.designStudio, "/images/marketing/hero-design-studio.webp");
   assert.equal(SERVICE_BACKGROUNDS["kitchen-remodel"], "/images/catalog/rooms/kitchen-walnut-mountain.webp");

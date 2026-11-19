@@ -77,7 +77,7 @@ export function CabinetHeroVideo() {
     <div ref={media} className="fam-hero-media" aria-hidden="true">
       {/* The approved poster is immediately readable, including while loading. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img data-hero-poster="" src={POSTER} alt="" width={1920} height={1080}
+      <img data-hero-poster="" src={POSTER} alt="Custom kitchen cabinets in Boise, Idaho: oak kitchen with a plaster range hood, two bronze pendant lights and an island with four woven stools" width={1920} height={1080}
         fetchPriority="high" loading="eager" className="fam-hero-img" />
       {ready ? <video ref={video} id="cabinet-hero-video" poster={POSTER}
         autoPlay muted loop playsInline preload="auto" tabIndex={-1}

@@ -42,9 +42,28 @@ interface KeepExploringProps {
 
 const MAX_READING = 6;
 
-/** The photograph that belongs to the page a link opens, with its alt. */
+/** Photographs for pages that are not a post, a room or a city, so every row in a list has one. */
+const STATIC_PAGE_IMAGE: Record<string, { src: string; description: string }> = {
+  "/services/cabinet-installation": { src: "/images/marketing/hero-construction.webp", description: "Oak cabinet boxes clamped together during cabinet installation" },
+  "/catalog": { src: "/images/marketing/catalog-default.webp", description: "Cabinet door samples and finish chips laid out on a wood floor" },
+  "/compare": { src: "/images/marketing/cabinet-door-samples.webp", description: "Cabinet door samples, a finish fan deck and hardware pulls on a table" },
+  "/warranty": { src: "/images/marketing/warranty-hardware.webp", description: "Oak and walnut drawer fronts with brass and black knobs" },
+  "/design-studio": { src: "/images/marketing/hero-design-studio.webp", description: "Laptop on a kitchen counter showing a cabinet design" },
+  "/kitchen-cabinets": { src: "/images/marketing/kitchen-farmhouse-shaker.webp", description: "White shaker kitchen cabinets with an oak island of drawers" },
+  "/cabinets": { src: "/images/marketing/kitchen-farmhouse-shaker.webp", description: "White shaker kitchen cabinets with an oak island of drawers" },
+  "/shaker-cabinets": { src: "/images/marketing/hero-hardware.webp", description: "Cream shaker cabinet drawer fronts with brass pulls" },
+  "/accessories": { src: "/images/approved/drawer-oak.webp", description: "Open oak drawer with a wood utensil organizer" },
+  "/about": { src: "/images/marketing/great-room-oak-built-ins.webp", description: "Oak built-in shelves and cabinets on both sides of a plaster fireplace" },
+  "/contact": { src: "/images/marketing/bath-white-oak-vanity.webp", description: "Bathroom with a long oak vanity, two black-framed mirrors and a freestanding tub" },
+  "/design-ideas": { src: "/images/marketing/kitchen-wood-island.webp", description: "Open kitchen with a long oak island of drawers and a wall of oak tall cabinets" },
+};
+/** Any other page: drawer fronts, the plainest picture of the work. */
+const DEFAULT_PAGE_IMAGE = { src: "/images/marketing/drawers-black-pulls-oak.webp", description: "Oak drawer fronts with black bar pulls beside a white cabinet door" };
+
+/** The photograph that belongs to the page a link opens, with its alt. Internal links always get one. */
 export function pageImage(href: string): { src: string; alt: string } | undefined {
-  const [section, slug] = href.split("?")[0].split("/").filter(Boolean);
+  const pathOnly = href.split("?")[0].split("#")[0].replace(/\/$/, "") || "/";
+  const [section, slug] = pathOnly.split("/").filter(Boolean);
   if ((section === "blog" || section === "guides") && slug) {
     return { src: getBlogHeroImage(slug), alt: localAlt(getBlogImageAlt(slug)) };
   }
@@ -55,17 +74,29 @@ export function pageImage(href: string): { src: string; alt: string } | undefine
   if (section === "locations" && slug && CITY_HERO_IMAGES[slug]) {
     return { src: CITY_HERO_IMAGES[slug], alt: getCityServiceImageAlt(href) ?? localAlt("Kitchen with custom cabinets") };
   }
-  return undefined;
+  if (!pathOnly.startsWith("/")) return undefined;
+  const fixed = STATIC_PAGE_IMAGE[pathOnly] ?? DEFAULT_PAGE_IMAGE;
+  return { src: fixed.src, alt: localAlt(fixed.description) };
+}
+
+/** Columns that leave no short last row, or undefined when no option divides the count. */
+function balancedColumns(count: number, singleRowMax: number, options: number[]): number | undefined {
+  if (count <= singleRowMax) return count;
+  return options.find((columns) => count % columns === 0);
 }
 
 export function ExploreCells({ cells }: { cells: ExploreCell[] }) {
   return (
     <ul
       className="lx-cells"
+      // Rows are always full: a count that fits one row takes one row, a count that
+      // divides evenly takes rows of that width, and any other count stays a swipe
+      // row at that width instead of leaving a short last row.
+      data-tablet={balancedColumns(cells.length, 4, [4, 3]) ? "grid" : "swipe"}
+      data-desktop={balancedColumns(cells.length, 7, [4, 5, 3, 6]) ? "grid" : "swipe"}
       style={{
-        // One full row on desktop for up to seven cards; otherwise rows of four. Tablets take rows of three or four.
-        ["--lx-cols" as string]: cells.length <= 7 ? cells.length : 4,
-        ["--lx-cols-tablet" as string]: cells.length % 3 === 0 ? 3 : 4,
+        ["--lx-cols" as string]: balancedColumns(cells.length, 7, [4, 5, 3, 6]) ?? 4,
+        ["--lx-cols-tablet" as string]: balancedColumns(cells.length, 4, [4, 3]) ?? 4,
       }}
     >
       {cells.map((cell) => {

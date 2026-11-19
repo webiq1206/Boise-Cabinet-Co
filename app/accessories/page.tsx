@@ -75,7 +75,7 @@ export default function AccessoriesPage() {
               title={<>Accessory families</>}
               className="mb-10"
             />
-            <div className="ed-cards-3 gap-6">
+            <div className="lx-two-up ed-cards-3 gap-6">
               {ACCESSORY_FAMILIES.map((family, i) => (
                 <Reveal key={family.id} delay={i * 30}>
                   <CatalogVisualCard

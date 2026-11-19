@@ -35,7 +35,7 @@ const TILES = [
   {
     src: "/images/catalog/rooms/built-ins.webp",
     label: "Built-ins",
-    alt: "Built-in cabinets and open shelves along a living room wall",
+    alt: "Oak built-in shelves and cabinets on both sides of a plaster fireplace",
   },
 ] as const;
 
