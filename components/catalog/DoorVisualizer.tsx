@@ -181,7 +181,7 @@ export function DoorVisualizer({
                 </a>
               ))}
             </nav>
-            <input type="hidden" name="family" value={family} />
+            <input type="hidden" name="family" value={family} data-clarity-mask="True" />
             <label className="dv-search">
               <Search size={16} aria-hidden="true" />
               <span className="sr-only">Search {familyLabel(family).toLowerCase()} finishes by name</span>
@@ -245,9 +245,9 @@ export function DoorVisualizer({
                 </a>
               ) : null}
             </div>
-            {showAll ? <input type="hidden" name="all" value="1" /> : null}
+            {showAll ? <input type="hidden" name="all" value="1" data-clarity-mask="True" /> : null}
             {/* Keeps the door on screen when the form is sent without picking a chip. */}
-            {selectedIsVisible ? null : <input type="hidden" name="finish" value={finish.slug} />}
+            {selectedIsVisible ? null : <input type="hidden" name="finish" value={finish.slug} data-clarity-mask="True" />}
           </fieldset>
           <noscript>
             <button type="submit" className={familyButtonClass({ variant: "secondary", size: "md" })}>Show this door</button>
