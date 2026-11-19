@@ -66,7 +66,9 @@ export default function AccessoriesPage() {
               </Link>
             </Button>
         </CinematicHero>
-        <CatalogSearch className="mt-6 max-w-xl" />
+        <div className="ed-shell pt-6">
+          <CatalogSearch className="max-w-xl" />
+        </div>
 
         <Section variant="greige" divider>
           <div className="ed-shell">

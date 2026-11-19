@@ -23,7 +23,7 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     description:
       "The heart of Treasure Valley homes deserves cabinets built for daily cooking, entertaining, and Idaho's dry-climate swings. From galley layouts in Boise Bench bungalows to sprawling islands in Eagle estates, we design base runs, uppers, pantries, and appliance panels as one coordinated system.",
     heroImage: "/images/catalog/rooms/kitchen-walnut-mountain.webp",
-    imageAlt: "Kitchen with walnut cabinets, a stone range wall and a grey-topped island",
+    imageAlt: "Kitchen with flat-panel oak cabinets, a walnut drawer island and white countertops",
     defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "tall", "island-base"],
   },

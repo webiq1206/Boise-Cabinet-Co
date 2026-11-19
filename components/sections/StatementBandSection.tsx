@@ -5,10 +5,10 @@ import { SITE_IMAGES } from "@/shared/siteImages";
 const STATEMENT_BAND_ALT =
   "Living room with white oak built-in shelves and cabinets on each side of a white fireplace with an oak mantel";
 
-/** Full-bleed photography band to break long light section stretches. */
+/** Full-bleed photography band to break long light section stretches. Shown clean: a wash over a short slice read as a blurred photo. */
 export function StatementBandSection() {
   return (
-    <section className="relative h-48 md:h-64 overflow-hidden">
+    <section className="relative h-56 md:h-80 lg:h-[26rem] overflow-hidden">
       <Image
         src={SITE_IMAGES.statementBand}
         alt={localAlt(STATEMENT_BAND_ALT)}
@@ -16,7 +16,6 @@ export function StatementBandSection() {
         sizes="100vw"
         className="object-cover img-brand-grade"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-inverse/20 to-background/80" />
     </section>
   );
 }

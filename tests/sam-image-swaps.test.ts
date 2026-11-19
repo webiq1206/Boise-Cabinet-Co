@@ -47,13 +47,13 @@ const HASHES: Record<string, string> = {
   "public/images/marketing/kitchen-farmhouse-shaker-768.webp":
     "67cf1357879dc8cbbb087a4dbfc1209d89557da1b93769452dbf8db79b06e3a4",
   "public/images/catalog/rooms/kitchen-walnut-mountain.webp":
-    "3dbf3b9d80a90fc78fd00d348909d4a83ddac7ec432b8bb5b3ea302d1af5cc2d",
+    "28eac4a39301038498ad39381f293e93cdf15ea5dcfdfb053f37a38d34efa7b0",
   "public/images/catalog/rooms/kitchen-walnut-mountain-1080.webp":
-    "46ef6560305ab9395dddf808608a9cf22286ed43ffe1ebcf6ee23c66b45bd34a",
+    "d5d5e979d5b1e411862ddc2a81646f1d33f8e4db3fbf1f9769408372e9bd1f94",
   "public/images/catalog/rooms/kitchen-walnut-mountain-640.webp":
-    "7030bb6d5fd9e30944908a21a8fc68b8e3cf3fa4742b26c2f987a0acc256a9c6",
+    "2e2b01fd6d7bc04f0403c9e47656f575efb0fa5150bf1eb80692645ab8e95bb9",
   "public/images/catalog/rooms/kitchen-walnut-mountain-320.webp":
-    "90a1bc1cf26cefa0ffda832e76179bd366ae889660533e0f22e15ea440d03caa",
+    "6b812560b06e249d38a73c419c091e4daad59b201dc274b0c855ae0cc7229c24",
 };
 
 const RETIRED = [
@@ -105,7 +105,7 @@ test("serving maps point at the new files and keep the design studio hero", () =
   assert.equal(HUB_HERO_IMAGES["kitchen-cabinets"], "/images/catalog/rooms/kitchen-walnut-mountain.webp");
   const kitchen = ROOM_CATEGORIES.find((room) => room.slug === "kitchen");
   assert.equal(kitchen?.heroImage, "/images/catalog/rooms/kitchen-walnut-mountain.webp");
-  assert.equal(kitchen?.imageAlt, "Kitchen with walnut cabinets, a stone range wall and a grey-topped island");
+  assert.equal(kitchen?.imageAlt, "Kitchen with flat-panel oak cabinets, a walnut drawer island and white countertops");
   assert.equal(
     BLOG_IMAGE_REGISTRY["cabinet-measurement-design-phase"].alt,
     "Oak kitchen cabinets in a traditional layout",

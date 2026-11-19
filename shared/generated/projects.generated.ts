@@ -15,7 +15,7 @@ export const PROJECTS: SiteProject[] = [
     "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
     "hero": {
       "src": "/images/projects/modern-shaker-kitchen/after.webp",
-      "alt": "Custom Shaker kitchen cabinets with a quartz island and satin nickel hardware"
+      "alt": "Sage green Shaker kitchen cabinets with an oak island and white countertops"
     },
     "detail": [
       {
@@ -24,11 +24,11 @@ export const PROJECTS: SiteProject[] = [
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-island.webp",
-        "alt": "Island drawers and quartz countertop detail"
+        "alt": "Oak island drawer stack with black pulls under a white countertop"
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-pantry.webp",
-        "alt": "Walk-in pantry with matching matte shaker doors adjacent to the kitchen"
+        "alt": "Pantry wall with painted Shaker tall cabinets, oak shelves and a drawer bank"
       }
     ],
     "showBeforeAfter": false,

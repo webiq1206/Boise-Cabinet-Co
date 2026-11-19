@@ -27,6 +27,15 @@ export interface CatalogVisualCardProps {
   className?: string;
 }
 
+/**
+ * Door profile diagrams are tall line drawings on charcoal. Cropped to fill a
+ * wide panel they showed only two vertical lines, so they are shown whole on
+ * their own ground. Photographs keep the cover crop.
+ */
+function isProfileDiagram(src: string): boolean {
+  return /\/generated\/door-styles\/|\/door-styles\/(alpha-shaker|beta-shaker|modern-shaker|three-piece)(-\d+)?\.webp$/.test(src);
+}
+
 export function CatalogVisualCard({
   name,
   description,
@@ -47,8 +56,9 @@ export function CatalogVisualCard({
         <CatalogImage
           src={imageSrc}
           alt={localAlt(imageAlt ?? name)}
-          aspectRatio={aspectRatio}
-          className="rounded-none"
+          aspectRatio={isProfileDiagram(imageSrc) ? "4/3" : aspectRatio}
+          className={isProfileDiagram(imageSrc) ? "rounded-none bg-[var(--color-charcoal)]" : "rounded-none"}
+          imageClassName={isProfileDiagram(imageSrc) ? "object-contain" : undefined}
           sizes="(max-width: 768px) 100vw, 400px"
         />
       ) : fallbackColor ? (

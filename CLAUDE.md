@@ -256,10 +256,17 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 
 * No staged props in a photo: no plants, vases, bowls, baskets, fruit or
   flowers. Books on a bookshelf and clothes in a closet are the subject and are
-  fine. Two pictures still carry props and are pinned, so they need the owner
-  to supply replacements: the homepage hero video poster
-  (`CabinetHeroVideo.tsx`) and `rooms/kitchen-walnut-mountain.webp` (hashed in
-  `tests/sam-image-swaps.test.ts`).
+  fine. One picture still carries props: the homepage hero video
+  poster (`CabinetHeroVideo.tsx`). It is a frame of the video, so it needs a
+  new video from the owner, not a new still. `rooms/kitchen-walnut-mountain.webp`
+  and `collections/custom.webp` were replaced with prop-free Photo Dump
+  kitchens on 19 November 2026 (same paths; the first is hashed in
+  `tests/sam-image-swaps.test.ts`, and the pins were updated with it).
+* Door style cards (`CatalogVisualCard.tsx`): a profile diagram is shown whole
+  on its charcoal ground (`isProfileDiagram()`), never cropped to fill. A door
+  style with a photograph must have photograph variants too: `slab` and
+  `thin-shaker` once had diagram `-320/-640` files under a photo base, so
+  phones and cards got the diagram.
 * Replacing a photo means replacing its variants. `npm run images:variants`
   only writes a `-320/-640/-1080` (or `-640/-1080/-1920`) file that does not
   exist, so an old variant keeps serving the OLD picture to phones. Delete the
