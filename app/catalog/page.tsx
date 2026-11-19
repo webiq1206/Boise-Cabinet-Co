@@ -219,6 +219,12 @@ export default function CatalogPage() {
                     The {style.name} door is offered in {listText([...style.compatibleFinishCategories])} finishes; every other door style takes all three families.
                   </p>
                 ))}
+                <p className="mt-4 text-sm text-muted-foreground">
+                  <Link prefetch={false} href="/catalog/door-visualizer" className="text-foreground underline underline-offset-2 hover:text-accent">
+                    See any finish on any door style
+                  </Link>
+                  .
+                </p>
               </MarketingCard>
               <MarketingCard>
                 <h3 className="ed-h4">{HARDWARE_OPTIONS.length} hardware options</h3>

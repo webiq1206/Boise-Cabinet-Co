@@ -448,3 +448,45 @@ real. It is `components/approved/FinishPicker.tsx`, styled by
   whole family when nothing is typed. The catalog has no page per finish.
 * Guard: `tests/home-finishes.test.ts`.
 
+
+## Door visualizer (owner, 19 November 2026)
+
+The owner liked the homepage finish picker and asked for all of the finishes and
+door styles. `/catalog/door-visualizer` shows any of the 299 catalog finishes on
+any of the six catalog door styles; the homepage keeps its curated ten and
+links to it ("Try all 299 finishes on six door styles").
+
+* **One door drawing.** `components/catalog/DoorFront.tsx` is the door both
+  pages draw; its CSS is in `app/finish-picker.css`, shared through
+  `:is(.cabinet-approved .fp,.dv)`. The six profiles are in
+  `app/door-visualizer.css` (`.fp-profile-<slug>`), each read from the
+  catalog's own picture of the style in `public/images/catalog/door-styles`
+  and its catalog description: Slab is flat; 3 Piece is two full-height stiles
+  and a full-height centre panel whose grain runs across; Modern Shaker has
+  stiles, rails and a recessed panel; Thin Shaker is the same with a narrow
+  frame; Alpha Shaker has a mitered frame; Beta Shaker a mitered frame with a
+  radius profile inside it. A new catalog door style needs a drawing before the
+  page offers it (`DRAWN_DOOR_STYLES`; the test fails otherwise). It is a drawn
+  door: the caption is the finish name, family and door style and nothing
+  else, never "photograph" and never a qualifier word.
+* **The catalog decides what is offered.** A finish shows only the door styles
+  in its `compatibleDoorStyleIds` (3 Piece is woodgrain only); the others are
+  disabled with the catalog's own reason.
+* **The selection is the address**: `?finish=<slug>&style=<slug>`, read on the
+  server (`parseVisualizerSelection`), so a shared link renders its door with
+  JavaScript off. Anything unknown falls back to Snow White on Modern Shaker.
+  The controls are one GET form of native radios; the browser only swaps state
+  and rewrites the address. The canonical is the page without parameters.
+* **Weight.** `shared/doorVisualizerModel.ts` holds no catalog data and is the
+  only part the browser imports; the lists are resolved on the server
+  (`shared/doorVisualizer.ts`) and passed in with their URLs already
+  versioned. Chips are the 160px variants, sixty per family until "Show all",
+  lazily loaded; only the chosen sample loads at 480px. Samples are 480px, so
+  a woodgrain is slightly soft on the desktop door; sharper needs larger
+  samples from the supplier.
+* **"Request a quote with this finish"** writes one line ("Door style: X.
+  Finish: Y (family).") into the `/estimate` form's own draft
+  (`brc_estimate_quote_v1`, this tab only) and opens that form. No new field,
+  nothing new sent to p5.
+* Every changing part keeps its place (caption, note line, "Show all" row), so
+  a choice moves nothing. Guard: `tests/door-visualizer.test.ts`.

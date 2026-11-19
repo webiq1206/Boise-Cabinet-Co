@@ -22,6 +22,7 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
     { path: '/', label: 'Home', changeFrequency: 'weekly', priority: 1 },
     { path: '/cabinets', label: 'Cabinets', changeFrequency: 'weekly', priority: 0.95 },
     { path: '/catalog', label: 'Catalog', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/catalog/door-visualizer', label: 'Door visualizer', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/accessories', label: 'Accessories', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/construction', label: 'Cabinet construction', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/shaker-cabinets', label: 'Shaker cabinets', changeFrequency: 'monthly', priority: 0.85 },

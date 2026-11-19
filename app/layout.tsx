@@ -36,6 +36,7 @@ import './mobile-polish.css'
 // Interior page refinement (19 November 2026): room, location, article and guide layouts.
 import './interior-refinement.css'
 import './finish-picker.css';
+import './door-visualizer.css';
 
 // P5 family typefaces, self-hosted from the same two OFL variable files P5 Home Co serves.
 const manrope = localFont({
