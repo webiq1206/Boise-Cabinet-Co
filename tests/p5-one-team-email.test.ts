@@ -867,3 +867,203 @@ test("Step 2: a replayed post forwards nothing and emails nobody, as before", as
   assert.equal(h.deferred.length, 0);
   assert.equal(h.mail.length, 0);
 });
+
+/* ------------------------------------------------------------------ */
+/* Plans attached on the builders form (owner, 19 November 2026)       */
+/* ------------------------------------------------------------------ */
+// The builders form shows the attachment tile on its first screen. The files
+// are only collected there: the request is saved by /api/consultation first,
+// each file then goes to /api/consultation/files, and one post to
+// /api/consultation/details (kind "files") tells the team. These run the real
+// handlers with a fake database, a fake mail client and a fake p5.
+
+const FILE_SECRET = "test-secret-0123456789";
+const PLAN_ID = "11111111-2222-4333-8444-555555555555";
+const PHOTO_ID = "66666666-7777-4888-8999-aaaaaaaaaaaa";
+const PLAN_ROWS = [
+  { id: PLAN_ID, name: "Lot 14 cabinet plans.pdf", contentType: "application/pdf", size: 482_133 },
+  { id: PHOTO_ID, name: "kitchen-wall.jpg", contentType: "image/jpeg", size: 91_204 },
+];
+
+async function filesAnnounced(options: Parameters<typeof harness>[0]) {
+  const realFiles = await import("../server/services/consultationFiles");
+  const h = harness({ rows: { ...DETAILS_ROWS, "select:consultationFiles": PLAN_ROWS }, ...options });
+  h.modules["@/server/services/consultationFiles"] = {
+    ...realFiles,
+    quoteSecret: () => FILE_SECRET,
+    signedFileUrl: (id: string) => realFiles.signedFileUrl(id, FILE_SECRET),
+  };
+  const POST = loadRoute("../app/api/consultation/details/route.ts", h.modules);
+  const response = await quiet(() => POST(request({ requestId: REQUEST_ID, token: "1.x", kind: "files", fileIds: [PLAN_ID, PHOTO_ID] })));
+  return { h, response, realFiles };
+}
+
+test("builder plans: the visitor is answered before p5, and p5 gets signed links to every file", async () => {
+  const { h, response, realFiles } = await filesAnnounced({ p5: { kind: "json", body: { ok: true, merged: true, alert: "sent" } }, admins: [SHARED, OTHER] });
+  assert.equal(response.status, 200);
+  assert.equal(response.body.ok, true);
+  assert.equal(response.body.files, 2);
+  assert.equal(h.posts.length, 1, "the bridge was started and has not answered");
+  assert.equal(h.mail.length, 0, "no team email on the visitor's path");
+
+  const [post] = h.posts;
+  assert.equal(post.submission_kind, "details");
+  assert.equal(post.external_id, `boisecabinet-consultation:${REQUEST_ID}`);
+  assert.equal(post.team_alert, "confirm");
+  assert.equal("estimate" in post, false);
+  assert.equal("team_internal_notes" in post, false);
+  const sent = JSON.stringify(post);
+  for (const row of PLAN_ROWS) {
+    const link = realFiles.signedFileUrl(row.id, FILE_SECRET)!;
+    assert.ok(sent.includes(link), `p5 is given the signed link to ${row.name}`);
+    assert.ok(sent.includes(row.name));
+  }
+  // Nothing outside the fields a Step 2 post already carried.
+  const baseline = await step2({ p5: { kind: "json", body: { ok: true, alert: "sent" } } });
+  const allowed = new Set([...Object.keys(baseline.h.posts[0]), "files"]); // "files" is the Step 2 field the contract already has
+  for (const key of Object.keys(post)) assert.ok(allowed.has(key), `unexpected p5 field ${key}`);
+
+  h.release();
+  await quiet(() => h.runDeferred());
+  assert.deepEqual(detailsMail(h.mail).map((message) => message.to), [OTHER], "p5 confirmed its email, so the shared inbox gets no second one");
+});
+
+test("builder plans: when p5 does not confirm, this site's team email names and links every file", async () => {
+  const { h, realFiles } = await filesAnnounced({ p5: { kind: "throw" }, admins: [SHARED] });
+  assert.equal(h.mail.length, 0);
+  h.release();
+  await quiet(() => h.runDeferred());
+  const team = detailsMail(h.mail);
+  assert.deepEqual(team.map((message) => message.to), [SHARED]);
+  for (const row of PLAN_ROWS) {
+    assert.ok(team[0].html.includes(row.name), row.name);
+    assert.ok(team[0].html.includes(realFiles.signedFileUrl(row.id, FILE_SECRET)!.replace(/&/g, "&amp;")) || team[0].html.includes(realFiles.signedFileUrl(row.id, FILE_SECRET)!), `link to ${row.name}`);
+  }
+});
+
+test("builder plans: file ids that are not on this request are refused, and nothing is sent", async () => {
+  const h = harness({ rows: { ...DETAILS_ROWS, "select:consultationFiles": [] }, p5: { kind: "json", body: { ok: true, alert: "sent" } } });
+  const POST = loadRoute("../app/api/consultation/details/route.ts", h.modules);
+  const response = await quiet(() => POST(request({ requestId: REQUEST_ID, token: "1.x", kind: "files", fileIds: [PLAN_ID] })));
+  assert.equal(response.status, 400);
+  assert.equal(h.posts.length, 0);
+  assert.equal(h.mail.length, 0);
+});
+
+/* The upload route itself, with a fake database. */
+type Stored = Record<string, unknown>;
+async function uploadRoute(options: { existing?: number; tokenCheck?: "ok" | "invalid" | "expired"; noDatabase?: boolean } = {}) {
+  const realFiles = await import("../server/services/consultationFiles");
+  const quoteFiles = await import("../shared/quoteFiles");
+  const stored: Stored[] = [];
+  const h = harness({ p5: { kind: "throw" } });
+  const filesTable = h.modules["@/shared/schema"] as { consultationFiles: { __name: string } };
+  const db = {
+    select: (shape?: Record<string, unknown>) => {
+      const counting = Boolean(shape && "value" in shape);
+      const chain: Record<string, unknown> = {};
+      for (const method of ["from", "where", "limit"]) chain[method] = () => chain;
+      chain.then = (resolve: (rows: unknown[]) => unknown) => Promise.resolve(counting ? [{ value: options.existing ?? 0 }] : []).then(resolve);
+      return chain;
+    },
+    insert: (table: { __name: string }) => {
+      assert.equal(table.__name, filesTable.consultationFiles.__name);
+      const chain: Record<string, unknown> = {};
+      chain.values = (row: Stored) => {
+        stored.push(row);
+        return chain;
+      };
+      for (const method of ["onConflictDoNothing", "returning"]) chain[method] = () => chain;
+      chain.then = (resolve: (rows: unknown[]) => unknown) => Promise.resolve([{ id: PLAN_ID }]).then(resolve);
+      return chain;
+    },
+  };
+  const modules: Record<string, unknown> = {
+    ...h.modules,
+    "drizzle-orm": { and: () => null, eq: () => null, count: () => "count" },
+    "@/lib/db": { db: options.noDatabase ? null : db },
+    "@/shared/quoteFiles": quoteFiles,
+    "@/server/services/consultationFiles": { ...realFiles, quoteSecret: () => FILE_SECRET },
+    "@/server/services/consultationDetails": { ...consultationDetails, verifyDetailsToken: () => options.tokenCheck ?? "ok" },
+  };
+  const POST = loadRoute("../app/api/consultation/files/route.ts", modules);
+  const send = (file: File | null, sizeHeader?: number) => {
+    const form = new FormData();
+    form.set("requestId", REQUEST_ID);
+    form.set("token", "1.x");
+    if (file) form.set("file", file, file.name);
+    return quiet(() =>
+      POST({
+        headers: { get: (name: string) => (name.toLowerCase() === "content-length" ? String(sizeHeader ?? file?.size ?? 0) : null) },
+        formData: async () => form,
+      }),
+    );
+  };
+  return { send, stored, quoteFiles };
+}
+
+const PDF_BYTES = new TextEncoder().encode("%PDF-1.7\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF\n");
+const JPEG_BYTES = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0, 16, 0x4a, 0x46, 0x49, 0x46, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0]);
+
+test("upload route: a PDF plan and a photo are stored against the saved request", async () => {
+  const { send, stored } = await uploadRoute();
+  const pdf = await send(new File([PDF_BYTES], "Lot 14 cabinet plans.pdf", { type: "application/pdf" }));
+  assert.equal(pdf.status, 200);
+  assert.deepEqual(pdf.body.file, { id: PLAN_ID, name: "Lot 14 cabinet plans.pdf", size: PDF_BYTES.length, contentType: "application/pdf" });
+  const photo = await send(new File([JPEG_BYTES], "wall.jpg", { type: "image/jpeg" }));
+  assert.equal(photo.status, 200);
+  assert.equal(stored.length, 2);
+  assert.equal(stored[0].requestId, REQUEST_ID);
+  assert.equal(stored[0].contentType, "application/pdf");
+  assert.equal(stored[0].sizeBytes, PDF_BYTES.length);
+  assert.equal(Buffer.from(String(stored[0].dataBase64), "base64").toString("utf8").startsWith("%PDF-"), true);
+});
+
+test("upload route: a CAD file, a renamed page and an empty file are refused in plain words and nothing is stored", async () => {
+  const { send, stored } = await uploadRoute();
+  const cad = await send(new File([new Uint8Array([0x41, 0x43, 0x31, 0x30])], "plans.dwg", { type: "application/acad" }));
+  assert.equal(cad.status, 415);
+  assert.match(String(cad.body.message), /plans\.dwg was not added\. Attach photos or PDFs only\./);
+  const renamed = await send(new File([new TextEncoder().encode("<html><script>1</script></html>")], "plans.pdf", { type: "application/pdf" }));
+  assert.equal(renamed.status, 415);
+  assert.match(String(renamed.body.message), /does not look like a photo or a PDF/);
+  const empty = await send(new File([], "empty.pdf", { type: "application/pdf" }));
+  assert.equal(empty.status, 400);
+  assert.equal(stored.length, 0);
+});
+
+test("upload route: the size and count limits are the ones the form states", async () => {
+  const { send, stored, quoteFiles } = await uploadRoute({ existing: 10 });
+  assert.equal(quoteFiles.QUOTE_FILE_MAX_COUNT, 10);
+  assert.equal(quoteFiles.QUOTE_FILE_MAX_MB, 20);
+  assert.equal(quoteFiles.QUOTE_FILE_HINT, "Photos, PDFs or drawings. Up to 10 files, 20 MB each.");
+  const tooBig = await send(new File([PDF_BYTES], "big.pdf", { type: "application/pdf" }), quoteFiles.QUOTE_FILE_MAX_BYTES + 512 * 1024 + 1);
+  assert.equal(tooBig.status, 413);
+  const eleventh = await send(new File([PDF_BYTES], "eleventh.pdf", { type: "application/pdf" }));
+  assert.equal(eleventh.status, 409);
+  assert.match(String(eleventh.body.message), /already has 10 files/);
+  assert.equal(stored.length, 0);
+});
+
+test("upload route: only the browser that sent the request may add to it, and a database outage loses no lead", async () => {
+  const forged = await (await uploadRoute({ tokenCheck: "invalid" })).send(new File([PDF_BYTES], "a.pdf", { type: "application/pdf" }));
+  assert.equal(forged.status, 403);
+  const expired = await (await uploadRoute({ tokenCheck: "expired" })).send(new File([PDF_BYTES], "a.pdf", { type: "application/pdf" }));
+  assert.equal(expired.status, 410);
+  const down = await (await uploadRoute({ noDatabase: true })).send(new File([PDF_BYTES], "a.pdf", { type: "application/pdf" }));
+  assert.equal(down.status, 503);
+  assert.match(String(down.body.message), /text it to us/);
+});
+
+test("the builders form shows the tile on its first screen; every other page keeps the short form", () => {
+  const read = (file: string) => readFileSync(new URL(file, import.meta.url), "utf8");
+  assert.match(read("../app/builders/page.tsx"), /<KitchenCabinetsQuoteForm context="builder-contractor"[^>]* attachFiles \/>/);
+  const users = ["../app/estimate/page.tsx", "../app/kitchen-cabinets/page.tsx", "../app/cabinets/[room]/page.tsx"];
+  for (const file of users) assert.doesNotMatch(read(file), /attachFiles/, file);
+  const form = read("../components/quote/QuoteRequestForm.tsx");
+  assert.match(form, /attachFiles = false/);
+  assert.match(form, /initialFiles=\{attachFiles && done\.kind === "request" && attached\.length \? attached : NO_FILES\}/);
+  // Collected before sending, uploaded only after the request is saved.
+  assert.doesNotMatch(form, /uploadQuoteFile/);
+  assert.match(read("../components/quote/QuoteFollowUp.tsx"), /did not upload\. Your request is saved\./);
+});

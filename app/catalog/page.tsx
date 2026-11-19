@@ -25,6 +25,7 @@ HARDWARE_OPTIONS,
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Download } from "lucide-react";
 
+import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/catalog",
@@ -251,21 +252,8 @@ export default function CatalogPage() {
         </Section>
 
         <Section variant="greige" divider>
-          <div className="ed-shell max-w-3xl">
-            <SectionHeader
-              eyebrow="Common questions"
-              title={<>Cabinet catalog questions</>}
-              align="left"
-              className="mb-6"
-            />
-            <div className="grid gap-6">
-              {CATALOG_FAQS.map((faq) => (
-                <div key={faq.question}>
-                  <h3 className="ed-h4">{faq.question}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-foreground/90">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
+          <div className="ed-shell">
+            <FaqSplit title={<>Cabinet catalog questions</>} faqs={CATALOG_FAQS} name="catalog-faq" />
           </div>
         </Section>
 

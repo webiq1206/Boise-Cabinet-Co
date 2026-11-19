@@ -127,8 +127,14 @@ test("Step 1: the form sends the same field names the route reads, and asks for 
   assert.doesNotMatch(source, /next\.address|errors\.address/);
   assert.match(source, /const draft: Draft = \{ mode, name, phone, email, address, project, reach, bestTime \};/);
   assert.match(source, /early\.address \|\| draft\.address \|\| \(draft\.reach/);
-  // The first screen shows nothing optional: no attachment tile, and the toggle starts closed.
-  assert.doesNotMatch(source, /<AttachmentTile/);
+  // The first screen shows nothing optional, and the toggle starts closed. The one
+  // exception is opt-in (owner, 19 November 2026: builders send plans): the
+  // attachment tile appears only where a page passes attachFiles, which is off
+  // by default, and /builders is the only page that does.
+  assert.equal((source.match(/<AttachmentTile/g) ?? []).length, 1);
+  assert.match(source, /\{attachFiles \? \(\s*<AttachmentTile/);
+  assert.match(source, /attachFiles = false,/);
+  assert.match(source, /const ATTACH_TITLE = "Attach plans or files \(optional\)";/);
   assert.match(source, /const \[optionsOpen, setOptionsOpen\] = useState\(false\);/);
   const followUp = readFileSync(new URL("../components/quote/QuoteFollowUp.tsx", import.meta.url), "utf8");
   const styles = readFileSync(new URL("../components/quote/quoteStyles.ts", import.meta.url), "utf8");

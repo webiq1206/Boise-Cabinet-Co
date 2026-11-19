@@ -351,3 +351,78 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
   `KitchenPlanningRange` as `idPrefix`. An id made with `useId()` inside a
   component loaded with `next/dynamic` differs between server and browser and
   fails hydration.
+
+## Catalog pages follow the interior rules (owner, 19 November 2026)
+
+The owner found the catalog questions block unrefined ("I thought we
+redesigned everything"). Catalog, compare, construction, shaker, builders,
+accessories, search and the site map follow the same rules as room and
+location pages.
+
+* **Questions are `FaqSplit`** (`components/marketing/FaqSplit.tsx`): heading
+  in a left column, tap-to-open rows in a wider right column, one column below
+  1024px. Rows are native `<details>` sharing one `name` (first open), so every
+  answer is in the HTML. `/catalog`, `/builders` and `/shaker-cabinets` use it.
+  Do not render a question list as open paragraphs, and do not put a section in
+  a `max-w-3xl` column that leaves half the container empty. The words and the
+  FAQ structured data come from the same list as before.
+* `/kitchen-cabinets` is the paid-traffic landing page; its narrow single
+  column and open questions are that page's own design and were left.
+* **Construction**: the "What goes into every order" and "From approved design
+  to your home" cards are one column beside their heading. Two columns inside
+  the split left a lone third card and 110px text columns.
+* **Site map**: the groups use the full container in four columns from 1024px
+  (`.interior-sitemap` in `app/interior-refinement.css`); the document rail is
+  not used there.
+
+## Plans attached on the builders form (owner, 19 November 2026)
+
+* `/builders` passes `attachFiles` to `KitchenCabinetsQuoteForm`, which shows
+  the existing `AttachmentTile` on the first screen of `QuoteRequestForm`,
+  above the optional toggle ("Attach plans or files (optional)"). Every other
+  page keeps the short form, with files offered on the success screen.
+* Nothing new was built for uploads. The tile only collects files. The request
+  is saved first by `/api/consultation`; `QuoteFollowUp` then sends each file
+  to `/api/consultation/files` (Postgres `consultation_files`) and announces
+  them once with `/api/consultation/details` (`kind: "files"`), which adds
+  signed links to the request and the lead notes, sends them to p5 in the
+  existing `files` field (HubSpot, and p5's "Details added" email) and falls
+  back to this site's "Files added" email when p5 does not confirm. The
+  visitor's response never waits on p5.
+* Limits are `shared/quoteFiles.ts`: 10 files a request, 20 MB each, photos
+  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. CAD and Office files are refused
+  in plain words. The tile's helper text is built from those constants.
+* A failed upload never loses the lead: the success screen names the file,
+  says the request is saved, and offers "Try again" or texting it.
+* Guard: the "builder plans" and "upload route" tests in
+  `tests/p5-one-team-email.test.ts` (real handlers, fake database, mail and
+  p5). Never submit through the live form.
+
+## Homepage finish picker (owner, 19 November 2026)
+
+The owner asked for the "Find your point of view" section to do something
+real. It is `components/approved/FinishPicker.tsx`, styled by
+`app/finish-picker.css`; only that section of the homepage changed.
+
+* Ten real catalog finishes, resolved on the server by
+  `resolveHomeFinishes()` in `shared/homeFinishes.ts` and passed from
+  `app/page.tsx`, so the browser never loads the finish library: Snow White,
+  White - Matte, Breeze Beige, Macaron Green, Pearl Black (matte), White -
+  Gloss, Anthracite (gloss), White Gladstone Oak, Natural Bardolino Oak,
+  Natural Carini Walnut (woodgrain). Whites first; each family is labelled
+  with its real count (55, 53, 191).
+* Choosing a finish shows that finish's own catalog sample, large, at the
+  file's own pixels (the samples are 480px squares; `.fp-frame` shows the
+  460 x 396 swatch area). Never tint or recolour a photograph to stand for a
+  finish, never show a flat colour for one, and write no description the
+  catalog does not hold. The chips use the same file as the large sample: the
+  `-160` variants of some finishes are a different colour.
+* The options are native radios in one group and the panel follows the checked
+  one in CSS (`:has`), so it works without JavaScript, arrow keys move the
+  choice, and every sample's place is reserved (no layout shift).
+* "See this finish" opens `/search?q=<name>&finish=<family>` and "See all <n>
+  <family> finishes" opens `/search?finish=<family>`; the search page reads
+  both on the server (`app/search/page.tsx`, `SearchClient.tsx`) and shows a
+  whole family when nothing is typed. The catalog has no page per finish.
+* Guard: `tests/home-finishes.test.ts`.
+

@@ -1,0 +1,96 @@
+"use client";
+
+import { InteriorPage } from '@/components/approved/InteriorLayout';
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { VisualSearchResult } from "@/components/catalog/visual";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { Section } from "@/components/marketing/Section";
+import { catalogResultHref } from "@/lib/catalog-routes";
+import type { CabinetProductCategory,FinishCategory } from "@/shared/catalog";
+import { searchCatalogWithFacets } from "@/shared/catalog";
+import { useMemo,useState } from "react";
+
+/**
+ * `initialQuery` and `initialFinish` come from the address (?q= and ?finish=),
+ * read on the server by page.tsx, so a link from the homepage finish picker
+ * opens on that finish or that family, with the results in the first HTML.
+ */
+export function SearchClient({ initialQuery = "", initialFinish = "" }: { initialQuery?: string; initialFinish?: FinishCategory | "" }) {
+  const [query, setQuery] = useState(initialQuery);
+  const [finishCategory, setFinishCategory] = useState<FinishCategory | "">(initialFinish);
+  const [productCategory, setProductCategory] = useState<CabinetProductCategory | "">("");
+
+  const results = useMemo(
+    () =>
+      searchCatalogWithFacets(query, {
+        finishCategory: finishCategory || undefined,
+        productCategory: productCategory || undefined,
+      }),
+    [query, finishCategory, productCategory],
+  );
+
+  // A family chosen with nothing typed is that family's finishes, all of them
+  // (the homepage link "See all 191 woodgrain finishes" lands here).
+  const familyView = Boolean(finishCategory) && !query.trim() && !productCategory;
+  const shown = familyView ? results.filter((r) => r.type === "finish") : results.slice(0, 40);
+
+  return (
+    <InteriorPage kind="search"><div className="flex flex-col ">
+      <Section spacing="sm" className="pt-4 md:pt-6">
+        <div className="container px-4 max-w-2xl">
+          <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Search" }]} />
+          <PageHeader
+            align="left"
+            className="mt-6"
+            title="Search catalog"
+            description="Find finishes, door styles, collections, and cabinet configurations."
+          />
+          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()} data-clarity-mask="True">
+          <input
+            aria-label="Search by name or code"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search by name or code…"
+            className="w-full mt-6 rounded-md border border-input bg-background px-4 py-3 text-base"
+            data-clarity-mask="True" />
+          <div className="flex flex-wrap gap-2 mt-4">
+            {(["matte", "gloss", "woodgrain"] as FinishCategory[]).map((c) => (
+              <button
+                key={c}
+                type="button"
+                aria-pressed={finishCategory === c}
+                onClick={() => setFinishCategory(finishCategory === c ? "" : c)}
+                className={`tap-target inline-flex items-center justify-center text-xs rounded-full border px-3 py-1 capitalize ${finishCategory === c ? "border-primary bg-primary/5" : ""}`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+          </form>
+          <p role="status" className="mt-6 text-sm text-muted-foreground">
+            {results.length === 0
+              ? "No matches. Try another name or code, or clear the finish filter."
+              : familyView
+                ? `Showing all ${shown.length} ${finishCategory} finishes.`
+                : `Showing ${Math.min(results.length, 40)} of ${results.length} results.`}
+          </p>
+          <ul className="mt-4 space-y-3">
+            {shown.map((r) => (
+              <li key={`${r.type}-${r.slug}`}>
+                <VisualSearchResult
+                  href={catalogResultHref(r)}
+                  type={r.type}
+                  name={r.name}
+                  description={r.description}
+                  imagePath={r.imagePath}
+                  testId={`search-result-${r.type}-${r.slug}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    </div></InteriorPage>
+  );
+}

@@ -289,3 +289,59 @@
 @media (min-width: 701px) and (max-width: 1023px) {
   .approved-shell .lx-contact-email { font-size: 17px; overflow-wrap: normal; word-break: normal; }
 }
+
+/* ── Questions: heading left, tap-to-open rows right (FaqSplit.tsx) ──
+   One column below 1024px (the family split rule). Answers stay in the HTML. */
+@media (min-width: 1024px) {
+  .approved-shell .lx-faq-split .lx-faq-head { position: sticky; top: 112px; align-self: start; }
+}
+.approved-shell .lx-faq { border-bottom: 1px solid var(--ed-line); }
+.approved-shell .lx-faq > details { border-top: 1px solid var(--ed-line); }
+.approved-shell .lx-faq > details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4, 16px);
+  min-height: 64px;
+  padding: var(--space-4, 16px) 0;
+  cursor: pointer;
+  list-style: none;
+}
+.approved-shell .lx-faq > details > summary::-webkit-details-marker { display: none; }
+.approved-shell .lx-faq > details > summary > :where(h3, span) { margin: 0; text-wrap: balance; }
+.approved-shell .lx-faq > details > summary::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border-right: 1.5px solid var(--ed-accent);
+  border-bottom: 1.5px solid var(--ed-accent);
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform var(--ed-dur, 200ms) var(--ed-ease, ease);
+}
+.approved-shell .lx-faq > details[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.approved-shell .lx-faq > details > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.approved-shell .lx-faq .lx-faq-answer {
+  max-width: 65ch;
+  padding: 0 var(--space-8, 32px) var(--space-6, 24px) 0;
+  font-size: var(--fs-body, 17px);
+  line-height: 1.6;
+}
+.approved-shell .lx-faq .lx-faq-answer :where(a) { text-decoration: underline; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .approved-shell .lx-faq > details > summary::after { transition: none; }
+}
+
+/* ── Site map: the link groups fill the container (it has no contents rail) ── */
+@media (min-width: 1024px) {
+  .approved-shell .interior-sitemap .interior-document { width: 100%; max-width: none; }
+  .approved-shell .interior-sitemap .interior-document-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-8, 32px); }
+  .approved-shell .interior-sitemap .interior-document-index { position: static; max-width: 220px; }
+  .approved-shell .interior-sitemap .interior-document-main { max-width: none; }
+  .approved-shell .interior-sitemap .interior-document-main > div[class*="columns-"] { columns: 4; column-gap: var(--space-10, 40px); }
+}
+.approved-shell .interior-sitemap .interior-document-main li a { display: inline-flex; align-items: center; min-height: var(--touch-min, 44px); }
+@media (min-width: 1024px) and (pointer: fine) {
+  .approved-shell .interior-sitemap .interior-document-main li a { min-height: 32px; }
+}

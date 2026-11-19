@@ -121,7 +121,7 @@ export default function ConstructionPage() {
               title={<>What goes into every order</>}
               className="mb-0"
             />}>
-            <div className="ed-grid-balance grid md:grid-cols-2 gap-6">
+            <div className="grid gap-6">
               {STANDARDS.slice(0, 3).map((item) => (
                 <MarketingCard key={item.title}>
                   <h3 className="text-lg font-serif tracking-tight mb-2">
@@ -146,7 +146,7 @@ export default function ConstructionPage() {
               title={<>From approved design to your home</>}
               className="mb-0"
             />}>
-            <div className="ed-grid-balance grid md:grid-cols-2 gap-6">
+            <div className="grid gap-6">
               {STANDARDS.slice(3).map((item) => (
                 <MarketingCard key={item.title}>
                   <h3 className="text-lg font-serif tracking-tight mb-2">

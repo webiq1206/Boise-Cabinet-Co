@@ -73,6 +73,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { AttachmentTile, type PickedFile } from "@/components/quote/AttachmentTile";
 import { QuoteFollowUp } from "@/components/quote/QuoteFollowUp";
 import {
   ERROR_CLASS,
@@ -104,6 +105,8 @@ type FieldKey = "name" | "phone" | "project" | "email";
 
 /** Files are added on Step 2, after the request is saved; Step 1 hands none over. */
 const NO_FILES: never[] = [];
+/** The first-screen tile's title where a page turns attachFiles on (/builders). */
+const ATTACH_TITLE = "Attach plans or files (optional)";
 
 const CALLBACK_PROJECT_TYPE = "Callback request";
 
@@ -179,6 +182,16 @@ export interface QuoteRequestFormProps {
   onRequestMode?: () => void;
   /** False where the page already shows the phone beside the form (/estimate): the line under the button does not repeat it. */
   showPhone?: boolean;
+  /**
+   * Show the attachment tile on the first screen, above the optional toggle
+   * (owner, 19 November 2026: builders send plans). Off everywhere else, where
+   * files are offered on the success screen. The files are only collected
+   * here: they go up after the request is saved (QuoteFollowUp), so a failed
+   * upload can never cost the lead.
+   */
+  attachFiles?: boolean;
+  /** The tile's title when attachFiles is on. */
+  attachTitle?: string;
 }
 
 interface Draft {
@@ -298,8 +311,12 @@ export function QuoteRequestForm({
   onRequestMode,
   onDetailsSaved,
   showPhone = true,
+  attachFiles = false,
+  attachTitle,
 }: QuoteRequestFormProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
+  /** Files chosen on the first screen (attachFiles only); uploaded after the request is saved. */
+  const [attached, setAttached] = useState<PickedFile[]>([]);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -675,7 +692,7 @@ export function QuoteRequestForm({
         phone={done.phone}
         bestTime={done.bestTime}
         detailsKey={done.detailsKey}
-        initialFiles={NO_FILES}
+        initialFiles={attachFiles && done.kind === "request" && attached.length ? attached : NO_FILES}
         hasEmail={done.hasEmail}
         hasAddress={done.hasAddress}
         showPhone={showPhone}
@@ -885,6 +902,16 @@ export function QuoteRequestForm({
                 {nameField}
                 {phoneField}
               </div>
+
+              {attachFiles ? (
+                <AttachmentTile
+                  idPrefix={idPrefix}
+                  files={attached}
+                  onChange={setAttached}
+                  disabled={disabled}
+                  title={attachTitle ?? ATTACH_TITLE}
+                />
+              ) : null}
 
               {/* Everything optional sits behind this one quiet text toggle (no box, no panel). */}
               <details
