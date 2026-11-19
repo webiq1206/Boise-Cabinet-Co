@@ -24,7 +24,7 @@ export function getBlogImageForSlug(
 }
 
 export function getBlogImageAlt(slug: string): string {
-  return BLOG_IMAGE_REGISTRY[slug]?.alt ?? 'Cabinetry and design inspiration';
+  return BLOG_IMAGE_REGISTRY[slug]?.alt ?? 'Custom cabinets with painted and wood finishes';
 }
 
 export function getBlogHeroImage(

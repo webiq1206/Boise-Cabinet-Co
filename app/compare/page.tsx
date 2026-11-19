@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CinematicHero } from "@/components/marketing/CinematicHero";
@@ -163,7 +164,7 @@ export default function ComparePage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={"/images/catalog/collections/custom.webp"}
-          alt="custom cabinetry with coordinated sizes and finishes"
+          alt={localAlt('custom cabinetry with coordinated sizes and finishes')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Catalog", href: "/catalog" }, { name: "Compare" }]}
           eyebrow="Compare your options"
           title={<>

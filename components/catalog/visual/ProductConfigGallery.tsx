@@ -1,5 +1,6 @@
 "use client";
 
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { useState } from "react";
 import type { CabinetProduct } from "@/shared/catalog";
@@ -31,7 +32,7 @@ export function ProductConfigGallery({ product, className }: ProductConfigGaller
         {!failed ? (
           <Image
             src={src}
-            alt={alt}
+            alt={localAlt(alt)}
             fill
             sizes="(max-width: 768px) 100vw, 640px"
             className="object-contain p-2"

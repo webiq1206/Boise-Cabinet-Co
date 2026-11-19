@@ -208,3 +208,86 @@ Every time, in this order, in the Replit workspace:
 This applies whoever does the pull: a person, Replit's assistant or Claude.
 Never run a schema command against the live database. The same checklist is in
 `replit.md`, which Replit's assistant reads.
+
+## Interior page refinement (owner approval, 19 November 2026)
+
+Room, location, article and guide pages were refined to the homepage standard,
+adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
+(imported last in `app/layout.tsx`); the homepage layout is untouched.
+
+* **Image alt text is local.** Every content image's alt is "<work> in <city>,
+  Idaho: <what the picture shows>", built by `localAlt()` in
+  `shared/localAlt.ts`. The work is taken from the description (kitchen
+  cabinets, bathroom vanities, built-in cabinets, cabinet finishes, cabinet door
+  styles and so on), the city is Boise unless the page passes its own
+  (`/locations/[city]` does). Owner direction: no qualifier ("idea",
+  "concept", "inspiration", "representative") in or beside an image
+  description. New images go through `localAlt()`, never a bare string. Brand
+  lockups keep their own alt. Guard: `tests/local-alt.test.ts`.
+* **City photographs are distinct.** `/images/areas/<city>.webp` (and its
+  `-640` and `-1080` sizes) are eight different photographs from the owner's
+  Photo Dump, described in `AREA_HERO_PICTURE` (`shared/cityServiceImages.ts`)
+  and in `scripts/generate-blog-image-registry.mjs`. Change a file and change
+  both descriptions. The `.png` originals in that folder are the older set and
+  are not served.
+* **One closing links block.** Room and location pages end with "Keep
+  exploring" (`components/marketing/KeepExploring.tsx`): cities and rooms as
+  photo cards (a swipe row on phones, balanced rows from tablet up) that keep
+  their full anchor text for search, guides and related pages as one list with
+  thumbnails, no link shown twice. Do not stack separate "Related cabinet
+  pages", "Guides for ..." or "Where we work" lists under it again.
+  `.lx-cell` stays `position: relative`: without it the hidden anchor text
+  escapes the swipe row and widens the page on phones.
+* **FAQ questions keep their spaces.** `AccordionTrigger`
+  (`components/ui/accordion.tsx`) wraps the question in one element. The trigger
+  is a flex row, and bare text beside the keep-together span dropped the space
+  between them ("Do youserve Kuna?").
+* **Article headings are whole.** `.guide-section-details[open]
+  .guide-section-summary > span` keeps the child combinator; without it the rule
+  hid the last words of every article heading.
+* **Articles and guides**: quiet header and date line, one "On this page" row
+  on phones, downloads and the guide note after the article, one share bar and
+  one closing call to action on phones, related pages with their photographs.
+  On desktop the reading column and the sticky rail fill the container.
+* Door styles and finishes on room pages sit two across on phones
+  (`.lx-swatch-grid`).
+
+## Photos, thumbnails and phone lists (owner, 19 November 2026)
+
+* No staged props in a photo: no plants, vases, bowls, baskets, fruit or
+  flowers. Books on a bookshelf and clothes in a closet are the subject and are
+  fine. One picture still carries props: the homepage hero video
+  poster (`CabinetHeroVideo.tsx`). It is a frame of the video, so it needs a
+  new video from the owner, not a new still. `rooms/kitchen-walnut-mountain.webp`
+  and `collections/custom.webp` were replaced with prop-free Photo Dump
+  kitchens on 19 November 2026 (same paths; the first is hashed in
+  `tests/sam-image-swaps.test.ts`, and the pins were updated with it).
+* Door style cards (`CatalogVisualCard.tsx`): a profile diagram is shown whole
+  on its charcoal ground (`isProfileDiagram()`), never cropped to fill. A door
+  style with a photograph must have photograph variants too: `slab` and
+  `thin-shaker` once had diagram `-320/-640` files under a photo base, so
+  phones and cards got the diagram.
+* Replacing a photo means replacing its variants. `npm run images:variants`
+  only writes a `-320/-640/-1080` (or `-640/-1080/-1920`) file that does not
+  exist, so an old variant keeps serving the OLD picture to phones. Delete the
+  base file's variants first, then run `images:variants` and `images:blur`.
+* A changed picture needs its words changed with it: the alt in
+  `scripts/generate-blog-image-registry.mjs` (then run it; the registry is
+  generated), `imageAlt` in `shared/catalog/roomCategories.ts`, and the entry
+  in `data/projects.json` (then `npm run projects:build`). Describe only what
+  the picture shows.
+* Two city cards never share a picture (`shared/cityServiceImages.ts` files).
+* Keep exploring (`components/marketing/KeepExploring.tsx`): every row has a
+  thumbnail. A page with no photo of its own is in `STATIC_PAGE_IMAGE`; add a
+  new static page there. Card rows are balanced for any count
+  (`balancedColumns()`): a count that cannot fill whole rows becomes one swipe
+  row, never a short last row.
+* Phone lists (below 701px, `app/interior-refinement.css`): the blog and guide
+  indexes are compact rows (`lx-blog-card`: 112px photo, topic, title; date,
+  excerpt and "Read article" hidden; photo `object-position: 50% 20%` so a
+  person's head is never cut off). Card sets are two across (`lx-two-up`, and
+  the `/cabinets` room grid). City guides are one-line rows
+  (`lx-guide-compact`). The copy stays in the HTML.
+* `docs/interior-route-audit.json` pins each interior page's metadata and
+  schema code. A deliberate SEO change must update the signature in the same
+  commit; it sat stale from #116 until 19 November 2026 with twelve tests red.

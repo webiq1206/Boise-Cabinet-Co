@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { LazyConsultationForm as ConsultationForm } from '@/components/LazyConsultationForm';
@@ -31,7 +32,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
   `Contact Boise Cabinet Co for a free design consultation. Call or text our team, or send project details through the form. We answer your questions and help you work out the next step. ${preferToTextLine()}`;
@@ -305,25 +305,12 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.processContact}
-                alt="Open oak drawers with black pulls in a finished cabinet install"
+                alt={localAlt('Open oak drawers with black pulls in a finished cabinet install')}
                 title="Cabinet details | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#383837]/80 via-[#383837]/40 to-transparent" />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
-              />
-              <div className="absolute bottom-0 left-0 p-8 md:p-12">
-                <div className="ed-eyebrow">Your free visit includes</div>
-                <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
-                  No pressure.
-                  <br />
-                  No pitch. Just answers.
-                </p>
-              </div>
             </div>
 
             <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border order-1 md:order-2">

@@ -1,5 +1,6 @@
 "use client";
 
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { useState } from "react";
 import { Check, ZoomIn } from "lucide-react";
@@ -101,7 +102,7 @@ export function VisualOptionTile({
           ) : showImage ? (
             <Image
               src={imageSrc as string}
-              alt={imageAlt ?? label}
+              alt={localAlt(imageAlt ?? label)}
               fill
               sizes="(max-width: 640px) 50vw, 220px"
               placeholder={getBlurDataURL(imageSrc as string) ? "blur" : undefined}
@@ -158,7 +159,7 @@ export function VisualOptionTile({
               ) : lightboxSrc ? (
                 <Image
                   src={lightboxSrc}
-                  alt={imageAlt ?? label}
+                  alt={localAlt(imageAlt ?? label)}
                   fill
                   sizes="(max-width: 768px) 100vw, 672px"
                   className={imageFit === "contain" ? "object-contain" : "object-cover"}

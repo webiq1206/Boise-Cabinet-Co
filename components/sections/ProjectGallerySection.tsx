@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
@@ -26,7 +27,7 @@ function ProjectCard({ project }: { project: SiteProject }) {
           <>
             <Image
               src={project.hero.src}
-              alt={project.hero.alt}
+              alt={localAlt(project.hero.alt)}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover img-brand-grade"
@@ -43,7 +44,7 @@ function ProjectCard({ project }: { project: SiteProject }) {
               <div key={image.src} className="relative aspect-square overflow-hidden bg-muted">
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt={localAlt(image.alt)}
                   fill
                   sizes="80px"
                   className="object-cover img-brand-grade"

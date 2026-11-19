@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
@@ -81,7 +82,7 @@ export default function ConstructionPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.construction}
-          alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills | Boise Cabinet Co"
+          alt={localAlt('White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills | Boise Cabinet Co')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Construction" }]}
           eyebrow="Quality"
           title={<>
@@ -110,7 +111,7 @@ export default function ConstructionPage() {
 
         <PhotoBreak
           src={ENRICHMENT_IMAGES.constructionDetail}
-          alt="Frameless plywood cabinet box with dovetail drawer and soft-close slide detail"
+          alt={localAlt('Frameless plywood cabinet box with dovetail drawer and soft-close slide detail')}
           caption="Box, drawer, hinge and finish specifications published per cabinet line."
         />
 
@@ -135,7 +136,7 @@ export default function ConstructionPage() {
 
         <PhotoBreak
           src={ENRICHMENT_IMAGES.drawerHardware}
-          alt="Natural oak dovetail drawer with soft-close slide and organized utensil storage"
+          alt={localAlt('Natural oak dovetail drawer with soft-close slide and organized utensil storage')}
           caption="Hardware you feel every day, checked before installation."
         />
 

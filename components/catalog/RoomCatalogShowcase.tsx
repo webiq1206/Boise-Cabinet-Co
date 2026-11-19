@@ -41,7 +41,7 @@ export function RoomCatalogShowcase({
       />
 
       {doors.length > 0 && (
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="lx-swatch-grid grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
           {doors.map((door) => {
             const imgs = getDoorStyleImages(door.slug);
             return (
@@ -61,7 +61,7 @@ export function RoomCatalogShowcase({
       )}
 
       {finishes.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="lx-swatch-grid grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
           {finishes.map((finish) => {
             const imgs = getFinishImages(finish.slug, finish.imagePath);
             return (

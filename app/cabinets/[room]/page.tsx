@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
@@ -10,7 +11,7 @@ import { HeroFollowOn } from "@/components/marketing/HeroFollowOn";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { PhotoBreak } from "@/components/marketing/PhotoBreak";
 import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
-import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
+import { KeepExploring } from "@/components/marketing/KeepExploring";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CtaButton } from "@/components/modals/CtaButton";
@@ -324,7 +325,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
 
         <PhotoBreak
           src={room.heroImage}
-          alt={room.imageAlt ?? `${room.name} custom cabinets for Treasure Valley homes`}
+          alt={localAlt(room.imageAlt ?? `${room.name} custom cabinets for Treasure Valley homes`)}
           caption={`${sentenceStart(seo.label)} cabinetry designed for Boise and Treasure Valley homes.`}
         />
 
@@ -334,7 +335,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           <div className="ed-shell">
             <SectionHeader
               eyebrow={roomProjects.every((project) => project.kind === "concept") ? "Cabinet styles" : "Project gallery"}
-              title={<>{sentenceStart(seo.phrase)} ideas</>}
+              title={<>{sentenceStart(seo.phrase)} styles and finishes</>}
               align="left"
               className="mb-6"
             />
@@ -344,7 +345,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}
-                        alt={project.hero.alt}
+                        alt={localAlt(project.hero.alt)}
                         fill
                         sizes={roomProjects.length === 1 ? "(max-width: 1023px) 100vw, 66vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
                         className="object-cover img-brand-grade"
@@ -451,7 +452,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             {index === 0 ? (
               <PhotoBreak
                 src={ENRICHMENT_IMAGES.oakBuiltIns}
-                alt="White oak built-in shelves and cabinets on each side of a white fireplace"
+                alt={localAlt('White oak built-in shelves and cabinets on each side of a white fireplace')}
                 caption={`More ${seo.label} planning detail for Ada and Canyon County homes.`}
               />
             ) : null}
@@ -464,22 +465,6 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           note={roomCopy?.processNote}
         />
 
-        {roomCopy?.links?.length ? (
-          <Section divider>
-            <div className="ed-shell">
-              <h2 className="ed-h2-sm">Related cabinet pages</h2>
-              <ul className="mt-4 flex flex-wrap gap-3">
-                {roomCopy.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sm underline underline-offset-2 hover:text-accent">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Section>
-        ) : null}
 
         {/* Reviews */}
         {roomReviews.length > 0 && (
@@ -532,38 +517,26 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
           </div>
         </Section>
 
-        <Section>
-          <div className="ed-shell">
-            <RelatedPostCards
-              path={`/cabinets/${room.slug}`}
-              title={`Guides for ${seo.phrase}`}
-            />
-          </div>
-        </Section>
-
-        {/* Location links */}
+        {/* One closing block of onward links: cities, other rooms, guides. */}
         <Section variant="greige" divider>
           <div className="ed-shell">
-            <div className="ed-split ed-split-narrow">
-            <SectionHeader
-              eyebrow="Where we work"
-              title={<>{sentenceStart(seo.phrase)} across the Treasure Valley</>}
-              align="left"
-              className="mb-0"
+            <KeepExploring
+              groups={[
+                {
+                  label: `${sentenceStart(seo.phrase)} across the Treasure Valley`,
+                  cells: SERVICE_AREA_CITIES.map((city) => ({ href: locationPath(city.slug), label: city.name, context: "Custom cabinets in" })),
+                },
+                {
+                  label: "Cabinets for other rooms",
+                  cells: ROOM_CATEGORIES.filter((other) => other.slug !== room.slug).slice(0, 6).map((other) => ({ href: `/cabinets/${other.slug}`, label: other.name, context: "Cabinets:" })),
+                  action: { href: "/cabinets", label: "All rooms" },
+                },
+              ]}
+              links={roomCopy?.links ?? []}
+              readingLabel={`Guides for ${seo.phrase}`}
+              manifestPath={`/cabinets/${room.slug}`}
+              exclude={pillarGuide ? [pillarGuide.href] : []}
             />
-            <div className="flex flex-wrap content-start gap-3">
-              {SERVICE_AREA_CITIES.map((city) => (
-                <Link
-                  key={city.slug}
-                  href={locationPath(city.slug)}
-                  className="tap-target inline-flex items-center gap-1.5 rounded-sm border border-border bg-card px-3 py-2 text-sm text-foreground hover:border-accent/60 hover:text-accent transition-colors"
-                >
-                  <MapPin className="h-3.5 w-3.5" />
-                  {city.name}
-                </Link>
-              ))}
-            </div>
-            </div>
           </div>
         </Section>
 

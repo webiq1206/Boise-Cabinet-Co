@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { CatalogExploreStrip } from '@/components/catalog/CatalogExploreStrip';
 import {
@@ -20,12 +21,10 @@ import { publicText, showFoundingYear } from '@/shared/claims';
 import {
 ArrowRight,
 BookOpen,
-Calendar,
-Tag,
-User
+Tag
 } from 'lucide-react';
 import Link from 'next/link';
-import { ArticleSidebar,ArticleSidebarCta } from './ArticleSidebar';
+import { ArticleSidebar } from './ArticleSidebar';
 import { BlogEndCta } from './BlogEndCta';
 import { BlogHeroBanner } from './BlogHeroBanner';
 import { Chip } from './Chip';
@@ -73,32 +72,23 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             />
           </div>
 
-          <header className="interior-article-header">
-            {hub && <Chip className="mb-4">{hub.categoryLabel}</Chip>}
+          <header className="interior-article-header lx-article-header">
+            {hub && <p className="lx-cat">{hub.categoryLabel}</p>}
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-serif tracking-tight text-foreground mb-4">
               {guide.title}
             </h1>
             <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{publicText(guide.excerpt)}</p>
-            <div role="presentation" className="border-t border-border/60 mb-5" />
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                {formatDate(guide.publishedAt)}
-              </span>
+            <p className="lx-meta">
+              <span>{formatDate(guide.publishedAt)}</span>
               <span>{readingTime} min read</span>
               {guide.author && (
-                <span className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
+                <span>
                   {guide.author}
-                  {showFoundingYear() && guide.author === 'Boise Cabinet Co' && (
-                    <span className="text-muted-foreground">
-                      · Treasure Valley cabinet designers since 2020
-                    </span>
-                  )}
+                  {showFoundingYear() && guide.author === 'Boise Cabinet Co' && ' · Treasure Valley cabinet designers since 2020'}
                 </span>
               )}
-            </div>
-          </header><BlogHeroBanner src={heroImage} alt={heroAlt}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
+            </p>
+          </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 
           <GuideJumpChips headings={tocHeadings} />
 
@@ -108,11 +98,13 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 quickAnswer={guide.quickAnswer}
                 keyTakeaways={guide.keyTakeaways}
               >
+                <SectionedArticle html={contentWithIds} testId="guide-content" />
+
                 <GuideResourceDownloads resources={resources} />
 
                 {publishedClusters.length > 0 && (
                   <div
-                    className="rounded-lg border border-border bg-muted/20 p-5 md:p-6 mb-8"
+                    className="rounded-lg border border-border bg-muted/20 p-5 md:p-6 mt-10"
                     data-testid="guide-cluster-links"
                   >
                     <div className="flex items-center gap-2 mb-3">
@@ -147,7 +139,6 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                   </div>
                 )}
 
-                <SectionedArticle html={contentWithIds} testId="guide-content" />
               </GuideContentBlocks>
 
               {guide.faqs.length > 0 && (
@@ -188,9 +179,6 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 </div>
               )}
 
-              <div className="lg:hidden mt-10">
-                <ArticleSidebarCta description="Schedule a design consultation to review your cabinet project." />
-              </div>
             </div>
 
             <aside className="article-rail hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">

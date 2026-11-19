@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
@@ -49,7 +50,7 @@ export default function AccessoriesPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={getAccessoryImagePath("partition")}
-          alt="Vertical cabinet dividers organize cutting boards and baking sheets"
+          alt={localAlt('Vertical cabinet dividers organize cutting boards and baking sheets')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Accessories" }]}
           eyebrow="Product catalog"
           title={<>
@@ -65,7 +66,9 @@ export default function AccessoriesPage() {
               </Link>
             </Button>
         </CinematicHero>
-        <CatalogSearch className="mt-6 max-w-xl" />
+        <div className="ed-shell pt-6">
+          <CatalogSearch className="max-w-xl" />
+        </div>
 
         <Section variant="greige" divider>
           <div className="ed-shell">
@@ -74,7 +77,7 @@ export default function AccessoriesPage() {
               title={<>Accessory families</>}
               className="mb-10"
             />
-            <div className="ed-cards-3 gap-6">
+            <div className="lx-two-up ed-cards-3 gap-6">
               {ACCESSORY_FAMILIES.map((family, i) => (
                 <Reveal key={family.id} delay={i * 30}>
                   <CatalogVisualCard

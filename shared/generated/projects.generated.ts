@@ -3,7 +3,7 @@
 // Run `npm run projects:build` to regenerate.
 import type { SiteProject } from "@/shared/projects/types";
 
-export const PROJECTS_GENERATED_ON = "2026-11-13";
+export const PROJECTS_GENERATED_ON = "2026-11-19";
 
 export const PROJECTS: SiteProject[] = [
   {
@@ -15,7 +15,7 @@ export const PROJECTS: SiteProject[] = [
     "description": "Custom kitchen cabinets with shaker doors, full-extension drawer storage, soft-close hardware, and a quartz island.",
     "hero": {
       "src": "/images/projects/modern-shaker-kitchen/after.webp",
-      "alt": "Custom Shaker kitchen cabinets with a quartz island and satin nickel hardware"
+      "alt": "Sage green Shaker kitchen cabinets with an oak island and white countertops"
     },
     "detail": [
       {
@@ -24,11 +24,11 @@ export const PROJECTS: SiteProject[] = [
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-island.webp",
-        "alt": "Island drawers and quartz countertop detail"
+        "alt": "Oak island drawer stack with black pulls under a white countertop"
       },
       {
         "src": "/images/projects/modern-shaker-kitchen/detail-pantry.webp",
-        "alt": "Walk-in pantry with matching matte shaker doors adjacent to the kitchen"
+        "alt": "Pantry wall with painted Shaker tall cabinets, oak shelves and a drawer bank"
       }
     ],
     "showBeforeAfter": false,
@@ -202,11 +202,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "built-in-storage",
     "area": "Nampa",
-    "title": "Mudroom bench and cubbies",
-    "description": "Wood cabinetry, a cushioned bench, coat hooks, and open cubbies keep an entry organized.",
+    "title": "Mudroom bench and lockers",
+    "description": "White lockers, coat hooks, and a built-in bench over drawers keep an entry organized.",
     "hero": {
       "src": "/images/catalog/rooms/mudroom-1080.webp",
-      "alt": "Wood mudroom storage with a cushioned bench, open cubbies and coat hooks"
+      "alt": "Mudroom with a built-in bench, white lockers and a coat on a hook"
     },
     "detail": [],
     "showBeforeAfter": false
@@ -217,7 +217,7 @@ export const PROJECTS: SiteProject[] = [
     "serviceType": "bar-cabinets",
     "area": "Boise",
     "title": "Dark Shaker wet bar",
-    "description": "Dark Shaker cabinets combine a compact sink, wine storage, illuminated shelving, and a beverage refrigerator.",
+    "description": "Dark Shaker cabinets combine a compact sink, a tile backsplash, and a beverage refrigerator.",
     "hero": {
       "src": "/images/catalog/rooms/wet-bar-1080.webp",
       "alt": "Dark Shaker wet bar cabinets with a sink and beverage refrigerator"
@@ -230,11 +230,11 @@ export const PROJECTS: SiteProject[] = [
     "kind": "concept",
     "serviceType": "outdoor-cabinets",
     "area": "Meridian",
-    "title": "Covered outdoor kitchen",
-    "description": "A covered cooking area with dark cabinetry, stone counters, a built-in grill, and a sink.",
+    "title": "Outdoor kitchen",
+    "description": "A cooking area with wood cabinetry, stone counters, a built-in grill, and a beverage refrigerator.",
     "hero": {
       "src": "/images/catalog/rooms/outdoor-1080.webp",
-      "alt": "Covered outdoor kitchen with dark cabinets, stone counters, a grill and sink"
+      "alt": "Outdoor kitchen with wood cabinets, stone counters, a built-in grill and a stainless steel refrigerator"
     },
     "detail": [],
     "showBeforeAfter": false

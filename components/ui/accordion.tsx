@@ -26,10 +26,12 @@ function keepLastTwoWords(children: React.ReactNode): React.ReactNode {
   if (words.length < 2) return children
   const tail = words.slice(-2).join(" ")
   const head = words.slice(0, -2).join(" ")
+  // One wrapper: the trigger is a flex row, and bare text beside a span would
+  // become two flex items, which drops the space between them ("Do youserve Kuna?").
   return head ? (
-    <>
+    <span className="min-w-0">
       {head} <span className="mobile-keep">{tail}</span>
-    </>
+    </span>
   ) : (
     <span className="mobile-keep">{tail}</span>
   )

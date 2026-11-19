@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
@@ -40,7 +41,7 @@ export function ProcessSection({
               desktop because the panel is taller than it is wide. */}
           <Image
             src={MARKETING_IMAGES.processPanel}
-            alt="White oak drawer fronts with matte black bar pulls beside a painted shaker door"
+            alt={localAlt('White oak drawer fronts with matte black bar pulls beside a painted shaker door')}
             fill
             sizes="(max-width: 820px) 100vw, 90vw"
             className="object-cover object-[25%_50%] img-brand-grade"

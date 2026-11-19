@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { LandingMobileActions } from "@/components/marketing/LandingMobileActions";
 import { PreferToTextLine } from "@/components/contact/PreferToTextLine";
 import { LandingContactActions } from "@/components/marketing/LandingContactActions";
@@ -34,7 +35,7 @@ const TILES = [
   {
     src: "/images/catalog/rooms/built-ins.webp",
     label: "Built-ins",
-    alt: "Built-in cabinets and open shelves along a living room wall",
+    alt: "Oak built-in shelves and cabinets on both sides of a plaster fireplace",
   },
 ] as const;
 
@@ -140,7 +141,7 @@ export default function KitchenCabinetsPage() {
       <section data-p5-hero className="kc-hero pt-0 relative flex min-h-[32rem] items-end overflow-hidden">
         <Image
           src={HERO_IMAGE}
-          alt="Sage green Shaker kitchen cabinets with brass pulls and a matching range hood behind a white oak island with a white counter"
+          alt={localAlt('Sage green Shaker kitchen cabinets with brass pulls and a matching range hood behind a white oak island with a white counter')}
           fill
           priority
           sizes="100vw"
@@ -204,7 +205,7 @@ export default function KitchenCabinetsPage() {
             <div className="relative aspect-[4/3]">
               <Image
                 src={tile.src}
-                alt={tile.alt}
+                alt={localAlt(tile.alt)}
                 fill
                 sizes="(min-width: 640px) 33vw, 100vw"
                 className="object-cover"

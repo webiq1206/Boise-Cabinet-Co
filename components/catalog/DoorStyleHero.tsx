@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { getDoorStyleBySlug } from "@/shared/catalog";
 import { getDoorStyleImages } from "@/shared/catalog/entityImages";
@@ -18,7 +19,7 @@ export function DoorStyleHero({ slug, name, className }: DoorStyleHeroProps) {
     <div className={`relative aspect-[4/3] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}>
       <Image
         src={src}
-        alt={`${name} cabinet door profile, Boise Cabinet Co`}
+        alt={localAlt(`${name} cabinet door profile, Boise Cabinet Co`)}
         title={`${name} Door Style | Boise Cabinet Co`}
         fill
         priority

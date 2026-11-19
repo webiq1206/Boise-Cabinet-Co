@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { KitchenCabinetsQuoteForm } from "@/components/marketing/KitchenCabinetsQuoteForm";
 import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { InteriorPage } from '@/components/approved/InteriorLayout';
@@ -149,7 +150,7 @@ export default function BuildersPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image="/images/marketing/hero-construction.webp"
-          alt="Unfinished cabinet boxes set in place with clamps and a level during installation"
+          alt={localAlt('Unfinished cabinet boxes set in place with clamps and a level during installation')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>
@@ -215,7 +216,7 @@ export default function BuildersPage() {
 
         <PhotoBreak
           src={ENRICHMENT_IMAGES.buildersStaging}
-          alt="Cabinet boxes staged for delivery and installation for a Treasure Valley builder project"
+          alt={localAlt('Cabinet boxes staged for delivery and installation for a Treasure Valley builder project')}
           caption="Boxes staged and ready so install days stay on your schedule."
         />
 
@@ -259,7 +260,7 @@ export default function BuildersPage() {
 
         <PhotoBreak
           src={ENRICHMENT_IMAGES.constructionDetail}
-          alt="Frameless plywood cabinet box and dovetail drawer detail from Boise Cabinet Co"
+          alt={localAlt('Frameless plywood cabinet box and dovetail drawer detail from Boise Cabinet Co')}
           caption="One accountable team for design, production, and install coordination."
         />
 

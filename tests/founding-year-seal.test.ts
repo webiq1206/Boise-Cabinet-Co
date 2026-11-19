@@ -36,6 +36,12 @@ test("built HTML has no seal URL when SHOW_FOUNDING_YEAR is off", () => {
   const missing = readFileSync(missingFile, "utf8");
   assert.match(about, /\/brand\/svg\/icon\/boise-cabinet-co-icon-bone\.svg/);
   assert.match(missing, /\/brand\/svg\/icon\/boise-cabinet-co-icon-bone\.svg/);
-  assert.match(about, /alt="Boise Cabinet Co"/);
+  // The about page no longer draws the mark itself (its hero was rebuilt as an
+  // editorial split). It carries the mark only inside the serialized not-found
+  // boundary, where the attribute is JSON, so accept either spelling there and
+  // check that neither page names the seal.
+  assert.match(about, /alt\\?"[:=]?\\?"?Boise Cabinet Co\\?"/);
   assert.match(missing, /alt="Boise Cabinet Co"/);
+  assert.equal(about.includes("Boise Cabinet Co seal"), false);
+  assert.equal(missing.includes("Boise Cabinet Co seal"), false);
 });

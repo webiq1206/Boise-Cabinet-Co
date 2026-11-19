@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Link from "next/link";
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
@@ -33,7 +34,7 @@ export function CollectionsBandSection() {
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={collection.heroImage}
-                    alt={`${collection.name} custom cabinets, ${collection.tagline}`}
+                    alt={localAlt(`${collection.name} custom cabinets, ${collection.tagline}`)}
                     title={`${collection.name} Cabinet Collection | Boise Cabinet Co`}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"

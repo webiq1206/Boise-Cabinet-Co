@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from '@/components/marketing/CinematicHero';
 import { Section } from '@/components/marketing/Section';
@@ -42,9 +43,9 @@ export default function DesignIdeasPage() {
     <div className="flex flex-col ">
       <CinematicHero
         image={MARKETING_IMAGES.processHome}
-        alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills"
+        alt={localAlt('White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills')}
         breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Design ideas' }]}
-        eyebrow="Cabinet design inspiration"
+        eyebrow="Cabinet styles and finishes"
         title="Cabinet design ideas for Treasure Valley homes"
         description="Explore kitchen, bathroom, and built-in cabinet ideas for Treasure Valley homes. Compare door styles, finishes, layouts, and storage details."
       >

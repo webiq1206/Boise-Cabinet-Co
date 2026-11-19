@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
@@ -12,7 +13,7 @@ export function CatalogPageHero({ src, alt, title }: CatalogPageHeroProps) {
     <div className="relative aspect-[21/9] max-h-[320px] overflow-hidden rounded-sm mb-8 bg-muted">
       <Image
         src={src ?? MARKETING_IMAGES.catalogDefault}
-        alt={alt}
+        alt={localAlt(alt)}
         title={title ?? alt}
         fill
         sizes="100vw"

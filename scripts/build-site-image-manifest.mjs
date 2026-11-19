@@ -106,10 +106,10 @@ for (const r of ROOMS) {
     doorStyleId: r.door,
     finishId: r.finish,
     promptScene: kitchenSwap
-      ? `Kitchen with walnut cabinets, a stone range wall and a grey-topped island, ${STYLE_SUFFIX}`
+      ? `Kitchen with flat-panel oak cabinets, a walnut drawer island and white countertops, ${STYLE_SUFFIX}`
       : `${r.name} with custom frameless cabinets, a ready-to-assemble cabinet line, ${r.door.replace(/-/g, " ")} doors, ${r.finish} finish, Idaho home interior, ${STYLE_SUFFIX}`,
     alt: kitchenSwap
-      ? "Kitchen with walnut cabinets, a stone range wall and a grey-topped island"
+      ? "Kitchen with flat-panel oak cabinets, a walnut drawer island and white countertops"
       : `Custom ${r.name.toLowerCase()} cabinets with a ready-to-assemble cabinet line, ${r.door.replace(/-/g, " ")} doors in Treasure Valley Idaho`,
     title: `${r.name} Custom Cabinets | Boise Cabinet Co`,
     caption: kitchenSwap ? "" : `${r.name} cabinetry designed and installed by Boise Cabinet Co using thermally fused laminate (TFL) panels.`,

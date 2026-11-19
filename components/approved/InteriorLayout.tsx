@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { ArrowUpRight } from 'lucide-react';
 import { familyButtonClass } from '@/components/family/Button';
 import type { ReactNode } from 'react';
@@ -67,7 +68,7 @@ export function InteriorEstimateLink({label='Request a quote'}:{label?:string}) 
 export function InteriorHero({children,imageSrc,imageAlt='',layout='split',estimateAction=false,className='',uncropped=false}:{children:ReactNode;imageSrc?:string;imageAlt?:string;layout?:'split'|'editorial'|'contact';estimateAction?:boolean;className?:string;uncropped?:boolean}) {
   return <section className={`interior-hero interior-hero-${layout}${imageSrc?'':' interior-hero-text'}${uncropped?' interior-hero-uncropped':''}${className?` ${className}`:''}`}>
     <div className="interior-hero-copy">{children}{estimateAction&&<div className="interior-hero-action"><InteriorEstimateLink/></div>}</div>
-    {imageSrc&&<div className={`interior-hero-image${uncropped?' interior-hero-image--uncropped':''}`}><img {...heroImageAttrs(imageSrc)} alt={imageAlt} width={uncropped?2560:1400} height={uncropped?1920:1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
+    {imageSrc&&<div className={`interior-hero-image${uncropped?' interior-hero-image--uncropped':''}`}><img {...heroImageAttrs(imageSrc)} alt={localAlt(imageAlt)} width={uncropped?2560:1400} height={uncropped?1920:1100} fetchPriority="high" loading="eager" decoding="sync"/></div>}
   </section>;
 }
 

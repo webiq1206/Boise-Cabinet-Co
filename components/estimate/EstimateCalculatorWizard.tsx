@@ -1,5 +1,6 @@
 "use client";
 
+import { localAlt } from '@/shared/localAlt';
 import { EstimatorRecovery } from "@/components/estimate/recovery/EstimatorRecovery";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -217,7 +218,7 @@ function OptionVisual({
       <div className={cn("relative w-full mb-1.5 overflow-hidden rounded-sm bg-muted", aspectClass)}>
         <Image
           src={image}
-          alt={alt}
+          alt={localAlt(alt)}
           fill
           sizes="(max-width: 1024px) 33vw, 160px"
           className={cn(imageFit, "img-brand-grade")}
@@ -872,7 +873,7 @@ export function EstimateCalculatorWizard({
                     {info.image ? (
                       <Image
                         src={info.image}
-                        alt={`${info.label} cabinetry`}
+                        alt={localAlt(`${info.label} cabinetry`)}
                         fill
                         sizes="40px"
                         className="object-cover img-brand-grade"

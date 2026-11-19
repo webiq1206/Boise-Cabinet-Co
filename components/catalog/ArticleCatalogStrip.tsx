@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -32,7 +33,7 @@ export function DoorStyleStrip({ style }: { style: DoorStyle }) {
       <div className="relative aspect-[4/5] w-32 sm:w-40 bg-[#f1ede4]">
         <Image
           src={src}
-          alt={`${style.name} cabinet door, Boise Cabinet Co`}
+          alt={localAlt(`${style.name} cabinet door, Boise Cabinet Co`)}
           fill
           sizes="160px"
           className="object-contain p-3"
