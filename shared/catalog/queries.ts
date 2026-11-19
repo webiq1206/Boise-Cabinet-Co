@@ -215,7 +215,7 @@ export function searchCatalogWithFacets(
         type: "finish",
         slug: f.slug,
         name: f.name,
-        description: `${f.category} · ${f.sheen}`,
+        description: f.category === f.sheen ? `${f.category} finish` : `${f.category} · ${f.sheen}`,
         score: s || 1,
         imagePath: pickSearchResultImage({ type: "finish", slug: f.slug }),
       });

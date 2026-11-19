@@ -95,7 +95,7 @@ export default function CabinetInstallationPage() {
           </InteriorHero>
 
         <Section variant="greige" spacing="lg">
-          <div className="container mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1fr_1.2fr] md:px-10">
+          <div className="container mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[1fr_1.2fr] md:px-10">
             <Reveal>
               <p className="ed-eyebrow">A straightforward starting point</p>
               <h2 className="ed-h2 mt-4">The cabinet installer you need, or the cabinet team you want.</h2>
@@ -171,7 +171,7 @@ export default function CabinetInstallationPage() {
         </Section>
 
         <Section variant="canvas" spacing="none" className="p-0">
-          <div className="grid md:grid-cols-2">
+          <div className="grid lg:grid-cols-2">
             <div className="relative min-h-[320px] overflow-hidden md:min-h-[540px]">
               <Image src={SITE_IMAGES.processHome} alt={localAlt('White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills')} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover img-brand-grade" />
               <div className="absolute inset-0 bg-gradient-to-t from-inverse/70 to-transparent" />
@@ -204,7 +204,7 @@ export default function CabinetInstallationPage() {
         <Section variant="greige" divider>
           <div className="container mx-auto max-w-6xl px-6 md:px-10">
             <Reveal>
-              <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+              <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
                 <div>
                   <p className="ed-eyebrow">Where we work</p>
                   <h2 className="ed-h2 mt-4">Serving homeowners across the Treasure Valley.</h2>
@@ -221,16 +221,16 @@ export default function CabinetInstallationPage() {
         </Section>
 
         <Section divider data-suppress-sticky-cta="">
-          <div className="container mx-auto grid max-w-5xl gap-12 px-6 md:grid-cols-5 md:px-10">
+          <div className="container mx-auto grid max-w-5xl gap-12 px-6 lg:grid-cols-5 md:px-10">
             {/* "#consult" lands on the form card itself; on phones the form comes first. */}
-            <div className="order-last md:order-first md:col-span-2">
+            <div className="order-last lg:order-first lg:col-span-2">
               <SectionHeader
                 eyebrow="Start with a conversation"
                 title={<>Tell us what your cabinets <em className="brc-accent text-accent">need.</em></>}
                 description="Share a few details before requesting an estimate. We will use them to understand whether you need installation, custom cabinets, or both."
               />
             </div>
-            <MarketingCard className="md:col-span-3" padding="lg" id="consult" data-quote-anchor="">
+            <MarketingCard className="lg:col-span-3" padding="lg" id="consult" data-quote-anchor="">
               <ConsultationForm idPrefix="install-quote" />
             </MarketingCard>
             <QuoteFormAnchor id="consult" />

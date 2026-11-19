@@ -185,9 +185,9 @@ export default function ContactPage() {
 
         {/* ─── Consultation form ─── */}
         <Section divider data-suppress-sticky-cta="">
-          <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+          <div className="container px-4 max-w-5xl mx-auto grid lg:grid-cols-5 gap-12 items-start">
             {/* "#consult" lands on the form card itself; on phones the form comes first. */}
-            <div className="order-last md:order-first md:col-span-2">
+            <div className="order-last lg:order-first lg:col-span-2">
               <SectionHeader
                 eyebrow="Begin a conversation"
                 size="display"
@@ -209,7 +209,7 @@ export default function ContactPage() {
                 className="max-w-none"
               />
             </div>
-            <div className="fr-request-card interior-contact-form md:col-span-3" style={{ '--f-accent': '#659b9a' } as React.CSSProperties} data-c10-contact-form="" id="consult" data-quote-anchor="">
+            <div className="fr-request-card interior-contact-form lg:col-span-3" style={{ '--f-accent': '#659b9a' } as React.CSSProperties} data-c10-contact-form="" id="consult" data-quote-anchor="">
               <ConsultationForm idPrefix="contact-quote" />
             </div>
             <QuoteFormAnchor id="consult" />

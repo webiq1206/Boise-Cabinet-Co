@@ -71,10 +71,18 @@ test('the picker is native radios driven by CSS, with plain links and no invente
   assert.match(picker, /Explore the full catalog/);
   assert.match(picker, /Confirm your finish with a physical sample\./);
   assert.match(picker, /versionedSrc\(finish\.image\)/);
-  assert.match(picker, /loading=\{index === 0 \? 'eager' : 'lazy'\}/);
+  // The large panel is a door drawn in CSS whose surface is the finish's own
+  // sample (the ten samples weigh under 50 KB together), with a second radio
+  // pair for the profile.
+  assert.match(picker, /'--fp-tex': `url\("\$\{versionedSrc\(finish\.image\)\}"\)`/);
+  assert.match(picker, /type="radio" name="home-profile" value="shaker"[^>]*defaultChecked/);
+  assert.match(picker, /type="radio" name="home-profile" value="slab"/);
+  assert.doesNotMatch(picker, /photograph of|rendering|concept|illustration/i);
   assert.doesNotMatch(picker, /hexColor|backgroundColor/, 'a finish is shown by its sample, never a flat colour');
   const css = readFileSync('app/finish-picker.css', 'utf8');
   for (let index = 0; index < finishes.length; index += 1) assert.ok(css.includes(`.fp-in${index}:checked`), `no rule for option ${index}`);
+  assert.match(css, /\.fp:has\(\.fp-pr-slab:checked\) :is\(\.fp-panel,\.fp-joint\)\{opacity:0\}/);
+  assert.match(css, /background-image:var\(--fp-tex\)/);
   // The homepage hands over the resolved list; the browser never loads the finish library.
   assert.match(readFileSync('app/page.tsx', 'utf8'), /homeFinishes=\{resolveHomeFinishes\(\)\}/);
   assert.doesNotMatch(readFileSync('components/approved/ApprovedHome.tsx', 'utf8'), /catalog\/generated\/finishes/);

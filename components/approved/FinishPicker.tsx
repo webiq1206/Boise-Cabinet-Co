@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { versionedSrc } from '@/lib/images/imageVersion';
 import { localAlt } from '@/shared/localAlt';
@@ -8,8 +9,9 @@ const FAMILY_ORDER: HomeFinishFamily[] = ['matte', 'gloss', 'woodgrain'];
 /**
  * Homepage "Find your point of view" (owner, 19 November 2026): choosing a
  * finish shows that finish. Each option is a real catalog finish; the large
- * panel shows its real catalog sample at the sample's own size, never a
- * recoloured photograph.
+ * panel is a cabinet door front drawn in CSS whose surface is that finish's
+ * own catalog sample, never a recoloured photograph and never a flat colour.
+ * A second radio pair switches the drawn profile between Shaker and Slab.
  *
  * The options are native radios in one group, so arrow keys move between them
  * and the choice is announced. The panel and the details follow the checked
@@ -24,17 +26,15 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
     <section id="finishes" className="finish-section fp">
       <div className="finish-photo fp-stage" aria-hidden="true">
         {finishes.map((finish, index) => (
-          <figure className={`fp-sample fp-s${index}`} key={finish.slug}>
-            <span className="fp-frame">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={versionedSrc(finish.image)}
-                alt=""
-                width={480}
-                height={480}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-              />
+          <figure className={`fp-sample fp-s${index} fp-${finish.family}`} key={finish.slug}>
+            {/* A cabinet door front drawn in CSS. Its surface is this finish's own catalog sample. */}
+            <span className="fp-door" style={{ '--fp-tex': `url("${versionedSrc(finish.image)}")` } as CSSProperties}>
+              <span className="fp-skin"><span className="fp-half" /><span className="fp-half fp-half-b" /></span>
+              <span className="fp-sheen" />
+              <span className="fp-panel" />
+              <span className="fp-joint fp-joint-t" />
+              <span className="fp-joint fp-joint-b" />
+              <span className="fp-pull" />
             </span>
             <figcaption>
               <b>{finish.name}</b>
@@ -48,7 +48,7 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
         <h2>A little texture.<br />A little contrast.<br /><em>All you.</em></h2>
         <p>
           {total} finishes. Shaker, slab and more door styles. Matte solids, high-gloss colors, and woodgrain textures.
-          Choose one to see its catalog sample.
+          Choose one to see it on a door.
         </p>
         <fieldset className="fp-group">
           <legend className="sr-only">Choose a finish to see its sample</legend>
@@ -78,6 +78,12 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
             })}
           </div>
         </fieldset>
+        <div className="fp-meta">
+        <fieldset className="fp-profile">
+          <legend className="sr-only">Door profile</legend>
+          <label><input type="radio" name="home-profile" value="shaker" className="fp-pr fp-pr-shaker" data-clarity-mask="True" defaultChecked /><span>Shaker</span></label>
+          <label><input type="radio" name="home-profile" value="slab" className="fp-pr fp-pr-slab" data-clarity-mask="True" /><span>Slab</span></label>
+        </fieldset>
         <div className="fp-details">
           {finishes.map((finish, index) => (
             <div className={`fp-detail fp-d${index}`} key={finish.slug}>
@@ -93,6 +99,7 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
               </p>
             </div>
           ))}
+        </div>
         </div>
         <p className="sample-note">Catalog samples shown on screen. Confirm your finish with a physical sample.</p>
         <div className="finish-links"><a className="text-link light" href="/catalog">Explore the full catalog <ArrowUpRight size={18} aria-hidden="true" /></a></div>

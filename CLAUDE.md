@@ -367,7 +367,19 @@ location pages.
   a `max-w-3xl` column that leaves half the container empty. The words and the
   FAQ structured data come from the same list as before.
 * `/kitchen-cabinets` is the paid-traffic landing page; its narrow single
-  column and open questions are that page's own design and were left.
+  column is that page's own design. Its questions are tap-to-open too (native
+  `<details name="kitchen-landing-faq">`, first one open, same words and the
+  same FAQ data); the hero and the form were not touched. The closing call and
+  text buttons stack below 480px (`stackOnPhones`), the hero pair does not.
+* **Tablets stack a split that leaves a narrow text column.** Cabinet
+  installation and the contact heading and form split at `lg`, not `md`.
+  Document pages (permit flow, privacy, terms, site map) put the "On this
+  page" rail above the text from 701px to 1023px. Check 768px before adding a
+  two-column `md:` grid to a page with long copy.
+* **404**: the two catalog links are "Cabinets by room" (`/cabinets`) and
+  "Full catalog" (`/catalog`); the links are one column below 480px.
+* **Search rows** say "gloss finish", not "gloss · gloss", when a finish's
+  family and sheen are the same word (`shared/catalog/queries.ts`).
 * **Construction**: the "What goes into every order" and "From approved design
   to your home" cards are one column beside their heading. Two columns inside
   the split left a lone third card and 110px text columns.
@@ -411,15 +423,25 @@ real. It is `components/approved/FinishPicker.tsx`, styled by
   Gloss, Anthracite (gloss), White Gladstone Oak, Natural Bardolino Oak,
   Natural Carini Walnut (woodgrain). Whites first; each family is labelled
   with its real count (55, 53, 191).
-* Choosing a finish shows that finish's own catalog sample, large, at the
-  file's own pixels (the samples are 480px squares; `.fp-frame` shows the
-  460 x 396 swatch area). Never tint or recolour a photograph to stand for a
-  finish, never show a flat colour for one, and write no description the
-  catalog does not hold. The chips use the same file as the large sample: the
-  `-160` variants of some finishes are a different colour.
+* Choosing a finish shows it on a cabinet door front drawn in CSS (`.fp-door`),
+  whose surface is that finish's own catalog sample: the sample's 460 x 396
+  swatch area in two overlapping bands, the lower flipped left to right and
+  dissolved into the upper, so grain runs the height of the door without a
+  seam and the file sits at about its own pixels (1.0x at 1440, less on
+  tablets and phones). A second radio pair switches the drawn profile between
+  Shaker (stiles, rails and a recessed panel made with shadow) and Slab. The
+  caption is the finish name and family and nothing else: it is a drawn door,
+  so do not call it a photograph and add no qualifier word. Never tint or
+  recolour a photograph to stand for a finish, never show a flat colour for
+  one, and write no description the catalog does not hold.
+* The chips use the same 480px file as the door. On 19 November 2026, 225 of
+  the 732 small finish variants (`-160`, `-320`, `-640`) were older flat tiles
+  of a different colour from their sample; they were regenerated from the
+  samples. A finish variant must always be a resize of its base.
 * The options are native radios in one group and the panel follows the checked
   one in CSS (`:has`), so it works without JavaScript, arrow keys move the
-  choice, and every sample's place is reserved (no layout shift).
+  choice, and every door's place is reserved: the section is the same height
+  for all ten finishes and both profiles (787px at 1440).
 * "See this finish" opens `/search?q=<name>&finish=<family>` and "See all <n>
   <family> finishes" opens `/search?finish=<family>`; the search page reads
   both on the server (`app/search/page.tsx`, `SearchClient.tsx`) and shows a

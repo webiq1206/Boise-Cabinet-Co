@@ -42,12 +42,12 @@ export default function NotFound() {
 
         <Card className="rounded-sm marketing-card mb-8 text-left">
           <CardContent className="pt-6">
-            <h3 className="font-medium mb-4 text-foreground">Popular Pages</h3>
-            <div className="grid grid-cols-2 gap-2">
+            <h3 className="font-medium mb-4 text-foreground">Popular pages</h3>
+            <div className="grid grid-cols-1 gap-2 min-[480px]:grid-cols-2">
               {[
-                { href: "/cabinets", label: "Cabinet Catalog" },
+                { href: "/cabinets", label: "Cabinets by room" },
                 { href: "/estimate", label: "Request a quote" },
-                { href: "/catalog", label: "Catalog" },
+                { href: "/catalog", label: "Full catalog" },
                 { href: "/contact", label: "Free Consultation" },
               ].map((item) => (
                 <Link

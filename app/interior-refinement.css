@@ -345,3 +345,11 @@
 @media (min-width: 1024px) and (pointer: fine) {
   .approved-shell .interior-sitemap .interior-document-main li a { min-height: 32px; }
 }
+
+/* ── Tablets (701 to 1023px): a document page stacks its rail above the text.
+   Beside it, the rail left the text a 300px column (permit flow, legal pages). */
+@media (min-width: 701px) and (max-width: 1023px) {
+  .approved-shell .interior-document-grid { display: flex; flex-direction: column; gap: 32px; }
+  .approved-shell .interior-document-index { position: static; width: 100%; max-width: 320px; }
+  .approved-shell .interior-document-main { max-width: none; }
+}
