@@ -1,6 +1,7 @@
 import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import {
+  getAccessoryImageDescription,
   getAccessoryImagePath,
   getCatalogProductAlt,
   getHardwareImagePath,
@@ -21,7 +22,8 @@ export function CatalogProductImage({
 }: CatalogProductImageProps) {
   const src =
     type === "hardware" ? getHardwareImagePath(slug) : getAccessoryImagePath(slug);
-  const alt = getCatalogProductAlt(name, type === "hardware" ? "hardware" : "accessory");
+  // An accessory's alt says what its picture shows; hardware keeps its product name.
+  const alt = type === "hardware" ? getCatalogProductAlt(name, "hardware") : getAccessoryImageDescription(slug, name);
   const ratio = type === "accessory" ? "aspect-square" : "aspect-[4/3]";
 
   return (
@@ -31,7 +33,7 @@ export function CatalogProductImage({
       <Image
         src={src}
         alt={localAlt(alt)}
-        title={alt}
+        title={name}
         fill
         sizes="(max-width: 768px) 100vw, 33vw"
         className="object-cover img-brand-grade"

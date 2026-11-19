@@ -30,12 +30,15 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
   if (!row) return notFound();
   const bytes = Buffer.from(row.dataBase64, "base64");
   const asciiName = row.name.replace(/[^\x20-\x7e]/g, "_").replace(/["\\]/g, "_");
+  // A photo or a PDF opens in the browser. Anything else (a CAD drawing) is
+  // handed over as a download with a neutral type, so it is never rendered.
+  const inline = row.contentType === "application/pdf" || /^image\/(jpeg|png|webp|gif|heic|heif)$/.test(row.contentType);
   return new NextResponse(new Uint8Array(bytes), {
     status: 200,
     headers: {
-      "Content-Type": row.contentType,
+      "Content-Type": inline ? row.contentType : "application/octet-stream",
       "Content-Length": String(bytes.length),
-      "Content-Disposition": `inline; filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(row.name)}`,
+      "Content-Disposition": `${inline ? "inline" : "attachment"}; filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(row.name)}`,
       "X-Content-Type-Options": "nosniff",
       "Cache-Control": "private, no-store",
       "Referrer-Policy": "no-referrer",

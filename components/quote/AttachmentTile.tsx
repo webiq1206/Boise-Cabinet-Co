@@ -17,12 +17,13 @@ import { useEffect, useRef, useState, type DragEvent } from "react";
 import { FileText, Loader2, Paperclip, RotateCcw, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  QUOTE_FILE_ACCEPT,
-  QUOTE_FILE_HINT,
   QUOTE_FILE_MAX_COUNT,
   checkQuoteFile,
   formatFileSize,
   isPdfType,
+  quoteFileAccept,
+  quoteFileHint,
+  type QuoteFileProfile,
 } from "@/shared/quoteFiles";
 
 export type UploadState = "ready" | "uploading" | "done" | "failed";
@@ -50,6 +51,7 @@ function nextKey(): string {
 export function pickFiles(
   list: FileList | File[],
   room: number,
+  profile: QuoteFileProfile = "standard",
 ): { added: PickedFile[]; messages: string[] } {
   const added: PickedFile[] = [];
   const messages: string[] = [];
@@ -60,7 +62,7 @@ export function pickFiles(
       );
       continue;
     }
-    const check = checkQuoteFile(file);
+    const check = checkQuoteFile(file, profile);
     if (!check.ok) {
       messages.push(check.message);
       continue;
@@ -94,6 +96,7 @@ export function AttachmentTile({
   alreadyStored = 0,
   onRetry,
   title = "Add photos, plans or files",
+  profile = "standard",
 }: {
   idPrefix: string;
   files: PickedFile[];
@@ -104,6 +107,8 @@ export function AttachmentTile({
   /** Shown on a failed chip once uploads have run. */
   onRetry?: (key: string) => void;
   title?: string;
+  /** "builder" on the builders form: DWG and DXF drawings are taken too. */
+  profile?: QuoteFileProfile;
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
@@ -123,7 +128,7 @@ export function AttachmentTile({
 
   function add(list: FileList | File[] | null) {
     if (!list || !list.length) return;
-    const { added, messages: next } = pickFiles(list, room);
+    const { added, messages: next } = pickFiles(list, room, profile);
     setMessages(next);
     if (added.length) onChange([...files, ...added]);
   }
@@ -174,7 +179,7 @@ export function AttachmentTile({
             id={ids.hint}
             className="block text-sm leading-snug text-muted-foreground"
           >
-            {QUOTE_FILE_HINT}
+            {quoteFileHint(profile)}
           </span>
         </span>
         <input
@@ -182,7 +187,7 @@ export function AttachmentTile({
           id={ids.input}
           type="file"
           multiple
-          accept={QUOTE_FILE_ACCEPT}
+          accept={quoteFileAccept(profile)}
           className="sr-only"
           aria-labelledby={ids.title}
           aria-describedby={`${ids.hint} ${ids.notes}`}

@@ -11,7 +11,7 @@
  *   open a file from any of them without logging in.
  */
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
-import { QUOTE_FILE_TYPES, checkQuoteFile } from "@/shared/quoteFiles";
+import { QUOTE_FILE_TYPES, checkQuoteFile, isCadType, type QuoteFileProfile } from "@/shared/quoteFiles";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 /** The same secret the session cookie and the edit tokens use. */
@@ -42,6 +42,26 @@ export function sniffContentType(bytes: Uint8Array): string | null {
   return null;
 }
 
+/**
+ * Whether the bytes are the CAD drawing the name says they are (builders form
+ * only). A DWG opens with its version tag, "AC10" and two digits. A DXF is
+ * plain text that opens with a section (after optional 999 comment lines), or
+ * the binary form's own sentinel. Anything else under those names is refused,
+ * so a renamed page or program is never stored. The file is never opened,
+ * rendered or run here: it is stored and handed back as a download.
+ */
+export function sniffCadType(bytes: Uint8Array, contentType: string): boolean {
+  const head = Buffer.from(bytes.slice(0, 4096));
+  if (contentType === "application/acad") return /^AC10\d\d/.test(head.subarray(0, 6).toString("latin1"));
+  if (contentType === "application/dxf") {
+    if (head.subarray(0, 18).toString("latin1") === "AutoCAD Binary DXF") return true;
+    if (head.includes(0)) return false;
+    const text = head.toString("latin1");
+    return /^\s*(?:999\s*\r?\n[^\r\n]*\r?\n\s*)*0\s*\r?\n\s*SECTION\s*\r?\n/.test(text);
+  }
+  return false;
+}
+
 /** A name safe to store and to put in a Content-Disposition header. */
 export function cleanFileName(name: string): string {
   const base = name.split(/[\\/]/).pop() ?? "";
@@ -54,11 +74,21 @@ export type StoredFileCheck =
   | { ok: false; status: 400 | 413 | 415; message: string };
 
 /** The full server check for one uploaded file: claimed type, size, then the bytes. */
-export function checkUploadedFile(file: { name: string; type: string; size: number }, bytes: Uint8Array): StoredFileCheck {
+export function checkUploadedFile(
+  file: { name: string; type: string; size: number },
+  bytes: Uint8Array,
+  profile: QuoteFileProfile = "standard",
+): StoredFileCheck {
   const name = cleanFileName(file.name);
-  const claimed = checkQuoteFile({ name, type: file.type, size: bytes.length || file.size });
+  const claimed = checkQuoteFile({ name, type: file.type, size: bytes.length || file.size }, profile);
   if (!claimed.ok) {
     return { ok: false, status: claimed.reason === "size" ? 413 : claimed.reason === "type" ? 415 : 400, message: claimed.message };
+  }
+  if (isCadType(claimed.contentType)) {
+    if (!sniffCadType(bytes, claimed.contentType)) {
+      return { ok: false, status: 415, message: `${name} was not added. It does not look like a DWG or DXF drawing.` };
+    }
+    return { ok: true, contentType: claimed.contentType, name, sha256: createHash("sha256").update(bytes).digest("hex") };
   }
   const sniffed = sniffContentType(bytes);
   if (!sniffed || !QUOTE_FILE_TYPES.has(sniffed)) {

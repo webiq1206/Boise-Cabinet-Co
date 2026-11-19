@@ -1,0 +1,453 @@
+/* Door visualizer (/catalog/door-visualizer, components/catalog/DoorVisualizer.tsx).
+   The door itself is the homepage picker's drawing (app/finish-picker.css,
+   shared by `:is(.cabinet-approved .fp,.dv)`); this file lays the page out and
+   draws the six catalog door styles on it. Each profile follows the catalog's
+   own picture of the style in public/images/catalog/door-styles. */
+.dv {
+  --dv-ink: #20231f;
+  --dv-line: #20231f2e;
+  --dv-paper: var(--paper, #fbfaf6);
+  --dv-bone: var(--bone, #f1ede4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  color: var(--dv-ink);
+}
+.dv-stage {
+  background: var(--dv-bone);
+  box-shadow: inset 0 0 0 1px var(--dv-line);
+}
+.dv-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 20px 24px;
+}
+.dv-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  min-height: 84px;
+}
+.dv-figure figcaption b {
+  font-family: var(--font-display, inherit);
+  font-weight: 400;
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.1;
+}
+.dv-figure figcaption span {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #20231fb8;
+}
+.dv .fp-door {
+  flex: none;
+  height: 340px;
+}
+
+/* The six catalog door styles. Parts a style does not have are not drawn. */
+.dv :is(.fp-centre, .fp-miter, .fp-bead) {
+  display: none;
+  position: absolute;
+}
+/* Slab: a flat front. */
+.dv .fp-profile-slab :is(.fp-panel, .fp-joint) {
+  display: none;
+}
+/* Thin Shaker: the shaker construction with a narrow frame. */
+.dv .fp-profile-thin-shaker {
+  --fp-frame: 8.6cqw;
+}
+/* 3 Piece: two full-height stiles and one full-height centre panel whose
+   grain runs across. No rails, so no recess and no rail joints. */
+.dv .fp-profile-three-piece {
+  --fp-frame: 26.5cqw;
+}
+.dv .fp-profile-three-piece :is(.fp-panel, .fp-joint) {
+  display: none;
+}
+.dv .fp-profile-three-piece .fp-centre {
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: var(--fp-frame);
+  right: var(--fp-frame);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #0000003d, 0 0 0 2px #ffffff26;
+}
+/* The centre is the same sample turned a quarter, in the same two bands as
+   the door's own surface, so the grain crosses it without a seam. */
+.dv .fp-profile-three-piece .fp-centre-in {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100cqh;
+  height: calc(100cqw - 2 * var(--fp-frame));
+  transform: translate(-50%, -50%) rotate(90deg);
+  display: block;
+}
+.dv .fp-profile-three-piece .fp-centre-in::before,
+.dv .fp-profile-three-piece .fp-centre-in::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  background-image: var(--fp-tex);
+  background-repeat: no-repeat;
+  background-size: calc(60cqh * 480 / 450) auto;
+  background-position: -4px calc(60cqh / 450 * -79);
+}
+.dv .fp-profile-three-piece .fp-centre-in::after {
+  left: auto;
+  right: 0;
+  transform: scaleY(-1);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 33.4%);
+  mask-image: linear-gradient(to right, transparent 0, #000 33.4%);
+}
+/* Alpha Shaker and Beta Shaker: a mitered frame. The joints run from each
+   outer corner to the centre panel's corner. */
+.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-joint {
+  display: none;
+}
+.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-miter {
+  display: block;
+  width: var(--fp-frame, 15.5cqw);
+  height: var(--fp-frame, 15.5cqw);
+  background: linear-gradient(to top right, #0000 calc(50% - 1px), #00000042 calc(50% - 1px), #00000042 50%, #ffffff3d 50%, #ffffff3d calc(50% + 1px), #0000 calc(50% + 1px));
+}
+.dv .fp-miter-tl { left: 0; top: 0; }
+.dv .fp-miter-br { right: 0; bottom: 0; }
+.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) :is(.fp-miter-tr, .fp-miter-bl) {
+  background: linear-gradient(to bottom right, #0000 calc(50% - 1px), #00000042 calc(50% - 1px), #00000042 50%, #ffffff3d 50%, #ffffff3d calc(50% + 1px), #0000 calc(50% + 1px));
+}
+.dv .fp-miter-tr { right: 0; top: 0; }
+.dv .fp-miter-bl { left: 0; bottom: 0; }
+/* Beta Shaker: a radius profile inside the frame, around the flat centre panel. */
+.dv .fp-profile-beta-shaker .fp-bead {
+  display: block;
+  inset: calc(var(--fp-frame, 15.5cqw) + 2.4cqw);
+  box-shadow: inset 0 0 0 1px #00000038, 0 0 0 1px #ffffff40, 0 0 1.6cqw 1.2cqw #00000024, inset 0 0 1.4cqw #0000001f;
+}
+
+/* Controls. */
+.dv-side {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.dv-controls {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.dv-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.dv-legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.dv-styles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.dv-style {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.dv-style input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.dv-style span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 12px;
+  text-align: center;
+  font-size: 15px;
+  background: var(--dv-paper);
+  box-shadow: inset 0 0 0 1px var(--dv-line);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dv-style input:checked + span {
+  background: var(--charcoal, #383837);
+  color: var(--dv-paper);
+  box-shadow: none;
+}
+.dv-style input:focus-visible + span {
+  outline: 2px solid var(--charcoal, #383837);
+  outline-offset: 3px;
+}
+.dv-style.is-unavailable {
+  cursor: not-allowed;
+}
+.dv-style.is-unavailable input {
+  cursor: not-allowed;
+}
+.dv-style.is-unavailable span {
+  color: #20231f8c;
+  background: repeating-linear-gradient(135deg, #20231f0a 0 6px, #0000 6px 12px);
+}
+.dv-notes {
+  margin-top: 10px;
+  min-height: 44px;
+}
+.dv-note {
+  margin: 0;
+  font-size: 14px;
+  color: #20231fc2;
+}
+.dv-families {
+  display: flex;
+  gap: 4px 22px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--dv-line);
+}
+.dv-families a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 15px;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.dv-families a span {
+  font-size: 13px;
+  color: #20231fa8;
+}
+.dv-families a[aria-current="true"] {
+  font-weight: 600;
+  border-bottom-color: var(--charcoal, #383837);
+}
+.dv-families a:focus-visible,
+.dv-link:focus-visible {
+  outline: 2px solid var(--charcoal, #383837);
+  outline-offset: 3px;
+}
+.dv-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0 14px;
+  min-height: 48px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--dv-line);
+}
+.dv-search:focus-within {
+  box-shadow: inset 0 0 0 2px var(--charcoal, #383837);
+}
+.dv-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: inherit;
+  outline: none;
+}
+.dv-count {
+  margin: 10px 0 8px;
+  font-size: 13px;
+  color: #20231fb8;
+}
+.dv-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 8px;
+  max-height: 292px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  margin: 0 -6px;
+  min-height: 72px;
+  align-content: start;
+}
+.dv-chip {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+.dv-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.dv-chip-face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--dv-line);
+  transition: box-shadow 0.2s ease;
+}
+.dv-chip-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  transform: scale(1.34);
+  transform-origin: 50% 78%;
+}
+.dv-chip input:checked + .dv-chip-face {
+  box-shadow: 0 0 0 2px var(--dv-paper), 0 0 0 4px var(--charcoal, #383837);
+}
+.dv-chip input:focus-visible + .dv-chip-face {
+  outline: 2px solid var(--charcoal, #383837);
+  outline-offset: 5px;
+}
+.dv-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 15px;
+}
+.dv-result {
+  padding-top: 20px;
+  border-top: 1px solid var(--dv-line);
+}
+.dv-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  min-height: 76px;
+}
+.dv-name b {
+  font-size: 18px;
+  font-weight: 600;
+}
+.dv-name span {
+  font-size: 14px;
+  color: #20231fc2;
+}
+.dv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin-top: 14px;
+}
+.dv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.dv-sample-note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: #20231fc2;
+}
+.dv-onward {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #20231f2e;
+}
+.dv-onward a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 701px) {
+  .dv .fp-door {
+    height: 460px;
+  }
+  .dv-figure {
+    padding: 36px 24px 28px;
+  }
+  .dv-styles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .dv-chips {
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  }
+}
+@media (min-width: 1001px) {
+  .dv {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .dv-stage {
+    position: sticky;
+    top: 104px;
+  }
+  .dv .fp-door {
+    height: clamp(440px, calc(100vh - 300px), 620px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dv :is(.dv-style span, .dv-chip-face) {
+    transition: none;
+  }
+}
+/* On the darkest finishes the black pull needs its edge to read. */
+.dv .fp-pull {
+  box-shadow: 0 0 0 1px #ffffff52, 3px 5px 8px -2px #00000080;
+}
+.dv-more-row {
+  min-height: 50px;
+  padding-top: 6px;
+}
+/* A tool page: a short heading, so the door is on the first screen. */
+.approved-interior .dv-head.dv-head {
+  padding-bottom: 28px;
+}
+.approved-interior .dv-head.dv-head + section {
+  padding-top: 28px;
+}
+.dv .dv-search input:focus,
+.dv .dv-search input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}

@@ -56,6 +56,8 @@ export {
   getHardwareImagePath,
   getAccessoryImagePath,
   getAccessoryFamilyImagePath,
+  getAccessoryImageDescription,
+  ACCESSORY_IMAGE_DESCRIPTION,
   getCatalogProductAlt,
   HARDWARE_IMAGE_FILES,
 } from "./catalogImages";

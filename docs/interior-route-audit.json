@@ -45,6 +45,11 @@
     "seoSignature": "de296d9109ffca986f7e4fc99fd1983ddf8cd687ddac8bfa9e6b0041f2805b6f"
   },
   {
+    "route": "/catalog/door-visualizer",
+    "file": "app/catalog/door-visualizer/page.tsx",
+    "seoSignature": "6649db4a073cff0de15758ce4f9e64316b400a4c5cf3b445eb74a5eff6c712c6"
+  },
+  {
     "route": "/compare",
     "file": "app/compare/page.tsx",
     "seoSignature": "6d39d214b39f2668f2852a1cdb48dc79e98233af42d87355f7de9a0d8009c9e0"

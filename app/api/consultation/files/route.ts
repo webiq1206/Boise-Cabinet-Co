@@ -2,8 +2,8 @@ import { and, count, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getClientIp, rateLimit } from "@/lib/rateLimit";
-import { consultationFiles } from "@/shared/schema";
-import { QUOTE_FILE_MAX_BYTES, QUOTE_FILE_MAX_COUNT } from "@/shared/quoteFiles";
+import { consultationFiles, consultationRequests } from "@/shared/schema";
+import { QUOTE_FILE_MAX_BYTES, QUOTE_FILE_MAX_COUNT, quoteFileProfileForProjectType, type QuoteFileProfile } from "@/shared/quoteFiles";
 import { verifyDetailsToken } from "@/server/services/consultationDetails";
 import { checkUploadedFile, quoteSecret } from "@/server/services/consultationFiles";
 import { ensureConsultationFilesTable } from "@/server/services/consultationFileStore";
@@ -58,8 +58,23 @@ export async function POST(request: NextRequest) {
   }
   if (!db) return fail(503, "We could not save that file right now. Please text it to us.");
 
+  // CAD drawings are taken on the builders form only. The saved request says
+  // which form it came from; the browser is never asked. Any doubt (no row, a
+  // failed read) keeps the standard rules.
+  let profile: QuoteFileProfile = "standard";
+  try {
+    const [saved] = await db
+      .select({ projectType: consultationRequests.projectType })
+      .from(consultationRequests)
+      .where(eq(consultationRequests.id, requestId))
+      .limit(1);
+    profile = quoteFileProfileForProjectType(saved?.projectType);
+  } catch {
+    profile = "standard";
+  }
+
   const bytes = new Uint8Array(await file.arrayBuffer());
-  const stored = checkUploadedFile({ name: file.name, type: file.type, size: file.size }, bytes);
+  const stored = checkUploadedFile({ name: file.name, type: file.type, size: file.size }, bytes, profile);
   if (!stored.ok) return fail(stored.status, stored.message);
 
   try {

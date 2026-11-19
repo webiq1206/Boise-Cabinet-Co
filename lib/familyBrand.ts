@@ -125,6 +125,7 @@ export const FAMILY_BRAND: FamilyBrand = {
           ...FOOTER_ROOM_LINKS,
           { label: 'Cabinet installation', href: '/services/cabinet-installation' },
           { label: 'Full catalog', href: '/catalog' },
+          { label: 'Door visualizer', href: '/catalog/door-visualizer' },
           { label: 'Shaker cabinets', href: '/shaker-cabinets' },
           { label: 'For builders', href: '/builders' },
         ],

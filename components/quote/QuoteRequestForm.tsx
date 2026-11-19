@@ -70,6 +70,7 @@
  * screen), input-quote-files and quote-file-tile (inside it),
  * button-save-details, quote-details-saved.
  */
+import type { QuoteFileProfile } from "@/shared/quoteFiles";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
@@ -192,6 +193,8 @@ export interface QuoteRequestFormProps {
   attachFiles?: boolean;
   /** The tile's title when attachFiles is on. */
   attachTitle?: string;
+  /** "builder" on the builders form: its attachments may be DWG or DXF drawings too. */
+  fileProfile?: QuoteFileProfile;
 }
 
 interface Draft {
@@ -313,6 +316,7 @@ export function QuoteRequestForm({
   showPhone = true,
   attachFiles = false,
   attachTitle,
+  fileProfile = "standard",
 }: QuoteRequestFormProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
   /** Files chosen on the first screen (attachFiles only); uploaded after the request is saved. */
@@ -693,6 +697,7 @@ export function QuoteRequestForm({
         bestTime={done.bestTime}
         detailsKey={done.detailsKey}
         initialFiles={attachFiles && done.kind === "request" && attached.length ? attached : NO_FILES}
+        fileProfile={fileProfile}
         hasEmail={done.hasEmail}
         hasAddress={done.hasAddress}
         showPhone={showPhone}
@@ -910,6 +915,7 @@ export function QuoteRequestForm({
                   onChange={setAttached}
                   disabled={disabled}
                   title={attachTitle ?? ATTACH_TITLE}
+                  profile={fileProfile}
                 />
               ) : null}
 

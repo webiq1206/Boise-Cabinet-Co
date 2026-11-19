@@ -33,7 +33,7 @@ import {
   type DoorStyle,
 } from "@/shared/catalog";
 import { getProductImages } from "@/shared/catalog/entityImages";
-import { getAccessoryImagePath } from "@/shared/catalog/catalogImages";
+import { getAccessoryImageDescription, getAccessoryImagePath } from "@/shared/catalog/catalogImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
@@ -501,7 +501,7 @@ function AccessoryCard({ accessory }: { accessory: Accessory }) {
         {img ? (
           <Image
             src={img}
-            alt={localAlt(accessory.name)}
+            alt={localAlt(getAccessoryImageDescription(accessory.slug, accessory.name))}
             fill
             sizes="(max-width: 640px) 50vw, 240px"
             className="object-cover"

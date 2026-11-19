@@ -952,7 +952,7 @@ test("builder plans: file ids that are not on this request are refused, and noth
 
 /* The upload route itself, with a fake database. */
 type Stored = Record<string, unknown>;
-async function uploadRoute(options: { existing?: number; tokenCheck?: "ok" | "invalid" | "expired"; noDatabase?: boolean } = {}) {
+async function uploadRoute(options: { existing?: number; tokenCheck?: "ok" | "invalid" | "expired"; noDatabase?: boolean; projectType?: string } = {}) {
   const realFiles = await import("../server/services/consultationFiles");
   const quoteFiles = await import("../shared/quoteFiles");
   const stored: Stored[] = [];
@@ -963,7 +963,10 @@ async function uploadRoute(options: { existing?: number; tokenCheck?: "ok" | "in
       const counting = Boolean(shape && "value" in shape);
       const chain: Record<string, unknown> = {};
       for (const method of ["from", "where", "limit"]) chain[method] = () => chain;
-      chain.then = (resolve: (rows: unknown[]) => unknown) => Promise.resolve(counting ? [{ value: options.existing ?? 0 }] : []).then(resolve);
+      // The route asks the saved request which form it came from (its project type).
+      const asksForm = Boolean(shape && "projectType" in shape);
+      const rows = counting ? [{ value: options.existing ?? 0 }] : asksForm ? [{ projectType: options.projectType ?? "cabinet-project: new kitchen" }] : [];
+      chain.then = (resolve: (rows: unknown[]) => unknown) => Promise.resolve(rows).then(resolve);
       return chain;
     },
     insert: (table: { __name: string }) => {
@@ -1053,6 +1056,118 @@ test("upload route: only the browser that sent the request may add to it, and a 
   const down = await (await uploadRoute({ noDatabase: true })).send(new File([PDF_BYTES], "a.pdf", { type: "application/pdf" }));
   assert.equal(down.status, 503);
   assert.match(String(down.body.message), /text it to us/);
+});
+
+/* CAD drawings on the builders form only (owner, 19 November 2026). */
+const BUILDER_REQUEST = "builder-contractor: 12 townhomes in Meridian";
+const DWG_BYTES = new Uint8Array([...new TextEncoder().encode("AC1032"), 0, 0, 0, 3, 5, 0, 0, 0, 0, 0, 0x21, 0x1a]);
+const DXF_BYTES = new TextEncoder().encode("  0\nSECTION\n  2\nHEADER\n  9\n$ACADVER\n  1\nAC1032\n  0\nENDSEC\n  0\nEOF\n");
+
+test("upload route: the builders form takes a DWG and a DXF, checked by name and by content", async () => {
+  const { send, stored } = await uploadRoute({ projectType: BUILDER_REQUEST });
+  const dwg = await send(new File([DWG_BYTES], "Lot 14 cabinets.dwg", { type: "application/acad" }));
+  assert.equal(dwg.status, 200);
+  assert.equal(dwg.body.file.contentType, "application/acad");
+  // Browsers often report no type at all for a drawing: the name and the bytes decide.
+  const dxf = await send(new File([DXF_BYTES], "elevations.DXF", { type: "" }));
+  assert.equal(dxf.status, 200);
+  assert.equal(dxf.body.file.contentType, "application/dxf");
+  const commented = await send(new File([new TextEncoder().encode("999\nmade by a CAD program\n0\nSECTION\n2\nHEADER\n")], "plan.dxf", { type: "application/dxf" }));
+  assert.equal(commented.status, 200);
+  assert.equal(stored.length, 3);
+  assert.equal(stored[0].requestId, REQUEST_ID);
+  assert.equal(Buffer.from(String(stored[0].dataBase64), "base64").subarray(0, 6).toString("latin1"), "AC1032");
+  // Photos and PDFs still go through on the builders form.
+  assert.equal((await send(new File([PDF_BYTES], "plans.pdf", { type: "application/pdf" }))).status, 200);
+});
+
+test("upload route: a drawing is refused on every other form, and the saved request decides, not the browser", async () => {
+  for (const projectType of [undefined, "built-ins: mudroom lockers", "kitchen", "Builder-contractor without the form's own prefix"]) {
+    const { send, stored } = await uploadRoute({ projectType });
+    const dwg = await send(new File([DWG_BYTES], "plans.dwg", { type: "application/acad" }));
+    assert.equal(dwg.status, 415, String(projectType));
+    assert.match(String(dwg.body.message), /plans\.dwg was not added\. Attach photos or PDFs only\./);
+    const dxf = await send(new File([DXF_BYTES], "plans.dxf", { type: "image/vnd.dxf" }));
+    assert.equal(dxf.status, 415, String(projectType));
+    assert.equal(stored.length, 0);
+  }
+});
+
+test("upload route: a file that only claims to be a drawing is refused on the builders form", async () => {
+  const { send, stored } = await uploadRoute({ projectType: BUILDER_REQUEST });
+  const page = new TextEncoder().encode("<html><script>1</script></html>");
+  const program = new Uint8Array([0x4d, 0x5a, 0x90, 0, 3, 0, 0, 0, 4, 0, 0, 0]);
+  for (const [bytes, name, type] of [
+    [page, "plans.dwg", "application/acad"],
+    [page, "plans.dxf", ""],
+    [program, "setup.dwg", "application/octet-stream"],
+    [program, "setup.dxf", "application/dxf"],
+    [PDF_BYTES, "really-a-pdf.dwg", "application/pdf"],
+  ] as const) {
+    const refused = await send(new File([bytes], name, { type }));
+    assert.equal(refused.status, 415, name);
+    assert.match(String(refused.body.message), /does not look like a DWG or DXF drawing/, name);
+  }
+  // A drawing under a photo's name is not a photo either.
+  const disguised = await send(new File([DWG_BYTES], "plans.pdf", { type: "application/pdf" }));
+  assert.equal(disguised.status, 415);
+  // Other file kinds stay refused on the builders form.
+  const sheet = await send(new File([new Uint8Array([0x50, 0x4b, 3, 4])], "takeoff.xlsx", { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }));
+  assert.equal(sheet.status, 415);
+  assert.match(String(sheet.body.message), /Attach photos, PDFs, DWG or DXF drawings only\./);
+  assert.equal(stored.length, 0);
+});
+
+test("upload route: the builders form keeps the same size and count limits, and says how to send a larger set", async () => {
+  const { send, stored, quoteFiles } = await uploadRoute({ projectType: BUILDER_REQUEST, existing: 10 });
+  assert.equal(quoteFiles.QUOTE_FILE_MAX_MB, 20);
+  assert.equal(
+    quoteFiles.quoteFileHint("builder"),
+    "Photos, PDFs, DWG or DXF drawings. Up to 10 files, 20 MB each. For a larger plan set, paste a share link in the box above.",
+  );
+  assert.equal(quoteFiles.quoteFileHint("standard"), quoteFiles.QUOTE_FILE_HINT);
+  assert.equal(quoteFiles.quoteFileAccept("builder"), `${quoteFiles.QUOTE_FILE_ACCEPT},.dwg,.dxf`);
+  assert.equal(quoteFiles.quoteFileAccept(), quoteFiles.QUOTE_FILE_ACCEPT);
+  const tooBig = await send(new File([DWG_BYTES], "site.dwg", { type: "" }), quoteFiles.QUOTE_FILE_MAX_BYTES + 512 * 1024 + 1);
+  assert.equal(tooBig.status, 413);
+  const oversize = quoteFiles.checkQuoteFile({ name: "site.dwg", type: "", size: quoteFiles.QUOTE_FILE_MAX_BYTES + 1 }, "builder");
+  assert.equal(oversize.ok, false);
+  assert.match(oversize.ok ? "" : oversize.message, /the limit is 20 MB per file/);
+  const eleventh = await send(new File([DWG_BYTES], "eleventh.dwg", { type: "" }));
+  assert.equal(eleventh.status, 409);
+  assert.equal(stored.length, 0);
+});
+
+test("upload route: a drawing never costs the lead, and a failed read of the request keeps the standard rules", async () => {
+  const down = await (await uploadRoute({ projectType: BUILDER_REQUEST, noDatabase: true })).send(new File([DWG_BYTES], "a.dwg", { type: "" }));
+  assert.equal(down.status, 503);
+  assert.match(String(down.body.message), /text it to us/);
+  const forged = await (await uploadRoute({ projectType: BUILDER_REQUEST, tokenCheck: "invalid" })).send(new File([DWG_BYTES], "a.dwg", { type: "" }));
+  assert.equal(forged.status, 403);
+  const route = readFileSync(new URL("../app/api/consultation/files/route.ts", import.meta.url), "utf8");
+  assert.match(route, /quoteFileProfileForProjectType\(saved\?\.projectType\)/);
+  assert.match(route, /catch \{\s*profile = "standard";/);
+  assert.doesNotMatch(route, /form\.get\("profile"\)/, "the browser is never asked which rules apply");
+});
+
+test("a stored drawing is handed back as a download with a neutral type; photos and PDFs still open", () => {
+  const route = readFileSync(new URL("../app/api/consultation/files/[id]/route.ts", import.meta.url), "utf8");
+  assert.match(route, /"Content-Type": inline \? row\.contentType : "application\/octet-stream"/);
+  assert.match(route, /`\$\{inline \? "inline" : "attachment"\}; filename=/);
+  assert.match(route, /"X-Content-Type-Options": "nosniff"/);
+  const inline = /const inline = (.+);/.exec(route)?.[1] ?? "";
+  assert.match(inline, /application\/pdf/);
+  assert.doesNotMatch(inline, /acad|dxf|octet/);
+});
+
+test("only the builders form's tile takes drawings", () => {
+  const read = (file: string) => readFileSync(new URL(file, import.meta.url), "utf8");
+  assert.match(read("../components/marketing/KitchenCabinetsQuoteForm.tsx"), /fileProfile=\{context === "builder-contractor" \? "builder" : "standard"\}/);
+  const tile = read("../components/quote/AttachmentTile.tsx");
+  assert.match(tile, /profile = "standard"/);
+  assert.match(tile, /accept=\{quoteFileAccept\(profile\)\}/);
+  assert.match(tile, /\{quoteFileHint\(profile\)\}/);
+  assert.match(read("../components/quote/QuoteFollowUp.tsx"), /profile=\{fileProfile\}/);
 });
 
 test("the builders form shows the tile on its first screen; every other page keeps the short form", () => {

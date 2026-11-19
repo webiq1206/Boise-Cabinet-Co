@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { DoorFront } from '@/components/catalog/DoorFront';
 import { versionedSrc } from '@/lib/images/imageVersion';
 import { localAlt } from '@/shared/localAlt';
 import type { HomeFinish, HomeFinishFamily } from '@/shared/homeFinishes';
@@ -28,14 +29,7 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
         {finishes.map((finish, index) => (
           <figure className={`fp-sample fp-s${index} fp-${finish.family}`} key={finish.slug}>
             {/* A cabinet door front drawn in CSS. Its surface is this finish's own catalog sample. */}
-            <span className="fp-door" style={{ '--fp-tex': `url("${versionedSrc(finish.image)}")` } as CSSProperties}>
-              <span className="fp-skin"><span className="fp-half" /><span className="fp-half fp-half-b" /></span>
-              <span className="fp-sheen" />
-              <span className="fp-panel" />
-              <span className="fp-joint fp-joint-t" />
-              <span className="fp-joint fp-joint-b" />
-              <span className="fp-pull" />
-            </span>
+            <DoorFront style={{ '--fp-tex': `url("${versionedSrc(finish.image)}")` } as CSSProperties} />
             <figcaption>
               <b>{finish.name}</b>
               <span>{finish.familyLabel} finish</span>
@@ -102,7 +96,10 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
         </div>
         </div>
         <p className="sample-note">Catalog samples shown on screen. Confirm your finish with a physical sample.</p>
-        <div className="finish-links"><a className="text-link light" href="/catalog">Explore the full catalog <ArrowUpRight size={18} aria-hidden="true" /></a></div>
+        <div className="finish-links">
+          <a className="text-link light" href="/catalog/door-visualizer">Try all {total} finishes on six door styles <ArrowUpRight size={18} aria-hidden="true" /></a>
+          <a className="text-link light" href="/catalog">Explore the full catalog <ArrowUpRight size={18} aria-hidden="true" /></a>
+        </div>
       </div>
     </section>
   );

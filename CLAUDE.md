@@ -306,9 +306,18 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 * **Accessories hero** is the oak drawer stack
   (`/images/blog/kitchen-cabinet-organization-ideas.webp`), not the vertical
   divider render, which shows a utensil jar and is also the Vertical Partition
-  card on that page. The accessory product renders under
-  `public/images/catalog/accessories` still show staged kitchen items; there is
-  no prop-free photograph of those products in the owner's folder.
+  card on that page.
+* **Accessory pictures** (`public/images/catalog/accessories`, 21 files) are
+  stills the owner approved on 19 November 2026, replacing a set with a golden
+  glow, staged plants and jars, a placeholder graphic and three pairs that were
+  one picture twice. They are AI images like the rest of that library: each alt
+  says only what its picture shows (`ACCESSORY_IMAGE_DESCRIPTION` and
+  `getAccessoryImageDescription()` in `shared/catalog/catalogImages.ts`, in the
+  local form with "Cabinet accessories" as the work), never a photograph of
+  completed work and no qualifier word. What a tray or drawer holds is its
+  contents, not a prop. Every accessory shows its own picture ("partition" no
+  longer borrows the vertical divider). Change a file and change its line.
+  Guard: `tests/accessory-images.test.ts`.
 * **Homepage hero video.** The video and poster in `public/media/cabinet` are
   the owner's original (2026-11-05). The owner reviewed an AI replacement on
   19 November 2026 and chose to keep the original video and poster, props
@@ -402,8 +411,33 @@ location pages.
   back to this site's "Files added" email when p5 does not confirm. The
   visitor's response never waits on p5.
 * Limits are `shared/quoteFiles.ts`: 10 files a request, 20 MB each, photos
-  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. CAD and Office files are refused
-  in plain words. The tile's helper text is built from those constants.
+  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. The tile's helper text is built
+  from those constants. Office files are refused in plain words everywhere.
+* **Drawings on the builders form only** (owner, 19 November 2026): the
+  "builder" profile also takes DWG and DXF. A drawing is known by its
+  extension, because browsers report no dependable type, and the server
+  checks the bytes (`sniffCadType()`: a DWG opens with "AC10" and two digits;
+  a DXF is text that opens with a section, or the binary form's sentinel), so
+  a renamed page or program is refused. The server decides the profile from
+  the saved request's project type (`quoteFileProfileForProjectType()`, the
+  `builder-contractor:` prefix that form sends); the browser is never asked,
+  and any doubt keeps the standard rules. A drawing is never opened, rendered
+  or run: it is stored, linked, and served by
+  `/api/consultation/files/<id>` as `application/octet-stream` with
+  `Content-Disposition: attachment`. It is stored as `application/acad` or
+  `application/dxf`, never an `image/` type (the tile previews images).
+* **The limit stays 20 MB a file, on every form.** 50 MB was considered for
+  builders and not adopted, because the path does not carry it safely: the
+  route reads the whole request (`request.formData()`), copies the file again
+  (`arrayBuffer()`), turns it into base64 text (a third more) and sends that
+  as one query parameter, so one 50 MB upload holds roughly 250 to 300 MB of
+  memory; the file is one base64 text value in a single Postgres row
+  (`consultation_files.data_base64`), read back whole and decoded for every
+  download; and the site runs on Replit Autoscale, which is built on Google
+  Cloud Run, whose documented request limit over HTTP/1 is 32 MiB (not
+  measured here: that would mean posting to the live site). Raising the limit
+  needs chunked storage first. Until then the builders tile tells the builder
+  to paste a share link for a larger plan set in the form's own text box.
 * A failed upload never loses the lead: the success screen names the file,
   says the request is saved, and offers "Try again" or texting it.
 * Guard: the "builder plans" and "upload route" tests in
@@ -448,3 +482,45 @@ real. It is `components/approved/FinishPicker.tsx`, styled by
   whole family when nothing is typed. The catalog has no page per finish.
 * Guard: `tests/home-finishes.test.ts`.
 
+
+## Door visualizer (owner, 19 November 2026)
+
+The owner liked the homepage finish picker and asked for all of the finishes and
+door styles. `/catalog/door-visualizer` shows any of the 299 catalog finishes on
+any of the six catalog door styles; the homepage keeps its curated ten and
+links to it ("Try all 299 finishes on six door styles").
+
+* **One door drawing.** `components/catalog/DoorFront.tsx` is the door both
+  pages draw; its CSS is in `app/finish-picker.css`, shared through
+  `:is(.cabinet-approved .fp,.dv)`. The six profiles are in
+  `app/door-visualizer.css` (`.fp-profile-<slug>`), each read from the
+  catalog's own picture of the style in `public/images/catalog/door-styles`
+  and its catalog description: Slab is flat; 3 Piece is two full-height stiles
+  and a full-height centre panel whose grain runs across; Modern Shaker has
+  stiles, rails and a recessed panel; Thin Shaker is the same with a narrow
+  frame; Alpha Shaker has a mitered frame; Beta Shaker a mitered frame with a
+  radius profile inside it. A new catalog door style needs a drawing before the
+  page offers it (`DRAWN_DOOR_STYLES`; the test fails otherwise). It is a drawn
+  door: the caption is the finish name, family and door style and nothing
+  else, never "photograph" and never a qualifier word.
+* **The catalog decides what is offered.** A finish shows only the door styles
+  in its `compatibleDoorStyleIds` (3 Piece is woodgrain only); the others are
+  disabled with the catalog's own reason.
+* **The selection is the address**: `?finish=<slug>&style=<slug>`, read on the
+  server (`parseVisualizerSelection`), so a shared link renders its door with
+  JavaScript off. Anything unknown falls back to Snow White on Modern Shaker.
+  The controls are one GET form of native radios; the browser only swaps state
+  and rewrites the address. The canonical is the page without parameters.
+* **Weight.** `shared/doorVisualizerModel.ts` holds no catalog data and is the
+  only part the browser imports; the lists are resolved on the server
+  (`shared/doorVisualizer.ts`) and passed in with their URLs already
+  versioned. Chips are the 160px variants, sixty per family until "Show all",
+  lazily loaded; only the chosen sample loads at 480px. Samples are 480px, so
+  a woodgrain is slightly soft on the desktop door; sharper needs larger
+  samples from the supplier.
+* **"Request a quote with this finish"** writes one line ("Door style: X.
+  Finish: Y (family).") into the `/estimate` form's own draft
+  (`brc_estimate_quote_v1`, this tab only) and opens that form. No new field,
+  nothing new sent to p5.
+* Every changing part keeps its place (caption, note line, "Show all" row), so
+  a choice moves nothing. Guard: `tests/door-visualizer.test.ts`.
