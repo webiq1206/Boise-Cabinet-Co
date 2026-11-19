@@ -29,10 +29,17 @@ const FINISH_LOOKS: ReadonlyArray<{
 
 const SIZE = getProjectSizeConfig("kitchen");
 
-export function KitchenPlanningRange() {
-  const headingId = useId();
-  const sizeLabelId = useId();
-  const finishLabelId = useId();
+/**
+ * `idPrefix` comes from the page that loads this section with next/dynamic.
+ * An id made here with useId() differed between server and browser (the lazy
+ * boundary renders one more wrapper on the server), which failed hydration.
+ */
+export function KitchenPlanningRange({ idPrefix }: { idPrefix?: string }) {
+  const ownId = useId();
+  const base = idPrefix ?? ownId;
+  const headingId = `${base}-heading`;
+  const sizeLabelId = `${base}-size`;
+  const finishLabelId = `${base}-finish`;
   const [size, setSize] = useState(SIZE.default);
   const [finish, setFinish] = useState<FinishCategory>("matte");
 

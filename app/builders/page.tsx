@@ -24,6 +24,7 @@ import { ShortCopy } from "@/components/marketing/ShortCopy";
 import { ArrowRight,Check } from "lucide-react";
 import Link from "next/link";
 
+import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata((buildPageMetadata({
   kind: "page",
   path: "/builders",
@@ -178,7 +179,7 @@ export default function BuildersPage() {
             <div className="fr-request-grid">
               <div className="order-1 lg:order-2 lg:col-start-2 lg:row-start-1">
                 <div className="fr-request-card">
-                  <KitchenCabinetsQuoteForm context="builder-contractor" idPrefix="builder-quote" projectPrompt="Company, location and cabinet scope" />
+                  <KitchenCabinetsQuoteForm context="builder-contractor" idPrefix="builder-quote" projectPrompt="Company, location and cabinet scope" attachFiles />
                 </div>
                 <QuoteFormAnchor id="builder-inquiry" />
               </div>
@@ -265,20 +266,9 @@ export default function BuildersPage() {
         />
 
         <Section divider>
-          <SplitSection header={<SectionHeader
-              eyebrow="Builder FAQ"
-              title={<>Questions we hear from contractors</>}
-              className="mb-0"
-            />}>
-            <div className="divide-y divide-border border-t border-border">
-              {FAQS.map((f) => (
-                <div key={f.question} className="py-6">
-                  <h3 className="ed-h4 mb-2">{f.question}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
-                </div>
-              ))}
-            </div>
-          </SplitSection>
+          <div className="ed-shell">
+            <FaqSplit eyebrow="Builder FAQ" title={<>Questions we hear from contractors</>} faqs={FAQS} name="builder-faq" />
+          </div>
         </Section>
 
         <Section variant="inverse" divider>

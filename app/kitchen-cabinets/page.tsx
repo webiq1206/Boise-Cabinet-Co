@@ -87,11 +87,11 @@ export const metadata: Metadata = withBrandPageMetadata(
   "/kitchen-cabinets",
 );
 
-function CallTextButtons({ onDark = false }: { onDark?: boolean }) {
+function CallTextButtons({ onDark = false, stackOnPhones = false }: { onDark?: boolean; stackOnPhones?: boolean }) {
   const linkClass =
     "inline-flex min-h-14 w-full items-center justify-center rounded-md px-5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto sm:min-w-[220px]";
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className={stackOnPhones ? "grid grid-cols-1 gap-3 min-[480px]:grid-cols-2" : "grid grid-cols-2 gap-3"}>
       <a
         href={TEL_HREF}
         className={
@@ -251,12 +251,17 @@ export default function KitchenCabinetsPage() {
 
         <section className="mt-14 space-y-6">
           <h2 className="font-serif text-3xl text-foreground">FAQ</h2>
-          {FAQS.map((faq) => (
-            <div key={faq.question} className="space-y-2">
-              <h3 className="text-xl font-medium text-foreground">{faq.question}</h3>
-              <p className="leading-relaxed text-muted-foreground">{faq.answer}</p>
-            </div>
-          ))}
+          {/* Tap to open, one at a time; native details, so every answer stays in the HTML. */}
+          <div className="lx-faq">
+            {FAQS.map((faq, index) => (
+              <details key={faq.question} name="kitchen-landing-faq" open={index === 0}>
+                <summary>
+                  <h3 className="text-xl font-medium text-foreground">{faq.question}</h3>
+                </summary>
+                <div className="lx-faq-answer">{faq.answer}</div>
+              </details>
+            ))}
+          </div>
         </section>
 
         <section className="mt-14 space-y-5" data-suppress-sticky-cta="">
@@ -264,7 +269,7 @@ export default function KitchenCabinetsPage() {
           <p className="leading-relaxed text-muted-foreground">
             Call or text for a free estimate, Mon{"\u2013"}Fri 9 AM{"\u2013"}6 PM, Sat 9 AM{"\u2013"}4 PM (Mountain).
           </p>
-          <CallTextButtons />
+          <CallTextButtons stackOnPhones />
           <p>
             <a href="#quick-quote" className="underline underline-offset-2">
               Get a free estimate

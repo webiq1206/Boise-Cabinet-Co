@@ -1,4 +1,5 @@
 import { IMAGE_VARIANTS } from "@/shared/generated/imageVariants";
+import { versionedSrc } from "./imageVersion";
 
 interface LoaderArgs {
   src: string;
@@ -11,8 +12,16 @@ interface LoaderArgs {
  * scripts/images/build-image-variants.mjs) directly, bypassing the runtime
  * image optimizer so cold autoscale instances never re-encode. Any image
  * without a generated variant falls back to its original static file unchanged.
+ *
+ * The file it picks carries ?v=<content hash> when that file was replaced under
+ * the same name (imageVersion.ts): /images is cached for a year by URL.
  */
-export default function staticVariantLoader({ src, width }: LoaderArgs): string {
+export default function staticVariantLoader(args: LoaderArgs): string {
+  return versionedSrc(pickVariant(args));
+}
+
+/** The plain path of the file to serve, without a version. */
+export function pickVariant({ src, width }: LoaderArgs): string {
   // Remote URLs and data URIs are returned untouched.
   if (!src.startsWith("/")) return src;
 

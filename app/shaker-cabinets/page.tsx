@@ -22,6 +22,7 @@ import { ArrowRight,Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/shaker-cabinets",
@@ -225,16 +226,9 @@ export default function ShakerCabinetsPage() {
         </Section>
 
         <Section divider>
-          <SplitSection header={<SectionHeader eyebrow="Shaker FAQ" title={<>Common shaker questions</>} className="mb-0" />}>
-            <div className="divide-y divide-border border-t border-border">
-              {FAQS.map((f) => (
-                <div key={f.question} className="py-6">
-                  <h3 className="ed-h4 mb-2">{f.question}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{f.answer}</p>
-                </div>
-              ))}
-            </div>
-          </SplitSection>
+          <div className="ed-shell">
+            <FaqSplit eyebrow="Shaker FAQ" title={<>Common shaker questions</>} faqs={FAQS} name="shaker-faq" />
+          </div>
         </Section>
 
         <Section variant="inverse" divider>

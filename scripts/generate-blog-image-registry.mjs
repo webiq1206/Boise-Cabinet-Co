@@ -572,11 +572,10 @@ const ENTRIES = {
     source: "blog",
   },
   "cabinet-project-process-guide": {
-    hero: "/images/blog/questions-to-ask-remodeling-contractor.webp",
-    alt: "Door samples, paint chips, cabinet pulls and an elevation drawing prepared for project planning",
+    hero: blog("what-are-rta-cabinets"),
+    alt: "Oak cabinet boxes clamped together during installation, with a drill on the floor",
     topicTags: ["process", "guide", "pillar"],
     source: "blog",
-    copyFrom: "/images/blog/questions-to-ask-remodeling-contractor.webp",
   },
   "cabinet-roi-guide-boise": {
     hero: blog("best-remodeling-roi-boise"),

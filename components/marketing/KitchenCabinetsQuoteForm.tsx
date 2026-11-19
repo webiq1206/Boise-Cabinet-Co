@@ -21,6 +21,7 @@ export function KitchenCabinetsQuoteForm({
   heading = "h2",
   dock = false,
   showPhone = true,
+  attachFiles = false,
 }: {
   context?: "built-ins" | "builder-contractor" | "cabinet-project";
   projectPrompt?: string;
@@ -32,6 +33,8 @@ export function KitchenCabinetsQuoteForm({
   dock?: boolean;
   /** False where the page already shows the phone beside the form (/estimate). */
   showPhone?: boolean;
+  /** /builders: the attachment tile on the first screen, so plans can go with the request. */
+  attachFiles?: boolean;
 } = {}) {
   return (
     <QuoteRequestForm
@@ -44,6 +47,7 @@ export function KitchenCabinetsQuoteForm({
       persistKey={`${QUOTE_STORAGE_KEY}${idPrefix === "kc" ? "" : `:${idPrefix}`}`}
       dock={dock}
       showPhone={showPhone}
+      attachFiles={attachFiles}
       onAccepted={({ submissionId, replayed }) => {
         if (!replayed) trackGoogleAdsLeadOnce(submissionId, { projectType: context ?? "kitchen" });
       }}

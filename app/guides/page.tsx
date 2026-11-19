@@ -210,7 +210,7 @@ export default function GuidesIndexPage() {
           </div>
         </div>
 
-        <div className="container px-4 max-w-6xl mx-auto">
+        <div className="container px-4 max-w-6xl mx-auto pb-16 md:pb-24">
           <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
             Browse by topic
           </h2>

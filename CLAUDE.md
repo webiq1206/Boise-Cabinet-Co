@@ -256,9 +256,8 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 
 * No staged props in a photo: no plants, vases, bowls, baskets, fruit or
   flowers. Books on a bookshelf and clothes in a closet are the subject and are
-  fine. One picture still carries props: the homepage hero video
-  poster (`CabinetHeroVideo.tsx`). It is a frame of the video, so it needs a
-  new video from the owner, not a new still. `rooms/kitchen-walnut-mountain.webp`
+  fine. The homepage hero video and its poster keep their props by the owner's
+  decision (see "Homepage hero video" below). `rooms/kitchen-walnut-mountain.webp`
   and `collections/custom.webp` were replaced with prop-free Photo Dump
   kitchens on 19 November 2026 (same paths; the first is hashed in
   `tests/sam-image-swaps.test.ts`, and the pins were updated with it).
@@ -291,3 +290,161 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 * `docs/interior-route-audit.json` pins each interior page's metadata and
   schema code. A deliberate SEO change must update the signature in the same
   commit; it sat stale from #116 until 19 November 2026 with twelve tests red.
+
+## Fourth pass (owner, 19 November 2026)
+
+* **No picture twice among neighbours.** Pictures are compared by what they
+  show, not by file name: `shared/generated/imageIdentity.ts` (written by
+  `scripts/images/build-image-identity.mjs`, part of `npm run images:blur`)
+  holds a difference hash for every base photograph, and `samePicture()` /
+  `distinctPictures()` in `shared/imageIdentity.ts` read it. "Related
+  resources" under an article or guide (`RelatedPostCards.tsx`) drops a card
+  whose photograph is the page's own or another card's. On `/guides` and
+  `/blog`, cards within three places of each other never share a picture.
+  Guard: `tests/index-card-images.test.ts`. After adding or replacing a
+  photograph run `npm run images:blur`.
+* **Accessories hero** is the oak drawer stack
+  (`/images/blog/kitchen-cabinet-organization-ideas.webp`), not the vertical
+  divider render, which shows a utensil jar and is also the Vertical Partition
+  card on that page. The accessory product renders under
+  `public/images/catalog/accessories` still show staged kitchen items; there is
+  no prop-free photograph of those products in the owner's folder.
+* **Homepage hero video.** The video and poster in `public/media/cabinet` are
+  the owner's original (2026-11-05). The owner reviewed an AI replacement on
+  19 November 2026 and chose to keep the original video and poster, props
+  included. Do not replace or flag the hero video again unless the owner asks.
+* **Door style cards share one image height** (`isDoorStyleImage()` in
+  `CatalogVisualCard.tsx`, 4:3 for a photograph and a diagram alike), so titles
+  line up across a row.
+* **Tablets.** Room page finish swatches are four across from 768px
+  (`RoomCatalogShowcase.tsx`); the contact page email address is set at body
+  size between 701px and 1023px so it does not break inside the domain; the
+  guides index closes with its own bottom padding. A full-page capture shows
+  the sticky header row and the bottom bar part way down the page and leaves
+  sticky side columns at the top: judge those from viewport captures.
+
+## Replaced photographs get a new URL (19 November 2026)
+
+* `/images` and `/generated` are served `immutable` for a year
+  (`next.config.js`), keyed by URL. A photograph replaced under the same file
+  name kept its URL, so anyone who had seen the old picture kept seeing it.
+  Every file replaced since 1 November 2026 (644, size variants included) now
+  goes out as `<path>?v=<content hash>`.
+* The list is `shared/generated/imageVersions.ts`, written by
+  `npm run images:versions` (`scripts/images/build-image-versions.mjs`), which
+  compares each file with `shared/generated/imageHashes.json`. A file that
+  changed joins the list and stays; a size variant follows its base. Run it
+  LAST after adding or replacing an image: after `images:variants` and
+  `images:blur`.
+* The version is added only where a URL is handed to the browser:
+  `lib/images/staticVariantLoader.ts` (every `next/image`, on the variant it
+  picks), `heroImageAttrs()` (src and srcset) and plain `<img>` tags through
+  `versionedSrc()` in `lib/images/imageVersion.ts`. Page URLs, sitemaps,
+  structured data, Open Graph, alt text, variant lookup and picture identity
+  keep the plain path. Do not mark an image `unoptimized` (it skips the loader)
+  and do not write a bare `/images`, `/generated` or `/family` path in an
+  `<img>`.
+* `/media` (the hero video and poster) is not immutable and needs no version.
+* Guard: `tests/image-versions.test.ts` (`npm run verify:image-versions`, in
+  prebuild).
+* **Homepage planning range ids** are made in `ApprovedHome` and passed to
+  `KitchenPlanningRange` as `idPrefix`. An id made with `useId()` inside a
+  component loaded with `next/dynamic` differs between server and browser and
+  fails hydration.
+
+## Catalog pages follow the interior rules (owner, 19 November 2026)
+
+The owner found the catalog questions block unrefined ("I thought we
+redesigned everything"). Catalog, compare, construction, shaker, builders,
+accessories, search and the site map follow the same rules as room and
+location pages.
+
+* **Questions are `FaqSplit`** (`components/marketing/FaqSplit.tsx`): heading
+  in a left column, tap-to-open rows in a wider right column, one column below
+  1024px. Rows are native `<details>` sharing one `name` (first open), so every
+  answer is in the HTML. `/catalog`, `/builders` and `/shaker-cabinets` use it.
+  Do not render a question list as open paragraphs, and do not put a section in
+  a `max-w-3xl` column that leaves half the container empty. The words and the
+  FAQ structured data come from the same list as before.
+* `/kitchen-cabinets` is the paid-traffic landing page; its narrow single
+  column is that page's own design. Its questions are tap-to-open too (native
+  `<details name="kitchen-landing-faq">`, first one open, same words and the
+  same FAQ data); the hero and the form were not touched. The closing call and
+  text buttons stack below 480px (`stackOnPhones`), the hero pair does not.
+* **Tablets stack a split that leaves a narrow text column.** Cabinet
+  installation and the contact heading and form split at `lg`, not `md`.
+  Document pages (permit flow, privacy, terms, site map) put the "On this
+  page" rail above the text from 701px to 1023px. Check 768px before adding a
+  two-column `md:` grid to a page with long copy.
+* **404**: the two catalog links are "Cabinets by room" (`/cabinets`) and
+  "Full catalog" (`/catalog`); the links are one column below 480px.
+* **Search rows** say "gloss finish", not "gloss · gloss", when a finish's
+  family and sheen are the same word (`shared/catalog/queries.ts`).
+* **Construction**: the "What goes into every order" and "From approved design
+  to your home" cards are one column beside their heading. Two columns inside
+  the split left a lone third card and 110px text columns.
+* **Site map**: the groups use the full container in four columns from 1024px
+  (`.interior-sitemap` in `app/interior-refinement.css`); the document rail is
+  not used there.
+
+## Plans attached on the builders form (owner, 19 November 2026)
+
+* `/builders` passes `attachFiles` to `KitchenCabinetsQuoteForm`, which shows
+  the existing `AttachmentTile` on the first screen of `QuoteRequestForm`,
+  above the optional toggle ("Attach plans or files (optional)"). Every other
+  page keeps the short form, with files offered on the success screen.
+* Nothing new was built for uploads. The tile only collects files. The request
+  is saved first by `/api/consultation`; `QuoteFollowUp` then sends each file
+  to `/api/consultation/files` (Postgres `consultation_files`) and announces
+  them once with `/api/consultation/details` (`kind: "files"`), which adds
+  signed links to the request and the lead notes, sends them to p5 in the
+  existing `files` field (HubSpot, and p5's "Details added" email) and falls
+  back to this site's "Files added" email when p5 does not confirm. The
+  visitor's response never waits on p5.
+* Limits are `shared/quoteFiles.ts`: 10 files a request, 20 MB each, photos
+  (JPEG, PNG, WebP, GIF, HEIC, HEIF) and PDF. CAD and Office files are refused
+  in plain words. The tile's helper text is built from those constants.
+* A failed upload never loses the lead: the success screen names the file,
+  says the request is saved, and offers "Try again" or texting it.
+* Guard: the "builder plans" and "upload route" tests in
+  `tests/p5-one-team-email.test.ts` (real handlers, fake database, mail and
+  p5). Never submit through the live form.
+
+## Homepage finish picker (owner, 19 November 2026)
+
+The owner asked for the "Find your point of view" section to do something
+real. It is `components/approved/FinishPicker.tsx`, styled by
+`app/finish-picker.css`; only that section of the homepage changed.
+
+* Ten real catalog finishes, resolved on the server by
+  `resolveHomeFinishes()` in `shared/homeFinishes.ts` and passed from
+  `app/page.tsx`, so the browser never loads the finish library: Snow White,
+  White - Matte, Breeze Beige, Macaron Green, Pearl Black (matte), White -
+  Gloss, Anthracite (gloss), White Gladstone Oak, Natural Bardolino Oak,
+  Natural Carini Walnut (woodgrain). Whites first; each family is labelled
+  with its real count (55, 53, 191).
+* Choosing a finish shows it on a cabinet door front drawn in CSS (`.fp-door`),
+  whose surface is that finish's own catalog sample: the sample's 460 x 396
+  swatch area in two overlapping bands, the lower flipped left to right and
+  dissolved into the upper, so grain runs the height of the door without a
+  seam and the file sits at about its own pixels (1.0x at 1440, less on
+  tablets and phones). A second radio pair switches the drawn profile between
+  Shaker (stiles, rails and a recessed panel made with shadow) and Slab. The
+  caption is the finish name and family and nothing else: it is a drawn door,
+  so do not call it a photograph and add no qualifier word. Never tint or
+  recolour a photograph to stand for a finish, never show a flat colour for
+  one, and write no description the catalog does not hold.
+* The chips use the same 480px file as the door. On 19 November 2026, 225 of
+  the 732 small finish variants (`-160`, `-320`, `-640`) were older flat tiles
+  of a different colour from their sample; they were regenerated from the
+  samples. A finish variant must always be a resize of its base.
+* The options are native radios in one group and the panel follows the checked
+  one in CSS (`:has`), so it works without JavaScript, arrow keys move the
+  choice, and every door's place is reserved: the section is the same height
+  for all ten finishes and both profiles (787px at 1440).
+* "See this finish" opens `/search?q=<name>&finish=<family>` and "See all <n>
+  <family> finishes" opens `/search?finish=<family>`; the search page reads
+  both on the server (`app/search/page.tsx`, `SearchClient.tsx`) and shows a
+  whole family when nothing is typed. The catalog has no page per finish.
+* Guard: `tests/home-finishes.test.ts`.
+

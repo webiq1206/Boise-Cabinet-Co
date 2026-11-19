@@ -1,0 +1,75 @@
+/* Homepage finish picker (components/approved/FinishPicker.tsx).
+   Catalog samples are 480px squares whose swatch sits in the lower 460 x 396
+   of the file; the door's surface shows only that area.
+   The stage and the details follow the checked radio in CSS, so nothing is
+   re-rendered and every sample's place is reserved. Colours and type are the
+   homepage's own tokens. */
+.cabinet-approved .fp .fp-stage{position:relative;display:block;background:var(--bone,#f1ede4);color:#20231f;overflow:hidden}
+.cabinet-approved .fp .fp-sample{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:36px 24px 28px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+.cabinet-approved .fp .fp-sample figcaption{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;flex:none}
+.cabinet-approved .fp .fp-sample figcaption b{font-family:var(--font-display,inherit);font-weight:400;font-size:clamp(24px,2.2vw,32px);line-height:1.1}
+.cabinet-approved .fp .fp-sample figcaption span{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#20231fb8}
+/* The door. Its surface is the sample in two overlapping bands: the upper
+   as it is, the lower flipped left to right and dissolved into it, so the
+   grain runs on without a seam and the file sits at about its own pixels. */
+.cabinet-approved .fp .fp-door{position:relative;display:block;flex:1 1 auto;min-height:0;aspect-ratio:29/50;max-width:100%;container-type:size;overflow:hidden;background:#fff;box-shadow:0 0 0 1px #20231f2e,0 30px 60px -28px #20231f73,0 8px 18px -10px #20231f40}
+.cabinet-approved .fp .fp-skin,.cabinet-approved .fp .fp-sheen{position:absolute;inset:0;display:block}
+.cabinet-approved .fp .fp-half{position:absolute;left:0;right:0;top:0;height:60%;display:block;background-image:var(--fp-tex);background-repeat:no-repeat;background-size:max(calc(60cqh * 480 / 386),calc(100cqw * 480 / 450)) auto;background-position:-4px calc(max(60cqh / 386,100cqw / 450) * -79)}
+.cabinet-approved .fp .fp-half-b{top:auto;bottom:0;transform:scaleX(-1);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 33.4%);mask-image:linear-gradient(to bottom,transparent 0,#000 33.4%)}
+.cabinet-approved .fp .fp-gloss .fp-sheen{background:linear-gradient(112deg,#ffffff00 30%,#ffffff2e 46%,#ffffff08 58%,#ffffff00 70%)}
+.cabinet-approved .fp .fp-door::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px #ffffff38,inset 0 0 0 2px #0000000f;pointer-events:none}
+/* Shaker: stiles and rails around a recessed centre panel, drawn with a
+   bevel, an inner shadow and joint lines where the rails meet the stiles. */
+.cabinet-approved .fp .fp-panel{position:absolute;inset:15.5cqw;display:block;background:#00000008;box-shadow:inset 0 0 0 1px #0000003d,inset 0 14px 16px -8px #000000a6,inset 14px 0 16px -10px #00000080,inset 0 -9px 10px -9px #ffffff5c,inset -9px 0 10px -9px #ffffff40,0 0 0 1px #ffffff3d,0 0 0 4px #ffffff14,0 0 0 5px #00000017;transition:opacity .3s ease}
+.cabinet-approved .fp .fp-joint{position:absolute;left:0;right:0;height:calc(15.5cqw - 5px);display:block;transition:opacity .3s ease}
+.cabinet-approved .fp .fp-joint-t{top:0}
+.cabinet-approved .fp .fp-joint-b{bottom:0}
+.cabinet-approved .fp .fp-joint::before,.cabinet-approved .fp .fp-joint::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:#00000038;box-shadow:1px 0 0 #ffffff33}
+.cabinet-approved .fp .fp-joint::before{left:15.5cqw}
+.cabinet-approved .fp .fp-joint::after{right:15.5cqw}
+.cabinet-approved .fp .fp-pull{position:absolute;right:6.4cqw;top:50%;width:max(7px,2.6cqw);height:24cqh;transform:translateY(-50%);display:block;border-radius:2px;background:linear-gradient(90deg,#3a3a39,#161616 55%,#0c0c0c);box-shadow:0 0 0 1px #ffffff2b,3px 5px 8px -2px #00000080}
+.cabinet-approved .fp:has(.fp-pr-slab:checked) :is(.fp-panel,.fp-joint){opacity:0}
+.cabinet-approved .fp:has(.fp-in0:checked) :is(.fp-s0,.fp-d0){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in1:checked) :is(.fp-s1,.fp-d1){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in2:checked) :is(.fp-s2,.fp-d2){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in3:checked) :is(.fp-s3,.fp-d3){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in4:checked) :is(.fp-s4,.fp-d4){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in5:checked) :is(.fp-s5,.fp-d5){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in6:checked) :is(.fp-s6,.fp-d6){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in7:checked) :is(.fp-s7,.fp-d7){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in8:checked) :is(.fp-s8,.fp-d8){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in9:checked) :is(.fp-s9,.fp-d9){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in10:checked) :is(.fp-s10,.fp-d10){opacity:1;visibility:visible}
+.cabinet-approved .fp:has(.fp-in11:checked) :is(.fp-s11,.fp-d11){opacity:1;visibility:visible}
+.cabinet-approved .fp .fp-group{border:0;margin:22px 0 0;padding:0;min-width:0}
+.cabinet-approved .fp .fp-row{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:6px 4px 10px;margin:0 -4px}
+.cabinet-approved .fp .fp-row::-webkit-scrollbar{display:none}
+.cabinet-approved .fp .fp-family{display:flex;flex-direction:column;gap:10px;flex:none;scroll-snap-align:start}
+.cabinet-approved .fp .fp-family-label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.cabinet-approved .fp .fp-family-label span{opacity:.72;margin-left:4px}
+.cabinet-approved .fp .fp-chips{display:flex;gap:8px}
+.cabinet-approved .fp .fp-opt{position:relative;display:block;flex:none;width:44px;height:44px;cursor:pointer}
+.cabinet-approved .fp .fp-in{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.cabinet-approved .fp .fp-chip{position:absolute;inset:0;display:block;overflow:hidden;background:#fff;box-shadow:0 0 0 1px #f1ede466;transition:box-shadow .2s ease}
+.cabinet-approved .fp .fp-chip img{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;filter:none;transform:scale(1.34);transform-origin:50% 78%}
+.cabinet-approved .fp .fp-in:checked+.fp-chip{box-shadow:0 0 0 2px var(--charcoal,#383837),0 0 0 4px var(--paper,#fbfaf6)}
+.cabinet-approved .fp .fp-in:focus-visible+.fp-chip{outline:2px solid var(--paper,#fbfaf6);outline-offset:5px}
+.cabinet-approved .fp .fp-profile{display:inline-flex;gap:0;border:0;margin:16px 0 0;padding:0;box-shadow:0 0 0 1px #f1ede466}
+.cabinet-approved .fp .fp-profile label{position:relative;display:block;cursor:pointer}
+.cabinet-approved .fp .fp-profile input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.cabinet-approved .fp .fp-profile span{display:flex;align-items:center;justify-content:center;min-width:92px;min-height:44px;padding:0 18px;font-size:14px;letter-spacing:.04em}
+.cabinet-approved .fp .fp-profile input:checked+span{background:var(--paper,#fbfaf6);color:var(--charcoal,#383837)}
+.cabinet-approved .fp .fp-profile input:focus-visible+span{outline:2px solid var(--paper,#fbfaf6);outline-offset:3px}
+.cabinet-approved .fp .fp-details{position:relative;min-height:88px;margin-top:14px}
+.cabinet-approved .fp .fp-detail{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
+.cabinet-approved .fp .fp-name{display:flex;align-items:baseline;gap:12px;margin:0;font-size:16px}
+.cabinet-approved .fp .fp-name b{font-weight:600;font-size:18px}
+.cabinet-approved .fp .fp-name span{font-size:14px;opacity:.8}
+.cabinet-approved .fp .fp-actions{display:flex;flex-wrap:wrap;gap:4px 28px;margin:6px 0 0}
+.cabinet-approved .fp .fp-actions a{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:15px}
+.cabinet-approved .fp .sample-note{margin-top:14px}
+@media(min-width:701px){.cabinet-approved .fp .fp-row{flex-wrap:wrap;overflow:visible;gap:14px 20px}}
+@media(min-width:1001px){.cabinet-approved .fp .fp-stage{min-height:720px}.cabinet-approved .fp .finish-copy{padding-block:48px}.cabinet-approved .fp .finish-copy h2{font-size:clamp(40px,3.6vw,52px);line-height:1.04}.cabinet-approved .fp .finish-copy>p:not(.eyebrow){max-width:none;margin-top:16px}.cabinet-approved .fp .fp-meta{position:relative}.cabinet-approved .fp .fp-profile{position:absolute;right:0;top:8px;margin:0;z-index:2}.cabinet-approved .fp .fp-profile span{min-width:76px;padding:0 14px}.cabinet-approved .fp .fp-name{min-height:44px;padding-right:176px;flex-wrap:wrap;align-content:center;gap:2px 12px}.cabinet-approved .fp .fp-details{min-height:96px;margin-top:10px}.cabinet-approved .fp .sample-note{margin-top:6px}.cabinet-approved .fp .finish-links{margin-top:14px}}
+@media(max-width:1000px){.cabinet-approved .fp .fp-stage{display:grid;aspect-ratio:auto;height:auto;min-height:0}.cabinet-approved .fp .fp-sample{position:relative;inset:auto;grid-area:1/1;padding:36px 24px 28px}.cabinet-approved .fp .fp-door{flex:none;height:460px}.cabinet-approved .fp .fp-details{min-height:112px}}
+@media(max-width:700px){.cabinet-approved .fp .fp-sample{padding:28px 20px 24px;gap:14px}.cabinet-approved .fp .fp-door{height:340px}.cabinet-approved .fp .fp-row{gap:22px}.cabinet-approved .fp .fp-details{min-height:132px}}
+@media(prefers-reduced-motion:reduce){.cabinet-approved .fp :is(.fp-sample,.fp-detail,.fp-chip){transition:none}}

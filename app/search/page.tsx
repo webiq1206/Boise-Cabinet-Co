@@ -1,84 +1,21 @@
-"use client";
+import type { FinishCategory } from "@/shared/catalog";
+import { SearchClient } from "./SearchClient";
 
-import { InteriorPage } from '@/components/approved/InteriorLayout';
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { VisualSearchResult } from "@/components/catalog/visual";
-import { PageHeader } from "@/components/marketing/PageHeader";
-import { Section } from "@/components/marketing/Section";
-import { catalogResultHref } from "@/lib/catalog-routes";
-import type { CabinetProductCategory,FinishCategory } from "@/shared/catalog";
-import { searchCatalogWithFacets } from "@/shared/catalog";
-import { useMemo,useState } from "react";
+const FINISH_CATEGORIES: readonly FinishCategory[] = ["matte", "gloss", "woodgrain"];
 
-export default function SearchPage() {
-  const [query, setQuery] = useState("");
-  const [finishCategory, setFinishCategory] = useState<FinishCategory | "">("");
-  const [productCategory, setProductCategory] = useState<CabinetProductCategory | "">("");
-
-  const results = useMemo(
-    () =>
-      searchCatalogWithFacets(query, {
-        finishCategory: finishCategory || undefined,
-        productCategory: productCategory || undefined,
-      }),
-    [query, finishCategory, productCategory],
-  );
-
+/** /search, /search?q=Snow+White&finish=matte, /search?finish=woodgrain */
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const one = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value) ?? "";
+  const finish = one(params.finish).toLowerCase();
   return (
-    <InteriorPage kind="search"><div className="flex flex-col ">
-      <Section spacing="sm" className="pt-4 md:pt-6">
-        <div className="container px-4 max-w-2xl">
-          <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Search" }]} />
-          <PageHeader
-            align="left"
-            className="mt-6"
-            title="Search catalog"
-            description="Find finishes, door styles, collections, and cabinet configurations."
-          />
-          <form role="search" aria-label="Search products" onSubmit={(event) => event.preventDefault()} data-clarity-mask="True">
-          <input
-            aria-label="Search by name or code"
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by name or code…"
-            className="w-full mt-6 rounded-md border border-input bg-background px-4 py-3 text-base"
-            data-clarity-mask="True" />
-          <div className="flex flex-wrap gap-2 mt-4">
-            {(["matte", "gloss", "woodgrain"] as FinishCategory[]).map((c) => (
-              <button
-                key={c}
-                type="button"
-                aria-pressed={finishCategory === c}
-                onClick={() => setFinishCategory(finishCategory === c ? "" : c)}
-                className={`tap-target inline-flex items-center justify-center text-xs rounded-full border px-3 py-1 capitalize ${finishCategory === c ? "border-primary bg-primary/5" : ""}`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-          </form>
-          <p role="status" className="mt-6 text-sm text-muted-foreground">
-            {results.length === 0
-              ? "No matches. Try another name or code, or clear the finish filter."
-              : `Showing ${Math.min(results.length, 40)} of ${results.length} results.`}
-          </p>
-          <ul className="mt-4 space-y-3">
-            {results.slice(0, 40).map((r) => (
-              <li key={`${r.type}-${r.slug}`}>
-                <VisualSearchResult
-                  href={catalogResultHref(r)}
-                  type={r.type}
-                  name={r.name}
-                  description={r.description}
-                  imagePath={r.imagePath}
-                  testId={`search-result-${r.type}-${r.slug}`}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-    </div></InteriorPage>
+    <SearchClient
+      initialQuery={one(params.q).slice(0, 80)}
+      initialFinish={(FINISH_CATEGORIES as readonly string[]).includes(finish) ? (finish as FinishCategory) : ""}
+    />
   );
 }

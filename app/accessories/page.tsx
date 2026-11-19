@@ -49,8 +49,8 @@ export default function AccessoriesPage() {
       <JsonLd data={schemas} />
       <div className="flex flex-col ">
         <CinematicHero
-          image={getAccessoryImagePath("partition")}
-          alt={localAlt('Vertical cabinet dividers organize cutting boards and baking sheets')}
+          image="/images/blog/kitchen-cabinet-organization-ideas.webp"
+          alt={localAlt('Oak cabinet with three deep drawers and black bar pulls')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Accessories" }]}
           eyebrow="Product catalog"
           title={<>

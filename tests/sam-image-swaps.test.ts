@@ -129,28 +129,35 @@ test("retired files stay on disk", () => {
 });
 
 test("heroes srcset the variant widths", () => {
-  const room = heroImageAttrs("/images/catalog/rooms/kitchen-walnut-mountain.webp");
+  // heroImageAttrs() adds ?v=<content hash> to a replaced file
+  // (tests/image-versions.test.ts). This test is about which file is chosen.
+  const plain = (url: string) => url.replace(/\?v=[0-9a-f]+/g, "");
+  const heroAttrs = (src: string) => {
+    const attrs = heroImageAttrs(src);
+    return { ...attrs, src: plain(attrs.src), srcSet: attrs.srcSet ? plain(attrs.srcSet) : undefined };
+  };
+  const room = heroAttrs("/images/catalog/rooms/kitchen-walnut-mountain.webp");
   assert.equal(room.src, "/images/catalog/rooms/kitchen-walnut-mountain-1080.webp");
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-320\.webp 320w/);
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-640\.webp 640w/);
   assert.match(room.srcSet ?? "", /kitchen-walnut-mountain-1080\.webp 1080w/);
 
-  const hardware = heroImageAttrs("/images/marketing/warranty-hardware.webp");
+  const hardware = heroAttrs("/images/marketing/warranty-hardware.webp");
   assert.match(hardware.srcSet ?? "", /warranty-hardware-768\.webp 768w/);
   assert.match(hardware.srcSet ?? "", /warranty-hardware-1280\.webp 1280w/);
   assert.match(hardware.srcSet ?? "", /warranty-hardware\.webp 1536w/);
 
-  const cabinets = heroImageAttrs("/images/marketing/kitchen-farmhouse-shaker.webp");
+  const cabinets = heroAttrs("/images/marketing/kitchen-farmhouse-shaker.webp");
   assert.match(cabinets.srcSet ?? "", /kitchen-farmhouse-shaker-768\.webp 768w/);
   assert.match(cabinets.srcSet ?? "", /kitchen-farmhouse-shaker-1280\.webp 1280w/);
 
-  const marketing = heroImageAttrs("/images/marketing/bath-white-oak-vanity.webp");
+  const marketing = heroAttrs("/images/marketing/bath-white-oak-vanity.webp");
   assert.equal(marketing.src, "/images/marketing/bath-white-oak-vanity-1280.webp");
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity-768\.webp 768w/);
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity-1280\.webp 1280w/);
   assert.match(marketing.srcSet ?? "", /bath-white-oak-vanity\.webp 1536w/);
 
-  const area = heroImageAttrs("/images/areas/boise.webp");
+  const area = heroAttrs("/images/areas/boise.webp");
   assert.equal(area.src, "/images/areas/boise-1080.webp");
   assert.match(area.srcSet ?? "", /boise-640\.webp 640w/);
   assert.equal((area.srcSet ?? "").includes("320w"), false);

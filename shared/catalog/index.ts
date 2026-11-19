@@ -329,7 +329,7 @@ export function searchCatalog(query: string, facets?: import("./types").CatalogS
         type: "finish",
         slug: f.slug,
         name: f.name,
-        description: f.description ?? `${f.category} · ${f.sheen}`,
+        description: f.description ?? f.category === f.sheen ? `${f.category} finish` : `${f.category} · ${f.sheen}`,
         score: s,
       });
     }

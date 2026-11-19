@@ -13,13 +13,14 @@ import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowUpRight, Check } from "lucide-react";
 
+import { resolveHomeFinishes } from "@/shared/homeFinishes";
 export const metadata = withBrandPageMetadata((buildPageMetadata({ kind: "home", path: "/" })), "/");
 
 export default function HomePage() {
   return (
     <div className="flex flex-col bg-background">
       <HomePageSchema />
-      <ApprovedHome reviews={<HomeTestimonials />} />
+      <ApprovedHome reviews={<HomeTestimonials />} homeFinishes={resolveHomeFinishes()} />
       {/* Answer block for screen readers and answer engines. A paragraph, not a
           heading: it is a 60-word summary, not the title of a section. */}
       <p data-speakable="summary" className="sr-only">

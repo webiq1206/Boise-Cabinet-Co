@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { familyButtonClass } from '@/components/family/Button';
 import type { ReactNode } from 'react';
 import { IMAGE_VARIANTS } from '@/shared/generated/imageVariants';
+import { versionedSrc, versionedSrcSet } from '@/lib/images/imageVersion';
 
 /**
  * Room and city heroes ship a full original plus width derivatives.
@@ -15,7 +16,13 @@ const SHARP_VARIANT_SRCS = new Set([
   '/images/marketing/kitchen-wood-island.webp',
 ]);
 
-export function heroImageAttrs(src: string) {
+/** A replaced file carries its content version, so the year-long cache cannot serve the old picture. */
+export function heroImageAttrs(src: string): { src: string; srcSet?: string; sizes?: string } {
+  const attrs: { src: string; srcSet?: string; sizes?: string } = plainHeroImageAttrs(src);
+  return { ...attrs, src: versionedSrc(attrs.src), ...(attrs.srcSet ? { srcSet: versionedSrcSet(attrs.srcSet) } : {}) };
+}
+
+function plainHeroImageAttrs(src: string) {
   const match = /^(.*)\.webp$/.exec(src);
   if (match && SHARP_VARIANT_SRCS.has(src)) {
     const root = match[1];
