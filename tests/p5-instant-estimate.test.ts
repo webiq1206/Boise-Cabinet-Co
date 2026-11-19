@@ -102,7 +102,7 @@ test('the central call to action leads to the instant estimate', () => {
   assert.match(home, /<FamilyButton href=\{INSTANT_ESTIMATE_HREF\} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">\{CTA_INSTANT_ESTIMATE\}<\/FamilyButton>/);
   assert.match(home, /<section id="instant-estimate" className="builder-band estimate-band wrap"/);
   // The homepage planning slider stays mounted.
-  assert.match(home, /<KitchenPlanningRange \/>/);
+  assert.match(home, /<KitchenPlanningRange idPrefix=\{planningRangeId\} \/>/);
 });
 
 test('the page is in the sitemap and in llms.txt', () => {

@@ -329,3 +329,32 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
   guides index closes with its own bottom padding. A full-page capture shows
   the sticky header row and the bottom bar part way down the page and leaves
   sticky side columns at the top: judge those from viewport captures.
+
+## Replaced photographs get a new URL (19 November 2026)
+
+* `/images` and `/generated` are served `immutable` for a year
+  (`next.config.js`), keyed by URL. A photograph replaced under the same file
+  name kept its URL, so anyone who had seen the old picture kept seeing it.
+  Every file replaced since 1 November 2026 (644, size variants included) now
+  goes out as `<path>?v=<content hash>`.
+* The list is `shared/generated/imageVersions.ts`, written by
+  `npm run images:versions` (`scripts/images/build-image-versions.mjs`), which
+  compares each file with `shared/generated/imageHashes.json`. A file that
+  changed joins the list and stays; a size variant follows its base. Run it
+  LAST after adding or replacing an image: after `images:variants` and
+  `images:blur`.
+* The version is added only where a URL is handed to the browser:
+  `lib/images/staticVariantLoader.ts` (every `next/image`, on the variant it
+  picks), `heroImageAttrs()` (src and srcset) and plain `<img>` tags through
+  `versionedSrc()` in `lib/images/imageVersion.ts`. Page URLs, sitemaps,
+  structured data, Open Graph, alt text, variant lookup and picture identity
+  keep the plain path. Do not mark an image `unoptimized` (it skips the loader)
+  and do not write a bare `/images`, `/generated` or `/family` path in an
+  `<img>`.
+* `/media` (the hero video and poster) is not immutable and needs no version.
+* Guard: `tests/image-versions.test.ts` (`npm run verify:image-versions`, in
+  prebuild).
+* **Homepage planning range ids** are made in `ApprovedHome` and passed to
+  `KitchenPlanningRange` as `idPrefix`. An id made with `useId()` inside a
+  component loaded with `next/dynamic` differs between server and browser and
+  fails hydration.
