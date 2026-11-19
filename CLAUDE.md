@@ -256,8 +256,8 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 
 * No staged props in a photo: no plants, vases, bowls, baskets, fruit or
   flowers. Books on a bookshelf and clothes in a closet are the subject and are
-  fine. The homepage hero video and its poster carry none since 19 November
-  2026 (see "Homepage hero video" below). `rooms/kitchen-walnut-mountain.webp`
+  fine. The homepage hero video and its poster keep their props by the owner's
+  decision (see "Homepage hero video" below). `rooms/kitchen-walnut-mountain.webp`
   and `collections/custom.webp` were replaced with prop-free Photo Dump
   kitchens on 19 November 2026 (same paths; the first is hashed in
   `tests/sam-image-swaps.test.ts`, and the pins were updated with it).
@@ -309,17 +309,10 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
   card on that page. The accessory product renders under
   `public/images/catalog/accessories` still show staged kitchen items; there is
   no prop-free photograph of those products in the owner's folder.
-* **Homepage hero video.** The video and poster in `public/media/cabinet`
-  are owner-approved AI footage from 19 November 2026: three stills (a white
-  oak kitchen, sage built-ins with a window seat, a white oak double vanity)
-  with a slow camera move over each and crossfades, 24 seconds, no sound, no
-  props. The poster is the first frame and its alt describes only that frame.
-  They replaced the 2026-11-05 video, whose every scene had props. They are
-  not photographs of work: never caption or describe them as a completed
-  customer job, a recent project or the team's own work, and add no qualifier
-  word either. `/media` is not cached as immutable (only `/images`,
-  `/generated` and `/downloads` are, in `next.config.js`), so the same file
-  names serve the new footage.
+* **Homepage hero video.** The video and poster in `public/media/cabinet` are
+  the owner's original (2026-11-05). The owner reviewed an AI replacement on
+  19 November 2026 and chose to keep the original video and poster, props
+  included. Do not replace or flag the hero video again unless the owner asks.
 * **Door style cards share one image height** (`isDoorStyleImage()` in
   `CatalogVisualCard.tsx`, 4:3 for a photograph and a diagram alike), so titles
   line up across a row.
