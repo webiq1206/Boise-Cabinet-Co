@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
@@ -58,7 +59,7 @@ export function FeaturedProjectSection() {
             <div className="relative w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden">
               <Image
                 src={project.hero.src}
-                alt={project.hero.alt}
+                alt={localAlt(project.hero.alt)}
                 fill
                 sizes="100vw"
                 priority

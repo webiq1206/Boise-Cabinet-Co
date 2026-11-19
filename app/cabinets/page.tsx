@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { heroImageAttrs, InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
@@ -55,7 +56,7 @@ export default function CabinetsHubPage() {
         <CinematicHero
           className="interior-hero-cabinets-hub interior-hero-fit"
           image={MARKETING_IMAGES.cabinetsHero}
-          alt="Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall"
+          alt={localAlt('Kitchen with white painted Shaker cabinets, a white oak island, black hardware and a shiplap range wall')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Cabinets" }]}
           eyebrow="Product catalog"
           title={CABINETS_HUB_HEADLINE}
@@ -83,7 +84,7 @@ export default function CabinetsHubPage() {
             a photo panel and the other eleven as a hairline matrix, the same
             pattern the homepage uses, so the catalog reads as one composed
             object rather than a wall of boxes. */}
-        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map((room,index)=><Link className={index===0?"interior-service-card interior-service-card--featured":"interior-service-card"} href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={room.imageAlt ?? `${room.name} cabinetry`} width={900} height={675} loading="lazy"/><div><h2>{roomLabel(room.name)}</h2><ArrowRight size={18} aria-hidden="true"/></div><ShortCopy text={room.description}/></Link>)}</section>
+        <section className="interior-service-grid" aria-label="Cabinet rooms">{ROOM_CATEGORIES.map((room,index)=><Link className={index===0?"interior-service-card interior-service-card--featured":"interior-service-card"} href={`/cabinets/${room.slug}`} key={room.id}><img {...heroImageAttrs(room.heroImage)} alt={localAlt(room.imageAlt ?? `${room.name} cabinetry`)} width={900} height={675} loading="lazy"/><div><h2>{roomLabel(room.name)}</h2><ArrowRight size={18} aria-hidden="true"/></div><ShortCopy text={room.description}/></Link>)}</section>
 
         <CatalogClosingCTA />
       </div>

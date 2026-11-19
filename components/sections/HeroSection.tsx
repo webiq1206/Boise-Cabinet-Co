@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
@@ -16,7 +17,7 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-          alt="Kitchen with cream Shaker cabinets, brushed nickel pulls, a white oak island and a white subway tile backsplash behind a gas range"
+          alt={localAlt('Kitchen with cream Shaker cabinets, brushed nickel pulls, a white oak island and a white subway tile backsplash behind a gas range')}
           fill
           priority
           fetchPriority="high"

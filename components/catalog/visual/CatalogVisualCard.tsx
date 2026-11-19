@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -45,7 +46,7 @@ export function CatalogVisualCard({
       {imageSrc ? (
         <CatalogImage
           src={imageSrc}
-          alt={imageAlt ?? name}
+          alt={localAlt(imageAlt ?? name)}
           aspectRatio={aspectRatio}
           className="rounded-none"
           sizes="(max-width: 768px) 100vw, 400px"

@@ -11,6 +11,7 @@
  * expansion so the finder and Design Studio can drive it later.
  */
 
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -395,7 +396,7 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
           {/* Generated front-elevation box diagram; never shows the SKU code. */}
           <Image
             src={diagram}
-            alt={`${product.name} front elevation`}
+            alt={localAlt(`${product.name} front elevation`)}
             fill
             sizes="(max-width: 640px) 50vw, 240px"
             className="object-contain"
@@ -500,7 +501,7 @@ function AccessoryCard({ accessory }: { accessory: Accessory }) {
         {img ? (
           <Image
             src={img}
-            alt={accessory.name}
+            alt={localAlt(accessory.name)}
             fill
             sizes="(max-width: 640px) 50vw, 240px"
             className="object-cover"

@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image, { type ImageProps } from "next/image";
 
 export interface SeoImageProps extends Omit<ImageProps, "alt"> {
@@ -20,7 +21,7 @@ export function SeoImage({
 }: SeoImageProps) {
   const image = (
     <Image
-      alt={alt}
+      alt={localAlt(alt)}
       title={title ?? alt}
       className={className}
       {...props}

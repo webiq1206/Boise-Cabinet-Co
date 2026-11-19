@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
@@ -49,7 +50,7 @@ export default function AccessoriesPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={getAccessoryImagePath("partition")}
-          alt="Vertical cabinet dividers organize cutting boards and baking sheets"
+          alt={localAlt('Vertical cabinet dividers organize cutting boards and baking sheets')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Accessories" }]}
           eyebrow="Product catalog"
           title={<>

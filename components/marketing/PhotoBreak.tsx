@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 
 export interface PhotoBreakProps {
@@ -33,7 +34,7 @@ export function PhotoBreak({
       <div className={`relative w-full overflow-hidden bg-muted ${aspectClass}`}>
         <Image
           src={src}
-          alt={alt}
+          alt={localAlt(alt)}
           fill
           sizes={sizes}
           priority={priority}

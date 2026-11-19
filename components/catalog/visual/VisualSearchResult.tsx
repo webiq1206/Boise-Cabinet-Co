@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -34,7 +35,7 @@ export function VisualSearchResult({
         {imagePath ? (
           <Image
             src={imagePath}
-            alt={`${name} thumbnail`}
+            alt={localAlt(`${name} thumbnail`)}
             fill
             sizes="56px"
             className="object-cover"

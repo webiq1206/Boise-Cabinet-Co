@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import type { ProjectImage } from "@/shared/projects/types";
 
@@ -32,7 +33,7 @@ export function ProjectDetailStrip({
           <li key={image.src} className="relative aspect-[4/3] overflow-hidden bg-muted">
             <Image
               src={image.src}
-              alt={image.alt}
+              alt={localAlt(image.alt)}
               fill
               sizes="(max-width: 768px) 50vw, 33vw"
               className="object-cover img-brand-grade"

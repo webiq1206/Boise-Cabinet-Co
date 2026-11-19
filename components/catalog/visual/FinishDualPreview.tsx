@@ -1,5 +1,6 @@
 "use client";
 
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { useState } from "react";
 import type { Finish } from "@/shared/catalog";
@@ -23,7 +24,7 @@ export function FinishDualPreview({ finish, className }: FinishDualPreviewProps)
           {swatch && !swatchFailed ? (
             <Image
               src={swatch}
-              alt={`${finish.name} finish swatch`}
+              alt={localAlt(`${finish.name} finish swatch`)}
               fill
               sizes="200px"
               className="object-cover"
@@ -41,7 +42,7 @@ export function FinishDualPreview({ finish, className }: FinishDualPreviewProps)
           {!inRoomFailed ? (
             <Image
               src={inRoom}
-              alt={`${finish.name} on kitchen cabinets`}
+              alt={localAlt(`${finish.name} on kitchen cabinets`)}
               fill
               sizes="(max-width: 640px) 100vw, 400px"
               className="object-cover"

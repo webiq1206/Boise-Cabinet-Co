@@ -1,5 +1,6 @@
 "use client";
 
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -452,7 +453,7 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
             {item.finish.imagePath && (
               <Image
                 src={item.finish.imagePath}
-                alt={item.alt}
+                alt={localAlt(item.alt)}
                 fill
                 sizes="(max-width: 640px) 50vw, 220px"
                 className="object-cover"
@@ -462,7 +463,7 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
         ) : item.imageSrc ? (
           <Image
             src={item.imageSrc}
-            alt={item.alt}
+            alt={localAlt(item.alt)}
             fill
             sizes="(max-width: 640px) 50vw, 220px"
             className={cn(item.contain ? "object-contain p-2" : "object-cover img-brand-grade")}

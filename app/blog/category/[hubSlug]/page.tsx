@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import fs from 'fs';
@@ -156,7 +157,7 @@ export default async function BlogCategoryHubPage(
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           )}
-          </header><HubHeroBanner src={hubHero} alt={hubAlt} />
+          </header><HubHeroBanner src={hubHero} alt={localAlt(hubAlt)} />
 
           <div className="ed-cards-3 gap-6">
             {posts.map((post) => (

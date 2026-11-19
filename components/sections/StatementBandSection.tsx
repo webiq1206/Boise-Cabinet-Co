@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { SITE_IMAGES } from "@/shared/siteImages";
 
@@ -10,7 +11,7 @@ export function StatementBandSection() {
     <section className="relative h-48 md:h-64 overflow-hidden">
       <Image
         src={SITE_IMAGES.statementBand}
-        alt={STATEMENT_BAND_ALT}
+        alt={localAlt(STATEMENT_BAND_ALT)}
         fill
         sizes="100vw"
         className="object-cover img-brand-grade"

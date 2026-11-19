@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CinematicHero } from "@/components/marketing/CinematicHero";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -116,7 +117,7 @@ export default function ShakerCabinetsPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={"/images/marketing/hero-home.webp"}
-          alt="Kitchen with cream Shaker cabinets, brushed nickel pulls and a white oak island"
+          alt={localAlt('Kitchen with cream Shaker cabinets, brushed nickel pulls and a white oak island')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]}
           eyebrow="Door styles"
           title={<>
@@ -149,7 +150,7 @@ export default function ShakerCabinetsPage() {
               {PROFILES.map((p) => (
                 <MarketingCard key={p.slug} className="h-full">
                   <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-[#F7F3EC]">
-                    <Image src={getDoorStyleImages(p.slug).primary} alt={`${p.name} door profile`} fill sizes="(max-width: 640px) 90vw, 40vw" className="object-contain" />
+                    <Image src={getDoorStyleImages(p.slug).primary} alt={localAlt(`${p.name} door profile`)} fill sizes="(max-width: 640px) 90vw, 40vw" className="object-contain" />
                   </div>
                   <h2 className="ed-h3 mb-3">{p.name}</h2>
                   <p className="text-base leading-relaxed text-muted-foreground">{p.body}</p>

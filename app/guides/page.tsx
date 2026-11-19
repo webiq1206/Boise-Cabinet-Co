@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
@@ -160,7 +161,7 @@ export default function GuidesIndexPage() {
                 <Link href={guidePath(guide.slug)} className="block relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={getBlogThumbnail(guide.slug, guide.heroImage)}
-                    alt={getBlogImageAlt(guide.slug)}
+                    alt={localAlt(getBlogImageAlt(guide.slug))}
                     fill
                     sizes="400px"
                     className="object-cover img-brand-grade"

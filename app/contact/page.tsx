@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorEstimateLink,InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { PreferToTextLine } from '@/components/contact/PreferToTextLine';
 import { LazyConsultationForm as ConsultationForm } from '@/components/LazyConsultationForm';
@@ -305,7 +306,7 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.processContact}
-                alt="Open oak drawers with black pulls in a finished cabinet install"
+                alt={localAlt('Open oak drawers with black pulls in a finished cabinet install')}
                 title="Cabinet details | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { getBlurDataURL } from "@/shared/generated/imageBlur";
@@ -33,7 +34,7 @@ export function CatalogImage({
     >
       <Image
         src={src}
-        alt={alt}
+        alt={localAlt(alt)}
         fill
         sizes={sizes}
         priority={priority}

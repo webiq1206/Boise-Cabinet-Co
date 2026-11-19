@@ -10,6 +10,7 @@
  * Key format for CITY_SERVICE_IMAGES: "service-slug/city-slug"
  */
 
+import { localAlt } from "./localAlt";
 import { GALLERY_IMAGES, SITE_IMAGES } from "./siteImages";
 import {
   getServiceBackground,
@@ -137,9 +138,23 @@ function cityServiceProcessAlt(serviceSlug: string): string {
   return `${service} installation and design process by Boise Cabinet Co`;
 }
 
+/** What each city's photograph shows (owner's Photo Dump, 19 November 2026: one distinct picture per city). */
+const AREA_HERO_PICTURE: Record<string, { subject: string; picture: string }> = {
+  boise: { subject: "kitchen cabinets", picture: "kitchen with white oak flat-panel cabinets, pale green upper cabinets and a white-topped island" },
+  meridian: { subject: "kitchen cabinets", picture: "cream kitchen with an oak island of drawers and two black pendant lights" },
+  eagle: { subject: "kitchen cabinets", picture: "white kitchen with an oak island of drawers and black-framed windows facing dry hills" },
+  nampa: { subject: "kitchen cabinets", picture: "white Shaker kitchen with a white oak island and a tiled range wall" },
+  kuna: { subject: "kitchen cabinets", picture: "kitchen with sage green Shaker upper cabinets and a white oak island" },
+  star: { subject: "kitchen cabinets", picture: "kitchen with white oak flat-panel cabinets and a walnut island of drawers" },
+  middleton: { subject: "kitchen cabinets", picture: "kitchen with charcoal lower cabinets, white oak upper cabinets and a white peninsula" },
+  caldwell: { subject: "built-in cabinets", picture: "white oak built-in cabinets with open shelves along a wall" },
+};
+
 function areaHeroAlt(citySlug: string): string {
   const city = CITY_DISPLAY[citySlug] ?? citySlug;
-  return `Wood Shaker kitchen cabinets with drawer storage and pale counters, for ${city}, Idaho homes`;
+  const entry = AREA_HERO_PICTURE[citySlug];
+  if (!entry) return localAlt("Kitchen with custom cabinets", { subject: "custom cabinets", city });
+  return localAlt(entry.picture, { subject: entry.subject, city });
 }
 
 function areaProcessAlt(citySlug: string): string {

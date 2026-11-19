@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import {
   getAccessoryImagePath,
@@ -29,7 +30,7 @@ export function CatalogProductImage({
     >
       <Image
         src={src}
-        alt={alt}
+        alt={localAlt(alt)}
         title={alt}
         fill
         sizes="(max-width: 768px) 100vw, 33vw"

@@ -5,6 +5,7 @@
  * rendered) can show a swatch without importing FinishSwatchGrid, which loads
  * the full finish library for its grid. FinishSwatchGrid re-exports it.
  */
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { useState } from "react";
 import type { Finish } from "@/shared/catalog";
@@ -34,7 +35,7 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
       {showImage && (
         <Image
           src={finish.imagePath!}
-          alt={alt}
+          alt={localAlt(alt)}
           fill
           sizes="120px"
           className="object-cover"

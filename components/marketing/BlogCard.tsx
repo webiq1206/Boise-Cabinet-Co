@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
@@ -34,7 +35,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
         <div className="relative aspect-[21/9] md:aspect-[2.4/1] overflow-hidden">
           <Image
             src={thumbnail}
-            alt={alt}
+            alt={localAlt(alt)}
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
             className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.01]"
@@ -69,7 +70,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={thumbnail}
-          alt={alt}
+          alt={localAlt(alt)}
           fill
           sizes="(max-width: 768px) 100vw, 400px"
           className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.02]"

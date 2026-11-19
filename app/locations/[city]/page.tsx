@@ -1,3 +1,5 @@
+import { ExploreCells, KeepExploring } from "@/components/marketing/KeepExploring";
+import { localAlt } from '@/shared/localAlt';
 import { InteriorHero,InteriorPage } from '@/components/approved/InteriorLayout';
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { AboveFoldActions } from "@/components/marketing/AboveFoldActions";
@@ -203,7 +205,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
           <div className="ed-shell">
             <SectionHeader
               eyebrow={cityProjects.every((project) => project.kind === "concept") ? "Cabinet styles" : "Project gallery"}
-              title={<>Cabinet ideas for {city.name} homes</>}
+              title={<>Cabinets for {city.name} homes</>}
               align="left"
               className="mb-6"
             />
@@ -213,7 +215,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src={project.hero.src}
-                        alt={project.hero.alt}
+                        alt={localAlt(project.hero.alt, { city: city.name })}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover img-brand-grade"
@@ -244,28 +246,15 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               align="left"
               className="mb-6"
             />
-            <div className="ed-cards-3 gap-4">
-              {SERVICES.map((service) => (
-                <Link
-                  key={service.slug}
-                  href={service.url}
-                  className="group block rounded-sm border border-border bg-card p-5 brc-lift transition-colors hover:border-accent/60"
-                >
-                  <h3 className="ed-h3">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {service.shortDescription}
-                  </p>
-                </Link>
-              ))}
-            </div>
+            <ExploreCells
+              cells={SERVICES.map((service) => ({ href: service.url, label: service.name, context: `${city.name}, Idaho:` }))}
+            />
           </div>
         </Section>
 
         <PhotoBreak
           src={images.breather}
-          alt={images.heroAlt ?? `Kitchen cabinetry for ${city.name}, Idaho homes`}
+          alt={localAlt(images.heroAlt ?? `Kitchen with custom cabinets`, { city: city.name })}
           caption={`Cabinetry planned for ${city.name} homes and neighborhoods.`}
         />
 
@@ -284,7 +273,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             {index === 1 ? (
               <PhotoBreak
                 src={images.process}
-                alt={images.processAlt ?? `Whole-home cabinet package ideas for ${city.name}, Idaho`}
+                alt={localAlt(images.processAlt ?? `Custom cabinets for several rooms of one home`, { city: city.name })}
                 caption={`Local planning cues for ${city.name} and the wider Treasure Valley.`}
               />
             ) : null}
@@ -295,22 +284,6 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
           <ProcessSection steps={copy.steps} heading={copy.processHeading} note={copy.processNote} />
         ) : null}
 
-        {copy?.links?.length ? (
-          <Section divider>
-            <div className="ed-shell">
-              <h2 className="ed-h2-sm">Related cabinet pages</h2>
-              <ul className="mt-4 flex flex-wrap gap-3">
-                {copy.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-sm underline underline-offset-2 hover:text-accent">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Section>
-        ) : null}
 
         {/* Neighborhood planning stays on the page. Manufacture claims are
             removed from the city guide source for the optimized URLs. */}
@@ -413,6 +386,23 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         )}
 
         {/* Final CTA */}
+        {/* One closing block of onward links: nearby cities and guides. */}
+        <Section divider>
+          <div className="ed-shell">
+            <KeepExploring
+              groups={[
+                {
+                  label: "Custom cabinets in nearby cities",
+                  cells: CITIES.filter((other) => other.slug !== city.slug).map((other) => ({ href: `/locations/${other.slug}`, label: other.name, context: "Custom cabinets in" })),
+                },
+              ]}
+              links={copy?.links ?? []}
+              manifestPath={`/locations/${city.slug}`}
+              exclude={SERVICES.map((service) => service.url)}
+            />
+          </div>
+        </Section>
+
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
             <MapPin className="h-5 w-5 text-accent mx-auto mb-3" />

@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import { InteriorPage } from '@/components/approved/InteriorLayout';
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CinematicHero } from "@/components/marketing/CinematicHero";
@@ -109,7 +110,7 @@ export default function WarrantyPage() {
       <div className="flex flex-col ">
         <CinematicHero
           image={MARKETING_IMAGES.hardware}
-          alt="White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills"
+          alt={localAlt('White oak kitchen with flat-panel cabinets, black bar pulls and a long waterfall island, with tall windows facing the foothills')}
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Warranty" }]}
           eyebrow="Our promise"
           title={showLifetimeWarranty() ? <>
@@ -171,7 +172,7 @@ export default function WarrantyPage() {
 
         <PhotoBreak
           src="/images/approved/drawer-oak.webp"
-          alt="Natural oak drawer with organized utensil storage, the everyday detail the warranty covers"
+          alt={localAlt('Natural oak drawer with organized utensil storage, the everyday detail the warranty covers')}
           caption="Coverage is tied to the finishes and hardware on your approved shop drawings."
         />
 

@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectDetailStrip } from "@/components/marketing/ProjectDetailStrip";
@@ -33,7 +34,7 @@ export function CaseStudiesSection() {
                 <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-muted">
                   <Image
                     src={study.imageUrl}
-                    alt={study.imageAlt}
+                    alt={localAlt(study.imageAlt)}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover img-brand-grade"

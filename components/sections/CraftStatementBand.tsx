@@ -1,3 +1,4 @@
+import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 
@@ -27,7 +28,7 @@ export function CraftStatementBand() {
           sites' statement bands use, and it measures correctly. */}
       <Image
         src={MARKETING_IMAGES.hardware}
-        alt={ALT}
+        alt={localAlt(ALT)}
         fill
         sizes="100vw"
         className="object-cover img-brand-grade"
