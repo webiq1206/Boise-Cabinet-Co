@@ -256,9 +256,8 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 
 * No staged props in a photo: no plants, vases, bowls, baskets, fruit or
   flowers. Books on a bookshelf and clothes in a closet are the subject and are
-  fine. One picture still carries props: the homepage hero video
-  poster (`CabinetHeroVideo.tsx`). It is a frame of the video, so it needs a
-  new video from the owner, not a new still. `rooms/kitchen-walnut-mountain.webp`
+  fine. The homepage hero video and its poster carry none since 19 November
+  2026 (see "Homepage hero video" below). `rooms/kitchen-walnut-mountain.webp`
   and `collections/custom.webp` were replaced with prop-free Photo Dump
   kitchens on 19 November 2026 (same paths; the first is hashed in
   `tests/sam-image-swaps.test.ts`, and the pins were updated with it).
@@ -310,9 +309,17 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
   card on that page. The accessory product renders under
   `public/images/catalog/accessories` still show staged kitchen items; there is
   no prop-free photograph of those products in the owner's folder.
-* **Homepage hero video.** The owner's Drive holds one cabinet video, the one
-  already on the site (2026-11-05), and every scene in it has props. The poster
-  stays a frame of that video until the owner supplies a new video.
+* **Homepage hero video.** The video and poster in `public/media/cabinet`
+  are owner-approved AI footage from 19 November 2026: three stills (a white
+  oak kitchen, sage built-ins with a window seat, a white oak double vanity)
+  with a slow camera move over each and crossfades, 24 seconds, no sound, no
+  props. The poster is the first frame and its alt describes only that frame.
+  They replaced the 2026-11-05 video, whose every scene had props. They are
+  not photographs of work: never caption or describe them as a completed
+  customer job, a recent project or the team's own work, and add no qualifier
+  word either. `/media` is not cached as immutable (only `/images`,
+  `/generated` and `/downloads` are, in `next.config.js`), so the same file
+  names serve the new footage.
 * **Door style cards share one image height** (`isDoorStyleImage()` in
   `CatalogVisualCard.tsx`, 4:3 for a photograph and a diagram alike), so titles
   line up across a row.
