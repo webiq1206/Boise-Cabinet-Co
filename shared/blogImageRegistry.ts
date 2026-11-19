@@ -532,8 +532,8 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'blog',
   },
   'cabinet-project-process-guide': {
-    hero: '/images/blog/questions-to-ask-remodeling-contractor.webp',
-    alt: 'Door samples, paint chips, cabinet pulls and an elevation drawing prepared for project planning',
+    hero: '/images/blog/what-are-rta-cabinets.webp',
+    alt: 'Oak cabinet boxes clamped together during installation, with a drill on the floor',
     topicTags: ["process","guide","pillar"],
     source: 'blog',
   },
@@ -615,6 +615,5 @@ export const BLOG_ASSET_COPY_MAP: Record<string, string> = {
   'bathroom-vanity-roi-boise': '/images/gallery/gallery-bathroom-after.webp',
   'outdoor-cabinet-roi': '/images/catalog/rooms/outdoor.webp',
   'boise-cabinet-guide': '/images/areas/meridian.webp',
-  'cabinet-project-process-guide': '/images/blog/questions-to-ask-remodeling-contractor.webp',
   'cabinet-roi-guide-boise': '/images/gallery/gallery-kitchen-after.webp',
 };

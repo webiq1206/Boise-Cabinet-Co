@@ -36,6 +36,11 @@ function isProfileDiagram(src: string): boolean {
   return /\/generated\/door-styles\/|\/door-styles\/(alpha-shaker|beta-shaker|modern-shaker|three-piece)(-\d+)?\.webp$/.test(src);
 }
 
+/** Door style cards share one image height, photograph or diagram, so their titles line up. */
+function isDoorStyleImage(src: string): boolean {
+  return /\/door-styles\//.test(src);
+}
+
 export function CatalogVisualCard({
   name,
   description,
@@ -56,7 +61,7 @@ export function CatalogVisualCard({
         <CatalogImage
           src={imageSrc}
           alt={localAlt(imageAlt ?? name)}
-          aspectRatio={isProfileDiagram(imageSrc) ? "4/3" : aspectRatio}
+          aspectRatio={isDoorStyleImage(imageSrc) ? "4/3" : aspectRatio}
           className={isProfileDiagram(imageSrc) ? "rounded-none bg-[var(--color-charcoal)]" : "rounded-none"}
           imageClassName={isProfileDiagram(imageSrc) ? "object-contain" : undefined}
           sizes="(max-width: 768px) 100vw, 400px"

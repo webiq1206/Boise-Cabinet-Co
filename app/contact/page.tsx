@@ -272,7 +272,7 @@ export default function ContactPage() {
                 >
                   <a
                     href={`mailto:${SITE_CONFIG.email}`}
-                    className="tap-target max-w-full [overflow-wrap:anywhere] text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
+                    className="tap-target max-w-full [overflow-wrap:anywhere] lx-contact-email text-inherit hover:text-foreground/70 transition-colors text-left text-xl md:text-2xl"
                   >
                     {SITE_CONFIG.email}
                   </a>

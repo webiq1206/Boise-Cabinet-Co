@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getManifestLinks } from "@/lib/internal-links";
+import { distinctPictures } from "@/shared/imageIdentity";
 import { pageImage } from "./KeepExploring";
 
 interface RelatedPostCardsProps {
@@ -24,7 +25,9 @@ export function RelatedPostCards({
   title = "Related resources",
   limit = 6,
 }: RelatedPostCardsProps) {
-  const links = getManifestLinks(path).slice(0, limit);
+  // No card repeats a photograph: not the page's own, and not another card's.
+  const own = pageImage(path)?.src;
+  const links = distinctPictures(getManifestLinks(path), (link) => pageImage(link.url)?.src, own ? [own] : []).slice(0, limit);
   if (links.length === 0) return null;
   // Three or six cards fill their rows; any other count would leave one alone.
   const shown = links.length >= 6 ? links.slice(0, 6) : links.length >= 3 ? links.slice(0, 3) : links;

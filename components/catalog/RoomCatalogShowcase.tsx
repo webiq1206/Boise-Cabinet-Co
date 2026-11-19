@@ -61,7 +61,7 @@ export function RoomCatalogShowcase({
       )}
 
       {finishes.length > 0 && (
-        <div className="lx-swatch-grid grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+        <div className="lx-swatch-grid grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {finishes.map((finish) => {
             const imgs = getFinishImages(finish.slug, finish.imagePath);
             return (

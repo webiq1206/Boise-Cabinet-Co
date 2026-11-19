@@ -291,3 +291,34 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 * `docs/interior-route-audit.json` pins each interior page's metadata and
   schema code. A deliberate SEO change must update the signature in the same
   commit; it sat stale from #116 until 19 November 2026 with twelve tests red.
+
+## Fourth pass (owner, 19 November 2026)
+
+* **No picture twice among neighbours.** Pictures are compared by what they
+  show, not by file name: `shared/generated/imageIdentity.ts` (written by
+  `scripts/images/build-image-identity.mjs`, part of `npm run images:blur`)
+  holds a difference hash for every base photograph, and `samePicture()` /
+  `distinctPictures()` in `shared/imageIdentity.ts` read it. "Related
+  resources" under an article or guide (`RelatedPostCards.tsx`) drops a card
+  whose photograph is the page's own or another card's. On `/guides` and
+  `/blog`, cards within three places of each other never share a picture.
+  Guard: `tests/index-card-images.test.ts`. After adding or replacing a
+  photograph run `npm run images:blur`.
+* **Accessories hero** is the oak drawer stack
+  (`/images/blog/kitchen-cabinet-organization-ideas.webp`), not the vertical
+  divider render, which shows a utensil jar and is also the Vertical Partition
+  card on that page. The accessory product renders under
+  `public/images/catalog/accessories` still show staged kitchen items; there is
+  no prop-free photograph of those products in the owner's folder.
+* **Homepage hero video.** The owner's Drive holds one cabinet video, the one
+  already on the site (2026-11-05), and every scene in it has props. The poster
+  stays a frame of that video until the owner supplies a new video.
+* **Door style cards share one image height** (`isDoorStyleImage()` in
+  `CatalogVisualCard.tsx`, 4:3 for a photograph and a diagram alike), so titles
+  line up across a row.
+* **Tablets.** Room page finish swatches are four across from 768px
+  (`RoomCatalogShowcase.tsx`); the contact page email address is set at body
+  size between 701px and 1023px so it does not break inside the domain; the
+  guides index closes with its own bottom padding. A full-page capture shows
+  the sticky header row and the bottom bar part way down the page and leaves
+  sticky side columns at the top: judge those from viewport captures.
