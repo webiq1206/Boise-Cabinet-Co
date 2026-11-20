@@ -165,7 +165,7 @@ export default async function BlogCategoryHubPage(
         <div className="container px-4 max-w-6xl mx-auto">
           <Link
             href="/blog"
-            className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block"
+            className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-flex min-h-11 items-center"
           >
             ← Back to blog
           </Link>

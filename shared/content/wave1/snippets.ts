@@ -24,7 +24,10 @@ export function buildSectionsHtml(sections: ContentSection[]): string {
     .map((s) => {
       let block = `<h2>${s.h2}</h2>`;
       for (const p of s.paragraphs) {
-        block += `<p>${p}</p>`;
+        // A paragraph that is only a row of links ("Catalog · Cost guide.") gets
+        // 44px tap targets on touch screens (app/interior-refinement.css).
+        const linkRow = /^(?:<a [^>]+>[^<]+<\/a>(?: · )?)+\.?$/.test(p);
+        block += linkRow ? `<p class="lx-link-row">${p}</p>` : `<p>${p}</p>`;
       }
       if (s.list?.length) {
         block += `<ul>${s.list.map((li) => `<li>${li}</li>`).join('')}</ul>`;

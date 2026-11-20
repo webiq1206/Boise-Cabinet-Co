@@ -64,11 +64,11 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
         <div className="container px-4 max-w-6xl mx-auto">
           <Link
             href="/blog"
-            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 mb-6"
+            className="inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 mb-6"
             data-testid="link-back-to-blog"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Blog
+            Back to blog
           </Link>
 
           <header className="interior-article-header lx-article-header">

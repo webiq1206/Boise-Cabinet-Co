@@ -319,7 +319,7 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                       {CTA_INSTANT_ESTIMATE} <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
-                  <Link href={CTA_QUOTE_HREF} className="text-sm text-foreground underline underline-offset-2 hover:text-accent">
+                  <Link href={CTA_QUOTE_HREF} className="inline-flex min-h-11 items-center text-sm text-foreground underline underline-offset-2 hover:text-accent">
                     {CTA_ESTIMATE}
                   </Link>
                 </div>
