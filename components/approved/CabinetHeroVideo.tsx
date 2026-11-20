@@ -14,7 +14,28 @@ export function CabinetHeroVideo() {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  useEffect(() => { setReady(true); }, []);
+  // The video mounts once the page has loaded and the browser is idle (SEO audit
+  // CAB-S7, 20 November 2026): the poster is the largest paint, and starting a
+  // 3 to 10 MB download during the first render delayed it on phones. The video,
+  // its sources and its autoplay behaviour are unchanged.
+  useEffect(() => {
+    let cancelled = false;
+    let idle: number | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const start = () => { if (!cancelled) setReady(true); };
+    const whenIdle = () => {
+      if (typeof window.requestIdleCallback === 'function') idle = window.requestIdleCallback(start, { timeout: 2000 });
+      else timer = setTimeout(start, 200);
+    };
+    if (document.readyState === 'complete') whenIdle();
+    else window.addEventListener('load', whenIdle, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener('load', whenIdle);
+      if (idle !== undefined && typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(idle);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const element = video.current;

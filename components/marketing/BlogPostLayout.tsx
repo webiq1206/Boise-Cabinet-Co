@@ -83,7 +83,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               <span>{readingTime} min read</span>
               <ArticleByline />
             </p>
-          </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
+          </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)} priority/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 
           <GuideJumpChips headings={tocHeadings} />
 
