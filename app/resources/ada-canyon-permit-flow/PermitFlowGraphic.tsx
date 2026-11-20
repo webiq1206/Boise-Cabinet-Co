@@ -69,7 +69,7 @@ export function PermitFlowGraphic() {
     <div className="space-y-10" data-testid="permit-flow-graphic">
       <div>
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          When trade work is part of the install: the permit path
+          Permit path for trade work
         </h2>
         <div className="ed-cards-4 gap-3">
           {STEPS.map((step, i) => (
