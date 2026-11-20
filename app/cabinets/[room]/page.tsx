@@ -300,6 +300,18 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
                 selections and project details are finalized.
               </p>
               )}
+              {room.slug === "outdoor" ? (
+                // Cross-brand ownership (SEO audit, portfolio 1.5): this page owns
+                // outdoor kitchen cabinets; Boise Remodeling Co owns the project.
+                <p className="text-sm text-muted-foreground mb-4">
+                  Planning the whole patio, with gas, power and counters? Our sister company covers the
+                  project in its guide to an{" "}
+                  <a href="https://boiseremodeling.co/blog/outdoor-kitchens-boise" className="underline underline-offset-2">
+                    outdoor kitchen in Boise
+                  </a>
+                  .
+                </p>
+              ) : null}
               {estimatorProject ? (
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
                   <Button variant="brandOutline" asChild>

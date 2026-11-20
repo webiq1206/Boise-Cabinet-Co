@@ -76,7 +76,7 @@ export const BATHROOM_PILLAR = buildPillarGuide({
   seoTitle: 'Boise Bathroom Vanity Guide | Treasure Valley',
   metaDescription:
     'Master and guest bath vanity cabinets in Boise: layouts, storage, finishes, aging-in-place, and local installation.',
-  excerpt: 'Complete bathroom vanity cabinet guide for Treasure Valley homeowners.',
+  excerpt: 'Most guest baths take a single 36 to 48-inch vanity and most primary baths a 60 to 72-plus inch double, and size, storage and finish level then set what the vanity costs.',
   hubSlug: 'bathroom-vanities',
   tags: ['bathroom', 'vanity', 'cabinets'],
   quickAnswer:
@@ -389,7 +389,7 @@ export const ROI_PILLAR = buildPillarGuide({
   title: 'Best cabinet upgrades for ROI in Boise',
   seoTitle: 'Cabinet ROI Boise | Treasure Valley',
   metaDescription: 'Which cabinet upgrades return value in Boise, Meridian, and Eagle resale markets.',
-  excerpt: 'ROI-focused cabinet guidance for Treasure Valley homeowners.',
+  excerpt: 'Cabinets that return value at resale in Boise are the ones buyers see first: current door styles and finishes, drawer storage and an island that fits the room.',
   hubSlug: 'cabinet-roi',
   tags: ['roi', 'cabinets', 'value'],
   quickAnswer:
