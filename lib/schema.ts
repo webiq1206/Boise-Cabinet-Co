@@ -389,10 +389,9 @@ export function generateArticleSchema(article: {
     },
     datePublished: article.publishedAt,
     dateModified: article.updatedAt ?? article.publishedAt,
-    author: {
-      '@type': 'Organization',
-      name: BUSINESS_INFO.name,
-    },
+    // Owner answers, 20 November 2026: Nick Perkins, founder of P5 Home Co, is
+    // the author of every article and guide; the brand stays the publisher.
+    author: { ...founderPerson(), url: ARTICLE_AUTHOR_URL },
     publisher: {
       '@type': 'Organization',
       name: BUSINESS_INFO.name,

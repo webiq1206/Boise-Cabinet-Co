@@ -1,4 +1,5 @@
 import { localAlt } from '@/shared/localAlt';
+import { ArticleByline } from './ArticleByline';
 import { ShareBar } from '@/components/blog/ShareBar';
 import {
 Accordion,
@@ -80,7 +81,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
             <p className="lx-meta">
               <span>{formatDate(post.publishedAt)}</span>
               <span>{readingTime} min read</span>
-              {post.author && <span>{post.author}</span>}
+              <ArticleByline />
             </p>
           </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 

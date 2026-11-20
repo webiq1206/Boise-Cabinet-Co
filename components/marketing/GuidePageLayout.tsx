@@ -1,4 +1,5 @@
 import { localAlt } from '@/shared/localAlt';
+import { ArticleByline } from './ArticleByline';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { CatalogExploreStrip } from '@/components/catalog/CatalogExploreStrip';
 import {
@@ -17,7 +18,7 @@ import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
 import { getResourcesForGuide } from '@/shared/guideResources';
-import { publicText, showFoundingYear } from '@/shared/claims';
+import { publicText } from '@/shared/claims';
 import {
 ArrowRight,
 BookOpen,
@@ -81,12 +82,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             <p className="lx-meta">
               <span>{formatDate(guide.publishedAt)}</span>
               <span>{readingTime} min read</span>
-              {guide.author && (
-                <span>
-                  {guide.author}
-                  {showFoundingYear() && guide.author === 'Boise Cabinet Co' && ' · Treasure Valley cabinet designers since 2020'}
-                </span>
-              )}
+              <ArticleByline />
             </p>
           </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)}/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 
