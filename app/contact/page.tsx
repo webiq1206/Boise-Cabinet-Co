@@ -14,11 +14,9 @@ import { SaveContactLink } from '@/components/SaveContactLink';
 import { StatementBandSection } from '@/components/sections/StatementBandSection';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { withBrandPageMetadata } from '@/lib/brand-page-metadata';
-import { phase1ContactAnswer } from '@/lib/phase1Answers';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
 generateBreadcrumbSchema,
-generateFAQSchema,
 generateLocalBusinessSchema,
 generateWebPageSchema,
 } from '@/lib/schema';
@@ -138,7 +136,6 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
 })), "/contact");
 
 export default function ContactPage() {
-  const phaseAnswer = phase1ContactAnswer();
   const schemas = [
     generateLocalBusinessSchema(),
     generateWebPageSchema({
@@ -151,7 +148,8 @@ export default function ContactPage() {
       { name: 'Home', url: '/' },
       { name: 'Contact', url: '/contact' },
     ]),
-    generateFAQSchema(phaseAnswer.faqs),
+    // No FAQPage here: the contact page shows no question list, and FAQPage
+    // data may only name questions a visitor can see (SEO audit CAB-T2).
   ];
 
   return (
@@ -282,7 +280,7 @@ export default function ContactPage() {
                 <ContactChannel
                   icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
                   label="Where we work"
-                  subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County."
+                  subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County."
                 >
                   <address className="not-italic leading-relaxed">
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.postalCode}

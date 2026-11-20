@@ -31,9 +31,12 @@ export function FAQSection() {
           </div>
 
           <div>
+          {/* Every question shows (SEO audit CAB-T2, 20 November 2026): the
+              FAQPage data in HomePageSchema is built from this same list, so
+              it may only name questions a visitor can see without a click. */}
           <FaqAccordion
             faqs={faqs}
-            initialCount={6}
+            initialCount={faqs.length}
             idPrefix="faq"
             itemClassName="border-0 border-t [border-color:var(--ed-line)]"
             triggerClassName="ed-h4 py-6 text-left hover:no-underline [&[data-state=open]]:underline [&[data-state=open]]:underline-offset-4"

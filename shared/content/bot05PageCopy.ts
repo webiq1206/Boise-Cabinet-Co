@@ -27,7 +27,7 @@ const BUILD_FAQ: Bot05Faq = {
 };
 
 const BOISE_FAQS: Bot05Faq[] = [
-  BUILD_FAQ,
+  { question: "Do you build custom cabinets in Boise?", answer: BUILD_CABINETS_ANSWER },
   {
     question: "What areas do you serve?",
     answer:
@@ -177,7 +177,7 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
       {
         heading: "Cities we serve",
         paragraphs: [
-          `Our service area is ${SERVICE_AREA_LIST}. Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star each have a city page with local planning notes.`,
+          `Our service area is ${SERVICE_AREA_LIST}. Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton each have a city page with local planning notes.`,
         ],
       },
       {

@@ -378,7 +378,9 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   />
                 </div>
                 <div>
-                  <FaqAccordion faqs={visibleFaqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+                  {/* All questions show: the FAQPage data above is built from
+                      this list, and may only name questions on the page. */}
+                  <FaqAccordion faqs={visibleFaqs} initialCount={visibleFaqs.length} idPrefix={`faq-${city.slug}`} />
                 </div>
               </div>
             </div>

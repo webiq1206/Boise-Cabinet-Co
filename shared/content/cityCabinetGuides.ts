@@ -91,9 +91,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build cabinets?',
+        question: 'Do you build custom cabinets in Meridian?',
         answer:
-          'No. We source and install.',
+          'Yes. We design, source, and install custom cabinets for Meridian homes, most often upgrading builder-grade kitchens in subdivisions like Paramount and Tuscany.',
       },
       {
         question: 'How much do kitchen cabinets cost in Meridian?',
@@ -414,9 +414,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build cabinets?',
+        question: 'Do you build custom cabinets in Kuna?',
         answer:
-          'No. We source and install.',
+          'Yes. We design, source, and install custom cabinets for Kuna homes, including upgrades to newer builder-grade kitchens.',
       },
       {
         question: 'How much do kitchen cabinets cost in Kuna?',
@@ -725,9 +725,9 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     ],
     faqs: [
       {
-        question: 'Do you build cabinets?',
+        question: 'Do you build custom cabinets in Middleton?',
         answer:
-          'No. We source and install.',
+          'Yes. We design, source, and install custom cabinets for Middleton homes, from in-town lots to acreage properties.',
       },
       {
         question: 'How much do kitchen cabinets cost in Middleton?',
@@ -747,7 +747,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Is Middleton inside your standard service area?',
         answer:
-          'Our service area is Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.',
+          'Yes. Our service area is Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.',
       },
       {
         question: 'How long does a Middleton cabinet project take?',
