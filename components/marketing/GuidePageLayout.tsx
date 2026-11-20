@@ -18,7 +18,7 @@ import { getBlogHeroImage,getBlogImageAlt } from '@/shared/blogImages';
 import { CATEGORY_HUB_MIN_POSTS,categoryHubPath,getClustersForHub,getHubBySlug,guidePath } from '@/shared/contentHubs';
 import type { GuidePageData } from '@/shared/guideContent';
 import { getResourcesForGuide } from '@/shared/guideResources';
-import { publicText } from '@/shared/claims';
+import { publicText, showFoundingYear } from '@/shared/claims';
 import {
 ArrowRight,
 BookOpen,
@@ -83,6 +83,9 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
               <span>{formatDate(guide.publishedAt)}</span>
               <span>{readingTime} min read</span>
               <ArticleByline />
+              {showFoundingYear() && guide.author === 'Boise Cabinet Co' && (
+                <span>Treasure Valley cabinet designers since 2020</span>
+              )}
             </p>
           </header><BlogHeroBanner src={heroImage} alt={localAlt(heroAlt)} priority/><p className="text-sm text-muted-foreground mb-8">{heroCaption}</p>
 

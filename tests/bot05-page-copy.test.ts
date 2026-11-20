@@ -49,7 +49,8 @@ test("BOT-05 customer build answer is exact and deposit wording is locked", () =
     assert.equal(answer, BUILD_CABINETS_ANSWER);
   }
   assert.equal(
-    BOT05_LOCATIONS.boise.faqs?.find((faq) => faq.question === "Do you build cabinets?")?.answer,
+    // City form of the question since 20 November 2026 (SEO audit CAB-T5); same answer.
+    BOT05_LOCATIONS.boise.faqs?.find((faq) => faq.question === "Do you build custom cabinets in Boise?")?.answer,
     BUILD_CABINETS_ANSWER,
   );
   const steps = [
