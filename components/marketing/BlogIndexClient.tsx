@@ -213,6 +213,21 @@ export function BlogIndexClient({ posts }: { posts: BlogCardPost[] }) {
                         <BlogCard key={post.slug} post={post} formatDate={formatDate} />
                       ))}
                     </div>
+                    {/* Every post is linked in the server HTML (SEO audit CAB-T11):
+                        the cards not shown yet sit in this hidden list, so a
+                        crawler reaches all of them from /blog while "Load more"
+                        keeps revealing cards in batches. */}
+                    {rest.length > visibleCount && (
+                      <ul hidden data-testid="blog-more-links">
+                        {rest.slice(visibleCount).map((post) => (
+                          <li key={post.slug}>
+                            <Link href={`/blog/${post.slug}`} prefetch={false}>
+                              {post.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     {rest.length > visibleCount && (
                       <div className="mt-10 flex flex-col items-center gap-3">
                         <p className="text-sm text-muted-foreground">
