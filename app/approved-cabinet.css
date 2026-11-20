@@ -567,3 +567,7 @@
   margin-top:.35em;
   color:var(--color-charcoal);
 }
+/* The parent company's Google reviews link under the instant estimate band (owner answers,
+   20 November 2026). Small text in charcoal, never the accent; a 44px tap target. */
+.cabinet-approved .estimate-band .estimate-reviews{margin:12px 0 0;font-size:14px}
+.cabinet-approved .estimate-band .estimate-reviews a{display:inline-flex;align-items:center;min-height:44px;color:#383837;text-decoration:underline;text-underline-offset:4px}

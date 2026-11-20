@@ -98,7 +98,9 @@ test("public contacts retain locality facts and do not keep a street", () => {
   // Business Profile (owner call A): on the parent node only, never in this
   // brand's own sameAs.
   assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, [
-    "https://www.facebook.com/1228704823655951",
+    // Owner answers, 20 November 2026: the vanity Facebook URL and the Instagram account.
+    "https://www.facebook.com/p5homeco",
+    "https://www.instagram.com/p5_home_co",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
   ]);
   for (const own of [home.sameAs, organization.sameAs ?? []]) {

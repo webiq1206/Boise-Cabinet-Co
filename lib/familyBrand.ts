@@ -17,6 +17,7 @@ import { FOOTER_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, PUBLIC_HOURS_LINE } f
 import { SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL } from '@/shared/parentProfiles';
 
 /** The approved October 28 outlined lockups (public/brand), 339 x 50 artwork. */
 const LOCKUP = { width: 339, height: 50 };
@@ -27,8 +28,8 @@ const LOCKUP = { width: 339, height: 50 };
  * sameAs in lib/schema.ts, never in this brand's own; the footer links them as
  * the parent company's profiles.
  */
-export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
-export const P5_GOOGLE_PROFILE_URL = 'https://www.google.com/search?kgmid=/g/11ntl1t7dc';
+export { P5_FACEBOOK_URL } from '@/shared/parentProfiles';
+export const P5_GOOGLE_PROFILE_URL = P5_GOOGLE_BUSINESS_PROFILE_URL;
 
 /** Same path as BUSINESS_VCARD_PATH in lib/vcard.ts (that module pulls in the SEO data). */
 const VCARD_PATH = '/contact.vcf';

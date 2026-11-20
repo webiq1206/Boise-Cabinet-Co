@@ -7,6 +7,7 @@ import {ArrowUpRight,Check} from 'lucide-react';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/components/ui/accordion';
 import {FAQSection} from '@/components/FAQSection';
+import { P5_GOOGLE_BUSINESS_PROFILE_URL } from '@/shared/parentProfiles';
 import {DOOR_STYLES} from '@/shared/catalog/generated/doorStyles';
 import { CABINET_WORKMANSHIP_WARRANTY, IDAHO_REGISTERED_CONTRACTOR, MANUFACTURER_WARRANTY_PASS_THROUGH } from '@/shared/claims';
 import { CTA_INSTANT_ESTIMATE, CTA_QUOTE_HREF, CTA_REQUEST_QUOTE, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
@@ -77,6 +78,9 @@ export function ApprovedHome({reviews=null,homeFinishes=[]}:{reviews?: ReactNode
     <ul>{ESTIMATE_BENEFITS.map((benefit)=><li key={benefit}><Check size={16} aria-hidden="true"/><span>{benefit}</span></li>)}</ul>
     <FamilyButton href={INSTANT_ESTIMATE_HREF} data-cta="instant-estimate" variant="primary" size="lg">{CTA_INSTANT_ESTIMATE}</FamilyButton>
     <a className="text-link estimate-secondary" href={CTA_QUOTE_HREF}>{CTA_REQUEST_QUOTE} <ArrowUpRight size={18}/></a>
+    {/* Owner answers, 20 November 2026: Boise Cabinet Co has no Google profile of its own; the
+        family's reviews are on P5 Home Co's. No review is quoted here (neither is about cabinets). */}
+    <p className="estimate-reviews"><a href={P5_GOOGLE_BUSINESS_PROFILE_URL} target="_blank" rel="noopener" data-testid="link-parent-reviews">Reviews of our parent company, P5 Home Co, on Google</a></p>
    </div>
   </section>
   <section id="cabinetry" className="section wrap room-editorial">
