@@ -5,7 +5,7 @@ test.describe.configure({ timeout: 120_000 });
 
 const PAGES = [
   { path: "/cabinets/kitchen", headline: "Kitchen cabinets in Boise, Idaho" },
-  { path: "/cabinets/built-ins", headline: "Built-In cabinets" },
+  { path: "/cabinets/built-ins", headline: "Built-in cabinets" },
   { path: "/cabinets", headline: "Cabinets by room" },
   { path: "/estimate", headline: "Request a cabinet quote" },
 ] as const;

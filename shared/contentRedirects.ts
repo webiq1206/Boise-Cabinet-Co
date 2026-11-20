@@ -122,10 +122,12 @@ export const CATEGORY_REDIRECTS: Record<string, string> = {
   '/blog/category/home-additions': '/blog/category/built-ins-storage',
   '/blog/category/whole-home-remodeling': '/blog/category/whole-home-cabinetry',
   '/blog/category/contractor-selection': '/blog/category/choosing-cabinet-company',
-  '/blog/category/remodeling-process': '/blog/category/cabinet-project-process',
+  // Straight to /blog: cabinet-project-process has no posts and redirects there (CAB-S5).
+  '/blog/category/remodeling-process': '/blog',
   '/blog/category/remodeling-roi': '/blog/category/cabinet-roi',
   '/blog/category/outdoor-living': '/blog/category/built-ins-storage',
-  '/blog/category/treasure-valley-locations': '/blog/category/local-guides',
+  // Straight to /blog: local-guides has no posts and redirects there (CAB-S5).
+  '/blog/category/treasure-valley-locations': '/blog',
 };
 
 /**

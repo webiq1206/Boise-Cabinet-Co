@@ -21,9 +21,9 @@ import Link from "next/link";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/accessories",
-  "Cabinet Accessories",
+  "Cabinet Accessories and Pull-Outs",
   catalogDescription(
-    "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. Accessory families for interior upgrades.",
+    "Cabinet accessories from {company}: roll-out trays, trash pull-outs, lazy susans and blind corner pull-outs, chosen during your free design visit.",
   ),
 ),
   // Explicit self canonical in the page file, so a change to the metadata

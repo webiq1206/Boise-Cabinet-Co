@@ -7,7 +7,7 @@
   {
     "route": "/accessories",
     "file": "app/accessories/page.tsx",
-    "seoSignature": "3cbae8672b7d782373f620a6e116b8b196821f5906c0d186ae64e95a47e97436"
+    "seoSignature": "96ed21260662936d9b44468ba708a673de25d4ce7a24daebb63dd4992ed95baf"
   },
   {
     "route": "/blog/[slug]",
@@ -17,7 +17,7 @@
   {
     "route": "/blog/category/[hubSlug]",
     "file": "app/blog/category/[hubSlug]/page.tsx",
-    "seoSignature": "eff27d14f95bfd3ef674d3c440be3f0019d13813ed6d3851fcfef5b4d948e1d3"
+    "seoSignature": "7d5ecc0b23aa6269855c2b7ee68e1a7fcc9583753728c042fa609fff959c0fcf"
   },
   {
     "route": "/blog",
@@ -42,12 +42,12 @@
   {
     "route": "/catalog",
     "file": "app/catalog/page.tsx",
-    "seoSignature": "de296d9109ffca986f7e4fc99fd1983ddf8cd687ddac8bfa9e6b0041f2805b6f"
+    "seoSignature": "bc6602d926160b5e76fc43adaf5acd9f49047c8a4aeb8055160cd47500a17437"
   },
   {
     "route": "/catalog/door-visualizer",
     "file": "app/catalog/door-visualizer/page.tsx",
-    "seoSignature": "6649db4a073cff0de15758ce4f9e64316b400a4c5cf3b445eb74a5eff6c712c6"
+    "seoSignature": "9dd867953f8cd17c480352401cd50f88baa5981a8a5a27987f416dc033b13070"
   },
   {
     "route": "/compare",
@@ -57,12 +57,12 @@
   {
     "route": "/construction",
     "file": "app/construction/page.tsx",
-    "seoSignature": "fe26a8db7e59ed2522c42bc77a479ddb321a1c30c543c804ffe546b77ba6ad0d"
+    "seoSignature": "16985da28977a44e06682173e1aabd3681fbb56319dc2b8cb85cf6c0d54c76cf"
   },
   {
     "route": "/contact",
     "file": "app/contact/page.tsx",
-    "seoSignature": "31494bf864608c741747fbfd16a9326a4c56ff18960cca5ba446cec053e4c9f6"
+    "seoSignature": "e8e85dc5dedbaf0eca9f1d094e6185eea6319657a123d900db1726876f41f050"
   },
   {
     "route": "/guides/[slug]",
@@ -77,7 +77,7 @@
   {
     "route": "/locations/[city]",
     "file": "app/locations/[city]/page.tsx",
-    "seoSignature": "7bba2366fdafc9362f22b175a0f458a92757d6bc3bc70fe3499651399964d0e9"
+    "seoSignature": "421339e77cc29bdb2d0c5e8036557f2e1548aa6019d4a812665d0eba3a7b3ce6"
   },
   {
     "route": "/privacy-policy",
@@ -87,7 +87,7 @@
   {
     "route": "/resources/ada-canyon-permit-flow",
     "file": "app/resources/ada-canyon-permit-flow/page.tsx",
-    "seoSignature": "e029425f15652082e2f7af74f4197e37425f837c3fa3183d0dc3eb7ed4d24b8e"
+    "seoSignature": "6a689b442a647d2f08ad606e49d7cbf474ff7c8859605523b53e3185963a511e"
   },
   {
     "route": "/resources",
@@ -102,12 +102,12 @@
   {
     "route": "/services/cabinet-installation",
     "file": "app/services/cabinet-installation/page.tsx",
-    "seoSignature": "095d966d68b8700f430175cacc155a4a1c608e4a384618bff91f874036a2d6e6"
+    "seoSignature": "8783fe0609a9ee6036d3fc4a87bcd89265c294b68f3a6dbcec8a4b2c66b262a4"
   },
   {
     "route": "/shaker-cabinets",
     "file": "app/shaker-cabinets/page.tsx",
-    "seoSignature": "a32b608698296e80130e9af6b1e809fc68224c9a2200fa1377f9528d68c7c8d4"
+    "seoSignature": "91d2fc99d3bd2138edd1eafdf863b8453d2a1f9dccc0c1311c054011769ef545"
   },
   {
     "route": "/sitemap",

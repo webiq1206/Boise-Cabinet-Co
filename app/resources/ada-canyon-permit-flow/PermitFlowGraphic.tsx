@@ -69,7 +69,7 @@ export function PermitFlowGraphic() {
     <div className="space-y-10" data-testid="permit-flow-graphic">
       <div>
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          Typical permit path
+          Permit path for trade work
         </h2>
         <div className="ed-cards-4 gap-3">
           {STEPS.map((step, i) => (
@@ -95,7 +95,7 @@ export function PermitFlowGraphic() {
           <CountyColumn
             title="Ada County"
             subtitle="Most Boise metro cabinet projects"
-            cities={['Boise', 'Meridian', 'Eagle', 'Kuna', 'Star']}
+            cities={['Boise', 'Meridian', 'Eagle', 'Garden City', 'Kuna', 'Star']}
             accentClass="border-accent/40 bg-accent/5"
           />
           <CountyColumn
@@ -113,7 +113,6 @@ export function PermitFlowGraphic() {
           <span>Wall removal / beams</span>
           <span>Plumbing relocations</span>
           <span>Panel or circuit additions</span>
-          <span>Additions & ADUs</span>
         </div>
         <h2 className="text-sm font-medium text-foreground mt-5 mb-3">Often minimal review</h2>
         <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-muted-foreground">

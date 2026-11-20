@@ -140,6 +140,7 @@ const boiseSections: ContentSection[] = [
     paragraphs: [
       // Brochure quote: https://www.cityofboise.org/media/4932/pds-residentialconstructionbrochure-2023.pdf
       'Usually not for the cabinets themselves. The City of Boise\'s residential permit brochure says the building code exempts interior work such as painting, floor covering, cabinets, counter tops and wall coverings. A permit comes into play when the work opens walls down to the studs, adds a wall or partition (bearing or not), or relocates sinks and other plumbing fixtures. Property inside city limits goes through the city; confirm the jurisdiction for the actual address first. <a href="https://www.cityofboise.org/departments/planning-and-development-services/building/building-permits/">Boise\'s building permit pages</a> have the details, and our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows where permits fit in the schedule.',
+      'For Ada and Canyon County side by side, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
     ],
   },
   {
@@ -157,7 +158,7 @@ export const TREASURE_VALLEY_GUIDE_HTML = expandLocation(
 export const BOISE_GUIDE_HTML = expandLocation(buildSectionsHtml(boiseSections), 'boise-cabinet-guide');
 
 export const TV_QUICK_ANSWER =
-  'Boise Cabinet Co designs, builds, and installs custom cabinets in Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. Start with the catalog and the cabinet cost guide, then request a quote when the layout is ready.';
+  'Boise Cabinet Co designs, builds, and installs custom cabinets in Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County. Start with the catalog and the cabinet cost guide, then request a quote when the layout is ready.';
 
 // About 42% of Boise city housing units were built before 1980, which the copy rounds to two in five. ACS 2020-2024 table B25034:
 // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1608830
@@ -165,7 +166,7 @@ export const BOISE_QUICK_ANSWER =
   'Boise spans the North End, the Bench, Harris Ranch and East Boise, and each one asks something different of a cabinet layout. It also has the oldest housing we work in, with roughly two in five homes dating from before 1980 according to Census ACS 2020–2024 estimates. Before your consultation, browse the kitchen and bath catalog pages and our cabinet cost guide.';
 
 export const TV_TAKEAWAYS = [
-  'Seven cities, plus Ada County and Canyon County.',
+  'Nine cities, plus Ada County and Canyon County.',
   'Catalog covers kitchen, bath, mudroom, built-ins, and more.',
   'Use the cabinet cost guide for planning bands.',
 ];

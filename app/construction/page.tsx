@@ -51,7 +51,7 @@ export const metadata = withBrandPageMetadata({
   "/construction",
   "How our cabinets are built",
   catalogDescription(
-    "How {company} builds custom cabinets: frameless options, plywood sides and drawers, soft-close hardware, and professional installation in the Treasure Valley.",
+    "Frameless cabinet construction from {company}: plywood boxes and drawers, soft-close hardware, built to order and installed in the Treasure Valley.",
   ),
 ),
   // Explicit self canonical in the page file, so a change to the metadata

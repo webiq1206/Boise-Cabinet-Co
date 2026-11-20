@@ -32,7 +32,7 @@ import Link from "next/link";
 
 const TITLE = "Instant Cabinet Estimate in Boise";
 const DESCRIPTION =
-  "Get an instant preliminary cabinet estimate from {company}. Answer a few questions about your kitchen, vanity or built-ins and see a price range on screen. Free, any time.";
+  "Get an instant cabinet estimate: answer a few questions about your kitchen, vanity or built-ins and see a preliminary price range on screen. Free, any time.";
 
 /**
  * The family sticky header is 64px tall on phones and 76px from 640px up

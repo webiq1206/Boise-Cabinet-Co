@@ -40,14 +40,14 @@ export const P5_ORG_ID = `${P5_ORIGIN}/#organization`;
  * sameAs (lib/seo.ts BUSINESS_INFO.sameAs): Boise Cabinet Co has no profile
  * of its own.
  */
-export const P5_FACEBOOK_URL = 'https://www.facebook.com/1228704823655951';
-export const P5_GOOGLE_BUSINESS_PROFILE_URL = 'https://www.google.com/search?kgmid=/g/11ntl1t7dc';
+export { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from '@/shared/parentProfiles';
+import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from '@/shared/parentProfiles';
 export const P5_PARENT_ORGANIZATION = {
   '@type': 'Organization',
   '@id': P5_ORG_ID,
   name: 'P5 Home Co',
   url: P5_ORIGIN,
-  sameAs: [P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL],
+  sameAs: [P5_FACEBOOK_URL, P5_INSTAGRAM_URL, P5_GOOGLE_BUSINESS_PROFILE_URL],
 } as const;
 
 /**
@@ -100,6 +100,9 @@ const P5_PERSON_ID = `${P5_ORIGIN}/#nick-perkins`;
 /** Schema telephone is E.164. Visible pages keep (208) 477-1169. */
 const SCHEMA_TELEPHONE = '+1-208-477-1169';
 
+/** Where the article byline links: Nick Perkins on P5 Home Co's about page. */
+export const ARTICLE_AUTHOR_URL = 'https://p5homeco.com/about';
+
 function founderPerson() {
   return {
     '@type': 'Person' as const,
@@ -123,7 +126,7 @@ function publicContactPoint() {
 }
 
 /**
- * Published service area: seven cities, then Ada County and Canyon County.
+ * Published service area: nine cities, then Ada County and Canyon County.
  * A page about a town outside that list does not add the town to areaServed.
  */
 function areasServed() {
@@ -386,10 +389,9 @@ export function generateArticleSchema(article: {
     },
     datePublished: article.publishedAt,
     dateModified: article.updatedAt ?? article.publishedAt,
-    author: {
-      '@type': 'Organization',
-      name: BUSINESS_INFO.name,
-    },
+    // Owner answers, 20 November 2026: Nick Perkins, founder of P5 Home Co, is
+    // the author of every article and guide; the brand stays the publisher.
+    author: { ...founderPerson(), url: ARTICLE_AUTHOR_URL },
     publisher: {
       '@type': 'Organization',
       name: BUSINESS_INFO.name,

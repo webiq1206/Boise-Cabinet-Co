@@ -13,9 +13,10 @@ import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/estimate",
-  "Cabinet Estimate in Boise | Free Consult",
+  // Its own search, distinct from /instant-estimate (SEO audit, owner decision 6).
+  "Cabinet Quote Boise | Free Design Visit",
   catalogDescription(
-    "Cabinet estimate in Boise: share your kitchen, bath or built-in project and photos for team review, then book a free in-home design consultation.",
+    "Request a cabinet quote in Boise: share your kitchen, vanity or built-in project and photos, and we plan a free in-home design visit with you.",
   ),
 ),
   // Explicit self canonical in the page file, so a change to the metadata
@@ -53,14 +54,12 @@ export default function EstimatePage() {
           header this page does not have (its brand header above is in flow), which
           pushed the first field under the docked send button at 320x568. */}
       <section data-p5-hero className="mx-auto w-full max-w-3xl px-6 pb-8 pt-0">
-        {/* The keyword line sits inside the H1 as a small eyebrow, so the heading
-            names the page ("Boise cabinet estimate") while the first-screen headline
-            uses the site's one primary action wording, "Request a cabinet quote"
-            (owner call, 2026-11-01). The title tag and description keep the search
-            terms. The H1 is the form's heading, so the form shows no second one. */}
-        <h1 className="mt-4 text-3xl font-serif">
-          <span className="mb-1 block font-sans text-sm uppercase tracking-[0.06em] text-muted-foreground">Boise cabinet estimate</span>
-          Request a cabinet quote</h1>
+        {/* One label in the H1 (SEO audit, owner decision 6, 20 November 2026):
+            "Request a cabinet quote", the page's own search, distinct from the
+            instant estimate. The old "Boise cabinet estimate" eyebrow inside the
+            H1 read as a second label. The H1 is the form's heading, so the form
+            shows no second one. */}
+        <h1 className="mt-4 text-3xl font-serif">Request a cabinet quote</h1>
         <AboveFoldActions />
         <div id="estimate-request" tabIndex={-1} className="mt-3 scroll-mt-28">
           {/* The call and text line above already shows the number, so the form's

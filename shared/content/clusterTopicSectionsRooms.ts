@@ -115,6 +115,19 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'Ultra-trendy colors on the full kitchen age fastest. If you want a bold color, put it on the island or a bar zone where refinishing later is a small project, and keep the perimeter timeless.',
       ],
     },
+    {
+      h2: 'Where these trends sit in our catalog',
+      paragraphs: [
+        'Every trend above maps to something you can order. Our catalog holds six door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker and Beta Shaker. Its 299 finishes come in three families: 55 matte, 53 gloss and 191 woodgrain. The warm neutrals sit in the matte family (Snow White, Breeze Beige and greens such as Macaron Green), and the woodgrain family holds the oaks and walnuts people pair with a painted perimeter on an island.',
+        'Try any finish on any door style in the <a href="/catalog/door-visualizer">door visualizer</a>, or browse the <a href="/catalog">full catalog</a>.',
+      ],
+    },
+    {
+      h2: 'Planning the whole kitchen remodel?',
+      paragraphs: [
+        'Cabinets are one part of a kitchen. For layout, counters, lighting and the rest of the remodel, our sister company covers <a href="https://boiseremodeling.co/blog/kitchen-cabinet-trends-boise">kitchen remodel design choices in Boise</a>.',
+      ],
+    },
   ],
   'kitchen-island-design-guide': [
     {
@@ -335,7 +348,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Designing around grill and appliances',
       paragraphs: [
         'Grills, side burners, outdoor refrigeration, and sinks each carry clearance and ventilation specs. We build cabinet runs around confirmed appliance models so cutouts, heat shielding, and gas and water lines land correctly.',
-        'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> for entertaining zones.',
+        'See <a href="/cabinets/outdoor">outdoor kitchen cabinets</a> for entertaining zones. For the rest of the project (patio, gas, power and counters), Boise Remodeling Co covers the <a href="https://boiseremodeling.co/blog/outdoor-kitchens-boise">outdoor kitchen in Boise</a>.',
       ],
     },
     {

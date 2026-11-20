@@ -4,6 +4,13 @@
  *
  * Town pages outside this list stay published and in the sitemap. They are
  * not part of the service area and do not belong in nav or town lists.
+ *
+ * Owner decisions, 20 November 2026 (SEO audit): the official list is nine
+ * cities. Middleton (on the P5 Home Co profile, with a published page) and
+ * Garden City (added by the owner) joined the seven. SERVICE_AREA_SLUGS lists
+ * only the cities with a location page here, because it drives links (the
+ * footer area row); Garden City has no Cabinet page, so it appears in written
+ * lists, areaServed and llms.txt but not as a footer link.
  */
 
 export const SERVICE_AREA_CITY_NAMES = [
@@ -14,6 +21,8 @@ export const SERVICE_AREA_CITY_NAMES = [
   "Kuna",
   "Caldwell",
   "Star",
+  "Middleton",
+  "Garden City",
 ] as const;
 
 export const SERVICE_AREA_SLUGS = [
@@ -24,6 +33,7 @@ export const SERVICE_AREA_SLUGS = [
   "kuna",
   "caldwell",
   "star",
+  "middleton",
 ] as const;
 
 export const SERVICE_AREA_COUNTY_NAMES = ["Ada County", "Canyon County"] as const;
@@ -34,7 +44,7 @@ export function joinWithAnd(items: readonly string[]): string {
   return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
 }
 
-/** "Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star" */
+/** "Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City" */
 export const SERVICE_AREA_CITY_LIST = joinWithAnd(SERVICE_AREA_CITY_NAMES);
 
 /** Cities, then both counties. */

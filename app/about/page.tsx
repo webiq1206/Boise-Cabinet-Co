@@ -32,7 +32,7 @@ const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.';
 
 const SPEAKABLE_SUMMARY =
-  'Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. Nick Perkins designs cabinets to your measurements, builds each order to order, and installs with a Treasure Valley crew.';
+  'Boise Cabinet Co is a custom cabinet company in Meridian, Idaho, and one of the four companies of P5 Home Co. Nick Perkins designs cabinets to your measurements, builds each order to your layout, and installs with a Treasure Valley crew.';
 
 function HeroBreadcrumbs() {
   const items = [
@@ -86,7 +86,7 @@ export default function AboutPage() {
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
-      answer: `We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County. Design consultations happen in your home by appointment.`,
+      answer: `We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County. Design consultations happen in your home by appointment.`,
     },
     {
       question: `How do design consultations work?`,

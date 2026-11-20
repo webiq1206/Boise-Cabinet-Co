@@ -71,7 +71,7 @@ export async function generateMetadata(props: { params: Promise<{ city: string }
     cityName: city.name,
     citySlug: city.slug,
     titleOverride: copy?.title ?? `Custom Cabinets in ${city.name}, Idaho`,
-    descriptionOverride: copy?.description ?? guide?.metaDescription ?? `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed by ${SITE_CONFIG.name} for ${city.name} homeowners in ${getCountyLabel(city.county)}.`,
+    descriptionOverride: copy?.description ?? guide?.metaDescription ?? `Custom cabinets in ${city.name}, Idaho: kitchen cabinets, bathroom vanities and built-in storage designed, built and installed by ${SITE_CONFIG.name} in ${getCountyLabel(city.county)}.`,
   })), "/locations/[city]");
 }
 
@@ -378,7 +378,9 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                   />
                 </div>
                 <div>
-                  <FaqAccordion faqs={visibleFaqs} initialCount={6} idPrefix={`faq-${city.slug}`} />
+                  {/* All questions show: the FAQPage data above is built from
+                      this list, and may only name questions on the page. */}
+                  <FaqAccordion faqs={visibleFaqs} initialCount={visibleFaqs.length} idPrefix={`faq-${city.slug}`} />
                 </div>
               </div>
             </div>

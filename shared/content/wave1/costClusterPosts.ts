@@ -311,7 +311,7 @@ const budgetExtra: ContentSection[] = [
   {
     h2: 'Work with a local cabinet team',
     paragraphs: [
-      '<a href="/contact">Contact Boise Cabinet Co</a> for a consultation across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.',
+      '<a href="/contact">Contact Boise Cabinet Co</a> for a consultation across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County.',
       '<a href="/cabinets">Cabinet catalog</a> · <a href="/estimate">Request a quote</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
     ],
   },

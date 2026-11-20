@@ -644,13 +644,6 @@ export const APPLIANCE_DISCLAIMER =
 export const ESTIMATE_RANGE_DISCLAIMER =
   "This estimate is intended to provide a general investment range based on your selections. Final pricing may vary based on measurements, project details, installation requirements, and product choices. Most projects move into production within 4-8 weeks after selections and project details are finalized.";
 
-/**
- * Subtle, credible value-proposition line reinforced throughout the estimator:
- * premium quality and craftsmanship at competitive pricing, without hard selling.
- */
-export const ESTIMATE_VALUE_PROP =
-  "Designed to provide exceptional value, premium-quality materials, and expert craftsmanship at highly competitive pricing.";
-
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   starting: "Example range - personalize below",
   refined: "Refined guidance",

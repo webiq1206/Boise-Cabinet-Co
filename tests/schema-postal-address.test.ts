@@ -69,6 +69,10 @@ test("public contacts retain locality facts and do not keep a street", () => {
     "Kuna",
     "Caldwell",
     "Star",
+    // Owner decisions, 20 November 2026 (SEO audit): the official service
+    // area is nine cities, with Middleton and Garden City.
+    "Middleton",
+    "Garden City",
   ]);
   assert.equal(SITE_CONFIG.owner.name, "Nick");
 
@@ -81,8 +85,8 @@ test("public contacts retain locality facts and do not keep a street", () => {
     { "@type": "AdministrativeArea", name: "Canyon County" },
   ]);
   assert.deepEqual(organization.areaServed, areas);
-  assert.equal(JSON.stringify(areas).includes("Garden City"), false);
-  assert.equal(JSON.stringify(areas).includes("Middleton"), false);
+  assert.equal(JSON.stringify(areas).includes("Garden City"), true);
+  assert.equal(JSON.stringify(areas).includes("Middleton"), true);
   assert.equal(home.telephone, "+1-208-477-1169");
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
   assert.equal(home.parentOrganization, organization.parentOrganization);
@@ -94,7 +98,9 @@ test("public contacts retain locality facts and do not keep a street", () => {
   // Business Profile (owner call A): on the parent node only, never in this
   // brand's own sameAs.
   assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, [
-    "https://www.facebook.com/1228704823655951",
+    // Owner answers, 20 November 2026: the vanity Facebook URL and the Instagram account.
+    "https://www.facebook.com/p5homeco",
+    "https://www.instagram.com/p5_home_co",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
   ]);
   for (const own of [home.sameAs, organization.sameAs ?? []]) {
@@ -123,7 +129,7 @@ test("public contacts retain locality facts and do not keep a street", () => {
     assert.equal(schema.email, "hello@boisecabinet.co");
     const json = JSON.stringify(schema);
     assert.equal(json.includes("Jared"), false);
-    assert.equal(json.includes("Garden City"), false);
+    // Garden City is in areaServed since 20 November 2026 (owner decision); the old exclusion pin is retired.
     assert.equal(json.includes('"founder"'), false);
   }
 

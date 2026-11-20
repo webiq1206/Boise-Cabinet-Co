@@ -353,3 +353,11 @@
   .approved-shell .interior-document-index { position: static; width: 100%; max-width: 320px; }
   .approved-shell .interior-document-main { max-width: none; }
 }
+
+/* ── Tap targets (SEO audit CAB-T7, 20 November 2026). A paragraph that is a
+   row of links in an article ("Catalog · Cost guide") gives each link a 44px
+   hit area on phones, tablets and any touch screen. Height only: the visual
+   type and spacing stay as they were. Links inside a sentence are exempt. */
+@media (max-width: 1023px), (pointer: coarse) {
+  .lx-link-row a { display: inline-flex; align-items: center; min-height: var(--touch-min, 44px); }
+}

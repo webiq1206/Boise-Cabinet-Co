@@ -136,7 +136,7 @@ test("phase-1 answer blocks are 40 to 60 words and use no em dashes", () => {
     assert.equal(text.includes("\u2014"), false);
     assert.equal(text.includes("Jared"), false);
     assert.equal(text.includes("Perkins"), false);
-    assert.equal(text.includes("Garden City"), false);
+    // Garden City joined the service area on 20 November 2026 (owner decision), so the guard that kept it out is gone.
   }
 });
 

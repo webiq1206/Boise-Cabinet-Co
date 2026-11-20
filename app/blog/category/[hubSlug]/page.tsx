@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import {
@@ -20,9 +20,21 @@ import { getHubHeroImage, getBlogImageAlt, getAbsoluteImageUrl } from '@/shared/
 import { Section } from '@/components/marketing/Section';
 import { BlogCard } from '@/components/marketing/BlogCard';
 import { HubHeroBanner } from '@/components/marketing/BlogHeroBanner';
-import { generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
+import { generateBreadcrumbSchema, generateCollectionPageSchema, generateOrganizationSchema, generateWebPageSchema } from '@/lib/schema';
+import { BlogEndCta } from '@/components/marketing/BlogEndCta';
+import type { EstimatorProjectId } from '@/shared/instantEstimate';
 import { clampMetaDescription, getBaseUrl } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+
+/**
+ * Hubs whose topic the family estimator can price (shared/instantEstimate.ts)
+ * close on the instant estimate; every other hub closes on "Request a quote".
+ */
+const HUB_ESTIMATOR_PROJECT: Readonly<Record<string, EstimatorProjectId>> = {
+  'kitchen-cabinets': 'kitchen-cabinets',
+  'bathroom-vanities': 'bathroom-vanity',
+  'built-ins-storage': 'built-ins',
+};
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -97,8 +109,10 @@ export default async function BlogCategoryHubPage(
     (a, b) => (a.publishedAt < b.publishedAt ? 1 : -1),
   );
 
+  // A retired hub with no posts moves permanently, in one hop, to the blog
+  // (SEO audit CAB-S5: this was a 307). There is no /locations index.
   if (posts.length === 0) {
-    redirect(hub.hubSlug === 'treasure-valley-locations' ? '/locations' : '/blog');
+    permanentRedirect('/blog');
   }
 
   const hubHero = getHubHeroImage(params.hubSlug);
@@ -121,8 +135,22 @@ export default async function BlogCategoryHubPage(
         })
       : null;
 
+  // The site Organization and a WebPage node, as on every other template (CAB-T3).
+  const pageSchemas = [
+    generateOrganizationSchema(),
+    generateWebPageSchema({
+      title: hub.title,
+      description: hub.description,
+      url: categoryHubPath(hub.hubSlug),
+    }),
+  ];
+
   return (
     <InteriorPage kind="blog"><>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchemas) }}
+      />
       {collectionSchema && (
         <script
           type="application/ld+json"
@@ -137,7 +165,7 @@ export default async function BlogCategoryHubPage(
         <div className="container px-4 max-w-6xl mx-auto">
           <Link
             href="/blog"
-            className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block"
+            className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-flex min-h-11 items-center"
           >
             ← Back to blog
           </Link>
@@ -159,6 +187,8 @@ export default async function BlogCategoryHubPage(
           )}
           </header><HubHeroBanner src={hubHero} alt={localAlt(hubAlt)} />
 
+          {/* An H2 above the cards, so the outline runs H1, H2, H3 (CAB-T3). */}
+          <h2 className="ed-h2-sm mb-6">Articles on {/^Boise\b/.test(hub.title) ? hub.title : hub.title.charAt(0).toLowerCase() + hub.title.slice(1)}</h2>
           <div className="ed-cards-3 gap-6">
             {posts.map((post) => (
               <BlogCard key={post.slug} post={post} formatDate={formatDate} />
@@ -166,6 +196,7 @@ export default async function BlogCategoryHubPage(
           </div>
         </div>
       </Section>
+      <BlogEndCta estimatorProject={HUB_ESTIMATOR_PROJECT[hub.hubSlug] ?? null} />
     </></InteriorPage>
   );
 }

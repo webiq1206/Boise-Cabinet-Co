@@ -15,6 +15,7 @@
  *    feed the page that owns the query instead of only /catalog.
  */
 import type { BlogPostData } from '../blogContent';
+import { applyShortPostRewrite } from './shortPostRewrites';
 
 /** A post body under this many words counts as thin (seo-notes-cabinet.md). */
 export const THIN_POST_WORDS = 700;
@@ -98,5 +99,6 @@ function withPlanningLink(post: BlogPostData): BlogPostData {
 export function applyThinPostSupport(post: BlogPostData): BlogPostData {
   const meta = THIN_POST_META[post.slug];
   const withMeta = meta ? { ...post, ...meta } : post;
-  return withPlanningLink(withMeta);
+  // Answer-first ledes, phrase H1s and each post's own questions (CAB-T1).
+  return withPlanningLink(applyShortPostRewrite(withMeta));
 }

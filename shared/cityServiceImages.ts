@@ -157,9 +157,27 @@ function areaHeroAlt(citySlug: string): string {
   return localAlt(entry.picture, { subject: entry.subject, city });
 }
 
+/**
+ * What each city's whole-home photograph (/images/city-service/whole-home-remodel__{city}.webp)
+ * shows. Read from the files on 20 November 2026: the old alt called every one a
+ * "cabinet package installed in {city}", presenting the picture as completed work
+ * (SEO audit CAB-S13; owner rule, 19 November 2026). Describe only what is shown.
+ */
+const AREA_PROCESS_PICTURE: Record<string, string> = {
+  boise: "cream built-in cabinets with three arched open shelves above drawers and doors",
+  meridian: "open great room with a living area, a dining table and a kitchen island with stools",
+  eagle: "open great room with a living area, a dining table and a kitchen with a dark island",
+  nampa: "white oak open shelves and lower cabinets on both sides of a fireplace",
+  kuna: "white built-in bookshelves with lower cabinets on both sides of a window seat",
+  star: "white oak media wall with open shelves and cabinets around a television",
+  middleton: "open great room with a living area, a dining table and a kitchen beyond",
+  caldwell: "white oak built-in shelving wall with lower cabinets",
+};
+
 function areaProcessAlt(citySlug: string): string {
   const city = CITY_DISPLAY[citySlug] ?? citySlug;
-  return `Whole-home custom cabinet package installed in ${city}, Idaho`;
+  const picture = AREA_PROCESS_PICTURE[citySlug];
+  return localAlt(picture ?? "custom cabinets for several rooms of one home", { subject: "whole-home cabinetry", city });
 }
 
 /**

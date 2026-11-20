@@ -8,8 +8,8 @@
  * - h1Lead: rendered as "{h1Lead} <em>Boise, Idaho</em>", giving the
  *   "{Room} cabinets in Boise, Idaho" pattern. Kitchen and pantry take theirs
  *   from BOT-05 copy (shared/content/bot05PageCopy.ts), which uses the same
- *   pattern. "Built-In cabinets" keeps its capital I: the approved first-screen
- *   spec (e2e/mobile-above-fold.spec.ts) pins that exact headline text.
+ *   pattern. "Built-in cabinets" is sentence case (SEO audit, 20 November 2026);
+ *   the first-screen spec (e2e/mobile-above-fold.spec.ts) pins that headline.
  * - phrase: lowercase noun phrase for headings ("What to expect for built-in
  *   cabinets"), so the template never builds "built-ins cabinets".
  * - label: lowercase room name for sentences ("every laundry room project").
@@ -66,7 +66,7 @@ export const ROOM_SEO: Record<string, RoomSeo> = {
   },
   "built-ins": {
     title: "Built-In Cabinets in Boise | Made to Fit",
-    h1Lead: "Built-In cabinets in",
+    h1Lead: "Built-in cabinets in",
     phrase: "built-in cabinets",
     label: "built-in",
   },

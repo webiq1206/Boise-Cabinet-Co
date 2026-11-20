@@ -29,7 +29,7 @@ import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/catalog",
-  "Full Cabinet Catalog",
+  `Cabinet Catalog: ${FINISHES.length} Finishes, ${DOOR_STYLES.length} Doors`,
   catalogDescription(
     `Browse the complete {company} catalog online: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes, ${CABINET_PRODUCTS.length} cabinet configurations, hardware, and accessories. Flip through the interactive catalog right on the page - no download required.`,
   ),
@@ -127,7 +127,7 @@ export default function CatalogPage() {
                 eyebrow="Product catalog"
                 title={
                   <>
-                    The complete <em className="brc-accent text-accent">catalog</em>
+                    The complete cabinet <em className="brc-accent text-accent">catalog</em>
                   </>
                 }
                 description={

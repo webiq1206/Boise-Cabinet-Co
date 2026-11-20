@@ -5,5 +5,5 @@
  */
 export const CABINETS_HUB_HEADLINE = "Cabinets by room";
 export const KITCHEN_CABINETS_HEADLINE = "Kitchen cabinets";
-export const BUILT_INS_CABINETS_HEADLINE = "Built-In cabinets";
+export const BUILT_INS_CABINETS_HEADLINE = "Built-in cabinets";
 export const ESTIMATE_HEADLINE = "Request a cabinet quote";
