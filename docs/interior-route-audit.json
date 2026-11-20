@@ -77,7 +77,7 @@
   {
     "route": "/locations/[city]",
     "file": "app/locations/[city]/page.tsx",
-    "seoSignature": "7bba2366fdafc9362f22b175a0f458a92757d6bc3bc70fe3499651399964d0e9"
+    "seoSignature": "421339e77cc29bdb2d0c5e8036557f2e1548aa6019d4a812665d0eba3a7b3ce6"
   },
   {
     "route": "/privacy-policy",
@@ -87,7 +87,7 @@
   {
     "route": "/resources/ada-canyon-permit-flow",
     "file": "app/resources/ada-canyon-permit-flow/page.tsx",
-    "seoSignature": "e029425f15652082e2f7af74f4197e37425f837c3fa3183d0dc3eb7ed4d24b8e"
+    "seoSignature": "6a689b442a647d2f08ad606e49d7cbf474ff7c8859605523b53e3185963a511e"
   },
   {
     "route": "/resources",

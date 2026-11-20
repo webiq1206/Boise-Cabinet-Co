@@ -224,11 +224,11 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
   },
   kuna: {
     description:
-      "Kitchen cabinets and pantry storage in Kuna, built to your layout. Free design consult and upgrades for newer builder-grade kitchens across the Treasure Valley.",
+      "Custom cabinets in Kuna: kitchen cabinets and pantry storage built to your layout, with a free design consult and upgrades for newer builder-grade kitchens.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Kuna, Idaho",
     firstSentence:
-      "Kitchen cabinets and pantry storage in Kuna are available from Boise Cabinet Co, including upgrades on newer homes with builder-grade packages.",
+      "Custom cabinets in Kuna, from kitchen cabinets to pantry storage, are available from Boise Cabinet Co, including upgrades on newer homes with builder-grade packages.",
     trustLine: TRUST_LINE,
     ctaLabel: "Request a quote",
     links: [

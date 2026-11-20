@@ -146,7 +146,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     // https://data.census.gov/table/ACSDT5Y2024.B25003?g=160XX00US1623410
     // https://data.census.gov/table/ACSDT5Y2024.B25024?g=160XX00US1623410
     quickAnswer:
-      'Eagle projects run bigger and more finish-driven than anywhere else in the valley: estate kitchens, butler pantries, paneled appliances and whole-home cabinet programs. Census figures (ACS 2020–2024) show Eagle is overwhelmingly owner-occupied, single-family housing. Boise Cabinet Co builds frameless custom cabinetry for those homes, including HOA communities with architectural review.',
+      'Custom cabinets in Eagle run bigger and more finish-driven than anywhere else in the valley: estate kitchens, butler pantries, paneled appliances and whole-home cabinet programs. Census figures (ACS 2020–2024) show Eagle is overwhelmingly owner-occupied, single-family housing. Boise Cabinet Co builds frameless custom cabinetry for those homes, including HOA communities with architectural review.',
     takeaways: [
       'Eagle kitchens favor premium finishes, paneled appliances, and butler pantries.',
       'HOA communities like the Foothills add review time; plan early.',
@@ -473,7 +473,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     // More than half of housing units were built in 2010 or later. ACS 2020-2024 table B25034, Star city:
     // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1676870
     quickAnswer:
-      'Star mixes brand-new subdivisions with acreage and estate properties along Highway 44, and more than half its homes were built in 2010 or later (Census ACS 2020–2024). Projects run from a first kitchen upgrade to oversized pantries and shop storage, all of them custom frameless cabinets that we design, build and install ourselves across Star.',
+      'Custom cabinets in Star go into brand-new subdivisions and acreage and estate properties along Highway 44, where more than half the homes were built in 2010 or later (Census ACS 2020–2024). Projects run from a first kitchen upgrade to oversized pantries and shop storage, all of them custom frameless cabinets that we design, build and install ourselves across Star.',
     takeaways: [
       'Star mixes new subdivisions with acreage and estate homes.',
       'Large pantries, mudrooms, and shop or garage storage suit Star lot sizes.',
@@ -577,7 +577,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     // About one in seven housing units was built before 1960. ACS 2020-2024 table B25034, Caldwell city:
     // https://data.census.gov/table/ACSDT5Y2024.B25034?g=160XX00US1612250
     quickAnswer:
-      'Caldwell pairs a revitalized downtown along Indian Creek and the historic neighborhoods around the College of Idaho with fast-growing subdivisions. Cabinet projects range from careful upgrades in century-old houses to builder-grade replacements in new ones, and roughly one Caldwell home in seven predates 1960 (Census ACS 2020–2024). Boise Cabinet Co serves all of Caldwell and Canyon County.',
+      'Custom cabinets in Caldwell start with the house: historic homes near the College of Idaho and fast-growing subdivisions need different layouts. Cabinet projects range from careful upgrades in century-old houses to builder-grade replacements in new ones, and roughly one Caldwell home in seven predates 1960 (Census ACS 2020–2024). Boise Cabinet Co serves all of Caldwell and Canyon County.',
     takeaways: [
       'Historic Caldwell homes need custom sizing for plaster walls and odd layouts.',
       'Newer subdivisions follow the standard builder-grade upgrade path.',
