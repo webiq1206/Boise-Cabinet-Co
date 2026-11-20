@@ -747,7 +747,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         question: 'Is Middleton inside your standard service area?',
         answer:
-          'Yes. Our service area is Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.',
+          'Yes. Our service area is Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County.',
       },
       {
         question: 'How long does a Middleton cabinet project take?',

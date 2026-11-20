@@ -86,7 +86,7 @@ export default function AboutPage() {
     },
     {
       question: `What areas does ${SITE_CONFIG.name} serve?`,
-      answer: `We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County. Design consultations happen in your home by appointment.`,
+      answer: `We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County. Design consultations happen in your home by appointment.`,
     },
     {
       question: `How do design consultations work?`,

@@ -63,7 +63,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/blog/mudroom-cabinets": "Mudroom cabinets that control clutter: built-in lockers, a bench with shoe storage, hooks, cubbies, and closed cabinets sized as a daily family drop zone.",
   "/blog/how-to-clean-kitchen-cabinets": "Clean kitchen cabinets with warm water and mild dish soap on a soft cloth, wipe with the grain, and dry immediately. See how to lift grease by finish.",
   "/blog/custom-vs-reserve-cabinets": "Custom cabinets are built to your exact sizes, details, and finish so they fit odd ceiling lines and tight clearances in Treasure Valley kitchens and baths.",
-  "/guides/treasure-valley-cabinet-guide": "Custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada and Canyon County, with room guides, catalog, and delivery.",
+  "/guides/treasure-valley-cabinet-guide": "Custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, with room guides, the cabinet catalog, and delivery.",
   "/cabinets/laundry": "Custom laundry cabinets in the Treasure Valley with folding surfaces, pull-out hampers, upper storage for full-size machines, and moisture-resistant boxes.",
   "/cabinets/mudroom": "Custom mudroom cabinets in the Treasure Valley: bench seating, boot storage, coat cubbies, and locker systems with durable finishes and heavy-duty hardware.",
   "/cabinets/home-office": "Custom home office cabinets in the Treasure Valley: built-in desks, file drawers, and shelving that hide cables and printers while keeping the workspace calm.",

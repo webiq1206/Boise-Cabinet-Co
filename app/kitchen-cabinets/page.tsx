@@ -48,7 +48,7 @@ const FAQS = [
   {
     question: "What areas do you serve?",
     answer:
-      "We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.",
+      "We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County.",
   },
   {
     question: "What do you install?",

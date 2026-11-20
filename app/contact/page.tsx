@@ -280,7 +280,7 @@ export default function ContactPage() {
                 <ContactChannel
                   icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
                   label="Where we work"
-                  subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County."
+                  subtext="Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County."
                 >
                   <address className="not-italic leading-relaxed">
                     {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.postalCode}

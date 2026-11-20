@@ -104,7 +104,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       },
       {
         question: 'Do you work in both Ada and Canyon County?',
-        answer: 'Yes. We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.',
+        answer: 'Yes. We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County.',
       },
     ],
   },
@@ -301,7 +301,7 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
   {
     question: 'What areas do you serve?',
     answer:
-      'Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.',
+      'Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, Middleton, and Garden City, plus Ada County and Canyon County.',
   },
   {
     question: 'Do you handle permits when needed?',
