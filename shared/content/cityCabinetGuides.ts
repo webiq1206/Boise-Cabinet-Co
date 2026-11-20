@@ -74,6 +74,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         paragraphs: [
           // Building Services address, 33 E. Broadway Ave.: https://meridiancity.org/community-development/building/
           'Inside Meridian city limits, permits come from the City of Meridian\'s Building Services at 33 E. Broadway Ave., which takes applications through its Citizen Access portal. A property outside city limits follows the county process instead, so check the jurisdiction for the actual address before applying. The city\'s own handout lists painting, papering, tiling, carpeting, cabinets, counter tops and similar finish work as exempt from permits. Replacing cabinets is one job; relocating plumbing, electrical or walls is a different scope, with its own permits, fees, inspection steps and review timing, so settle which ones apply before anything is torn out. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> lays out the order.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -188,6 +189,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Eagle cabinet projects',
         paragraphs: [
           'Eagle\'s Building Division handles permits inside city limits, while property outside them follows the county process, so before you apply, make sure you know which office covers the address. The city builds to the 2018 International Residential Code, and its posted plan review turnaround for residential applications such as additions is 6 weeks, assuming no revisions, so a cabinet job that grows into moving walls needs that time in the plan. Swapping out cabinets is one scope; moving plumbing, electrical or walls is another, and the permits you need, with their fees, inspections and timelines, follow from the work itself. Settle which ones apply before demolition; the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> shows the order.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -290,6 +292,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Nampa cabinet projects',
         paragraphs: [
           'If the property is inside Nampa city limits, the city\'s building department is where permits start (<a href="https://www.cityofnampa.us/428/Residential-Permit-Applications">official Nampa permit guidance</a>); outside city limits the county process applies, so confirm the jurisdiction first. Nampa\'s residential FAQ lists cabinets and counter tops, along with painting, floor covering and wall coverings, as exempt interior work, which makes a cabinet swap a different scope from a layout change. You\'ll need a permit once the project strips drywall to the framing, puts up a new wall of any kind, or moves a sink, tub, shower or toilet. Which building and trade permits apply, and what they cost and require, depends on the work and the address, so pin it down before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> walks through the steps.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -397,6 +400,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Kuna cabinet projects',
         paragraphs: [
           'Kuna has its own Building Department at 751 W. 4th St., which handles permits for property inside city limits; land outside them follows the county process, so check which one covers your address before you apply. A straight cabinet swap and a project that relocates plumbing, electrical or walls are different scopes. If a sink moves, for example, Kuna\'s fee schedule charges $65 for a plumbing permit on an existing home, with $10 added per extra fixture, and residential building submittals carry a $70 fee. The specific permits, costs, inspections and timelines hinge on the scope, so confirm them with the city before demolition. Our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> covers the sequence.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -504,6 +508,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Star cabinet projects',
         paragraphs: [
           'Property inside Star city limits is permitted by the City of Star\'s Building Department (<a href="https://www.staridaho.org/1243/Building-Department">official Star permit guidance</a>); unincorporated land follows the county process, and the city\'s FAQ notes that the Ada County Assessor\'s website shows its boundaries. Which building and trade permits you need depends on the work. Star\'s FAQ lists small residential projects at about 2 to 4 weeks of review, issues mechanical, electrical and plumbing permits the same day the related building permit is approved, and requires contractors to hold a current Idaho license to apply. Confirm fees, inspections and current review times for the exact address. Replacing cabinets is one scope and moving plumbing, electrical or walls is another, so pin down the permits before demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> has the planning order.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -601,6 +606,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Caldwell cabinet projects',
         paragraphs: [
           'Inside Caldwell city limits, permits go through the City of Caldwell\'s building department; unincorporated parcels follow the county process, so confirm which applies to your address first. The city\'s permit packet for homes splits electrical, plumbing and mechanical work into their own permits, separate from the building permit, and says residential review typically takes 5 to 7 working days. A cabinet swap is a different scope from moving plumbing, electrical or walls, so confirm the permits, fees, inspections and current review times that apply before any demolition. The <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> explains the sequence.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {
@@ -708,6 +714,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Permits for Middleton cabinet projects',
         paragraphs: [
           'Within Middleton city limits, permits come from the city\'s Building Department, which runs applications through an online Citizenserve portal (<a href="https://middleton.id.gov/">official Middleton permit guidance</a>). If you\'re not sure a parcel is in town, the city points to the county assessor\'s online map; unincorporated land follows the county process. Under section 4-1-1 of Middleton\'s code, a cabinet replacement that leaves plumbing and electrical alone is exempt. Relocating plumbing, electrical or walls is a separate scope that can need building and trade permits, and the code also requires a demolition permit when part of a structure is torn out. Confirm fees, inspections and review times for the actual address before demolition, and see the <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for the sequence.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
         ],
       },
       {

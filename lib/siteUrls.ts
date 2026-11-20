@@ -37,7 +37,7 @@ export function getSiteUrlGroups(): SiteUrlGroup[] {
       : [{ path: '/design-ideas', label: 'Design ideas', changeFrequency: 'monthly' as const, priority: 0.65 }]),
     { path: '/contact', label: 'Contact', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/resources', label: 'Resources', changeFrequency: 'monthly', priority: 0.7 },
-    { path: '/resources/ada-canyon-permit-flow', label: 'Ada vs Canyon County permit flow', changeFrequency: 'monthly', priority: 0.65 },
+    { path: '/resources/ada-canyon-permit-flow', label: 'Cabinet install permits in Ada and Canyon County', changeFrequency: 'monthly', priority: 0.65 },
     { path: '/blog', label: 'Blog', changeFrequency: 'weekly', priority: 0.6 },
     { path: '/guides', label: 'Guides', changeFrequency: 'weekly', priority: 0.85 },
     { path: '/warranty', label: 'Warranty', changeFrequency: 'yearly', priority: 0.55 },
