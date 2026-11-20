@@ -9,7 +9,6 @@ import {
   INCLUDED_SCOPE_NOTE,
   APPLIANCE_DISCLAIMER,
   ESTIMATE_RANGE_DISCLAIMER,
-  ESTIMATE_VALUE_PROP,
   formatPlanningCurrency,
 } from "@/shared/estimateEngine";
 import { CATALOG_CONTENT } from "@/shared/catalog";
@@ -232,11 +231,6 @@ export function EstimateResultPanel({
         >
           {ESTIMATE_EMPTY_MESSAGE}
         </p>
-        {(isFull || isSidebar) && (
-          <p className="text-[12px] leading-relaxed mt-4 text-inverse-foreground/85">
-            {ESTIMATE_VALUE_PROP}
-          </p>
-        )}
       </div>
     );
   }
@@ -423,14 +417,6 @@ export function EstimateResultPanel({
       )}
 
       {/* Subtle, credible value proposition reinforced throughout the estimator. */}
-      {(isFull || isSidebar) && !compact && (
-        <p
-          className="hidden sm:block text-[12px] leading-relaxed mb-4 text-inverse-foreground/85"
-          data-testid="estimate-value-prop"
-        >
-          {ESTIMATE_VALUE_PROP}
-        </p>
-      )}
 
       {!isSidebar && !hideCta && (
         <Button
