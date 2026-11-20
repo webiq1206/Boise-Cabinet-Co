@@ -25,7 +25,8 @@ export const metadata = withBrandPageMetadata({
     DOOR_VISUALIZER_PATH,
     "Cabinet Door Visualizer",
     catalogDescription(
-      `See any of the ${FINISHES.length} {company} cabinet finishes on ${STYLES.length} door styles: ${STYLES.map((style) => style.name).join(", ")}. Pick a finish and a door, then share the link or request a quote.`,
+      // Kept within 160 characters (SEO audit CAB-T8).
+      `Cabinet door visualizer: see any of ${FINISHES.length} finishes on ${STYLES.length} door styles, from Slab to Beta Shaker, then share the link or request a quote with your pick.`,
     ),
   ),
   // Explicit self canonical in the page file: every finish and style opens on

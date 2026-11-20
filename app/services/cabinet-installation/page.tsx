@@ -24,7 +24,7 @@ export const metadata = withBrandPageMetadata((buildPageMetadata({
   serviceName: "Cabinet Installation",
   serviceSlug: "cabinet-installation",
   path: "/services/cabinet-installation",
-  titleOverride: "Cabinet Installation in Boise | Free Quotes",
+  titleOverride: "Cabinet Installation Boise | Any Cabinets",
   descriptionOverride:
     "Professional cabinet installation in Boise, Meridian, Eagle, Nampa, and nearby Treasure Valley communities. Bring your own cabinets or work with Boise Cabinet Co for custom cabinetry and installation.",
 })), "/services/cabinet-installation");

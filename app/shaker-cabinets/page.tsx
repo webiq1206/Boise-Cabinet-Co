@@ -26,7 +26,7 @@ import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/shaker-cabinets",
-  "Shaker Cabinets",
+  "Shaker Cabinets in Boise | Built to Order",
   catalogDescription(
     "Custom shaker cabinets from {company}, sized to your layout and installed across the Treasure Valley. Four shaker profiles in finishes including classic white shaker, sage green, and two-tone, with frameless options.",
   ),
@@ -122,7 +122,7 @@ export default function ShakerCabinetsPage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "Shaker Cabinets" }]}
           eyebrow="Door styles"
           title={<>
-                  Custom shaker <em className="brc-accent text-accent">cabinets</em>
+                  Custom shaker cabinets <em className="brc-accent text-accent">in Boise</em>
                 </>}
           description={"Shaker is a flat, recessed panel inside a clean square frame that looks right in almost any home. We build it to order in four profiles and 299 finishes, from classic white shaker to sage green and two-tone, and install with our Treasure Valley crew."}
         >

@@ -14,7 +14,7 @@ const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.ur
 test("each first-screen page has one swappable headline and the existing wording", () => {
   assert.equal(CABINETS_HUB_HEADLINE, "Cabinets by room");
   assert.equal(KITCHEN_CABINETS_HEADLINE, "Kitchen cabinets");
-  assert.equal(BUILT_INS_CABINETS_HEADLINE, "Built-In cabinets");
+  assert.equal(BUILT_INS_CABINETS_HEADLINE, "Built-in cabinets"); // sentence case, SEO audit 20 November 2026
   // Owner call (2026-11-01): the /estimate headline uses the site's primary
   // action wording in sentence case instead of "Get an Estimate".
   assert.equal(ESTIMATE_HEADLINE, "Request a cabinet quote");

@@ -7,7 +7,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Metadata } from "next";
 import Link from "next/link";
 
-const DESCRIPTION = `Every page on the ${SITE_CONFIG.name} website in one place: cabinets by room, service areas, guides, and articles.`;
+const DESCRIPTION = `Every page on the ${SITE_CONFIG.name} website in one place: cabinets by room, the catalog, service areas, guides, articles and company pages.`;
 
 export const metadata: Metadata = withBrandPageMetadata(({
   title: { absolute: `Site Map | ${SITE_CONFIG.name}` },

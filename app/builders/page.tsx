@@ -155,7 +155,7 @@ export default function BuildersPage() {
           breadcrumbs={[{ name: "Home", href: "/" }, { name: "For Builders" }]}
           eyebrow="For builders & contractors"
           title={<>
-                  Cabinetry that keeps your <em className="brc-accent text-accent">schedule</em>
+                  Builder cabinets that keep your <em className="brc-accent text-accent">schedule</em>
                 </>}
           description="Discuss your cabinet scope, project location and target schedule with Boise Cabinet Co. Start with a call, text or project request."
         >

@@ -57,7 +57,7 @@ const EXCLUDED = [
 ];
 
 const WARRANTY_META_SOURCE =
-  "Cabinet warranty from {company}: 1-year workmanship coverage on our installation from documented Final Completion, manufacturer terms on products we supply, and claims handled by us.";
+  "Cabinet warranty: 1-year workmanship coverage on our installation from documented Final Completion, manufacturer terms on products, and claims handled by us.";
 
 /** Existing-customer help. Uses only the published brand email and phone; no other support channel is invented. */
 const HELP_DETAILS = [

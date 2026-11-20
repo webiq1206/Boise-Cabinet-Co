@@ -79,7 +79,7 @@ export const PHASE1_DESCRIPTIONS: Record<string, string> = {
   "/services/cabinet-installation": "Cabinet installation in Boise and the Treasure Valley by our team or a partner we manage. We install cabinets you own, or design, build and install custom ones.",
   "/testimonials": "Explore cabinet design ideas for kitchens, bathrooms, closets, and built-ins across the Treasure Valley, then book a free in-home design consultation with us.",
   "/catalog": "Browse the Boise Cabinet Co catalog online: 6 door styles, 299 finishes, 382 cabinet configurations, plus hardware and accessories, with no download required.",
-  "/shaker-cabinets": "Custom shaker cabinets for Meridian homes, sized to your layout. Four shaker profiles in finishes including classic white, sage green, and two-tone doors.",
+  "/shaker-cabinets": "Shaker cabinets in Boise built to your layout: four shaker profiles in 299 finishes, from classic white to sage green, installed by our Treasure Valley team.",
   "/blog/cabinet-project-planning-guide": "Start with measured dimensions, a storage list, and a written scope for supply, removal, and installation. Confirm appliances and clearances before you order.",
   "/blog/cabinet-buying-mistakes": "Costly cabinet mistakes start with missing fillers, panels, hardware, delivery, or installation. Compare construction and finish, and review a sample.",
   "/blog/whole-home-cabinet-timeline": "A whole-home cabinet timeline covers design, field measurement, approval, fabrication, delivery, and installation. Ask for dates tied to approved drawings.",
