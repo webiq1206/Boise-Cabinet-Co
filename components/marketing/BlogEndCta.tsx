@@ -1,6 +1,7 @@
 import { ArrowRight, Phone } from "lucide-react";
 import { Section } from "./Section";
-import { CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE, CTA_INSTANT_ESTIMATE } from "@/shared/ctaCopy";
+import type { EstimatorProjectId } from "@/shared/instantEstimate";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { CtaButton } from "@/components/modals/CtaButton";
 
@@ -13,7 +14,7 @@ import { CtaButton } from "@/components/modals/CtaButton";
  * cut pulled it out of the container with a negative margin instead; measured,
  * that overflowed the viewport by 24px on the areas page at every width.
  */
-export function BlogEndCta() {
+export function BlogEndCta({ estimatorProject }: { estimatorProject?: EstimatorProjectId | null } = {}) {
   return (
     <Section surface="gradient" spacing="xl" edge>
       <div className="ed-shell">
@@ -30,10 +31,20 @@ export function BlogEndCta() {
         planning range on the spot with no obligation.
       </p>
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-        <CtaButton variant="brand" size="lg" data-testid="link-bottom-cta-consult">
-          {CTA_ESTIMATE}
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </CtaButton>
+        {/* A topic the estimator can price leads with the instant estimate; the
+            phone beside it stays the path to a person. Everything else keeps
+            "Request a quote". */}
+        {estimatorProject ? (
+          <CtaButton variant="brand" size="lg" destination="instant-estimate" estimatorProject={estimatorProject} data-testid="link-bottom-cta-estimate">
+            {CTA_INSTANT_ESTIMATE}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </CtaButton>
+        ) : (
+          <CtaButton variant="brand" size="lg" data-testid="link-bottom-cta-consult">
+            {CTA_ESTIMATE}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </CtaButton>
+        )}
         <a
           href={SITE_CONFIG.phoneHref}
           data-testid="link-bottom-cta-call"
