@@ -308,7 +308,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "heading", text: "Plan your project with us" });
   blocks.push({
     type: "paragraph",
-    text: `Ready to choose door styles, finishes, and storage for your home? Book a free design consultation with ${SITE_CONFIG.name}. Call ${SITE_CONFIG.phone}, email ${SITE_CONFIG.email}, or visit ${SITE_CONFIG.siteUrl}. We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.`,
+    text: `Ready to choose door styles, finishes, and storage for your home? Book a free design consultation with ${SITE_CONFIG.name}. Call ${SITE_CONFIG.phone}, email ${SITE_CONFIG.email}, or visit ${SITE_CONFIG.siteUrl}. We serve Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.`,
   });
 
   return blocks;

@@ -42,7 +42,7 @@ test("license number defaults to 8381215 and schema uses hasCredential", () => {
 
 test("sitemap pages get a visible registration line, and estimate stays plain text", () => {
   const footer = renderFooter();
-  assert.equal((footer.match(/>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
+  assert.equal((footer.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.match(footer, /https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch/);
   assert.match(footer, /target="_blank"/);
   assert.match(footer, /rel="noopener noreferrer"/);

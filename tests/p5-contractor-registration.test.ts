@@ -20,7 +20,7 @@ test("about and footer retain the current centralized contractor registration", 
   );
   assert.match(about, /\$\{REGISTERED_INSURED\}/);
   assert.match(about, /\$\{IDAHO_REGISTERED_CONTRACTOR\}/);
-  assert.match(footer, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/);
+  assert.match(footer, /href="https:\/\/edopl\.idaho\.gov\/OnlineServices\/\?link=PubSearch"[^>]*>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/);
   assert.doesNotMatch(about, /contractor license/);
   assert.doesNotMatch(footer, /Idaho license #|License details available upon request/);
   // Do not turn a municipality's permit requirement into a claim about this business.

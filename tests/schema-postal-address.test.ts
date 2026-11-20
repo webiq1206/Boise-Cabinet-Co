@@ -69,6 +69,9 @@ test("public contacts retain locality facts and do not keep a street", () => {
     "Kuna",
     "Caldwell",
     "Star",
+    // Owner decision, 20 November 2026 (SEO audit): Middleton has a published
+    // page and is on the P5 Home Co profile, so it is in the service area.
+    "Middleton",
   ]);
   assert.equal(SITE_CONFIG.owner.name, "Nick");
 
@@ -82,7 +85,7 @@ test("public contacts retain locality facts and do not keep a street", () => {
   ]);
   assert.deepEqual(organization.areaServed, areas);
   assert.equal(JSON.stringify(areas).includes("Garden City"), false);
-  assert.equal(JSON.stringify(areas).includes("Middleton"), false);
+  assert.equal(JSON.stringify(areas).includes("Middleton"), true);
   assert.equal(home.telephone, "+1-208-477-1169");
   assert.deepEqual(home.sameAs, BUSINESS_INFO.sameAs);
   assert.equal(home.parentOrganization, organization.parentOrganization);

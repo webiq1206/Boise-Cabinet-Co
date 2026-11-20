@@ -197,7 +197,7 @@ const SHARED_FAQS = (roomName: string): RoomFaq[] => [
   {
     question: `What areas do you serve for ${roomName.toLowerCase()} cabinets?`,
     answer:
-      "We design, build, and install across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.",
+      "We design, build, and install across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.",
   },
   {
     question: `How long does a ${roomName.toLowerCase()} cabinet project take?`,

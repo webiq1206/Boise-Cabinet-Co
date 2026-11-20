@@ -163,7 +163,7 @@ const GUIDE_PAGE_SOURCES: GuidePageData[] = [
     title: 'Treasure Valley custom cabinet guide',
     seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
-      'Custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County, with room guides, catalog, and delivery.',
+      'Custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County, with room guides, catalog, and delivery.',
     excerpt:
       'Your starting point for custom cabinets anywhere in the Treasure Valley, city context, catalog rooms, and links to planning guides.',
     content: TREASURE_VALLEY_GUIDE_HTML,
@@ -178,7 +178,7 @@ const GUIDE_PAGE_SOURCES: GuidePageData[] = [
       {
         question: 'What cities does Boise Cabinet Co serve?',
         answer:
-          'We design, build, and install custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star, plus Ada County and Canyon County.',
+          'We design, build, and install custom cabinets for Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, Star, and Middleton, plus Ada County and Canyon County.',
       },
       {
         question: 'What cabinet rooms do you offer?',

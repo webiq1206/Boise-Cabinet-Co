@@ -123,7 +123,7 @@ function publicContactPoint() {
 }
 
 /**
- * Published service area: seven cities, then Ada County and Canyon County.
+ * Published service area: eight cities, then Ada County and Canyon County.
  * A page about a town outside that list does not add the town to areaServed.
  */
 function areasServed() {

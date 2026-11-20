@@ -15,6 +15,13 @@ export const PARENT_PUBLIC_NAME = "P5 Home Co";
 export const IDAHO_REGISTERED_CONTRACTOR =
   `${PARENT_PUBLIC_NAME}, Idaho Registered Contractor #8381215`;
 
+/**
+ * The footer's registration line names the registered entity, the same line on
+ * every family footer (owner decision, 20 November 2026; SEO audit XS-05).
+ */
+export const FOOTER_REGISTERED_CONTRACTOR =
+  `${REGISTERED_ENTITY_NAME}, Idaho Registered Contractor #8381215`;
+
 /** Short number-only form for places that already name the entity nearby. */
 export const IDAHO_REGISTRATION_NUMBER = "Idaho Registered Contractor #8381215";
 

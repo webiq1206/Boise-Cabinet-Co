@@ -18,7 +18,7 @@ import {
 import { P5_FACEBOOK_URL as SCHEMA_FACEBOOK_URL, P5_PARENT_ORGANIZATION } from '../lib/schema.ts';
 import { BUSINESS_VCARD_PATH } from '../lib/vcard.ts';
 import { FOOTER_CABINET_LINKS, PRIMARY_NAV } from '../shared/cabinetNav.ts';
-import { IDAHO_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '../shared/claims.ts';
+import { FOOTER_REGISTERED_CONTRACTOR, PUBLIC_HOURS_LINE } from '../shared/claims.ts';
 import { CONTENT_HUBS, guidePath } from '../shared/contentHubs.ts';
 import { CTA_INSTANT_ESTIMATE, CTA_INSTANT_ESTIMATE_SHORT, CTA_QUOTE_HREF, CTA_REQUEST_QUOTE, INSTANT_ESTIMATE_HREF } from '../shared/ctaCopy.ts';
 import { GUIDE_PAGES } from '../shared/guideContent.ts';
@@ -49,7 +49,7 @@ test('the brand config carries this site’s facts, one CTA and one destination'
   assert.equal(FAMILY_BRAND.email, SITE_CONFIG.email);
   assert.equal(FAMILY_BRAND.saveContactHref, BUSINESS_VCARD_PATH);
   assert.equal(FAMILY_BRAND.hours, PUBLIC_HOURS_LINE);
-  assert.equal(FAMILY_BRAND.registration.text, IDAHO_REGISTERED_CONTRACTOR);
+  assert.equal(FAMILY_BRAND.registration.text, FOOTER_REGISTERED_CONTRACTOR);
   assert.equal(FAMILY_BRAND.registration.href, DOPL_LICENSE_SEARCH);
   assert.equal(FAMILY_BRAND.nap.line, 'Serving Boise and the Treasure Valley');
   assert.equal(FAMILY_BRAND.accent, '#659b9a');
@@ -117,7 +117,7 @@ test('footer links written out in the config match their sources', () => {
   assert.equal(FAMILY_BRAND.footer.areas.label, "Service area, Ada and Canyon Counties");
   assert.deepEqual(
     FAMILY_BRAND.footer.areas.links.map((link) => link.label),
-    ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star"],
+    ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star", "Middleton"],
   );
 });
 
@@ -136,7 +136,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   assert.match(html, /href="sms:\+12084771169"/);
   assert.match(html, /href="\/contact\.vcf"/);
   assert.match(html, /is a DBA of <a href="https:\/\/p5homeco\.com" rel="noopener">P5 Home Co<\/a>/);
-  assert.equal((html.match(/>P5 Home Co, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
+  assert.equal((html.match(/>P5 Home Co LLC, Idaho Registered Contractor #8381215<\/a>/g) ?? []).length, 1);
   assert.ok(html.includes(`href="${P5_FACEBOOK_URL}"`));
   assert.ok(html.includes(`href="${P5_GOOGLE_PROFILE_URL}"`));
   assert.ok(html.includes(`<a href="${P5_GOOGLE_PROFILE_URL}" rel="noopener" target="_blank" data-testid="link-footer-google">P5 Home Co on Google</a>`));
@@ -148,10 +148,10 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
   for (const href of ['/cabinets', '/catalog', '/shaker-cabinets', '/builders', '/warranty', '/warranty#get-help', '/construction', '/guides', '/resources', '/blog', '/search', '/sitemap', '/privacy-policy', '/terms-of-service']) {
     assert.ok(html.includes(`href="${href}"`), href);
   }
-  for (const city of ['boise', 'meridian', 'nampa', 'eagle', 'kuna', 'caldwell', 'star']) {
+  // Middleton joined the published service area on 20 November 2026 (owner decision, SEO audit).
+  for (const city of ['boise', 'meridian', 'nampa', 'eagle', 'kuna', 'caldwell', 'star', 'middleton']) {
     assert.ok(html.includes(`href="/locations/${city}"`), city);
   }
-  assert.equal(html.includes('href="/locations/middleton"'), false);
 });
 
 test('the homepage video preserves no-script poster, first-response content and sourced proof', () => {

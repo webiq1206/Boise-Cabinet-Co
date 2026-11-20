@@ -13,7 +13,7 @@
  * and guide modules; tests/family-chrome.test.ts pins them to those sources.
  */
 import type { FamilyBrand, FamilyLink } from '@/lib/family/types';
-import { IDAHO_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, PUBLIC_HOURS_LINE } from '@/shared/claims';
+import { FOOTER_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, PUBLIC_HOURS_LINE } from '@/shared/claims';
 import { SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
@@ -185,7 +185,7 @@ export const FAMILY_BRAND: FamilyBrand = {
   nap: { line: 'Serving Boise and the Treasure Valley' },
   hours: PUBLIC_HOURS_LINE,
   registration: {
-    text: IDAHO_REGISTERED_CONTRACTOR,
+    text: FOOTER_REGISTERED_CONTRACTOR,
     href: DOPL_LICENSE_SEARCH,
     title: 'Idaho contractor registration 8381215',
     ariaLabel: 'Idaho contractor registration 8381215 (opens in a new tab)',

@@ -101,7 +101,7 @@ const ROOMS: Record<string, Phase1Answer> = {
   "home-office": {
     heading: "What are home office cabinets from Boise Cabinet Co?",
     paragraph:
-      `Office cabinets offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation and ${CABINET_WORKMANSHIP_WARRANTY}. Installation covers ${AREA}.`,
+      `Office cabinets offer frameless and soft-close options. ${IDENTITY} Free in-home design consultation and ${CABINET_WORKMANSHIP_WARRANTY}. Serving ${AREA}.`,
     faqs: [
       {
         question: "What construction do home office cabinets use?",
