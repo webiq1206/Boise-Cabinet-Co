@@ -215,3 +215,16 @@
 .approved-shell .guide-section-summary > div { align-items: center; }
 .approved-shell .guide-section-summary { padding-block: 22px 14px; }
 .approved-shell :is(h2,h3)[class*="mb-1"] + p, .approved-shell :is(h2,h3) + p[class*="mt-1"] { margin-top: 8px; }
+
+/* Owner rule, applied 20 November 2026 (SEO audit owner answers, item 4):
+   "accents never carry small body text". On paper and bone grounds, accent
+   eyebrows and small accent labels or links are set in charcoal #383837; the
+   teal stays on headings' emphasis, rules, bars and markers. Dark grounds
+   (gradient bands, inverse sections, the contact hero) keep their light ink.
+   No accent value, logo or button changes. */
+.approved-shell :is(.ed-eyebrow-accent, :is(.text-xs, .text-sm, .text-\[11px\], .text-\[12px\], .text-\[13px\]).text-accent):not(:is(h1,h2,h3,h4,h5,h6) *):not(:is(.ed-on-gradient,.bg-inverse,.interior-hero-contact,.fam-hero) *) {
+  color: #383837;
+}
+.approved-shell a:is(.text-xs, .text-sm).text-accent:not(:is(.ed-on-gradient,.bg-inverse,.interior-hero-contact,.fam-hero) *) {
+  text-decoration: underline; text-underline-offset: 3px;
+}
