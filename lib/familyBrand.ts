@@ -17,7 +17,7 @@ import { FOOTER_REGISTERED_CONTRACTOR, PARENT_PUBLIC_NAME, PUBLIC_HOURS_LINE } f
 import { SERVICE_AREA_CITIES, locationPath } from '@/shared/contentData';
 import { CTA_INSTANT_ESTIMATE_SHORT, INSTANT_ESTIMATE_HREF } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL } from '@/shared/parentProfiles';
+import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from '@/shared/parentProfiles';
 
 /** The approved October 28 outlined lockups (public/brand), 339 x 50 artwork. */
 const LOCKUP = { width: 339, height: 50 };
@@ -193,5 +193,7 @@ export const FAMILY_BRAND: FamilyBrand = {
     rel: 'noopener noreferrer',
   },
   parentFacebook: { href: P5_FACEBOOK_URL, label: 'P5 Home Co on Facebook' },
+  // The one Instagram for every family site (owner, 20 November 2026).
+  parentInstagram: { href: P5_INSTAGRAM_URL, label: 'P5 Home Co on Instagram' },
   parentGoogle: { href: P5_GOOGLE_PROFILE_URL, label: 'P5 Home Co on Google' },
 };
