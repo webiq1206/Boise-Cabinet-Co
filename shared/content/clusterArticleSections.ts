@@ -221,7 +221,7 @@ export function buildClusterArticleSections(config: ClusterArticleConfig): Conte
     {
       h2: 'Next steps',
       paragraphs: [
-        '<a href="/#calculator">Estimator</a> · <a href="/contact">Schedule consultation</a>.',
+        '<a href="/instant-estimate">Instant estimate</a> · <a href="/contact">Schedule consultation</a>.',
       ],
     },
   ];

@@ -61,7 +61,7 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
   {
     type: 'bullets',
     items: [
-      `Online estimator: ${SITE_CONFIG.siteUrl}/#calculator`,
+      `Instant estimate: ${SITE_CONFIG.siteUrl}/instant-estimate`,
       `Cost guide: ${SITE_CONFIG.siteUrl}/guides/boise-cabinet-cost-guide`,
       `Schedule consultation: ${SITE_CONFIG.siteUrl}/contact`,
       `Phone: ${SITE_CONFIG.phone}`,

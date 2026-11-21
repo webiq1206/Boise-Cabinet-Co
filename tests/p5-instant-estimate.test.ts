@@ -8,7 +8,7 @@
  * that only rooms the estimator can price send a visitor to it.
  */
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -101,8 +101,13 @@ test('the central call to action leads to the instant estimate', () => {
   const home = read('components/approved/ApprovedHome.tsx');
   assert.match(home, /<FamilyButton href=\{INSTANT_ESTIMATE_HREF\} variant="hero" size="lg" data-hero-cta="primary" data-cta="primary">\{CTA_INSTANT_ESTIMATE\}<\/FamilyButton>/);
   assert.match(home, /<section id="instant-estimate" className="builder-band estimate-band wrap"/);
-  // The homepage planning slider stays mounted.
-  assert.match(home, /<KitchenPlanningRange idPrefix=\{planningRangeId\} \/>/);
+  // The homepage planning slider was retired on 21 November 2026 (one source
+  // of prices): the instant estimate by project sits where it was, and the
+  // component stays in the repository, unmounted
+  // (tests/p5-home-instant-estimate-block.test.ts).
+  assert.doesNotMatch(home, /<KitchenPlanningRange\b/);
+  assert.match(home, /<HomeInstantEstimateProjects \/>/);
+  assert.ok(existsSync('components/approved/KitchenPlanningRange.tsx'));
 });
 
 test('the page is in the sitemap and in llms.txt', () => {

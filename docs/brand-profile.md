@@ -14,7 +14,7 @@ Canonical site: `https://boisecabinet.co`; repository: `webiq1206/Boise-Cabinet-
 
 ### Intended visual character and impression
 
-Warm, architectural, editorial: cabinetry photography, visible materials/hardware, restrained serif statements, readable sans-serif explanation, paper/bone surfaces, charcoal framing and Cabinet teal. Preserve the image-led homepage, room exploration, finish comparison, process, founder and planning range. Judge adjacent sections together; a long text-only sequence needs relevant photography or purposeful split composition, not a decorative color stripe. Shared sizing/spacing does not transfer sibling identity. [S3, S6, S7, S12]
+Warm, architectural, editorial: cabinetry photography, visible materials/hardware, restrained serif statements, readable sans-serif explanation, paper/bone surfaces, charcoal framing and Cabinet teal. Preserve the image-led homepage, room exploration, finish comparison, process, founder and the instant estimate by project (the planning range slider was retired on 21 November 2026). Judge adjacent sections together; a long text-only sequence needs relevant photography or purposeful split composition, not a decorative color stripe. Shared sizing/spacing does not transfer sibling identity. [S3, S6, S7, S12]
 
 ### Logos
 
@@ -128,7 +128,7 @@ Do not publish the private street address/home coordinates, administrative conta
 | --- | --- |
 | Generated FINISHES/DOOR_STYLES | Current 299 finishes, six door styles; inventory, not completed jobs |
 | Claims/registration sources | Sourced registration, warranty handling and 1-year installation workmanship wording from documented Final Completion (work performed by our own team; subcontractors carry their own warranty and a complete subcontractor list with contact information is provided at the end of every project; manufacturer terms separate; supply-only excludes another installer's workmanship); no expanded lifetime promise and no bond claim (owner decision, November 8 2026) |
-| KitchenPlanningRange | Ungated base-run slider and Matte/Woodgrain/Gloss choices, immediate modeled installed-cabinet range from shared `calculateEstimate`; not a firm bid or achieved result |
+| HomeInstantEstimateProjects | One link per estimator project (kitchen cabinets, bathroom vanity, cabinet refresh, built-ins) to `/instant-estimate?project=<id>`, no figure. It replaced the KitchenPlanningRange slider (retired 21 November 2026, one source of prices; component kept, unmounted) |
 | Samples/planning downloads | Product/source and planning artifacts; verify authenticity/content before new claims |
 | Founder biography/photo | Existing natural team story; does not authenticate other generic people scenes |
 

@@ -6,7 +6,7 @@ const sections: ContentSection[] = [
     paragraphs: [
       `Most cabinet packages we scope across ${CITIES_LIST} fall into planning bands, not single sticker prices. A laundry refresh in Meridian is not priced like a large custom kitchen in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle.`,
       `This guide is the pillar for our <strong>Boise Cabinet Costs</strong> hub. Use it to understand typical ranges, then read the linked articles on kitchen, bathroom, whole-home, built-in, and luxury cabinet costs for project-specific detail.`,
-      `For a rough planning number before design, start with our <a href="/#calculator">project estimator</a>, then schedule a consultation for a written scope.`,
+      `For a rough planning number before design, start with our <a href="/instant-estimate">instant estimate</a>, then schedule a consultation for a written scope.`,
     ],
   },
   {

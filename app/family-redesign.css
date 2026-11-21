@@ -594,3 +594,46 @@ html .fr-gallery p.fr-gallery-note {
   .fr-mosaic figure:last-child:not(.is-wide) { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
   .fr-mosaic figcaption { padding: 28px 12px 10px; font-size: 11px; }
 }
+
+/* ------------------------------------------------------------ homepage instant estimate by project
+   Where the planning range slider was (owner, 21 November 2026). Four
+   project buttons: one row from 1024px, two by two on tablets, one per row on
+   phones; then the path to a person under a hairline. */
+.cabinet-approved .home-estimate-projects.fr-band { position: relative; }
+.cabinet-approved .home-estimate-legacy-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+.cabinet-approved .home-estimate-projects .section-heading { margin-bottom: 28px; }
+.cabinet-approved .home-estimate-projects.fr-band .section-heading h2,
+.cabinet-approved .home-estimate-projects.fr-band .section-heading p { color: var(--fr-paper); }
+.cabinet-approved .home-estimate-projects .home-estimate-project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.cabinet-approved .home-estimate-projects .home-estimate-project-list li { display: flex; min-width: 0; margin: 0; padding: 0; }
+.cabinet-approved .home-estimate-projects .home-estimate-project { justify-content: space-between; gap: var(--icon-gap, 8px); white-space: normal; text-align: left; }
+.cabinet-approved .home-estimate-projects .home-estimate-person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(251, 250, 246, 0.2);
+}
+.cabinet-approved .home-estimate-projects .home-estimate-person > p { margin: 0; color: #d9dbd4; font-size: 16px; line-height: 1.5; }
+.cabinet-approved .home-estimate-projects .home-estimate-person-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; }
+.cabinet-approved .home-estimate-projects .home-estimate-person-actions a { color: var(--fr-paper); gap: var(--icon-gap, 8px); }
+@media (max-width: 1023px) {
+  .cabinet-approved .home-estimate-projects .home-estimate-project-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* The heading and its sentence stack here with no gap of their own. */
+  .cabinet-approved .home-estimate-projects .section-heading > p { margin-top: 16px; }
+}
+@media (max-width: 639px) {
+  .cabinet-approved .home-estimate-projects .home-estimate-project-list { grid-template-columns: 1fr; gap: 8px; }
+  .cabinet-approved .home-estimate-projects .home-estimate-person { flex-direction: column; align-items: flex-start; }
+}
