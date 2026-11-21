@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { DoorFront } from '@/components/catalog/DoorFront';
+import { FinishSwipe } from '@/components/approved/FinishSwipe';
 import { versionedSrc } from '@/lib/images/imageVersion';
 import { localAlt } from '@/shared/localAlt';
 import type { HomeFinish, HomeFinishFamily } from '@/shared/homeFinishes';
@@ -19,12 +20,20 @@ const FAMILY_ORDER: HomeFinishFamily[] = ['matte', 'gloss', 'woodgrain'];
  * radio in CSS (:has), which means it works before and without JavaScript and
  * nothing is re-rendered. Every sample has its place reserved, so nothing
  * moves when the choice changes. The links are plain links.
+ *
+ * Phones and tablets (owner, 21 November 2026: "it should look feel and
+ * function like a mobile application"): the heading comes first, then the
+ * door, the swatch tray and the profile switch as one panel sized to fit
+ * between the header and the bottom bar (app/finish-picker.css, max-width
+ * 1000px). FinishSwipe adds swipe and arrow buttons once the page is
+ * interactive; without it every choice still works.
  */
 export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) {
   if (!finishes.length) return null;
   const total = finishes[0] ? FAMILY_ORDER.reduce((sum, family) => sum + (finishes.find((f) => f.family === family)?.familyCount ?? 0), 0) : 0;
   return (
     <section id="finishes" className="finish-section fp">
+      <div className="fp-view">
       <div className="finish-photo fp-stage" aria-hidden="true">
         {finishes.map((finish, index) => (
           <figure className={`fp-sample fp-s${index} fp-${finish.family}`} key={finish.slug}>
@@ -36,6 +45,8 @@ export function FinishPicker({ finishes }: { finishes: readonly HomeFinish[] }) 
             </figcaption>
           </figure>
         ))}
+      </div>
+      <FinishSwipe />
       </div>
       <div className="finish-copy">
         <p className="eyebrow">FIND YOUR POINT OF VIEW</p>

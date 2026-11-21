@@ -70,6 +70,65 @@
 .cabinet-approved .fp .sample-note{margin-top:14px}
 @media(min-width:701px){.cabinet-approved .fp .fp-row{flex-wrap:wrap;overflow:visible;gap:14px 20px}}
 @media(min-width:1001px){.cabinet-approved .fp .fp-stage{min-height:720px}.cabinet-approved .fp .finish-copy{padding-block:48px}.cabinet-approved .fp .finish-copy h2{font-size:clamp(40px,3.6vw,52px);line-height:1.04}.cabinet-approved .fp .finish-copy>p:not(.eyebrow){max-width:none;margin-top:16px}.cabinet-approved .fp .fp-meta{position:relative}.cabinet-approved .fp .fp-profile{position:absolute;right:0;top:8px;margin:0;z-index:2}.cabinet-approved .fp .fp-profile span{min-width:76px;padding:0 14px}.cabinet-approved .fp .fp-name{min-height:44px;padding-right:176px;flex-wrap:wrap;align-content:center;gap:2px 12px}.cabinet-approved .fp .fp-details{min-height:96px;margin-top:10px}.cabinet-approved .fp .sample-note{margin-top:6px}.cabinet-approved .fp .finish-links{margin-top:14px}}
-@media(max-width:1000px){.cabinet-approved .fp .fp-stage{display:grid;aspect-ratio:auto;height:auto;min-height:0}.cabinet-approved .fp .fp-sample{position:relative;inset:auto;grid-area:1/1;padding:36px 24px 28px}:is(.cabinet-approved .fp,.dv) .fp-door{flex:none;height:460px}.cabinet-approved .fp .fp-details{min-height:112px}}
-@media(max-width:700px){.cabinet-approved .fp .fp-sample{padding:28px 20px 24px;gap:14px}:is(.cabinet-approved .fp,.dv) .fp-door{height:340px}.cabinet-approved .fp .fp-row{gap:22px}.cabinet-approved .fp .fp-details{min-height:132px}}
+/* The door visualizer page keeps its own door sizes. */
+@media(max-width:1000px){.dv .fp-door{flex:none;height:460px}}
+@media(max-width:700px){.dv .fp-door{height:340px}}
+/* Desktop: the view wrapper is not a box, so the stage stays the left column. */
+.cabinet-approved .fp .fp-view{display:contents}
+.cabinet-approved .fp .fp-swipe{display:none}
+/* Phones and tablets: one app panel (owner, 21 November 2026). The heading
+   and intro come first; then the door, the swatch tray and the profile row
+   fill exactly the screen between the header and the bottom bar
+   (--fp-chrome), so a visitor sees the door and every control together.
+   The copy column becomes contents so its parts can be ordered around the
+   view; each keeps the page gutter. */
+@media(max-width:1000px){
+.cabinet-approved .fp{--fp-gut:32px;--fp-chrome:148px;--fp-controls:208px;display:flex;flex-direction:column}
+.cabinet-approved .fp .finish-copy{display:contents}
+.cabinet-approved .fp .finish-copy>*{margin-inline:var(--fp-gut)}
+.cabinet-approved .fp .finish-copy>.eyebrow{order:1;margin-top:56px}
+.cabinet-approved .fp .finish-copy>h2{order:2}
+.cabinet-approved .fp .finish-copy>p:not(.eyebrow):not(.sample-note){order:3;margin-top:16px;max-width:36em}
+.cabinet-approved .fp .fp-view{order:4;display:block;position:relative;margin-top:32px;height:clamp(300px,calc(100svh - var(--fp-chrome) - var(--fp-controls)),640px)}
+.cabinet-approved .fp .fp-stage{display:block;height:100%;min-height:0;aspect-ratio:auto}
+.cabinet-approved .fp .fp-sample{position:absolute;inset:0;padding:18px 64px 14px;gap:10px}
+.cabinet-approved .fp .fp-door{flex:1 1 auto;height:auto;min-height:0}
+.cabinet-approved .fp .fp-sample figcaption b{font-size:22px}
+.cabinet-approved .fp .fp-sample figcaption span{font-size:12px}
+.cabinet-approved .fp .fp-swipe{display:block}
+.cabinet-approved .fp .fp-nav{position:absolute;top:50%;z-index:2;display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-top:-34px;border:0;padding:0;background:#fbfaf6e6;color:#20231f;box-shadow:0 0 0 1px #20231f24,0 6px 14px -8px #20231f80;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cabinet-approved .fp .fp-nav-prev{left:12px}
+.cabinet-approved .fp .fp-nav-next{right:12px}
+.cabinet-approved .fp .fp-nav:active{background:#fff}
+.cabinet-approved .fp .fp-nav:focus-visible{outline:2px solid var(--charcoal,#383837);outline-offset:2px}
+.cabinet-approved .fp .finish-copy>.fp-group{order:5;margin:0;padding-top:14px}
+.cabinet-approved .fp .fp-row{margin:0;padding:4px var(--fp-gut) 6px;scroll-padding-inline:var(--fp-gut);gap:22px}
+.cabinet-approved .fp .fp-family{gap:8px}
+.cabinet-approved .fp .fp-family-label{font-size:12px}
+.cabinet-approved .fp .fp-opt{width:48px;height:48px}
+.cabinet-approved .fp .finish-copy>.fp-meta{order:6;position:relative;margin-top:10px}
+.cabinet-approved .fp .fp-profile{position:absolute;left:0;top:0;z-index:2;margin:0}
+.cabinet-approved .fp .fp-profile span{min-width:78px;padding:0 14px}
+.cabinet-approved .fp .fp-details{min-height:88px;margin:0}
+.cabinet-approved .fp .fp-name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cabinet-approved .fp .fp-actions{display:grid;grid-template-columns:1fr auto;margin:0;gap:0 16px}
+.cabinet-approved .fp .fp-actions a{font-size:15px;white-space:nowrap}
+.cabinet-approved .fp .fp-actions a:first-child{grid-column:2;justify-self:end}
+.cabinet-approved .fp .fp-actions a:last-child{grid-column:1/-1}
+.cabinet-approved .fp .finish-copy>.sample-note{order:7;margin-top:8px}
+.cabinet-approved .fp .finish-copy>.finish-links{order:8;margin-top:18px;margin-bottom:56px}
+}
+@media(min-width:701px) and (max-width:1000px){.cabinet-approved .fp .fp-row{flex-wrap:nowrap;overflow-x:auto;gap:28px}}
+@media(max-width:700px){
+.cabinet-approved .fp{--fp-gut:20px;--fp-chrome:136px}
+.cabinet-approved .fp .finish-copy>.eyebrow{margin-top:44px}
+.cabinet-approved .fp .finish-copy>h2{font-size:38px;line-height:1.06}
+.cabinet-approved .fp .fp-view{margin-top:26px}
+.cabinet-approved .fp .fp-sample{padding:14px 56px 12px;gap:8px}
+.cabinet-approved .fp .fp-nav-prev{left:6px}
+.cabinet-approved .fp .fp-nav-next{right:6px}
+.cabinet-approved .fp .fp-row{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+.cabinet-approved .fp .fp-actions a{font-size:14px}
+}
+
 @media(prefers-reduced-motion:reduce){.cabinet-approved .fp :is(.fp-sample,.fp-detail,.fp-chip){transition:none}}

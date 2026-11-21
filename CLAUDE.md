@@ -495,6 +495,22 @@ real. It is `components/approved/FinishPicker.tsx`, styled by
   <family> finishes" opens `/search?finish=<family>`; the search page reads
   both on the server (`app/search/page.tsx`, `SearchClient.tsx`) and shows a
   whole family when nothing is typed. The catalog has no page per finish.
+* **Phones and tablets are one app panel** (owner, 21 November 2026: "it
+  should look feel and function like a mobile application"). Up to 1000px
+  the heading and intro come first, then the door, the swatch tray and the
+  profile row as one panel whose height is the screen between the header and
+  the bottom bar (`--fp-chrome`, `--fp-controls`, `100svh` in
+  `app/finish-picker.css`), so the door and every control are seen together.
+  The copy column is `display: contents` there so its parts can be ordered
+  around `.fp-view`; on desktop `.fp-view` is `display: contents`, so the
+  two-column layout is unchanged. The swatches are one swipe row on phones
+  and tablets. `FinishSwipe.tsx` (a small client island) adds swipe on the
+  door and previous and next arrows once the page is interactive, moves the
+  tray to the chosen swatch and announces the finish; every change goes
+  through the radio, and without JavaScript nothing is drawn and the swatches
+  still work. The finish name under the door replaces the name row on phones
+  (that row stays for screen readers). Change `--fp-controls` if a control
+  row is added.
 * Guard: `tests/home-finishes.test.ts`.
 
 

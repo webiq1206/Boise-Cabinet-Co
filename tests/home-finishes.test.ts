@@ -87,3 +87,26 @@ test('the picker is native radios driven by CSS, with plain links and no invente
   assert.match(readFileSync('app/page.tsx', 'utf8'), /homeFinishes=\{resolveHomeFinishes\(\)\}/);
   assert.doesNotMatch(readFileSync('components/approved/ApprovedHome.tsx', 'utf8'), /catalog\/generated\/finishes/);
 });
+
+test('phones and tablets get one app panel: door, swatches and profile on one screen', () => {
+  // Owner, 21 November 2026: "it should look feel and function like a mobile application".
+  const picker = readFileSync('components/approved/FinishPicker.tsx', 'utf8');
+  assert.match(picker, /<div className="fp-view">[\s\S]*className="finish-photo fp-stage" aria-hidden="true"[\s\S]*<FinishSwipe \/>/);
+  const swipe = readFileSync('components/approved/FinishSwipe.tsx', 'utf8');
+  // Every change goes through the radio itself, and nothing is drawn before hydration.
+  assert.match(swipe, /input\[name="home-finish"\]/);
+  assert.match(swipe, /dispatchEvent\(new Event\('change', \{ bubbles: true \}\)\)/);
+  assert.match(swipe, /\{ready \? \(/);
+  assert.match(swipe, /aria-label="Previous finish"/);
+  assert.match(swipe, /aria-label="Next finish"/);
+  assert.match(swipe, /aria-live="polite"/);
+  const css = readFileSync('app/finish-picker.css', 'utf8');
+  // Desktop keeps the two columns: the view wrapper is not a box there.
+  assert.match(css, /\.cabinet-approved \.fp \.fp-view\{display:contents\}/);
+  // The panel is sized to the screen between the header and the bottom bar.
+  assert.match(css, /height:clamp\(300px,calc\(100svh - var\(--fp-chrome\) - var\(--fp-controls\)\),640px\)/);
+  assert.match(css, /\.cabinet-approved \.fp \.finish-copy\{display:contents\}/);
+  // The door visualizer page keeps its own door sizes.
+  assert.match(css, /@media\(max-width:1000px\)\{\.dv \.fp-door\{flex:none;height:460px\}\}/);
+  assert.match(css, /@media\(max-width:700px\)\{\.dv \.fp-door\{height:340px\}\}/);
+});
