@@ -2271,6 +2271,7 @@ export const IMAGE_IDENTITY: Record<string, string> = {
   "/images/og/fixed-price-vs-cost-plus.jpg": "3d9f9b1a1acb1f1f",
   "/images/og/framed-vs-frameless-cabinets.jpg": "6767672727252333",
   "/images/og/garage-storage-cabinet-systems.jpg": "9bd3d0ccccc4cc0d",
+  "/images/og/garden-city-cabinet-guide.jpg": "8f8fcd0f1d7cf0e3",
   "/images/og/home-office-built-ins.jpg": "d4d4f4d6d652b092",
   "/images/og/how-deep-are-kitchen-cabinets.jpg": "080929082b29386c",
   "/images/og/how-to-budget-cabinets-boise.jpg": "5714858d86bd3df9",
