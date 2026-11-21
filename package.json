@@ -33,7 +33,7 @@
     "backlink:dispatch": "node --import tsx backlink-engine/dispatch.ts",
     "images:versions": "node scripts/images/build-image-versions.mjs",
     "verify:image-versions": "node --import tsx --test tests/image-versions.test.ts",
-    "verify:images": "node --import tsx scripts/verify-site-images.ts && node --import tsx --test tests/index-card-images.test.ts",
+    "verify:images": "node --import tsx scripts/verify-site-images.ts && node --import tsx --test tests/index-card-images.test.ts tests/gloss-swatches.test.ts",
     "images:manifest": "node scripts/build-site-image-manifest.mjs",
     "images:supplier-map": "node scripts/build-supplier-color-map.mjs",
     "images:sync": "node scripts/sync-marketing-images.mjs",

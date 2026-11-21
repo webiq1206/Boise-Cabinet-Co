@@ -529,11 +529,42 @@ the 52 gloss sample files into `public/images/catalog/finishes/gloss-surface/`
 * The gloss is drawn in CSS on the door and the chips (`.fp-gloss .fp-sheen`,
   `.fp-opt-gloss`, `.dv-chip-gloss`): light from above, two soft window
   reflections, and a darker band that shows on a white lacquer.
-* `glossSurface()` in `shared/doorVisualizer.ts` is the one switch; the
-  homepage picker and the door visualizer both draw gloss from it. The
-  catalog samples themselves, and every other page that shows them, are
-  unchanged. A new gloss finish needs the script run again (then
-  `npm run images:blur` and `npm run images:versions`).
+* **Site wide** (owner, 21 November 2026: "whatever provides the absolute
+  most accuracy and consistency"). Every gloss swatch on the site shows a
+  clean picture with the same drawn gloss: search results, room and catalog
+  cards (`CatalogVisualCard` through `CatalogImage`), `FinishSwatch` (article
+  strips, the finish grid and selector), the estimate wizard and design
+  studio tiles (`VisualOptionTile`, its lightbox too), `FinishDualPreview`,
+  `CatalogBrowser`, the design summary and the portal design page.
+* `shared/catalog/glossSurface.ts` is the one switch and imports only the
+  generated list, so server, client and the estimate engine can use it.
+  `glossSurface()` is the door's surface (sample geometry; the picker and the
+  door visualizer, re-exported from `shared/doorVisualizer.ts`).
+  `finishSwatchSrc()` is every other swatch: a gloss sample becomes
+  `public/images/catalog/finishes/gloss-swatch/<file>`, the square the chips
+  show (their `scale(1.34)` crop, 358px of the sample, written at 640px with
+  -160, -320 and -640 resizes; `images:variants` lists that folder so the
+  loader serves them). Edge to edge, so no white margin or carried-out edge
+  pixels show in a frame. `getFinishImages().swatch` goes through it, so
+  `pickSearchResultImage()`, search, room cards, the estimate engine and the
+  selection rows all get it.
+* The gloss is ONE drawing: `--gloss-sheen` in `app/gloss-sheen.css` (light
+  from the upper left, a window reflection, a darker band that shows on a
+  white lacquer, a faint lit edge drawn inside the frame). `.gloss-sheen` goes
+  on the positioned, clipping frame that holds the picture;
+  `glossSheenClass(src)` sets it for a clean gloss picture only. The picker
+  and visualizer chips read the same variable. Never hand `finish.imagePath`
+  straight to an image: use `finishSwatchSrc()` and `glossSheenClass()`.
+* The downloadable catalog PDF keeps the supplier's samples
+  (`getFinishImages().sample` in `catalogPdfContent.ts`): a PDF cannot draw
+  the CSS gloss, and a bare surface would read as matte.
+* A new gloss finish: run the script again, then `npm run images:variants`,
+  `npm run images:blur` and `npm run images:versions` (last).
+* Guard: `tests/gloss-swatches.test.ts` (in `verify:images`, so prebuild):
+  every gloss finish has its swatch and resized copies, every path that hands
+  a finish picture to a page gives a gloss its swatch, the swatch components
+  render it with `.gloss-sheen` and leave other finishes alone, and no page or
+  component passes a finish's `imagePath` to `src`.
 
 ## Door visualizer (owner, 19 November 2026)
 

@@ -10,11 +10,14 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Finish } from "@/shared/catalog";
 import { finishAlt } from "@/shared/catalog/altText";
+import { finishSwatchSrc, glossSheenClass } from "@/shared/catalog/glossSurface";
 import { cn } from "@/lib/utils";
 
 export function FinishSwatch({ finish }: { finish: Finish }) {
   const [imageFailed, setImageFailed] = useState(false);
-  const showImage = Boolean(finish.imagePath) && !imageFailed;
+  // A gloss finish shows its clean swatch with the gloss drawn over it.
+  const src = finishSwatchSrc(finish.imagePath);
+  const showImage = Boolean(src) && !imageFailed;
   const alt = finishAlt(finish);
 
   return (
@@ -22,6 +25,7 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
       className={cn(
         "aspect-square rounded-sm border border-border shadow-sm overflow-hidden relative",
         finish.category === "woodgrain" && "ring-1 ring-inset ring-black/5",
+        showImage && glossSheenClass(src),
       )}
       role="img"
       aria-label={alt}
@@ -34,7 +38,7 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
       />
       {showImage && (
         <Image
-          src={finish.imagePath!}
+          src={src!}
           alt={localAlt(alt)}
           fill
           sizes="120px"

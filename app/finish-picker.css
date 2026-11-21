@@ -50,7 +50,7 @@
 .cabinet-approved .fp .fp-in{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
 .cabinet-approved .fp .fp-chip{position:absolute;inset:0;display:block;overflow:hidden;background:#fff;box-shadow:0 0 0 1px #f1ede466;transition:box-shadow .2s ease}
 .cabinet-approved .fp .fp-chip img{display:block;width:100%;height:100%;object-fit:cover;border-radius:0;filter:none;transform:scale(1.34);transform-origin:50% 78%}
-.cabinet-approved .fp .fp-opt-gloss .fp-chip::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,#ffffff5c 0%,#ffffff00 42%),linear-gradient(118deg,#fff0 54%,#ffffff38 61%,#fff0 70%),linear-gradient(118deg,#0000 44%,#00000014 50%,#0000 56%);pointer-events:none}
+.cabinet-approved .fp .fp-opt-gloss .fp-chip::after{content:"";position:absolute;inset:0;background:var(--gloss-sheen);pointer-events:none}
 .cabinet-approved .fp .fp-in:checked+.fp-chip{box-shadow:0 0 0 2px var(--charcoal,#383837),0 0 0 4px var(--paper,#fbfaf6)}
 .cabinet-approved .fp .fp-in:focus-visible+.fp-chip{outline:2px solid var(--paper,#fbfaf6);outline-offset:5px}
 .cabinet-approved .fp .fp-styles{border:0;margin:14px 0 0;padding:0;min-width:0}

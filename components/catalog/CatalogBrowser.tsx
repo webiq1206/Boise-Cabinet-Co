@@ -40,6 +40,7 @@ import {
   type Finish,
 } from "@/shared/catalog";
 import { catalogResultHref } from "@/lib/catalog-routes";
+import { finishSwatchSrc, glossSheenClass } from "@/shared/catalog/glossSurface";
 
 type BrowseTab =
   | "all"
@@ -443,7 +444,12 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
       data-testid={`catalog-item-${item.key}`}
       className="group flex flex-col gap-2 rounded-md border border-border bg-card p-2 transition-colors hover:border-accent/60"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border/50 bg-muted">
+      <div
+        className={cn(
+          "relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border/50 bg-muted",
+          item.finish ? glossSheenClass(finishSwatchSrc(item.finish.imagePath)) : glossSheenClass(item.imageSrc),
+        )}
+      >
         {item.finish ? (
           <>
             <div
@@ -452,7 +458,7 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
             />
             {item.finish.imagePath && (
               <Image
-                src={item.finish.imagePath}
+                src={finishSwatchSrc(item.finish.imagePath)}
                 alt={localAlt(item.alt)}
                 fill
                 sizes="(max-width: 640px) 50vw, 220px"
