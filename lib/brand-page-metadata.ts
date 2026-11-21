@@ -32,9 +32,9 @@ const COPY:Record<string,Record<string,Copy>>={
   "/blog/kitchen-cabinet-cost-boise":{title:"Boise Kitchen Cabinet Costs (2026)",description:"Plan your Boise kitchen cabinet budget with cost ranges, finishes and installation considerations. Compare scope and specifications before requesting a quote."},
   "/blog/cabinet-cost-per-linear-foot":{title:"Cabinet Cost per Linear Foot in Boise",description:"Understand cabinet costs per linear foot in Boise and what the comparison includes. Review cabinet type, materials, hardware and installation before budgeting."},
   "/blog/custom-kitchen-cabinet-cost":{title:"Custom Kitchen Cabinet Costs in Boise",description:"Explore custom kitchen cabinet costs in Boise. See how layout, cabinet construction, door style, finishes and installation shape the project budget."},
-  '/':{title:'Custom Cabinets Boise: Kitchen, Vanities',description:'Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.'},
-  '/about':{title:'About Our Boise Cabinet Team',description:'Learn how Boise Cabinet Co helps Treasure Valley homeowners and contractors with cabinet layouts, finish selections, supply and installation planning.'},
-  '/contact':{title:'Contact Our Boise Custom Cabinet Team',description:'Discuss custom cabinet layouts, finishes, supply or installation with Boise Cabinet Co. Call our team or request help with your Treasure Valley cabinet project.'},
+  '/':{title:'Custom Cabinets in Boise, ID',description:'Custom cabinets in Boise built to your layout: kitchens, vanities and built-ins designed and installed by one local team. Book a free design consult today.'},
+  '/about':{title:'About Our Cabinet Design Team',description:'Learn how Boise Cabinet Co helps Treasure Valley homeowners and contractors with cabinet layouts, finish selections, supply and installation planning.'},
+  '/contact':{title:'Contact Boise Cabinet Co | Call, Text or Book a Consult',description:'Call or text Boise Cabinet Co, or book a free design consult for kitchen cabinets, vanities or built-ins in Ada or Canyon County. No pressure, no pitch.'},
   '/resources':{title:'Cabinet Planning Worksheets & Guides',description:'Plan your cabinetry with budget worksheets, kitchen and bath checklists, and local permit guidance from Boise Cabinet Co in Idaho’s Treasure Valley.'}},
  p5:{
   '/':{title:'Boise Home Construction, Remodeling & Repairs',description:'Find the P5 Home Co team for new construction, remodeling, home repairs or cabinets in Boise and the Treasure Valley. Compare services and plan your project.'},
@@ -57,7 +57,8 @@ export function withBrandPageMetadata(meta:Metadata,routeHint?:string):Metadata{
  const phaseTitle=path?phase1Title(path):undefined;
  const phaseDescription=path?phase1Description(path):undefined;
  const original=phaseTitle||titleText(meta);
- const title=override?`${override.title} | ${brand.name}`:original.includes(brand.name)?original:`${original} | ${brand.name}`;
+ const branded=(stem:string)=>stem.includes(brand.name)?stem:`${stem} | ${brand.name}`;
+ const title=override?branded(override.title):original.includes(brand.name)?original:`${original} | ${brand.name}`;
  const description=override?.description||phaseDescription||meta.description||undefined;
  const image={url:BRAND_PAGE_IMAGE,width:1200,height:630,alt:`${brand.name} brand seal`};
  const icons=routeHint==='__layout__'?{

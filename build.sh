@@ -41,9 +41,10 @@ rm -rf .next/standalone/public
 ln -sfn ../../public .next/standalone/public
 # Include a verified runtime in the deployment artifact, not just the workspace.
 bash scripts/package-node-runtime.sh
-# Submit sitemap URLs to IndexNow for search engine indexing.
+# Record changed URLs for the post-deploy IndexNow ping. This does not call
+# the network. The server posts once it is serving, and only on a deployment.
 if command -v node &>/dev/null; then
-  node scripts/submit-indexnow.mjs || echo "IndexNow submission skipped (non-fatal)"
+  node scripts/submit-indexnow.mjs --prepare || echo "IndexNow manifest skipped (non-fatal)"
 fi
 # Remove regenerable build/tooling caches so they are not shipped in the deployment
 # image. The standalone runtime (.next/standalone/server.js) reads none of them, but

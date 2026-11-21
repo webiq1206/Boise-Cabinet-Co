@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export interface FaqItem {
   question: string;
-  answer: string;
+  answer: ReactNode;
 }
 
 interface FaqAccordionProps {

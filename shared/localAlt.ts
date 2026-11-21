@@ -15,7 +15,7 @@ export interface LocalAltContext {
   city?: string;
 }
 
-const CITY_NAMES = ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'];
+const CITY_NAMES = ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell', 'Garden City'];
 
 /** The work a description is about, from the words it already uses. First match wins. */
 const SUBJECT_RULES: readonly [RegExp, string][] = [

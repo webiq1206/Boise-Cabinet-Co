@@ -6,7 +6,7 @@ export const ESTIMATOR_BRAND = {
   "name": "Boise Cabinet Co",
   "domain": "boisecabinet.co",
   "legalName": null,
-  "parentLegalName": "P5 Home Co, LLC",
+  "parentLegalName": "P5 Home Co LLC",
   "accent": "#659B9A",
   "services": [
     "cabinet-product",

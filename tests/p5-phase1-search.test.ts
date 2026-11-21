@@ -109,7 +109,7 @@ test("phase-1 metadata overlay replaces long tags and keeps brand copy overrides
   assert.equal(kitchen.title, "Kitchen Cabinets in Boise | Built to Fit");
   assert.equal(
     kitchen.description,
-    "Kitchen cabinets in Boise, Idaho: built to your layout in 299 finishes and six door styles, with managed installation. Book a free in-home design consult.",
+    "Kitchen cabinets in Boise built to your layout, with design help, finish choices and managed installation from one local team. Book a free design consult.",
   );
 });
 
@@ -153,11 +153,15 @@ test("IndexNow ping is bundled on startup and logs status", () => {
   assert.equal(readFileSync(`public/${key}.txt`, "utf8").trim(), key);
   const script = readFileSync("scripts/submit-indexnow.mjs", "utf8");
   assert.equal(script.includes(key), true);
-  assert.equal(script.includes("export default async function submit"), true);
+  assert.equal(script.includes("export default submitDeployed"), true);
   assert.equal(script.includes("function isDirectRun()"), true);
   const boot = readFileSync("instrumentation.ts", "utf8");
   assert.equal(boot.includes('import("./scripts/submit-indexnow.mjs")'), true);
-  assert.equal(boot.includes("[startup] IndexNow status: HTTP"), true);
+  assert.equal(boot.includes("[IndexNow] sha=unknown submitted=0 status=error"), true);
+  assert.equal(script.includes("[IndexNow] sha=${sha} submitted=${submitted} status=${status}"), true);
+  assert.equal(script.includes("deployPingAllowed"), true);
+  assert.equal(readFileSync("build.sh", "utf8").includes("node scripts/submit-indexnow.mjs --prepare"), true);
+  assert.equal(readFileSync("build.sh", "utf8").includes("node scripts/submit-indexnow.mjs ||"), false);
   assert.equal(boot.includes("if (!dbUrl) return;"), true);
   assert.equal(boot.includes('NEXT_RUNTIME === "nodejs"'), true);
   assert.equal(boot.includes('NODE_ENV === "production"'), true);
@@ -202,10 +206,10 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
     { title: "Home", description: "fallback", alternates: { canonical: "https://boisecabinet.co/" } },
     "/",
   );
-  assert.deepEqual(home.title, { absolute: "Custom Cabinets Boise: Kitchen, Vanities | Boise Cabinet Co" });
+  assert.deepEqual(home.title, { absolute: "Custom Cabinets in Boise, ID | Boise Cabinet Co" });
   assert.equal(
     home.description,
-    "Custom cabinets Boise: kitchen cabinets, bathroom vanities, built-in storage for Boise and the Treasure Valley. Review finishes, design options, installation.",
+    "Custom cabinets in Boise built to your layout: kitchens, vanities and built-ins designed and installed by one local team. Book a free design consult today.",
   );
   const hero = readFileSync("components/approved/ApprovedHome.tsx", "utf8");
   // The site-owned video hero preserves the same H1 and exact accent line.
@@ -217,14 +221,14 @@ test("home title and H1 preserve current custom-cabinet identity and quote entry
   assert.equal(hero.includes('"/cabinets/kitchen"'), true);
   assert.equal(hero.includes('id="cabinetry"'), true);
   assert.match(hero, /href="\/estimate" data-cta="primary"/);
-  assert.equal(hero.includes("Custom kitchen cabinets, bathroom vanities, and built-in storage."), true);
+  assert.equal(hero.includes('href="/cabinets/kitchen">kitchen cabinets in Boise'), true);
   assert.equal(hero.includes("Jared"), false);
   assert.equal(hero.includes("\u2014"), false);
   const contact = withBrandPageMetadata(
     { title: "Contact", alternates: { canonical: "https://boisecabinet.co/contact" } },
     "/contact",
   );
-  assert.deepEqual(contact.title, { absolute: "Contact Our Boise Custom Cabinet Team | Boise Cabinet Co" });
+  assert.deepEqual(contact.title, { absolute: "Contact Boise Cabinet Co | Call, Text or Book a Consult" });
   const shell = readFileSync("components/portal/PortalShell.tsx", "utf8");
   assert.equal(shell.includes("isAuthenticated"), true);
   assert.equal(shell.includes('href="/api/logout"'), true);

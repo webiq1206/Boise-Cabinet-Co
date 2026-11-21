@@ -46,6 +46,9 @@ function buildCityServiceImages(): Record<string, string> {
       map[`${service}/${city}`] = `/images/city-service/${service}__${city}.webp`;
     }
   }
+  // Garden City uses photographs already on the site. No ADU image is added.
+  map["kitchen-remodel/garden-city"] = "/images/blog/open-kitchen-cabinet-storage.webp";
+  map["whole-home-remodel/garden-city"] = "/images/blog/how-to-plan-a-kitchen-cabinet-project.webp";
   return map;
 }
 
@@ -63,6 +66,8 @@ export const CITY_HERO_IMAGES: Record<string, string> = {
   star: "/images/areas/star.webp",
   middleton: "/images/areas/middleton.webp",
   caldwell: "/images/areas/caldwell.webp",
+  // Existing cabinet photographs, each a different picture from the city heroes.
+  "garden-city": "/images/blog/two-tone-kitchen-cabinets.webp",
 };
 
 /**
@@ -112,6 +117,7 @@ const CITY_DISPLAY: Record<string, string> = {
   star: "Star",
   middleton: "Middleton",
   caldwell: "Caldwell",
+  "garden-city": "Garden City",
 };
 
 const SERVICE_LABELS: Record<string, string> = {
@@ -148,6 +154,7 @@ const AREA_HERO_PICTURE: Record<string, { subject: string; picture: string }> = 
   star: { subject: "kitchen cabinets", picture: "kitchen with white oak flat-panel cabinets and a walnut island of drawers" },
   middleton: { subject: "kitchen cabinets", picture: "kitchen with charcoal lower cabinets, white oak upper cabinets and a white peninsula" },
   caldwell: { subject: "built-in cabinets", picture: "white oak built-in cabinets with open shelves along a wall" },
+  "garden-city": { subject: "kitchen cabinets", picture: "kitchen with light wood upper cabinets, charcoal lower cabinets and a charcoal island" },
 };
 
 function areaHeroAlt(citySlug: string): string {
@@ -172,6 +179,7 @@ const AREA_PROCESS_PICTURE: Record<string, string> = {
   star: "white oak media wall with open shelves and cabinets around a television",
   middleton: "open great room with a living area, a dining table and a kitchen beyond",
   caldwell: "white oak built-in shelving wall with lower cabinets",
+  "garden-city": "door samples, a finish fan, pulls, a cabinet drawing, a tape measure and a pencil on a wood table",
 };
 
 function areaProcessAlt(citySlug: string): string {

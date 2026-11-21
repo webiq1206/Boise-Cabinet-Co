@@ -177,6 +177,7 @@ export default function AboutPage() {
                 <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
                   <SaveContactLink showIcon className="text-sm underline underline-offset-2 text-foreground" />
                   <Link href="/catalog" className="text-sm underline underline-offset-2">{CTA_EXPLORE_COLLECTIONS}</Link>
+                  <Link href="/" className="text-sm underline underline-offset-2">custom cabinets in Boise</Link>
                 </div>
               </Reveal>
               <figure className="people-safe-photo m-0">

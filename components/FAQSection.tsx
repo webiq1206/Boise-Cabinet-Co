@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section } from "@/components/marketing/Section";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { publicQa } from "@/shared/claims";
@@ -14,7 +15,22 @@ export { HOMEPAGE_FAQS };
  * unchanged - it already handles keyboard and screen-reader behaviour.
  */
 export function FAQSection() {
-  const faqs = publicQa(HOMEPAGE_FAQS).map((f) => ({ question: f.q, answer: f.a }));
+  const faqs = publicQa(HOMEPAGE_FAQS).map((f) => {
+    if (f.q !== "What areas do you serve?" || !f.a.includes("Garden City")) {
+      return { question: f.q, answer: f.a };
+    }
+    const [before, after] = f.a.split("Garden City");
+    return {
+      question: f.q,
+      answer: (
+        <>
+          {before}
+          <Link href="/locations/garden-city">Garden City</Link>
+          {after}
+        </>
+      ),
+    };
+  });
 
   return (
     <Section id="faq" surface="dark" spacing="xl" edge>

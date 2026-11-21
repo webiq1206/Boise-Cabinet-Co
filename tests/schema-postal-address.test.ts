@@ -98,14 +98,21 @@ test("public contacts retain locality facts and do not keep a street", () => {
   // Business Profile (owner call A): on the parent node only, never in this
   // brand's own sameAs.
   assert.deepEqual((parent as unknown as { sameAs: string[] }).sameAs, [
-    // Owner answers, 20 November 2026: the vanity Facebook URL and the Instagram account.
     "https://www.facebook.com/p5homeco",
     "https://www.instagram.com/p5_home_co",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
+    "https://maps.google.com/?cid=11869148461693849141",
+    "https://www.bbb.org/us/id/meridian/profile/general-contractor/p5-home-co-llc-1296-1000203624",
   ]);
+  const parentJson = JSON.stringify(parent);
+  assert.equal(parentJson.includes("aggregateRating"), false);
+  assert.equal(/accredit|bbb rating|A\+/i.test(parentJson), false);
   for (const own of [home.sameAs, organization.sameAs ?? []]) {
-    assert.equal(JSON.stringify(own).includes("facebook.com"), false);
-    assert.equal(JSON.stringify(own).includes("kgmid"), false);
+    const serialized = JSON.stringify(own);
+    assert.equal(serialized.includes("facebook.com"), false);
+    assert.equal(serialized.includes("kgmid"), false);
+    assert.equal(serialized.includes("bbb.org"), false);
+    assert.equal(serialized.includes("maps.google.com"), false);
   }
 
   for (const schema of [home, organization]) {

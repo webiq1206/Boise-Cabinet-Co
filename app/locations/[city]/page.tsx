@@ -255,7 +255,11 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
         <PhotoBreak
           src={images.breather}
           alt={localAlt(images.heroAlt ?? `Kitchen with custom cabinets`, { city: city.name })}
-          caption={`Cabinetry planned for ${city.name} homes and neighborhoods.`}
+          caption={
+            city.slug === "garden-city"
+              ? "Cabinetry planned for Garden City homes, from riverside streets to new townhome rows."
+              : `Cabinetry planned for ${city.name} homes and neighborhoods.`
+          }
         />
 
         {copy?.sections?.map((section, index) => (
@@ -399,7 +403,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
                 },
               ]}
               links={copy?.links ?? []}
-              manifestPath={`/locations/${city.slug}`}
+              manifestPath={city.slug === "garden-city" ? undefined : `/locations/${city.slug}`}
               exclude={SERVICES.map((service) => service.url)}
             />
           </div>
@@ -412,8 +416,9 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
               Ready to plan your {city.name} project?
             </h2>
             <p className="text-inverse-muted mb-6">
-              Share your project online for team review. More information or a site visit may be needed before we prepare your estimate.
-              Larger plan sets may take longer. The in-home design visit is free.
+              {city.slug === "garden-city"
+                ? "Share your project online for team review. More information may be needed before we prepare your estimate. The in-home design consultation is free."
+                : "Share your project online for team review. More information or a site visit may be needed before we prepare your estimate. Larger plan sets may take longer. The in-home design visit is free."}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <CtaButton variant="brand">{CTA_ESTIMATE}</CtaButton>

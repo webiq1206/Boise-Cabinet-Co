@@ -157,7 +157,7 @@ export default function BuildersPage() {
           title={<>
                   Builder cabinets that keep your <em className="brc-accent text-accent">schedule</em>
                 </>}
-          description="Discuss your cabinet scope, project location and target schedule with Boise Cabinet Co. Start with a call, text or project request."
+          description={<>Discuss your cabinet scope, project location and target schedule with Boise Cabinet Co. Homeowner projects for <Link href="/">custom cabinets in Boise</Link> start from the main page.</>}
         >
           <Button variant="brand" asChild>
             <Link href="#builder-inquiry">

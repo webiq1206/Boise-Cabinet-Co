@@ -251,6 +251,9 @@ const nextConfig = {
       if (city === 'boise') continue;
       redirects.push(...r(`/guides/${city}-cabinet-guide`, `/locations/${city}`));
     }
+    // Garden City is not in the service-by-city loop above (that loop also
+    // rewrites ADU city URLs, which stay out of this change).
+    redirects.push(...r('/guides/garden-city-cabinet-guide', '/locations/garden-city'));
 
     // Email links to pages that do not currently exist (contractor lead/project
     // portal, customer quote-status). Route them to the contact page so no email
