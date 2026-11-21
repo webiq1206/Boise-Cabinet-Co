@@ -585,6 +585,12 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["location","middleton","guide"],
     source: 'areas',
   },
+  'garden-city-cabinet-guide': {
+    hero: '/images/blog/two-tone-kitchen-cabinets.webp',
+    alt: 'Kitchen with light wood upper cabinets, charcoal lower cabinets and a charcoal island',
+    topicTags: ["location","garden-city","guide"],
+    source: 'blog',
+  },
 };
 
 export const HUB_HERO_IMAGES: Record<string, string> = {

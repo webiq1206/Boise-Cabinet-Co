@@ -628,6 +628,12 @@ const ENTRIES = {
     topicTags: ["location", "middleton", "guide"],
     source: "areas",
   },
+  "garden-city-cabinet-guide": {
+    hero: blog("two-tone-kitchen-cabinets"),
+    alt: "Kitchen with light wood upper cabinets, charcoal lower cabinets and a charcoal island",
+    topicTags: ["location", "garden-city", "guide"],
+    source: "blog",
+  },
 };
 
 const HUB_HEROES = {
@@ -645,7 +651,7 @@ const HUB_HEROES = {
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
 const EXPECTED_BLOG = 78;
-const EXPECTED_GUIDES = 17;
+const EXPECTED_GUIDES = 18;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {
   console.error(`Expected ${EXPECTED_BLOG} blog slugs before guides, got ${blogSlugsFromEntries.length}`);
