@@ -5,6 +5,7 @@
  * generated cabinet product catalog into the bundle. entityImages.ts
  * re-exports both, so existing imports keep working.
  */
+import { finishSwatchSrc } from "./glossSurface";
 
 export interface DoorStyleImages {
   primary: string;
@@ -12,7 +13,10 @@ export interface DoorStyleImages {
 }
 
 export interface FinishImages {
+  /** What a visitor sees: a gloss finish's clean surface, otherwise the catalog sample. */
   swatch?: string;
+  /** The catalog sample itself, as the supplier supplies it (the printed catalog uses it). */
+  sample?: string;
   inRoom: string;
 }
 
@@ -27,9 +31,13 @@ export function getDoorStyleImages(slug: string, imagePath?: string): DoorStyleI
 /** Finish swatch + in-room application preview */
 export function getFinishImages(slug: string, imagePath?: string): FinishImages {
   // imagePath is always set in generated data (real swatch or generated tile),
-  // so the swatch never resolves to a broken/missing image.
+  // so the swatch never resolves to a broken/missing image. A gloss sample
+  // carries a painted reflection, so the swatch is its clean surface and the
+  // gloss is drawn over it in CSS (glossSheenClass in ./glossSurface).
+  const sample = imagePath ?? `/generated/finishes/${slug}.svg`;
   return {
-    swatch: imagePath ?? `/generated/finishes/${slug}.svg`,
+    swatch: finishSwatchSrc(sample),
+    sample,
     inRoom: `/images/catalog/finishes/in-room/${slug}.webp`,
   };
 }

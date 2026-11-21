@@ -14,6 +14,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { FINISHES, DOOR_STYLES } from "@/shared/catalog";
 import type { SelectionDisplayRow } from "@/lib/catalog/selectionDisplay";
 import { cn } from "@/lib/utils";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 
 const statusBadge: Record<string, "default" | "secondary" | "outline"> = {
   selected: "default",
@@ -38,6 +39,7 @@ function SelectionThumbnail({ row }: { row: SelectionDisplayRow }) {
       className={cn(
         "relative shrink-0 overflow-hidden rounded-sm bg-muted",
         row.category === "Finish" ? "h-14 w-14 border border-border" : "h-14 w-20",
+        glossSheenClass(row.imageSrc),
       )}
     >
       <Image

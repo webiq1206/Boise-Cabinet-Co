@@ -1,6 +1,6 @@
 import { DOOR_STYLES } from "./catalog/generated/doorStyles";
 import { FINISHES } from "./catalog/generated/finishes";
-import { GLOSS_SURFACE_FILES } from "./catalog/generated/glossSurfaces";
+import { glossSurface } from "./catalog/glossSurface";
 import {
   VISUALIZER_FAMILIES,
   isDrawnDoorStyle,
@@ -28,16 +28,10 @@ export function visualizerStyles(): VisualizerStyle[] {
 }
 
 /**
- * The clean surface a gloss sample is drawn with (owner, 21 November 2026):
- * the supplier paints a reflection onto every gloss sample, so the drawn door
- * uses the sample with that painted reflection removed and draws the gloss
- * itself in CSS (scripts/images/build-gloss-surfaces.py). Null for a sample
- * with no surface; the catalog sample is then used as it is.
+ * The clean surface a gloss sample is drawn with: shared/catalog/glossSurface.ts,
+ * the one helper every finish swatch on the site uses.
  */
-export function glossSurface(imagePath: string): string | null {
-  const file = imagePath.split("/").pop() ?? "";
-  return GLOSS_SURFACE_FILES.has(file) ? `/images/catalog/finishes/gloss-surface/${file}` : null;
-}
+export { glossSurface };
 
 export function visualizerFinishes(): VisualizerFinish[] {
   const order = new Map(VISUALIZER_FAMILIES.map((family, index) => [family.id as string, index]));

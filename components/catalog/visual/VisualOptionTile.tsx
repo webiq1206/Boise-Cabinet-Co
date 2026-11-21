@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Check, ZoomIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getBlurDataURL } from "@/shared/generated/imageBlur";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 import {
   Dialog,
   DialogContent,
@@ -90,6 +91,7 @@ export function VisualOptionTile({
           className={cn(
             "relative w-full overflow-hidden rounded-sm border border-border/50 bg-muted",
             variant === "swatch" ? "aspect-square" : "aspect-[4/3]",
+            showImage && !useHexFallback && glossSheenClass(imageSrc),
           )}
         >
           {useHexFallback ? (
@@ -148,7 +150,7 @@ export function VisualOptionTile({
             <DialogHeader>
               <DialogTitle>{label}</DialogTitle>
             </DialogHeader>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border bg-muted">
+            <div className={cn("relative aspect-[4/3] w-full overflow-hidden rounded-md border bg-muted", !useHexFallback && glossSheenClass(lightboxSrc))}>
               {useHexFallback ? (
                 <div
                   className="absolute inset-0"

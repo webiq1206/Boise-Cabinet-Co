@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Finish } from "@/shared/catalog";
 import { getFinishImages } from "@/shared/catalog/entityImagePaths";
 import { cn } from "@/lib/utils";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 
 export interface FinishDualPreviewProps {
   finish: Finish;
@@ -20,7 +21,7 @@ export function FinishDualPreview({ finish, className }: FinishDualPreviewProps)
   return (
     <div className={cn("grid sm:grid-cols-2 gap-4", className)}>
       <figure className="space-y-2">
-        <div className="relative aspect-square max-w-[200px] rounded-lg border border-border overflow-hidden bg-muted shadow-sm">
+        <div className={cn("relative aspect-square max-w-[200px] rounded-lg border border-border overflow-hidden bg-muted shadow-sm", !swatchFailed && glossSheenClass(swatch))}>
           {swatch && !swatchFailed ? (
             <Image
               src={swatch}
