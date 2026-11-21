@@ -16,6 +16,19 @@ export const ESTIMATOR_BRAND_ID = "cabinet";
 export const ESTIMATOR_PROJECT_IDS = ["kitchen-cabinets", "bathroom-vanity", "cabinet-refresh", "built-ins"] as const;
 export type EstimatorProjectId = (typeof ESTIMATOR_PROJECT_IDS)[number];
 
+/**
+ * The estimator's own name for each project (p5-home-co
+ * `app/lib/estimator/flows.ts`). The homepage block that replaced the planning
+ * range slider (owner, 21 November 2026) links each one to
+ * /instant-estimate?project=<id>, in the order above.
+ */
+export const ESTIMATOR_PROJECT_LABELS: Readonly<Record<EstimatorProjectId, string>> = {
+  "kitchen-cabinets": "Kitchen cabinets",
+  "bathroom-vanity": "Bathroom vanity",
+  "cabinet-refresh": "Cabinet refresh",
+  "built-ins": "Built-ins and storage",
+};
+
 /** Room slug (shared/catalog/roomCategories.ts) to estimator project. */
 export const ROOM_ESTIMATOR_PROJECT: Readonly<Record<string, EstimatorProjectId>> = {
   kitchen: "kitchen-cabinets",

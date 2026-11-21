@@ -1,6 +1,6 @@
 'use client';
 import { localAlt } from '@/shared/localAlt';
-import {useId, type ReactNode} from 'react';
+import {type ReactNode} from 'react';
 import { FinishPicker } from './FinishPicker';
 import type { HomeFinish } from '@/shared/homeFinishes';
 import {ArrowUpRight,Check} from 'lucide-react';
@@ -18,13 +18,11 @@ import { CabinetHeroVideo } from './CabinetHeroVideo';
 import { ProofStrip, type ProofItem } from '@/components/family/ProofStrip';
 import { DOPL_LICENSE_SEARCH, FAMILY_BRAND } from '@/lib/familyBrand';
 import {steps,differentiators,additionalRooms} from './cabinet-content';
-import dynamic from 'next/dynamic';
 import { versionedSrc } from '@/lib/images/imageVersion';
-// The planning range runs the estimate engine, which carries the full finish
-// library. Server-rendered as before, but its own chunk: the homepage hydrates
-// first, and the logo link's prefetch of "/" on every other page no longer
-// downloads and evaluates the finish library.
-const KitchenPlanningRange = dynamic(() => import('./KitchenPlanningRange').then((m) => m.KitchenPlanningRange));
+// The planning range slider (KitchenPlanningRange) was retired on 21 November
+// 2026 (one source of prices). It stays in the repository, unmounted; the
+// instant estimate by project sits where it was.
+import { HomeInstantEstimateProjects } from './HomeInstantEstimateProjects';
 
 const rooms = [
  {name:'Kitchen',alt:'White oak kitchen island with black pulls under two black pendants, in front of cream Shaker cabinets and a plaster range hood',title:'The heart of your home.',image:'/family/drive/landscape-1-white-oak-kitchen-island-with-pendants.webp',desc:'Base cabinets, uppers, pantries, and appliance panels designed as one coordinated kitchen.',details:'Bring storage, appliances, and everyday routines into one thoughtful layout. Explore pantry cabinets, deep drawers, island storage, and finishes that work together.',features:['Storage planned around the way you cook','Coordinated island and perimeter cabinetry','Door, finish, and hardware selections']},
@@ -50,7 +48,7 @@ const ESTIMATE_BENEFITS = [
 const IDENTITY =
   'Boise Cabinet Co designs custom cabinets to your measurements and layout, built to order and installed by our team or a qualified installation partner we manage.';
 
-export function ApprovedHome({reviews=null,homeFinishes=[]}:{reviews?: ReactNode;homeFinishes?: readonly HomeFinish[]}){const planningRangeId=useId();return <div className="cabinet-approved">
+export function ApprovedHome({reviews=null,homeFinishes=[]}:{reviews?: ReactNode;homeFinishes?: readonly HomeFinish[]}){return <div className="cabinet-approved">
   <section className="fam-hero" data-family-hero="" data-video-hero="" data-fit="viewport"
    data-desktop-from={FAMILY_BRAND.header.desktopFrom} data-scrim="standard"
    style={brandStyle()} aria-labelledby="family-hero-title">
@@ -124,6 +122,6 @@ export function ApprovedHome({reviews=null,homeFinishes=[]}:{reviews?: ReactNode
   </section>
   {reviews}
   <section className="builder-band wrap"><div><p className="eyebrow">FOR BUILDERS, REMODELERS & DESIGNERS</p><h2>Your plans.<br/><em>Our cabinet expertise.</em></h2></div><div><p>One home or a full project pipeline. Let&apos;s coordinate the cabinet package, selections, and installation scope around your plans.</p><FamilyButton href="/estimate" data-cta="primary" variant="primary" size="lg">{CTA_REQUEST_QUOTE}</FamilyButton><button className="text-link estimate-secondary" onClick={()=>window.location.assign("/builders")}>Let&apos;s work together <ArrowUpRight size={18}/></button></div></section>
-  <KitchenPlanningRange idPrefix={planningRangeId} />
+  <HomeInstantEstimateProjects />
   <FAQSection/>
  </div>;}

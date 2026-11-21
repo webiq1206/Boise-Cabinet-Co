@@ -34,11 +34,25 @@ primary pricing call to action on this site.
   `scripts/lib/prohibitedResponseLanguage.ts` enforces the quote and
   stated-minutes parts; the reply-time patterns there are unchanged.
 * Existing tools stay until the owner retires them. `/estimate` (the quote
-  request form and its planning wizard), `/estimate/scope`, the homepage
-  planning slider, the chat assistant, every form and API route remain mounted
-  and working. Only primary CTAs were re-pointed. Do not delete or unmount any
-  of them until the owner says the replacement is verified live.
-* Guard: `tests/p5-instant-estimate.test.ts` (runs with `tests/p5-*.test.ts`).
+  request form and its planning wizard), `/estimate/scope`, the chat
+  assistant, every form and API route remain mounted and working. Only primary
+  CTAs were re-pointed. Do not delete or unmount any of them until the owner
+  says the replacement is verified live.
+* **The homepage price slider is retired** (owner, 21 November 2026: one
+  source of prices). `KitchenPlanningRange` ran this site's own engine and
+  showed figures that differed from the instant estimator, so the homepage
+  shows `HomeInstantEstimateProjects` in its place (the dark band after the
+  builders band): a heading, one sentence, one button per project the
+  estimator prices for this brand (`ESTIMATOR_PROJECT_IDS` and
+  `ESTIMATOR_PROJECT_LABELS` in `shared/instantEstimate.ts`) to
+  `/instant-estimate?project=<id>`, and "Request a quote" and the phone beside
+  them. No figure. The slider component stays in the repository, unmounted; do
+  not mount it again. The block keeps a `#ranges` anchor for links from
+  outside the site; content links that went to `/#calculator` (which had no
+  target here) go to `/instant-estimate`.
+* Guards: `tests/p5-instant-estimate.test.ts` and
+  `tests/p5-home-instant-estimate-block.test.ts` (renders the homepage block;
+  both run with `tests/p5-*.test.ts`).
 
 ## Scope and one total for customers (owner decision, 16 November 2026)
 
@@ -356,10 +370,11 @@ adapted from boise-remodeling-co. Styles live in `app/interior-refinement.css`
 * `/media` (the hero video and poster) is not immutable and needs no version.
 * Guard: `tests/image-versions.test.ts` (`npm run verify:image-versions`, in
   prebuild).
-* **Homepage planning range ids** are made in `ApprovedHome` and passed to
-  `KitchenPlanningRange` as `idPrefix`. An id made with `useId()` inside a
-  component loaded with `next/dynamic` differs between server and browser and
-  fails hydration.
+* **Homepage planning range ids** were made in `ApprovedHome` and passed to
+  `KitchenPlanningRange` as `idPrefix`, because an id made with `useId()`
+  inside a component loaded with `next/dynamic` differs between server and
+  browser and fails hydration. The slider was retired on 21 November 2026; if
+  a lazy component with ids is ever added, make its ids the same way.
 
 ## Catalog pages follow the interior rules (owner, 19 November 2026)
 

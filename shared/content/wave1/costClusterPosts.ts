@@ -7,7 +7,7 @@ function clusterSections(topic: string, extra: ContentSection[]): ContentSection
       paragraphs: [
         `Homeowners in ${CITIES_LIST} ask us about ${topic.toLowerCase()} more than almost any other line item on a cabinet budget. This article is part of our <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>, the definitive hub for Treasure Valley cabinet costs.`,
         `Numbers below are planning ranges from cabinet design and installation consultations, not advertisements. Your home, layout, and finish level will move you within or beyond these bands.`,
-        `Use our <a href="/#calculator">project estimator</a> for a rough range, then request an in-home visit for written scope.`,
+        `Use our <a href="/instant-estimate">instant estimate</a> for a preliminary range, then request an in-home visit for written scope.`,
       ],
     },
   ];
@@ -386,7 +386,7 @@ export const COST_CLUSTER_CONTENT: Record<
 
 const CLUSTER_LINK_FOOTER = `
 <h2>More planning resources</h2>
-<p>Explore our <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a>, <a href="/locations/boise">Boise cabinet guide</a>, <a href="/cabinets">cabinet catalog</a>, <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, <a href="/estimate">get an estimate</a>, <a href="/contact">schedule a consultation</a>, and <a href="/#calculator">project estimator</a>.</p>`;
+<p>Explore our <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a>, <a href="/locations/boise">Boise cabinet guide</a>, <a href="/cabinets">cabinet catalog</a>, <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, <a href="/estimate">get an estimate</a>, <a href="/contact">schedule a consultation</a>, and <a href="/instant-estimate">get an instant estimate</a>.</p>`;
 
 export function getExpandedClusterHtml(slug: string): string {
   const base = COST_CLUSTER_CONTENT[slug]?.html ?? '';
