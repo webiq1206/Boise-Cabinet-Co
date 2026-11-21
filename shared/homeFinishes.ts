@@ -1,4 +1,5 @@
 import { FINISHES } from "./catalog/generated/finishes";
+import { visualizerFinishes, visualizerStyles, type VisualizerFinish, type VisualizerStyle } from "./doorVisualizer";
 
 /**
  * The finishes the homepage picker shows ("Find your point of view").
@@ -77,4 +78,26 @@ export function resolveHomeFinishes(): HomeFinish[] {
       },
     ];
   });
+}
+
+/**
+ * Everything the homepage picker offers (owner, 21 November 2026: all of the
+ * finishes and door styles, as the door visualizer has). Every catalog finish
+ * with its catalog name, in its family, with the curated set above first in
+ * each family and the rest in catalog order; and every drawn door style.
+ * Resolved on the server and handed to the homepage as props.
+ */
+export function resolveHomePicker(): { finishes: VisualizerFinish[]; styles: VisualizerStyle[] } {
+  const all = visualizerFinishes();
+  const rank = new Map<string, number>(HOME_FINISH_SLUGS.map((slug, index) => [slug, index]));
+  const finishes = all
+    .map((finish, index) => ({ finish, index }))
+    .sort((a, b) => {
+      if (a.finish.family !== b.finish.family) return a.index - b.index;
+      const ra = rank.get(a.finish.slug) ?? Number.MAX_SAFE_INTEGER;
+      const rb = rank.get(b.finish.slug) ?? Number.MAX_SAFE_INTEGER;
+      return ra - rb || a.index - b.index;
+    })
+    .map(({ finish }) => finish);
+  return { finishes, styles: visualizerStyles() };
 }

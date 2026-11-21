@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import { FINISHES } from '../shared/catalog/generated/finishes';
 import { searchCatalogWithFacets } from '../shared/catalog';
-import { HOME_FINISH_SLUGS, resolveHomeFinishes } from '../shared/homeFinishes';
+import { HOME_FINISH_SLUGS, resolveHomeFinishes, resolveHomePicker } from '../shared/homeFinishes';
 
 // The homepage finish picker (owner, 19 November 2026) shows real catalog
 // finishes only: real names, real sample images, links that open on them.
@@ -61,29 +61,53 @@ test('the search page reads ?q= and ?finish= on the server and shows a whole fam
   assert.match(client, /Showing all \$\{shown\.length\} \$\{finishCategory\} finishes\./);
 });
 
-test('the picker is native radios driven by CSS, with plain links and no invented copy', () => {
-  const picker = readFileSync('components/approved/FinishPicker.tsx', 'utf8');
-  assert.doesNotMatch(picker, /use client|useState|onClick/);
-  assert.match(picker, /type="radio" name="home-finish"/);
-  assert.match(picker, /<legend className="sr-only">/);
+test('the picker offers every catalog finish and door style, as native radios in a plain form', () => {
+  // Owner, 21 November 2026: all of the options, as the door visualizer has.
+  const { finishes: all, styles } = resolveHomePicker();
+  assert.equal(all.length, 299);
+  assert.equal(styles.length, 6);
+  for (const family of ['matte', 'gloss', 'woodgrain'] as const) {
+    const members = all.filter((f) => f.family === family);
+    const curated = HOME_FINISH_SLUGS.filter((slug) => members.some((f) => f.slug === slug));
+    assert.deepEqual(members.slice(0, curated.length).map((f) => f.slug), curated, `${family}: the curated finishes come first`);
+  }
+  const picker = readFileSync('components/approved/HomeDoorPicker.tsx', 'utf8');
+  assert.match(picker, /<form className="fp-form" method="get" action=\{DOOR_VISUALIZER_PATH\}/);
+  assert.match(picker, /type="radio"\s+name="finish"/);
+  assert.match(picker, /type="radio"\s+name="style"/);
+  assert.match(picker, /<noscript>\s*<button type="submit"/);
+  assert.match(picker, /loading="lazy"/);
   assert.match(picker, /See this finish/);
-  assert.match(picker, /See all \{finish\.familyCount\} \{finish\.familyLabel\.toLowerCase\(\)\} finishes/);
   assert.match(picker, /Explore the full catalog/);
   assert.match(picker, /Confirm your finish with a physical sample\./);
-  assert.match(picker, /versionedSrc\(finish\.image\)/);
-  // The large panel is a door drawn in CSS whose surface is the finish's own
-  // sample (the ten samples weigh under 50 KB together), with a second radio
-  // pair for the profile.
-  assert.match(picker, /'--fp-tex': `url\("\$\{versionedSrc\(finish\.image\)\}"\)`/);
-  assert.match(picker, /type="radio" name="home-profile" value="shaker"[^>]*defaultChecked/);
-  assert.match(picker, /type="radio" name="home-profile" value="slab"/);
+  assert.match(picker, /'--fp-tex': `url\("\$\{finish\.imageUrl\}"\)`/);
   assert.doesNotMatch(picker, /photograph of|rendering|concept|illustration/i);
   assert.doesNotMatch(picker, /hexColor|backgroundColor/, 'a finish is shown by its sample, never a flat colour');
-  const css = readFileSync('app/finish-picker.css', 'utf8');
-  for (let index = 0; index < finishes.length; index += 1) assert.ok(css.includes(`.fp-in${index}:checked`), `no rule for option ${index}`);
-  assert.match(css, /\.fp:has\(\.fp-pr-slab:checked\) :is\(\.fp-panel,\.fp-joint\)\{opacity:0\}/);
-  assert.match(css, /background-image:var\(--fp-tex\)/);
-  // The homepage hands over the resolved list; the browser never loads the finish library.
-  assert.match(readFileSync('app/page.tsx', 'utf8'), /homeFinishes=\{resolveHomeFinishes\(\)\}/);
+  // The browser gets the model only; the lists arrive as props with versioned URLs.
+  assert.doesNotMatch(picker, /shared\/doorVisualizer'|catalog\/generated|imageVersion/);
+  const wrapper = readFileSync('components/approved/FinishPicker.tsx', 'utf8');
+  assert.match(wrapper, /imageUrl: versionedSrc\(finish\.image\), chipUrl: versionedSrc\(finish\.chip\)/);
+  assert.match(readFileSync('app/page.tsx', 'utf8'), /homePicker=\{resolveHomePicker\(\)\}/);
   assert.doesNotMatch(readFileSync('components/approved/ApprovedHome.tsx', 'utf8'), /catalog\/generated\/finishes/);
+});
+
+test('phones and tablets get one app panel: door, tabs, swatches and styles on one screen', () => {
+  // Owner, 21 November 2026: "it should look feel and function like a mobile application".
+  const picker = readFileSync('components/approved/HomeDoorPicker.tsx', 'utf8');
+  assert.match(picker, /<div className="fp-view">[\s\S]*className="finish-photo fp-stage" onTouchStart=\{onTouchStart\} onTouchEnd=\{onTouchEnd\}/);
+  // Arrows exist only once the page is interactive, so no dead button is shown.
+  assert.match(picker, /\{mounted \? \(/);
+  assert.match(picker, /className="fp-nav fp-nav-prev"/);
+  assert.match(picker, /className="fp-nav fp-nav-next"/);
+  assert.match(picker, /aria-live="polite"/);
+  const css = readFileSync('app/finish-picker.css', 'utf8');
+  // Desktop keeps the two columns: the view wrapper is not a box there.
+  assert.match(css, /\.cabinet-approved \.fp \.fp-view\{display:contents\}/);
+  // The panel is sized to the screen between the header and the bottom bar.
+  assert.match(css, /height:clamp\(300px,calc\(100svh - var\(--fp-chrome\) - var\(--fp-controls\)\),640px\)/);
+  assert.match(css, /\.cabinet-approved \.fp \.finish-copy\{display:contents\}/);
+  assert.match(css, /\.cabinet-approved \.fp \.fp-form\{display:contents\}/);
+  // The door visualizer page keeps its own door sizes.
+  assert.match(css, /@media\(max-width:1000px\)\{\.dv \.fp-door\{flex:none;height:460px\}\}/);
+  assert.match(css, /@media\(max-width:700px\)\{\.dv \.fp-door\{height:340px\}\}/);
 });
