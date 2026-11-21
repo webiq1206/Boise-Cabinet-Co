@@ -30,6 +30,9 @@ const TARGETS = [
   { dir: "images/catalog/door-styles", widths: [320, 640] },
   { dir: "images/catalog/products", widths: [320, 640] },
   { dir: "images/catalog/finishes", widths: [160, 320, 640] },
+  // Gloss swatches (640px): their copies are written with them by
+  // scripts/images/build-gloss-surfaces.py; listed here so the loader serves them.
+  { dir: "images/catalog/finishes/gloss-swatch", widths: [160, 320, 640] },
   { dir: "images/catalog/hardware", widths: [160, 320, 640] },
   { dir: "images/catalog/accessories", widths: [160, 320, 640] },
   { dir: "images/gallery", widths: [640, 1080, 1920] },

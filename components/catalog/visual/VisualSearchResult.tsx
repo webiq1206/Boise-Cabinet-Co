@@ -2,6 +2,7 @@ import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 
 export interface VisualSearchResultProps {
   href: string;
@@ -31,7 +32,7 @@ export function VisualSearchResult({
         className,
       )}
     >
-      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-sm bg-muted">
+      <div className={cn("relative h-14 w-14 shrink-0 overflow-hidden rounded-sm bg-muted", glossSheenClass(imagePath))}>
         {imagePath ? (
           <Image
             src={imagePath}

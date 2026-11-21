@@ -17,6 +17,7 @@ import {
   getFinishImages,
 } from "@/shared/catalog";
 import { LAYOUT_BY_SLUG } from "@/shared/catalog/layouts";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
 import {
   CONSTRUCTION_OPTIONS,
@@ -149,7 +150,7 @@ export function DesignSummaryPanel({
           >
             <div className="flex min-w-0 items-center gap-2.5">
               {row.isSwatch && row.imageSrc ? (
-                <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-sm border">
+                <span className={cn("relative h-8 w-8 shrink-0 overflow-hidden rounded-sm border", glossSheenClass(row.imageSrc))}>
                   <Image
                     src={row.imageSrc}
                     alt={row.value ?? "Cabinet finish"}

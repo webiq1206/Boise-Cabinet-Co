@@ -2,6 +2,7 @@ import { localAlt } from '@/shared/localAlt';
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { getBlurDataURL } from "@/shared/generated/imageBlur";
+import { glossSheenClass } from "@/shared/catalog/glossSurface";
 
 export interface CatalogImageProps {
   src: string;
@@ -29,7 +30,7 @@ export function CatalogImage({
 
   return (
     <div
-      className={cn("relative overflow-hidden rounded-sm bg-muted", className)}
+      className={cn("relative overflow-hidden rounded-sm bg-muted", glossSheenClass(src), className)}
       style={{ aspectRatio }}
     >
       <Image

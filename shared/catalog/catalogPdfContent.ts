@@ -199,7 +199,9 @@ export async function buildCatalogPdfBlocks(
     const count = FINISHES.filter((f) => deriveColorFamily(f) === family).length;
     familyCells.push(
       await imageCell(
-        getFinishImages(rep.slug, rep.imagePath).swatch,
+        // The printed catalog keeps the supplier's samples: a PDF cannot draw
+        // the CSS gloss the site lays over a clean gloss surface.
+        getFinishImages(rep.slug, rep.imagePath).sample,
         family,
         `${count} finishes`,
         rep.hexColor,
@@ -221,7 +223,7 @@ export async function buildCatalogPdfBlocks(
     const cells = await Promise.all(
       list.map((f) =>
         imageCell(
-          getFinishImages(f.slug, f.imagePath).swatch,
+          getFinishImages(f.slug, f.imagePath).sample,
           f.name,
           `${titleCase(f.sheen)} - ${deriveColorFamily(f)}`,
           f.hexColor,

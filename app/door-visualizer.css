@@ -452,11 +452,11 @@
   box-shadow: none;
 }
 
-/* Gloss chips carry the same drawn gloss as the door (owner, 21 November 2026). */
+/* Gloss chips carry the same drawn gloss as every gloss swatch (--gloss-sheen, app/gloss-sheen.css). */
 .dv-chip-gloss .dv-chip-face::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(150deg, #ffffff5c 0%, #ffffff00 42%), linear-gradient(118deg, #fff0 54%, #ffffff38 61%, #fff0 70%), linear-gradient(118deg, #0000 44%, #00000014 50%, #0000 56%);
+  background: var(--gloss-sheen);
   pointer-events: none;
 }
