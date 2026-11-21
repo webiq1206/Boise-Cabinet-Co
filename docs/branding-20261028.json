@@ -5,7 +5,7 @@
     {
       "destination": "public/brand/approved-lockup-dark.svg",
       "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Light.svg",
-      "sha256": "c427b8281284d96530f19ac7e38cc29163ddeeaa76effd2dc3693f64bdac21ef"
+      "sha256": "e87b56083f574fb9676fd3a6d6f4e5da50cf60afc11ed0a6d564013aa17c1bf5"
     },
     {
       "destination": "public/brand/p5-family-dark.svg",
@@ -15,7 +15,7 @@
     {
       "destination": "public/brand/approved-lockup-light.svg",
       "source": "cabinet/logos/Boise-Cabinet-Co_Logo_On-Dark.svg",
-      "sha256": "70f21a18cbd695c9f4946b047700c6c6f4716bc5393aa3d763b90c763f2adf3e"
+      "sha256": "8320dfabd3007e8e7736fc6e7b16f38b5ca2d7ec0ab2368a7b3d943f242f1add"
     },
     {
       "destination": "public/brand/p5-family-light.svg",
