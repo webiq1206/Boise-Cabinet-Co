@@ -417,7 +417,7 @@ export default async function LocationPage(props: { params: Promise<{ city: stri
             </h2>
             <p className="text-inverse-muted mb-6">
               {city.slug === "garden-city"
-                ? "Share your project online for team review. More information may be needed before we prepare your estimate. The in-home design consultation is free."
+                ? "Share your project online for team review. More information or a site visit may be needed before we prepare your estimate. The in-home design visit is free."
                 : "Share your project online for team review. More information or a site visit may be needed before we prepare your estimate. Larger plan sets may take longer. The in-home design visit is free."}
             </p>
             <div className="flex flex-wrap justify-center gap-3">

@@ -794,7 +794,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
       {
         h2: 'Custom cabinets in Garden City',
         paragraphs: [
-          'Garden City sits along the Boise River and the Greenbelt, minutes from downtown Boise, with Chinden Boulevard running through the middle of town. We design, source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a> and <a href="/cabinets/built-ins">built-in storage</a> here. Planning that applies everywhere in the valley sits on the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet hub</a>. Closet and garage storage are at <a href="/cabinets/closet">closet cabinets</a> and <a href="/cabinets/garage">garage cabinets</a>.',
+          'Garden City sits along the Boise River and the Greenbelt, minutes from downtown Boise, with Chinden Boulevard running through the middle of town. We design, source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a> and <a href="/cabinets/built-ins">built-in storage</a> here. Planning that applies everywhere in the valley sits on the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet hub</a>.',
         ],
       },
       {
