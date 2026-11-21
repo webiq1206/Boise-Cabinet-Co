@@ -32,7 +32,10 @@ test('every catalog finish is offered, with its real name, family, sample and ch
     assert.ok(source, finish.slug);
     assert.equal(finish.name, source.name, 'the name is the catalog name');
     assert.equal(finish.family, source.category);
-    assert.equal(finish.image, source.imagePath);
+    // A gloss is drawn from its clean surface (the supplier's painted
+    // reflection removed); every other finish from its catalog sample.
+    const surface = source.category === 'gloss' ? `/images/catalog/finishes/gloss-surface/${source.imagePath!.split('/').pop()}` : null;
+    assert.equal(finish.image, surface && existsSync(`public${surface}`) ? surface : source.imagePath);
     assert.ok(existsSync(`public${finish.image}`), `${finish.image} is not on disk`);
     assert.ok(existsSync(`public${finish.chip}`), `${finish.chip} is not on disk`);
     assert.deepEqual(finish.styles, source.compatibleDoorStyleIds, 'a finish is offered on the door styles the catalog lists');
@@ -96,8 +99,8 @@ test('the page is in the sitemap, the catalog, the footer and the homepage picke
   assert.ok(paths.includes(DOOR_VISUALIZER_PATH));
   assert.match(readFileSync('app/catalog/page.tsx', 'utf8'), /href="\/catalog\/door-visualizer"/);
   assert.match(readFileSync('lib/familyBrand.ts', 'utf8'), /href: '\/catalog\/door-visualizer'/);
-  const picker = readFileSync('components/approved/FinishPicker.tsx', 'utf8');
-  assert.match(picker, /href="\/catalog\/door-visualizer">Try all \{total\} finishes on six door styles/);
+  const picker = readFileSync('components/approved/HomeDoorPicker.tsx', 'utf8');
+  assert.match(picker, /href=\{visualizerHref\(\{ finish: finish\.slug, style \}\)\}>Full door visualizer/);
   const audit: { route: string; file: string }[] = JSON.parse(readFileSync('docs/interior-route-audit.json', 'utf8'));
   assert.ok(audit.some((entry) => entry.route === DOOR_VISUALIZER_PATH && entry.file === 'app/catalog/door-visualizer/page.tsx'));
 });
@@ -130,10 +133,24 @@ test('the page renders the door a URL names on the server and works as a plain f
 test('the homepage picker and the visualizer share one door drawing', () => {
   const door = readFileSync('components/catalog/DoorFront.tsx', 'utf8');
   assert.match(door, /className=\{`fp-door/);
-  assert.match(readFileSync('components/approved/FinishPicker.tsx', 'utf8'), /<DoorFront style=/);
+  assert.match(readFileSync('components/approved/HomeDoorPicker.tsx', 'utf8'), /<DoorFront profile=\{style\}/);
   assert.match(readFileSync('components/catalog/DoorVisualizer.tsx', 'utf8'), /<DoorFront profile=\{style\}/);
   const css = readFileSync('app/finish-picker.css', 'utf8');
   assert.match(css, /:is\(\.cabinet-approved \.fp,\.dv\) \.fp-door\{/);
   const layout = readFileSync('app/layout.tsx', 'utf8');
   assert.ok(layout.indexOf("./finish-picker.css") < layout.indexOf("./door-visualizer.css"));
+});
+
+test('every gloss finish has a clean surface: no painted reflection on the drawn door', () => {
+  // Owner, 21 November 2026: "make them all actually look like gloss".
+  const gloss = finishes.filter((finish) => finish.family === 'gloss');
+  assert.equal(gloss.length, 53);
+  for (const finish of gloss) {
+    assert.match(finish.image, /^\/images\/catalog\/finishes\/gloss-surface\//, `${finish.slug} is drawn from the painted sample`);
+    assert.ok(existsSync(`public${finish.image}`) && existsSync(`public${finish.chip}`), finish.slug);
+  }
+  const css = readFileSync('app/finish-picker.css', 'utf8');
+  assert.match(css, /:is\(\.cabinet-approved \.fp,\.dv\) \.fp-gloss \.fp-sheen\{background:/);
+  assert.match(readFileSync('components/catalog/DoorVisualizer.tsx', 'utf8'), /dv-chip-gloss/);
+  assert.ok(existsSync('scripts/images/build-gloss-surfaces.py'));
 });

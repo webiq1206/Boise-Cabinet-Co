@@ -205,7 +205,7 @@ export function DoorVisualizer({
             </p>
             <div className="dv-chips" role="radiogroup" aria-label={`${familyLabel(family)} finishes`}>
               {shown.map((item) => (
-                <label key={item.slug} className="dv-chip" title={item.name}>
+                <label key={item.slug} className={`dv-chip${item.family === "gloss" ? " dv-chip-gloss" : ""}`} title={item.name}>
                   <input
                     type="radio"
                     name="finish"

@@ -51,27 +51,27 @@
 }
 
 /* The six catalog door styles. Parts a style does not have are not drawn. */
-.dv :is(.fp-centre, .fp-miter, .fp-bead) {
+:is(.dv, .cabinet-approved .fp) :is(.fp-centre, .fp-miter, .fp-bead) {
   display: none;
   position: absolute;
 }
 /* Slab: a flat front. */
-.dv .fp-profile-slab :is(.fp-panel, .fp-joint) {
+:is(.dv, .cabinet-approved .fp) .fp-profile-slab :is(.fp-panel, .fp-joint) {
   display: none;
 }
 /* Thin Shaker: the shaker construction with a narrow frame. */
-.dv .fp-profile-thin-shaker {
+:is(.dv, .cabinet-approved .fp) .fp-profile-thin-shaker {
   --fp-frame: 8.6cqw;
 }
 /* 3 Piece: two full-height stiles and one full-height centre panel whose
    grain runs across. No rails, so no recess and no rail joints. */
-.dv .fp-profile-three-piece {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece {
   --fp-frame: 26.5cqw;
 }
-.dv .fp-profile-three-piece :is(.fp-panel, .fp-joint) {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece :is(.fp-panel, .fp-joint) {
   display: none;
 }
-.dv .fp-profile-three-piece .fp-centre {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece .fp-centre {
   display: block;
   top: 0;
   bottom: 0;
@@ -82,7 +82,7 @@
 }
 /* The centre is the same sample turned a quarter, in the same two bands as
    the door's own surface, so the grain crosses it without a seam. */
-.dv .fp-profile-three-piece .fp-centre-in {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece .fp-centre-in {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -91,8 +91,8 @@
   transform: translate(-50%, -50%) rotate(90deg);
   display: block;
 }
-.dv .fp-profile-three-piece .fp-centre-in::before,
-.dv .fp-profile-three-piece .fp-centre-in::after {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece .fp-centre-in::before,
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece .fp-centre-in::after {
   content: "";
   position: absolute;
   top: 0;
@@ -104,7 +104,7 @@
   background-size: calc(60cqh * 480 / 450) auto;
   background-position: -4px calc(60cqh / 450 * -79);
 }
-.dv .fp-profile-three-piece .fp-centre-in::after {
+:is(.dv, .cabinet-approved .fp) .fp-profile-three-piece .fp-centre-in::after {
   left: auto;
   right: 0;
   transform: scaleY(-1);
@@ -113,24 +113,24 @@
 }
 /* Alpha Shaker and Beta Shaker: a mitered frame. The joints run from each
    outer corner to the centre panel's corner. */
-.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-joint {
+:is(.dv, .cabinet-approved .fp) :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-joint {
   display: none;
 }
-.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-miter {
+:is(.dv, .cabinet-approved .fp) :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) .fp-miter {
   display: block;
   width: var(--fp-frame, 15.5cqw);
   height: var(--fp-frame, 15.5cqw);
   background: linear-gradient(to top right, #0000 calc(50% - 1px), #00000042 calc(50% - 1px), #00000042 50%, #ffffff3d 50%, #ffffff3d calc(50% + 1px), #0000 calc(50% + 1px));
 }
-.dv .fp-miter-tl { left: 0; top: 0; }
-.dv .fp-miter-br { right: 0; bottom: 0; }
-.dv :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) :is(.fp-miter-tr, .fp-miter-bl) {
+:is(.dv, .cabinet-approved .fp) .fp-miter-tl { left: 0; top: 0; }
+:is(.dv, .cabinet-approved .fp) .fp-miter-br { right: 0; bottom: 0; }
+:is(.dv, .cabinet-approved .fp) :is(.fp-profile-alpha-shaker, .fp-profile-beta-shaker) :is(.fp-miter-tr, .fp-miter-bl) {
   background: linear-gradient(to bottom right, #0000 calc(50% - 1px), #00000042 calc(50% - 1px), #00000042 50%, #ffffff3d 50%, #ffffff3d calc(50% + 1px), #0000 calc(50% + 1px));
 }
-.dv .fp-miter-tr { right: 0; top: 0; }
-.dv .fp-miter-bl { left: 0; bottom: 0; }
+:is(.dv, .cabinet-approved .fp) .fp-miter-tr { right: 0; top: 0; }
+:is(.dv, .cabinet-approved .fp) .fp-miter-bl { left: 0; bottom: 0; }
 /* Beta Shaker: a radius profile inside the frame, around the flat centre panel. */
-.dv .fp-profile-beta-shaker .fp-bead {
+:is(.dv, .cabinet-approved .fp) .fp-profile-beta-shaker .fp-bead {
   display: block;
   inset: calc(var(--fp-frame, 15.5cqw) + 2.4cqw);
   box-shadow: inset 0 0 0 1px #00000038, 0 0 0 1px #ffffff40, 0 0 1.6cqw 1.2cqw #00000024, inset 0 0 1.4cqw #0000001f;
@@ -450,4 +450,13 @@
 .dv .dv-search input:focus-visible {
   outline: none;
   box-shadow: none;
+}
+
+/* Gloss chips carry the same drawn gloss as the door (owner, 21 November 2026). */
+.dv-chip-gloss .dv-chip-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, #ffffff5c 0%, #ffffff00 42%), linear-gradient(118deg, #fff0 54%, #ffffff38 61%, #fff0 70%), linear-gradient(118deg, #0000 44%, #00000014 50%, #0000 56%);
+  pointer-events: none;
 }

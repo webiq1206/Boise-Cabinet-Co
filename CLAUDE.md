@@ -459,60 +459,81 @@ location pages.
   `tests/p5-one-team-email.test.ts` (real handlers, fake database, mail and
   p5). Never submit through the live form.
 
-## Homepage finish picker (owner, 19 November 2026)
+## Homepage finish picker (owner, 19 and 21 November 2026)
 
 The owner asked for the "Find your point of view" section to do something
-real. It is `components/approved/FinishPicker.tsx`, styled by
-`app/finish-picker.css`; only that section of the homepage changed.
+real, then (21 November 2026) for all of the options in it and for it to
+"look feel and function like a mobile application". It is
+`components/approved/HomeDoorPicker.tsx` (client), handed its lists by
+`FinishPicker.tsx` (server) and styled by `app/finish-picker.css`; only that
+section of the homepage changed.
 
-* Ten real catalog finishes, resolved on the server by
-  `resolveHomeFinishes()` in `shared/homeFinishes.ts` and passed from
-  `app/page.tsx`, so the browser never loads the finish library: Snow White,
-  White - Matte, Breeze Beige, Macaron Green, Pearl Black (matte), White -
-  Gloss, Anthracite (gloss), White Gladstone Oak, Natural Bardolino Oak,
-  Natural Carini Walnut (woodgrain). Whites first; each family is labelled
-  with its real count (55, 53, 191).
-* Choosing a finish shows it on a cabinet door front drawn in CSS (`.fp-door`),
-  whose surface is that finish's own catalog sample: the sample's 460 x 396
-  swatch area in two overlapping bands, the lower flipped left to right and
-  dissolved into the upper, so grain runs the height of the door without a
-  seam and the file sits at about its own pixels (1.0x at 1440, less on
-  tablets and phones). A second radio pair switches the drawn profile between
-  Shaker (stiles, rails and a recessed panel made with shadow) and Slab. The
-  caption is the finish name and family and nothing else: it is a drawn door,
-  so do not call it a photograph and add no qualifier word. Never tint or
-  recolour a photograph to stand for a finish, never show a flat colour for
-  one, and write no description the catalog does not hold.
-* The chips use the same 480px file as the door. On 19 November 2026, 225 of
-  the 732 small finish variants (`-160`, `-320`, `-640`) were older flat tiles
-  of a different colour from their sample; they were regenerated from the
-  samples. A finish variant must always be a resize of its base.
-* The options are native radios in one group and the panel follows the checked
-  one in CSS (`:has`), so it works without JavaScript, arrow keys move the
-  choice, and every door's place is reserved: the section is the same height
-  for all ten finishes and both profiles (787px at 1440).
-* "See this finish" opens `/search?q=<name>&finish=<family>` and "See all <n>
-  <family> finishes" opens `/search?finish=<family>`; the search page reads
-  both on the server (`app/search/page.tsx`, `SearchClient.tsx`) and shows a
-  whole family when nothing is typed. The catalog has no page per finish.
-* **Phones and tablets are one app panel** (owner, 21 November 2026: "it
-  should look feel and function like a mobile application"). Up to 1000px
-  the heading and intro come first, then the door, the swatch tray and the
-  profile row as one panel whose height is the screen between the header and
-  the bottom bar (`--fp-chrome`, `--fp-controls`, `100svh` in
-  `app/finish-picker.css`), so the door and every control are seen together.
-  The copy column is `display: contents` there so its parts can be ordered
-  around `.fp-view`; on desktop `.fp-view` is `display: contents`, so the
-  two-column layout is unchanged. The swatches are one swipe row on phones
-  and tablets. `FinishSwipe.tsx` (a small client island) adds swipe on the
-  door and previous and next arrows once the page is interactive, moves the
-  tray to the chosen swatch and announces the finish; every change goes
-  through the radio, and without JavaScript nothing is drawn and the swatches
-  still work. The finish name under the door replaces the name row on phones
-  (that row stays for screen readers). Change `--fp-controls` if a control
-  row is added.
-* Guard: `tests/home-finishes.test.ts`.
+* Every catalog finish (299: matte, gloss, woodgrain tabs with their real
+  counts) on every drawn door style (six), resolved on the server by
+  `resolveHomePicker()` in `shared/homeFinishes.ts` and passed from
+  `app/page.tsx` with versioned URLs, so the browser never loads the finish
+  library. In each family the curated set (`HOME_FINISH_SLUGS`) comes first:
+  whites first, then the rest in catalog order. A finish shows only the door
+  styles in its `compatibleDoorStyleIds` (3 Piece is woodgrain only); the
+  others are disabled and choosing such a finish falls back to Modern Shaker.
+* The door is `components/catalog/DoorFront.tsx`, the visualizer's drawing,
+  with the chosen profile; its surface is the finish's own catalog sample (a
+  gloss from its clean surface, see "Gloss surfaces" below). The caption is
+  the finish name, family and door style and nothing else: it is a drawn
+  door, so do not call it a photograph and add no qualifier word. Never tint
+  or recolour a photograph to stand for a finish, and write no description
+  the catalog does not hold.
+* The choices are native radios in a plain GET form to the door visualizer:
+  without JavaScript a visitor picks a finish and a style and "Show this
+  door" opens it there. With JavaScript a choice only swaps state; the
+  homepage address never changes. One family's chips are on the page at a
+  time, 160px and lazy; only the chosen sample loads at full size.
+* Desktop keeps the two columns (door left, copy right), with the swatches
+  in a scrolling grid and the styles three across. Every changing part keeps
+  its place, so a choice moves nothing.
+* **Phones and tablets are one app panel** (up to 1000px). The heading and
+  intro come first, then the door, the family tabs, the swatch tray and the
+  door styles, as one panel whose height is the screen between the header
+  and the bottom bar (`--fp-chrome`, `--fp-controls`, `100svh`), so the door
+  and every control are seen together. The copy column and the form are
+  `display: contents` there so their parts can be ordered around `.fp-view`;
+  on desktop `.fp-view` is `display: contents`. Swipe the door or tap an
+  arrow (drawn only once the page is interactive) to move through the
+  family; the tray follows the choice and the finish is announced. Change
+  `--fp-controls` if a control row is added.
+* "See this finish" opens `/search?q=<name>&finish=<family>`; "Full door
+  visualizer" opens `/catalog/door-visualizer` on the door on screen.
+* The chips once used flat tiles of a different colour from their sample;
+  on 19 November 2026, 225 of the 732 small finish variants were regenerated
+  from the samples. A finish variant must always be a resize of its base.
+* Guards: `tests/home-finishes.test.ts` and `tests/door-visualizer.test.ts`.
 
+## Gloss surfaces (owner, 21 November 2026)
+
+"The gloss images look terrible with the 2 tone and abstract shapes... make
+them all actually look like gloss." The supplier paints a reflection onto
+every gloss sample (a lighter lower-left triangle, an arc or a corner glow).
+`scripts/images/build-gloss-surfaces.py` writes a clean surface for each of
+the 52 gloss sample files into `public/images/catalog/finishes/gloss-surface/`
+(480px, the sample's geometry, plus the 160px chip) and lists them in
+`shared/catalog/generated/glossSurfaces.ts`:
+
+* A solid lacquer becomes its own colour, read from the centre and upper
+  right of the sample, where every sample shows the surface (checked by eye
+  for all 52).
+* A grain under gloss with a painted arc (seven: ash, canyon charcoal,
+  carbone, the two eucaliptos, palisandro azuro, rovere grigio) becomes the
+  arc-free strip of its own pixels (x 340 onward), mirrored across the width
+  like bookmatched veneer. Grain samples with no painted reflection are kept.
+* The surface fills the whole file, so no white margin shows at a door edge.
+* The gloss is drawn in CSS on the door and the chips (`.fp-gloss .fp-sheen`,
+  `.fp-opt-gloss`, `.dv-chip-gloss`): light from above, two soft window
+  reflections, and a darker band that shows on a white lacquer.
+* `glossSurface()` in `shared/doorVisualizer.ts` is the one switch; the
+  homepage picker and the door visualizer both draw gloss from it. The
+  catalog samples themselves, and every other page that shows them, are
+  unchanged. A new gloss finish needs the script run again (then
+  `npm run images:blur` and `npm run images:versions`).
 
 ## Door visualizer (owner, 19 November 2026)
 
