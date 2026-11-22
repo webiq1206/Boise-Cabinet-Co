@@ -55,20 +55,11 @@ function sameSite(href: string, domain: string): boolean {
 export interface SiteFooterProps {
   /** Pages that must not state the registration line hide it. */
   hideRegistration?: boolean;
-  /** Leave the company help links out of one page. */
-  hideSupportLinks?: boolean;
   /** Optional extra content for the brand column, rendered after the contact list. */
   brandExtra?: ReactNode;
 }
 
-const SUPPORT_HREFS = ["/warranty"];
-
-function keepFooterLink(link: FamilyLink, hideSupportLinks?: boolean) {
-  if (!hideSupportLinks) return true;
-  return !SUPPORT_HREFS.some((href) => link.href === href || link.href.startsWith(`${href}#`));
-}
-
-export function SiteFooter({ hideRegistration = false, hideSupportLinks = false, brandExtra }: SiteFooterProps) {
+export function SiteFooter({ hideRegistration = false, brandExtra }: SiteFooterProps) {
   const brand = FAMILY_BRAND;
   const { footer } = brand;
 
@@ -129,7 +120,7 @@ export function SiteFooter({ hideRegistration = false, hideSupportLinks = false,
           {footer.groups.map((group) => (
             <FooterFold className="fam-footer-group" label={group.title} key={group.title}>
               <ul>
-                {group.links.filter((link) => keepFooterLink(link, hideSupportLinks)).map((link) => (
+                {group.links.map((link) => (
                   <li key={link.href}>
                     <FooterAnchor link={link} />
                   </li>

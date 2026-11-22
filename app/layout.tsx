@@ -1,7 +1,6 @@
 import { ApprovedShell } from "@/components/approved/ApprovedShell";
 import {withBrandPageMetadata} from '@/lib/brand-page-metadata';
 import type { Metadata, Viewport } from 'next'
-import { headers } from 'next/headers'
 import localFont from 'next/font/local'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
@@ -11,7 +10,7 @@ import { Navigation, SiteActionBar } from '@/components/Navigation'
 import { SkipLink } from '@/components/family/SkipLink'
 import { StickyCtaYield } from '@/components/StickyCtaYield'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
-import { Footer, footerFlags } from '@/components/Footer'
+import { Footer } from '@/components/Footer'
 import { LazyAssistantWidget } from '@/components/assistant/LazyAssistantWidget'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
@@ -118,13 +117,14 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const pathname = (await headers()).get("x-pathname") ?? "";
-  const flags = footerFlags(pathname);
+  const footer = Footer();
+  const kitchenFooter = Footer({ hideRegistration: true });
+  const pantryFooter = Footer({ hideWarrantyLink: true });
   return (
     <html lang="en" className={`dark ${manrope.variable} ${cormorant.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
@@ -169,7 +169,7 @@ export default async function RootLayout({
             </main>
             {/* Footer renders on the server and is handed to the client switch, so its guide and
                 hub link data never ships in the JavaScript bundle of every page. */}
-            <ConditionalFooter footer={<Footer hideRegistration={flags.hideRegistration} hideSupportLinks={flags.hideSupportLinks} />} />
+            <ConditionalFooter footer={footer} kitchenFooter={kitchenFooter} pantryFooter={pantryFooter} />
             <SiteActionBar />
           </div></ApprovedShell>
           <StickyCtaYield />

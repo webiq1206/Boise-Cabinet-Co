@@ -11,7 +11,11 @@ import { Footer } from '../components/Footer.tsx';
 function renderFooterAt(pathname: string) {
   return renderToStaticMarkup(
     React.createElement(PathnameContext.Provider, { value: pathname },
-      React.createElement(ConditionalFooter, { footer: React.createElement(Footer) }),
+      React.createElement(ConditionalFooter, {
+        footer: React.createElement(Footer),
+        kitchenFooter: React.createElement(Footer, { hideRegistration: true }),
+        pantryFooter: React.createElement(Footer, { hideWarrantyLink: true }),
+      }),
     ),
   );
 }
@@ -26,7 +30,7 @@ test('the kitchen landing page uses the family footer with working contact desti
   assert.match(html, /href="\/privacy-policy"/);
   assert.match(html, /href="\/terms-of-service"/);
   assert.match(html, /Serving Boise and the Treasure Valley/);
-  assert.match(html, /Idaho Registered Contractor #8381215/);
+  assert.equal(html.includes("8381215"), false);
   assert.doesNotMatch(html, new RegExp(`Public representative|${['wa', 'poot'].join('')}|staffed storefront`, 'i'));
 });
 

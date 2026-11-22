@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/family/SiteFooter";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
 import { FAMILY_BRAND } from "@/lib/familyBrand";
+import type { ReactNode } from "react";
 
 /**
  * Boise Cabinet Co footer: the shared family SiteFooter, set up by
@@ -20,40 +21,50 @@ import { FAMILY_BRAND } from "@/lib/familyBrand";
  * primary_cta_clicked event. The family header has no slot for the signed-in
  * customer's project link the old header showed, so the portal entry lives
  * here for every visitor; /portal handles sign-in.
+ *
+ * Two pages pass a variant. The kitchen landing hides the registration line.
+ * The pantry page drops the Warranty link and keeps "Existing customer? Get help".
+ * The shared footer is not edited; the link list is this site's own config,
+ * swapped only for the duration of that one render.
  */
-/** Which shared footer facts a single page must not show. Other pages keep both. */
-export function footerFlags(pathname: string): { hideRegistration?: boolean; hideSupportLinks?: boolean } {
-  if (pathname === "/kitchen-cabinets") return { hideRegistration: true };
-  if (pathname === "/cabinets/pantry") return { hideSupportLinks: true };
-  return {};
+type FooterGroups = typeof FAMILY_BRAND.footer.groups;
+
+function brandColumn(): ReactNode {
+  return (
+    <ul className="fam-footer-contact">
+      <li>
+        <a href="/portal" data-testid="link-footer-portal">
+          Customer project portal
+        </a>
+      </li>
+      <li>
+        <FooterCTAs label={FAMILY_BRAND.cta.label} href={FAMILY_BRAND.cta.href} testId="link-footer-instant-estimate" />
+      </li>
+      <li>
+        <FooterCTAs />
+      </li>
+    </ul>
+  );
 }
 
 export function Footer({
   hideRegistration = false,
-  hideSupportLinks = false,
+  hideWarrantyLink = false,
 }: {
   hideRegistration?: boolean;
-  hideSupportLinks?: boolean;
+  hideWarrantyLink?: boolean;
 } = {}) {
-  return (
-    <SiteFooter
-      hideRegistration={hideRegistration}
-      hideSupportLinks={hideSupportLinks}
-      brandExtra={
-        <ul className="fam-footer-contact">
-          <li>
-            <a href="/portal" data-testid="link-footer-portal">
-              Customer project portal
-            </a>
-          </li>
-          <li>
-            <FooterCTAs label={FAMILY_BRAND.cta.label} href={FAMILY_BRAND.cta.href} testId="link-footer-instant-estimate" />
-          </li>
-          <li>
-            <FooterCTAs />
-          </li>
-        </ul>
-      }
-    />
-  );
+  const footerConfig = FAMILY_BRAND.footer as { groups: FooterGroups };
+  const saved = footerConfig.groups;
+  if (hideWarrantyLink) {
+    footerConfig.groups = saved.map((group) => ({
+      ...group,
+      links: group.links.filter((link) => link.label !== "Warranty"),
+    })) as FooterGroups;
+  }
+  try {
+    return SiteFooter({ hideRegistration, brandExtra: brandColumn() });
+  } finally {
+    footerConfig.groups = saved;
+  }
 }
