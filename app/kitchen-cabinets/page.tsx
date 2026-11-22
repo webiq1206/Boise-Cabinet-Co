@@ -15,6 +15,9 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
+  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Call or text (208) 477-1169.";
+/** Schema only. The visible page and its meta description do not repeat the number. */
+const SCHEMA_DESCRIPTION =
   "Kitchen cabinets, bathroom vanities and built-ins in Boise. Idaho Registered Contractor #8381215. Call or text (208) 477-1169.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
@@ -64,9 +67,15 @@ const FAQS = [
   },
   {
     question: "Are you a registered contractor and insured?",
-    answer: `Yes. ${REGISTERED_INSURED}.`,
+    answer: "Yes. Registered and insured.",
   },
 ];
+
+const SCHEMA_FAQS = FAQS.map((faq) =>
+  faq.question === "Are you a registered contractor and insured?"
+    ? { ...faq, answer: `Yes. ${REGISTERED_INSURED}.` }
+    : faq,
+);
 
 const TRUST = [
   { icon: ShieldCheck, label: "Registered & insured" },
@@ -135,8 +144,8 @@ export default function KitchenCabinetsPage() {
       `}</style>
       <JsonLd
         data={[
-          generateWebPageSchema({ title: TITLE, description: DESCRIPTION, url: "/kitchen-cabinets" }),
-          generateFAQSchema(FAQS),
+          generateWebPageSchema({ title: TITLE, description: SCHEMA_DESCRIPTION, url: "/kitchen-cabinets" }),
+          generateFAQSchema(SCHEMA_FAQS),
         ]}
       />
 
@@ -228,7 +237,7 @@ export default function KitchenCabinetsPage() {
               <strong>Kitchens, baths and built-ins.</strong> Kitchen cabinets, bathroom vanities and built-ins for Ada and Canyon County homes.
             </li>
             <li>
-              <strong>Registered and insured.</strong> {REGISTERED_INSURED}.
+              <strong>Registered and insured.</strong>
             </li>
             <li>
               <strong>Typically 4 to 8 weeks.</strong> That is the usual lead time from approved design. We&apos;ll give you a timeline with your estimate.

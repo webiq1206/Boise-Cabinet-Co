@@ -122,6 +122,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const footer = Footer();
+  const kitchenFooter = Footer({ hideRegistration: true });
+  const pantryFooter = Footer({ hideWarrantyLink: true });
   return (
     <html lang="en" className={`dark ${manrope.variable} ${cormorant.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
@@ -166,7 +169,7 @@ export default function RootLayout({
             </main>
             {/* Footer renders on the server and is handed to the client switch, so its guide and
                 hub link data never ships in the JavaScript bundle of every page. */}
-            <ConditionalFooter footer={<Footer />} />
+            <ConditionalFooter footer={footer} kitchenFooter={kitchenFooter} pantryFooter={pantryFooter} />
             <SiteActionBar />
           </div></ApprovedShell>
           <StickyCtaYield />
