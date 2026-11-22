@@ -17,10 +17,9 @@ const PARENT_SAME_AS = [
   "https://www.instagram.com/p5_home_co",
   "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
   "https://maps.google.com/?cid=11869148461693849141",
-  "https://www.bbb.org/us/id/meridian/profile/general-contractor/p5-home-co-llc-1296-1000203624",
 ];
 
-test("parent sameAs is the five-URL family list and the brand node has none of them", () => {
+test("parent sameAs is the four-URL family list and the brand node has none of them", () => {
   assert.deepEqual([...P5_PARENT_SAME_AS], PARENT_SAME_AS);
   const home = generateLocalBusinessSchema();
   const parent = home.parentOrganization as { name: string; sameAs: readonly string[] };
@@ -88,7 +87,7 @@ test("Garden City page copy, FAQ and llms entry", () => {
   assert.equal(/visit|showroom|\bshop\b|straightforward|Perkins 5|streetAddress|Wapoot/i.test(joined), false);
   assert.equal(LLMS_TXT.includes("Last updated: 2026-11-21"), true);
   assert.equal(LLMS_TXT.includes("P5 Home Co, Meridian, ID 83646 (service-area business, no public street). Phone (208) 477-1169. Web https://p5homeco.com."), true);
-  assert.equal(LLMS_TXT.includes("BBB https://www.bbb.org/us/id/meridian/profile/general-contractor/p5-home-co-llc-1296-1000203624"), true);
+  assert.equal(LLMS_TXT.includes("bbb.org"), false);
   assert.equal(LLMS_TXT.includes("[Custom cabinets in Garden City, Idaho](https://boisecabinet.co/locations/garden-city)"), true);
   assert.equal(LLMS_TXT.includes("hello@boisecabinet.co"), true);
   const local = generateLocalBusinessSchema("Garden City");

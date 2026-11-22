@@ -102,7 +102,6 @@ test("public contacts retain locality facts and do not keep a street", () => {
     "https://www.instagram.com/p5_home_co",
     "https://www.google.com/search?kgmid=/g/11ntl1t7dc",
     "https://maps.google.com/?cid=11869148461693849141",
-    "https://www.bbb.org/us/id/meridian/profile/general-contractor/p5-home-co-llc-1296-1000203624",
   ]);
   const parentJson = JSON.stringify(parent);
   assert.equal(parentJson.includes("aggregateRating"), false);

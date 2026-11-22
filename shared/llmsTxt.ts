@@ -22,7 +22,7 @@ import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
 import { ROOM_SEO } from "@/shared/catalog/roomSeo";
 import { CITIES, locationPath } from "@/shared/contentData";
 import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
-import { P5_BBB_URL, P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from "@/shared/parentProfiles";
+import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from "@/shared/parentProfiles";
 import { CONTENT_HUBS, guidePath } from "@/shared/contentHubs";
 import { GUIDE_PAGES } from "@/shared/guideContent";
 import { SITE_CONFIG, showFoundingYear } from "@/shared/siteConfig";
@@ -81,7 +81,7 @@ function buildLlmsTxt(): string {
   push(`- Warranty: ${CABINET_WORKMANSHIP_WARRANTY}; ${MANUFACTURER_WARRANTY_PASS_THROUGH.toLowerCase()}. ${CABINET_WORKMANSHIP_SCOPE}`);
   push("- Free in-home design consultation; a written proposal with drawings before anything is ordered");
   push("- Also serve builders, general contractors, and multi-family developers with volume pricing");
-  push(`- Parent company profiles (${PARENT_PUBLIC_NAME}; ${name} has none of its own): Facebook ${P5_FACEBOOK_URL}, Instagram ${P5_INSTAGRAM_URL}, Google Business Profile ${P5_GOOGLE_BUSINESS_PROFILE_URL}, BBB ${P5_BBB_URL}`);
+  push(`- Parent company profiles (${PARENT_PUBLIC_NAME}; ${name} has none of its own): Facebook ${P5_FACEBOOK_URL}, Instagram ${P5_INSTAGRAM_URL}, Google Business Profile ${P5_GOOGLE_BUSINESS_PROFILE_URL}`);
   push(`- Phone: ${SITE_CONFIG.phone}`);
   push(`- Email: ${SITE_CONFIG.email}`, "");
 
