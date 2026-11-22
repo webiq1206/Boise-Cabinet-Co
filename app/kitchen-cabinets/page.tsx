@@ -7,7 +7,6 @@ import { QuoteFormAnchor } from "@/components/quote/QuoteFormAnchor";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { withBrandPageMetadata } from "@/lib/brand-page-metadata";
 import { generateFAQSchema, generateWebPageSchema } from "@/lib/schema";
-import { REGISTERED_INSURED } from "@/shared/claims";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Clock, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
@@ -15,7 +14,7 @@ import Image from "next/image";
 
 const TITLE = "Boise Cabinets for Kitchens, Baths & Built-Ins | Boise Cabinet Co";
 const DESCRIPTION =
-  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Idaho Registered Contractor #8381215. Call or text (208) 477-1169.";
+  "Kitchen cabinets, bathroom vanities and built-ins in Boise. Call or text (208) 477-1169.";
 const TEL_HREF = "tel:+12084771169";
 const SMS_HREF = "sms:+12084771169";
 const HOURS = "Call or text Mon\u2013Fri 9 AM\u20136 PM, Sat 9 AM\u20134 PM (Mountain).";
@@ -64,7 +63,7 @@ const FAQS = [
   },
   {
     question: "Are you a registered contractor and insured?",
-    answer: `Yes. ${REGISTERED_INSURED}.`,
+    answer: "Yes. Registered and insured.",
   },
 ];
 
@@ -228,7 +227,7 @@ export default function KitchenCabinetsPage() {
               <strong>Kitchens, baths and built-ins.</strong> Kitchen cabinets, bathroom vanities and built-ins for Ada and Canyon County homes.
             </li>
             <li>
-              <strong>Registered and insured.</strong> {REGISTERED_INSURED}.
+              <strong>Registered and insured.</strong>
             </li>
             <li>
               <strong>Typically 4 to 8 weeks.</strong> That is the usual lead time from approved design. We&apos;ll give you a timeline with your estimate.

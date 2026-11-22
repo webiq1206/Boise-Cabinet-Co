@@ -21,9 +21,24 @@ import { FAMILY_BRAND } from "@/lib/familyBrand";
  * customer's project link the old header showed, so the portal entry lives
  * here for every visitor; /portal handles sign-in.
  */
-export function Footer() {
+/** Which shared footer facts a single page must not show. Other pages keep both. */
+export function footerFlags(pathname: string): { hideRegistration?: boolean; hideSupportLinks?: boolean } {
+  if (pathname === "/kitchen-cabinets") return { hideRegistration: true };
+  if (pathname === "/cabinets/pantry") return { hideSupportLinks: true };
+  return {};
+}
+
+export function Footer({
+  hideRegistration = false,
+  hideSupportLinks = false,
+}: {
+  hideRegistration?: boolean;
+  hideSupportLinks?: boolean;
+} = {}) {
   return (
     <SiteFooter
+      hideRegistration={hideRegistration}
+      hideSupportLinks={hideSupportLinks}
       brandExtra={
         <ul className="fam-footer-contact">
           <li>
