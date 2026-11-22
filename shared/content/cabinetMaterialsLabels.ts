@@ -50,7 +50,7 @@ const content = `
 <p>You'll touch the doors every day, but the box is what you're really paying to last. Know the material for each part, look for the TSCA Title VI label on composite panels, treat KCMA seals as helpful extra evidence, and get it all in writing before the build starts.</p>
 <p>Planning a <a href="/guides/boise-kitchen-cabinet-guide">kitchen</a>, a <a href="/guides/boise-bathroom-vanity-guide">vanity</a>, or <a href="/guides/built-in-cabinet-guide">built-ins</a>? Share your project with our team and we'll walk through the materials, finishes, and written scope together. <strong><a href="/estimate">Start my estimate →</a></strong></p>
 <p>Product details vary by manufacturer and line; confirm specifics in your written quote.</p>
-<p><strong>Boise Cabinet Co · A P5 Home Company</strong></p>
+<p><strong>Boise Cabinet Co · A P5 Home Co brand</strong></p>
 `;
 
 export const CABINET_MATERIALS_LABELS_POST: BlogPostData = {
