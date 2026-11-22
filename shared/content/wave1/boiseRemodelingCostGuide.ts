@@ -1,3 +1,4 @@
+import { ADA_COUNTY_CITY_LIST } from '../../serviceArea';
 import { buildSectionsHtml, CITIES_LIST, PILLAR_BOISE, PILLAR_TV, type ContentSection } from './snippets';
 
 const sections: ContentSection[] = [
@@ -61,7 +62,7 @@ const sections: ContentSection[] = [
     paragraphs: [
       'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
       'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
-      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Nampa, Eagle, Kuna, Caldwell, and Star. Last updated June 2026. Midpoints are installed cabinetry only.',
+      `Source: Boise Cabinet Co planning ranges across ${CITIES_LIST}. Last updated June 2026. Midpoints are installed cabinetry only.`,
     ],
     table: {
       className: 'cost-table',
@@ -175,7 +176,7 @@ const sections: ContentSection[] = [
   {
     h2: 'Permits and coordination: Ada County vs Canyon County',
     paragraphs: [
-      'Boise, Meridian, Eagle, Kuna, and Star fall under Ada County for most residential work. Nampa, Middleton, and Caldwell are in Canyon County with different portals and review cadence.',
+      `${ADA_COUNTY_CITY_LIST} fall under Ada County for most residential work. Nampa, Middleton, and Caldwell are in Canyon County with different portals and review cadence.`,
       'Cabinet-only replacements often need minimal permit review; moving plumbing, gas, or structural elements requires coordinated plans and inspections.',
       'We coordinate permits when scope includes layout changes. See <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> for timelines and milestones.',
     ],

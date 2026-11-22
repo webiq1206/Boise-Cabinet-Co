@@ -23,9 +23,9 @@ import Link from "next/link";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/cabinets",
-  "Cabinet Catalog by Room",
+  "Cabinets by Room: Kitchen, Bath, Laundry",
   catalogDescription(
-    "Browse custom cabinets by room, kitchen, bath, laundry, mudroom, and more. {company} builds and installs cabinetry across the Treasure Valley.",
+    "Browse custom cabinets by room, from kitchens and baths to laundry and mudrooms, all built and installed by {company} across the Treasure Valley.",
   ),
 ),
   // Explicit self canonical in the page file, so a change to the metadata
@@ -64,9 +64,12 @@ export default function CabinetsHubPage() {
           // in the first phone screen. They now follow the one primary action as
           // its quiet secondary line, and the hero copy comes first on phones.
           actions={<AboveFoldActions />}
-          description={catalogDescription(
-            "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
-          )}
+          description={<>
+            {catalogDescription(
+              "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
+            )}{" "}
+            <Link href="/">custom cabinets in Boise</Link>
+          </>}
         >
           <Button variant="brand" asChild>
             <Link href="/estimate">

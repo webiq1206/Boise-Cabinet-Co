@@ -71,7 +71,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Ada County review expectations',
       paragraphs: [
-        'Boise, Meridian, Eagle, Kuna, and Star projects often route through Ada County for residential cabinet projects with layout changes.',
+        'Boise, Meridian, Eagle, Kuna, Star, and Garden City projects often route through Ada County for residential cabinet projects with layout changes.',
       ],
     },
     {

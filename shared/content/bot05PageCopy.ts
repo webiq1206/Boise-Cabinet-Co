@@ -223,8 +223,9 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     ctaLabel: "Request a quote",
   },
   kuna: {
+    title: "Kuna Custom and Garage Cabinets",
     description:
-      "Custom cabinets in Kuna: kitchen cabinets and pantry storage built to your layout, with a free design consult and upgrades for newer builder-grade kitchens.",
+      "Custom cabinets in Kuna, Idaho: kitchen, pantry, closet and garage cabinets built to your layout by one local team. Free design consult. Call or text us.",
     h1Lead: "Custom cabinets in",
     h1Accent: "Kuna, Idaho",
     firstSentence:
@@ -234,6 +235,61 @@ export const BOT05_LOCATIONS: Record<string, Bot05LocationCopy> = {
     links: [
       { href: "/cabinets/kitchen", label: "Kitchen cabinets" },
       { href: "/cabinets/pantry", label: "Pantry cabinets" },
+    ],
+  },
+  "garden-city": {
+    title: "Custom Cabinets in Garden City, Idaho",
+    description:
+      "Custom cabinets in Garden City, Idaho: kitchens, vanities and built-ins designed and installed by one local team, from riverfront homes to newer townhomes.",
+    h1Lead: "Custom cabinets in",
+    h1Accent: "Garden City, Idaho",
+    firstSentence:
+      "Get cabinets built to fit your Garden City home, from kitchen updates in established houses to smart storage for townhomes and riverfront homes. One local team designs, sources and installs them, starting with a free design consultation, and your lead time is confirmed with your quote.",
+    trustLine: TRUST_LINE,
+    ctaLabel: "Request a quote",
+    faqs: [
+      {
+        question: "Do you build custom cabinets in Garden City?",
+        answer:
+          "Yes. We design, source and install custom cabinets for Garden City homes, from established houses near the Boise River to newer townhomes.",
+      },
+      {
+        question: "How much do kitchen cabinets cost in Garden City?",
+        answer:
+          "The same as anywhere in the valley. Kitchen size, door style and accessories set the budget, and you get a written price before anything is ordered. Our Boise Cabinet Cost Guide has the full planning ranges.",
+      },
+      {
+        question: "Can you make the most of a smaller kitchen or townhome?",
+        answer:
+          "Yes. Drawer bases, pull-out pantries, appliance garages and taller uppers help a compact Garden City kitchen hold more without changing the floor plan.",
+      },
+      {
+        question: "Do you build easy-reach storage for aging in place?",
+        answer:
+          "Yes. Pull-out shelves, drawers in place of deep base cabinets, and counters and uppers set at comfortable heights make a kitchen easier to use for years to come.",
+      },
+      {
+        question: "Do Garden City cabinet projects need permits?",
+        answer:
+          "Plumbing, electrical or structural changes need permit review through Garden City Development Services, with trade permits through the State of Idaho. For cabinet-only work, confirm with the city; we point out permit triggers during design.",
+      },
+      {
+        question: "How long does a Garden City cabinet project take?",
+        answer:
+          "Your lead time is confirmed with your quote, once selections and project details are final. Scope and finish choices decide the schedule, and we share it in writing before you approve the order.",
+      },
+      {
+        question: "Is Garden City part of Boise?",
+        answer:
+          "No. Garden City is its own city in Ada County, nearly surrounded by Boise, with its own city government and permit office. We serve Garden City addresses the same way we serve the rest of the valley.",
+      },
+    ],
+    links: [
+      { href: "/cabinets/pantry", label: "Pantry cabinets" },
+      { href: "/blog/cabinet-cost-per-linear-foot", label: "Cabinet cost per linear foot in Boise: what it really means" },
+      { href: "/blog/how-deep-are-kitchen-cabinets", label: "How deep are kitchen cabinets? (Upper, base and pantry depths)" },
+      { href: "/cabinets/laundry", label: "Laundry cabinets" },
+      { href: "/guides/boise-kitchen-cabinet-guide", label: "Boise kitchen cabinet guide" },
     ],
   },
 };

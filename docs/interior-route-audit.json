@@ -37,12 +37,12 @@
   {
     "route": "/cabinets",
     "file": "app/cabinets/page.tsx",
-    "seoSignature": "fe58d4d1b258fa8a24d63a36b8483e3f10eab6d8a1f727ecd42528a15017dd09"
+    "seoSignature": "265a7f399b878625528e1d647b1d9a95cfe25f682166870676e3780cc57ba520"
   },
   {
     "route": "/catalog",
     "file": "app/catalog/page.tsx",
-    "seoSignature": "bc6602d926160b5e76fc43adaf5acd9f49047c8a4aeb8055160cd47500a17437"
+    "seoSignature": "1b03a1234627232df46ad6b51b32057825f69c106080d50fd0069b5bf75e52cb"
   },
   {
     "route": "/catalog/door-visualizer",

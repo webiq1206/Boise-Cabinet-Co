@@ -1,3 +1,4 @@
+import { ADA_COUNTY_CITY_LIST, CANYON_COUNTY_CITY_LIST } from '../../serviceArea';
 import { buildSectionsHtml, CITIES_LIST, type ContentSection } from './snippets';
 import { expandLocation } from '../contentFactory';
 
@@ -23,15 +24,17 @@ const tvSections: ContentSection[] = [
       '<a href="/locations/kuna">Kuna cabinet guide</a>',
       '<a href="/locations/caldwell">Caldwell cabinet guide</a>',
       '<a href="/locations/star">Star cabinet guide</a>',
+      '<a href="/locations/middleton">Middleton cabinet guide</a>',
+      '<a href="/locations/garden-city">Garden City cabinet guide</a>',
     ],
     paragraphs: [
-      'Each city guide covers local housing stock, common cabinet projects, permits, and planning ranges. Ada County: Boise, Meridian, Eagle, Kuna, and Star. Canyon County: Nampa and Caldwell.',
+      `Each city guide covers local housing stock, common cabinet projects, permits, and planning ranges. Ada County: ${ADA_COUNTY_CITY_LIST}. Canyon County: ${CANYON_COUNTY_CITY_LIST}.`,
     ],
   },
   {
     h2: 'Ada County vs Canyon County',
     paragraphs: [
-      'Boise, Meridian, Eagle, Kuna, and Star are in Ada County. Nampa and Caldwell are in Canyon County.',
+      `${ADA_COUNTY_CITY_LIST} are in Ada County. ${CANYON_COUNTY_CITY_LIST} are in Canyon County.`,
       'Design, build, and installation cover both counties.',
     ],
   },

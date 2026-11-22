@@ -5,6 +5,18 @@ export async function register() {
       process.env.DATABASE_URL ??
       process.env.PGDATABASE_URL ??
       process.env.REPLIT_DB_URL;
+    // IndexNow is not part of database startup. It posts only when this
+    // process is a Replit deployment, after the build has written its URL list.
+    void (async () => {
+      try {
+        const { default: submitIndexNow } = await import("./scripts/submit-indexnow.mjs");
+        await submitIndexNow();
+      } catch (e) {
+        console.error("[IndexNow] sha=unknown submitted=0 status=error");
+        console.error("[IndexNow] submission failed:", e);
+      }
+    })();
+
     if (!dbUrl) return;
 
     // Everything below is best-effort background maintenance. None of it is
@@ -236,27 +248,5 @@ export async function register() {
       }
     })();
 
-    // Submit sitemap to IndexNow on production startup.
-    // The key file is already live (deployed via public/), so the
-    // verification should pass immediately after server boots.
-    // Dynamic import bundles the module into the standalone server. A spawned
-    // `node scripts/submit-indexnow.mjs` is absent from that bundle and used
-    // to die with MODULE_NOT_FOUND. A failed ping must not fail the deploy.
-    void (async () => {
-      try {
-        const { default: submitIndexNow } = await import("./scripts/submit-indexnow.mjs");
-        const result = await submitIndexNow();
-        console.log(
-          `[startup] IndexNow status: HTTP ${result.status}; submitted ${result.submitted} URL(s)`,
-        );
-      } catch (e) {
-        const status =
-          e && typeof e === "object" && "status" in e && e.status != null
-            ? String(e.status)
-            : "error";
-        console.error(`[startup] IndexNow status: HTTP ${status}; submitted 0 URL(s)`);
-        console.error("[startup] IndexNow submission failed:", e);
-      }
-    })();
   }
 }

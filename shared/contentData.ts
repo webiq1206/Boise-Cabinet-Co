@@ -77,6 +77,7 @@ export const CITIES: CityData[] = [
   { slug: 'star', name: 'Star', county: 'ada', isPrimary: false },
   { slug: 'middleton', name: 'Middleton', county: 'canyon', isPrimary: false },
   { slug: 'caldwell', name: 'Caldwell', county: 'canyon', isPrimary: false },
+  { slug: 'garden-city', name: 'Garden City', county: 'ada', isPrimary: false },
 ];
 
 export const TREASURE_VALLEY_CITIES = CITIES.map((c) => c.name).join(', ');

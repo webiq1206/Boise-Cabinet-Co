@@ -40,14 +40,14 @@ export const P5_ORG_ID = `${P5_ORIGIN}/#organization`;
  * sameAs (lib/seo.ts BUSINESS_INFO.sameAs): Boise Cabinet Co has no profile
  * of its own.
  */
-export { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from '@/shared/parentProfiles';
-import { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL } from '@/shared/parentProfiles';
+export { P5_FACEBOOK_URL, P5_GOOGLE_BUSINESS_PROFILE_URL, P5_INSTAGRAM_URL, P5_PARENT_SAME_AS } from '@/shared/parentProfiles';
+import { P5_PARENT_SAME_AS } from '@/shared/parentProfiles';
 export const P5_PARENT_ORGANIZATION = {
   '@type': 'Organization',
   '@id': P5_ORG_ID,
   name: 'P5 Home Co',
   url: P5_ORIGIN,
-  sameAs: [P5_FACEBOOK_URL, P5_INSTAGRAM_URL, P5_GOOGLE_BUSINESS_PROFILE_URL],
+  sameAs: P5_PARENT_SAME_AS,
 } as const;
 
 /**

@@ -29,9 +29,9 @@ import { FaqSplit } from "@/components/marketing/FaqSplit";
 export const metadata = withBrandPageMetadata({
   ...catalogMetadata(
   "/catalog",
-  `Cabinet Catalog: ${FINISHES.length} Finishes, ${DOOR_STYLES.length} Doors`,
+  "Cabinet Catalog: Door Styles and Finishes",
   catalogDescription(
-    `Browse the complete {company} catalog online: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes, ${CABINET_PRODUCTS.length} cabinet configurations, hardware, and accessories. Flip through the interactive catalog right on the page - no download required.`,
+    "Browse door styles, finishes, cabinet layouts and hardware online before your design consult, so your Boise cabinet project starts with a clear direction.",
   ),
   {
     // First page of the catalog, cropped to OG dimensions. JPEG on purpose:
@@ -145,6 +145,9 @@ export default function CatalogPage() {
                   </span>
                 }
               />
+              <p className="mt-4 text-base text-muted-foreground">
+                Planning a whole home starts with <Link href="/">custom cabinets in Boise</Link>.
+              </p>
             </div>
           </div>
         </Section>

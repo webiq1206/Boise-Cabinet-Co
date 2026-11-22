@@ -238,6 +238,11 @@ export default async function RoomCabinetPage(props: { params: Promise<{ room: s
             {heroFollowOn.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            {room.slug === "kitchen" ? (
+              <p>
+                See how this kitchen fits with <Link href="/">custom cabinets in Boise</Link>.
+              </p>
+            ) : null}
           </HeroFollowOn>
         )}
         {room.slug === "built-ins" && <section id="built-in-inquiry" data-quote-anchor="" data-suppress-sticky-cta="" className="mx-auto w-full max-w-3xl px-6 py-8">

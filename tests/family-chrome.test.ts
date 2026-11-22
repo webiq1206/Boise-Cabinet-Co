@@ -117,7 +117,7 @@ test('footer links written out in the config match their sources', () => {
   assert.equal(FAMILY_BRAND.footer.areas.label, "Service area, Ada and Canyon Counties");
   assert.deepEqual(
     FAMILY_BRAND.footer.areas.links.map((link) => link.label),
-    ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star", "Middleton"],
+    ["Boise", "Meridian", "Nampa", "Eagle", "Kuna", "Caldwell", "Star", "Middleton", "Garden City"],
   );
 });
 
@@ -149,7 +149,7 @@ test('the footer renders the family row, NAP, hours, both parent profiles and on
     assert.ok(html.includes(`href="${href}"`), href);
   }
   // Middleton joined the published service area on 20 November 2026 (owner decision, SEO audit).
-  for (const city of ['boise', 'meridian', 'nampa', 'eagle', 'kuna', 'caldwell', 'star', 'middleton']) {
+  for (const city of ['boise', 'meridian', 'nampa', 'eagle', 'kuna', 'caldwell', 'star', 'middleton', 'garden-city']) {
     assert.ok(html.includes(`href="/locations/${city}"`), city);
   }
 });

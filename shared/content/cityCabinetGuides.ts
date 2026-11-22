@@ -773,6 +773,109 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     tags: ['middleton', 'canyon county', 'cabinets', 'idaho'],
     primaryKeyword: 'custom cabinets Middleton',
   },
+  {
+    slug: 'garden-city-cabinet-guide',
+    cityName: 'Garden City',
+    citySlug: 'garden-city',
+    county: 'ada',
+    seoTitle: 'Custom Cabinets in Garden City, Idaho',
+    metaDescription:
+      'Custom cabinets in Garden City, Idaho: kitchens, vanities and built-ins designed and installed by one local team, from riverfront homes to newer townhomes.',
+    excerpt:
+      'Custom cabinets in Garden City, Idaho, for riverside houses and newer townhomes, with the city permit office and a written price before anything is ordered.',
+    quickAnswer:
+      'Make every room in your Garden City home work harder with kitchen cabinets, vanities and built-in storage that we design, source and install. Garden City is its own city, nearly surrounded by Boise, and its homes range from established houses near the river to new townhomes, so one kitchen needs a fresh layout and the next needs a compact footprint to work harder.',
+    takeaways: [
+      'Garden City homes range from established riverside houses to new townhomes, so storage plans vary street by street.',
+      'Smart storage for compact kitchens and easy-reach cabinets for every stage of life are common Garden City requests.',
+      'Garden City runs its own permit office; confirm with the city whether your project needs a permit.',
+    ],
+    sections: [
+      {
+        h2: 'Custom cabinets in Garden City',
+        paragraphs: [
+          'Garden City sits along the Boise River and the Greenbelt, minutes from downtown Boise, with Chinden Boulevard running through the middle of town. We design, source and install frameless <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/pantry">pantry systems</a> and <a href="/cabinets/built-ins">built-in storage</a> here. Planning that applies everywhere in the valley sits on the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet hub</a>.',
+        ],
+      },
+      {
+        h2: 'Garden City housing: riverside neighborhoods and new townhomes',
+        paragraphs: [
+          'North of the river, Riverside Village and The Plantation, near The River Club golf course, have many homes from the 1980s and 1990s with kitchens ready for a refresh. South of the river, the Marigold and Glenwood area has mostly 1980s and 1990s homes on smaller lots.',
+          'Most recent new construction has been townhomes, including rows near the Live-Work-Create District on the east end, where every inch of kitchen, laundry and entry storage counts.',
+        ],
+      },
+      {
+        h2: 'Popular Garden City cabinet projects',
+        list: [
+          'Kitchen refreshes that rework original layouts with drawer bases and taller uppers',
+          'Pantry and appliance walls that make a compact kitchen work like a bigger one',
+          'Easy-reach storage with pull-outs and drawers for aging in place',
+          'Laundry and entry cabinets for townhome floor plans',
+        ],
+        paragraphs: [
+          'Mature homes and compact new plans make storage that fits the space the priority; see the <a href="/cabinets">full room catalog</a> for ideas.',
+        ],
+      },
+      {
+        h2: 'Permits for Garden City cabinet projects',
+        paragraphs: [
+          'Garden City issues building permits through its own Development Services department, separate from Boise, so confirm your address is inside city limits before you apply. A cabinet swap and a project that moves plumbing, electrical or walls are different scopes. Trade permits for plumbing, electrical and mechanical work go through the State of Idaho, and the city also handles floodplain questions. Confirm permits and inspections with the city before demolition. Our <a href="/guides/cabinet-project-process-guide">cabinet project process guide</a> covers the sequence.',
+          'For when a cabinet install needs a permit at all, see the <a href="/resources/ada-canyon-permit-flow">Ada and Canyon County permit flow</a>.',
+        ],
+      },
+      {
+        h2: 'Garden City cabinet costs and planning',
+        paragraphs: [
+          'Pricing is the same across the valley, and you see your price in writing before anything is ordered. The <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a> has the full planning ranges.',
+        ],
+      },
+      {
+        h2: 'Next steps',
+        paragraphs: [
+          'Ready to move? <a href="/contact">Schedule your free design consultation</a>, <a href="/cabinets">see cabinets organized by room</a>, or read the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: 'Do you build custom cabinets in Garden City?',
+        answer:
+          'Yes. We design, source and install custom cabinets for Garden City homes, from established houses near the Boise River to newer townhomes.',
+      },
+      {
+        question: 'How much do kitchen cabinets cost in Garden City?',
+        answer:
+          'The same as anywhere in the valley. Kitchen size, door style and accessories set the budget, and you get a written price before anything is ordered. Our Boise Cabinet Cost Guide has the full planning ranges.',
+      },
+      {
+        question: 'Can you make the most of a smaller kitchen or townhome?',
+        answer:
+          'Yes. Drawer bases, pull-out pantries, appliance garages and taller uppers help a compact Garden City kitchen hold more without changing the floor plan.',
+      },
+      {
+        question: 'Do you build easy-reach storage for aging in place?',
+        answer:
+          'Yes. Pull-out shelves, drawers in place of deep base cabinets, and counters and uppers set at comfortable heights make a kitchen easier to use for years to come.',
+      },
+      {
+        question: 'Do Garden City cabinet projects need permits?',
+        answer:
+          'Plumbing, electrical or structural changes need permit review through Garden City Development Services, with trade permits through the State of Idaho. For cabinet-only work, confirm with the city; we point out permit triggers during design.',
+      },
+      {
+        question: 'How long does a Garden City cabinet project take?',
+        answer:
+          'Your lead time is confirmed with your quote, once selections and project details are final. Scope and finish choices decide the schedule, and we share it in writing before you approve the order.',
+      },
+      {
+        question: 'Is Garden City part of Boise?',
+        answer:
+          'No. Garden City is its own city in Ada County, nearly surrounded by Boise, with its own city government and permit office. We serve Garden City addresses the same way we serve the rest of the valley.',
+      },
+    ],
+    tags: ['garden city', 'ada county', 'cabinets', 'idaho'],
+    primaryKeyword: 'custom cabinets garden city',
+  },
 ];
 
 export const CITY_CABINET_GUIDES: GuidePageData[] = CITY_GUIDE_SPECS.map((spec) => ({

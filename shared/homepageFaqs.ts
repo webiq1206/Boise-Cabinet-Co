@@ -1,7 +1,7 @@
 // The generated content module directly: the @/shared/catalog barrel also loads
 // every cabinet product, and this list ships to the browser with FAQSection.
 import { CATALOG_CONTENT } from "@/shared/catalog/generated/content";
-import { SERVICE_AREA_LIST } from "@/shared/serviceArea";
+import { SERVICE_AREA_CITY_LIST, SERVICE_AREA_LIST } from "@/shared/serviceArea";
 
 export interface HomepageFaq {
   q: string;
@@ -31,7 +31,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Do you install cabinets or supply only?",
-    a: "Both. We design, build to order, deliver, and install, with installation by our team or a qualified installation partner we manage. Supply-only orders follow a separate supply agreement. Trade partners and builders can discuss project packages on the builders page.",
+    a: `Both. We design, build to order, deliver, and install across ${SERVICE_AREA_CITY_LIST}, with installation by our team or a qualified installation partner we manage. Supply-only orders follow a separate supply agreement. Trade partners and builders can discuss project packages on the builders page.`,
   },
   {
     q: "What warranty do you provide?",

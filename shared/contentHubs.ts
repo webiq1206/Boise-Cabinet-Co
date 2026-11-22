@@ -275,6 +275,7 @@ const CONTENT_MANIFEST_SOURCE: ContentManifestEntry[] = [
   guide('star-cabinet-guide', 'Star Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'star-remodeling-guide'),
   guide('caldwell-cabinet-guide', 'Caldwell Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED),
   guide('middleton-cabinet-guide', 'Middleton Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'middleton-remodeling-guide'),
+  guide('garden-city-cabinet-guide', 'Garden City custom cabinet guide', 'local-guides', 'location', PUBLISHED),
 ];
 
 /** Merged posts (shared/content/blogMerges.ts) leave the manifest; they 301. */

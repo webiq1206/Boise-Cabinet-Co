@@ -36,8 +36,8 @@ const sentenceStart = (text: string) => text.charAt(0).toUpperCase() + text.slic
 const list = (items: string[]) =>
   items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
 
-/** Build date, so "Last updated" always matches the deploy that served it. */
-export const LLMS_LAST_UPDATED = new Date().toISOString().slice(0, 10);
+/** Growth-plan refresh date. Quinn's brief pins this build to 21 November 2026. */
+export const LLMS_LAST_UPDATED = "2026-11-21";
 
 const name = SITE_CONFIG.name;
 const finishFamilies = ["matte", "gloss", "woodgrain"].map(
@@ -61,7 +61,8 @@ function buildLlmsTxt(): string {
   );
   push(`Last updated: ${LLMS_LAST_UPDATED}`, "");
   push(
-    `${SITE_CONFIG.phone}. ${SITE_CONFIG.email}.`,
+    "P5 Home Co, Meridian, ID 83646 (service-area business, no public street). Phone (208) 477-1169. Web https://p5homeco.com.",
+    `${name}. Web https://boisecabinet.co. Phone ${SITE_CONFIG.phone}. Email ${SITE_CONFIG.email}.`,
     "",
   );
   push(

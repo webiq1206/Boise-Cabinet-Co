@@ -172,7 +172,7 @@ export default function ContactPage() {
                 carry open the form section directly below, which already states
                 both, so they are not repeated here. */}
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed">
-              Schedule a free design consultation, call or text our team, or send project details
+              Schedule a free design consultation for <Link href="/" className="underline underline-offset-2">custom cabinets in Boise</Link>, call or text our team, or send project details
               through the form.
             </p>
             <div className="interior-hero-cta">
