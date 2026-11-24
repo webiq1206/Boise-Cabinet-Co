@@ -86,7 +86,7 @@ const seoName = (room: { slug: string; name: string }) => SEO_NAME[room.slug] ??
 function getTypicalRoomRange(roomSlug: string): { priceLow: number; priceHigh: number } | null {
   if (!(roomSlug in PROJECT_PRICING)) return null;
   const project = roomSlug as ProjectType;
-  const result = calculateEstimate(getDefaultSelectionsForProject(project));
+  const result = calculateEstimate(getDefaultSelectionsForProject(project), 0, { includeOwnerServices: true });
   return result ? { priceLow: result.priceLow, priceHigh: result.priceHigh } : null;
 }
 

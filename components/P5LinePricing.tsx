@@ -1,8 +1,9 @@
 "use client";
 import {useState} from "react";
 import type {P5Estimate} from "@/lib/p5/pricing";
+import type {OwnerServicePricing} from "@/shared/ownerServicePricing";
 const money=(n:number)=>n.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2,maximumFractionDigits:2});
-export function P5LinePricing({estimate}:{estimate:P5Estimate}){
+export function P5LinePricing({estimate}:{estimate:P5Estimate&{ownerServices?:OwnerServicePricing}}){
   const [filter,setFilter]=useState("");
   const lines=estimate.lines.filter(line=>`${line.description} ${line.trade}`.toLowerCase().includes(filter.toLowerCase()));
   return <section aria-label="Item pricing breakdown"><h3>Item pricing breakdown</h3>
@@ -13,5 +14,11 @@ export function P5LinePricing({estimate}:{estimate:P5Estimate}){
       <p>{line.quantity.toLocaleString("en-US")} {line.unit} at {money(line.unitCost)} direct cost per {line.unit}.</p>
       <dl style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,210px),1fr))",gap:16,margin:0}}>{[["Direct cost",line.cost],["Contingency",line.contingency],["Overhead recovery",line.overheadRecovery],["Operating profit",line.operatingProfit],["Selling price per unit",line.sellingUnitPrice],["Selling amount",line.sellingAmount]].map(([label,value])=><div key={String(label)}><dt>{String(label)}</dt><dd style={{margin:0,fontWeight:600}}>{money(Number(value))}</dd></div>)}</dl>
     </details>)}
+    {estimate.ownerServices&&<><h4>Owner services · final client rate $120/hour</h4><p>Calculated once for this project from outside direct costs; legacy owner-time overlap is credited once and excluded from the baseline.</p>
+      <table><thead><tr><th>Code</th><th>QBO item</th><th>Service / milestone</th><th>Hours</th><th>Rate</th><th>Line amount</th></tr></thead><tbody>
+        {estimate.ownerServices.lines.map((line,index)=><tr key={`${line.code}:${line.milestone}:${index}`}><td>{line.code}</td><td>{line.qboItemId}</td><td>{line.service} · {line.milestoneLabel}</td><td>{line.hours.toFixed(6)}</td><td>{money(line.rate)}</td><td>{money(line.amount)}</td></tr>)}
+        {estimate.ownerServices.creditAmount>0&&<tr><td colSpan={5}>Prior overlapping owner/supervision allowance · {estimate.ownerServices.ownerLaborCredits.map(credit=>credit.source).join(" / ")}</td><td>−{money(estimate.ownerServices.creditAmount)}</td></tr>}
+      </tbody></table><p>Applied once: {money(estimate.ownerServices.creditAmount)} credit · Net owner-service addition: {money(estimate.ownerServices.totalAmount)}</p>
+    </>}
   </section>;
 }

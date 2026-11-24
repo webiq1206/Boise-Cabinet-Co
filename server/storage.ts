@@ -5,6 +5,7 @@ import { db as nullableDb } from "./db";
 import { eq, and, or, desc, lte } from "drizzle-orm";
 import { SITE_CONFIG } from "@shared/siteConfig";
 import { ADMIN_EMAILS } from "@shared/adminEmails";
+import { PHASE_PRODUCTION_BUILD } from "next/constants";
 
 /*
  * `db` is typed nullable in lib/db so the app can BUILD without a database
@@ -757,7 +758,12 @@ export class DBStorage implements IStorage {
   private seedPromise: Promise<void> | null = null;
 
   constructor() {
-    // Start seeding in background
+    // A production build must be read-only with respect to app data. Runtime
+    // startup keeps the existing seed behavior; Next static generation skips it.
+    if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+      this.seedPromise = Promise.resolve();
+      return;
+    }
     this.seedPromise = this.seedDataIfEmpty();
   }
 

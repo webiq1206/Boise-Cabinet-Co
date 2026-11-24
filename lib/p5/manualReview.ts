@@ -7,6 +7,8 @@ import {EMPTY_CONFIGURATION} from "./costBook.ts";
 import {calculateP5Estimate,customerEstimate,POLICY_VERSION,type PricingInput,type OwnerApproval} from "./pricing.ts";
 import {adminRecipients} from "./deliveryAdapter.ts";
 import {ESTIMATOR_BRAND as brand} from "./brand.ts";
+import {OWNER_SERVICE_PRICING_VERSION,type OwnerServiceOverrides} from "@/shared/ownerServicePricing";
+import {applyOwnerServicesForManualReview} from "./cabinetOwnerServicePricing.ts";
 
 type Actor={id:string;email:string};
 export async function ensureReviewSchema(){
@@ -23,7 +25,10 @@ function fingerprint(id:string,revision:number,input:PricingInput,finance:unknow
 async function approvalsFor(revision:string):Promise<OwnerApproval[]>{
   return (await query("SELECT id,owner,reason,approved_at FROM p5_estimator_approvals WHERE revision=$1",[revision])).map(a=>({owner:a.owner,recordId:a.id,writtenReason:a.reason,approvedAt:new Date(a.approved_at).toISOString(),estimateRevision:revision}));
 }
-function calculate(input:PricingInput,finance:any,approvals:OwnerApproval[]){try{return calculateP5Estimate(input,finance,approvals);}catch(e){throw new DraftError(e instanceof Error?e.message:"Invalid direct-cost review.");}}
+function calculate(input:PricingInput,finance:any,approvals:OwnerApproval[]){try{
+  const core=calculateP5Estimate(input,finance,approvals);
+  return applyOwnerServicesForManualReview(core,input as PricingInput&{ownerServicePricingVersion?:string;ownerServiceOverrides?:OwnerServiceOverrides});
+}catch(e){throw new DraftError(e instanceof Error?e.message:"Invalid direct-cost review.");}}
 export async function saveManualReview(body:any,actor:Actor){
   await ensureReviewSchema();
   const [draft]=await query("SELECT * FROM p5_estimator_drafts WHERE id=$1",[body.id]);
@@ -33,7 +38,7 @@ export async function saveManualReview(body:any,actor:Actor){
   if(!(brand.services as readonly string[]).includes(body.input?.service))throw new DraftError("Choose a service offered by this company.");
   const [policy]=await query("SELECT payload FROM p5_estimator_policy WHERE id='current'");
   const finance=policy?.payload?.finance||EMPTY_CONFIGURATION.finance;
-  const input={...body.input} as PricingInput;
+  const input={...body.input,ownerServicePricingVersion:OWNER_SERVICE_PRICING_VERSION} as PricingInput&{ownerServicePricingVersion:string};
   if(draft.payload.answers?.complexity==="complex")input.complexity="complex";
   const declaredUrgency=draft.payload.answers?.urgency;
   if(declaredUrgency==="emergency"||declaredUrgency==="priority"&&input.urgency!=="emergency")input.urgency=declaredUrgency;

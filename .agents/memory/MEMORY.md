@@ -38,3 +38,4 @@
 - [GitHub connector commit sync](github-connector-commit-sync.md) — HTTPS Git may lack auth while the GitHub connector works; preserve history and align exact commit objects after API writes.
 - [Cabinet estimator acceptance boundaries](cabinet-estimator-acceptance-boundaries.md) — legacy read reuse, customer finance redaction, CRM size/routing, and catalog identity are fail-closed release gates.
 - [Temporary-storage quota diagnostics](temporary-storage-quota.md) — df free space can conceal quota exhaustion; even stderr capture can fail, making archive extraction appear to exit silently.
+- [Cabinet owner-service pricing](cabinet-owner-service-pricing.md) — new local Cabinet projects use one project-level PM/admin/accounting schedule at $120/hour; keep historic prices and central P5 estimates unchanged.

@@ -468,6 +468,7 @@ export function ConsultationFields({
         ? buildEstimateRecord({
             rooms: estimateRooms,
             capturedAt: new Date().toISOString(),
+              includeOwnerServices: true,
             budget: data.budget,
             notes: data.message,
             propertyAddress: data.address,

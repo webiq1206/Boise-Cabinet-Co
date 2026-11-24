@@ -55,7 +55,7 @@ export function KitchenPlanningRange({ idPrefix }: { idPrefix?: string }) {
     );
     sel.finishCategory = finish;
     // Enough detail for a planning band without pretending a firm bid.
-    return calculateEstimate(sel, 3);
+    return calculateEstimate(sel, 3, { includeOwnerServices: true });
   }, [size, finish]);
 
   const rangeLabel = result

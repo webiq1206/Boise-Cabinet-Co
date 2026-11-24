@@ -34,6 +34,7 @@ import { consultationSiteEstimate, consultationTeamNotes, sendTeamEmailAfterBrid
 import type { EstimateRecord } from "@/shared/estimateRecord";
 import { issueDetailsToken } from "@/server/services/consultationDetails";
 import { quoteSecret } from "@/server/services/consultationFiles";
+import { repriceOwnerServiceSubmission } from "@/server/services/ownerServiceEstimate";
 import {
   buildLeadNotes,
   consultationBodySchema,
@@ -80,6 +81,17 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
+    const repriced = repriceOwnerServiceSubmission({
+      estimate: data.estimate,
+      record: data.estimateRecord as EstimateRecord | null | undefined,
+    });
+    if (repriced.ownerServices) {
+      Object.assign(data, {
+        estimate: repriced.estimate,
+        estimateRecord: repriced.record,
+        ownerServicePricing: repriced.ownerServices,
+      });
+    }
     // What every destination stores: the visitor's project type or a sortable
     // default, and their own words led by the callback marker or reply channel.
     const projectType = resolveProjectType(data);
@@ -198,6 +210,7 @@ export async function POST(request: NextRequest) {
                     sizeLabel: data.estimate.sizeLabel,
                     confidenceLabel: data.estimate.confidenceLabel,
                   },
+                  ...(repriced.ownerServices ? { ownerServicePricing: repriced.ownerServices } : {}),
                 }
               : null,
             message: notes || null,
@@ -279,14 +292,19 @@ export async function POST(request: NextRequest) {
           // What this site's own team email carries and the fields above do
           // not: the planning range with its per-room amounts, the property
           // lookup, and the lead dashboard link. p5 prints it in its email.
-          teamNotes: consultationTeamNotes({
-            estimate: data.estimate,
-            propertyProfile: data.propertyProfile,
-            budget: data.budget,
-            timeline: data.timeline,
-            source: data.source,
-            leadId: capturedLeadId,
-          }),
+          teamNotes: [
+            ...consultationTeamNotes({
+              estimate: data.estimate,
+              propertyProfile: data.propertyProfile,
+              budget: data.budget,
+              timeline: data.timeline,
+              source: data.source,
+              leadId: capturedLeadId,
+            }),
+            ...(repriced.ownerServices
+              ? [`Owner-service pricing (internal): ${repriced.ownerServices.lines.map((line) => `${line.code} / QBO ${line.qboItemId} / ${line.service} / ${line.milestoneLabel}: ${line.hours.toFixed(6)} h × $120.00 = $${line.amount.toFixed(2)}`).join("; ")}. Applied overlapping owner-time credit: $${repriced.ownerServices.creditAmount.toFixed(2)}.`]
+              : []),
+          ],
           // The planning range, structured, so p5 can create the QuickBooks
           // customer and an unsent estimate. Customer amounts only. Nothing
           // when the numbers from the browser do not hold up; the request

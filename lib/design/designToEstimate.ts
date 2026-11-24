@@ -125,7 +125,7 @@ export function getDesignEstimate(
   opts: DesignEstimateOptions = {},
 ): DesignEstimate | null {
   const selections = designToEstimateSelections(design, opts);
-  const result = calculateEstimate(selections, countSelections(design));
+  const result = calculateEstimate(selections, countSelections(design), { includeOwnerServices: true });
   if (!result) return null;
   const project = toProjectType(design.roomType);
   const [wkLow, wkHigh] = TIMELINE_WEEKS[project];

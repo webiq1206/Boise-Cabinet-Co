@@ -75,11 +75,11 @@ export function ConsultationForm({
         // Validated before attaching: a corrupt persisted state falls back to
         // the plain form rather than submitting a suspicious range.
         const validated = safeCombinedEstimate(
-          calculateCombinedEstimate(rooms),
+          calculateCombinedEstimate(rooms, { includeOwnerServices: true }),
           rooms,
           "consultation-form",
         );
-        const combined = validated ? buildCombinedStoredEstimate(rooms) : null;
+        const combined = validated ? buildCombinedStoredEstimate(rooms, { includeOwnerServices: true }) : null;
         if (combined) {
           const key = `combined|${combined.priceLow}|${combined.priceHigh}|${combined.rooms
             .map((r) => `${r.projectLabel}:${r.sizeLabel}:${r.scopeSummary}`)
@@ -195,6 +195,7 @@ export function ConsultationForm({
           ? buildEstimateRecord({
               rooms: estimateRooms,
               capturedAt: new Date().toISOString(),
+              includeOwnerServices: true,
               budget: "",
               notes,
               propertyAddress: "",

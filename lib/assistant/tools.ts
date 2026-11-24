@@ -332,11 +332,12 @@ export function buildAssistantLeadBody(
   ctx: Pick<AssistantToolContext, "rooms" | "transcript">,
   sourceDetail: "assistant_chat" | "assistant_handoff" = "assistant_chat",
 ) {
-  const stored = buildCombinedStoredEstimate(ctx.rooms);
+  const stored = buildCombinedStoredEstimate(ctx.rooms, { includeOwnerServices: true });
   const record = ctx.rooms.some(isPriceable)
     ? buildEstimateRecord({
         rooms: ctx.rooms,
         capturedAt: new Date().toISOString(),
+         includeOwnerServices: true,
         budget: input.budget,
         notes: input.message,
         propertyAddress: input.address,

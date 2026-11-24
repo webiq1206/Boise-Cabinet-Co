@@ -11,15 +11,30 @@ import {existsSync,readFileSync} from 'node:fs';
 const manifestUrl=new URL('../lib/p5/shared-manifest.json',import.meta.url);
 const hash=(file:URL)=>createHash('sha256').update(readFileSync(file,'utf8').replace(/\r\n/g,'\n')).digest('hex');
 
-test('shared estimator files match the synced engine',{skip:existsSync(manifestUrl)?false:'no shared manifest yet'},()=>{
-  const manifest=JSON.parse(readFileSync(manifestUrl,'utf8')) as {source:string;commit:string;files:Record<string,string>};
+test('shared estimator files match synced hashes or documented Cabinet extensions',{skip:existsSync(manifestUrl)?false:'no shared manifest yet'},()=>{
+  const manifest=JSON.parse(readFileSync(manifestUrl,'utf8')) as {
+    source:string;
+    commit:string;
+    files:Record<string,string>;
+    brandLocalExtensions?:Record<string,{sourceFiles?:Record<string,string>;currentFiles?:Record<string,string>}>;
+  };
+  const extensions=Object.values(manifest.brandLocalExtensions||{});
+  const localHashes=Object.assign({},...extensions.map(extension=>extension.currentFiles||{}));
   const changed:string[]=[],missing:string[]=[];
   for(const [file,expected] of Object.entries(manifest.files)){
     const url=new URL('../'+file,import.meta.url);
     if(!existsSync(url)){missing.push(file);continue;}
-    if(hash(url)!==expected)changed.push(file);
+    if(hash(url)!==(localHashes[file]||expected))changed.push(file);
   }
   assert.deepEqual({changed,missing},{changed:[],missing:[]},`Shared estimator files differ from ${manifest.source}@${manifest.commit.slice(0,8)}. Make the change in boise-remodeling-co, then run: node scripts/p5-sync.mjs --all`);
+  for(const extension of extensions){
+    const upstreamHashes=extension.sourceFiles||{};
+    for(const [file,localHash] of Object.entries(extension.currentFiles||{})){
+      assert.ok(file in manifest.files,`Cabinet extension ${file} is not a tracked shared file.`);
+      assert.equal(upstreamHashes[file],manifest.files[file],`Cabinet extension ${file} must retain its original upstream hash.`);
+      assert.equal(hash(new URL('../'+file,import.meta.url)),localHash,`Cabinet extension hash is stale for ${file}.`);
+    }
+  }
 });
 
 test('brand-owned files stay out of the shared manifest',{skip:existsSync(manifestUrl)?false:'no shared manifest yet'},()=>{

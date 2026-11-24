@@ -598,11 +598,11 @@ export function EstimateCalculatorWizard({
   // state, drifted inputs) the wizard falls back to its "make your selections"
   // state instead of showing a suspicious number.
   const combined = useMemo(
-    () => safeCombinedEstimate(calculateCombinedEstimate(rooms), rooms, "estimate-wizard"),
+    () => safeCombinedEstimate(calculateCombinedEstimate(rooms, { includeOwnerServices: true }), rooms, "estimate-wizard"),
     [rooms],
   );
   const combinedStored = useMemo(
-    () => (combined ? buildCombinedStoredEstimate(rooms) : null),
+    () => (combined ? buildCombinedStoredEstimate(rooms, { includeOwnerServices: true }) : null),
     [combined, rooms],
   );
 
@@ -658,7 +658,7 @@ export function EstimateCalculatorWizard({
   useEffect(() => {
     let stored: ReturnType<typeof buildStoredEstimate> = null;
     for (const room of rooms) {
-      const s = buildStoredEstimate(room, roomSelectionsMade(room));
+      const s = buildStoredEstimate(room, roomSelectionsMade(room), { includeOwnerServices: true });
       if (s) {
         stored = s;
         break;

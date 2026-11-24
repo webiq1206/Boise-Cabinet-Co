@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "1XrLrtVQFj5k3alau-7wf"
@@ -984,3 +983,17 @@ id = "E7NBtKqqPMfPXxiWpjKfj"
 uri = "file://public/images/blog/choose-remodeling-contractor-boise.png"
 type = "image"
 title = "choosing a cabinet company"
+
+[[outputs]]
+id = "-vyEeCFW8_-PHj17VprDR"
+uri = "file://.local/outputs/outreach-production-audit.html"
+type = "html"
+title = "Production outreach data audit"
+description = "Full read-only production tables with 1,211 send rows and 51 suppression rows; tracking and unsubscribe tokens omitted."
+logical_id = "22d0adaf-d07d-4c72-835e-b35161f7b04e"
+content_hash = "sha256:9b1baf10d623e28a928ffd8571187071e11728469b5ef176b2f39f051cd946e9"
+size = 663482
+mtime_ms = 1795274413275
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:39cb504b-0293-417f-8843-95c74cd68fe8/22d0adaf-d07d-4c72-835e-b35161f7b04e/6e0b54d7-744c-4e43-a404-2eb36f3da00b"
+storage_version_token = "1795274414516019"
+content_type = "text/html"

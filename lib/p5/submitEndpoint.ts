@@ -21,6 +21,7 @@ import { enqueueSubmission,deliveryStatus,processOutbox } from "./outbox.ts";
 import { protectRequest,json,failed,limitedBody } from "./http.ts";
 import { ESTIMATOR_BRAND as brand } from "./brand.ts";
 import {customerPresentation,HIDE_CUSTOMER_UNIT_RATES} from './presentation.ts';
+import {addCabinetOwnerServices} from './cabinetOwnerServicePricing.ts';
 import {recordEvent} from './events.ts';
 import {issueRecord,buildEstimateDocument,type EstimateBrand} from './estimateDocument.ts';
 import {legalIdentityLine} from './brandIdentity.ts';
@@ -123,7 +124,8 @@ export async function completeSubmission(id:string,draft:Awaited<ReturnType<type
     // priced inline (no background job) may use the route's own time allowance.
     const customerKey=`${draft.contact.email.trim().toLowerCase()}|${draft.contact.name.trim().toLowerCase()}`;
     const pricingIdentity={draftId:id,customerKey,revision:draft.revision};
-    const priced=deterministic|| (job?job.result:await priceSavedScope(id,draft.reviewed,configuration,new Date(),Date.now()+250_000,pricingIdentity));
+    const basePriced=deterministic|| (job?job.result:await priceSavedScope(id,draft.reviewed,configuration,new Date(),Date.now()+250_000,pricingIdentity));
+    const priced=brand.id==='cabinet'?addCabinetOwnerServices(basePriced):basePriced;
     const publicCustomer=publicResult(priced.customer);
     if(!priced.customer.range){
       // Keep incomplete pricing available to the authenticated admin, but do

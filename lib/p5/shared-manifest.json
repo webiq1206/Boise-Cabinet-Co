@@ -16,6 +16,34 @@
       "tests/p5-admin-reference.test.mjs": "dfe002130ec565e144970ae815e024056af8b9b985946e455ff88218e3b4ccb6"
     }
   },
+  "brandLocalExtensions": {
+    "ownerServices": {
+      "reason": "Owner-authorized Cabinet-only pricing extension, 2026-11-23. Adds 01-31-03/04/05 at exact final client rate, project-level defaults, overlap credit, internal overrides and QBO item mappings. The consistency test pins the approved Cabinet extension hashes while preserving their original upstream hashes. This extension is intentionally local to Boise Cabinet Co and is not represented as synchronized to sibling P5 apps.",
+      "sourceFiles": {
+        "app/admin/p5-estimators/page.tsx": "489c406a30e5aba809f6c603738d999c2e412f9b67968281a8ea16e748587b62",
+        "components/P5LinePricing.tsx": "c1c70510dd64d26532f3a93345bbcd1466ac5cf0ac20fd2a90bd2cf4de1ae544",
+        "lib/p5/manualReview.ts": "5ca06845c122ec946a7385673c7e7492f02adac9817ea7ab4a6e29ccc1a737f7",
+        "lib/p5/submitEndpoint.ts": "0f832f48dac5c3d47464ba6414db8f59f97269031c3e9a342f73c5ebf2d0967f",
+        "tests/p5-shared-engine.test.ts": "20ae2674d22f093301f9745f81d81e5135985e9ffa7ac1a0708c9ece1cc33ed4"
+      },
+      "currentFiles": {
+        "app/admin/p5-estimators/page.tsx": "e6fef0f3299fa07d51a9c96158fc4820ae004c4c84c78dbbc6cdc36714e7030c",
+        "components/P5LinePricing.tsx": "1c2421ed187f3a86cac661c76de8a621f8b1d923a6484945c3936e1da6788a2b",
+        "lib/p5/manualReview.ts": "7c62c5bed2109a96504e08dc926c76e1e98f9156fd7cf54bb8c1107c9dcf3318",
+        "lib/p5/submitEndpoint.ts": "ad5dd3b37ed1162c82b8edcb794d9fabcdc42f2c86fbb4e4f6bc116a624d150a",
+        "tests/p5-shared-engine.test.ts": "215b55ae6222606473d5e0d221e1ed41eaa406aab931e8c21a2ad26660211f15"
+      }
+    },
+    "releaseLint": {
+      "reason": "Minimal behavior-preserving Next Link conversion for the estimator's three homepage links; required to clear the current production lint errors and prefetch remains disabled.",
+      "sourceFiles": {
+        "components/P5EstimatorNavigation.tsx": "427346f6a31453e01f54900b1350c222c59a74d9c23691a6fc346b5cc26da8f3"
+      },
+      "currentFiles": {
+        "components/P5EstimatorNavigation.tsx": "4314e29956a15c96e1962559012e5fceb954d0ee8d1aea56c70689e83822ddbf"
+      }
+    }
+  },
   "files": {
     "app/admin/p5-estimators/page.tsx": "489c406a30e5aba809f6c603738d999c2e412f9b67968281a8ea16e748587b62",
     "app/api/admin/p5-intake/file/route.ts": "e8b49e0f2e19508d1f21903445fdcd36b2e3f6aa95edbc6ecdac110a625b11dc",

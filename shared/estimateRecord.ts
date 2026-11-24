@@ -33,7 +33,7 @@ import {
   type ProjectType,
 } from "./estimateEngine";
 
-export const ESTIMATE_RECORD_VERSION = 1;
+export const ESTIMATE_RECORD_VERSION = 2;
 
 /** One room, with both the raw selection values and their display labels. */
 export interface EstimateRecordRoom {
@@ -129,6 +129,7 @@ function buildAssumptions(rooms: EstimateRecordRoom[]): string[] {
 export interface BuildEstimateRecordInput {
   rooms: EstimateSelections[];
   capturedAt: string;
+  includeOwnerServices?: boolean;
   budget?: string | null;
   notes?: string | null;
   propertyAddress?: string | null;
@@ -145,7 +146,7 @@ export interface BuildEstimateRecordInput {
 export function buildEstimateRecord(
   input: BuildEstimateRecordInput,
 ): EstimateRecord | null {
-  const combined = calculateCombinedEstimate(input.rooms);
+  const combined = calculateCombinedEstimate(input.rooms, { includeOwnerServices: input.includeOwnerServices === true });
   if (!combined) return null;
 
   const priceable = input.rooms.filter(isPriceable);
@@ -187,7 +188,7 @@ export function buildEstimateRecord(
   });
 
   return {
-    version: ESTIMATE_RECORD_VERSION,
+    version: input.includeOwnerServices === true ? ESTIMATE_RECORD_VERSION : 1,
     capturedAt: input.capturedAt,
     rangeLow: combined.priceLow,
     rangeHigh: combined.priceHigh,

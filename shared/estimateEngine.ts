@@ -5,6 +5,11 @@ import { FINISH_BY_SLUG } from "./catalog/finishes";
 import { getDoorStyleImages, getFinishImages } from "./catalog/entityImagePaths";
 import { getFinishesForDoorStyle } from "./catalog/finishCompatibility";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
+import {
+  calculateOwnerServicePricing,
+  LEGACY_DIRECT_COST_FACTOR,
+  type OwnerServiceOverrides,
+} from "./ownerServicePricing";
 
 /**
  * Cabinet-specific Project Estimator engine.
@@ -894,6 +899,7 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
 export function calculateEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
+  options: { includeOwnerServices?: boolean; ownerServiceOverrides?: OwnerServiceOverrides } = {},
 ): EstimateResult | null {
   // No project or size means the visitor has not made a priceable selection yet.
   // Return null so the UI shows the "make your selections" prompt instead of a
@@ -943,9 +949,15 @@ export function calculateEstimate(
     priceHigh = roundPrice(centre * halfWidth);
   }
 
+  const ownerServices = options.includeOwnerServices === true
+    ? calculateOwnerServicePricing({
+      fallbackDirectCost: ((priceLow + priceHigh) / 2) / LEGACY_DIRECT_COST_FACTOR,
+      overrides: options.ownerServiceOverrides,
+    }).totalAmount
+    : 0;
   return {
-    priceLow,
-    priceHigh,
+    priceLow: roundPrice(priceLow + ownerServices),
+    priceHigh: roundPrice(priceHigh + ownerServices),
     roi: pricing.roi,
     included: buildIncluded(sel),
     confidence: level,
@@ -973,8 +985,9 @@ export interface StoredEstimate extends EstimateSelections {
 export function buildStoredEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
+  options: { includeOwnerServices?: boolean; ownerServiceOverrides?: OwnerServiceOverrides } = {},
 ): StoredEstimate | null {
-  const result = calculateEstimate(selections, selectionsMade);
+  const result = calculateEstimate(selections, selectionsMade, options);
   if (!result) return null;
   const sel = normalizeSelections(selections);
   const project = sel.project as ProjectType;
@@ -1039,6 +1052,7 @@ export interface CombinedEstimateResult {
  */
 export function calculateCombinedEstimate(
   rooms: EstimateSelections[],
+  options: { includeOwnerServices?: boolean; ownerServiceOverrides?: OwnerServiceOverrides } = {},
 ): CombinedEstimateResult | null {
   const roomEstimates: RoomEstimate[] = [];
   const includedSet = new Set<string>();
@@ -1047,7 +1061,8 @@ export function calculateCombinedEstimate(
   let percentSum = 0;
   for (const room of rooms) {
     if (!isPriceable(room)) continue;
-    const res = calculateEstimate(room, roomSelectionsMade(room));
+    // The minimum is once per project, not once for every room.
+    const res = calculateEstimate(room, roomSelectionsMade(room), { includeOwnerServices: false });
     if (!res) continue;
     const project = room.project as ProjectType;
     low += res.priceLow;
@@ -1064,12 +1079,38 @@ export function calculateCombinedEstimate(
     });
   }
   if (!roomEstimates.length) return null;
+  const ownerServices = options.includeOwnerServices === true
+    ? calculateOwnerServicePricing({
+      fallbackDirectCost: ((low + high) / 2) / LEGACY_DIRECT_COST_FACTOR,
+      overrides: options.ownerServiceOverrides,
+    }).totalAmount
+    : 0;
+  const totalLow = roundPrice(low + ownerServices);
+  const totalHigh = roundPrice(high + ownerServices);
+  const lowWeights = roomEstimates.map((room) => Math.max(0, room.priceLow));
+  const highWeights = roomEstimates.map((room) => Math.max(0, room.priceHigh));
+  const lowWeightTotal = lowWeights.reduce((sum, value) => sum + value, 0);
+  const highWeightTotal = highWeights.reduce((sum, value) => sum + value, 0);
+  let allocatedLow = 0;
+  let allocatedHigh = 0;
+  if (options.includeOwnerServices === true) roomEstimates.forEach((room, index) => {
+    const lowShare = index === roomEstimates.length - 1
+      ? totalLow - low - allocatedLow
+      : roundPrice(lowWeightTotal ? (totalLow - low) * lowWeights[index] / lowWeightTotal : (totalLow - low) / roomEstimates.length);
+    const highShare = index === roomEstimates.length - 1
+      ? totalHigh - high - allocatedHigh
+      : roundPrice(highWeightTotal ? (totalHigh - high) * highWeights[index] / highWeightTotal : (totalHigh - high) / roomEstimates.length);
+    room.priceLow += lowShare;
+    room.priceHigh += highShare;
+    allocatedLow += lowShare;
+    allocatedHigh += highShare;
+  });
   const percent = Math.round(percentSum / roomEstimates.length);
   const level: ConfidenceLevel =
     percent >= 90 ? "detailed" : percent >= 65 ? "refined" : "starting";
   return {
-    priceLow: roundPrice(low),
-    priceHigh: roundPrice(high),
+    priceLow: options.includeOwnerServices === true ? totalLow : roundPrice(low),
+    priceHigh: options.includeOwnerServices === true ? totalHigh : roundPrice(high),
     rooms: roomEstimates,
     included: [...includedSet],
     confidence: level,
@@ -1094,8 +1135,9 @@ export interface CombinedStoredEstimate {
 /** Priceable multi-room snapshot for the consultation form; null until priceable. */
 export function buildCombinedStoredEstimate(
   rooms: EstimateSelections[],
+  options: { includeOwnerServices?: boolean; ownerServiceOverrides?: OwnerServiceOverrides } = {},
 ): CombinedStoredEstimate | null {
-  const combined = calculateCombinedEstimate(rooms);
+  const combined = calculateCombinedEstimate(rooms, options);
   if (!combined) return null;
   return {
     priceLow: combined.priceLow,
