@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
       const priced = rooms.length===attached.rooms.length ? buildEstimateRecord({rooms,capturedAt:attached.capturedAt,budget:attached.budget,notes:attached.notes,propertyAddress:attached.propertyAddress}):null;
       data.estimateRecord=priced?{...attached,...priced,rooms:priced.rooms.map(room=>({...room}))}:undefined;
       if (priced && data.estimate) {
-        data.estimate={...data.estimate,priceLow:priced.rangeLow,priceHigh:priced.rangeHigh,rooms:priced.rooms.map(room=>({project:room.project,finish:room.finishLabel,sizeLabel:room.sizeLabel,priceLow:room.priceLow,priceHigh:room.priceHigh}))};
+        data.estimate={...data.estimate,priceLow:priced.rangeLow,priceHigh:priced.rangeHigh,rooms:priced.rooms.map(room=>({project:room.projectLabel,finish:room.finishLabel,sizeLabel:room.sizeLabel,priceLow:room.priceLow,priceHigh:room.priceHigh}))};
       } else if (!priced) data.estimate=undefined;
     } else {
       data.estimate=undefined;
