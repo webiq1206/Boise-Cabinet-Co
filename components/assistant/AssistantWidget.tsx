@@ -109,9 +109,6 @@ function EstimateCard({ estimate }: { estimate: CombinedEstimateResult }) {
           {estimate.rooms.map((room, i) => (
             <li key={i} className="flex justify-between gap-2 text-xs text-muted-foreground">
               <span>{room.projectLabel}</span>
-              <span>
-                {formatPlanningCurrency(room.priceLow)} to {formatPlanningCurrency(room.priceHigh)}
-              </span>
             </li>
           ))}
         </ul>
