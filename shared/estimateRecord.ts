@@ -33,7 +33,7 @@ import {
   type ProjectType,
 } from "./estimateEngine";
 
-export const ESTIMATE_RECORD_VERSION = 1;
+export const ESTIMATE_RECORD_VERSION = 2;
 
 /** One room, with both the raw selection values and their display labels. */
 export interface EstimateRecordRoom {

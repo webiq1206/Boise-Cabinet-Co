@@ -31,7 +31,8 @@ import { sendCapiLead } from "@/lib/analytics/metaCapi";
 import { forwardLeadToDashboard } from "@/lib/leadDashboard";
 import { forwardConsultationToP5Intake, type P5BridgeResult } from "@/server/services/p5IntakeBridge";
 import { consultationSiteEstimate, consultationTeamNotes, sendTeamEmailAfterBridge } from "@/server/services/teamEmail";
-import type { EstimateRecord } from "@/shared/estimateRecord";
+import { buildEstimateRecord, type EstimateRecord } from "@/shared/estimateRecord";
+import { getDefaultSelectionsForProject, PROJECT_LABELS, type ProjectType } from "@/shared/estimateEngine";
 import { issueDetailsToken } from "@/server/services/consultationDetails";
 import { quoteSecret } from "@/server/services/consultationFiles";
 import {
@@ -80,6 +81,25 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
+    // Always price new requests from their selections. Earlier stored customer records stay as issued.
+    const attached = data.estimateRecord;
+    if (attached) {
+      const rooms = attached.rooms.flatMap(room=>{
+        if (!Object.hasOwn(PROJECT_LABELS,room.project) || !Number.isFinite(room.sizeBaseLf) || room.sizeBaseLf<=0) return [];
+        const defaults=getDefaultSelectionsForProject(room.project as ProjectType);
+        return [{...defaults,project:room.project,size:room.sizeBaseLf,sizeUpper:room.sizeUpperLf,
+          layout:room.layout,doorStyle:room.doorStyle,finishSlug:room.finishSlug,finishCategory:room.finishCategory,
+          finishTier:room.finishTier,construction:room.construction}];
+      });
+      const priced = rooms.length===attached.rooms.length ? buildEstimateRecord({rooms,capturedAt:attached.capturedAt,budget:attached.budget,notes:attached.notes,propertyAddress:attached.propertyAddress}):null;
+      data.estimateRecord=priced?{...attached,...priced,rooms:priced.rooms.map(room=>({...room}))}:undefined;
+      if (priced && data.estimate) {
+        data.estimate={...data.estimate,priceLow:priced.rangeLow,priceHigh:priced.rangeHigh,rooms:priced.rooms.map(room=>({project:room.project,finish:room.finishLabel,sizeLabel:room.sizeLabel,priceLow:room.priceLow,priceHigh:room.priceHigh}))};
+      } else if (!priced) data.estimate=undefined;
+    } else {
+      data.estimate=undefined;
+    }
+
     // What every destination stores: the visitor's project type or a sortable
     // default, and their own words led by the callback marker or reply channel.
     const projectType = resolveProjectType(data);
