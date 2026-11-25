@@ -21,6 +21,8 @@ import * as leadConfirmationEmail from "../server/services/leadConfirmationEmail
 import * as p5IntakeBridge from "../server/services/p5IntakeBridge";
 import * as teamEmail from "../server/services/teamEmail";
 import * as propertyProfile from "../shared/propertyProfile";
+import * as estimateRecord from "../shared/estimateRecord";
+import * as estimateEngine from "../shared/estimateEngine";
 import * as siteConfig from "../shared/siteConfig";
 import {
   SHARED_FAMILY_INBOX_DOMAINS,
@@ -443,6 +445,8 @@ function harness(options: {
   };
 
   const modules: Record<string, unknown> = {
+    "@/shared/estimateRecord": estimateRecord,
+    "@/shared/estimateEngine": estimateEngine,
     "drizzle-orm": { and: () => null, eq: () => null, inArray: () => null },
     "next/server": {
       after: (task: () => unknown) => {
@@ -558,6 +562,18 @@ const quiet = async <T>(work: () => Promise<T>): Promise<T> => {
   }
 };
 
+const currentRecord = estimateRecord.buildEstimateRecord({
+  capturedAt: "2026-11-24T10:00:00Z",
+  rooms: [
+    {...estimateEngine.getDefaultSelectionsForProject("kitchen"), size:22},
+    {...estimateEngine.getDefaultSelectionsForProject("bathroom"), size:6},
+  ],
+})!;
+const rebuiltEstimate = {
+  ...WIZARD_ESTIMATE, priceLow:currentRecord.rangeLow, priceHigh:currentRecord.rangeHigh,
+  rooms:currentRecord.rooms.map(room => ({project:room.projectLabel,finish:room.finishLabel,sizeLabel:room.sizeLabel,priceLow:room.priceLow,priceHigh:room.priceHigh})),
+};
+const money = (value:number) => "$" + value.toLocaleString("en-US");
 const STEP1_BODY = {
   name: "Ada Example",
   phone: "(208) 555-0100",
@@ -568,6 +584,7 @@ const STEP1_BODY = {
   message: "Shaker doors and a pantry.",
   propertyProfile: PROPERTY,
   estimate: WIZARD_ESTIMATE,
+  estimateRecord:currentRecord,
   budget: "$25k to $40k",
   timeline: "1 to 3 months",
   metaEventId: "meta-event-1",
@@ -614,7 +631,8 @@ test("Step 1: the visitor's response and the customer's confirmation do not wait
   const team = teamMail(h.mail);
   assert.deepEqual(team.map((message) => message.to), [OTHER]);
   assert.equal(team[0].subject, "New consultation request: Ada Example");
-  assert.match(team[0].html, /\$16,800 to \$26,200/, "the fallback email is the same email as before, per-room amounts included");
+  const firstRoom = currentRecord.rooms[0];
+  assert.ok(team[0].html.includes(money(firstRoom.priceLow) + " to " + money(firstRoom.priceHigh)), "the fallback email uses the current per-room range");
   assert.match(team[0].html, /Parcel: R1234567890/);
   assert.match(team[0].html, /leadId=lead-77/);
   assert.equal(customerMail(h.mail).length, 1, "still one confirmation");
@@ -635,12 +653,11 @@ test("Step 1: the bridge body asks p5 to confirm and carries well-formed team_no
     assert.match(note, /^[A-Z][A-Za-z0-9 .]*: \S/);
   }
   assert.deepEqual(notes, [
-    "Planning range: $21,400 to $33,900",
+    `Planning range: ${money(currentRecord.rangeLow)} to ${money(currentRecord.rangeHigh)}`,
     "Planning confidence: Planning range, 2 rooms",
     "Budget: $25k to $40k",
     "Timeline: 1 to 3 months",
-    "Room 1: Kitchen; $16,800 to $26,200; 22 linear ft; Modern Shaker · Matte finish ($$) · Better construction",
-    "Room 2: Primary bath vanity; $4,600 to $7,700; 6 linear ft; Slab · Stained oak ($$$) · Best construction",
+    ...rebuiltEstimate.rooms.map((room,i) => `Room ${i+1}: ${room.project}; ${money(room.priceLow)} to ${money(room.priceHigh)}; ${room.sizeLabel}${room.finish ? "; " + room.finish : ""}`),
     "Parcel: R1234567890",
     "Home size: about 2,140 sq ft",
     "Lot: 7,405 sq ft",
@@ -666,23 +683,17 @@ test("Step 1: a request with a planning range carries the structured estimate", 
   const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } });
   assert.equal(response.body.accepted, true);
   const [post] = h.posts;
-  assert.deepEqual(post.estimate, {
-    kind: "planning-range",
-    low: 21400,
-    high: 33900,
-    label: "Cabinets for 2 rooms: Kitchen, Primary bath vanity",
-    lines: [
-      { title: "Kitchen", description: "Planning range $16,800 to $26,200. 22 linear ft, Modern Shaker · Matte finish ($$) · Better construction", amount: 21500 },
-      { title: "Primary bath vanity", description: "Planning range $4,600 to $7,700. 6 linear ft, Slab · Stained oak ($$$) · Best construction", amount: 6150 },
-    ],
-  });
-  const estimate = post.estimate as { lines: Array<{ amount: number }> };
-  assert.equal("verified" in estimate, false, "the server did not recompute the range, so it does not say it did");
-  assert.equal(estimate.lines.reduce((sum, line) => sum + line.amount, 0), (21400 + 33900) / 2, "the lines add up to the middle of the range shown");
+  assert.deepEqual(post.estimate, teamEmail.consultationSiteEstimate({estimate:rebuiltEstimate}));
+  const estimate = post.estimate as { low:number; high:number;lines: Array<{ amount: number }> };
+  assert.equal(estimate.low, currentRecord.rangeLow);
+  assert.equal(estimate.high, currentRecord.rangeHigh);
+  assert.notEqual(estimate.low, WIZARD_ESTIMATE.priceLow, "browser supplied totals cannot override the server calculation");
+  assert.equal("verified" in estimate, false);
+  assert.equal(estimate.lines.reduce((sum, line) => sum + line.amount, 0), (estimate.low + estimate.high) / 2);
   assert.doesNotMatch(JSON.stringify(post.estimate), INTERNAL_WORDS);
   // Everything else in the body is as it was.
   assert.equal(post.team_alert, "confirm");
-  assert.equal((post.team_notes as string[])[0], "Planning range: $21,400 to $33,900");
+  assert.equal((post.team_notes as string[])[0], `Planning range: ${money(currentRecord.rangeLow)} to ${money(currentRecord.rangeHigh)}`);
   h.release();
   await quiet(() => h.runDeferred());
 });
@@ -697,7 +708,7 @@ test("Step 1: numbers that do not hold up send no estimate, and the request goes
     ["a negative room", { ...WIZARD_ESTIMATE, rooms: [WIZARD_ESTIMATE.rooms[0], { ...WIZARD_ESTIMATE.rooms[1], priceLow: -4600 }] }],
   ];
   for (const [name, estimate] of cases) {
-    const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimate });
+    const { h, response } = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimateRecord:undefined, estimate });
     assert.equal(response.status, 200, name);
     assert.equal(response.body.accepted, true, name);
     assert.equal(h.posts.length, 1, `${name}: the request is still forwarded`);
@@ -711,7 +722,7 @@ test("Step 1: numbers that do not hold up send no estimate, and the request goes
   }
 
   // Low above high on the whole range: the same.
-  const reversed = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimate: { ...WIZARD_ESTIMATE, priceLow: 40000, rooms: undefined } });
+  const reversed = await step1({ p5: { kind: "json", body: { ok: true, alert: "sent" } } }, { ...STEP1_BODY, estimateRecord:undefined, estimate: { ...WIZARD_ESTIMATE, priceLow: 40000, rooms: undefined } });
   assert.equal(reversed.response.body.accepted, true);
   assert.equal("estimate" in reversed.h.posts[0], false);
 });

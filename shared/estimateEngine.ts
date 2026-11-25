@@ -891,6 +891,21 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   return next;
 }
 
+/** Customer selling rates from the approved installed-cabinet schedule. Keep the buy-side book on the server. */
+const installedSellRates: Record<ProjectType,readonly [number,number]> = {
+  "kitchen":[333.98,230.33],
+  "bathroom":[709.68,0.00],
+  "laundry":[372.59,266.13],
+  "pantry":[443.55,0.00],
+  "mudroom":[558.88,0.00],
+  "home-office":[736.30,0.00],
+  "entertainment":[683.07,230.33],
+  "built-ins":[683.07,230.33],
+};
+function installedPlanningFloor(project:ProjectType,baseFeet:number,upperFeet:number,selectionFactor:number) {
+  const [base,upper]=installedSellRates[project];
+  return Math.ceil((base*baseFeet+upper*upperFeet)*selectionFactor);
+}
 export function calculateEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
@@ -907,10 +922,9 @@ export function calculateEstimate(
 
   // Uppers only apply (and are only charged) for projects with a wall run.
   const upperLF = cfg.uppers ? (sel.sizeUpper ?? 0) : 0;
-  const baseLow = pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF;
   const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
-  const rawLow = baseLow * mult;
-  const rawHigh = baseHigh * mult;
+  const rawLow = installedPlanningFloor(project,sel.size!,upperLF,mult);
+  const rawHigh = Math.max(rawLow,baseHigh * mult);
 
   const total = getTotalSteps(project);
   const { level, percent } = getConfidence(selectionsMade, total);
@@ -943,6 +957,8 @@ export function calculateEstimate(
     priceHigh = roundPrice(centre * halfWidth);
   }
 
+  priceLow=Math.max(priceLow,Math.ceil(rawLow/50)*50);
+  priceHigh=Math.max(priceLow,priceHigh);
   return {
     priceLow,
     priceHigh,
