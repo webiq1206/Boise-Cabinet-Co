@@ -258,9 +258,6 @@ function CombinedEstimateSummaryCard({
           {estimate.rooms.map((r, i) => (
             <li key={i} className="flex items-baseline justify-between gap-3 text-xs">
               <span className="text-foreground">{r.projectLabel}</span>
-              <span className="tabular-nums whitespace-nowrap text-muted-foreground">
-                {formatPlanningCurrency(r.priceLow)} to {formatPlanningCurrency(r.priceHigh)}
-              </span>
             </li>
           ))}
         </ul>
