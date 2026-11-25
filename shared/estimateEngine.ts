@@ -134,14 +134,15 @@ export const PROJECT_PRICING: Record<
     roi: number;
   }
 > = {
-  kitchen: { perUnitLow: 360, perUnitHigh: 605, upperPerUnitLow: 215, upperPerUnitHigh: 360, roi: 72 },
-  bathroom: { perUnitLow: 460, perUnitHigh: 820, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 68 },
-  laundry: { perUnitLow: 480, perUnitHigh: 720, upperPerUnitLow: 275, upperPerUnitHigh: 410, roi: 62 },
-  mudroom: { perUnitLow: 330, perUnitHigh: 570, upperPerUnitLow: 200, upperPerUnitHigh: 340, roi: 58 },
-  "home-office": { perUnitLow: 435, perUnitHigh: 630, upperPerUnitLow: 260, upperPerUnitHigh: 380, roi: 55 },
-  entertainment: { perUnitLow: 395, perUnitHigh: 710, upperPerUnitLow: 235, upperPerUnitHigh: 425, roi: 58 },
-  "built-ins": { perUnitLow: 435, perUnitHigh: 680, upperPerUnitLow: 260, upperPerUnitHigh: 405, roi: 60 },
-  pantry: { perUnitLow: 320, perUnitHigh: 600, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 56 },
+  kitchen: { perUnitLow: 414.13, perUnitHigh: 698.31, upperPerUnitLow: 285.61, upperPerUnitHigh: 485.52, roi: 72 },
+  bathroom: { perUnitLow: 880.00, perUnitHigh: 1320.00, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 68 },
+  laundry: { perUnitLow: 462.00, perUnitHigh: 720, upperPerUnitLow: 330.00, upperPerUnitHigh: 506.00, roi: 62 },
+  // Price the mudroom bench and wall cabinets separately. For office runs, split the desk-and-uppers package into its base and wall components.
+  mudroom: { perUnitLow: 407.00, perUnitHigh: 616.00, upperPerUnitLow: 550.00, upperPerUnitHigh: 770.00, roi: 58 },
+  "home-office": { perUnitLow: 627.39, perUnitHigh: 834.48, upperPerUnitLow: 285.61, upperPerUnitHigh: 485.52, roi: 55 },
+  entertainment: { perUnitLow: 847.00, perUnitHigh: 1320.00, upperPerUnitLow: 285.61, upperPerUnitHigh: 485.52, roi: 58 },
+  "built-ins": { perUnitLow: 847.00, perUnitHigh: 1320.00, upperPerUnitLow: 285.61, upperPerUnitHigh: 485.52, roi: 60 },
+  pantry: { perUnitLow: 550.00, perUnitHigh: 880.00, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 56 },
 };
 
 /** Door style premium, keyed by door style id. */
@@ -891,21 +892,6 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   return next;
 }
 
-/** Customer selling rates from the approved installed-cabinet schedule. Keep the buy-side book on the server. */
-const installedSellRates: Record<ProjectType,readonly [number,number]> = {
-  "kitchen":[333.98,230.33],
-  "bathroom":[709.68,0.00],
-  "laundry":[372.59,266.13],
-  "pantry":[443.55,0.00],
-  "mudroom":[558.88,0.00],
-  "home-office":[736.30,0.00],
-  "entertainment":[683.07,230.33],
-  "built-ins":[683.07,230.33],
-};
-function installedPlanningFloor(project:ProjectType,baseFeet:number,upperFeet:number,selectionFactor:number) {
-  const [base,upper]=installedSellRates[project];
-  return Math.ceil((base*baseFeet+upper*upperFeet)*selectionFactor);
-}
 export function calculateEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
@@ -923,7 +909,7 @@ export function calculateEstimate(
   // Uppers only apply (and are only charged) for projects with a wall run.
   const upperLF = cfg.uppers ? (sel.sizeUpper ?? 0) : 0;
   const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
-  const rawLow = installedPlanningFloor(project,sel.size!,upperLF,mult);
+  const rawLow = (pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF) * mult;
   const rawHigh = Math.max(rawLow,baseHigh * mult);
 
   const total = getTotalSteps(project);
@@ -957,7 +943,7 @@ export function calculateEstimate(
     priceHigh = roundPrice(centre * halfWidth);
   }
 
-  priceLow=Math.max(priceLow,Math.ceil(rawLow/50)*50);
+  priceLow=Math.max(priceLow,Math.ceil(rawLow/PRICE_ROUND_TO)*PRICE_ROUND_TO);
   priceHigh=Math.max(priceLow,priceHigh);
   return {
     priceLow,
