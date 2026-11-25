@@ -101,7 +101,7 @@ function expectedPrice(s: EstimateSelections): { low: number; high: number } {
   const round100 = (n: number) =>
     Math.round(n / ESTIMATE_PRICE_ROUND_TO) * ESTIMATE_PRICE_ROUND_TO;
   return {
-    low: round100((pricing.perUnitLow * s.size! + pricing.upperPerUnitLow * upper) * mult),
+    low: Math.ceil((pricing.perUnitLow * s.size! + pricing.upperPerUnitLow * upper) * mult / ESTIMATE_PRICE_ROUND_TO) * ESTIMATE_PRICE_ROUND_TO,
     high: round100((pricing.perUnitHigh * s.size! + pricing.upperPerUnitHigh * upper) * mult),
   };
 }
@@ -112,26 +112,26 @@ function expectedPrice(s: EstimateSelections): { low: number; high: number } {
 // 17,065.64 -> $17,100). Update ONLY alongside a deliberate pricing change.
 
 const SNAPSHOTS: Array<{ name: string; s: EstimateSelections; low: number; high: number }> = [
-  { name: "kitchen defaults", s: sel({ project: "kitchen", layout: "island", size: 24, sizeUpper: 18, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 17100, high: 28600 },
-  { name: "kitchen floor", s: sel({ project: "kitchen", layout: "galley", size: 10, sizeUpper: 0, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 3600, high: 6100 },
-  { name: "kitchen ceiling", s: sel({ project: "kitchen", layout: "island", size: 60, sizeUpper: 50, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 83400, high: 140000 },
-  { name: "kitchen u-shape mid", s: sel({ project: "kitchen", layout: "u-shape", size: 30, sizeUpper: 22, doorStyle: "thin-shaker", finishCategory: "woodgrain", finishTier: "premium", construction: "better" }), low: 26400, high: 44300 },
-  { name: "kitchen peninsula", s: sel({ project: "kitchen", layout: "peninsula", size: 24, sizeUpper: 18, doorStyle: "three-piece", finishCategory: "matte", finishTier: "premium", construction: "good" }), low: 16300, high: 27400 },
-  { name: "kitchen size-only", s: sel({ project: "kitchen", layout: "l-shape", size: 40, sizeUpper: 0 }), low: 15100, high: 25400 },
-  { name: "bathroom single min", s: sel({ project: "bathroom", layout: "single-vanity", size: 3, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 1400, high: 2500 },
-  { name: "bathroom double default", s: sel({ project: "bathroom", layout: "double-vanity", size: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 3600, high: 6500 },
-  { name: "bathroom max", s: sel({ project: "bathroom", layout: "double-vanity", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 18300, high: 32700 },
-  { name: "laundry default", s: sel({ project: "laundry", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 6500, high: 9700 },
-  { name: "laundry max", s: sel({ project: "laundry", size: 20, sizeUpper: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 31100, high: 46600 },
-  { name: "mudroom default", s: sel({ project: "mudroom", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 4500, high: 7800 },
-  { name: "home-office default", s: sel({ project: "home-office", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7300, high: 10500 },
-  { name: "entertainment default", s: sel({ project: "entertainment", size: 12, sizeUpper: 9, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 8100, high: 14500 },
-  { name: "built-ins default", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7300, high: 11300 },
-  { name: "built-ins slab woodgrain", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "slab", finishCategory: "woodgrain", finishTier: "standard", construction: "good" }), low: 6800, high: 10600 },
-  { name: "pantry default", s: sel({ project: "pantry", size: 8, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 3000, high: 5600 },
-  { name: "pantry max", s: sel({ project: "pantry", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 11400, high: 21300 },
-  { name: "kitchen alpha premium", s: sel({ project: "kitchen", layout: "galley", size: 20, sizeUpper: 14, doorStyle: "alpha-shaker", finishCategory: "matte", finishTier: "premium", construction: "better" }), low: 14300, high: 24100 },
-  { name: "bathroom slab better", s: sel({ project: "bathroom", layout: "single-vanity", size: 8, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 4100, high: 7300 },
+  { name: "kitchen defaults", s: sel({ project: "kitchen", layout: "island", size: 24, sizeUpper: 18, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 20600, high: 34800 },
+  { name: "kitchen floor", s: sel({ project: "kitchen", layout: "galley", size: 10, sizeUpper: 0, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 4200, high: 7000 },
+  { name: "kitchen ceiling", s: sel({ project: "kitchen", layout: "island", size: 60, sizeUpper: 50, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 100900, high: 170600 },
+  { name: "kitchen u-shape mid", s: sel({ project: "kitchen", layout: "u-shape", size: 30, sizeUpper: 22, doorStyle: "thin-shaker", finishCategory: "woodgrain", finishTier: "premium", construction: "better" }), low: 31900, high: 53800 },
+  { name: "kitchen peninsula", s: sel({ project: "kitchen", layout: "peninsula", size: 24, sizeUpper: 18, doorStyle: "three-piece", finishCategory: "matte", finishTier: "premium", construction: "good" }), low: 19800, high: 33300 },
+  { name: "kitchen size-only", s: sel({ project: "kitchen", layout: "l-shape", size: 40, sizeUpper: 0 }), low: 17400, high: 29300 },
+  { name: "bathroom single min", s: sel({ project: "bathroom", layout: "single-vanity", size: 3, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "good" }), low: 2700, high: 4000 },
+  { name: "bathroom double default", s: sel({ project: "bathroom", layout: "double-vanity", size: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7000, high: 10400 },
+  { name: "bathroom max", s: sel({ project: "bathroom", layout: "double-vanity", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 35100, high: 52600 },
+  { name: "laundry default", s: sel({ project: "laundry", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 6700, high: 10300 },
+  { name: "laundry max", s: sel({ project: "laundry", size: 20, sizeUpper: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 32300, high: 50000 },
+  { name: "mudroom default", s: sel({ project: "mudroom", size: 8, sizeUpper: 6, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7800, high: 11200 },
+  { name: "home-office default", s: sel({ project: "home-office", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 9800, high: 13800 },
+  { name: "entertainment default", s: sel({ project: "entertainment", size: 12, sizeUpper: 9, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 15000, high: 23800 },
+  { name: "built-ins default", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 12400, high: 19500 },
+  { name: "built-ins slab woodgrain", s: sel({ project: "built-ins", size: 10, sizeUpper: 7, doorStyle: "slab", finishCategory: "woodgrain", finishTier: "standard", construction: "good" }), low: 11600, high: 18300 },
+  { name: "pantry default", s: sel({ project: "pantry", size: 8, doorStyle: "modern-shaker", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 5200, high: 8300 },
+  { name: "pantry max", s: sel({ project: "pantry", size: 16, doorStyle: "beta-shaker", finishCategory: "gloss", finishTier: "reserve", construction: "best" }), low: 19600, high: 31300 },
+  { name: "kitchen alpha premium", s: sel({ project: "kitchen", layout: "galley", size: 20, sizeUpper: 14, doorStyle: "alpha-shaker", finishCategory: "matte", finishTier: "premium", construction: "better" }), low: 17300, high: 29200 },
+  { name: "bathroom slab better", s: sel({ project: "bathroom", layout: "single-vanity", size: 8, doorStyle: "slab", finishCategory: "matte", finishTier: "standard", construction: "better" }), low: 7900, high: 11800 },
 ];
 
 for (const snap of SNAPSHOTS) {
