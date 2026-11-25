@@ -892,6 +892,42 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   return next;
 }
 
+/** Compiled by P5 p5-planning-unit-sells.mts, ordinary installed pricing. */
+export const cabinetPlanningSell: Record<ProjectType,readonly [number,number]> = {
+  "kitchen": [
+    414.13,
+    285.61
+  ],
+  "bathroom": [
+    880,
+    0
+  ],
+  "laundry": [
+    462,
+    330
+  ],
+  "pantry": [
+    550,
+    0
+  ],
+  "mudroom": [
+    693,
+    0
+  ],
+  "home-office": [
+    913,
+    0
+  ],
+  "entertainment": [
+    847,
+    285.61
+  ],
+  "built-ins": [
+    847,
+    285.61
+  ]
+};
+
 export function calculateEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
@@ -943,7 +979,9 @@ export function calculateEstimate(
     priceHigh = roundPrice(centre * halfWidth);
   }
 
-  priceLow=Math.max(priceLow,Math.ceil(rawLow/PRICE_ROUND_TO)*PRICE_ROUND_TO);
+  const [baseSell,upperSell]=cabinetPlanningSell[project];
+  const floor=(baseSell*sel.size!+upperSell*upperLF)*mult;
+  priceLow=Math.max(priceLow,Math.ceil(Math.max(rawLow,floor)/PRICE_ROUND_TO)*PRICE_ROUND_TO);
   priceHigh=Math.max(priceLow,priceHigh);
   return {
     priceLow,
