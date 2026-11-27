@@ -16,7 +16,7 @@ export const PHASE1_TITLES: Record<string, string> = {
   "/blog/stock-vs-custom-cabinets-boise": "Stock vs Custom Cabinets: Cost & Fit",
   "/blog/cabinet-construction-quality-guide": "How to Judge Cabinet Construction Quality",
   "/blog/what-are-rta-cabinets": "What Are RTA Cabinets? Pros, Cons & Fit",
-  "/blog/standard-kitchen-cabinet-sizes": "Standard Kitchen Cabinet Sizes & Charts",
+  "/blog/standard-kitchen-cabinet-sizes": "Standard Kitchen Cabinet Sizes & Dimensions",
   "/blog/bathroom-vanity-buying-guide": "Bathroom Vanity: Sizes, Styles & Cost",
   "/blog/cabinet-refacing-vs-refinishing-vs-replacing": "Reface, Refinish, or Replace Cabinets",
   "/blog/kitchen-cabinet-organization-ideas": "Kitchen Cabinet Organization That Works",
@@ -43,6 +43,7 @@ export const PHASE1_TITLES: Record<string, string> = {
 };
 
 export const PHASE1_DESCRIPTIONS: Record<string, string> = {
+  "/blog/standard-kitchen-cabinet-sizes": "Standard kitchen cabinet sizes: 24-inch-deep bases, 12-inch-deep wall cabinets, 84–96-inch tall cabinets, plus width and clearance charts.",
   "/blog/cabinet-materials-labels-certifications": "Plywood, particleboard, MDF, and melamine explained, plus what a TSCA Title VI label and KCMA certification mean before Treasure Valley cabinets are built.",
   "/blog/cabinet-door-styles-guide": "Compare Shaker, slab, raised-panel, beadboard, and inset cabinet doors, then use the comparison table to choose a style for your Treasure Valley kitchen.",
   "/blog/cabinet-finishes-colors-guide": "Painted, stained, and specialty cabinet finishes, popular colors, two-tone kitchens, and sheen, so Treasure Valley homes can choose a finish that lasts.",
